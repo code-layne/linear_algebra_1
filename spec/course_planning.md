@@ -7,9 +7,11 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-12 — Scaffolded all of Unit 1 (5 lessons + unit tests). All
-skeletons only — no content authored yet. Verified the scaffold builds (lesson00 `make all`
-→ `lesson00_full.pdf`, exit 0).
+**Last updated:** 2026-07-12 — Authored **Lesson 1.0 in full** (all components + keys + slides)
+as the course's model lesson. Refocused/retitled it from "Unit Overview and Spiral Review" to
+**"Introducing Vectors — Vocabulary and Length"** per user request (intro vocabulary + the
+vector concept + magnitude). Builds clean: `make -C unit01/lesson00 all` exit 0 →
+`lesson00_student.pdf` (10 pp) and `lesson00_full.pdf` (17 pp); warm-up and exit ticket 1 page each.
 
 ## Current state
 
@@ -27,8 +29,11 @@ skeletons only — no content authored yet. Verified the scaffold builds (lesson
 - **Standard component set per lesson:** cover, warmup, notes, activity, exit_ticket, homework,
   **slides** (+ keys for the keyed components). Teacher slide decks are in scope.
 
-**Unit 1 — scaffolded (all skeletons, no content yet).**
-- `unit01/lesson00` — id 1.0, "Unit Overview and Spiral Review" (intro/spiral)
+**Unit 1 — lesson 1.0 authored; 1.1–1.4 scaffolded (skeletons only).**
+- `unit01/lesson00` — id 1.0, **"Introducing Vectors — Vocabulary and Length"** ✅ authored
+  (cover, warmup, notes, activity, exit_ticket, homework, slides + all keys). Content: vector
+  as components/arrow, scalar, add/scale, magnitude $\|\mathbf v\|=\sqrt{v_1^2+v_2^2}$, unit
+  vector; drone/displacement application; previews linear combinations (1.1).
 - `unit01/lesson01` — id 1.1, "Linear Combinations of Vectors"
 - `unit01/lesson02` — id 1.2, "Lengths and Angles from Dot Products"
 - `unit01/lesson03` — id 1.3, "Matrices and Column Spaces"
@@ -42,7 +47,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 | Unit | Chapter | Lessons | Status |
 | --- | --- | --- | --- |
-| 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ◐ scaffolded (skeletons only) |
+| 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ◐ 1.0 authored ✅; 1.1–1.4 skeletons |
 | 2 | Solving Linear Equations Ax = b | 2.1–2.4 | ☐ |
 | 3 | The Four Fundamental Subspaces | 3.1–3.5 | ☐ |
 | 4 | Orthogonality | 4.1–4.4 | ☐ |
@@ -53,13 +58,20 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author Unit 1, Lesson 1.1** (Linear Combinations of Vectors) as the model lesson — all
-   components + keys from LAfE §1.1, down-leveled. Build and proofread carefully; it sets the
-   pattern for the whole course.
-2. **Author Lesson 1.0** (intro/spiral) — its warmup/notes should review prerequisite skills
-   (coordinates, arithmetic with signed numbers, reading the plane) and map the unit's arc.
-3. Then author 1.2–1.4 following the 1.1 model.
+1. **Author Unit 1, Lesson 1.1** (Linear Combinations of Vectors) from LAfE §1.1, using
+   **lesson 1.0 as the gold model** (mirror its preamble, box usage, tone, and `\vv`/`\ww`
+   macros; keep the compute→interpret→justify loop). Reuse the drone/data-record contexts.
+2. Then author 1.2–1.4 following the same model.
+3. Author the Unit 1 practice/actual tests + keys once the lessons are drafted.
+
+## Notes for the next run
+
+- **TikZ gotcha (hit + fixed in 1.0):** font size inside a `\node[...]` must be `font=\scriptsize`,
+  **not** a bare `scriptsize` key (that errors: "I do not know the key '/tikz/scriptsize'").
+- In-formula answer-key slots use `{\color{keyred}\mathbf{...}}` inside math, never `\ans{}`
+  (which is text-mode) — see the `bmatrix` fill-ins in `notes_key`.
 
 ## Open questions / decisions pending
 
-- None outstanding for Unit 1 scaffolding. (Content authoring is the next phase.)
+- Lesson 1.0 was retitled to "Introducing Vectors — Vocabulary and Length" (was "Unit Overview
+  and Spiral Review"). If a separate pure unit-overview lesson is wanted, flag it. Otherwise none.

@@ -1,19 +1,65 @@
-%! Unit Overview and Spiral Review — Unit 1, Lesson 1.0 — Group Activity
+%! Introducing Vectors — Unit 1, Lesson 1.0 — Group Activity
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.0}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Drone Delivery.} A delivery drone moves over a city grid. Each hop is a
+vector $\begin{bsmallmatrix} \text{east} \\ \text{north} \end{bsmallmatrix}$ measured in
+blocks (west and south are negative). Work with your partner and \emph{show your steps}.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+The drone's first two hops are $\vv = \begin{bmatrix} 4 \\ 3 \end{bmatrix}$ and
+$\ww = \begin{bmatrix} -1 \\ 2 \end{bmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
+  \item In words, what does hop $\ww$ tell the drone to do? \writeline
+  \item Find $\vv + \ww$ (the two hops combined). \vspace{0.5cm}
+  \item Find $2\vv$. What happens to the arrow when you double it? \vspace{0.5cm}
+  \item Find $\|\vv\|$, the length of the first hop. Show the Pythagorean step. \vspace{0.7cm}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+A full delivery is three hops from the depot at the origin:
+\[
+  \mathbf{a} = \begin{bmatrix} 6 \\ 0 \end{bmatrix}, \quad
+  \mathbf{b} = \begin{bmatrix} 2 \\ 6 \end{bmatrix}, \quad
+  \mathbf{c} = \begin{bmatrix} -2 \\ 2 \end{bmatrix}.
+\]
+\begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
+  \item Find the drone's final position $\mathbf{a}+\mathbf{b}+\mathbf{c}$. \vspace{0.6cm}
+  \item How far east and how far north of the depot does it end up? \writeline
+  \item Find the straight-line distance from the depot to the final position. \vspace{0.9cm}
+  \item The drone flew the three hops but the \emph{customer} only cares about the
+        straight-line distance. Explain why those two totals are different. \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
+  \item A hop $\vv=\begin{bmatrix} 8 \\ 6 \end{bmatrix}$ has length $10$. Find a
+        \textbf{unit vector} pointing the same direction as $\vv$. \writelines{2}
+  \item \textbf{Justify.} For two hops $\vv$ and $\ww$, is it always true that
+        $\|\vv+\ww\| = \|\vv\| + \|\ww\|$? Test it on
+        $\vv=\begin{bmatrix} 3 \\ 0\end{bmatrix},\ \ww=\begin{bmatrix} 0 \\ 4 \end{bmatrix}$,
+        then explain when the two sides are equal. \writelines{3}
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

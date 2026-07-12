@@ -1,19 +1,66 @@
-%! Unit Overview and Spiral Review — Unit 1, Lesson 1.0 — Homework
+%! Introducing Vectors — Unit 1, Lesson 1.0 — Homework
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.0}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+Throughout, let $\vv = \begin{bmatrix} 2 \\ 7 \end{bmatrix}$ and
+$\ww = \begin{bmatrix} -5 \\ 1 \end{bmatrix}$. Show your steps.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item Compute each vector.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\vv + \ww$ \hfill \item $\vv - \ww$ \hfill
+      \item $3\vv$ \hfill \item $\vv + 2\ww$
+    \end{enumerate}
+    \vspace{1.4cm}
+  \item Find each length. Leave any non-perfect square in simplest radical form.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\left\|\begin{bsmallmatrix} 9 \\ 12 \end{bsmallmatrix}\right\|$ \hfill
+      \item $\left\|\begin{bsmallmatrix} -8 \\ 15 \end{bsmallmatrix}\right\|$ \hfill
+      \item $\left\|\begin{bsmallmatrix} 1 \\ 1 \end{bsmallmatrix}\right\|$
+    \end{enumerate}
+    \vspace{1.4cm}
+  \item Which of these is a \textbf{unit vector}? Justify with a calculation.
+    \[
+      \mathbf{p}=\begin{bmatrix} 0 \\ 1 \end{bmatrix}, \qquad
+      \mathbf{q}=\begin{bmatrix} 1 \\ 2 \end{bmatrix}
+    \]
+    \writelines{2}
+  \item A hiker walks $\begin{bmatrix} 3 \\ -4 \end{bmatrix}$ then $\begin{bmatrix} 5 \\ 4 \end{bmatrix}$
+        (kilometers, east/north).
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
+      \item What is the hiker's net displacement (the sum)? \vspace{0.8cm}
+      \item How far is the hiker from the start, in a straight line? \vspace{0.8cm}
+      \item \emph{Interpret:} the hiker walked $5+\sqrt{41}\approx 11.4$ km of trail. Why is
+            that more than your answer to (b)? \writelines{2}
+    \end{enumerate}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+A vector can also be a \textbf{data record}. Store a smoothie as
+$\begin{bsmallmatrix} \text{cups fruit} \\ \text{cups yogurt} \end{bsmallmatrix}$: one
+serving is $\mathbf{s}=\begin{bsmallmatrix} 2 \\ 1 \end{bsmallmatrix}$. Write the vector for a
+\emph{triple} batch, and explain what scalar multiplication means in this setting.
+\writelines{2}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 1.1: Linear Combinations of Vectors.} Today you scaled
+vectors ($c\,\vv$) and added them ($\vv+\ww$). Next we do both at once: $c\,\vv + d\,\ww$.
+The big question becomes: \emph{which points in the plane can you reach} by combining two
+given vectors?
+\end{spiralbox}
 
 \end{document}

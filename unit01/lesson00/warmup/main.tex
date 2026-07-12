@@ -1,4 +1,4 @@
-%! Unit Overview and Spiral Review — Unit 1, Lesson 1.0 — Warm-Up
+%! Introducing Vectors — Unit 1, Lesson 1.0 — Warm-Up
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
@@ -9,11 +9,37 @@
 \pageheader{Unit 1, Lesson 1.0}{Warm-Up}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Warm-Up. See references/components.md for the expected structure.
-\begin{notesbox}{Warm-Up}
-\writelines{4}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small These three skills power everything in today's lesson. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Signed-number arithmetic.} Evaluate.
+\begin{enumerate}[label=(\alph*), leftmargin=2.0em, itemsep=6pt]
+  \item $3 + (-7) = \blank{2.2cm}$
+  \item $-4 - (-9) = \blank{2.2cm}$
+  \item $2(-5) = \blank{2.2cm}$
+\end{enumerate}
+
+\vspace{6pt}
+\textbf{2. The Pythagorean theorem.} A right triangle has legs of length $6$ and $8$.
+How long is the hypotenuse? Show the step.
+\writelines{2}
+
+\vspace{4pt}
+\textbf{3. Reading the plane.} On the grid, point $P$ is marked.
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+  \draw[step=1, linegray!60, thin] (-0.4,-0.4) grid (5.4,4.4);
+  \draw[->, thick, charcoal] (0,0)--(5.6,0) node[right]{\scriptsize $x$};
+  \draw[->, thick, charcoal] (0,0)--(0,4.6) node[above]{\scriptsize $y$};
+  \foreach \x in {1,2,3,4,5} \node[below, font=\scriptsize] at (\x,-0.1){\x};
+  \foreach \y in {1,2,3,4} \node[left, font=\scriptsize] at (-0.1,\y){\y};
+  \fill[burgundy] (5,3) circle (3pt) node[above right]{\small $P$};
+\end{tikzpicture}
+\end{center}
+What are the coordinates of $P$? \; $\big(\,\blank{1.0cm},\ \blank{1.0cm}\,\big)$
 \end{notesbox}
 
 \end{document}

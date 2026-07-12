@@ -1,19 +1,73 @@
-%! Unit Overview and Spiral Review — Unit 1, Lesson 1.0 — Homework (Answer Key)
+%! Introducing Vectors — Unit 1, Lesson 1.0 — Homework (Answer Key)
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.0}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+Throughout, let $\vv = \begin{bmatrix} 2 \\ 7 \end{bmatrix}$ and
+$\ww = \begin{bmatrix} -5 \\ 1 \end{bmatrix}$. Show your steps.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
+  \item Compute each vector.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\vv + \ww = {}$\ans{$\begin{bsmallmatrix} -3 \\ 8 \end{bsmallmatrix}$} \hfill
+      \item $\vv - \ww = {}$\ans{$\begin{bsmallmatrix} 7 \\ 6 \end{bsmallmatrix}$} \hfill
+      \item $3\vv = {}$\ans{$\begin{bsmallmatrix} 6 \\ 21 \end{bsmallmatrix}$} \hfill
+      \item $\vv + 2\ww = {}$\ans{$\begin{bsmallmatrix} -8 \\ 9 \end{bsmallmatrix}$}
+    \end{enumerate}
+  \item Find each length. Leave any non-perfect square in simplest radical form.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item \ans{$\sqrt{9^2+12^2}=\sqrt{225}=15$} \hfill
+      \item \ans{$\sqrt{(-8)^2+15^2}=\sqrt{289}=17$} \hfill
+      \item \ans{$\sqrt{1^2+1^2}=\sqrt{2}$}
+    \end{enumerate}
+  \item Which of these is a \textbf{unit vector}? Justify with a calculation.
+    \[
+      \mathbf{p}=\begin{bmatrix} 0 \\ 1 \end{bmatrix}, \qquad
+      \mathbf{q}=\begin{bmatrix} 1 \\ 2 \end{bmatrix}
+    \]
+    \ansline{$\|\mathbf{p}\|=\sqrt{0^2+1^2}=1$, so $\mathbf{p}$ is a unit vector.
+             $\|\mathbf{q}\|=\sqrt{1^2+2^2}=\sqrt{5}\approx 2.24\neq 1$, so $\mathbf{q}$ is not.}
+  \item A hiker walks $\begin{bmatrix} 3 \\ -4 \end{bmatrix}$ then $\begin{bmatrix} 5 \\ 4 \end{bmatrix}$
+        (kilometers, east/north).
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+      \item What is the hiker's net displacement (the sum)?
+            \ans{$\begin{bsmallmatrix} 8 \\ 0 \end{bsmallmatrix}$}
+      \item How far is the hiker from the start, in a straight line?
+            \ans{$\|(8,0)\|=\sqrt{8^2+0^2}=8$ km}
+      \item \emph{Interpret:} the hiker walked $5+\sqrt{41}\approx 11.4$ km of trail. Why is
+            that more than your answer to (b)?
+            \ansline{The $11.4$ km is total distance walked along a bent path; the $8$ km is
+            the straight-line displacement. A straight line is the shortest route, so turning
+            makes the trail longer than the displacement.}
+    \end{enumerate}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+A vector can also be a \textbf{data record}. Store a smoothie as
+$\begin{bsmallmatrix} \text{cups fruit} \\ \text{cups yogurt} \end{bsmallmatrix}$: one
+serving is $\mathbf{s}=\begin{bsmallmatrix} 2 \\ 1 \end{bsmallmatrix}$. Write the vector for a
+\emph{triple} batch, and explain what scalar multiplication means in this setting.
+\ansline{$3\mathbf{s}=\begin{bsmallmatrix} 6 \\ 3 \end{bsmallmatrix}$: scaling by $3$ triples
+every ingredient, keeping the same recipe ratio but making a bigger batch.}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 1.1: Linear Combinations of Vectors.} Today you scaled
+vectors ($c\,\vv$) and added them ($\vv+\ww$). Next we do both at once: $c\,\vv + d\,\ww$.
+The big question becomes: \emph{which points in the plane can you reach} by combining two
+given vectors?
+\end{spiralbox}
 
 \end{document}

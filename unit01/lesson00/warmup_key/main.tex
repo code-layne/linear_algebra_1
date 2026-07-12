@@ -1,4 +1,4 @@
-%! Unit Overview and Spiral Review — Unit 1, Lesson 1.0 — Warm-Up (Answer Key)
+%! Introducing Vectors — Unit 1, Lesson 1.0 — Warm-Up (Answer Key)
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
@@ -9,11 +9,43 @@
 \pageheader{Unit 1, Lesson 1.0}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small These three skills power everything in today's lesson. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Signed-number arithmetic.} Evaluate.
+\begin{enumerate}[label=(\alph*), leftmargin=2.0em, itemsep=6pt]
+  \item $3 + (-7) = {}$\ans{$-4$}
+  \item $-4 - (-9) = {}$\ans{$5$}
+  \item $2(-5) = {}$\ans{$-10$}
+\end{enumerate}
+
+\vspace{6pt}
+\textbf{2. The Pythagorean theorem.} A right triangle has legs of length $6$ and $8$.
+How long is the hypotenuse? Show the step.
+\ansline{$\sqrt{6^2+8^2}=\sqrt{36+64}=\sqrt{100}=10$}
+
+\vspace{4pt}
+\textbf{3. Reading the plane.} On the grid, point $P$ is marked.
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+  \draw[step=1, linegray!60, thin] (-0.4,-0.4) grid (5.4,4.4);
+  \draw[->, thick, charcoal] (0,0)--(5.6,0) node[right]{\scriptsize $x$};
+  \draw[->, thick, charcoal] (0,0)--(0,4.6) node[above]{\scriptsize $y$};
+  \foreach \x in {1,2,3,4,5} \node[below, font=\scriptsize] at (\x,-0.1){\x};
+  \foreach \y in {1,2,3,4} \node[left, font=\scriptsize] at (-0.1,\y){\y};
+  \fill[burgundy] (5,3) circle (3pt) node[above right]{\small $P$};
+\end{tikzpicture}
+\end{center}
+What are the coordinates of $P$? \; $\big(\,\ans{$5$},\ \ans{$3$}\,\big)$
 \end{notesbox}
+
+\begin{teachernote}
+Item 2 previews the magnitude formula exactly: today's $\|\mathbf{v}\|=\sqrt{v_1^2+v_2^2}$
+\emph{is} the Pythagorean theorem. Item 3 rehearses reading an ordered pair, which becomes
+reading a vector's components. If item 1c is shaky, revisit scalar multiplication slowly.
+\end{teachernote}
 
 \end{document}

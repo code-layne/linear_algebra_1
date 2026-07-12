@@ -1,12 +1,14 @@
-%! Unit Overview and Spiral Review — Unit 1, Lesson 1.0 — Lesson Plan
+%! Introducing Vectors — Unit 1, Lesson 1.0 — Lesson Plan
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 \newcommand{\UnitNumberName}{Unit 1: Vectors and Matrices \quad}
-\newcommand{\LessonNumberName}{Lesson 1.0: Unit Overview and Spiral Review}
+\newcommand{\LessonNumberName}{Lesson 1.0: Introducing Vectors --- Vocabulary and Length}
 
 \begin{document}
 \begin{center}
@@ -16,55 +18,134 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can describe a vector by its components and as an
+    arrow in the plane, add and scale vectors (predicting the effect on the arrow), and
+    compute a vector's length $\|\vv\|=\sqrt{v_1^{\,2}+v_2^{\,2}}$, explaining that length
+    measures straight-line distance and is never negative.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Read/write a 2-D column vector and its components.
+  \item Add vectors and multiply by a scalar (component rules).
+  \item Compute magnitude with the Pythagorean theorem.
+  \item Recognize a unit vector (length $1$).
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item A vector carries \emph{two} ideas at once: direction and size.
+  \item Adding is ``tip to tail''; scaling stretches/flips the same arrow.
+  \item Length is distance, so it comes from Pythagoras and is $\ge 0$.
+  \item These operations are the vocabulary the whole unit is built on.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Vector} & An ordered list of numbers; in 2-D, two components pictured as an arrow (or point). \\
+\textbf{Scalar} & A single number --- size, no direction --- used to scale a vector. \\
+\textbf{Components} & The entries $v_1,v_2$ of a vector; its coordinates. \\
+\textbf{Vector addition} & \TallMath{\vv+\ww=\begin{bsmallmatrix} v_1+w_1 \\ v_2+w_2 \end{bsmallmatrix}}; geometrically tip-to-tail. \\
+\textbf{Scalar multiplication} & \TallMath{c\,\vv=\begin{bsmallmatrix} c\,v_1 \\ c\,v_2 \end{bsmallmatrix}}; stretch, shrink, or flip. \\
+\textbf{Magnitude (length)} & \TallMath{\|\vv\|=\sqrt{v_1^{\,2}+v_2^{\,2}}}; straight-line length, never negative. \\
+\textbf{Unit vector} & A vector of length $1$. \\
+\textbf{Linear combination} & $c\,\vv + d\,\ww$ --- scale then add (previewed; the focus of 1.1). \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three prerequisite skills this lesson leans on:
+    \textbf{(1)} signed-number arithmetic (for component addition and scaling),
+    \textbf{(2)} the Pythagorean theorem (which \emph{is} the magnitude formula), and
+    \textbf{(3)} reading an ordered pair off the plane (which becomes reading a vector's
+    components). Debrief item~2 out loud --- students should see the hypotenuse computation
+    return as $\|\vv\|$ within the first ten minutes.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Project the drone flying $3$ east and $4$ north, recorded as $(3,4)$. Ask: \textbf{``One
+    pair of numbers stored the entire trip --- what single number tells us the straight-line
+    distance home, and how would you get it from the $3$ and the $4$?''} Let a few students
+    commit to ``$5$, using the triangle'' before naming it magnitude. This motivates both the
+    vector (a trip in two numbers) and its length (Pythagoras) in one picture.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. What a vector is.} Define a vector as an ordered list; in 2-D, two
+\textbf{components}. Show both pictures --- point $(v_1,v_2)$ and arrow from the origin ---
+using $\vv=\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}$. Contrast with a \textbf{scalar}
+(a lone number). Have students say aloud ``$3$ east, $4$ north.''
+
+\textbf{2. Adding and scaling.} Give the component rules, then tie each to a picture:
+addition is \textbf{tip-to-tail}; scaling by $c$ \textbf{stretches} ($c>1$),
+\textbf{shrinks} ($0<c<1$), or \textbf{flips} ($c<0$) the same arrow. Work
+$\vv+\ww$ and $2\vv,\ -\vv$ with $\ww=\begin{bsmallmatrix} 1\\-2 \end{bsmallmatrix}$. Name
+$c\vv+d\ww$ a \textbf{linear combination} and flag it as the unit's throughline.
+
+\columnbreak
+
+\textbf{3. Length (magnitude).} Draw the right triangle under the arrow and derive
+$\|\vv\|=\sqrt{v_1^2+v_2^2}$ from Pythagoras. Compute
+$\left\|\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}\right\|=5$ and connect back to the Hook.
+Stress two ideas: length is a \textbf{scalar}, and it is \textbf{never negative} (the squares
+erase the signs). Introduce the \textbf{unit vector} (length $1$) and dividing by $\|\vv\|$.
+
+\textbf{4. Guided practice.} Do the notes' practice set ($\vv=\begin{bsmallmatrix} 6\\8 \end{bsmallmatrix}$,
+$\ww=\begin{bsmallmatrix} -3\\0 \end{bsmallmatrix}$) together, narrating the compute
+$\rightarrow$ interpret loop: ``what did we get, and what does it mean?''
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item adding a scalar to a vector, or adding across components ($v_1+v_2$) instead of matching them;
+  \item sign slips in scaling (e.g.\ $-\vv$) and in components like $\begin{bsmallmatrix} -1\\2 \end{bsmallmatrix}$;
+  \item reporting a \emph{negative} length, or forgetting the square root.
+\end{itemize}
+Cold-call prompts: ``Point to $\vv+\ww$ on the grid.'' ``Why can't a length come out negative?''
+``What does $\|\vv\|$ measure in the drone story?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Drone Delivery} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Two given hops: describe a hop in words, add them, double one,
+find one length. Rebuilds each definition on concrete integers.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Three-hop delivery: sum the hops, read off east/north, find
+straight-line distance, and \emph{interpret} why distance travelled $\ne$ displacement.
+
+\columnbreak
+\textbf{Tier E --- Extension.} Build a unit vector in a given direction; test and justify when
+$\|\vv+\ww\|=\|\vv\|+\|\ww\|$ (triangle inequality, informally).
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): add and scale a vector; compute a magnitude
+($\|(5,12)\|=13$); and a \textbf{conceptual/justification check} --- explain why
+$\begin{bsmallmatrix} -7\\0 \end{bsmallmatrix}$ does not have length $-7$ and give the correct
+value ($7$). Collect and sort into ``got it / component slip / length misconception'' to decide
+whether 1.1 opens with a quick re-teach.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} mixed practice on adding/scaling and computing lengths (including simplest
+radical form and a unit-vector check), plus a hiker displacement problem with an interpret
+part. \textbf{Extension:} a vector as a \emph{data record} (a smoothie recipe scaled by a
+batch factor) --- previews Unit~1's data theme. \textbf{Preview:} Lesson~1.1, \emph{Linear
+Combinations of Vectors} --- doing both operations at once, $c\,\vv+d\,\ww$, and which points
+in the plane two vectors can reach.
 \end{skillbox}
 \end{document}

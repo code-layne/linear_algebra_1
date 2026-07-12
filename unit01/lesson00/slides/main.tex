@@ -1,6 +1,8 @@
-%! Unit Overview and Spiral Review — Unit 1, Lesson 1.0 — Slides (Beamer)
+%! Introducing Vectors — Unit 1, Lesson 1.0 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 
 \begin{document}
 
@@ -11,16 +13,101 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 1.0}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Unit Overview and Spiral Review}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 1}
+    {\color{white}\bfseries\LARGE Introducing Vectors}\\[0.3cm]
+    {\color{white}\bfseries\large Vocabulary and Length}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 1: Vectors and Matrices}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{A trip in two numbers}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.58\textwidth}
+      A drone flies \textbf{3 blocks east} and \textbf{4 blocks north}.\\[6pt]
+      The single pair $(3,4)$ records the \emph{whole} trip.\\[10pt]
+      \textbf{Question.} How far is the drone from where it started, in a straight line?
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.5]
+        \draw[step=1, black!15, thin] (-0.3,-0.3) grid (4.3,4.3);
+        \draw[->, thick, black!60] (0,0)--(4.4,0);
+        \draw[->, thick, black!60] (0,0)--(0,4.4);
+        \draw[->, very thick, burgundy] (0,0)--(3,4) node[midway, above left]{$(3,4)$};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% WHAT IS A VECTOR
+\begin{frame}[t, plain]
+  \burgundyheader{What is a vector?}
+  \sectionlabel{Definition}
+  A \textbf{vector} is an ordered list of numbers. In the plane it has two
+  \textbf{components}:
+  \[
+    \vv = \begin{bmatrix} v_1 \\ v_2 \end{bmatrix}
+        = \begin{bmatrix} 3 \\ 4 \end{bmatrix}.
+  \]
+  \begin{itemize}
+    \item Picture it as a \textbf{point} $(v_1,v_2)$, or as an \textbf{arrow} from the origin.
+    \item First component $=$ how far \textbf{east}; second $=$ how far \textbf{north}.
+    \item A single number (like $5$) is a \textbf{scalar}: size, but no direction.
+  \end{itemize}
+\end{frame}
+
+% ADDING AND SCALING
+\begin{frame}[t, plain]
+  \burgundyheader{Adding and scaling}
+  \sectionlabel{Operations}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \textbf{Add} component by component:
+      \[
+        \vv+\ww=\begin{bmatrix} v_1+w_1 \\ v_2+w_2 \end{bmatrix}
+      \]
+      Geometrically: arrows \textbf{tip to tail}.
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \textbf{Scale} every component by $c$:
+      \[
+        c\,\vv=\begin{bmatrix} c\,v_1 \\ c\,v_2 \end{bmatrix}
+      \]
+      $c>1$ longer, $0<c<1$ shorter, $c<0$ flips.
+    \end{column}
+  \end{columns}
+  \vspace{10pt}
+  \begin{block}{The big idea of Unit 1}
+    Scaling \emph{and} adding together, $c\,\vv + d\,\ww$, is a \textbf{linear combination}.
+  \end{block}
+\end{frame}
+
+% LENGTH
+\begin{frame}[t, plain]
+  \burgundyheader{How long is a vector?}
+  \sectionlabel[goldacc]{Magnitude}
+  The \textbf{length} (magnitude) comes straight from the Pythagorean theorem:
+  \[
+    \|\vv\| = \sqrt{\,v_1^{\,2}+v_2^{\,2}\,}.
+  \]
+  \begin{itemize}
+    \item Example: $\left\|\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}\right\|
+          = \sqrt{9+16} = \sqrt{25} = 5$ --- the drone is $5$ blocks away.
+    \item Length is a \textbf{scalar} and is \textbf{never negative}.
+    \item A \textbf{unit vector} has length $1$: shrink $\vv$ by dividing by $\|\vv\|$.
+  \end{itemize}
+\end{frame}
+
+% WRAP / PREVIEW
+\begin{frame}[t, plain]
+  \burgundyheader{Wrap-up and what's next}
+  \sectionlabel{Connections}
+  \textbf{Today:} vectors as components and arrows; adding, scaling, and length.\\[8pt]
+  \textbf{Next --- Lesson 1.1:} do both operations at once, $c\,\vv + d\,\ww$, and ask
+  \emph{which points in the plane you can reach} by combining two given vectors.
 \end{frame}
 
 \end{document}

@@ -1,19 +1,154 @@
-%! Unit Overview and Spiral Review — Unit 1, Lesson 1.0 — Guided Notes
+%! Introducing Vectors — Unit 1, Lesson 1.0 — Guided Notes
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.0}{Guided Notes}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Guided Notes. See references/components.md for the expected structure.
-\begin{notesbox}{Guided Notes}
-\writelines{4}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item describe a vector by its \emph{components} and as an \emph{arrow} in the plane;
+  \item add two vectors and multiply a vector by a scalar;
+  \item find the \emph{length} (magnitude) of a vector and explain what it measures.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.10in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\termblanklong{Vector}
+\termblanklong{Scalar}
+\termblanklong{Components}
+\termblanklong{Vector addition}
+\termblanklong{Scalar multiplication}
+\termblanklong{Magnitude (length)}
+\termblanklong{Unit vector}
+\end{vocabbox}
+
+\begin{hookbox}
+A drone lifts off and flies \textbf{3 blocks east and 4 blocks north}. A single pair
+of numbers, $(3,4)$, records the \emph{whole trip}: how far east, and how far north.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item What one number would tell you the drone's \emph{straight-line distance} from
+        where it started? \blank{3.2cm}
+  \item How could you find it from the $3$ and the $4$? \writeline
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. What Is a Vector?}
+A \textbf{vector} is an ordered list of numbers. In two dimensions it has two
+\textbf{components} and we write it as a column:
+\[
+  \vv = \begin{bmatrix} v_1 \\ v_2 \end{bmatrix},
+  \qquad\text{for example}\qquad
+  \vv = \begin{bmatrix} 3 \\ 4 \end{bmatrix}.
+\]
+
+We can picture $\vv$ two ways:
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item as a \textbf{point} in the plane at $(v_1, v_2)$, or
+  \item as an \textbf{arrow} from the origin out to that point.
+\end{itemize}
+
+The first component says how far to move \blank{2.6cm}; the second says how far to move
+\blank{2.6cm}. A single number, like $5$, is called a \textbf{scalar} --- it has size but
+no direction.
+
+\vspace{4pt}
+\begin{center}
+\begin{tikzpicture}[scale=0.62]
+  \draw[step=1, linegray!60, thin] (-0.4,-0.4) grid (5.4,5.4);
+  \draw[->, thick, charcoal] (0,0)--(5.6,0) node[right]{\scriptsize east};
+  \draw[->, thick, charcoal] (0,0)--(0,5.6) node[above]{\scriptsize north};
+  \foreach \x in {1,2,3,4,5} \node[below, font=\scriptsize] at (\x,-0.1){\x};
+  \foreach \y in {1,2,3,4,5} \node[left, font=\scriptsize] at (-0.1,\y){\y};
+  \draw[->, very thick, burgundy] (0,0)--(3,4)
+        node[midway, above left]{$\vv$};
+  \fill[burgundy] (3,4) circle (2.4pt) node[above right]{\small $(3,4)$};
+  \draw[dashed, slate] (3,0)--(3,4);
+  \draw[dashed, slate] (0,4)--(3,4);
+  \node[below, slate, font=\scriptsize] at (1.5,0){$3$};
+  \node[left, slate, font=\scriptsize] at (0,2){$4$};
+\end{tikzpicture}
+\end{center}
 \end{notesbox}
+
+\begin{notesbox}{2. Adding and Scaling Vectors}
+\textbf{Vector addition} combines two vectors component by component:
+\[
+  \vv + \ww =
+  \begin{bmatrix} v_1 \\ v_2 \end{bmatrix} +
+  \begin{bmatrix} w_1 \\ w_2 \end{bmatrix} =
+  \begin{bmatrix} v_1 + w_1 \\ v_2 + w_2 \end{bmatrix}.
+\]
+Geometrically you place the arrows \textbf{tip to tail}: walk along $\vv$, then along
+$\ww$, and $\vv+\ww$ is the arrow from your start to your finish.
+
+\vspace{2pt}
+\textit{Example.} With $\vv = \begin{bmatrix} 3 \\ 4 \end{bmatrix}$ and
+$\ww = \begin{bmatrix} 1 \\ -2 \end{bmatrix}$:
+\qquad $\vv + \ww = \begin{bmatrix}\rule{0pt}{1.1em}\blank{1.1cm}\\[2pt]\blank{1.1cm}\end{bmatrix}$
+
+\vspace{6pt}
+\textbf{Scalar multiplication} scales every component by the same number $c$:
+\[
+  c\,\vv = \begin{bmatrix} c\,v_1 \\ c\,v_2 \end{bmatrix}.
+\]
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item $c>1$ makes the arrow \blank{3.0cm}; \; $0<c<1$ makes it \blank{3.0cm}.
+  \item A \emph{negative} $c$ \blank{4.2cm} the arrow's direction.
+\end{itemize}
+\textit{Example.} $2\vv = \begin{bmatrix}\rule{0pt}{1.1em}\blank{1.1cm}\\[2pt]\blank{1.1cm}\end{bmatrix}$
+\qquad
+$-\vv = \begin{bmatrix}\rule{0pt}{1.1em}\blank{1.1cm}\\[2pt]\blank{1.1cm}\end{bmatrix}$
+
+\vspace{4pt}
+An expression like $c\,\vv + d\,\ww$ --- scaling and then adding --- is called a
+\textbf{linear combination}. It is the central idea of this whole unit.
+\end{notesbox}
+
+\begin{notesbox}{3. The Length of a Vector}
+The \textbf{magnitude} (or \textbf{length}) of a vector is how long its arrow is. Because
+the components form the legs of a right triangle, the Pythagorean theorem gives
+\[
+  \|\vv\| = \sqrt{\,v_1^{\,2} + v_2^{\,2}\,}.
+\]
+The double bars $\|\vv\|$ are read ``the length of $\vv$.'' The length is always a
+\textbf{scalar}, and it is never negative.
+
+\vspace{2pt}
+\textit{Example.} For $\vv = \begin{bmatrix} 3 \\ 4 \end{bmatrix}$:
+\[
+  \|\vv\| = \sqrt{3^2 + 4^2} = \sqrt{\blank{1.4cm}} = \blank{1.4cm}.
+\]
+So the drone from the Hook ends up \blank{2.2cm} blocks in a straight line from the start.
+
+\vspace{4pt}
+A vector whose length is exactly $1$ is called a \textbf{unit vector}. To shrink any
+vector to length $1$, divide it by its own length: $\dfrac{1}{\|\vv\|}\,\vv$. This keeps
+the \blank{3.0cm} the same but sets the length to \blank{1.2cm}.
+\end{notesbox}
+
+\begin{practicebox}
+Let $\vv = \begin{bmatrix} 6 \\ 8 \end{bmatrix}$ and $\ww = \begin{bmatrix} -3 \\ 0 \end{bmatrix}$.
+\begin{enumerate}[leftmargin=1.6em]
+  \item Find $\vv + \ww$. \hfill \blank{4.5cm}
+  \item Find $\tfrac{1}{2}\vv$. \hfill \blank{4.5cm}
+  \item Find $\|\vv\|$. Show the Pythagorean step. \writeline
+  \item Is $\ww$ a unit vector? How do you know? \writeline
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

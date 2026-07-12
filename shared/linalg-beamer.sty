@@ -11,6 +11,7 @@
 % Beamer overrides — brighter values needed for dark-background slides
 \definecolor{goldacc}{HTML}{F5A623}
 \definecolor{hookbg}{HTML}{D4820A}
+\definecolor{burgundy}{HTML}{7E2A42}   % slightly brighter burgundy for slides
 
 % ── Theme ─────────────────────────────────────────────────────────────────────
 \usetheme{default}
@@ -21,19 +22,20 @@
 \setbeamercolor{normal text}{fg=charcoal}
 \setbeamerfont{normal text}{family=\sffamily}
 
-% ── \navyheader{Title} ────────────────────────────────────────────────────────
-% Full-width navy bar across the top of a slide with white title text.
-\newcommand{\navyheader}[1]{%
+% ── \burgundyheader{Title} ────────────────────────────────────────────────────
+% Full-width burgundy bar across the top of a slide with white title text.
+\newcommand{\burgundyheader}[1]{%
   \begin{tikzpicture}[remember picture, overlay]
-    \fill[navy] (current page.north west)
+    \fill[burgundy] (current page.north west)
       rectangle ([yshift=-1.35cm]current page.north east);
     \node[anchor=west, text=white, font=\bfseries\large,
           inner xsep=0.55cm, inner ysep=0pt]
       at ([yshift=-0.68cm]current page.north west) {#1};
   \end{tikzpicture}%
   \vspace{1.05cm}\par}
+\let\navyheader\burgundyheader   % deprecated alias
 
 % ── \sectionlabel[color]{LABEL TEXT} ─────────────────────────────────────────
 % Small-caps section label above slide content.
-\newcommand{\sectionlabel}[2][navy]{%
+\newcommand{\sectionlabel}[2][burgundy]{%
   {\color{#1}\bfseries\footnotesize\MakeUppercase{#2}}\par\smallskip}

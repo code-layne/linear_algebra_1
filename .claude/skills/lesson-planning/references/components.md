@@ -14,8 +14,9 @@ General rules:
 - Student components preamble with `linalg-article` + `linalg-boxes`; keys with
   `linalg-article` + `linalg-key`.
 - Keep the **key structurally identical** to its blank — it is the blank with answers filled in.
-- **Secondary-school audience.** Source the math from the matching OCW lecture/reading, then
-  down-level it: concrete numbers and geometry first, formalism later, applications up front.
+- **Secondary-school audience.** Source the math from the matching *Linear Algebra for
+  Everyone* subchapter, then down-level it: concrete numbers and geometry first, formalism
+  later, applications up front.
 - Every component runs the loop **compute → interpret → justify** ("what does this mean here,
   and how do you know?"). Never ask students to *sketch/draw/construct* a graph from scratch —
   give a pre-drawn figure to read, a table to complete, or a computation/interpretation task.
@@ -27,20 +28,20 @@ General rules:
 order:
 
 1. **Title block** — `\CourseName: \SchoolYear` + `\UnitNumberName \LessonNumberName`.
-2. **Primary Objective** — a `tcolorbox` (sky/navy). One or two sentences in student terms,
-   ending with the governing course theme, e.g. `(Theme: Representation)`.
+2. **Primary Objective** — a `tcolorbox` (blush/burgundy). One or two sentences in student terms
+   stating what students will be able to do, interpret, and justify with the topic.
 3. **Priority Ideas & Skills** — `skillbox{goldbox}`, two `minipage`s. Left: the priority
-   ideas/skills for this topic. Right: "Key Understandings" — the *why*, in modeling terms.
+   ideas/skills for this topic. Right: "Key Understandings" — the *why*, in conceptual/geometric terms.
 4. **Vocabulary, Concepts & Theorems** — `skillbox{greenbox}`, a `tabularx` term/definition
    table (use `\TallMath{...}` for tall formulas/matrices).
-5. **Activate Prior Knowledge & Spiral Review** — `fixedskillbox{sky}`; left lists the
+5. **Activate Prior Knowledge & Spiral Review** — `fixedskillbox{blush}`; left lists the
    reviewed skills, right shows the warm-up thumbnail via `\includegraphics[page=1]{warmup/main}`
    **only if the warm-up is a prefab PDF** (authored warm-ups stay text-only).
-6. **Hook** — `skillbox{sky}`: an entry question/scenario built from the unit's applications.
-7. **Lesson** (and optional **Lesson (cont.)**) — `skillbox{sky}` with `\begin{multicols}{2}`;
+6. **Hook** — `skillbox{blush}`: an entry question/scenario built from the unit's applications.
+7. **Lesson** (and optional **Lesson (cont.)**) — `skillbox{blush}` with `\begin{multicols}{2}`;
    the worked instructional progression, bolding the questions you'll pose. Geometry/numbers
    first, then the general statement.
-8. **Explicit Instruction: <technique>** — one `skillbox{sky}` per technique, two columns:
+8. **Explicit Instruction: <technique>** — one `skillbox{blush}` per technique, two columns:
    numbered steps on the left, a worked example (often a Desmos/GeoGebra screenshot for
    transformation work) on the right.
 9. **Active Monitoring** — `skillbox{redbox}`: what to circulate and check; cold-call prompts.
@@ -56,7 +57,7 @@ order:
 ## Cover
 
 `cover/main.tex` — student-facing front page of the packet. No key. Structure:
-- Full-bleed navy banner (tikz) with `\LARGE` course name, unit, and `Lesson <id>  <title>`.
+- Full-bleed burgundy banner (tikz) with `\LARGE` course name, unit, and `Lesson <id>  <title>`.
 - `\namedateperiod`.
 - `learningtargetbox` — an "I can…" list, one target per priority idea/skill.
 - `tocbox` — a `tabularx` listing each packet component (#, Component, Description, Score blank)
@@ -81,13 +82,13 @@ plan can embed its thumbnail. If authored: 3–5 quick problems with work space 
 - `hookbox` — the same hook as the plan, with write-lines for student responses.
 - Direct-instruction sections in `notesbox{Title}` with blanks (`\blank`, `\writeline`) at the
   points where students record steps/definitions/results. Build the worked example from the
-  OCW lecture, down-leveled.
+  book's subchapter, down-leveled.
 - Optional `practicebox` ("Guided Practice") with 1–2 worked-with-class problems.
 
 ## Activity
 
-`activity/` (+ `activity_key/`) — differentiated group practice, ideally a small **modeling
-investigation** drawn from the unit's applications.
+`activity/` (+ `activity_key/`) — differentiated group practice, ideally a small **applied
+investigation** drawn from the unit's guided applications.
 - `\pageheader{Unit X, Lesson Y.Z}{Group Activity}` + `\namepartnerperiod`.
 - Three `tcolorbox`es titled **Tier R — Remediate**, **Tier A — Approaching Proficiency**,
   **Tier E — Extension** (`colframe=black!40`), each with problems and generous `\vspace` work
@@ -105,8 +106,8 @@ space. Include at least one "what does this result mean?" item. Key fills with `
 ## Homework
 
 `homework/` (+ `homework_key/`) — independent practice + stretch.
-`\pageheader{...}{Homework}` + `\namedateperiod`; a numbered practice set (problems sourced
-from the OCW problem set, rewritten to level), an `extensionbox` ("Extension — optional"), and
+`\pageheader{...}{Homework}` + `\namedateperiod`; a numbered practice set (problems adapted
+from the subchapter's exercises, rewritten to level), an `extensionbox` ("Extension — optional"), and
 a short preview of the next lesson. Key fills with `\ans` and shows worked steps for the
 harder items.
 
@@ -114,8 +115,8 @@ harder items.
 
 `slides/` — optional teacher Beamer deck. No key. Requires `shared/linalg-beamer.sty`.
 Preamble: `\documentclass[aspectratio=169,11pt]{beamer}` + `\usepackage{linalg-beamer}`.
-The title slide is hand-built (navy background canvas + minipage); content slides use
-`\navyheader{Title}` and `\sectionlabel[color]{LABEL}`. Note `\CourseName` is **not** defined
+The title slide is hand-built (burgundy background canvas + minipage); content slides use
+`\burgundyheader{Title}` and `\sectionlabel[color]{LABEL}`. Note `\CourseName` is **not** defined
 in beamer — write the course name literally. Mirror the existing `slides/main.tex` closely;
 the beamer theme is bespoke. Keep slides aligned to the lesson's instructional progression and
 down-leveled for the secondary-school audience.

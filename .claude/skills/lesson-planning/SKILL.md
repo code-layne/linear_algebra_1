@@ -1,39 +1,42 @@
 ---
 name: lesson-planning
 description: >-
-  Author complete, build-ready lessons for the Linear Algebra & Mathematical Modeling
-  LaTeX curriculum (a project with a shared/ style package — prefix linalg — and a
-  Makefile hierarchy that compiles components with latexmk and merges them with pdfunite).
+  Author complete, build-ready lessons for the Linear Algebra LaTeX curriculum (a project
+  with a shared/ style package — prefix linalg — and a Makefile hierarchy that compiles
+  components with latexmk and merges them with pdfunite).
   Use this whenever the user wants to create, draft, or build a lesson, a lesson plan, a
   unit, or any lesson component — warm-up, guided notes, activity, exit ticket, homework,
-  cover sheet, or their answer keys. The course is defined by spec/course_structure.md
-  (four themes, ten units, each with an essential question and a topic list); decompose
-  units into lessons from it. Trigger this even when the user just says "make lesson 2.3"
-  or "I need a warm-up and key for tomorrow," and even if they don't say "skill" or "LaTeX."
+  cover sheet, or their answer keys. The course is defined by spec/linear_algebra_v2.md, whose
+  course map mirrors Strang's Linear Algebra for Everyone: eight units are its eight chapters
+  and each lesson is a subchapter; decompose units into lessons from it. Trigger this even
+  when the user just says "make lesson 2.3" or "I need a warm-up and key for tomorrow," and
+  even if they don't say "skill" or "LaTeX."
 ---
 
-# Lesson Planning — Linear Algebra & Mathematical Modeling
+# Lesson Planning — Linear Algebra
 
-This skill authors lessons for the **Linear Algebra & Mathematical Modeling** course and
-produces print-ready PDFs through the project's own build system. **It builds around the
-project's conventions — it does not invent its own.** The course is *not* a procedural
-linear-algebra course; it is a conceptual, modeling-and-communication course for a
-**secondary-school** audience (see `spec/course_structure.md`). Author every component in
-that spirit: emphasize representation, interpretation, justification, and modeling over
-symbol-pushing.
+This skill authors lessons for the **Linear Algebra** course and produces print-ready PDFs
+through the project's own build system. **It builds around the project's conventions — it
+does not invent its own.** The course is a conceptual, **geometry-first** linear-algebra
+course for a **secondary-school** audience (see `spec/linear_algebra_v2.md`). Author every
+component in that spirit: emphasize geometric intuition, interpretation, and justification
+over symbol-pushing, and treat applications as **guided illustration — not** open-ended
+modeling.
 
 ## The course at a glance
 
-- **Structure** comes from `spec/course_structure.md` — the philosophy, the **four themes**
-  (Representation, Transformation, Prediction, Communication), and the **ten units**, each
-  with an Essential Question and a list of topics + applications. This is the unit/lesson map.
-- **Content** comes from the two **MIT OpenCourseWare mirrors in `spec/`**: **18.06 Linear
-  Algebra** (the spine — Strang) and **18.02 Multivariable Calculus** (vectors, dot product,
-  determinants, geometry). Each lesson's mathematics, examples, and exercises are sourced
-  from the matching OCW lecture / reading / problem set — see `references/course-workflow.md`.
-- **Audience is secondary school.** Both OCW courses are *undergraduate*; always down-level:
-  concrete numbers and geometry first, formalism later, applications up front, heavy
-  scaffolding. Never paste undergraduate problems verbatim — rewrite to level and voice.
+- **Structure** comes from `spec/linear_algebra_v2.md` — the guiding philosophy and a **course
+  map that mirrors the primary text's table of contents**: **eight units are the eight chapters
+  of Strang's *Linear Algebra for Everyone*, and each lesson is a subchapter (section)**. The
+  core sequence is Units 1–6; Units 7–8 and §6.4 are optional/advanced. This is the
+  unit/lesson map.
+- **Content** comes **entirely from the primary text, Gilbert Strang's _Linear Algebra for
+  Everyone_** (units = chapters, lessons = subchapters) — **no supplementary materials**. Every
+  lesson's mathematics, examples, and exercises are sourced from the matching subchapter. See
+  `references/course-workflow.md`.
+- **Audience is secondary school.** The book is college-level; always down-level: concrete
+  numbers and geometry first, formalism later, applications up front, heavy scaffolding. Never
+  paste a college-level problem verbatim — rewrite to level and voice.
 - **Style prefix is `linalg`** — `shared/linalg-{colors,article,boxes,key}.sty`. A teacher
   **slide deck** (`slides`) is also supported once `shared/linalg-beamer.sty` is in place; if
   you copy that theme in from another course, fix its internal `apcalc-*` package references
@@ -62,16 +65,35 @@ fed straight to `pdfunite` from the source tree with no compile step (Step 4).
 Follow these steps in order. Read the referenced files as you reach each step rather than
 all upfront.
 
-### Step 0 — Detect project context (always do this first)
+### Step 0 — Sync with upstream, then detect project context (always do this first)
 
-1. **Confirm the prefix.** `ls shared/*-colors.sty` → it is `linalg`. All
+**Sync the worktree first — before reading or writing anything.** This skill runs in a git
+worktree; start *every* invocation by pulling the latest upstream changes so you author
+against the current shared styles, spec, and lesson map. Do this automatically — the user
+should never have to ask:
+
+```bash
+git fetch origin
+# Integrate the latest default branch (usually main) into this worktree's branch:
+DEFAULT=$(git symbolic-ref --quiet --short refs/remotes/origin/HEAD 2>/dev/null | sed 's@^origin/@@')
+git merge --no-edit "origin/${DEFAULT:-main}"
+```
+
+If the working tree is dirty or the merge reports conflicts, **stop and surface it to the
+user** — never force, reset, or discard changes to make the sync succeed. Once the sync is
+clean, detect project context:
+
+1. **Read the planning log.** Open `spec/course_planning.md` (the running handoff log) for the
+   current build state and the next steps left by the previous run. It orients the whole
+   session; you update it at the end (Step 6). If it does not exist yet, this is the first run.
+2. **Confirm the prefix.** `ls shared/*-colors.sty` → it is `linalg`. All
    `\usepackage{linalg-article}` etc. use it.
-2. **Course macros live in `shared/`.** `linalg-article.sty` defines `\CourseName`,
+3. **Course macros live in `shared/`.** `linalg-article.sty` defines `\CourseName`,
    `\SchoolYear`, `\MeetingLength`, so a lesson plan defines only `\UnitNumberName` and
    `\LessonNumberName` (the scaffolder handles this).
-3. **Find the insertion point.** List `unit*/lesson*` to find the next unit/lesson number
+4. **Find the insertion point.** List `unit*/lesson*` to find the next unit/lesson number
    and whether the target lesson already exists.
-4. **Find a model lesson — or recognize there isn't one yet.** If a built lesson already
+5. **Find a model lesson — or recognize there isn't one yet.** If a built lesson already
    exists, open it and mirror its preamble, box usage, and tone. **This is a greenfield
    course**: if no lesson exists yet, `references/conventions.md` and
    `references/components.md` are your reference, and the *first* lesson you author becomes
@@ -81,18 +103,18 @@ all upfront.
 
 The content path is always `references/course-workflow.md`:
 
-- **Decompose the unit into lessons** from `spec/course_structure.md`. The convention is
-  **one lesson per topic bullet**, in listed order (Lesson `<unit>.<n>`). Present the
-  proposed lesson map for the unit and **confirm it with the user before authoring** —
-  topics occasionally merge or split.
-- **Gather the lesson's content**: the unit's Essential Question and governing theme, the
-  specific topic, the relevant applications (these drive activity/homework contexts and
-  modeling tasks), and the **matching OCW lecture / reading / problem set** (18.06 first,
-  18.02 for vectors/geometry/determinants) — then **down-level it for secondary students**.
+- **Decompose the unit into lessons** from `spec/linear_algebra_v2.md`. The convention is
+  **one lesson per topic bullet / subchapter**, in listed order (Lesson `<unit>.<n>`).
+  Present the proposed lesson map for the unit and **confirm it with the user before
+  authoring** — topics occasionally merge or split.
+- **Gather the lesson's content**: the specific topic, the unit's relevant applications
+  (these drive activity/homework contexts), and the **matching _Linear Algebra for Everyone_
+  subchapter** (the sole source for the math, examples, and exercises) — then **down-level it
+  for secondary students**.
 
 See `references/course-workflow.md` for the decomposition rules and the content-mapping
-table. Unit 10 is a **capstone modeling project**, not ordinary lessons — it gets special
-handling (also in `course-workflow.md`).
+table. The optional Discrete Systems (Markov) unit is an ordinary unit of lessons — it gets
+no special-case handling.
 
 ### Step 2 — Scaffold the lesson directory
 
@@ -117,6 +139,12 @@ Then fill in the skeletons.
 
 ### Step 3 — Author the lesson plan and components
 
+**Before writing any component, do a full `Read` on each scaffolded `main.tex` skeleton you
+are about to replace.** Use the `Read` tool on the actual file — a `cat`/`bash` dump does
+**not** register the file with the editor and the first write will fail ("file has not been
+read yet"). Read every skeleton you intend to author (each component and its `_key`) up front,
+then write them. This is mandatory, not optional.
+
 Author each file following `references/components.md`, which gives the required section
 structure and a worked skeleton for every component and its key. Hold to these invariants:
 
@@ -130,8 +158,8 @@ structure and a worked skeleton for every component and its key. Hold to these i
   `vocabbox`, `hookbox`, `notesbox`, `practicebox`, `scenariobox`, `tocbox`, etc.) and
   fill-in helpers (`\blank`, `\writeline`, `\termblanklong`, `\namedateperiod`) rather than
   reinventing layout. The full catalog is in `references/conventions.md`.
-- **Match the course pedagogy.** Favor interpretation, justification, and modeling prompts
-  over rote computation; lean on the unit's applications for context. Never ask students to
+- **Match the course pedagogy.** Favor geometric intuition, interpretation, and justification
+  over rote computation; lean on the unit's guided applications for context. Never ask students to
   "sketch/draw/construct" a graph from scratch — give a pre-drawn figure to read, a table to
   complete, or a computation/interpretation question instead.
 - If the warm-up is a **prefab** PDF (`warmup/main.pdf` in the source tree), the lesson plan
@@ -165,26 +193,54 @@ whole curriculum. Output lands in `target/`. The build needs XeLaTeX, `latexmk`,
 `pdfunite`; if a compile fails, surface the `.log` and fix the offending `.tex` rather than
 editing the build system. Details and troubleshooting in `references/build.md`.
 
+### Step 6 — Update the course planning log (always do this last)
+
+**Before you finish, record progress in `spec/course_planning.md`.** This is the running
+handoff log that lets the next invocation — often in a fresh worktree after the Step 0 sync —
+pick up exactly where this one left off. Do this at the **end of every execution of this
+skill**, even a partial one; the user should never have to ask.
+
+Update the file to reflect reality *now*:
+
+- **Last updated** — today's date (absolute), and a one-line summary of what this run did.
+- **Current state** — the unit/lesson build status: which units/lessons are scaffolded, which
+  components are authored vs. still skeleton vs. built, and any confirmed lesson maps. Keep the
+  per-unit progress table in sync with what actually exists on disk.
+- **Next steps** — the concrete next actions (e.g. "author Unit 1 Lesson 1.2 notes + key",
+  "confirm the Unit 2 lesson map with the user"), plus any open questions or decisions pending
+  from the user.
+
+Keep it terse and current — overwrite stale entries rather than appending a changelog. If the
+file does not exist yet, create it with these sections. Since it lives in `spec/`, it is
+tracked and travels with the branch, so the Step 0 sync always brings the latest state forward.
+
 ## Reference files
 
 - `references/conventions.md` — the style packages, every box environment, the fill-in and
   answer-key macros, color palette, and per-document-type preambles. Read before authoring.
 - `references/components.md` — section-by-section spec and a skeleton for the lesson plan and
   each component + key.
-- `references/course-workflow.md` — decomposing `spec/course_structure.md` into units and
-  lessons, the four themes, the content-mapping table, and the Unit 10 capstone.
+- `references/course-workflow.md` — decomposing `spec/linear_algebra_v2.md` into units and
+  lessons, the unit map, the content-mapping table, and the optional Discrete Systems unit.
 - `references/build.md` — the Makefile hierarchy, scaffolding, prefab PDFs, build commands,
   and troubleshooting.
 
 ## Guardrails
 
-- Structure comes from `spec/course_structure.md`; content comes from the 18.06/18.02 OCW
-  mirrors in `spec/`. Don't invent mathematics — source it, then adapt.
-- Audience is secondary school: down-level the undergraduate OCW material every time
-  (concrete first, applications up front, no verbatim college problem sets).
+- **Bookend every run with the planning log:** read `spec/course_planning.md` at the start
+  (Step 0) and update its current-state + next-steps at the end (Step 6). Never skip the
+  end-of-run update, even for a partial run.
+- **Full `Read` each skeleton before writing it** (Step 3). A `bash`/`cat` dump does not
+  register the file with the editor, so the write fails; always use the `Read` tool first.
+- Structure comes from `spec/linear_algebra_v2.md`; content comes **only** from Strang's
+  *Linear Algebra for Everyone* — no supplementary materials. Don't invent mathematics —
+  source it from the book, then adapt.
+- Audience is secondary school: down-level the college-level text every time (concrete first,
+  applications up front, no verbatim college problems).
 - Greenfield: there may be no existing lesson to mirror; lean on the reference docs and make
   the first lesson a clean model.
 - Keep blank and key documents in lockstep — the key is the blank with answers filled in.
-- This is a modeling/communication course: interpretation and justification over procedure;
-  no "sketch from scratch" questions.
+- This is a conceptual, geometry-first course: interpretation and justification over
+  procedure; applications are guided illustration, not open-ended modeling; no "sketch from
+  scratch" questions.
 - Don't modify `shared/` or the Makefiles to make a lesson build; fix the lesson's `.tex`.

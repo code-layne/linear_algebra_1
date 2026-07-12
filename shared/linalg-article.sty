@@ -32,20 +32,20 @@
 \newcommand{\writeline}{\vspace{1pt}\noindent\textcolor{linegray}{\hrulefill}\vspace{3pt}}
 \newcommand{\writelines}[1]{\foreach \i in {1,...,#1}{\writeline\\}}
 \newcommand{\termblank}[1]{%
-  \noindent\textbf{\textcolor{navy}{#1:}}\quad\blank{6.5cm}\\[1pt]%
+  \noindent\textbf{\textcolor{burgundy}{#1:}}\quad\blank{6.5cm}\\[1pt]%
   \writeline\\[2pt]}
 \newcommand{\termblanklong}[1]{%
-  \noindent\textbf{\textcolor{navy}{#1:}}\\[1pt]%
+  \noindent\textbf{\textcolor{burgundy}{#1:}}\\[1pt]%
   \writeline\\[1pt]\writeline\\[3pt]}
 
 % ── Page header: \pageheader{Unit X, Lesson Y.Z}{Document Type} ───────────────
 \newcommand{\pageheader}[2]{%
     \noindent
-    \colorbox{navy}{%
+    \colorbox{burgundy}{%
         \parbox{\dimexpr\linewidth}{%
             \vspace{6pt}%
             \color{white}\textbf{\large Linear Algebra \hfill #1}\\[2pt]%
-            {\color{skymid}\small\textbf{#2}}%
+            {\color{blushmid}\small\textbf{#2}}%
             \vspace{6pt}%
         }%
     }%
@@ -63,6 +63,6 @@
     \end{tabularx}}
 
 % course metadata
-\newcommand{\CourseName}{Linear Algebra \& Mathematical Modeling}
+\newcommand{\CourseName}{Linear Algebra}
 \newcommand{\SchoolYear}{2026--2027}
 \newcommand{\MeetingLength}{55 minutes}

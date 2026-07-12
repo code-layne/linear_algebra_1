@@ -121,9 +121,34 @@ in beamer — write the course name literally. Mirror the existing `slides/main.
 the beamer theme is bespoke. Keep slides aligned to the lesson's instructional progression and
 down-leveled for the secondary-school audience.
 
+## Unit tests (summative assessments)
+
+Unit-level, not per-lesson — scaffolded once per unit under `unitXX/tests/` and
+`unitXX/test_keys/` (see SKILL "What a unit is" and `references/build.md`). Author **two blank
+tests and their two keys**, all with `\pageheader{Unit X: <Title>}{...}` + `\namedateperiod`:
+
+- **`tests/practice_test/main.tex`** — the study copy students keep. Opens with a `remindbox`
+  telling students it mirrors the real test in format and ideas but uses different numbers.
+  Organize into `\parthead{Part …}` sections (vocabulary, multiple choice, short
+  answer/computation, extended response) with `\vspace` work room. This test is **published as
+  the unit's `sample_test`** and lands in the student packet.
+- **`tests/actual_test/main.tex`** — the real test given at test time. Same format, parts, and
+  difficulty as the practice test, **different numbers/contexts**; no "this is practice" box.
+  It is **never** merged into a packet — it is distributed separately.
+- **`test_keys/practice_test_key/main.tex`**, **`test_keys/actual_test_key/main.tex`** — the
+  keys, each mirroring its blank test exactly (preamble swaps `-boxes` for `-key`), answers in
+  `\ans{...}`, correct MC options tagged, extended-response scoring in a `teachernote`. The
+  practice key is published as `sample_test_key` (full packet only).
+
+Content comes from across the whole unit's subchapters (it is summative). Cover the same
+priority ideas the lessons taught; keep the interpret-and-justify emphasis in the extended
+response. The practice and actual versions must stay parallel so the practice test is honest
+preparation. Build/publish with `make -C unitXX/tests all` and `make -C unitXX/test_keys all`.
+
 ## Answer-key discipline
 
-There is no key toggle — every key is a separate file under `<comp>_key/`:
+There is no key toggle — every key is a separate file under `<comp>_key/` (this applies to the
+test keys too):
 - Copy the blank component **verbatim**, then swap `\usepackage{linalg-boxes}` for
   `\usepackage{linalg-key}`.
 - Replace each blank/write-line with `\ans{answer}` (inline) or `\ansline{answer}` (fills a

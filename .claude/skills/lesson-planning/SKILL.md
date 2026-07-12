@@ -60,6 +60,25 @@ compiles the `main.tex` ones with `latexmk -xelatex`, and merges all of them wit
 `lessonYY_full.pdf` (cover + keyed versions, plus the lesson plan and slides). A prefab `main.pdf` is
 fed straight to `pdfunite` from the source tree with no compile step (Step 4).
 
+## What a unit is
+
+A unit (`unitXX/`) holds its lessons plus **unit-level summative assessments**, scaffolded
+automatically when the unit is first created (Step 2):
+
+- **`tests/`** — the blank tests, one subdir each: **`practice_test/`** (a study copy students
+  keep) and **`actual_test/`** (the real test given in a testing setting). Its `Makefile`
+  (`include ../../shared/tests.mk`) compiles both and its `drop` target publishes the
+  *practice* test to `sample_test/main.pdf`.
+- **`test_keys/`** — the matching answer keys: **`practice_test_key/`** and
+  **`actual_test_key/`**; its `drop` publishes the *practice* test key to `sample_test_key/main.pdf`.
+- **`sample_test/`** and **`sample_test_key/`** — prefab drop-in dirs that receive those
+  published PDFs. `shared/unit.mk` merges `sample_test` into **both** the unit student and full
+  packets, and `sample_test_key` into the **full** packet only. The **actual** test and its key
+  are never merged into any packet — they stay out of student hands.
+
+So the practice test is what students study from (in the packet); the actual test is authored
+alongside it, shares the format, but is distributed separately at test time.
+
 ## Workflow
 
 Follow these steps in order. Read the referenced files as you reach each step rather than
@@ -136,6 +155,12 @@ components). Pass `--prefab warmup` to create that component as an empty drop-in
 instead (Step 4). Add `slides` to the component list to scaffold a Beamer deck — the
 scaffolder requires `shared/linalg-beamer.sty` to exist and errors clearly if it doesn't.
 Then fill in the skeletons.
+
+**Unit assessments scaffold automatically.** When the run creates a *new* unit, the scaffolder
+also lays down that unit's `tests/`, `test_keys/`, `sample_test/`, and `sample_test_key/` dirs
+(practice + actual test skeletons and their keys, plus thin-include Makefiles) — see
+"What a unit is." It never clobbers authored tests on later lessons. Use `--no-tests` to skip
+them, or `--tests` to (re)scaffold them for a unit that already exists (idempotent).
 
 ### Step 3 — Author the lesson plan and components
 

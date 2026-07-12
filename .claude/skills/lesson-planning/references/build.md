@@ -74,6 +74,34 @@ To include a ready-made PDF as a component, drop it in as `<comp>/main.pdf` (and
 your source PDFs are never deleted. (Requires the `lesson.mk` that discovers `main.pdf`; older
 Makefiles that glob only `main.tex` will silently omit prefab-only components — update first.)
 
+## Unit assessments (tests)
+
+Each unit carries summative assessments alongside its lessons, scaffolded automatically when
+the unit is created:
+
+- **`unitXX/tests/`** — `practice_test/main.tex` (student study copy) and `actual_test/main.tex`
+  (real test), plus `Makefile` = `include ../../shared/tests.mk`.
+- **`unitXX/test_keys/`** — `practice_test_key/main.tex` and `actual_test_key/main.tex`, plus
+  `Makefile` = `include ../../shared/test_keys.mk`.
+- **`unitXX/sample_test/`**, **`unitXX/sample_test_key/`** — drop-in dirs that receive published
+  PDFs (initially empty, with a `.gitkeep`).
+
+`shared/tests.mk`/`shared/test_keys.mk` compile every `*/main.tex` subdir, then a `drop` target
+**publishes the practice test/key** to `sample_test/main.pdf` and `sample_test_key/main.pdf`.
+`shared/unit.mk` then merges `sample_test` into the unit **student and full** packets and
+`sample_test_key` into the **full** packet only. The **actual** test/key are never merged.
+
+```bash
+make -C unitXX/tests all         # compile practice + actual tests, publish sample_test/main.pdf
+make -C unitXX/test_keys all     # compile both keys, publish sample_test_key/main.pdf
+make -C unitXX full              # merges the published sample test + key into the unit packet
+make -C unitXX/tests clean       # remove target/UNIT/tests
+```
+
+Build order matters: run `make -C unitXX/tests all` (and `test_keys all`) **before** the unit
+packet, so the `sample_test` prefab exists when `unit.mk` merges it. Output lands in
+`target/UNIT/tests/<name>/main.pdf` and `target/UNIT/test_keys/<name>/main.pdf`.
+
 ## Troubleshooting
 
 `-file-line-error` makes errors report as `file:line: message`. Read the component's log at

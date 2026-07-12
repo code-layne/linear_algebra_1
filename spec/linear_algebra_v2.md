@@ -5,9 +5,6 @@
 The course will be built around:
 
 - **Primary Text:** *Linear Algebra for Everyone* — Gilbert Strang  
-- **Supplementary Resources:**  
-  - MIT OCW 18.06 (Strang lectures)  
-  - *Introduction to Linear Algebra* — Gilbert Strang (selective use)
 
 ---
 
@@ -73,36 +70,6 @@ Modeling is included in a **constrained, structured way**, not as an open-ended 
 - Proof-heavy modeling frameworks
 - Advanced optimization
 - Tasks requiring simultaneous abstraction + creativity + technical setup
-
----
-
-## Use of Supplementary Materials
-
-### *Introduction to Linear Algebra*
-Used for:
-- Stronger problem sets
-- More precise definitions
-- Occasional deeper structure
-
-Avoid:
-- Full assignment of sections
-- Early heavy abstraction
-
----
-
-### MIT OCW 18.06
-
-Instructor use:
-- Extract clear explanations
-- Use diagrams and visual intuition
-- Adapt key insights into lessons
-
-Student use:
-- Selected clips or guided notes only
-
-Avoid:
-- Assigning full lecture sequences
-- Overexposing students to abstraction
 
 ---
 

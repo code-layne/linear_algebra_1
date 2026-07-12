@@ -4,10 +4,12 @@
 \RequirePackage{xcolor}
 
 % ── Primary palette ───────────────────────────────────────────────────────────
-\definecolor{navy}{HTML}{1F3A5F}
-\definecolor{navylight}{HTML}{2E5490}
-\definecolor{sky}{HTML}{EAF3FB}
-\definecolor{skymid}{HTML}{C5DFF5}
+% Burgundy is the dominant color: deep frame/header tone plus a lighter
+% companion, with warm blush tints used for paired box backgrounds.
+\definecolor{burgundy}{HTML}{6B2137}
+\definecolor{burgundylight}{HTML}{9C3A54}
+\definecolor{blush}{HTML}{FBEEF1}
+\definecolor{blushmid}{HTML}{E9BFCB}
 \definecolor{goldacc}{HTML}{D4820A}
 \definecolor{goldbg}{HTML}{FEF3E2}
 \definecolor{hookbg}{HTML}{FEF3E2}
@@ -15,6 +17,8 @@
 \definecolor{greenacc}{HTML}{2D7A4F}
 \definecolor{redbg}{HTML}{FCECEC}
 \definecolor{redacc}{HTML}{C0392B}
+\definecolor{royalblue}{HTML}{24509C}
+\definecolor{skyblue}{HTML}{E7F0FB}
 \definecolor{charcoal}{HTML}{2C3E50}
 \definecolor{slate}{HTML}{64748B}
 \definecolor{linegray}{HTML}{AAAAAA}
@@ -24,3 +28,11 @@
 \definecolor{goldbox}{HTML}{FFF7E6}
 \colorlet{greenbox}{greenbg}
 \colorlet{redbox}{redbg}
+
+% ── Deprecated aliases ────────────────────────────────────────────────────────
+% The palette's dominant color was formerly navy; these keep older references
+% working. Prefer the burgundy/blush names above in new material.
+\colorlet{navy}{burgundy}
+\colorlet{navylight}{burgundylight}
+\colorlet{sky}{blush}
+\colorlet{skymid}{blushmid}

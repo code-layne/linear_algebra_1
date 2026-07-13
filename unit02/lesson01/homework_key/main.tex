@@ -3,17 +3,82 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.1}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+Show your steps and \textbf{check} every solution by rebuilding $\bb$.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Just the multiplier.} For each pair, name the \emph{pivot} (top-left coefficient) and
+        the \emph{multiplier} $\ell=$ entry $\div$ pivot that would clear the term below it. Do not solve.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item \ans{pivot $3$,\ \ $\ell=6\div3=2$} \hfill
+      \item \ans{pivot $2$,\ \ $\ell=8\div2=4$} \hfill
+      \item \ans{pivot $1$,\ \ $\ell=5\div1=5$}
+    \end{enumerate}
+  \item \textbf{Solve by elimination.} Find $x$ and $y$ for each system.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item \ans{$x=2,\ y=3$} \hfill
+      \item \ans{$x=1,\ y=2$} \hfill
+      \item \ans{$x=3,\ y=2$}
+    \end{enumerate}
+    {\footnotesize (a) $\ell=2$: row2$-2\,$row1 $\Rightarrow y=3$, then $x=2$.\ \ (b) $\ell=2$:
+    row2$-2\,$row1 $\Rightarrow -y=-2$, $y=2$, then $x=1$.\ \ (c) $\ell=2$: row2$-2\,$row1
+    $\Rightarrow 3y=6$, $y=2$, then $x=3$.}
+  \item \textbf{Feed blend.} Each bag of \textbf{Feed A} has $2$ kg corn and $1$ kg oats; each bag of
+        \textbf{Feed B} has $1$ kg corn and $4$ kg oats. A farmer needs exactly $13$ kg corn and
+        $24$ kg oats.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
+      \item Set up $A\xx=\bb$ and solve by elimination for the number of bags of each feed.
+            (Reorder the equations first so the multiplier is a whole number.)
+            \ansline{corn: $2a+b=13$; oats: $a+4b=24$. Put oats first (pivot $1$), $\ell=2$:
+            $(2a+b)-2(a+4b)=13-48\Rightarrow -7b=-35\Rightarrow b=5$, then $a=24-20=4$.
+            Check: $4\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}+5\begin{bsmallmatrix} 1\\4 \end{bsmallmatrix}=\begin{bsmallmatrix} 13\\24 \end{bsmallmatrix}$ \checkmark}
+      \item \emph{Interpret:} how many bags of each, and does the answer make sense?
+            \ansline{$4$ bags of Feed A and $5$ of Feed B --- whole, positive bags, so it is a workable blend.}
+    \end{enumerate}
+  \item \textbf{Three unknowns.} Solve by elimination --- clear column~1, then column~2, then
+        back-substitute:
+        \[
+          \begin{array}{r@{}c@{}l}
+            x &{}+ 2y + z ={}& 8 \\
+            x &{}+ 3y + 2z ={}& 13 \\
+            2x &{}+ 5y + 6z ={}& 30
+          \end{array}
+        \]
+        \ansline{Round~1 (pivot $1$): $\ell_{21}=1$ gives $y+z=5$; $\ell_{31}=2$ gives $y+4z=14$.}
+        \ansline{Round~2 (pivot $1$): $\ell_{32}=1$ gives $3z=9\Rightarrow z=3$; then $y=2$, $x=1$. Solution $(1,2,3)$.}
+  \item \textbf{Fix the zero pivot.} Elimination on $\ 0x + 4y = 8,\ \ x + 3y = 9\ $ can't start.
+        Say what is wrong, fix it with a \textbf{row exchange}, and solve.
+        \ansline{The pivot slot (row~1's $x$-coefficient) is $0$. Swap the rows: $x+3y=9,\ 4y=8$.
+        Then $y=2$ and $x+6=9\Rightarrow x=3$: solution $(3,2)$.}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Meet $L$.} In Problem~4 you used three multipliers: $\ell_{21}$ and $\ell_{31}$ (Round~1)
+and $\ell_{32}$ (Round~2). List all three, then drop them into a lower-triangular array with $1$s
+on the diagonal:
+\[
+  L = \begin{bmatrix} 1 & 0 & 0 \\ \ell_{21} & 1 & 0 \\ \ell_{31} & \ell_{32} & 1 \end{bmatrix}.
+\]
+You have just recorded the \emph{whole} elimination in one matrix --- the $L$ of $A=LU$ coming in
+Lesson~2.3.
+\ansline{$\ell_{21}=1,\ \ell_{31}=2,\ \ell_{32}=1$, so $L=\begin{bsmallmatrix} 1&0&0 \\ 1&1&0 \\ 2&1&1 \end{bsmallmatrix}$.}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 2.2: Elimination Matrices and Inverse Matrices.} Today each step was
+``subtract $\ell$ times a row.'' Next we show that step is itself a \textbf{matrix} multiplying the
+system --- and running the steps backward leads to the \textbf{inverse} of $A$.
+\end{spiralbox}
 
 \end{document}

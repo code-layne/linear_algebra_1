@@ -3,17 +3,48 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.1}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small These three moves are the pieces elimination is built from. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Subtract to remove a variable.} Both equations already have a $2y$. Subtract the first
+from the second to remove $y$, then finish.
+\[
+  x + 2y = 7, \qquad 3x + 2y = 13.
+\]
+\hspace{2em} $x = {}$\ans{$3$} \qquad $y = {}$\ans{$2$}
+\quad{\footnotesize(subtract: $2x=6$, so $x=3$, then $3+2y=7$, $y=2$)}
+
+\vspace{8pt}
+\textbf{2. Scale an equation.} Multiplying \emph{both sides} of an equation by the same number
+keeps it true. Double every term of $2x + 3y = 13$:
+\[
+  2\,(2x + 3y) = 2\,(13) \quad\Longrightarrow\quad
+  {\color{keyred}\mathbf{4}}\,x + {\color{keyred}\mathbf{6}}\,y = {\color{keyred}\mathbf{26}}.
+\]
+
+\vspace{4pt}
+\textbf{3. Rows of $A\xx=\bb$.} Write $A\xx=\bb$ as two equations (one per row), with
+$A=\begin{bmatrix} 2 & 3 \\ 4 & 7 \end{bmatrix}$, $\xx=\begin{bmatrix} x \\ y \end{bmatrix}$, and
+$\bb=\begin{bmatrix} 13 \\ 27 \end{bmatrix}$.
+\ansline{$2x + 3y = 13$;\qquad $4x + 7y = 27$}
 \end{notesbox}
+
+\begin{teachernote}
+Item~1 is exactly the Lesson~2.0 move --- it works only \emph{because} both equations carry a
+$2y$. Item~2 is the new ingredient: scaling a row so coefficients line up. Item~3 is the very
+system solved in the notes; point out in the debrief that its $x$-coefficients ($2$ and $4$) do
+\emph{not} match, so item~1's plain subtraction won't work --- that is why we need a multiplier.
+\end{teachernote}
 
 \end{document}

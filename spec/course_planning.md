@@ -7,17 +7,20 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-13 — **Authored Unit 2 Lesson 2.0 in full** (all 13 files). Filled
-every skeleton for `unit02/lesson00` — lesson plan + cover, warmup, notes, activity,
-exit_ticket, homework (+ all 5 keys) + slides. Through-line: **run Unit 1 backwards** — Unit 1
-built $\bb=A\xx$; Unit 2 solves $A\xx=\bb$ for the weights $\xx$. Trail-mix "two bases → target"
-application where the same numbers appear as a **combination of columns** (1.3 view) and as a
-**system of equations** (new view), solved by **elimination** (subtract to kill a variable);
-one/none/infinitely-many tied to the two-lines picture and to reachability (1.3). Built
-`make -C unit02/lesson00 all` → clean (both `lesson00_student.pdf` + `lesson00_full.pdf`).
+**Last updated:** 2026-07-13 — **Authored Unit 2 Lesson 2.1 in full** (all 13 files). Filled
+every skeleton for `unit02/lesson01` — lesson plan + cover, warmup, notes, activity,
+exit_ticket, homework (+ all 5 keys) + slides. Through-line: **turn 2.0's "subtract to kill a
+variable" into a reliable procedure** — pick a **pivot**, compute the **multiplier**
+$\ell=\text{entry}\div\text{pivot}$, subtract $\ell\times$(pivot row) to make a zero, reach
+**upper-triangular** form, **back-substitute**, and check by rebuilding $\bb$. Motivating hook:
+2.0's plain subtraction only works when coefficients match ($2x+3y=13,\ 4x+7y=27$ needs a
+multiplier). Extends to a $3\times3$ staircase and previews $L$ (list the multipliers) in the
+homework extension; §4/exit-ticket cover the **zero-pivot → row exchange** case and the
+no/infinitely-many breakdown. Snack-pack + feed-blend applications. Built
+`make -C unit02/lesson01 all` → clean (both `lesson01_student.pdf` + `lesson01_full.pdf`).
 Page-count QA: warmup + exit_ticket each 1 page (blank AND key ✓). Fixed one build error
-(missing `\bb` def in `warmup_key`). Spot-checked cover + the 3-panel geometry figure visually
-— clean. Next run authors **Lesson 2.1** (The Idea of Elimination).
+(missing `\bb` def in `warmup`). Spot-checked notes_key (both pages) + cover visually — clean.
+Next run authors **Lesson 2.2** (Elimination Matrices and Inverse Matrices).
 
 ## Current state
 
@@ -61,14 +64,19 @@ Page-count QA: warmup + exit_ticket each 1 page (blank AND key ✓). Fixed one b
   `sample_test`/`sample_test_key` populated by `drop` (practice test + key).
 - Root `Makefile` and `unit01/Makefile` created. Toolchain present (xelatex, latexmk, pdfunite).
 
-**Unit 2 — lesson 2.0 authored & built; 2.1–2.4 scaffolded (skeletons + tests), NOT authored.**
+**Unit 2 — lessons 2.0 & 2.1 authored & built; 2.2–2.4 scaffolded (skeletons + tests), NOT authored.**
 Confirmed lesson map:
 - `unit02/lesson00` — id 2.0, **"From Combinations to Solutions --- Setting Up Ax = b"** ✅ authored
   (all components + keys + slides; both packets built). Content: solve $A\xx=\bb$ = run 1.3
   backwards to find weights; column view vs. row/equation view; elimination (subtract to remove a
   variable) + back-substitute + check; one/none/infinitely-many via two lines and reachability;
   trail-mix / smoothie / fertilizer blend contexts; previews §2.1 pivots.
-- `unit02/lesson01` — id 2.1, **"The Idea of Elimination"** (§2.1).
+- `unit02/lesson01` — id 2.1, **"The Idea of Elimination"** (§2.1) ✅ authored (all components +
+  keys + slides; both packets built). Content: pivot, multiplier $\ell=\text{entry}\div\text{pivot}$,
+  elimination step (lower row $-\,\ell\times$ pivot row), upper-triangular form $U$,
+  back-substitution, check by rebuilding $\bb$; $3\times3$ staircase; zero-pivot → row exchange +
+  no/infinitely-many breakdown; snack-pack / feed-blend contexts; homework extension lists the
+  multipliers as a first look at $L$; previews §2.2 elimination matrices & inverses.
 - `unit02/lesson02` — id 2.2, **"Elimination Matrices and Inverse Matrices"** (§2.2).
 - `unit02/lesson03` — id 2.3, **"Matrix Computations and A = LU"** (§2.3).
 - `unit02/lesson04` — id 2.4, **"Permutations and Transposes"** (§2.4).
@@ -82,7 +90,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | Unit | Chapter | Lessons | Status |
 | --- | --- | --- | --- |
 | 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
-| 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ◐ 2.0 authored & built ✅; 2.1–2.4 scaffolded, not authored |
+| 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ◐ 2.0 & 2.1 authored & built ✅; 2.2–2.4 scaffolded, not authored |
 | 3 | The Four Fundamental Subspaces | 3.1–3.5 | ☐ |
 | 4 | Orthogonality | 4.1–4.4 | ☐ |
 | 5 | Determinants and Linear Transformations | 5.1–5.3 | ☐ |
@@ -92,11 +100,12 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author Unit 2 Lesson 2.1 — "The Idea of Elimination"** (§2.1) into the scaffolded skeletons,
-   mirroring the 2.0 files as the model. Turn 2.0's informal "subtract to kill a variable" into the
-   systematic procedure: pivots, multipliers, clearing entries below the pivot, upper-triangular
-   form, back-substitution; when a pivot is zero (row exchange preview). Then 2.2 → 2.4, then the
-   Unit 2 tests/keys. Keep blank/key in lockstep; source math from LAfE §2.1, down-leveled.
+1. **Author Unit 2 Lesson 2.2 — "Elimination Matrices and Inverse Matrices"** (§2.2) into the
+   scaffolded skeletons, mirroring 2.0/2.1 as the model. Show each elimination step of 2.1 as a
+   matrix $E$ multiplying the system ($E_{21}$ subtracts $\ell\times$ a row); products of $E$s do
+   the whole elimination; running them backward gives the **inverse** ($A^{-1}A=I$, solving via
+   Gauss–Jordan). Tie to 2.1's multipliers/pivots and preview $A=LU$ (2.3). Then 2.3 → 2.4, then
+   the Unit 2 tests/keys. Keep blank/key in lockstep; source math from LAfE §2.2, down-leveled.
 2. *(optional)* Rebuild the whole Unit 1 packet (`make -C unit01 student|full`) to confirm the new
    `sample_test`/`sample_test_key` merge in as expected before moving on.
 

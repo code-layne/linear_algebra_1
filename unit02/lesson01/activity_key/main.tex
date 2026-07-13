@@ -3,17 +3,93 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.1}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Elimination Assembly Line.} Every system today follows the same line: pick a
+\textbf{pivot}, compute the \textbf{multiplier} $\ell=$ entry $\div$ pivot, subtract $\ell\times$
+the pivot row to make a zero, reach \textbf{upper-triangular} form, and \textbf{back-substitute}.
+Work with your partner and \emph{show every step}.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Solve $\ 2x + y = 7,\quad 4x + 3y = 17$. \; The pivot is $2$ and the multiplier is $\ell=4\div2=2$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=7pt]
+  \item Elimination step: replace row~2 by (row~2)$-2\,($row~1$)$. What equation is left?
+        \ansline{$(4x+3y)-2(2x+y)=17-14 \Rightarrow y=3$}
+  \item That gives $y$. \; $y=\ans{$3$}$
+  \item Back-substitute into row~1 to find $x$. \; $x=\ans{$2$}$ \quad{\footnotesize($2x+3=7$)}
+  \item \textbf{Check:} rebuild $\bb$ as $x\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}+y\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$.
+        \ans{$2\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}+3\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}=\begin{bsmallmatrix} 7\\17 \end{bsmallmatrix}$ \checkmark}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{(1) Snack packs.} Each \textbf{Pack A} holds $1$ granola bar and $3$ juice boxes; each
+\textbf{Pack B} holds $2$ granola bars and $1$ juice box. An order must use exactly $9$ granola
+bars and $17$ juice boxes.
+\begin{enumerate}[leftmargin=1.7em, itemsep=6pt]
+  \item Write it as a system (bars row, juice row) with unknowns $a,b$ (packs of each).
+        \ansline{$a + 2b = 9$ (bars);\quad $3a + b = 17$ (juice)}
+  \item Solve by elimination. Choose the pivot so the multiplier is a whole number.
+        \ansline{Pivot $1$ (the $a$ in row~1); $\ell=3\div1=3$. row~2$-3\,$row~1: $-5b=-10\Rightarrow b=2$, then $a=9-4=5$.}
+  \item \emph{Interpret:} how many of each pack, and does the answer make sense?
+        \ansline{$5$ of Pack A and $2$ of Pack B --- whole, positive counts, so it is a valid order.}
+\end{enumerate}
+
+\vspace{4pt}
+\textbf{(2) Three at once.} Solve by elimination (clear column~1, then column~2):
+\[
+  \begin{array}{r@{}c@{}l}
+    x &{}+ y + z ={}& 6 \\
+    2x &{}+ 3y + 4z ={}& 20 \\
+    x &{}+ 4y + 9z ={}& 36
+  \end{array}
+\]
+\ansline{Round~1 (pivot $1$): $\ell_{21}=2$ gives $y+2z=8$; $\ell_{31}=1$ gives $3y+8z=30$.}
+\ansline{Round~2 (pivot $1$): $\ell_{32}=3$ gives $2z=6\Rightarrow z=3$; then $y=2$, $x=1$. Solution $(1,2,3)$.}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{(1) Zero pivot.} In $\ 0x + 2y = 6,\ \ 4x + 3y = 17$, elimination can't start. Explain
+why, fix it with a \textbf{row exchange}, then solve.
+\ansline{The pivot slot (row~1's $x$-coefficient) is $0$, so there is no pivot to clear the column.
+Swap the rows: $4x+3y=17$, $2y=6$. Then $y=3$ and $4x+9=17\Rightarrow x=2$. Solution $(2,3)$.}
+
+\vspace{4pt}
+\textbf{(2) Read the breakdown.} Run elimination on each system (multiplier $2$) and use the last
+line to decide \emph{no solution} or \emph{infinitely many} --- and justify.
+\begin{enumerate}[leftmargin=1.7em, itemsep=6pt]
+  \item $\begin{aligned}[t] x + 2y &= 4 \\ 2x + 4y &= 9 \end{aligned}$
+        \hspace{1.5em} No, or infinitely many? Why?
+        \ansline{\textbf{No solution.} row~2$-2\,$row~1 gives $0=1$ --- impossible, so the lines are
+        parallel and never meet (inconsistent).}
+  \item $\begin{aligned}[t] x + 2y &= 4 \\ 2x + 4y &= 8 \end{aligned}$
+        \hspace{1.5em} No, or infinitely many? Why?
+        \ansline{\textbf{Infinitely many.} row~2$-2\,$row~1 gives $0=0$ --- the second equation is
+        just twice the first (same line), so every point on it solves the system.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~A(1) is the interpret moment: whole positive pack counts make the algebra a real order. If a
+group divides pivot by entry in Tier~A(1), they will get $\ell=\tfrac13$ --- remind them $\ell=$
+entry $\div$ pivot, and that choosing the row-1 pivot of $1$ keeps it whole. Tier~E connects the
+zero-pivot swap (fixable) with a genuine breakdown ($0=$ nonzero vs.\ $0=0$), the same
+no/infinitely-many split from Lesson~2.0.
+\end{teachernote}
 
 \end{document}

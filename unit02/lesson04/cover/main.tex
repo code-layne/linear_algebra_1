@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 2}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 2 \quad Solving Linear Equations $A\mathbf{x}=\mathbf{b}$}}\\[6pt]
   {\color{white}\textbf{\large Lesson 2.4 \quad Permutations and Transposes}}
 \end{center}
 
@@ -27,8 +27,10 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} build a \textbf{permutation matrix} $P$ (the identity with rows swapped) and use it to compute $PA$.
+  \item \ldots{} fix a \textbf{zero pivot} with a row swap and write the factorization $PA=LU$.
+  \item \ldots{} \textbf{transpose} a matrix ($A\to A^{\mathsf{T}}$) and recognize \textbf{symmetric} matrices ($A^{\mathsf{T}}=A$).
+  \item \ldots{} explain why a row swap never changes the solution to $A\mathbf{x}=\mathbf{b}$.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +43,25 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: a swap matrix, a zero pivot, reading $(i,j)$ entries          & \blank{1.2cm} \\
+2 & Guided Notes   & Permutation matrices, fixing a zero pivot ($PA=LU$), the transpose            & \blank{1.2cm} \\
+3 & Group Activity & Swap, Factor, Flip --- fix a pivot, transpose, verify $(AB)^{\mathsf{T}}$      & \blank{1.2cm} \\
+4 & Exit Ticket    & Fix a $2\times2$ zero pivot; transpose and test for symmetry                  & \blank{1.2cm} \\
+5 & Homework       & Permutations, $PA=LU$ solves, transposes, the reversal rule                   & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small A \textbf{permutation matrix} $P$ is the identity with its rows reordered; $PA$ carries out that
+same row swap on $A$. When a \textbf{zero pivot} blocks $A=LU$, swap rows first --- then $PA=LU$ and you
+solve $A\mathbf{x}=\mathbf{b}$ by solving $PA\mathbf{x}=P\mathbf{b}$ (swap the same entries of
+$\mathbf{b}$). The swap only \textbf{reorders} the equations, so the solution $\mathbf{x}$ is unchanged.
+The \textbf{transpose} $A^{\mathsf{T}}$ flips $A$ across its diagonal (rows become columns); a
+\textbf{symmetric} matrix has $A^{\mathsf{T}}=A$, and $(AB)^{\mathsf{T}}=B^{\mathsf{T}}A^{\mathsf{T}}$.
+\end{remindbox}
 
 \end{document}

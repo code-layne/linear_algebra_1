@@ -3,17 +3,40 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\tp}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.4}{Warm-Up}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Warm-Up. See references/components.md for the expected structure.
-\begin{notesbox}{Warm-Up}
-\writelines{4}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small Today we handle the one case Lesson 2.3 skipped --- a $0$ in the pivot --- by \emph{swapping rows},
+and we meet the \emph{transpose}. These three quick items are the pieces.
+
+\vspace{4pt}
+\textbf{1. A swap matrix} (Lesson 1.3). Multiply, one entry at a time:
+\[
+  \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}
+  \begin{bmatrix} 4 \\ 9 \end{bmatrix}
+  = \begin{bmatrix}\rule{0pt}{1.1em}\blank{1.1cm}\\[2pt]\blank{1.1cm}\end{bmatrix}.
+\]
+Notice this matrix simply \emph{swaps} the two entries.
+
+\vspace{4pt}
+\textbf{2. A stuck pivot} (Lesson 2.1/2.3). To start elimination on
+$A=\begin{bsmallmatrix} 0&3\\2&5 \end{bsmallmatrix}$, the first pivot is the top-left entry. That entry is
+$\blank{1.1cm}$, and elimination cannot start because we would have to divide by
+\rule[-2pt]{2.2cm}{0.6pt}.
+
+\vspace{4pt}
+\textbf{3. Reading entries by address} (Lesson 1.3). For $A=\begin{bsmallmatrix} 6&1\\4&9 \end{bsmallmatrix}$,
+the entry in \emph{row 1, column 2} is $\blank{1.0cm}$ and the entry in \emph{row 2, column 1} is
+$\blank{1.0cm}$. (Today the transpose will trade these two spots.)
 \end{notesbox}
 
 \end{document}

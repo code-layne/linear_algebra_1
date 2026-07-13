@@ -1,6 +1,11 @@
 %! Permutations and Transposes — Unit 2, Lesson 2.4 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\cc}{\mathbf{c}}
+\newcommand{\PP}{P}
+\newcommand{\tp}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,16 +16,92 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 2.4}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Permutations and Transposes}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 2}
+    {\color{white}\bfseries\LARGE Permutations and Transposes}\\[0.3cm]
+    {\color{white}\bfseries\large Closing the last gap: the zero-pivot case, $\PP A=LU$}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 2: Solving Linear Equations $A\xx=\bb$}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{When elimination gets stuck}
+  \sectionlabel{Hook}
+  Try to start elimination the way we did all last lesson:
+  \[
+    A = \begin{bmatrix} 0 & 2 \\ 1 & 3 \end{bmatrix}.
+  \]
+  \begin{block}{The problem}
+    The first pivot is the top-left entry --- but it is $\mathbf{0}$. You can't divide by a zero pivot.
+    Is the system broken, or can we rescue it? \emph{(Swap the two equations!)}
+  \end{block}
+\end{frame}
+
+% PERMUTATION MATRIX
+\begin{frame}[t, plain]
+  \burgundyheader{A permutation matrix swaps rows}
+  \sectionlabel[goldacc]{The tool}
+  A \textbf{permutation matrix} is the identity with its rows reordered. The $2\times2$ swap:
+  \[
+    \PP = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix},\qquad
+    \PP\begin{bmatrix} a \\ b \end{bmatrix} = \begin{bmatrix} b \\ a \end{bmatrix},\qquad
+    \PP\begin{bmatrix} 0 & 2 \\ 1 & 3 \end{bmatrix} = \begin{bmatrix} 1 & 3 \\ 0 & 2 \end{bmatrix}.
+  \]
+  $\PP$ never changes the numbers --- only their \textbf{order}. Swapping twice gives $\PP\PP=I$.
+\end{frame}
+
+% FIX ZERO PIVOT
+\begin{frame}[t, plain]
+  \burgundyheader{Fix a zero pivot: $\PP A=LU$}
+  \sectionlabel{The idea}
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item Zero pivot? \textbf{Swap rows first} with $\PP$, then factor as usual.
+    \item $\PP A=\begin{bsmallmatrix} 1&3\\0&2 \end{bsmallmatrix}$ has pivots $1,2$ --- here already $U$, so $L=I$.
+  \end{itemize}
+  \begin{block}{The rule}
+    A permutation $\PP$ brings up a nonzero pivot, and $\PP A=LU$. For bigger matrices you swap, then run
+    2.3's elimination --- the multipliers fill $L$ (nontrivial for a $3\times3$).
+  \end{block}
+\end{frame}
+
+% WHY SAFE
+\begin{frame}[t, plain]
+  \burgundyheader{Why the swap is safe}
+  \sectionlabel[goldacc]{The solution is unchanged}
+  Solve $A\xx=\bb$ by solving $\PP A\xx=\PP\bb$ --- swap the \emph{same} entries of $\bb$:
+  \[
+    A=\begin{bmatrix} 0&2\\1&3 \end{bmatrix},\ \bb=\begin{bmatrix} 2\\4 \end{bmatrix}
+    \;\Rightarrow\;
+    \begin{bmatrix} 1&3\\0&2 \end{bmatrix}\xx=\begin{bmatrix} 4\\2 \end{bmatrix}
+    \;\Rightarrow\; \xx=\begin{bmatrix} 1\\1 \end{bmatrix}.
+  \]
+  A row swap only \textbf{reorders the equations} --- same equations, so the same solution $\xx$.
+\end{frame}
+
+% TRANSPOSE
+\begin{frame}[t, plain]
+  \burgundyheader{The transpose and symmetric matrices}
+  \sectionlabel{Rows $\leftrightarrow$ columns}
+  $A^{\tp}$ flips $A$ across its diagonal --- row $i$ becomes column $i$:
+  \[
+    A=\begin{bmatrix} 1&2&0\\3&1&4 \end{bmatrix}\Rightarrow A^{\tp}=\begin{bmatrix} 1&3\\2&1\\0&4 \end{bmatrix},
+    \qquad
+    S=\begin{bmatrix} 2&5\\5&3 \end{bmatrix}=S^{\tp}\ \text{(symmetric)}.
+  \]
+  Two rules: $(AB)^{\tp}=B^{\tp}A^{\tp}$ (order reverses --- socks-and-shoes) and $\PP^{\tp}=\PP^{-1}$.
+\end{frame}
+
+% PREVIEW
+\begin{frame}[t, plain]
+  \burgundyheader{Where this is heading}
+  \sectionlabel{Connections}
+  \textbf{Today:} a zero pivot? Swap rows with $\PP$ ($\PP A=LU$); meet the transpose and symmetric matrices.\\[8pt]
+  \begin{itemize}
+    \setlength{\itemsep}{4pt}
+    \item \textbf{Unit 2 is complete} --- you can solve $A\xx=\bb$ start to finish.
+    \item \textbf{Next: the Unit 2 Test}, then \textbf{Unit 3 --- The Four Fundamental Subspaces}: which $\bb$ are reachable, and what do \emph{all} the solutions look like?
+  \end{itemize}
 \end{frame}
 
 \end{document}

@@ -7,26 +7,25 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-13 — **Authored Unit 2 Lesson 2.3 in full** (all 13 files). Filled
-every skeleton for `unit02/lesson03` — lesson plan + cover, warmup, notes, activity,
-exit_ticket, homework (+ all 5 keys) + slides. Through-line: **$A=LU$ is elimination, saved**.
-$U$ is 2.1's upper-triangular result; $L$ is lower-triangular with $1$s on the diagonal and the
-**multipliers** $\ell$ below (the 2.2 undo-matrices $E^{-1}$ gathered up — the multipliers slot in
-free, no extra work). Solve $A\xx=\bb$ in **two triangular sweeps**: forward $L\cc=\bb$ (reproduces
-"update the RHS" — $\cc$ = 2.1's updated $\bb$), then back $U\xx=\cc$ (old back-substitution). §4
-makes the "Matrix Computations" cost point: factor once, then two cheap sweeps per order — what
-software does. Running $2\times2$ deliberately reuses 2.2's bakery $A=\begin{bsmallmatrix}1&3\\2&7\end{bsmallmatrix}$,
-$\bb=\begin{bsmallmatrix}7\\15\end{bsmallmatrix}$ → $L=\begin{bsmallmatrix}1&0\\2&1\end{bsmallmatrix}$,
-$U=\begin{bsmallmatrix}1&3\\0&1\end{bsmallmatrix}$, $\cc=\begin{bsmallmatrix}7\\1\end{bsmallmatrix}$,
-$(x,y)=(4,1)$ (same answer, three lessons running). $3\times3$ example
-$A=\begin{bsmallmatrix}1&2&1\\2&5&5\\3&7&8\end{bsmallmatrix}$ ($L$ mult $2,3,1$). Juice-bar multi-RHS
-context (activity + homework). Homework extension shows $L=E_{21}^{-1}E_{31}^{-1}E_{32}^{-1}$ (ties
-back to 2.2's socks-and-shoes). Preview: 2.4 permutations, $PA=LU$. Built
-`make -C unit02/lesson03 all` → clean (both packets). Page-count QA: warmup + exit_ticket each 1
-page (blank AND key ✓); notes 3/3, activity 2/2, homework 2/2; cover 1, slides 7. Full 13-file
-compile scan = zero failures. Spot-checked notes_key (p1–2), activity_key, homework_key, lesson
-plan p1 visually — clean, all arithmetic verified. Next run authors **Lesson 2.4** (Permutations
-and Transposes).
+**Last updated:** 2026-07-13 — **Authored Unit 2 Lesson 2.4 in full** (all 13 files), completing
+every lesson in Unit 2. Filled every skeleton for `unit02/lesson04` — lesson plan + cover, warmup,
+notes, activity, exit_ticket, homework (+ all 5 keys) + slides. Through-line: **2.3 assumed every
+pivot was nonzero; 2.4 handles the one case it isn't**. A **permutation matrix** $P$ (identity with
+rows swapped) records a **row exchange**; $PA$ swaps rows. Zero pivot → swap first → **$PA=LU$**
+(for a $2\times2$ the swap lands straight on $U$ with $L=I$; the nontrivial $L$ appears at
+$3\times3$). Solve $A\xx=\bb$ via $PA\xx=P\bb$ — a row swap only **reorders the equations**, so
+$\xx$ is unchanged (the conceptual core). Then the **transpose** $A^{\mathsf T}$ (flip across the
+diagonal, rows↔columns), **symmetric** matrices ($A^{\mathsf T}=A$), the reversal rule
+$(AB)^{\mathsf T}=B^{\mathsf T}A^{\mathsf T}$ (2.2's socks-and-shoes again), and $P^{\mathsf T}=P^{-1}$.
+Running $2\times2$: $A=\begin{bsmallmatrix}0&2\\1&3\end{bsmallmatrix}$ → $PA=\begin{bsmallmatrix}1&3\\0&2\end{bsmallmatrix}$.
+$3\times3$ examples: activity $A=\begin{bsmallmatrix}0&1&4\\1&2&2\\2&5&9\end{bsmallmatrix}$ →
+$(2,1,1)$; homework $A=\begin{bsmallmatrix}0&1&2\\2&4&6\\2&5&11\end{bsmallmatrix}$ → $(1,1,1)$
+($L=\begin{bsmallmatrix}1&0&0\\0&1&0\\1&1&1\end{bsmallmatrix}$). Homework extension: $A^{\mathsf T}A$
+is always symmetric (via the transpose rules). Preview: end of Unit 2 → unit test, then Unit 3.
+Built `make -C unit02/lesson04 all` → clean (both packets). Page-count QA: warmup + exit_ticket each
+1 page (blank AND key ✓); notes 3/3, activity 2/2, homework 2/2; cover 1, slides 7, lesson plan 2.
+Full 13-file compile scan = zero failures. Spot-checked notes_key (p1–2), homework_key p1, lesson
+plan p1 visually — clean, all arithmetic verified. Next run authors the **Unit 2 summative tests**.
 
 ## Current state
 
@@ -70,7 +69,7 @@ and Transposes).
   `sample_test`/`sample_test_key` populated by `drop` (practice test + key).
 - Root `Makefile` and `unit01/Makefile` created. Toolchain present (xelatex, latexmk, pdfunite).
 
-**Unit 2 — lessons 2.0, 2.1, 2.2 & 2.3 authored & built; 2.4 scaffolded (skeletons + tests), NOT authored.**
+**Unit 2 — lessons 2.0–2.4 all authored & built. Unit 2 summative tests NOT yet authored.**
 Confirmed lesson map:
 - `unit02/lesson00` — id 2.0, **"From Combinations to Solutions --- Setting Up Ax = b"** ✅ authored
   (all components + keys + slides; both packets built). Content: solve $A\xx=\bb$ = run 1.3
@@ -97,9 +96,14 @@ Confirmed lesson map:
   cost angle (factor once, two sweeps per order). Reuses 2.2 bakery $A=\begin{bsmallmatrix}1&3\\2&7\end{bsmallmatrix}$
   → $(4,1)$; a $3\times3$ factorization; juice-bar multi-RHS contexts; homework extension
   $L=E_{21}^{-1}E_{31}^{-1}E_{32}^{-1}$; previews §2.4 $PA=LU$.
-- `unit02/lesson04` — id 2.4, **"Permutations and Transposes"** (§2.4).
-- `unit02/{tests,test_keys,sample_test,sample_test_key}` + `unit02/Makefile` scaffolded.
-- Lesson 2.4 `main.tex` files are **skeletons only** — content authoring is the next run's job.
+- `unit02/lesson04` — id 2.4, **"Permutations and Transposes"** (§2.4) ✅ authored (all components +
+  keys + slides; both packets built). Content: permutation matrix $P$ (identity with rows swapped),
+  row exchange, $PA$ swaps rows, $P^{\mathsf T}=P^{-1}$; the zero-pivot fix $PA=LU$ (2×2 → $L=I$, 3×3
+  → nontrivial $L$); solving $A\xx=\bb$ via $PA\xx=P\bb$ and *why* a swap leaves $\xx$ unchanged;
+  transpose $A^{\mathsf T}$, symmetric matrices, reversal rule $(AB)^{\mathsf T}=B^{\mathsf T}A^{\mathsf T}$;
+  homework extension $A^{\mathsf T}A$ symmetric; previews Unit 2 test then Unit 3.
+- `unit02/{tests,test_keys,sample_test,sample_test_key}` + `unit02/Makefile` scaffolded — tests
+  **skeletons only, NOT authored**.
 
 ### Per-unit progress
 
@@ -108,7 +112,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | Unit | Chapter | Lessons | Status |
 | --- | --- | --- | --- |
 | 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
-| 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ◐ 2.0–2.3 authored & built ✅; 2.4 scaffolded, not authored; unit tests not yet authored |
+| 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ◐ all lessons 2.0–2.4 authored & built ✅; unit tests scaffolded but not yet authored |
 | 3 | The Four Fundamental Subspaces | 3.1–3.5 | ☐ |
 | 4 | Orthogonality | 4.1–4.4 | ☐ |
 | 5 | Determinants and Linear Transformations | 5.1–5.3 | ☐ |
@@ -118,17 +122,17 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author Unit 2 Lesson 2.4 — "Permutations and Transposes"** (§2.4) into the scaffolded skeletons,
-   mirroring 2.0–2.3 as the model. Core content from LAfE §2.4: the zero-pivot fix — a **permutation
-   matrix** $P$ (identity with rows swapped) records a row exchange, so a matrix that fails to factor
-   directly satisfies $PA=LU$; the **transpose** $A^{\mathsf T}$ (flip rows↔columns), its rules
-   ($(AB)^{\mathsf T}=B^{\mathsf T}A^{\mathsf T}$), and **symmetric** matrices ($A^{\mathsf T}=A$).
-   Tie straight to 2.3: 2.3 assumed every pivot was nonzero; 2.4 handles the case it doesn't. Keep
-   blank/key in lockstep; down-level; no "sketch from scratch" questions.
-2. **Then author the Unit 2 summative tests** (`unit02/tests` practice + actual, `unit02/test_keys`
-   both keys) covering 2.0–2.4, and `make -C unit02/tests all` + `test_keys all` + `drop` to publish
-   `sample_test`/`sample_test_key`. That closes out Unit 2.
-3. *(optional)* Rebuild the whole Unit 1 packet (`make -C unit01 student|full`) to confirm the
+1. **Author the Unit 2 summative tests** (`unit02/tests` practice + actual, `unit02/test_keys` both
+   keys) covering 2.0–2.4, then `make -C unit02/tests all` + `make -C unit02/test_keys all` + `drop`
+   to publish `sample_test`/`sample_test_key`. See `references/components.md` "Unit tests" for the
+   parthead structure (vocab / MC / short answer / extended response). That closes out Unit 2. Cover
+   the priority ideas across all five lessons: solving $A\xx=\bb$ (column vs. row view), elimination
+   (pivots, multipliers, $U$), elimination matrices & inverses ($EA=U$, $A^{-1}$, singular), $A=LU$
+   and two-sweep solves, and permutations/transposes ($PA=LU$, $A^{\mathsf T}$, symmetric).
+2. **Then begin Unit 3 — The Four Fundamental Subspaces** (§3.1–3.5). First confirm the Unit 3 lesson
+   map with the user (decompose §3.1–3.5 from `spec/linear_algebra_v2.md`), then scaffold + author,
+   mirroring the Unit 1–2 lessons as the model.
+3. *(optional)* Rebuild the whole Unit 1/Unit 2 packets (`make -C unitXX student|full`) to confirm the
    `sample_test`/`sample_test_key` merge in as expected before moving on.
 
 ## Notes for the next run

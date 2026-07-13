@@ -3,6 +3,10 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\tp}{\mathsf{T}}
+\newcommand{\PP}{P}
 
 \begin{document}
 
@@ -11,9 +15,33 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{enumerate}[leftmargin=1.8em, itemsep=13pt]
+  \item \textbf{Fix the zero pivot and solve.} Let $A=\begin{bmatrix} 0 & 4 \\ 2 & 6 \end{bmatrix}$ and
+        $\bb=\begin{bmatrix} 4 \\ 8 \end{bmatrix}$.
+        \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=7pt]
+          \item Write the swap matrix $\PP$ and compute $\PP A$ and $\PP\bb$.
+                \ansline{$\PP=\begin{bsmallmatrix} 0&1\\1&0 \end{bsmallmatrix}$, $\PP A=\begin{bsmallmatrix} 2&6\\0&4 \end{bsmallmatrix}$, $\PP\bb=\begin{bsmallmatrix} 8\\4 \end{bsmallmatrix}$.}
+          \item Solve $A\xx=\bb$ (solve $\PP A\xx=\PP\bb$).
+                \hfill $x=\ans{$1$}$\quad $y=\ans{$1$}$
+                \ansline{$\PP A$ is upper triangular ($L=I$): $4y=4\Rightarrow y=1$, $2x+6=8\Rightarrow x=1$. Check: $0(1)+4(1)=4$, $2(1)+6(1)=8$ \checkmark}
+        \end{enumerate}
+        \vspace{0.2cm}
+  \item \textbf{Transpose.} Write $A^{\tp}$ for $A=\begin{bmatrix} 2 & 7 \\ 1 & 5 \end{bmatrix}$, and state
+        whether $A$ is symmetric.
+        \ansline{$A^{\tp}=\begin{bsmallmatrix} 2&1\\7&5 \end{bsmallmatrix}$. Not symmetric --- the off-diagonal entries $7$ and $1$ differ, so $A^{\tp}\ne A$.}
+  \item \textbf{Why is the swap safe?} A classmate worries that swapping two rows of $A$ might change the
+        answer $\xx$. Explain why it does not.
+        \ansline{Swapping two rows just reorders the equations (and, with $\bb$ swapped the same way, keeps
+        each equation with its right-hand side). The system asks the exact same questions about $\xx$ ---
+        only the order changed --- so the solution is unchanged.}
+\end{enumerate}
+
+\begin{teachernote}
+Item~1 checks the whole permutation method: correct $\PP$, correct $\PP A$ and $\PP\bb$, and the solve
+(watch for students who forget to swap $\bb$). Item~2 checks transpose and the symmetry test. Item~3 is
+the conceptual target --- students must tie ``row swap'' to ``reordering equations'' and conclude the
+solution is unchanged. Sort into ``permutation \& transpose solid / rows-vs-columns confused / shaky on
+why $\xx$ is unchanged'' to plan the Unit~2 review.
+\end{teachernote}
 
 \end{document}

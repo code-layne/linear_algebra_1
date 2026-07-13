@@ -5,6 +5,11 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\cc}{\mathbf{c}}
+\newcommand{\PP}{P}
+\newcommand{\tp}{\mathsf{T}}
 \newcommand{\UnitNumberName}{Unit 2: Solving Linear Equations Ax = b \quad}
 \newcommand{\LessonNumberName}{Lesson 2.4: Permutations and Transposes}
 
@@ -16,55 +21,138 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can handle the one case Lesson~2.3 set aside --- a
+    \emph{zero in the pivot}. They can build a \textbf{permutation matrix} $\PP$ (the identity with rows
+    swapped) that records a row exchange, use it to fix a zero pivot, and state the resulting
+    factorization $\PP A=LU$. They can also \textbf{transpose} a matrix $A\to A^{\tp}$ (turn its rows into
+    columns), recognize a \textbf{symmetric} matrix ($A^{\tp}=A$), and apply the reversal rule
+    $(AB)^{\tp}=B^{\tp}A^{\tp}$. They can explain \emph{why} a row swap never changes the solution to
+    $A\xx=\bb$ --- it only reorders the equations.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Build a permutation matrix $\PP$ that swaps chosen rows; compute $\PP A$.
+  \item Fix a zero pivot with a row swap: $\PP A=LU$.
+  \item Transpose a matrix; recognize symmetric matrices ($A^{\tp}=A$).
+  \item Use $(AB)^{\tp}=B^{\tp}A^{\tp}$ and $\PP^{\tp}=\PP^{-1}$.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item $\PP A$ just reorders the rows (equations) of $A$ --- so the solution $\xx$ is unchanged.
+  \item 2.3 assumed every pivot was nonzero; the swap is how we handle the one case it isn't.
+  \item Transpose reflects a matrix across its diagonal --- rows and columns trade places.
+  \item The reversal rule is 2.2's socks-and-shoes again: undo/flip in the opposite order.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Permutation matrix $\PP$} & The identity matrix with its rows reordered. Multiplying $\PP A$ carries out that same reordering on the rows of $A$. \\
+\textbf{Row exchange} & Swapping two rows (two equations). $\PP A=\bb$-side gets swapped too; the solution set is unchanged. \\
+\textbf{$\PP A=LU$} & When a zero pivot blocks $A=LU$, swap rows first: $\PP A$ then factors into lower~$\times$~upper as usual. \\
+\textbf{Transpose $A^{\tp}$} & Flip $A$ across its diagonal --- row $i$ becomes column $i$. Entry $(i,j)$ of $A$ moves to $(j,i)$. \\
+\textbf{Symmetric matrix} & A square matrix with $A^{\tp}=A$ (mirror image across the diagonal). \\
+\textbf{Reversal rule} & $(AB)^{\tp}=B^{\tp}A^{\tp}$ --- transpose flips a product's order (like the inverse). \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three ideas this lesson needs: \textbf{(1)} multiplying a matrix by a
+    vector (Lesson~1.3) --- a swap matrix $\begin{bsmallmatrix} 0&1\\1&0 \end{bsmallmatrix}$ exchanges the
+    entries, previewing what $\PP$ does to rows; \textbf{(2)} naming the first pivot (Lesson~2.1/2.3) ---
+    students see a matrix whose top-left entry is $0$, so elimination \emph{cannot start}; and
+    \textbf{(3)} reading an entry by its $(\text{row},\text{col})$ address (Lesson~1.3) --- the
+    bookkeeping behind the transpose. Debrief item~2 aloud: this ``stuck'' pivot is exactly the gap 2.3
+    left open, and today's row swap is the fix.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Put last lesson's method on a matrix that breaks it. Ask students to start elimination on
+    $A=\begin{bsmallmatrix} 0&2\\1&3 \end{bsmallmatrix}$: the pivot would be the top-left entry, but it is
+    $\mathbf{0}$ --- \textbf{``You can't divide by a zero pivot. Is this system broken, or can we
+    rescue it?''} Draw out the fix everyone already knows from solving by hand: \emph{swap the two
+    equations}. Swapping rows is itself a matrix --- $\PP=\begin{bsmallmatrix} 0&1\\1&0 \end{bsmallmatrix}$ ---
+    and $\PP A=\begin{bsmallmatrix} 1&3\\0&2 \end{bsmallmatrix}$ now has a good pivot. That single idea,
+    $\PP A=LU$, closes the last gap in solving $A\xx=\bb$.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. A permutation matrix swaps rows.} Start from the identity and reorder its rows. The
+$2\times2$ swap is $\PP=\begin{bsmallmatrix} 0&1\\1&0 \end{bsmallmatrix}$; then $\PP\begin{bsmallmatrix} a\\b \end{bsmallmatrix}=\begin{bsmallmatrix} b\\a \end{bsmallmatrix}$
+and $\PP A$ swaps the two rows of $A$. Emphasize: $\PP$ only \emph{reorders} --- it never changes the
+numbers, just their order.
+
+\textbf{2. Fix a zero pivot: $\PP A=LU$.} On $A=\begin{bsmallmatrix} 0&2\\1&3 \end{bsmallmatrix}$ the pivot is
+$0$, so swap: $\PP A=\begin{bsmallmatrix} 1&3\\0&2 \end{bsmallmatrix}$. Now the pivots are $1,2$ and it
+factors normally (here it is already $U$, with $L=I$). For bigger matrices you swap first, then run the
+ordinary elimination of 2.3 --- the multipliers fill $L$ as before.
+
+\columnbreak
+
+\textbf{3. Why the answer is safe.} Swapping two rows just reorders the equations. Swap the same two
+entries of $\bb$ and the solution $\xx$ is \emph{identical} --- same equations, different order. So
+solving $A\xx=\bb$ becomes solving $\PP A\xx=\PP\bb$, i.e.\ $LU\xx=\PP\bb$, by the two sweeps of 2.3.
+
+\textbf{4. The transpose.} $A^{\tp}$ flips $A$ across its diagonal: row~$i$ becomes column~$i$, so the
+$(i,j)$ entry lands at $(j,i)$. A \textbf{symmetric} matrix has $A^{\tp}=A$. Two rules matter:
+$(AB)^{\tp}=B^{\tp}A^{\tp}$ (order reverses --- 2.2's socks-and-shoes) and $\PP^{\tp}=\PP^{-1}$ (a swap
+is undone by the same swap).
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item swapping \emph{columns} instead of rows --- $\PP A$ (left multiply) swaps rows; only rows;
+  \item forgetting to swap the matching entries of $\bb$ when solving $\PP A\xx=\PP\bb$;
+  \item transposing by ``rotating'' --- it is a reflection across the diagonal, so the diagonal stays put;
+  \item writing $(AB)^{\tp}=A^{\tp}B^{\tp}$ (wrong) instead of the reversed $B^{\tp}A^{\tp}$.
+\end{itemize}
+Cold-call prompts: ``What does $\PP$ do to the rows of $A$?'' ``Why doesn't the swap change $\xx$?''
+``Where does the $(1,3)$ entry go under transpose?'' ``What makes a matrix symmetric?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Swap, Factor, Flip} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Given a $2\times2$ $A$ with a zero pivot, write $\PP$, compute $\PP A$,
+confirm the pivot is fixed, and solve $A\xx=\bb$.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Transpose a non-square matrix, test a matrix for symmetry, and
+\emph{verify} $(AB)^{\tp}=B^{\tp}A^{\tp}$ on a $2\times2$ pair --- then interpret what symmetry means.
+
+\columnbreak
+\textbf{Tier E --- Extension.} A $3\times3$ with a zero pivot: write $\PP$, factor $\PP A=LU$, solve in
+two sweeps, and justify why the row swap leaves the solution unchanged.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): fix a $2\times2$ zero pivot with a permutation ($\PP$,
+$\PP A$, solve), and transpose a matrix / test it for symmetry, plus a \textbf{conceptual/justification
+check}: explain why swapping two equations (rows of $A$ and $\bb$) does not change the solution $\xx$.
+Collect and sort into ``permutation \& transpose solid / swaps rows-vs-columns confused / shaky on why
+$\xx$ is unchanged'' to decide whether the Unit~2 review opens with a quick re-teach.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} build permutation matrices and compute $\PP A$ and $\PP^{\tp}\PP=I$; fix $2\times2$
+zero pivots and solve; factor and solve a $3\times3$ $\PP A=LU$; transpose matrices and identify
+symmetric ones; and verify $(AB)^{\tp}=B^{\tp}A^{\tp}$. \textbf{Extension:} show $A^{\tp}A$ is always
+symmetric (using the transpose rules) and explain $\PP^{\tp}=\PP^{-1}$. \textbf{Preview:} Unit~2 wraps
+up here --- next comes the unit test, then \emph{Unit~3, The Four Fundamental Subspaces}: now that we
+can \emph{solve} $A\xx=\bb$, we ask which $\bb$ are reachable and what \emph{all} the solutions look
+like.
 \end{skillbox}
 \end{document}

@@ -3,17 +3,72 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\cc}{\mathbf{c}}
+\newcommand{\PP}{P}
+\newcommand{\tp}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.4}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+Show your steps. Remember: a permutation $\PP$ swaps rows; when a zero pivot blocks $A=LU$, solve
+$\PP A\xx=\PP\bb$ (swap the same entries of $\bb$). The transpose $A^{\tp}$ flips rows into columns, a
+symmetric matrix has $A^{\tp}=A$, and $(AB)^{\tp}=B^{\tp}A^{\tp}$.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item \textbf{Permutation matrix.} Let $A=\begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix}$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item Write the $3\times3$ permutation $\PP$ that swaps rows $1$ and $3$.
+      \item Compute $\PP A$.
+      \item Show that $\PP^{\tp}\PP=I$.
+    \end{enumerate}
+    \vspace{1.6cm}
+  \item \textbf{Fix the zero pivot and solve.} For each, write $\PP$, compute $\PP A$ and $\PP\bb$, then
+        solve $A\xx=\bb$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $A=\begin{bmatrix} 0 & 3 \\ 1 & 4 \end{bmatrix}$, \; $\bb=\begin{bmatrix} 6 \\ 9 \end{bmatrix}$
+      \item $A=\begin{bmatrix} 0 & 2 \\ 3 & 5 \end{bmatrix}$, \; $\bb=\begin{bmatrix} 2 \\ 8 \end{bmatrix}$
+    \end{enumerate}
+    \vspace{1.8cm}
+  \item \textbf{A $3\times3$ with a zero pivot.} Let $A=\begin{bmatrix} 0 & 1 & 2 \\ 2 & 4 & 6 \\ 2 & 5 & 11 \end{bmatrix}$
+        and $\bb=\begin{bmatrix} 3 \\ 12 \\ 18 \end{bmatrix}$. Write $\PP$ to fix the pivot, factor
+        $\PP A=LU$, then solve in two sweeps ($L\cc=\PP\bb$, then $U\xx=\cc$).
+    \vspace{2.4cm}
+  \item \textbf{Transpose and symmetry.}
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item Write $A^{\tp}$ for $A=\begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix}$.
+      \item Which of these are symmetric? \;
+            $B=\begin{bmatrix} 2 & 0 \\ 0 & 7 \end{bmatrix},\quad
+             C=\begin{bmatrix} 3 & 5 \\ 5 & 3 \end{bmatrix},\quad
+             D=\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}.$
+    \end{enumerate}
+    \vspace{1.4cm}
+  \item \textbf{The reversal rule.} For $A=\begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}$ and
+        $B=\begin{bmatrix} 1 & 4 \\ 0 & 1 \end{bmatrix}$, compute $AB$ and confirm
+        $(AB)^{\tp}=B^{\tp}A^{\tp}$. (Also check that $A^{\tp}B^{\tp}$ gives a \emph{different} matrix.)
+    \vspace{2.0cm}
+  \item \textbf{Explain.} Why is a permutation matrix's transpose equal to its inverse, i.e.\
+        $\PP^{\tp}=\PP^{-1}$? Answer in terms of what a swap does and how to undo it. \writeline
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{$A^{\tp}A$ is always symmetric.} Take any $A=\begin{bmatrix} 1 & 2 \\ 0 & 1 \\ 1 & 0 \end{bmatrix}$.
+Compute $S=A^{\tp}A$ and check that $S^{\tp}=S$. Then explain the general reason using the rules
+$(XY)^{\tp}=Y^{\tp}X^{\tp}$ and $(A^{\tp})^{\tp}=A$: what does $(A^{\tp}A)^{\tp}$ simplify to? \writeline
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Unit 2 wraps up here.} You can now solve $A\xx=\bb$ start to finish --- elimination, $A=LU$, and
+a permutation $\PP$ for the zero-pivot case ($\PP A=LU$). Next comes the \textbf{Unit 2 Test}, then
+\textbf{Unit 3: The Four Fundamental Subspaces}, where we stop asking ``\emph{what} is the solution?'' and
+start asking ``\emph{which} $\bb$ are reachable, and what do \emph{all} the solutions look like?''
+\end{spiralbox}
 
 \end{document}

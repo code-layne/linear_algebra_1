@@ -3,17 +3,87 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.2}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Build the Solving Machine.} A single elimination step is a matrix
+$E=\begin{bsmallmatrix} 1&0\\-\ell&1 \end{bsmallmatrix}$; undoing it flips the sign
+($E^{-1}=\begin{bsmallmatrix} 1&0\\+\ell&1 \end{bsmallmatrix}$). Chain the undo-steps far enough and
+you get $A^{-1}$, the machine that solves $A\xx=\bb$ in one multiplication. Work with your partner
+and \emph{show every step}.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Let $A=\begin{bmatrix} 2 & 5 \\ 4 & 12 \end{bmatrix}$. The pivot is $2$, so the multiplier is
+$\ell=4\div2=2$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=7pt]
+  \item Write the elimination matrix $E_{21}$ (put $-\ell$ in the lower-left of $I$).
+        \; $E_{21}=\begin{bmatrix} 1 & 0 \\ {\color{keyred}\mathbf{-2}} & 1 \end{bmatrix}$
+  \item Multiply $E_{21}A$ to reach upper-triangular $U$.
+        \ansline{$E_{21}A=\begin{bsmallmatrix} 1&0\\-2&1 \end{bsmallmatrix}\begin{bsmallmatrix} 2&5\\4&12 \end{bsmallmatrix}=\begin{bsmallmatrix} 2&5\\0&2 \end{bsmallmatrix}=U$ \ (row~2: $-2(2,5)+(4,12)=(0,2)$).}
+  \item Write $E_{21}^{-1}$, the matrix that \emph{undoes} the step. \; $E_{21}^{-1}=\begin{bmatrix} 1 & 0 \\ {\color{keyred}\mathbf{2}} & 1 \end{bmatrix}$
+  \item In one sentence: how are $E_{21}$ and $E_{21}^{-1}$ related?
+        \ansline{Same matrix with the sign of the multiplier flipped --- one subtracts $2\times$row~1, the other adds it back, so $E_{21}^{-1}E_{21}=I$.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{One machine, many orders.} A gift shop packs two box types. Each \textbf{Small} box holds
+$1$ mug and $1$ candle; each \textbf{Large} box holds $2$ mugs and $3$ candles. With $s$ smalls and
+$t$ larges, the totals are $A\begin{bsmallmatrix} s\\ t \end{bsmallmatrix}=\bb$ where
+$A=\begin{bmatrix} 1 & 2 \\ 1 & 3 \end{bmatrix}$ (mug row, candle row).
+\begin{enumerate}[leftmargin=1.7em, itemsep=6pt]
+  \item Build the machine once: compute $ad-bc$ and write $A^{-1}$.
+        \ansline{$ad-bc=3-2=1$, so $A^{-1}=\begin{bsmallmatrix} 3&-2\\-1&1 \end{bsmallmatrix}$.}
+  \item \textbf{Monday's order:} $8$ mugs, $11$ candles. Use $\xx=A^{-1}\bb$ to find $s$ and $t$.
+        \ansline{$\begin{bsmallmatrix} 3&-2\\-1&1 \end{bsmallmatrix}\begin{bsmallmatrix} 8\\11 \end{bsmallmatrix}=\begin{bsmallmatrix} 24-22\\-8+11 \end{bsmallmatrix}=\begin{bsmallmatrix} 2\\3 \end{bsmallmatrix}$: $s=2$ smalls, $t=3$ larges.}
+  \item \textbf{Tuesday's order:} $10$ mugs, $14$ candles. Same machine --- find $s$ and $t$.
+        \ansline{$\begin{bsmallmatrix} 3&-2\\-1&1 \end{bsmallmatrix}\begin{bsmallmatrix} 10\\14 \end{bsmallmatrix}=\begin{bsmallmatrix} 30-28\\-10+14 \end{bsmallmatrix}=\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}$: $s=2$ smalls, $t=4$ larges.}
+  \item \emph{Interpret:} give each day's box counts, and say why building $A^{-1}$ once beats
+        re-running elimination every day.
+        \ansline{Monday $2$ small \& $3$ large; Tuesday $2$ small \& $4$ large. The recipe $A$ never
+        changes, so one machine $A^{-1}$ solves every order with a single multiplication --- no
+        fresh elimination each day.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{(1) Gauss--Jordan.} Find $A^{-1}$ for $A=\begin{bmatrix} 1 & 2 \\ 3 & 7 \end{bmatrix}$ by
+row-reducing $[\,A\mid I\,]$ down \emph{then} up until the left side is $I$.
+\[
+  \left[\begin{array}{cc|cc} 1 & 2 & 1 & 0 \\ 3 & 7 & 0 & 1 \end{array}\right]
+\]
+\ansline{row$_2-3\,$row$_1$: $\left[\begin{smallmatrix} 1&2&1&0\\0&1&-3&1 \end{smallmatrix}\right]$;
+then row$_1-2\,$row$_2$: $\left[\begin{smallmatrix} 1&0&7&-2\\0&1&-3&1 \end{smallmatrix}\right]$. So
+$A^{-1}=\begin{bsmallmatrix} 7&-2\\-3&1 \end{bsmallmatrix}$ (matches the formula, $ad-bc=1$).}
+
+\vspace{4pt}
+\textbf{(2) No machine.} Try to invert $A=\begin{bmatrix} 2 & 3 \\ 4 & 6 \end{bmatrix}$. Compute
+$ad-bc$, run one elimination step, and explain what goes wrong. Is $A$ \textbf{singular}? Connect it
+to the zero-pivot breakdown from Lesson~2.1.
+\ansline{$ad-bc=12-12=0$, so the $\tfrac{1}{ad-bc}$ formula divides by zero. Elimination
+row$_2-2\,$row$_1$ gives $(0,0)$ --- a zero pivot, no way to finish. $A$ \textbf{is singular}: no
+inverse. Same breakdown as 2.1, now visible from $A$ alone (its columns are parallel: column~2 $=1.5\times$ column~1).}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~A is the payoff: one $A^{-1}$, reused across right-hand sides --- the reason inverses matter for
+repeated orders. If a group gets $A^{-1}$ with the wrong signs, have them test $A^{-1}A=I$ on the
+spot. Tier~E(2) is the key concept: singular $\Leftrightarrow$ $ad-bc=0$ $\Leftrightarrow$ zero pivot
+$\Leftrightarrow$ no inverse --- the through-line from Lessons 2.0--2.1.
+\end{teachernote}
 
 \end{document}

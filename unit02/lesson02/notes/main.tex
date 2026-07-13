@@ -3,17 +3,134 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.2}{Guided Notes}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Guided Notes. See references/components.md for the expected structure.
-\begin{notesbox}{Guided Notes}
-\writelines{4}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item write one elimination step as an \emph{elimination matrix} $E$, and check that $EA$ does the step;
+  \item \emph{undo} a step with $E^{-1}$ (add the multiplier back), knowing $E^{-1}E=I$;
+  \item build a $2\times2$ \emph{inverse} $A^{-1}$ (the $ad-bc$ formula and Gauss--Jordan) and solve with $\xx=A^{-1}\bb$;
+  \item recognize a \emph{singular} matrix ($ad-bc=0$) as one with no inverse.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.10in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\termblanklong{Identity matrix $I$}
+\termblanklong{Elimination matrix $E$}
+\termblanklong{Inverse matrix $A^{-1}$}
+\termblanklong{Gauss--Jordan}
+\termblanklong{Singular matrix}
+\end{vocabbox}
+
+\begin{hookbox}
+A bakery ships the same two gift boxes all season, so its ``ingredients'' matrix never changes ---
+only the weekly order $\bb$ does.
+\[
+  A = \begin{bmatrix} 1 & 3 \\ 2 & 7 \end{bmatrix}, \qquad
+  \text{this week } \bb = \begin{bmatrix} 7 \\ 15 \end{bmatrix}.
+\]
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item In 2.1 we would run elimination from scratch every week. If only $\bb$ changes, what could
+        we build \emph{once} to solve every future order in a single step? \writeline
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. One Elimination Step Is a Matrix}
+Start with the \textbf{identity matrix} $I=\begin{bsmallmatrix} 1&0\\0&1 \end{bsmallmatrix}$. It leaves
+any matrix alone: $IA=A$ and $I\bb=\bb$.
+
+\vspace{3pt}
+Now take our system's multiplier from 2.1: pivot $1$, so $\ell=2\div1=2$. Drop $-\ell$ into the
+lower-left spot of $I$ to get the \textbf{elimination matrix}:
+\[
+  E_{21} = \begin{bmatrix} 1 & 0 \\ -\ell & 1 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ \blank{0.8cm} & 1 \end{bmatrix}.
+\]
+Watch $E_{21}A$ do exactly one elimination step --- row~1 untouched, row~2 becomes (row~2)$-2\,$(row~1):
+\[
+  E_{21}A = \begin{bmatrix} 1 & 0 \\ -2 & 1 \end{bmatrix}\begin{bmatrix} 1 & 3 \\ 2 & 7 \end{bmatrix}
+  = \begin{bmatrix} 1 & 3 \\ \blank{0.8cm} & \blank{0.8cm} \end{bmatrix} = U.
+\]
+The same matrix updates the right-hand side: $E_{21}\bb=\begin{bsmallmatrix} 1&0\\-2&1 \end{bsmallmatrix}\begin{bsmallmatrix} 7\\15 \end{bsmallmatrix}=\begin{bsmallmatrix}\blank{0.8cm}\\[2pt]\blank{0.8cm}\end{bsmallmatrix}$ ---
+the triangular system from 2.1.
 \end{notesbox}
+
+\begin{notesbox}{2. Undoing a Step: The Inverse of $E$}
+Every step is reversible. $E_{21}$ \emph{subtracted} $2\times$row~1 from row~2; to undo it you
+\textbf{add} $2\times$row~1 back. So put $+\ell$ where the $-\ell$ was:
+\[
+  E_{21}^{-1} = \begin{bmatrix} 1 & 0 \\ +\ell & 1 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ \blank{0.8cm} & 1 \end{bmatrix}.
+\]
+Check that it truly undoes $E_{21}$ --- multiplying should return the identity:
+\[
+  E_{21}^{-1}E_{21} = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}\begin{bmatrix} 1 & 0 \\ -2 & 1 \end{bmatrix}
+  = \begin{bmatrix}\rule{0pt}{1.1em}\blank{0.8cm} & \blank{0.8cm}\\[2pt]\blank{0.8cm} & \blank{0.8cm}\end{bmatrix} = I.
+\]
+This is what an \textbf{inverse} means: the matrix that multiplies back to $I$.
+\end{notesbox}
+
+\begin{notesbox}{3. The Inverse of $A$ --- the Solving Machine}
+The \textbf{inverse} $A^{-1}$ is the matrix with $A^{-1}A=I$. It answers the hook: since
+$A\xx=\bb$, multiplying both sides by $A^{-1}$ gives
+\[
+  A^{-1}A\,\xx = A^{-1}\bb \;\Longrightarrow\; \xx = A^{-1}\bb.
+\]
+Build $A^{-1}$ once, and \emph{every} order is a single multiplication. For a $2\times2$ matrix there
+is a formula --- swap the diagonal, negate the off-diagonal, divide by $ad-bc$:
+\[
+  A = \begin{bmatrix} a & b \\ c & d \end{bmatrix} \;\Longrightarrow\;
+  A^{-1} = \frac{1}{ad-bc}\begin{bmatrix} d & -b \\ -c & a \end{bmatrix}.
+\]
+For $A=\begin{bsmallmatrix} 1&3\\2&7 \end{bsmallmatrix}$: $ad-bc = (1)(7)-(3)(2) = \blank{0.9cm}$, so
+\[
+  A^{-1} = \frac{1}{1}\begin{bmatrix} 7 & -3 \\ -2 & 1 \end{bmatrix} = \begin{bmatrix} 7 & -3 \\ -2 & 1 \end{bmatrix}.
+\]
+Now solve this week's order: $\xx = A^{-1}\bb = \begin{bsmallmatrix} 7&-3\\-2&1 \end{bsmallmatrix}\begin{bsmallmatrix} 7\\15 \end{bsmallmatrix} = \begin{bsmallmatrix}\blank{0.8cm}\\[2pt]\blank{0.8cm}\end{bsmallmatrix}$,
+so $(x,y)=(\,\blank{1.4cm}\,)$ --- matching 2.1's answer.
+
+\vspace{3pt}
+\textbf{Singular warning.} If $ad-bc=0$, the formula divides by zero: there is \textbf{no inverse}.
+That is exactly the zero-pivot breakdown from 2.1.
+\end{notesbox}
+
+\begin{notesbox}{4. Building $A^{-1}$ by Gauss--Jordan}
+The formula is a $2\times2$ shortcut; \textbf{Gauss--Jordan} works for any size. Write $A$ next to
+$I$ and row-reduce until the left side becomes $I$ --- the right side turns into $A^{-1}$.
+\[
+  [\,A \mid I\,] = \left[\begin{array}{cc|cc} 1 & 3 & 1 & 0 \\ 2 & 7 & 0 & 1 \end{array}\right]
+  \xrightarrow{\ \text{row}_2 - 2\,\text{row}_1\ }
+  \left[\begin{array}{cc|cc} 1 & 3 & 1 & 0 \\ 0 & 1 & \blank{0.7cm} & \blank{0.7cm} \end{array}\right]
+\]
+Now clear \emph{upward} to finish the left side at $I$:
+\[
+  \xrightarrow{\ \text{row}_1 - 3\,\text{row}_2\ }
+  \left[\begin{array}{cc|cc} 1 & 0 & \blank{0.7cm} & \blank{0.7cm} \\ 0 & 1 & -2 & 1 \end{array}\right]
+  = [\,I \mid A^{-1}\,].
+\]
+Read off $A^{-1}=\begin{bsmallmatrix}\blank{0.7cm} & \blank{0.7cm}\\[2pt]-2 & 1 \end{bsmallmatrix}$ ---
+the same inverse as the formula gave.
+\end{notesbox}
+
+\begin{practicebox}
+Let $A=\begin{bmatrix} 3 & 5 \\ 1 & 2 \end{bmatrix}$ and $\bb=\begin{bmatrix} 11 \\ 4 \end{bmatrix}$.
+\begin{enumerate}[leftmargin=1.6em]
+  \item Compute $ad-bc$ and write $A^{-1}$ from the formula. \hfill $ad-bc=\blank{1.2cm}$
+  \item Use $\xx=A^{-1}\bb$ to solve $A\xx=\bb$. \hfill $x=\blank{1.2cm}$\quad $y=\blank{1.2cm}$
+  \item \textbf{Check} that your $A^{-1}$ is right by multiplying $A^{-1}A$ --- you should get $I$. \writeline
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

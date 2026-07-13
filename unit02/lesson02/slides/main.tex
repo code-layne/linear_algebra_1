@@ -1,6 +1,8 @@
 %! Elimination Matrices and Inverse Matrices — Unit 2, Lesson 2.2 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
@@ -11,16 +13,114 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 2.2}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Elimination Matrices and Inverse Matrices}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 2}
+    {\color{white}\bfseries\LARGE Elimination Matrices and Inverse Matrices}\\[0.3cm]
+    {\color{white}\bfseries\large Every step is a matrix --- and every step undoes}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 2: Solving Linear Equations $A\xx=\bb$}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{The same recipe, a new order every week}
+  \sectionlabel{Hook}
+  A bakery's ``ingredients'' matrix never changes --- only the order $\bb$ does.
+  \[
+    A = \begin{bmatrix} 1 & 3 \\ 2 & 7 \end{bmatrix}, \qquad
+    \text{this week } \bb = \begin{bmatrix} 7 \\ 15 \end{bmatrix}.
+  \]
+  \begin{block}{The question}
+    We could run elimination from scratch every week --- but if only $\bb$ changes, what could we
+    build \emph{once} to solve every future order in a single step?
+  \end{block}
+\end{frame}
+
+% STEP = MATRIX
+\begin{frame}[t, plain]
+  \burgundyheader{One elimination step is a matrix}
+  \sectionlabel[goldacc]{The idea}
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item Start with the identity $I=\begin{bsmallmatrix} 1&0\\0&1 \end{bsmallmatrix}$ --- it leaves $A$ alone.
+    \item Drop $-\ell$ into one spot ($\ell=2$ here) to get the \textbf{elimination matrix}
+          $E_{21}=\begin{bsmallmatrix} 1&0\\-2&1 \end{bsmallmatrix}$.
+  \end{itemize}
+  \begin{block}{$EA$ does the step}
+    $E_{21}\begin{bsmallmatrix} 1&3\\2&7 \end{bsmallmatrix} = \begin{bsmallmatrix} 1&3\\0&1 \end{bsmallmatrix} = U$ \quad and \quad
+    $E_{21}\begin{bsmallmatrix} 7\\15 \end{bsmallmatrix} = \begin{bsmallmatrix} 7\\1 \end{bsmallmatrix}$. \quad Row~1 untouched; row~2 $=$ row~2 $-2\,$row~1.
+  \end{block}
+\end{frame}
+
+% UNDO A STEP
+\begin{frame}[t, plain]
+  \burgundyheader{Undo it: the inverse of a step}
+  \sectionlabel{Reverse}
+  $E_{21}$ \emph{subtracted} $2\times$row~1. To undo it, \textbf{add} it back --- flip the sign:
+  \[
+    E_{21}=\begin{bmatrix} 1&0\\-2&1 \end{bmatrix}
+    \qquad\Longrightarrow\qquad
+    E_{21}^{-1}=\begin{bmatrix} 1&0\\2&1 \end{bmatrix}.
+  \]
+  \begin{block}{What ``inverse'' means}
+    $E_{21}^{-1}E_{21} = \begin{bsmallmatrix} 1&0\\2&1 \end{bsmallmatrix}\begin{bsmallmatrix} 1&0\\-2&1 \end{bsmallmatrix} = \begin{bsmallmatrix} 1&0\\0&1 \end{bsmallmatrix} = I.$ \quad The two matrices cancel back to the identity.
+  \end{block}
+\end{frame}
+
+% INVERSE OF A
+\begin{frame}[t, plain]
+  \burgundyheader{The inverse of $A$ --- the solving machine}
+  \sectionlabel[goldacc]{Build once}
+  Since $A\xx=\bb$, multiply by $A^{-1}$: \; $\xx=A^{-1}\bb$. \; The $2\times2$ formula:
+  \[
+    A=\begin{bmatrix} a&b\\c&d \end{bmatrix} \Rightarrow
+    A^{-1}=\frac{1}{ad-bc}\begin{bmatrix} d&-b\\-c&a \end{bmatrix}.
+  \]
+  \begin{block}{Our bakery}
+    $ad-bc=7-6=1$, so $A^{-1}=\begin{bsmallmatrix} 7&-3\\-2&1 \end{bsmallmatrix}$ and
+    $\xx=A^{-1}\begin{bsmallmatrix} 7\\15 \end{bsmallmatrix}=\begin{bsmallmatrix} 4\\1 \end{bsmallmatrix}$ --- every new order is one multiplication.
+  \end{block}
+\end{frame}
+
+% GAUSS-JORDAN
+\begin{frame}[t, plain]
+  \burgundyheader{Building $A^{-1}$ by Gauss--Jordan}
+  \sectionlabel{General method}
+  Reduce $[\,A\mid I\,]$ down \emph{then} up until the left side is $I$ --- the right side becomes $A^{-1}$.
+  \[
+    \left[\begin{array}{cc|cc} 1&3&1&0 \\ 2&7&0&1 \end{array}\right]
+    \xrightarrow{\text{r}_2-2\text{r}_1}
+    \left[\begin{array}{cc|cc} 1&3&1&0 \\ 0&1&-2&1 \end{array}\right]
+    \xrightarrow{\text{r}_1-3\text{r}_2}
+    \left[\begin{array}{cc|cc} 1&0&7&-3 \\ 0&1&-2&1 \end{array}\right]
+  \]
+  Left side is $I$, so $A^{-1}=\begin{bsmallmatrix} 7&-3\\-2&1 \end{bsmallmatrix}$ --- same answer, any size.
+\end{frame}
+
+% SINGULAR
+\begin{frame}[t, plain]
+  \burgundyheader{When there is no inverse}
+  \sectionlabel{Singular}
+  \[
+    A=\begin{bmatrix} 2&3\\4&6 \end{bmatrix}, \qquad ad-bc = 12-12 = 0.
+  \]
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item The formula divides by $0$ --- and elimination gives a \textbf{zero pivot} (row~2 $\to (0,0)$).
+    \item $A$ is \textbf{singular}: no inverse. Its columns are parallel (column~2 $=1.5\times$ column~1).
+    \item Same no/infinitely-many breakdown from 2.0--2.1 --- now read off $A$ alone.
+  \end{itemize}
+\end{frame}
+
+% PREVIEW
+\begin{frame}[t, plain]
+  \burgundyheader{Where this is heading}
+  \sectionlabel{Connections}
+  \textbf{Today:} step $\to$ matrix $E$ $\to$ undo $E^{-1}$ $\to$ inverse $A^{-1}$, and $\xx=A^{-1}\bb$.\\[8pt]
+  \begin{itemize}
+    \setlength{\itemsep}{4pt}
+    \item \textbf{2.3} Matrix Computations and $A=LU$ --- collect the $E^{-1}$'s into one $L$.
+    \item \textbf{2.4} Permutations and Transposes --- row exchanges as matrices, done right.
+  \end{itemize}
 \end{frame}
 
 \end{document}

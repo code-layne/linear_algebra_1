@@ -2,6 +2,9 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\cc}{\mathbf{c}}
 
 % Part-divider strip
 \newcommand{\parthead}[1]{%
@@ -12,20 +15,126 @@
 \begin{document}
 
 \pageheader{Unit 2: Solving Linear Equations Ax = b}{Unit Test --- Answer Key}
+\namedateperiod
 
-% Mirror the blank test EXACTLY, filling each answer with \ans{...} (inline) or
-% \ansline{...} (on a write-line). Use teachernote for scoring/teacher guidance.
+\vspace{0.06in}
+\noindent\textbf{Instructions:} Show all work. No notes unless your teacher says so.
+
 % ======================================================================
-\parthead{Part A --- Vocabulary}
-% TODO: answers via \ans{...}
+\parthead{Part A --- Vocabulary (8 pts)}
+Write the letter of the best description next to each term.
 
-\parthead{Part B --- Multiple Choice}
-% TODO: mark correct options, e.g. \textcolor{keyred}{\textbf{$\leftarrow$ correct}}
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.44\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=7pt, label=\arabic*.]
+  \item $LU$ factorization \ans{F}
+  \item Transpose \ans{B}
+  \item Multiplier \ans{H}
+  \item Singular matrix \ans{G}
+  \item Pivot \ans{D}
+  \item Permutation matrix \ans{C}
+  \item Inverse matrix \ans{A}
+  \item Upper triangular ($U$) \ans{E}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.53\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=3pt]
+  \item[(A)] $A^{-1}$, the matrix that undoes $A$: $A^{-1}A=I$.
+  \item[(B)] The matrix $A^{\mathsf T}$ formed by flipping $A$ across its diagonal (rows $\leftrightarrow$ columns).
+  \item[(C)] The identity with two rows swapped; it records a row exchange.
+  \item[(D)] The first nonzero entry in a row, used to clear the entries below it.
+  \item[(E)] A matrix with all zeros below the main diagonal.
+  \item[(F)] $A=LU$: a lower-triangular $L$ times an upper-triangular $U$.
+  \item[(G)] A matrix with no inverse --- its determinant $ad-bc$ is $0$.
+  \item[(H)] $\ell=(\text{entry to clear})\div(\text{pivot})$; how many pivot rows you subtract.
+\end{description}
+\end{minipage}
 
-\parthead{Part C --- Short Answer \& Computation}
-% TODO: worked answers via \ans{...}
+% ======================================================================
+\parthead{Part B --- Multiple Choice (12 pts)}
+Circle the best answer.
 
-\parthead{Part D --- Extended Response}
-% TODO: sample response + scoring notes in a teachernote.
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item In $A=LU$, the pivots of the elimination appear on the diagonal of
+    \hfill (A) $L$ \quad \textbf{(B) $U$} \ans{$\leftarrow$} \quad (C) $A^{-1}$ \quad (D) the permutation $P$
+  \item To clear the entry below a pivot $p$, the multiplier you subtract is $\ell=$
+    \hfill \textbf{(A) $(\text{entry})\div p$} \ans{$\leftarrow$} \quad (B) $p\times(\text{entry})$ \quad (C) $p+(\text{entry})$ \quad (D) $p\div(\text{entry})$
+  \item If $P$ is a permutation matrix, then $P^{\mathsf T}$ equals
+    \hfill (A) $P^2$ \quad (B) $-P$ \quad \textbf{(C) $P^{-1}$} \ans{$\leftarrow$} \quad (D) the identity $I$
+  \item A $2\times2$ system $A\xx=\bb$ has \textbf{exactly one} solution when the two lines
+    \hfill (A) are the same line \quad \textbf{(B) cross at one point} \ans{$\leftarrow$} \quad (C) are parallel but different \quad (D) are both horizontal
+  \item For any two matrices that can be multiplied, $(AB)^{\mathsf T}=$
+    \hfill (A) $A^{\mathsf T}B^{\mathsf T}$ \quad \textbf{(B) $B^{\mathsf T}A^{\mathsf T}$} \ans{$\leftarrow$} \quad (C) $AB$ \quad (D) $BA$
+  \item A square matrix $A$ has \textbf{no} inverse exactly when elimination produces
+    \hfill \textbf{(A) a zero pivot} \ans{$\leftarrow$} \quad (B) all $1$'s \quad (C) a symmetric $U$ \quad (D) a row swap
+\end{enumerate}
+
+\begin{teachernote}
+Item 1: $U$ carries the pivots; $L$ carries the multipliers (unit diagonal). Item 3: a permutation
+undoes itself by swapping back, so $P^{\mathsf T}=P^{-1}$. Item 6: a zero pivot that cannot be fixed by a
+row swap $\Rightarrow$ singular $\Rightarrow$ no inverse ($ad-bc=0$).
+\end{teachernote}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (30 pts)}
+Show your work.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item Solve the system by \textbf{elimination}, then back-substitute and check. State the pivot and the
+        multiplier you used.
+        \[ 2x+y=7, \qquad 4x+3y=17. \]
+        \ans{Pivot $=2$ (the $x$-coefficient of eq.~1); multiplier $\ell=4\div2=2$. Eq.~2 $-\,2\times$ eq.~1: $(3-2)y=17-14$, so $y=3$. Back-substitute: $2x+3=7$, $x=2$. Solution $(x,y)=(2,3)$. Check: $4(2)+3(3)=17$ \checkmark.}
+  \item Row-reduce $A=\begin{bsmallmatrix}1&3&1\\3&11&5\\2&14&11\end{bsmallmatrix}$ to upper-triangular $U$.
+        List the three multipliers and the pivots.
+        \ans{$R_2-3R_1$ ($\ell_{21}=3$) and $R_3-2R_1$ ($\ell_{31}=2$) give $\begin{bsmallmatrix}1&3&1\\0&2&2\\0&8&9\end{bsmallmatrix}$; then $R_3-4R_2$ ($\ell_{32}=4$) gives $U=\begin{bsmallmatrix}1&3&1\\0&2&2\\0&0&1\end{bsmallmatrix}$. Multipliers $\ell_{21}=3,\ \ell_{31}=2,\ \ell_{32}=4$; pivots $1,\,2,\,1$.}
+  \item Let $A=\begin{bsmallmatrix}3&1\\5&2\end{bsmallmatrix}$. Use the $ad-bc$ formula to find $A^{-1}$,
+        then check that $A^{-1}A=I$.
+        \ans{$ad-bc=3\cdot2-1\cdot5=1$, so $A^{-1}=\dfrac{1}{1}\begin{bsmallmatrix}2&-1\\-5&3\end{bsmallmatrix}=\begin{bsmallmatrix}2&-1\\-5&3\end{bsmallmatrix}$. Check: $\begin{bsmallmatrix}2&-1\\-5&3\end{bsmallmatrix}\begin{bsmallmatrix}3&1\\5&2\end{bsmallmatrix}=\begin{bsmallmatrix}1&0\\0&1\end{bsmallmatrix}$ \checkmark.}
+  \item Using the inverse from the previous problem, solve $A\xx=\bb$ for
+        $\bb=\begin{bsmallmatrix}4\\7\end{bsmallmatrix}$ (compute $\xx=A^{-1}\bb$).
+        \ans{$\xx=A^{-1}\bb=\begin{bsmallmatrix}2&-1\\-5&3\end{bsmallmatrix}\begin{bsmallmatrix}4\\7\end{bsmallmatrix}=\begin{bsmallmatrix}8-7\\-20+21\end{bsmallmatrix}=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$. Check: $\begin{bsmallmatrix}3&1\\5&2\end{bsmallmatrix}\begin{bsmallmatrix}1\\1\end{bsmallmatrix}=\begin{bsmallmatrix}4\\7\end{bsmallmatrix}$ \checkmark.}
+  \item Factor $A=\begin{bsmallmatrix}3&6\\9&20\end{bsmallmatrix}$ as $A=LU$. Write $L$ and $U$, then verify
+        $LU=A$.
+        \ans{Pivot $3$, multiplier $\ell=9\div3=3$. $R_2-3R_1$: $\begin{bsmallmatrix}0&20-18\end{bsmallmatrix}=\begin{bsmallmatrix}0&2\end{bsmallmatrix}$, so $U=\begin{bsmallmatrix}3&6\\0&2\end{bsmallmatrix}$, $L=\begin{bsmallmatrix}1&0\\3&1\end{bsmallmatrix}$. Check $LU=\begin{bsmallmatrix}1&0\\3&1\end{bsmallmatrix}\begin{bsmallmatrix}3&6\\0&2\end{bsmallmatrix}=\begin{bsmallmatrix}3&6\\9&20\end{bsmallmatrix}=A$ \checkmark.}
+  \item Using the $L$ and $U$ from the previous problem, solve $A\xx=\bb$ for
+        $\bb=\begin{bsmallmatrix}3\\11\end{bsmallmatrix}$ in \textbf{two sweeps}: first $L\cc=\bb$
+        (forward), then $U\xx=\cc$ (back).
+        \ans{$L\cc=\bb$: $c_1=3$; $3c_1+c_2=11\Rightarrow c_2=11-9=2$, so $\cc=\begin{bsmallmatrix}3\\2\end{bsmallmatrix}$. $U\xx=\cc$: $2x_2=2\Rightarrow x_2=1$; $3x_1+6=3\Rightarrow x_1=-1$, so $\xx=\begin{bsmallmatrix}-1\\1\end{bsmallmatrix}$. Check: $\begin{bsmallmatrix}3&6\\9&20\end{bsmallmatrix}\begin{bsmallmatrix}-1\\1\end{bsmallmatrix}=\begin{bsmallmatrix}3\\11\end{bsmallmatrix}$ \checkmark.}
+  \item \textbf{(a)} The matrix $A=\begin{bsmallmatrix}0&3\\2&5\end{bsmallmatrix}$ has a $0$ in the top-left
+        pivot spot. Write the permutation matrix $P$ that swaps the two rows, and give $PA$.
+        \textbf{(b)} Write the transpose of $B=\begin{bsmallmatrix}4&1\\1&3\end{bsmallmatrix}$ and state
+        whether $B$ is symmetric.
+        \ans{(a) $P=\begin{bsmallmatrix}0&1\\1&0\end{bsmallmatrix}$, and $PA=\begin{bsmallmatrix}2&5\\0&3\end{bsmallmatrix}$ (now a nonzero pivot sits in the corner). (b) $B^{\mathsf T}=\begin{bsmallmatrix}4&1\\1&3\end{bsmallmatrix}=B$, so $B$ \emph{is} symmetric.}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (10 pts)}
+Explain your reasoning in full sentences.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item Let $A=\begin{bsmallmatrix}1&3\\2&6\end{bsmallmatrix}$.
+        \textbf{(a)} Compute $ad-bc$. Does $A$ have an inverse? What does that say about solving $A\xx=\bb$?
+        \textbf{(b)} How many solutions does $A\xx=\begin{bsmallmatrix}4\\8\end{bsmallmatrix}$ have?
+        \textbf{(c)} How many does $A\xx=\begin{bsmallmatrix}4\\7\end{bsmallmatrix}$ have? Justify (b) and (c)
+        using elimination or the row/line picture.
+        \ans{(a) $ad-bc=1\cdot6-3\cdot2=0$, so $A$ is \emph{singular} --- no inverse. Elimination hits a zero pivot ($R_2-2R_1$ wipes out row~2), so $A\xx=\bb$ has \emph{either} no solution \emph{or} infinitely many, never a unique one. (b) Apply $R_2-2R_1$ to $\bb$: $8-2(4)=0$, giving $0=0$ --- a true statement, so \emph{infinitely many} solutions (the two equations are the same line). (c) $R_2-2R_1$ on $\begin{bsmallmatrix}4\\7\end{bsmallmatrix}$: $7-2(4)=-1$, giving $0=-1$ --- impossible, so \emph{no solution} (parallel but different lines).}
+  \item Let $A=\begin{bsmallmatrix}1&4\\2&1\end{bsmallmatrix}$.
+        \textbf{(a)} Compute $A^{\mathsf T}A$ and check that it is symmetric.
+        \textbf{(b)} Explain why $A^{\mathsf T}A$ is \emph{always} symmetric for any matrix $A$, using the
+        reversal rule $(AB)^{\mathsf T}=B^{\mathsf T}A^{\mathsf T}$.
+        \ans{(a) $A^{\mathsf T}=\begin{bsmallmatrix}1&2\\4&1\end{bsmallmatrix}$, so $A^{\mathsf T}A=\begin{bsmallmatrix}1&2\\4&1\end{bsmallmatrix}\begin{bsmallmatrix}1&4\\2&1\end{bsmallmatrix}=\begin{bsmallmatrix}5&6\\6&17\end{bsmallmatrix}$ --- the off-diagonal entries match, so it is symmetric. (b) Take the transpose of $A^{\mathsf T}A$ and apply the reversal rule: $(A^{\mathsf T}A)^{\mathsf T}=A^{\mathsf T}(A^{\mathsf T})^{\mathsf T}=A^{\mathsf T}A$, since $(A^{\mathsf T})^{\mathsf T}=A$. A matrix equal to its own transpose is symmetric, so $A^{\mathsf T}A$ is always symmetric.}
+\end{enumerate}
+
+\begin{teachernote}
+\textbf{Scoring Part D (5 pts each).} D1: 1 pt (a) $ad-bc=0\Rightarrow$ singular/no inverse; 2 pts (b)
+infinitely many with the $0=0$ justification; 2 pts (c) none with the $0=-1$ justification. Full credit
+needs the \emph{reason} (same line vs.\ parallel), not just a count. D2: 2 pts (a) correct
+$A^{\mathsf T}A=\begin{bsmallmatrix}5&6\\6&17\end{bsmallmatrix}$ and noting equal off-diagonals; 3 pts (b)
+the general argument $(A^{\mathsf T}A)^{\mathsf T}=A^{\mathsf T}A$ via the reversal rule. Watch for students
+writing $(AB)^{\mathsf T}=A^{\mathsf T}B^{\mathsf T}$ (wrong order).
+\end{teachernote}
 
 \end{document}

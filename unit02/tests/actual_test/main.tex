@@ -2,6 +2,9 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\cc}{\mathbf{c}}
 
 % Part-divider strip
 \newcommand{\parthead}[1]{%
@@ -18,16 +21,105 @@
 \noindent\textbf{Instructions:} Show all work. No notes unless your teacher says so.
 
 % ======================================================================
-\parthead{Part A --- Vocabulary}
-% TODO: matching / fill-in vocabulary items for this unit.
+\parthead{Part A --- Vocabulary (8 pts)}
+Write the letter of the best description next to each term.
 
-\parthead{Part B --- Multiple Choice}
-% TODO: multiple-choice items (concept checks).
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.44\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=7pt, label=\arabic*.]
+  \item $LU$ factorization \blank{1.2cm}
+  \item Transpose \blank{1.2cm}
+  \item Multiplier \blank{1.2cm}
+  \item Singular matrix \blank{1.2cm}
+  \item Pivot \blank{1.2cm}
+  \item Permutation matrix \blank{1.2cm}
+  \item Inverse matrix \blank{1.2cm}
+  \item Upper triangular ($U$) \blank{1.2cm}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.53\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=3pt]
+  \item[(A)] $A^{-1}$, the matrix that undoes $A$: $A^{-1}A=I$.
+  \item[(B)] The matrix $A^{\mathsf T}$ formed by flipping $A$ across its diagonal (rows $\leftrightarrow$ columns).
+  \item[(C)] The identity with two rows swapped; it records a row exchange.
+  \item[(D)] The first nonzero entry in a row, used to clear the entries below it.
+  \item[(E)] A matrix with all zeros below the main diagonal.
+  \item[(F)] $A=LU$: a lower-triangular $L$ times an upper-triangular $U$.
+  \item[(G)] A matrix with no inverse --- its determinant $ad-bc$ is $0$.
+  \item[(H)] $\ell=(\text{entry to clear})\div(\text{pivot})$; how many pivot rows you subtract.
+\end{description}
+\end{minipage}
 
-\parthead{Part C --- Short Answer \& Computation}
-% TODO: computation items; leave \vspace work room after each.
+% ======================================================================
+\parthead{Part B --- Multiple Choice (12 pts)}
+Circle the best answer.
 
-\parthead{Part D --- Extended Response}
-% TODO: one or two interpret/justify items ("what does this mean, and how do you know?").
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item In $A=LU$, the pivots of the elimination appear on the diagonal of
+    \hfill (A) $L$ \quad (B) $U$ \quad (C) $A^{-1}$ \quad (D) the permutation $P$
+  \item To clear the entry below a pivot $p$, the multiplier you subtract is $\ell=$
+    \hfill (A) $(\text{entry})\div p$ \quad (B) $p\times(\text{entry})$ \quad (C) $p+(\text{entry})$ \quad (D) $p\div(\text{entry})$
+  \item If $P$ is a permutation matrix, then $P^{\mathsf T}$ equals
+    \hfill (A) $P^2$ \quad (B) $-P$ \quad (C) $P^{-1}$ \quad (D) the identity $I$
+  \item A $2\times2$ system $A\xx=\bb$ has \textbf{exactly one} solution when the two lines
+    \hfill (A) are the same line \quad (B) cross at one point \quad (C) are parallel but different \quad (D) are both horizontal
+  \item For any two matrices that can be multiplied, $(AB)^{\mathsf T}=$
+    \hfill (A) $A^{\mathsf T}B^{\mathsf T}$ \quad (B) $B^{\mathsf T}A^{\mathsf T}$ \quad (C) $AB$ \quad (D) $BA$
+  \item A square matrix $A$ has \textbf{no} inverse exactly when elimination produces
+    \hfill (A) a zero pivot \quad (B) all $1$'s \quad (C) a symmetric $U$ \quad (D) a row swap
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (30 pts)}
+Show your work.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=13pt]
+  \item Solve the system by \textbf{elimination}, then back-substitute and check. State the pivot and the
+        multiplier you used.
+        \[ 2x+y=7, \qquad 4x+3y=17. \]
+        \vspace{1.8cm}
+  \item Row-reduce $A=\begin{bsmallmatrix}1&3&1\\3&11&5\\2&14&11\end{bsmallmatrix}$ to upper-triangular $U$.
+        List the three multipliers and the pivots.
+        \vspace{2.4cm}
+  \item Let $A=\begin{bsmallmatrix}3&1\\5&2\end{bsmallmatrix}$. Use the $ad-bc$ formula to find $A^{-1}$,
+        then check that $A^{-1}A=I$.
+        \vspace{1.8cm}
+  \item Using the inverse from the previous problem, solve $A\xx=\bb$ for
+        $\bb=\begin{bsmallmatrix}4\\7\end{bsmallmatrix}$ (compute $\xx=A^{-1}\bb$).
+        \vspace{1.6cm}
+  \item Factor $A=\begin{bsmallmatrix}3&6\\9&20\end{bsmallmatrix}$ as $A=LU$. Write $L$ and $U$, then verify
+        $LU=A$.
+        \vspace{1.8cm}
+  \item Using the $L$ and $U$ from the previous problem, solve $A\xx=\bb$ for
+        $\bb=\begin{bsmallmatrix}3\\11\end{bsmallmatrix}$ in \textbf{two sweeps}: first $L\cc=\bb$
+        (forward), then $U\xx=\cc$ (back).
+        \vspace{1.8cm}
+  \item \textbf{(a)} The matrix $A=\begin{bsmallmatrix}0&3\\2&5\end{bsmallmatrix}$ has a $0$ in the top-left
+        pivot spot. Write the permutation matrix $P$ that swaps the two rows, and give $PA$.
+        \textbf{(b)} Write the transpose of $B=\begin{bsmallmatrix}4&1\\1&3\end{bsmallmatrix}$ and state
+        whether $B$ is symmetric.
+        \vspace{1.8cm}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (10 pts)}
+Explain your reasoning in full sentences.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=16pt]
+  \item Let $A=\begin{bsmallmatrix}1&3\\2&6\end{bsmallmatrix}$.
+        \textbf{(a)} Compute $ad-bc$. Does $A$ have an inverse? What does that say about solving $A\xx=\bb$?
+        \textbf{(b)} How many solutions does $A\xx=\begin{bsmallmatrix}4\\8\end{bsmallmatrix}$ have?
+        \textbf{(c)} How many does $A\xx=\begin{bsmallmatrix}4\\7\end{bsmallmatrix}$ have? Justify (b) and (c)
+        using elimination or the row/line picture.
+        \vspace{2.6cm}
+  \item Let $A=\begin{bsmallmatrix}1&4\\2&1\end{bsmallmatrix}$.
+        \textbf{(a)} Compute $A^{\mathsf T}A$ and check that it is symmetric.
+        \textbf{(b)} Explain why $A^{\mathsf T}A$ is \emph{always} symmetric for any matrix $A$, using the
+        reversal rule $(AB)^{\mathsf T}=B^{\mathsf T}A^{\mathsf T}$.
+        \vspace{2.4cm}
+\end{enumerate}
 
 \end{document}

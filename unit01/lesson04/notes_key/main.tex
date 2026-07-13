@@ -3,17 +3,124 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.4}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item multiply matrices \emph{by columns}: each column of $AB$ is $A$ times a column of $B$;
+  \item factor a matrix as $A=CR$ --- pull the \emph{independent} columns into $C$ and build the \emph{recipe} $R$;
+  \item state the \emph{rank} (the number of independent columns) and explain what it means.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.10in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{Matrix multiplication (by columns)}{column $j$ of $AB$ is $A\mathbf{b}_j$; a combination of $A$'s columns}
+\vocabans{Independent columns / $C$}{the columns that add a new direction; collected in $C$ (a basis for $C(A)$)}
+\vocabans{Recipe $R$ (rebuilds each column)}{each column of $R$ gives the weights that rebuild a column of $A$ from $C$; $A=CR$}
+\vocabans{Rank}{the number of independent columns --- the number of columns in $C$}
+\end{vocabbox}
+
+\begin{hookbox}
+Look at the three columns of this matrix --- is any one just a mix of the others?
+\[
+  A=\begin{bmatrix} 1 & 3 & 4 \\ 2 & 1 & 3 \end{bmatrix},
+  \qquad
+  \mathbf{a}_1=\begin{bmatrix} 1 \\ 2 \end{bmatrix},\ \
+  \mathbf{a}_2=\begin{bmatrix} 3 \\ 1 \end{bmatrix},\ \
+  \mathbf{a}_3=\begin{bmatrix} 4 \\ 3 \end{bmatrix}.
+\]
+Is $\mathbf{a}_3$ a combination of $\mathbf{a}_1$ and $\mathbf{a}_2$? Try
+$\mathbf{a}_1+\mathbf{a}_2=\ans{$\begin{bsmallmatrix} 4\\3 \end{bsmallmatrix}$}$. So only \ans{two}
+columns are really new. \ansline{$\mathbf{a}_3=\mathbf{a}_1+\mathbf{a}_2$, so it is a repeat --- only $\mathbf{a}_1,\mathbf{a}_2$ are independent.}
+\end{hookbox}
+
+\begin{notesbox}{1. Multiplying Matrices --- One Column at a Time}
+To multiply $AB$, use \emph{each column of $B$} to combine the columns of $A$. Column $j$ of the
+product is $A$ times column $j$ of $B$:
+\[
+  AB = A\begin{bmatrix} \mathbf{b}_1 & \mathbf{b}_2 \end{bmatrix}
+  = \begin{bmatrix} A\mathbf{b}_1 & A\mathbf{b}_2 \end{bmatrix}.
+\]
+\textit{Example.} $A=\begin{bmatrix} 1 & 3 \\ 2 & 1 \end{bmatrix}$,
+$B=\begin{bmatrix} 2 & 1 \\ 1 & 0 \end{bmatrix}$:
+\[
+  A\mathbf{b}_1 = 2\begin{bmatrix} 1\\2 \end{bmatrix}+1\begin{bmatrix} 3\\1 \end{bmatrix}=\begin{bmatrix} 5\\5 \end{bmatrix},
+  \quad
+  A\mathbf{b}_2 = 1\begin{bmatrix} 1\\2 \end{bmatrix}+0\begin{bmatrix} 3\\1 \end{bmatrix}={\color{keyred}\begin{bsmallmatrix} \mathbf{1}\\\mathbf{2} \end{bsmallmatrix}},
+  \quad AB={\color{keyred}\begin{bsmallmatrix} \mathbf{5}&\mathbf{1}\\\mathbf{5}&\mathbf{2} \end{bsmallmatrix}}.
+\]
+Every column of a product is a \textbf{combination of $A$'s columns} --- Lesson~1.3, once per column.
 \end{notesbox}
+
+\begin{notesbox}{2. The Independent Columns: $C$}
+Some columns add a \emph{new direction}; others are just repeats (combinations) of ones you already
+have. Collect the \textbf{independent} columns --- the truly new ones --- into a matrix $C$.
+\begin{center}
+\begin{tikzpicture}[scale=0.62]
+  \draw[step=1, linegray!60, thin] (-0.3,-0.3) grid (4.3,3.3);
+  \draw[->, thick, charcoal] (-0.4,0)--(4.5,0) node[right]{\scriptsize $x$};
+  \draw[->, thick, charcoal] (0,-0.4)--(0,3.5) node[above]{\scriptsize $y$};
+  \draw[->, very thick, burgundy] (0,0)--(1,2) node[above left=-2pt]{\scriptsize $\mathbf{a}_1$};
+  \draw[->, very thick, royalblue] (0,0)--(3,1) node[below right=-2pt]{\scriptsize $\mathbf{a}_2$};
+  \draw[->, very thick, black!70, dashed] (0,0)--(4,3) node[above right=-2pt]{\scriptsize $\mathbf{a}_3=\mathbf{a}_1+\mathbf{a}_2$};
+  \node[charcoal] at (2.0,-1.05) {\scriptsize $\mathbf{a}_3$ is a repeat: only $\mathbf{a}_1,\mathbf{a}_2$ are independent};
+\end{tikzpicture}
+\end{center}
+For $A=\begin{bmatrix} 1 & 3 & 4 \\ 2 & 1 & 3 \end{bmatrix}$: columns~1 and~2 are not parallel, and
+column~3 is their sum. The independent columns are \ans{$\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$}
+and \ans{$\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}$}, so
+\[
+  C={\color{keyred}\begin{bmatrix} \mathbf{1} & \mathbf{3} \\[3pt] \mathbf{2} & \mathbf{1} \end{bmatrix}}.
+\]
+\end{notesbox}
+
+\begin{notesbox}{3. The Recipe $R$, and $A=CR$}
+$R$ is the \textbf{recipe card}: each column of $R$ says how to mix the columns of $C$ to rebuild
+that column of $A$. For a column that \emph{is} in $C$, the recipe is just ``take that one'' (a
+column of the identity). For a repeat, the recipe is its weights.
+\[
+  \text{col 1}=1\,\mathbf{c}_1+0\,\mathbf{c}_2\to\begin{bmatrix} 1\\0 \end{bmatrix},\quad
+  \text{col 2}\to\begin{bmatrix} 0\\1 \end{bmatrix},\quad
+  \text{col 3}=\mathbf{c}_1+\mathbf{c}_2\to\begin{bmatrix} 1\\1 \end{bmatrix}.
+\]
+So $R=\begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \end{bmatrix}$ and $A=CR$. Check by multiplying by
+columns: $C\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}=\mathbf{c}_1+\mathbf{c}_2=\ans{$\begin{bsmallmatrix} 4\\3 \end{bsmallmatrix}$}$
+(matches $\mathbf{a}_3$? \ansline{Yes --- $\begin{bsmallmatrix} 4\\3 \end{bsmallmatrix}=\mathbf{a}_3$, so $CR$ rebuilds column~3.})
+\end{notesbox}
+
+\begin{notesbox}{4. Rank: How Many Columns Are Really New}
+The \textbf{rank} is the number of independent columns --- the number of columns in $C$. It counts
+how many directions the columns truly span.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item Independent columns fill the whole \textbf{plane} $\Rightarrow$ rank \ans{2}.
+  \item Parallel columns fill only a \textbf{line} $\Rightarrow$ rank \ans{1}.
+\end{itemize}
+For the $A$ above, $C$ has two columns, so $\operatorname{rank}(A)=\ans{2}$.
+Your turn: $B=\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$ has parallel columns --- what is its
+rank, and what is $C$? \ansline{Rank $1$; $C=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ (one column), and $R=\begin{bsmallmatrix} 1 & 2 \end{bsmallmatrix}$.}
+\end{notesbox}
+
+\begin{practicebox}
+\begin{enumerate}[leftmargin=1.6em]
+  \item Multiply by columns: $\begin{bmatrix} 1 & 0 \\ 3 & 1 \end{bmatrix}\begin{bmatrix} 2 & 1 \\ 1 & 4 \end{bmatrix}$. \hfill \ans{$\begin{bsmallmatrix} 2\\7 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 1\\7 \end{bsmallmatrix}$, so $\begin{bsmallmatrix} 2 & 1\\7 & 7 \end{bsmallmatrix}$}
+  \item Factor $A=\begin{bmatrix} 1 & 2 & 3 \\ 0 & 1 & 1 \end{bmatrix}$ as $A=CR$. Which columns are
+        independent? Write $C$ and $R$, and give the rank. \ansline{Columns~1 and~2 are independent; column~3 $=$ col~1 $+$ col~2. $C=\begin{bsmallmatrix} 1 & 2\\0 & 1 \end{bsmallmatrix}$, $R=\begin{bsmallmatrix} 1 & 0 & 1\\0 & 1 & 1 \end{bsmallmatrix}$, rank $2$.}
+  \item True or false, with a reason: a $2\times 4$ matrix can have rank $3$. \ansline{False --- each column is a vector in the plane ($2$ entries), so at most $2$ can be independent; rank $\le 2$.}
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

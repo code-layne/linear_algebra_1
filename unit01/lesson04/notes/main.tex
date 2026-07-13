@@ -3,17 +3,122 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.4}{Guided Notes}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Guided Notes. See references/components.md for the expected structure.
-\begin{notesbox}{Guided Notes}
-\writelines{4}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item multiply matrices \emph{by columns}: each column of $AB$ is $A$ times a column of $B$;
+  \item factor a matrix as $A=CR$ --- pull the \emph{independent} columns into $C$ and build the \emph{recipe} $R$;
+  \item state the \emph{rank} (the number of independent columns) and explain what it means.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.10in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\termblanklong{Matrix multiplication (by columns)}
+\termblanklong{Independent columns / $C$}
+\termblanklong{Recipe $R$ (rebuilds each column)}
+\termblanklong{Rank}
+\end{vocabbox}
+
+\begin{hookbox}
+Look at the three columns of this matrix --- is any one just a mix of the others?
+\[
+  A=\begin{bmatrix} 1 & 3 & 4 \\ 2 & 1 & 3 \end{bmatrix},
+  \qquad
+  \mathbf{a}_1=\begin{bmatrix} 1 \\ 2 \end{bmatrix},\ \
+  \mathbf{a}_2=\begin{bmatrix} 3 \\ 1 \end{bmatrix},\ \
+  \mathbf{a}_3=\begin{bmatrix} 4 \\ 3 \end{bmatrix}.
+\]
+Is $\mathbf{a}_3$ a combination of $\mathbf{a}_1$ and $\mathbf{a}_2$? Try
+$\mathbf{a}_1+\mathbf{a}_2=\blank{2.0cm}$. So only \blank{1.0cm} columns are really new. \writeline
+\end{hookbox}
+
+\begin{notesbox}{1. Multiplying Matrices --- One Column at a Time}
+To multiply $AB$, use \emph{each column of $B$} to combine the columns of $A$. Column $j$ of the
+product is $A$ times column $j$ of $B$:
+\[
+  AB = A\begin{bmatrix} \mathbf{b}_1 & \mathbf{b}_2 \end{bmatrix}
+  = \begin{bmatrix} A\mathbf{b}_1 & A\mathbf{b}_2 \end{bmatrix}.
+\]
+\textit{Example.} $A=\begin{bmatrix} 1 & 3 \\ 2 & 1 \end{bmatrix}$,
+$B=\begin{bmatrix} 2 & 1 \\ 1 & 0 \end{bmatrix}$:
+\[
+  A\mathbf{b}_1 = 2\begin{bmatrix} 1\\2 \end{bmatrix}+1\begin{bmatrix} 3\\1 \end{bmatrix}=\begin{bmatrix} 5\\5 \end{bmatrix},
+  \quad
+  A\mathbf{b}_2 = 1\begin{bmatrix} 1\\2 \end{bmatrix}+0\begin{bmatrix} 3\\1 \end{bmatrix}=\blank{1.6cm},
+  \quad AB=\blank{2.0cm}.
+\]
+Every column of a product is a \textbf{combination of $A$'s columns} --- Lesson~1.3, once per column.
 \end{notesbox}
+
+\begin{notesbox}{2. The Independent Columns: $C$}
+Some columns add a \emph{new direction}; others are just repeats (combinations) of ones you already
+have. Collect the \textbf{independent} columns --- the truly new ones --- into a matrix $C$.
+\begin{center}
+\begin{tikzpicture}[scale=0.62]
+  \draw[step=1, linegray!60, thin] (-0.3,-0.3) grid (4.3,3.3);
+  \draw[->, thick, charcoal] (-0.4,0)--(4.5,0) node[right]{\scriptsize $x$};
+  \draw[->, thick, charcoal] (0,-0.4)--(0,3.5) node[above]{\scriptsize $y$};
+  \draw[->, very thick, burgundy] (0,0)--(1,2) node[above left=-2pt]{\scriptsize $\mathbf{a}_1$};
+  \draw[->, very thick, royalblue] (0,0)--(3,1) node[below right=-2pt]{\scriptsize $\mathbf{a}_2$};
+  \draw[->, very thick, black!70, dashed] (0,0)--(4,3) node[above right=-2pt]{\scriptsize $\mathbf{a}_3=\mathbf{a}_1+\mathbf{a}_2$};
+  \node[charcoal] at (2.0,-1.05) {\scriptsize $\mathbf{a}_3$ is a repeat: only $\mathbf{a}_1,\mathbf{a}_2$ are independent};
+\end{tikzpicture}
+\end{center}
+For $A=\begin{bmatrix} 1 & 3 & 4 \\ 2 & 1 & 3 \end{bmatrix}$: columns~1 and~2 are not parallel, and
+column~3 is their sum. The independent columns are \blank{1.4cm} and \blank{1.4cm}, so
+\[
+  C=\begin{bmatrix}\ \rule{0.7cm}{0pt} & \rule{0.7cm}{0pt}\ \\[3pt] & \end{bmatrix}.
+\]
+\end{notesbox}
+
+\begin{notesbox}{3. The Recipe $R$, and $A=CR$}
+$R$ is the \textbf{recipe card}: each column of $R$ says how to mix the columns of $C$ to rebuild
+that column of $A$. For a column that \emph{is} in $C$, the recipe is just ``take that one'' (a
+column of the identity). For a repeat, the recipe is its weights.
+\[
+  \text{col 1}=1\,\mathbf{c}_1+0\,\mathbf{c}_2\to\begin{bmatrix} 1\\0 \end{bmatrix},\quad
+  \text{col 2}\to\begin{bmatrix} 0\\1 \end{bmatrix},\quad
+  \text{col 3}=\mathbf{c}_1+\mathbf{c}_2\to\begin{bmatrix} 1\\1 \end{bmatrix}.
+\]
+So $R=\begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \end{bmatrix}$ and $A=CR$. Check by multiplying by
+columns: $C\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}=\mathbf{c}_1+\mathbf{c}_2=\blank{1.6cm}$
+(matches $\mathbf{a}_3$? \writeline)
+\end{notesbox}
+
+\begin{notesbox}{4. Rank: How Many Columns Are Really New}
+The \textbf{rank} is the number of independent columns --- the number of columns in $C$. It counts
+how many directions the columns truly span.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item Independent columns fill the whole \textbf{plane} $\Rightarrow$ rank \blank{0.8cm}.
+  \item Parallel columns fill only a \textbf{line} $\Rightarrow$ rank \blank{0.8cm}.
+\end{itemize}
+For the $A$ above, $C$ has two columns, so $\operatorname{rank}(A)=\blank{0.8cm}$.
+Your turn: $B=\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$ has parallel columns --- what is its
+rank, and what is $C$? \writeline
+\end{notesbox}
+
+\begin{practicebox}
+\begin{enumerate}[leftmargin=1.6em]
+  \item Multiply by columns: $\begin{bmatrix} 1 & 0 \\ 3 & 1 \end{bmatrix}\begin{bmatrix} 2 & 1 \\ 1 & 4 \end{bmatrix}$. \hfill \blank{3.4cm}
+  \item Factor $A=\begin{bmatrix} 1 & 2 & 3 \\ 0 & 1 & 1 \end{bmatrix}$ as $A=CR$. Which columns are
+        independent? Write $C$ and $R$, and give the rank. \writelines{2}
+  \item True or false, with a reason: a $2\times 4$ matrix can have rank $3$. \writeline
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

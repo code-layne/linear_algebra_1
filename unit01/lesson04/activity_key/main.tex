@@ -3,17 +3,76 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.4}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Rebuilding a Catalog from Base Products.} A workshop's catalog is a matrix $A$. Each
+column is a product listed as $\begin{bsmallmatrix} \text{parts} \\ \text{labor} \end{bsmallmatrix}$.
+Some products are \emph{bundles} of others, so we can keep just the \textbf{base} products in $C$ and
+record a \textbf{recipe} $R$ that rebuilds the whole catalog: $A=CR$. Work with your partner and
+\emph{show your steps}.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Base products $C=\begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}$ (columns $\mathbf{c}_1=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$,
+$\mathbf{c}_2=\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$) and recipe $R=\begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 2 \end{bmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item Multiply \emph{by columns}: compute $C\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}$ and
+        $C\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}$ (the first two columns of the catalog).
+        \ans{$C\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}=\mathbf{c}_1=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$, \quad $C\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}=\mathbf{c}_2=\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$}
+  \item Compute the third catalog product $C\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}=1\,\mathbf{c}_1+2\,\mathbf{c}_2$.
+        \ans{$\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}+2\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}+\begin{bsmallmatrix} 2\\6 \end{bsmallmatrix}=\begin{bsmallmatrix} 4\\7 \end{bsmallmatrix}$}
+  \item Write out the full catalog $A=CR$. What does column~3 mean --- how is that product built
+        from the base products? \ansline{$A=\begin{bsmallmatrix} 2 & 1 & 4\\1 & 3 & 7 \end{bsmallmatrix}$. Product~3 is $1$ of base~1 plus $2$ of base~2 --- a bundle using $4$ parts and $7$ labor.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+A catalog $A=\begin{bmatrix} 1 & 2 & 4 \\ 2 & 1 & 5 \end{bmatrix}$ (three products).
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item Are columns~1 and~2 independent (not multiples)? These are the \textbf{base products} ---
+        write $C$. \ans{Yes, independent --- $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ is not a multiple of $\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$. $C=\begin{bsmallmatrix} 1 & 2\\2 & 1 \end{bsmallmatrix}$.}
+  \item Show product~3 is a bundle: find weights so $\begin{bsmallmatrix} 4\\5 \end{bsmallmatrix}
+        = {\color{keyred}\mathbf{2}}\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix} + {\color{keyred}\mathbf{1}}\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$.
+        Use them to write $R$. \ansline{$2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}+1\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}=\begin{bsmallmatrix} 4\\5 \end{bsmallmatrix}$, so $R=\begin{bsmallmatrix} 1 & 0 & 2\\0 & 1 & 1 \end{bsmallmatrix}$.}
+  \item \textbf{Interpret.} State $A=CR$ and the \textbf{rank}. What does the rank say about how many
+        \emph{truly different} products this catalog really has?
+        \ansline{$A=\begin{bsmallmatrix} 1 & 2\\2 & 1 \end{bsmallmatrix}\begin{bsmallmatrix} 1 & 0 & 2\\0 & 1 & 1 \end{bsmallmatrix}$, rank $2$. Only two products are truly different (base products); the third is a bundle of those two.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+A different catalog has every product on \emph{one line}:
+$M=\begin{bmatrix} 1 & 2 & 3 \\ 2 & 4 & 6 \end{bmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item Show all three columns are multiples of $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$. What
+        is the \textbf{rank} of $M$? \ansline{$\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}=2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$, $\begin{bsmallmatrix} 3\\6 \end{bsmallmatrix}=3\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$. Only one independent column, so rank $1$.}
+  \item Write $M=CR$ with $C$ a single column and $R$ a single row. \ansline{$C=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$, $R=\begin{bsmallmatrix} 1 & 2 & 3 \end{bsmallmatrix}$, so $M=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}\begin{bsmallmatrix} 1 & 2 & 3 \end{bsmallmatrix}$.}
+  \item \textbf{Justify.} Explain why \emph{every} product in this catalog must use twice as much
+        labor as parts --- no matter which base you pick.
+        \ansline{Every column is a multiple $t\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}=\begin{bsmallmatrix} t\\2t \end{bsmallmatrix}$: labor $=2t=2\times$ parts. The whole column space is that one line, so no product can break the $1\!:\!2$ ratio.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~A item~3 is the central ``interpret'' moment: the rank counts how many products are genuinely
+different --- the rest are bundles recorded by $R$. Tier~E is the rank-$1$ collapse: one base column,
+one recipe row, every product trapped on a line. This sets up Unit~2, where the rank decides exactly
+when $A\xx=\bb$ can be solved. Accept any correct weights/reasoning; watch for students who put a
+\emph{dependent} column into $C$ (Tier~A) --- $C$ holds only the independent base products.
+\end{teachernote}
 
 \end{document}

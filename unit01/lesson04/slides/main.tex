@@ -1,6 +1,8 @@
 %! Matrix Multiplication and A = CR — Unit 1, Lesson 1.4 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
@@ -11,16 +13,99 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 1.4}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Matrix Multiplication and A = CR}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 1}
+    {\color{white}\bfseries\LARGE Matrix Multiplication and $A=CR$}\\[0.3cm]
+    {\color{white}\bfseries\large Keep the columns that are really new --- record a recipe for the rest.}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 1: Vectors and Matrices}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{Is any column just a mix of the others?}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+      Read $A=\begin{bsmallmatrix} 1 & 3 & 4 \\ 2 & 1 & 3 \end{bsmallmatrix}$ as three columns
+      $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix},\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix},\begin{bsmallmatrix} 4\\3 \end{bsmallmatrix}$.
+      \[
+        \begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}+\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}
+        =\begin{bsmallmatrix} 4\\3 \end{bsmallmatrix}.
+      \]
+      Column~3 is a \textbf{repeat} --- only two columns are truly new.
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.5]
+        \draw[step=1, black!15, thin] (-0.3,-0.3) grid (4.3,3.3);
+        \draw[->, thick, black!60] (-0.4,0)--(4.5,0);
+        \draw[->, thick, black!60] (0,-0.4)--(0,3.5);
+        \draw[->, very thick, burgundy] (0,0)--(1,2) node[above left]{\scriptsize $\mathbf{a}_1$};
+        \draw[->, very thick, royalblue] (0,0)--(3,1) node[below right]{\scriptsize $\mathbf{a}_2$};
+        \draw[->, very thick, black!70, dashed] (0,0)--(4,3) node[above right]{\scriptsize $\mathbf{a}_3$};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% MULTIPLY BY COLUMNS
+\begin{frame}[t, plain]
+  \burgundyheader{Multiply one column at a time}
+  \sectionlabel{Definition}
+  Each column of $B$ combines the columns of $A$: column $j$ of $AB$ is $A\mathbf{b}_j$.
+  \[
+    AB = A\begin{bmatrix} \mathbf{b}_1 & \mathbf{b}_2 \end{bmatrix}
+    = \begin{bmatrix} A\mathbf{b}_1 & A\mathbf{b}_2 \end{bmatrix}.
+  \]
+  \begin{itemize}
+    \item Example: $\begin{bsmallmatrix} 1 & 3 \\ 2 & 1 \end{bsmallmatrix}\begin{bsmallmatrix} 2 & 1 \\ 1 & 0 \end{bsmallmatrix}
+      =\begin{bsmallmatrix} 5 & 1 \\ 5 & 2 \end{bsmallmatrix}$ --- each column is a combination of $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix},\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}$.
+    \item This is Lesson 1.3, run once per column.
+  \end{itemize}
+\end{frame}
+
+% A = CR
+\begin{frame}[t, plain]
+  \burgundyheader{$A=CR$: keep $C$, record the recipe $R$}
+  \sectionlabel{Factorization}
+  \begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+      \textbf{$C$} = the independent columns (the truly new ones).\\[4pt]
+      \textbf{$R$} = the recipe: each column says how to mix $C$ to rebuild that column of $A$.
+      \[
+        \underbrace{\begin{bsmallmatrix} 1 & 3 & 4 \\ 2 & 1 & 3 \end{bsmallmatrix}}_{A}
+        =\underbrace{\begin{bsmallmatrix} 1 & 3 \\ 2 & 1 \end{bsmallmatrix}}_{C}
+         \underbrace{\begin{bsmallmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \end{bsmallmatrix}}_{R}
+      \]
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \begin{block}{Read $R$}
+        Columns 1--2: the identity (the base columns themselves). Column 3: $\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$ --- ``one of each,'' rebuilding $\mathbf{a}_3=\mathbf{a}_1+\mathbf{a}_2$.
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% RANK
+\begin{frame}[t, plain]
+  \burgundyheader{Rank = how many columns are really new}
+  \sectionlabel[goldacc]{Rank}
+  \begin{block}{The count}
+    The \textbf{rank} is the number of independent columns --- the number of columns in $C$.
+    Independent columns fill the \textbf{plane} (rank 2); parallel columns fill only a \textbf{line} (rank 1).
+  \end{block}
+  For $\begin{bsmallmatrix} 1 & 3 & 4 \\ 2 & 1 & 3 \end{bsmallmatrix}$ the rank is $2$. For
+  $\begin{bsmallmatrix} 1 & 2 \\ 2 & 4 \end{bsmallmatrix}$ (parallel columns) the rank is $1$: $C$ is one column, $R$ one row.
+\end{frame}
+
+% WRAP / PREVIEW
+\begin{frame}[t, plain]
+  \burgundyheader{Wrap-up and what's next}
+  \sectionlabel{Connections}
+  \textbf{Today:} multiply by columns ($AB=\begin{bsmallmatrix} A\mathbf{b}_1 & A\mathbf{b}_2 \end{bsmallmatrix}$);
+  factor $A=CR$ with $C$ the independent columns and $R$ the recipe; the rank counts the columns of $C$.\\[8pt]
+  \textbf{Next --- Unit 2:} solving $A\xx=\bb$ --- given a target $\bb$, exactly when can we hit it,
+  and how do we find the weights?
 \end{frame}
 
 \end{document}

@@ -7,16 +7,19 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-13 — Authored **Lesson 1.3 "Matrices and Column Spaces" in full**
-(all components + keys + slides), mirroring Lessons 1.0–1.2 as the gold model. Content from
-LAfE §1.3, down-leveled: a matrix as vectors standing as columns, $A\mathbf x=x_1\mathbf a_1+x_2\mathbf a_2$
-(the "columns" way — a linear combination of the columns), the column space $C(A)=$ all $A\mathbf x=$
-span of the columns, independent columns fill the whole plane vs. parallel columns fill only a line,
-and $A\mathbf x=\mathbf b$ solvable $\Leftrightarrow\mathbf b\in C(A)$ (previews Unit 2). Gift-box
-"build an order from two boxes" application + production/kit contexts (data-as-a-table theme).
-Builds clean: `make -C unit01/lesson03 all` exit 0 → `lesson03_student.pdf` (10 pp) and
-`lesson03_full.pdf` (18 pp); warm-up and exit ticket 1 page each (blank + key); `\ans`-in-math scan
-clean; notes blank/key paginate in lockstep (3 pp each); TikZ whole-plane (shaded) + line figures render.
+**Last updated:** 2026-07-13 — Authored **Lesson 1.4 "Matrix Multiplication and $A=CR$" in full**
+(all components + keys + slides), mirroring Lessons 1.0–1.3 as the gold model. Content from
+LAfE §1.4, down-leveled: matrix multiplication **by columns** ($AB=[A\mathbf b_1\ A\mathbf b_2]$ —
+each column of the product is a combination of $A$'s columns), the factorization $A=CR$ ($C$ = the
+independent columns, $R$ = the recipe that rebuilds every column of $A$ from $C$), and **rank** =
+number of independent columns = columns in $C$. Running example $A=\begin{bsmallmatrix}1&3&4\\2&1&3\end{bsmallmatrix}$
+with col 3 = col 1 + col 2 → $C=\begin{bsmallmatrix}1&3\\2&1\end{bsmallmatrix}$, $R=\begin{bsmallmatrix}1&0&1\\0&1&1\end{bsmallmatrix}$.
+"Rebuilding a catalog from base products" application (base products = $C$, recipe card = $R$;
+data-as-a-table theme). Builds clean: `make -C unit01/lesson04 all` exit 0 → `lesson04_student.pdf`
+(9 pp) and `lesson04_full.pdf` (17 pp); warm-up and exit ticket 1 page each (blank + key);
+`\ans`-in-math scan clean; notes/activity/homework blank+key paginate in lockstep (2 pp each);
+TikZ dependent-column figure (dashed $\mathbf a_3=\mathbf a_1+\mathbf a_2$) renders. **Unit 1 lessons
+all authored** — next is the Unit 1 test + keys.
 
 ## Current state
 
@@ -34,7 +37,7 @@ clean; notes blank/key paginate in lockstep (3 pp each); TikZ whole-plane (shade
 - **Standard component set per lesson:** cover, warmup, notes, activity, exit_ticket, homework,
   **slides** (+ keys for the keyed components). Teacher slide decks are in scope.
 
-**Unit 1 — lessons 1.0, 1.1, 1.2, 1.3 authored; 1.4 scaffolded (skeletons only).**
+**Unit 1 — lessons 1.0, 1.1, 1.2, 1.3, 1.4 all authored.**
 - `unit01/lesson00` — id 1.0, **"Introducing Vectors — Vocabulary and Length"** ✅ authored
   (cover, warmup, notes, activity, exit_ticket, homework, slides + all keys). Content: vector
   as components/arrow, scalar, add/scale, magnitude $\|\mathbf v\|=\sqrt{v_1^2+v_2^2}$, unit
@@ -52,7 +55,10 @@ clean; notes blank/key paginate in lockstep (3 pp each); TikZ whole-plane (shade
   space $C(A)=$ span of columns, line (parallel columns) vs. plane (independent columns),
   reachability of $\mathbf b$; gift-box "build an order" + kit/production contexts; previews
   $A=CR$ (1.4).
-- `unit01/lesson04` — id 1.4, "Matrix Multiplication and A = CR"
+- `unit01/lesson04` — id 1.4, **"Matrix Multiplication and $A=CR$"** ✅ authored (all components +
+  keys + slides). Content: multiply by columns $AB=[A\mathbf a_1\ \ldots]$, factorization $A=CR$
+  ($C$ = independent columns, $R$ = recipe), rank = columns in $C$; catalog/base-product context;
+  previews Unit 2 (solving $A\mathbf x=\mathbf b$).
 - `unit01/tests` + `unit01/test_keys` + `sample_test`/`sample_test_key` — test skeletons only.
 - Root `Makefile` and `unit01/Makefile` created. Toolchain present (xelatex, latexmk, pdfunite).
 
@@ -62,7 +68,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 | Unit | Chapter | Lessons | Status |
 | --- | --- | --- | --- |
-| 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ◐ 1.0, 1.1, 1.2, 1.3 authored ✅; 1.4 skeleton |
+| 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ◐ all lessons authored ✅; tests skeleton only |
 | 2 | Solving Linear Equations Ax = b | 2.1–2.4 | ☐ |
 | 3 | The Four Fundamental Subspaces | 3.1–3.5 | ☐ |
 | 4 | Orthogonality | 4.1–4.4 | ☐ |
@@ -73,13 +79,13 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author Unit 1, Lesson 1.4** (Matrix Multiplication and $A=CR$) from LAfE §1.4, using
-   **lessons 1.0–1.3 as the gold model** (mirror preamble, box usage, tone, `\vv`/`\ww`/`\xx`/`\bb`
-   macros; keep the compute→interpret→justify loop). Multiplying matrices as combinations of
-   columns; the factorization $A=CR$ ($C$ = independent columns, $R$ = how to rebuild every
-   column); tie back to the column space (1.3) and the data-as-a-table theme.
-2. Author the Unit 1 practice/actual tests + keys once 1.4 is drafted (test skeletons already
-   scaffolded in `unit01/tests` + `unit01/test_keys`).
+1. **Author the Unit 1 practice/actual tests + keys** (skeletons already scaffolded in
+   `unit01/tests` + `unit01/test_keys`; `drop` publishes practice test/key to `sample_test`/
+   `sample_test_key`). Cover the full arc: vectors + length (1.0), linear combinations/span (1.1),
+   dot product/angles (1.2), matrices + column space (1.3), and $A=CR$/rank (1.4). Keep practice and
+   actual in the same format. See `references/components.md` for the test structure.
+2. **Confirm the Unit 2 lesson map with the user** (Solving $A\mathbf x=\mathbf b$, §2.1–2.4, plus a
+   `lesson00` intro per the confirmed convention), then begin authoring Unit 2.
 
 ## Notes for the next run
 

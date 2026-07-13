@@ -3,6 +3,8 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 
 \begin{document}
 
@@ -11,9 +13,24 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+Show your work.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=14pt]
+  \item Compute the dot product $\begin{bmatrix} 3 \\ 4 \end{bmatrix}\cdot\begin{bmatrix} 1 \\ 2 \end{bmatrix}$.
+        \ansline{$(3)(1)+(4)(2)=3+8=11$}
+  \item Find the length of $\begin{bmatrix} 6 \\ 8 \end{bmatrix}$ using $\|\vv\|=\sqrt{\vv\cdot\vv}$.
+        \ansline{$\sqrt{6^2+8^2}=\sqrt{36+64}=\sqrt{100}=10$}
+  \item Are $\begin{bmatrix} 4 \\ 1 \end{bmatrix}$ and $\begin{bmatrix} -1 \\ 4 \end{bmatrix}$
+        perpendicular? Use the dot product to decide, and say what your answer means about the
+        angle between them.
+        \ansline{$(4)(-1)+(1)(4)=-4+4=0$. The dot product is $0$, so yes --- they are
+        perpendicular: the angle between them is $90^\circ$.}
+\end{enumerate}
+
+\begin{teachernote}
+Item 3 checks the central idea --- dot product $=0$ means a right angle. Full credit needs both
+the computation ($=0$) \emph{and} the meaning (perpendicular / $90^\circ$). A common slip in
+item~1 is crossing components ($3\cdot2+4\cdot1$); look for matching products $3\cdot1+4\cdot2$.
+\end{teachernote}
 
 \end{document}

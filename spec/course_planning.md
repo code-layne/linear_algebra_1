@@ -7,14 +7,16 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-13 — Authored **Lesson 1.1 "Linear Combinations of Vectors" in full**
-(all components + keys + slides), mirroring Lesson 1.0 as the gold model. Content from LAfE §1.1,
-down-leveled: linear combination $c\mathbf v+d\mathbf w$, coefficients/weights, span (informal),
-one vector → line, two non-parallel vectors → plane, parallel exception, standard basis
-$\mathbf i,\mathbf j$, and solving for weights. Robot-moves + juice/smoothie data-record contexts.
-Builds clean: `make -C unit01/lesson01 all` exit 0 → `lesson01_student.pdf` (10 pp) and
-`lesson01_full.pdf` (17 pp); warm-up and exit ticket 1 page each (blank + key); `\ans`-in-math
-scan clean; notes/activity paginate in lockstep (homework blank 2pp / key 1pp — same as 1.0).
+**Last updated:** 2026-07-13 — Authored **Lesson 1.2 "Lengths and Angles from Dot Products" in
+full** (all components + keys + slides), mirroring Lessons 1.0/1.1 as the gold model. Content
+from LAfE §1.2, down-leveled: dot product $\mathbf v\cdot\mathbf w=v_1w_1+v_2w_2$ (a scalar),
+length as $\|\mathbf v\|=\sqrt{\mathbf v\cdot\mathbf v}$ (recovers the 1.0 formula), unit vector,
+angle via $\cos\theta=\tfrac{\mathbf v\cdot\mathbf w}{\|\mathbf v\|\|\mathbf w\|}$, sign of the dot
+product (acute/right/obtuse), and perpendicular $\Leftrightarrow$ dot $=0$. Movie/streaming-taste
+data-similarity contexts (viewers, songs, cosine-similarity recommend). Builds clean:
+`make -C unit01/lesson02 all` exit 0 → `lesson02_student.pdf` (10 pp) and `lesson02_full.pdf`
+(19 pp); warm-up and exit ticket 1 page each (blank + key); `\ans`-in-math scan clean; notes
+blank/key paginate in lockstep (3 pp each); TikZ angle + right-angle figures render.
 
 ## Current state
 
@@ -32,7 +34,7 @@ scan clean; notes/activity paginate in lockstep (homework blank 2pp / key 1pp �
 - **Standard component set per lesson:** cover, warmup, notes, activity, exit_ticket, homework,
   **slides** (+ keys for the keyed components). Teacher slide decks are in scope.
 
-**Unit 1 — lessons 1.0 and 1.1 authored; 1.2–1.4 scaffolded (skeletons only).**
+**Unit 1 — lessons 1.0, 1.1, 1.2 authored; 1.3–1.4 scaffolded (skeletons only).**
 - `unit01/lesson00` — id 1.0, **"Introducing Vectors — Vocabulary and Length"** ✅ authored
   (cover, warmup, notes, activity, exit_ticket, homework, slides + all keys). Content: vector
   as components/arrow, scalar, add/scale, magnitude $\|\mathbf v\|=\sqrt{v_1^2+v_2^2}$, unit
@@ -41,7 +43,10 @@ scan clean; notes/activity paginate in lockstep (homework blank 2pp / key 1pp �
   keys + slides). Content: $c\mathbf v+d\mathbf w$, weights, span, line vs plane, parallel
   exception, standard basis, finding weights; robot-moves + juice/smoothie contexts; previews
   the dot product (1.2).
-- `unit01/lesson02` — id 1.2, "Lengths and Angles from Dot Products"
+- `unit01/lesson02` — id 1.2, **"Lengths and Angles from Dot Products"** ✅ authored (all
+  components + keys + slides). Content: dot product, length $\sqrt{\mathbf v\cdot\mathbf v}$,
+  unit vector, angle/cosine, sign, perpendicular $\Leftrightarrow$ dot $=0$; viewer/song
+  data-similarity contexts; previews matrices \& column spaces (1.3).
 - `unit01/lesson03` — id 1.3, "Matrices and Column Spaces"
 - `unit01/lesson04` — id 1.4, "Matrix Multiplication and A = CR"
 - `unit01/tests` + `unit01/test_keys` + `sample_test`/`sample_test_key` — test skeletons only.
@@ -53,7 +58,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 | Unit | Chapter | Lessons | Status |
 | --- | --- | --- | --- |
-| 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ◐ 1.0, 1.1 authored ✅; 1.2–1.4 skeletons |
+| 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ◐ 1.0, 1.1, 1.2 authored ✅; 1.3–1.4 skeletons |
 | 2 | Solving Linear Equations Ax = b | 2.1–2.4 | ☐ |
 | 3 | The Four Fundamental Subspaces | 3.1–3.5 | ☐ |
 | 4 | Orthogonality | 4.1–4.4 | ☐ |
@@ -64,12 +69,12 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author Unit 1, Lesson 1.2** (Lengths and Angles from Dot Products) from LAfE §1.2, using
-   **lessons 1.0/1.1 as the gold model** (mirror preamble, box usage, tone, `\vv`/`\ww` macros;
-   keep the compute→interpret→justify loop). Dot product $\mathbf v\cdot\mathbf w$, length as
-   $\sqrt{\mathbf v\cdot\mathbf v}$, angle/cosine, perpendicular ⇔ dot $=0$; similarity-of-
-   records context.
-2. Then author 1.3–1.4 following the same model.
+1. **Author Unit 1, Lesson 1.3** (Matrices and Column Spaces) from LAfE §1.3, using
+   **lessons 1.0–1.2 as the gold model** (mirror preamble, box usage, tone, `\vv`/`\ww` macros;
+   keep the compute→interpret→justify loop). Matrix as columns, $A\mathbf x$ as a combination of
+   columns, column space $C(A)$ = all reachable $\mathbf b$; tie back to span (1.1) and the
+   data-record theme.
+2. Then author 1.4 (Matrix Multiplication and $A=CR$) following the same model.
 3. Author the Unit 1 practice/actual tests + keys once the lessons are drafted.
 
 ## Notes for the next run

@@ -5,6 +5,10 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 \newcommand{\UnitNumberName}{Unit 1: Vectors and Matrices \quad}
 \newcommand{\LessonNumberName}{Lesson 1.3: Matrices and Column Spaces}
 
@@ -16,55 +20,140 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can read a matrix as vectors standing side by side
+    (its \emph{columns}), compute $A\xx$ as a \emph{linear combination of those columns}
+    $x_1\mathbf{a}_1+x_2\mathbf{a}_2$, and describe the \emph{column space} $C(A)$ --- every
+    target $\bb$ the columns can build. They can justify \emph{geometrically} why two
+    independent columns fill the whole plane while two parallel columns fill only a line, and
+    decide whether a given $\bb$ is reachable.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Read a matrix as its \emph{columns} $\mathbf{a}_1,\mathbf{a}_2$.
+  \item Compute $A\xx = x_1\mathbf{a}_1 + x_2\mathbf{a}_2$.
+  \item Describe the column space $C(A)$ as all combinations of the columns.
+  \item Decide if $C(A)$ is a \emph{line} or the whole \emph{plane}, and whether a target $\bb$ is reachable.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item A matrix is just vectors lined up as columns --- nothing new, repackaged.
+  \item $A\xx$ \emph{mixes} the columns with the weights in $\xx$ --- the same linear combination from Lesson~1.1.
+  \item The column space is the \emph{span of the columns}: every output the matrix can produce.
+  \item Independent columns fill the plane; parallel columns fill only a line --- and $A\xx=\bb$ is solvable exactly when $\bb$ sits in $C(A)$.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Matrix} & A rectangular array of numbers; read it as vectors standing side by side --- its \emph{columns}. \\
+\textbf{Columns of $A$} & The vectors $\mathbf{a}_1,\mathbf{a}_2$ that make up $A=\begin{bsmallmatrix} \mathbf{a}_1 & \mathbf{a}_2 \end{bsmallmatrix}$. \\
+\textbf{Matrix--vector product} & \TallMath{A\xx = x_1\mathbf{a}_1 + x_2\mathbf{a}_2}; a linear combination of the columns, weighted by $\xx$. \\
+\textbf{Column space $C(A)$} & All vectors $A\xx$ --- every combination of the columns; the \emph{span} of the columns. \\
+\textbf{Independent / dependent columns} & Independent (not parallel) columns span the whole plane; dependent (parallel) columns span only a line. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the Lesson~1.1 skills this lesson repackages as a matrix:
+    \textbf{(1)} forming a \emph{linear combination} $c\vv+d\ww$ (which becomes $A\xx$),
+    \textbf{(2)} deciding whether one vector is a \emph{multiple} of another (parallel), and
+    \textbf{(3)} recalling that two \emph{non-parallel} vectors span the whole plane while two
+    parallel ones span a line. Debrief item~3 aloud --- ``line vs.\ plane'' returns immediately
+    as the shape of the column space.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Put two columns on the board as a matrix,
+    $A=\begin{bsmallmatrix} 1 & 3 \\ 2 & 1 \end{bsmallmatrix}$, and ask:
+    \textbf{``If a matrix is really just two vectors standing side by side, what does it mean to
+    multiply it by $\xx=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$?''} Reveal the ``columns''
+    rule: $A\xx = 2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix} + 1\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}
+    = \begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}$ --- a linear combination of the columns.
+    Then push the big question: \emph{as $\xx$ ranges over everything, which targets $\bb$ can we
+    hit?} That collection is the \textbf{column space}. This frames the lesson: a matrix packages
+    vectors, and its column space is everything they can build.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. A matrix is vectors in columns.} Write $A=\begin{bsmallmatrix} 1 & 3 \\ 2 & 1 \end{bsmallmatrix}$
+as columns $\mathbf{a}_1=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$,
+$\mathbf{a}_2=\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}$. A matrix is not a new object --- it is
+vectors lined up.
+
+\textbf{2. $A\xx$ combines the columns.} Define
+$A\xx = x_1\mathbf{a}_1 + x_2\mathbf{a}_2$. With $\xx=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$,
+$A\xx=2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}+1\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}
+=\begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}$. This is the Lesson~1.1 combination, now written with a matrix.
+
+\columnbreak
+
+\textbf{3. The column space.} $C(A)$ is \emph{all} vectors $A\xx$ --- every combination of the
+columns, i.e.\ their \textbf{span}. For $A$ above the two columns are not parallel, so $C(A)$ is
+the \emph{whole plane}: every $\bb$ is reachable.
+
+\textbf{4. Line vs.\ plane; is $\bb$ reachable?} Contrast $B=\begin{bsmallmatrix} 1 & 2 \\ 2 & 4 \end{bsmallmatrix}$:
+column~2 is $2\times$ column~1 (parallel), so $C(B)$ is only the \emph{line} through
+$\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$. Then $\begin{bsmallmatrix} 3\\6 \end{bsmallmatrix}$ is
+reachable but $\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}$ is not --- solving $A\xx=\bb$ asks
+whether $\bb$ lies in $C(A)$ (previews Unit~2).
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item computing $A\xx$ row-by-row and losing the \emph{columns} picture (miss the linear combination);
+  \item mixing up which weight scales which column ($x_1$ with $\mathbf{a}_1$);
+  \item thinking every matrix's column space is the whole plane --- missing the parallel-columns ``line'' case;
+  \item saying $\bb$ is reachable without checking whether it lies on the span of the columns.
+\end{itemize}
+Cold-call prompts: ``What are the two columns of this matrix?'' ``$A\xx$ is a combination of
+\emph{what}?'' ``Line or plane --- how do you know?'' ``Is $\bb$ in the column space?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Building Orders from Two Boxes} activity (tiered; mirrors the notes). The columns of $A$
+are two gift boxes $\begin{bsmallmatrix} \text{mugs} \\ \text{shirts} \end{bsmallmatrix}$, and
+$A\xx$ is the total order built from $x_1$ of one box and $x_2$ of the other. The column space is
+every order the two boxes can fill.
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Identify the columns of $A$ and compute $A\xx$ for given $\xx$ ---
+mixing the two boxes into a total order.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Solve $A\xx=\bb$ for a target order, and decide whether the two
+independent boxes can fill \emph{any} target (whole plane).
+
+\columnbreak
+\textbf{Tier E --- Extension.} A shop with two \emph{parallel} boxes: show its column space is a
+line, find an order it can never fill, and justify why using the columns.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): name the columns of a matrix and compute an $A\xx$
+as a combination of columns; then a \textbf{reachability/justification check} --- decide whether a
+given $\bb$ lies in the column space of a matrix with parallel columns and explain how you know.
+Collect and sort into ``got it / arithmetic slip / concept gap (columns picture, or line-vs-plane)''
+to decide whether 1.4 opens with a quick re-teach.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} mixed practice --- naming columns, computing $A\xx$ as column combinations,
+classifying a column space as a line or the whole plane, and testing whether a target $\bb$ is
+reachable. \textbf{Extension:} a \emph{production} context --- two product bundles as columns and
+which output totals they can build, extending the unit's data-as-a-table theme. \textbf{Preview:}
+Lesson~1.4, \emph{Matrix Multiplication and $A=CR$} --- building each output as a combination of a
+few independent columns.
 \end{skillbox}
 \end{document}

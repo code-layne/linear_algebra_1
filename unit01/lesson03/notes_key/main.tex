@@ -3,17 +3,140 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.3}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item read a \emph{matrix} as its \emph{columns} and compute $A\xx$ as a combination of them;
+  \item describe the \emph{column space} $C(A)$ and tell whether it is a line or the whole plane;
+  \item decide whether a target $\bb$ is \emph{reachable} (in the column space).
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.10in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{Matrix (its columns)}{a block of numbers read as vectors side by side; $A=\begin{bsmallmatrix} \mathbf{a}_1 & \mathbf{a}_2 \end{bsmallmatrix}$}
+\vocabans{Matrix--vector product $A\xx$}{$A\xx=x_1\mathbf{a}_1+x_2\mathbf{a}_2$; a linear combination of the columns}
+\vocabans{Column space $C(A)$}{all outputs $A\xx$ --- every combination of the columns; the span of the columns}
+\vocabans{Independent / dependent columns}{independent (not parallel) columns span the plane; dependent (parallel) columns span only a line}
+\end{vocabbox}
+
+\begin{hookbox}
+A matrix is really just two vectors standing side by side:
+\[
+  A=\begin{bmatrix} 1 & 3 \\ 2 & 1 \end{bmatrix}
+  \quad\text{has columns}\quad
+  \mathbf{a}_1=\begin{bmatrix} 1 \\ 2 \end{bmatrix},\ \
+  \mathbf{a}_2=\begin{bmatrix} 3 \\ 1 \end{bmatrix}.
+\]
+Multiplying by $\xx=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$ \emph{combines} the columns:
+$2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}+1\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}=\ans{$\begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}$}$.
+As $\xx$ changes, which targets can we build? \ansline{Every combination of the two columns --- the column space (here, the whole plane).}
+\end{hookbox}
+
+\begin{notesbox}{1. A Matrix Is Vectors in Columns}
+A \textbf{matrix} is a block of numbers --- but the useful way to read it is as \emph{vectors
+standing side by side}. Its \textbf{columns} are those vectors:
+\[
+  A=\begin{bmatrix} 1 & 3 \\ 2 & 1 \end{bmatrix}
+  =\begin{bmatrix} \mathbf{a}_1 & \mathbf{a}_2 \end{bmatrix},
+  \qquad
+  \mathbf{a}_1=\begin{bmatrix} 1 \\ 2 \end{bmatrix},\ \
+  \mathbf{a}_2=\begin{bmatrix} 3 \\ 1 \end{bmatrix}.
+\]
+Your turn: the columns of $\begin{bmatrix} 4 & 0 \\ 1 & 5 \end{bmatrix}$ are
+$\begin{bmatrix}{\color{keyred}\mathbf{4}}\\[2pt]{\color{keyred}\mathbf{1}}\end{bmatrix}$ and
+$\begin{bmatrix}{\color{keyred}\mathbf{0}}\\[2pt]{\color{keyred}\mathbf{5}}\end{bmatrix}$.
 \end{notesbox}
+
+\begin{notesbox}{2. Multiplying a Matrix by a Vector Combines the Columns}
+To compute $A\xx$, use the weights in $\xx$ to scale the columns, then add:
+\[
+  A\xx = \begin{bmatrix} \mathbf{a}_1 & \mathbf{a}_2 \end{bmatrix}
+  \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}
+  = x_1\,\mathbf{a}_1 + x_2\,\mathbf{a}_2 .
+\]
+This is a \textbf{linear combination of the columns} --- exactly the Lesson~1.1 idea.
+
+\vspace{2pt}
+\textit{Example.} $A=\begin{bmatrix} 1 & 3 \\ 2 & 1 \end{bmatrix}$, $\xx=\begin{bmatrix} 2 \\ 1 \end{bmatrix}$:
+\[
+  A\xx = 2\begin{bmatrix} 1 \\ 2 \end{bmatrix} + 1\begin{bmatrix} 3 \\ 1 \end{bmatrix}
+  = {\color{keyred}\begin{bsmallmatrix} \mathbf{5}\\\mathbf{5} \end{bsmallmatrix}}.
+\]
+
+\vspace{2pt}
+Your turn: $\begin{bmatrix} 4 & 0 \\ 1 & 5 \end{bmatrix}\begin{bmatrix} 1 \\ 2 \end{bmatrix}
+= 1\begin{bmatrix} 4 \\ 1 \end{bmatrix} + 2\begin{bmatrix} 0 \\ 5 \end{bmatrix}
+= {\color{keyred}\begin{bsmallmatrix} \mathbf{4}\\\mathbf{11} \end{bsmallmatrix}}$.
+\end{notesbox}
+
+\begin{notesbox}{3. The Column Space: Everything the Columns Can Build}
+Let $\xx$ be \emph{anything}. The set of all outputs $A\xx$ is the \textbf{column space}
+$C(A)$ --- every linear combination of the columns, i.e.\ their \textbf{span}.
+\begin{center}
+\begin{tikzpicture}[scale=0.62]
+  \fill[burgundy!10] (-2.3,-2.3) rectangle (2.3,2.3);
+  \draw[step=1, linegray!60, thin] (-2.3,-2.3) grid (2.3,2.3);
+  \draw[->, thick, charcoal] (-2.5,0)--(2.5,0) node[right]{\scriptsize $x$};
+  \draw[->, thick, charcoal] (0,-2.5)--(0,2.5) node[above]{\scriptsize $y$};
+  \draw[->, very thick, burgundy] (0,0)--(1,2) node[above]{\scriptsize $\mathbf{a}_1$};
+  \draw[->, very thick, royalblue] (0,0)--(2,0.667) node[right]{\scriptsize $\mathbf{a}_2$};
+  \node[charcoal] at (0,-3.05) {\scriptsize $C(A)=$ whole plane (columns not parallel)};
+\end{tikzpicture}
+\end{center}
+Because $\mathbf{a}_1=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ and
+$\mathbf{a}_2=\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}$ are \emph{not parallel}, their
+combinations reach \emph{every} point: $C(A)$ is the \ans{whole plane}.
+\end{notesbox}
+
+\begin{notesbox}{4. Line vs.\ Plane --- and Is $\bb$ Reachable?}
+When the two columns \emph{are} parallel, they can only build a \textbf{line}. Take
+$B=\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$: column~2 is
+$2\times$ column~1, so every $B\xx$ lands on the line through $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$.
+\begin{center}
+\begin{tikzpicture}[scale=0.62]
+  \draw[step=1, linegray!60, thin] (-2.3,-2.3) grid (2.3,2.3);
+  \draw[->, thick, charcoal] (-2.5,0)--(2.5,0) node[right]{\scriptsize $x$};
+  \draw[->, thick, charcoal] (0,-2.5)--(0,2.5) node[above]{\scriptsize $y$};
+  \draw[burgundy!55, very thick] (-1.15,-2.3)--(1.15,2.3);
+  \draw[->, very thick, burgundy] (0,0)--(1,2) node[left=1pt]{\scriptsize $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$};
+  \node[charcoal] at (0,-3.05) {\scriptsize $C(B)=$ a line (columns parallel)};
+\end{tikzpicture}
+\end{center}
+Solving $A\xx=\bb$ asks: \emph{does $\bb$ lie in the column space?}
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item Is $\begin{bmatrix} 3 \\ 6 \end{bmatrix}$ in $C(B)$? \ans{yes} (on the line? \ans{yes: $3\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$})
+  \item Is $\begin{bmatrix} 1 \\ 0 \end{bmatrix}$ in $C(B)$? \ans{no} (on the line? \ans{no})
+\end{itemize}
+Your turn: For $A=\begin{bsmallmatrix} 1&3\\2&1 \end{bsmallmatrix}$ (columns not parallel), is
+every $\bb$ reachable? \ansline{Yes --- the columns are independent, so $C(A)$ is the whole plane; every $\bb$ is some $A\xx$.}
+\end{notesbox}
+
+\begin{practicebox}
+Let $A = \begin{bmatrix} 1 & 2 \\ 3 & 1 \end{bmatrix}$ with columns
+$\mathbf{a}_1=\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$, $\mathbf{a}_2=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.6em]
+  \item Compute $A\begin{bmatrix} 1 \\ 2 \end{bmatrix}$ as a combination of the columns. \hfill \ans{$1\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}+2\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}=\begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}$}
+  \item Is the column space $C(A)$ a line or the whole plane? How do you know? \ansline{Whole plane --- $\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$ are not multiples of each other (independent).}
+  \item Is $\begin{bmatrix} 2 \\ 4 \end{bmatrix}$ in the column space of $\begin{bmatrix} 1 & 3 \\ 2 & 6 \end{bmatrix}$?
+        Explain. \ansline{Both columns are multiples of $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$, so $C$ is that line. $\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}=2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ is on the line --- yes, it is reachable.}
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

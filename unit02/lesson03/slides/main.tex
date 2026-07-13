@@ -1,6 +1,9 @@
 %! Matrix Computations and A = LU — Unit 2, Lesson 2.3 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\cc}{\mathbf{c}}
 
 \begin{document}
 
@@ -11,16 +14,98 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 2.3}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Matrix Computations and A = LU}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 2}
+    {\color{white}\bfseries\LARGE Matrix Computations and $A=LU$}\\[0.3cm]
+    {\color{white}\bfseries\large Elimination, saved --- factor once, solve fast}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 2: Solving Linear Equations $A\xx=\bb$}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{Same recipe, a new order every week}
+  \sectionlabel{Hook}
+  Last lesson's bakery: the recipe matrix never changes --- only the order $\bb$ does.
+  \[
+    A = \begin{bmatrix} 1 & 3 \\ 2 & 7 \end{bmatrix}, \qquad
+    \text{this week } \bb = \begin{bmatrix} 7 \\ 15 \end{bmatrix}.
+  \]
+  \begin{block}{The question}
+    In 2.2 we built the whole inverse $A^{-1}$. But elimination in 2.1 already did the hard work ---
+    can we just \emph{save} it and reuse it for every order?
+  \end{block}
+\end{frame}
+
+% SAVE ELIMINATION AS LU
+\begin{frame}[t, plain]
+  \burgundyheader{Save elimination as $A=LU$}
+  \sectionlabel[goldacc]{The idea}
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item Elimination ($\ell=2$) turns $A$ into the upper-triangular $U=\begin{bsmallmatrix} 1&3\\0&1 \end{bsmallmatrix}$.
+    \item Put the multiplier back (with a $+$) to get the lower-triangular $L=\begin{bsmallmatrix} 1&0\\2&1 \end{bsmallmatrix}$.
+  \end{itemize}
+  \begin{block}{$LU$ rebuilds $A$}
+    $\begin{bsmallmatrix} 1&0\\2&1 \end{bsmallmatrix}\begin{bsmallmatrix} 1&3\\0&1 \end{bsmallmatrix} = \begin{bsmallmatrix} 1&3\\2&7 \end{bsmallmatrix} = A.$ \quad
+    $U$ = \emph{what} elimination got; $L$ = \emph{how} we did it.
+  \end{block}
+\end{frame}
+
+% L STORES THE MULTIPLIERS
+\begin{frame}[t, plain]
+  \burgundyheader{$L$ just stores the multipliers}
+  \sectionlabel{No extra work}
+  Eliminate $A=\begin{bsmallmatrix} 1&2&1\\2&5&5\\3&7&8 \end{bsmallmatrix}$ and record each multiplier:
+  \; $\ell_{21}=2,\ \ell_{31}=3,\ \ell_{32}=1$.
+  \[
+    U=\begin{bmatrix} 1&2&1\\0&1&3\\0&0&2 \end{bmatrix},
+    \qquad
+    L=\begin{bmatrix} 1&0&0\\ 2&1&0\\ 3&1&1 \end{bmatrix}.
+  \]
+  The multipliers slot straight into $L$ --- it is a \textbf{free record} of the elimination you already did.
+\end{frame}
+
+% TWO SWEEPS
+\begin{frame}[t, plain]
+  \burgundyheader{Solve in two triangular sweeps}
+  \sectionlabel[goldacc]{Factor once, solve fast}
+  $A\xx=\bb$ becomes $L(U\xx)=\bb$. Name $\cc=U\xx$, then solve two easy systems:
+  \[
+    \underbrace{\begin{bmatrix} 1&0\\2&1 \end{bmatrix}\cc = \begin{bmatrix} 7\\15 \end{bmatrix}}_{\text{forward: }L\cc=\bb}
+    \Rightarrow \cc=\begin{bmatrix} 7\\1 \end{bmatrix},
+    \quad
+    \underbrace{\begin{bmatrix} 1&3\\0&1 \end{bmatrix}\xx = \begin{bmatrix} 7\\1 \end{bmatrix}}_{\text{back: }U\xx=\cc}
+    \Rightarrow \xx=\begin{bmatrix} 4\\1 \end{bmatrix}.
+  \]
+  The forward sweep \emph{is} ``update $\bb$'' (note $\cc=\begin{bsmallmatrix} 7\\1 \end{bsmallmatrix}$ from 2.1); the back sweep is old back-substitution.
+\end{frame}
+
+% WHY BOTHER
+\begin{frame}[t, plain]
+  \burgundyheader{Why factor? The computation cost}
+  \sectionlabel{Matrix computations}
+  For one $A$ and \emph{many} right-hand sides $\bb$:
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item Re-run elimination each time --- repeats all the hard work every order.
+    \item Build $A^{-1}$ --- powerful, but more work to build than $L$ and $U$.
+    \item \textbf{Factor once, two sweeps per order} --- cheapest to solve.
+  \end{itemize}
+  \begin{block}{The takeaway}
+    Factoring is the expensive step, done \emph{once}; each new order is two quick sweeps. This is how software actually solves $A\xx=\bb$.
+  \end{block}
+\end{frame}
+
+% PREVIEW
+\begin{frame}[t, plain]
+  \burgundyheader{Where this is heading}
+  \sectionlabel{Connections}
+  \textbf{Today:} elimination $\to$ save as $A=LU$ $\to$ solve in two sweeps ($L\cc=\bb$, $U\xx=\cc$).\\[8pt]
+  \begin{itemize}
+    \setlength{\itemsep}{4pt}
+    \item \textbf{2.4} Permutations and Transposes --- if a pivot is $0$, swap rows: $PA=LU$.
+    \item Beyond: $A=LU$ is the workhorse behind fast, repeated solving.
+  \end{itemize}
 \end{frame}
 
 \end{document}

@@ -3,17 +3,47 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\cc}{\mathbf{c}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.3}{Warm-Up}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Warm-Up. See references/components.md for the expected structure.
-\begin{notesbox}{Warm-Up}
-\writelines{4}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small Today we \emph{save} elimination as a product $A=LU$ (lower times upper). These three moves are
+the pieces. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Lower times upper} (Lesson 1.4). Multiply, one column at a time:
+\[
+  \begin{bmatrix} 1 & 0 \\ 4 & 1 \end{bmatrix}
+  \begin{bmatrix} 2 & 5 \\ 0 & 3 \end{bmatrix}
+  = \begin{bmatrix}\rule{0pt}{1.1em}\blank{1.1cm} & \blank{1.1cm}\\[2pt]\blank{1.1cm} & \blank{1.1cm}\end{bmatrix}.
+\]
+Notice a lower-triangular times an upper-triangular matrix rebuilds a \emph{full} matrix.
+
+\vspace{4pt}
+\textbf{2. Back-substitution} (Lesson 2.1). The system is already upper-triangular. Solve it from the
+\emph{bottom row up}:
+\[
+  \begin{aligned}
+    x + 2y &= 5 \\
+    y &= 2
+  \end{aligned}
+  \qquad\Longrightarrow\qquad y = \blank{1.1cm}, \quad x = \blank{1.1cm}.
+\]
+
+\vspace{4pt}
+\textbf{3. One multiplier} (Lesson 2.1). To clear the $x$ below the pivot in
+$\ x + 3y = 7,\ \ 2x + 7y = 15$, the pivot is $1$ and the multiplier is
+\[
+  \ell = \frac{\text{entry to eliminate}}{\text{pivot}} = \frac{2}{1} = \blank{1.2cm}.
+\]
 \end{notesbox}
 
 \end{document}

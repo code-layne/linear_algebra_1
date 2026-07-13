@@ -7,22 +7,26 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-13 — **Authored Unit 2 Lesson 2.2 in full** (all 13 files). Filled
-every skeleton for `unit02/lesson02` — lesson plan + cover, warmup, notes, activity,
-exit_ticket, homework (+ all 5 keys) + slides. Through-line: **2.1's "subtract $\ell\times$ a
-row" IS a matrix**. Each step is an **elimination matrix** $E_{21}=\begin{bsmallmatrix}1&0\\-\ell&1\end{bsmallmatrix}$
-with $E_{21}A=U$; undo it by flipping the sign ($E^{-1}$ adds back, $E^{-1}E=I$); build the
-**inverse** $A^{-1}$ two ways (the $ad-bc$ formula and **Gauss–Jordan** on $[A\mid I]$) and solve
-via $\xx=A^{-1}\bb$; a **singular** matrix ($ad-bc=0$) is the zero-pivot breakdown from 2.1.
-Running example threaded through every component: $A=\begin{bsmallmatrix}1&3\\2&7\end{bsmallmatrix}$,
-$\det=1$, $A^{-1}=\begin{bsmallmatrix}7&-3\\-2&1\end{bsmallmatrix}$, solution $(4,1)$. Hook =
-"same recipe, new order weekly → build $A^{-1}$ once" (bakery/gift-box/juice-bar multi-RHS
-applications). Homework extension: $(EF)^{-1}=F^{-1}E^{-1}$ reverse-order → previews $L$.
-Built `make -C unit02/lesson02 all` → clean (both `lesson02_student.pdf` + `lesson02_full.pdf`).
-Page-count QA: warmup + exit_ticket each 1 page (blank AND key ✓); notes 3/3, activity 2/2,
-homework 2/2 (key paginates identically to blank). No build errors. Spot-checked notes_key (both
-pages), lesson plan p1, and activity_key visually — clean, all arithmetic verified. Next run
-authors **Lesson 2.3** (Matrix Computations and $A=LU$).
+**Last updated:** 2026-07-13 — **Authored Unit 2 Lesson 2.3 in full** (all 13 files). Filled
+every skeleton for `unit02/lesson03` — lesson plan + cover, warmup, notes, activity,
+exit_ticket, homework (+ all 5 keys) + slides. Through-line: **$A=LU$ is elimination, saved**.
+$U$ is 2.1's upper-triangular result; $L$ is lower-triangular with $1$s on the diagonal and the
+**multipliers** $\ell$ below (the 2.2 undo-matrices $E^{-1}$ gathered up — the multipliers slot in
+free, no extra work). Solve $A\xx=\bb$ in **two triangular sweeps**: forward $L\cc=\bb$ (reproduces
+"update the RHS" — $\cc$ = 2.1's updated $\bb$), then back $U\xx=\cc$ (old back-substitution). §4
+makes the "Matrix Computations" cost point: factor once, then two cheap sweeps per order — what
+software does. Running $2\times2$ deliberately reuses 2.2's bakery $A=\begin{bsmallmatrix}1&3\\2&7\end{bsmallmatrix}$,
+$\bb=\begin{bsmallmatrix}7\\15\end{bsmallmatrix}$ → $L=\begin{bsmallmatrix}1&0\\2&1\end{bsmallmatrix}$,
+$U=\begin{bsmallmatrix}1&3\\0&1\end{bsmallmatrix}$, $\cc=\begin{bsmallmatrix}7\\1\end{bsmallmatrix}$,
+$(x,y)=(4,1)$ (same answer, three lessons running). $3\times3$ example
+$A=\begin{bsmallmatrix}1&2&1\\2&5&5\\3&7&8\end{bsmallmatrix}$ ($L$ mult $2,3,1$). Juice-bar multi-RHS
+context (activity + homework). Homework extension shows $L=E_{21}^{-1}E_{31}^{-1}E_{32}^{-1}$ (ties
+back to 2.2's socks-and-shoes). Preview: 2.4 permutations, $PA=LU$. Built
+`make -C unit02/lesson03 all` → clean (both packets). Page-count QA: warmup + exit_ticket each 1
+page (blank AND key ✓); notes 3/3, activity 2/2, homework 2/2; cover 1, slides 7. Full 13-file
+compile scan = zero failures. Spot-checked notes_key (p1–2), activity_key, homework_key, lesson
+plan p1 visually — clean, all arithmetic verified. Next run authors **Lesson 2.4** (Permutations
+and Transposes).
 
 ## Current state
 
@@ -66,7 +70,7 @@ authors **Lesson 2.3** (Matrix Computations and $A=LU$).
   `sample_test`/`sample_test_key` populated by `drop` (practice test + key).
 - Root `Makefile` and `unit01/Makefile` created. Toolchain present (xelatex, latexmk, pdfunite).
 
-**Unit 2 — lessons 2.0, 2.1 & 2.2 authored & built; 2.3–2.4 scaffolded (skeletons + tests), NOT authored.**
+**Unit 2 — lessons 2.0, 2.1, 2.2 & 2.3 authored & built; 2.4 scaffolded (skeletons + tests), NOT authored.**
 Confirmed lesson map:
 - `unit02/lesson00` — id 2.0, **"From Combinations to Solutions --- Setting Up Ax = b"** ✅ authored
   (all components + keys + slides; both packets built). Content: solve $A\xx=\bb$ = run 1.3
@@ -86,10 +90,16 @@ Confirmed lesson map:
   **singular** ($ad-bc=0$) = zero-pivot breakdown. Bakery / gift-box / juice-bar multi-RHS
   contexts; homework extension does reverse-order $(EF)^{-1}=F^{-1}E^{-1}$ → previews $L$; previews
   §2.3 $A=LU$.
-- `unit02/lesson03` — id 2.3, **"Matrix Computations and A = LU"** (§2.3).
+- `unit02/lesson03` — id 2.3, **"Matrix Computations and A = LU"** (§2.3) ✅ authored (all components +
+  keys + slides; both packets built). Content: $A=LU$ = elimination saved ($U$ = 2.1 result, $L$ =
+  multipliers with $1$s on the diagonal, free — the 2.2 undo-matrices $E^{-1}$ gathered); check $LU=A$;
+  solve in two triangular sweeps ($L\cc=\bb$ forward reproduces "update the RHS", then $U\xx=\cc$ back);
+  cost angle (factor once, two sweeps per order). Reuses 2.2 bakery $A=\begin{bsmallmatrix}1&3\\2&7\end{bsmallmatrix}$
+  → $(4,1)$; a $3\times3$ factorization; juice-bar multi-RHS contexts; homework extension
+  $L=E_{21}^{-1}E_{31}^{-1}E_{32}^{-1}$; previews §2.4 $PA=LU$.
 - `unit02/lesson04` — id 2.4, **"Permutations and Transposes"** (§2.4).
 - `unit02/{tests,test_keys,sample_test,sample_test_key}` + `unit02/Makefile` scaffolded.
-- Lessons 2.3–2.4 `main.tex` files are **skeletons only** — content authoring is the next run's job.
+- Lesson 2.4 `main.tex` files are **skeletons only** — content authoring is the next run's job.
 
 ### Per-unit progress
 
@@ -98,7 +108,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | Unit | Chapter | Lessons | Status |
 | --- | --- | --- | --- |
 | 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
-| 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ◐ 2.0, 2.1 & 2.2 authored & built ✅; 2.3–2.4 scaffolded, not authored |
+| 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ◐ 2.0–2.3 authored & built ✅; 2.4 scaffolded, not authored; unit tests not yet authored |
 | 3 | The Four Fundamental Subspaces | 3.1–3.5 | ☐ |
 | 4 | Orthogonality | 4.1–4.4 | ☐ |
 | 5 | Determinants and Linear Transformations | 5.1–5.3 | ☐ |
@@ -108,14 +118,17 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author Unit 2 Lesson 2.3 — "Matrix Computations and A = LU"** (§2.3) into the scaffolded
-   skeletons, mirroring 2.0/2.1/2.2 as the model. Collect 2.2's undo-matrices $E^{-1}$ into one
-   lower-triangular $L$ (multipliers with $1$s on the diagonal) so $A=LU$; solve $A\xx=\bb$ in two
-   triangular sweeps ($L\mathbf{c}=\bb$ forward, then $U\xx=\mathbf{c}$ back); note the cost/count
-   angle from the section title. Tie straight to 2.2's $E^{-1}$'s and the homework-extension $L$
-   preview. Then 2.4 (Permutations and Transposes), then the Unit 2 tests/keys. Keep blank/key in
-   lockstep; source math from LAfE §2.3, down-leveled.
-2. *(optional)* Rebuild the whole Unit 1 packet (`make -C unit01 student|full`) to confirm the new
+1. **Author Unit 2 Lesson 2.4 — "Permutations and Transposes"** (§2.4) into the scaffolded skeletons,
+   mirroring 2.0–2.3 as the model. Core content from LAfE §2.4: the zero-pivot fix — a **permutation
+   matrix** $P$ (identity with rows swapped) records a row exchange, so a matrix that fails to factor
+   directly satisfies $PA=LU$; the **transpose** $A^{\mathsf T}$ (flip rows↔columns), its rules
+   ($(AB)^{\mathsf T}=B^{\mathsf T}A^{\mathsf T}$), and **symmetric** matrices ($A^{\mathsf T}=A$).
+   Tie straight to 2.3: 2.3 assumed every pivot was nonzero; 2.4 handles the case it doesn't. Keep
+   blank/key in lockstep; down-level; no "sketch from scratch" questions.
+2. **Then author the Unit 2 summative tests** (`unit02/tests` practice + actual, `unit02/test_keys`
+   both keys) covering 2.0–2.4, and `make -C unit02/tests all` + `test_keys all` + `drop` to publish
+   `sample_test`/`sample_test_key`. That closes out Unit 2.
+3. *(optional)* Rebuild the whole Unit 1 packet (`make -C unit01 student|full`) to confirm the
    `sample_test`/`sample_test_key` merge in as expected before moving on.
 
 ## Notes for the next run

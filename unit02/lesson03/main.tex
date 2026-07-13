@@ -5,6 +5,9 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\cc}{\mathbf{c}}
 \newcommand{\UnitNumberName}{Unit 2: Solving Linear Equations Ax = b \quad}
 \newcommand{\LessonNumberName}{Lesson 2.3: Matrix Computations and A = LU}
 
@@ -16,55 +19,138 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can \emph{save} elimination as a factorization
+    $A=LU$: the upper-triangular $U$ is the result of elimination, and the lower-triangular $L$
+    simply \emph{stores the multipliers} $\ell$ (with $1$s on its diagonal). They can factor a
+    $2\times2$ or $3\times3$ matrix by hand, check that $LU=A$, and then solve $A\xx=\bb$ in
+    \emph{two triangular sweeps} --- forward-substitute $L\cc=\bb$, then back-substitute
+    $U\xx=\cc$. They can explain \emph{why} this is the efficient way to solve one system for many
+    right-hand sides: factor once, and every new $\bb$ costs only two quick sweeps.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Factor $A=LU$: $U$ = elimination's result, $L$ = the multipliers with $1$s on the diagonal.
+  \item Check a factorization by multiplying $LU$ back to $A$.
+  \item Solve $A\xx=\bb$ in two sweeps: $L\cc=\bb$ (forward), then $U\xx=\cc$ (back).
+  \item Explain why $A=LU$ is the cheap way to re-solve for many $\bb$'s.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item $L$ costs nothing extra --- it is the \emph{same} multipliers we already computed in 2.1--2.2.
+  \item $A=LU$ is 2.2's undo-matrices $E^{-1}$ gathered into one lower-triangular matrix.
+  \item Forward sweep reproduces ``update the right-hand side''; back sweep is old back-substitution.
+  \item Factoring is the work done once; each new order is two fast triangular solves --- what computers do.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Lower triangular $L$} & $1$s on the diagonal, the multipliers $\ell$ below it, $0$s above. Its entry $\ell_{ij}$ is the multiplier used to clear position $(i,j)$. \\
+\textbf{Upper triangular $U$} & The result of forward elimination: pivots on the diagonal, $0$s below. \\
+\textbf{Factorization $A=LU$} & Splitting $A$ into (lower)$\times$(upper). $L$ remembers \emph{how} we eliminated; $U$ remembers \emph{what we got}. \\
+\textbf{Forward substitution} & Solve a lower-triangular system $L\cc=\bb$ from the \emph{top row down}. \\
+\textbf{Back substitution} & Solve an upper-triangular system $U\xx=\cc$ from the \emph{bottom row up}. \\
+\textbf{Two triangular sweeps} & Solve $A\xx=\bb$ as $L\cc=\bb$ then $U\xx=\cc$ --- no inverse needed. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three moves this lesson assembles into $A=LU$:
+    \textbf{(1)} multiplying a lower-triangular by an upper-triangular matrix (Lesson~1.4/2.2) --- the
+    shape of $LU$; \textbf{(2)} back-substituting an upper-triangular system (Lesson~2.1) --- the
+    second sweep; and \textbf{(3)} naming the multiplier $\ell$ of one elimination step (Lesson~2.1)
+    --- the number that becomes an entry of $L$. Debrief item~1 aloud: notice $LU$ rebuilds a full
+    matrix, so factoring is just that step run \emph{backwards}.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Return to last lesson's bakery, same recipe matrix $A=\begin{bsmallmatrix} 1&3\\2&7 \end{bsmallmatrix}$
+    and this week's order $\bb=\begin{bsmallmatrix} 7\\15 \end{bsmallmatrix}$. In 2.2 we built the whole
+    inverse $A^{-1}$. Ask: \textbf{``Elimination already did the hard part in 2.1 --- can we just
+    \emph{save} that work instead of inverting from scratch?''} Draw out that elimination produced an
+    upper-triangular $U$ using one multiplier ($\ell=2$), and that $\begin{bsmallmatrix} 1&0\\2&1 \end{bsmallmatrix}$
+    --- the very $E^{-1}$ from 2.2 --- puts that multiplier back. That matrix is $L$, and $A=LU$. Then
+    every new order is two quick sweeps.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. Save elimination as $A=LU$.} In 2.1--2.2 elimination turned $A=\begin{bsmallmatrix} 1&3\\2&7 \end{bsmallmatrix}$
+into $U=\begin{bsmallmatrix} 1&3\\0&1 \end{bsmallmatrix}$ using multiplier $\ell=2$. The undo-matrix from
+2.2 is $L=\begin{bsmallmatrix} 1&0\\2&1 \end{bsmallmatrix}$. Multiply: $LU=A$. So $A$ \emph{factors} into
+lower~$\times$~upper.
+
+\textbf{2. $L$ just stores the multipliers.} No new computation: put $1$s on the diagonal and drop each
+multiplier $\ell_{ij}$ into the spot it cleared. Show it on a $3\times3$
+($A=\begin{bsmallmatrix} 1&2&1\\2&5&5\\3&7&8 \end{bsmallmatrix}$): eliminating gives
+$\ell_{21}=2,\ \ell_{31}=3,\ \ell_{32}=1$, so $L=\begin{bsmallmatrix} 1&0&0\\2&1&0\\3&1&1 \end{bsmallmatrix}$
+and $U=\begin{bsmallmatrix} 1&2&1\\0&1&3\\0&0&2 \end{bsmallmatrix}$.
+
+\columnbreak
+
+\textbf{3. Solve in two sweeps.} $A\xx=\bb$ becomes $LU\xx=\bb$. Name $\cc=U\xx$. First
+\emph{forward}-solve $L\cc=\bb$ top-down; then \emph{back}-solve $U\xx=\cc$ bottom-up. For the bakery,
+$L\cc=\bb$ gives $\cc=\begin{bsmallmatrix} 7\\1 \end{bsmallmatrix}$ --- exactly 2.1's updated right-hand
+side --- and $U\xx=\cc$ gives $(x,y)=(4,1)$, the same answer.
+
+\textbf{4. Why bother?} The forward sweep \emph{is} ``update the right-hand side''; the back sweep is
+old back-substitution. The point is cost: factoring is the expensive step, done \emph{once}; each new
+order $\bb$ is then just two quick triangular sweeps --- cheaper than re-eliminating or building
+$A^{-1}$. This is how software actually solves $A\xx=\bb$.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item wrong sign in $L$ --- $L$ carries $+\ell$ (it \emph{adds} the multipliers back), not $-\ell$;
+  \item forgetting the $1$s on $L$'s diagonal, or writing $U$'s pivots in $L$;
+  \item multiplying $UL$ instead of $LU$ when checking (order matters);
+  \item sweeping the wrong way --- $L\cc=\bb$ goes \emph{top-down}, $U\xx=\cc$ goes \emph{bottom-up}.
+\end{itemize}
+Cold-call prompts: ``What does the entry $\ell_{21}$ of $L$ mean?'' ``Where do the pivots live?''
+``What is $\cc$, and why does $L\cc=\bb$ come first?'' ``Why factor once instead of re-solving?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Factor Once, Solve Fast} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Given a $2\times2$ $A$, find the multiplier, write $L$ and $U$, and
+check $LU=A$.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} A juice-bar context with a fixed recipe $A$: factor $A=LU$ once, then
+solve \emph{two} different orders by two sweeps and \emph{interpret} the liters.
+
+\columnbreak
+\textbf{Tier E --- Extension.} Factor a $3\times3$ (collect all three multipliers into $L$), solve it in
+two sweeps, and explain why $L$ is free and why sweeps beat re-eliminating.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): factor a $2\times2$ matrix as $A=LU$ and check it, then
+use the factorization to solve $A\xx=\bb$ in two sweeps, plus a \textbf{conceptual/justification
+check}: state what $L$'s below-diagonal entries represent and why factoring adds no extra work.
+Collect and sort into ``factors \& sweeps solid / sign or diagonal slip / unclear on the two sweeps''
+to decide whether 2.4 opens with a quick re-teach.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} factor $2\times2$ matrices as $LU$ and check, solve $A\xx=\bb$ by two sweeps, run an
+applied juice-bar problem (factor once, two orders), and factor \emph{and} solve a $3\times3$.
+\textbf{Extension:} show $L$ is the product of 2.2's undo-matrices $E^{-1}$ --- the multipliers slot in
+without interference --- and count why two sweeps are cheaper than a fresh solve. \textbf{Preview:}
+Lesson~2.4, \emph{Permutations and Transposes} --- when a zero pivot forces a row swap, a permutation
+$P$ fixes it: $PA=LU$.
 \end{skillbox}
 \end{document}

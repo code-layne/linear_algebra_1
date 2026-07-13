@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 3}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 3 \quad The Four Fundamental Subspaces}}\\[6pt]
   {\color{white}\textbf{\large Lesson 3.1 \quad Vector Spaces and Subspaces}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} explain what makes $\mathbb{R}^n$ a \textbf{vector space} --- a set closed under adding and scaling, following the usual rules.
+  \item \ldots{} use the \textbf{subspace requirement} (closed under $+$ and scaling, so it contains $\mathbf{0}$) to decide whether a subset is a subspace.
+  \item \ldots{} \textbf{prove} the \textbf{column space} $C(A)$ is a subspace, using $A(\mathbf{x}+\mathbf{y})=A\mathbf{x}+A\mathbf{y}$.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,24 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: $A\mathbf{x}$ as a column combination, and $A(\mathbf{x}+\mathbf{y})=A\mathbf{x}+A\mathbf{y}$ & \blank{1.2cm} \\
+2 & Guided Notes   & Vector spaces, the subspace requirement, and why $C(A)$ is a subspace          & \blank{1.2cm} \\
+3 & Group Activity & Which Subsets Are Subspaces? --- testing conditions and proving closure         & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check on the subspace requirement and column spaces                       & \blank{1.2cm} \\
+5 & Homework       & Subspace tests, column-space proofs, and a nullspace preview                    & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small A \textbf{vector space} is a set of vectors you can \textbf{add} and \textbf{scale} without
+ever leaving it. A \textbf{subspace} is a subset that is itself a vector space --- so you only check
+two things: it is closed under \textbf{addition} and under \textbf{scaling} (which forces
+$\mathbf{0}$ inside). The \textbf{column space} $C(A)$ --- all reachable targets $A\mathbf{x}$ --- is
+a subspace \emph{because} $A(\mathbf{x}+\mathbf{y})=A\mathbf{x}+A\mathbf{y}$.
+\end{remindbox}
 
 \end{document}

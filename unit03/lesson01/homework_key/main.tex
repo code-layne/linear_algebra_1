@@ -3,17 +3,64 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.1}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+For every ``is it a subspace?'' question, run the \textbf{subspace requirement} (addition and
+scaling) and \emph{justify}. When a set fails, name the rule and give a specific escape.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Subspace or not?} Decide for each set.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
+      \item all multiples of $\begin{bmatrix} 2 \\ -1 \end{bmatrix}$ in $\mathbb{R}^2$ \quad \ans{Subspace --- a line through the origin; closed under $+$ and scaling.}
+      \item all $\begin{bmatrix} x \\ y \end{bmatrix}$ with $x=y$ \quad \ans{Subspace --- the line $y=x$; sums and scalings keep $x=y$, and $\zero$ qualifies.}
+      \item all $\begin{bmatrix} x \\ y \end{bmatrix}$ with $x\ge 0$ and $y\ge 0$ (first quadrant) \quad \ans{Not --- \emph{scaling} fails: $-1\cdot\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}=\begin{bsmallmatrix} -1\\-1 \end{bsmallmatrix}$ leaves the quadrant.}
+      \item all $\begin{bmatrix} x \\ y \\ z \end{bmatrix}$ with $x+y+z=0$ \quad \ans{Subspace --- a plane through the origin; sums and scalings keep the total $0$.}
+      \item all $\begin{bmatrix} x \\ y \\ z \end{bmatrix}$ with $z=1$ \quad \ans{Not --- misses $\zero$ ($z=0\ne1$); also $2\begin{bsmallmatrix} 0\\0\\1 \end{bsmallmatrix}=\begin{bsmallmatrix} 0\\0\\2 \end{bsmallmatrix}$ has $z=2$.}
+      \item all $\begin{bmatrix} x \\ y \end{bmatrix}$ with $x=0$ \emph{or} $y=0$ (union of axes) \quad \ans{Not --- \emph{addition} fails: $\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}+\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}=\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$ is on neither axis.}
+    \end{enumerate}
+  \item \textbf{Column space.} For each matrix, describe $C(A)$ as a set, say which $\mathbb{R}^m$ it
+        lives in, and give the one-line reason it is a subspace (cite $A(\xx+\yy)=A\xx+A\yy$).
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $A=\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$ \hfill \ans{line $y=2x$ in $\mathbb{R}^2$ (columns parallel); subspace since sums/scalings of $A\xx$ are again $A(\,\cdot\,)$.}
+      \item $A=\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$ \hfill \ans{all of $\mathbb{R}^2$ (columns independent); a subspace of $\mathbb{R}^2$ for the same reason.}
+    \end{enumerate}
+  \item \textbf{Finish the proof.} Let $\bb_1=A\xx_1$ and $\bb_2=A\xx_2$ be reachable. Fill each
+        blank so the column space passes the requirement:
+        \[ \bb_1+\bb_2=A\xx_1+A\xx_2=A(\,{\color{keyred}\mathbf{\xx_1+\xx_2}}\,), \qquad c\,\bb_1=c(A\xx_1)=A(\,{\color{keyred}\mathbf{c\xx_1}}\,). \]
+        \vspace{0.05cm}
+  \item \textbf{Explain.} Why is ``the set contains $\zero$'' \emph{necessary} but \textbf{not}
+        enough for a subspace? Give one set that contains $\zero$ but is not a subspace. \ansline{Scaling by $0$ forces $\zero$ into any subspace, so \emph{lacking} $\zero$ rules a set out --- but a set can hold $\zero$ and still fail addition or scaling. Example: the union of the two axes ($xy=0$) contains $\zero$ yet $\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}+\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}=\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$ escapes.}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Vectors need not be arrows.}
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item Let $S$ = all vectors $\begin{bsmallmatrix} x\\y \end{bsmallmatrix}$ whose entries are
+        \emph{integers}. Is $S$ closed under \emph{addition}? Under \emph{scaling} (try $c=\tfrac12$
+        on $\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$)? Is $S$ a subspace of $\mathbb{R}^2$?
+  \item The set $M$ of all $2\times2$ matrices is a vector space (usual matrix $+$ and scaling).
+        What matrix plays the role of $\zero$? Why is $M$ \emph{not} the same as any $\mathbb{R}^n$?
+\end{enumerate}
+\ansline{(a) Closed under addition (integer $+$ integer is an integer), but \emph{not} under scaling: $\tfrac12\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}=\begin{bsmallmatrix} 1/2\\1/2 \end{bsmallmatrix}$ has non-integer entries. So $S$ is \emph{not} a subspace.}
+\ansline{(b) The zero matrix $\begin{bsmallmatrix} 0 & 0 \\ 0 & 0 \end{bsmallmatrix}$ plays the role of $\zero$. $M$ has $2\times2=4$ entries but its ``vectors'' are matrices, not column vectors --- it behaves like $\mathbb{R}^4$ in size, yet the objects are matrices, showing ``vector space'' is more general than $\mathbb{R}^n$.}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 3.2: The Nullspace of $A$.} Today the column space $C(A)$ was our
+first fundamental subspace. Next we meet the second: the \emph{nullspace} $N(A)$, all solutions of
+$A\xx=\zero$ --- and we'll see it, too, passes the subspace requirement.
+\end{spiralbox}
 
 \end{document}

@@ -3,6 +3,7 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
@@ -11,9 +12,26 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Subspace requirement.} Is the set of all $\begin{bmatrix} x \\ y \\ z \end{bmatrix}$
+        in $\mathbb{R}^3$ with $x+y+z=0$ a subspace? Check addition and scaling, and name what it
+        looks like geometrically.
+        \ansline{Yes. If two vectors each sum to $0$, their sum does too ($(x_1+x_2)+(y_1+y_2)+(z_1+z_2)=0$); scaling keeps $cx+cy+cz=0$; and $\zero$ qualifies. It is a \emph{plane through the origin} in $\mathbb{R}^3$.}
+  \item \textbf{Column space.} For $A=\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$, describe $C(A)$
+        as a set and state which $\mathbb{R}^m$ it is a subspace of.
+        \ansline{Columns $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}=2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ are parallel, so $C(A)$ = all multiples of $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ (the line $y=2x$) --- a subspace of $\mathbb{R}^2$.}
+  \item \textbf{Justify.} A classmate says: ``The set of all $\begin{bsmallmatrix} x\\y \end{bsmallmatrix}$
+        with $x=0$ \emph{or} $y=0$ contains $\zero$ and is closed under scaling, so it's a subspace.''
+        Explain why it is \emph{not}, using a specific sum.
+        \ansline{It fails \emph{addition}: $\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}$ (on the $x$-axis) $+\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}$ (on the $y$-axis) $=\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$, which is on neither axis. Containing $\zero$ and closure under scaling are not enough.}
+\end{enumerate}
+
+\begin{teachernote}
+Sort responses into ``got it / addition-only slip / zero-is-enough slip.'' Item~3 is the discriminator:
+students must produce an actual sum that escapes, not just assert failure. If many stumble, open 3.2
+by re-running the requirement on the union-of-axes set beside a genuine line through the origin.
+\end{teachernote}
 
 \end{document}

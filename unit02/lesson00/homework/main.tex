@@ -3,17 +3,71 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.0}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+Show your steps and \textbf{check} every solution by rebuilding $\bb$.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item \textbf{Three views.} Let $A=\begin{bmatrix} 2 & 1 \\ 1 & 4 \end{bmatrix}$ and
+        $\bb=\begin{bmatrix} 8 \\ 11 \end{bmatrix}$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item Write $A\xx=\bb$ as a \emph{combination of the columns} of $A$.
+      \item Write $A\xx=\bb$ as a \emph{system of two equations}.
+    \end{enumerate}
+    \vspace{1.3cm}
+  \item \textbf{Solve by elimination.} Find $x_1$ and $x_2$ for each system.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\begin{aligned}[t] x_1 + x_2 &= 6 \\ 2x_1 + x_2 &= 8 \end{aligned}$ \hfill
+      \item $\begin{aligned}[t] 3x_1 + 2x_2 &= 16 \\ x_1 + 2x_2 &= 8 \end{aligned}$ \hfill
+      \item $\begin{aligned}[t] x_1 - x_2 &= 1 \\ 2x_1 + x_2 &= 8 \end{aligned}$
+    \end{enumerate}
+    \vspace{1.6cm}
+  \item \textbf{Fertilizer blend.} Each bag of \textbf{Base A} has $1$ kg nitrogen and $2$ kg
+        phosphorus; each bag of \textbf{Base B} has $3$ kg nitrogen and $1$ kg phosphorus. A
+        field needs $13$ kg nitrogen and $11$ kg phosphorus.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
+      \item Set up and solve $A\xx=\bb$ for the number of bags of each base. \vspace{1.2cm}
+      \item \emph{Interpret:} how many bags of each, and does the answer make sense? \writeline
+    \end{enumerate}
+  \item \textbf{How many solutions?} Classify each system as \emph{one}, \emph{none}, or
+        \emph{infinitely many}, and say why (parallel lines, same line, or crossing).
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\begin{aligned}[t] x_1 + 2x_2 &= 5 \\ 2x_1 + 4x_2 &= 10 \end{aligned}$ \hfill
+      \item $\begin{aligned}[t] x_1 + 2x_2 &= 5 \\ 2x_1 + 4x_2 &= 7 \end{aligned}$ \hfill
+      \item $\begin{aligned}[t] x_1 + 2x_2 &= 5 \\ x_1 + 3x_2 &= 7 \end{aligned}$
+    \end{enumerate}
+    \vspace{1.2cm}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{One variable at a time.} Solve this $3\times 3$ system by eliminating $x$ first:
+\[
+  \begin{aligned}
+    x + y + z &= 6 \\
+    x + 2y + z &= 8 \\
+    2x + y + z &= 7
+  \end{aligned}
+\]
+Subtract the first equation from the second, and subtract twice the first from the third. You
+are left with a small system in $y$ and $z$ --- solve it, then back-substitute for $x$.
+\writelines{3}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 2.1: The Idea of Elimination.} Today you subtracted one equation
+from another to make a variable disappear. Next we turn that into a reliable, step-by-step
+\emph{procedure} --- choosing \textbf{pivots} and clearing out the entries below them --- so it
+works for any size system, not just the lucky ones.
+\end{spiralbox}
 
 \end{document}

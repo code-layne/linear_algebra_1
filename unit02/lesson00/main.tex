@@ -5,6 +5,8 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 \newcommand{\UnitNumberName}{Unit 2: Solving Linear Equations Ax = b \quad}
 \newcommand{\LessonNumberName}{Lesson 2.0: From Combinations to Solutions --- Setting Up Ax = b}
 
@@ -16,55 +18,137 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can read the matrix equation $A\xx=\bb$ two ways ---
+    as a \emph{combination of the columns} of $A$ and as a \emph{system of linear equations} ---
+    solve a $2\times 2$ system by eliminating a variable, check the answer by rebuilding $\bb$,
+    and explain what one, none, or infinitely many solutions means both geometrically (two lines)
+    and in terms of whether $\bb$ is reachable.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item See $A\xx=\bb$ three ways: matrix form, column combination, and a system of equations.
+  \item Solve a $2\times 2$ system by subtracting to eliminate a variable, then back-substitute.
+  \item Check a solution by substituting back and rebuilding $\bb$.
+  \item Read solvability from the geometry (two lines) and from reachability.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Unit~1 built $\bb$ \emph{from} $\xx$; Unit~2 runs it backwards --- find the $\xx$ that hits $\bb$.
+  \item Eliminating a variable is the engine of the whole unit.
+  \item The columns view and the rows view are one problem in two languages.
+  \item One point / parallel / same line $=$ one / no / infinitely many solutions.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{System of linear equations} & Several linear equations sharing the same unknowns; a solution must satisfy them all at once. \\
+\textbf{Matrix form $A\xx=\bb$} & \TallMath{\begin{bsmallmatrix} 1 & 2 \\ 3 & 2 \end{bsmallmatrix}\begin{bsmallmatrix} x_1 \\ x_2 \end{bsmallmatrix}=\begin{bsmallmatrix} 5 \\ 11 \end{bsmallmatrix}}; the same system packed into one equation. \\
+\textbf{Coefficient matrix $A$} & Its \emph{columns} are the base vectors being combined; its \emph{rows} give the equations. \\
+\textbf{Solution} & The values of the unknowns $x_1, x_2$ that make every equation true. \\
+\textbf{Elimination} & Subtract a multiple of one equation from another to remove a variable (the focus of 2.1). \\
+\textbf{Consistent / inconsistent} & Has at least one solution / has no solution. \\
+\textbf{Unique vs.\ infinitely many} & Lines cross once (one solution) vs.\ lie on top of each other (infinitely many). \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three skills this lesson stands on:
+    \textbf{(1)} solving a small system by any Algebra-1 method (elimination will formalize it),
+    \textbf{(2)} computing $A\xx$ as a \emph{combination of the columns} (Lesson~1.3), and
+    \textbf{(3)} deciding whether a target $\bb$ is \emph{reachable} --- in the column space
+    (Lesson~1.3). Debrief item~2 out loud: the product $\begin{bsmallmatrix} 5\\11 \end{bsmallmatrix}$
+    is the very target students will solve \emph{back} to during the lesson.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Project two trail-mix ``bases.'' One scoop of \textbf{Base~A} is $1$ cup nuts and $3$ cups
+    raisins; one scoop of \textbf{Base~B} is $2$ cups nuts and $2$ cups raisins. A recipe calls
+    for exactly $5$ cups nuts and $11$ cups raisins. Ask: \textbf{``How many scoops of each base
+    hit the target exactly --- and is there only one answer?''} Let a few students guess-and-check
+    before naming the structure: this is $A\xx=\bb$ with the bases as \emph{columns}, run
+    \emph{backwards} to find the scoops $\xx$.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. Running Unit~1 backwards.} In Lesson~1.3 we \emph{built} $\bb=A\xx$: given a matrix
+$A$ and weights $\xx$, combine the columns. Now flip it: given $A$ and a target $\bb$, find the
+weights $\xx$ that \textbf{solve} $A\xx=\bb$. That is the question of all of Unit~2.
+
+\textbf{2. Two languages, one problem.} Write the trail-mix problem both ways. \emph{Column
+view:} $x_1\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}+x_2\begin{bsmallmatrix} 2\\2 \end{bsmallmatrix}=\begin{bsmallmatrix} 5\\11 \end{bsmallmatrix}$. \emph{Row view:} one equation per
+row, $x_1+2x_2=5$ and $3x_1+2x_2=11$. Stress that these are the \emph{same} numbers, read
+down the columns vs.\ across the rows.
+
+\columnbreak
+
+\textbf{3. Solve by elimination.} Subtract the first equation from the second to \textbf{kill}
+$x_2$: $(3x_1+2x_2)-(x_1+2x_2)=11-5$ gives $2x_1=6$, so $x_1=3$; back-substitute to get $x_2=1$.
+\textbf{Check} by rebuilding $\bb$: $3\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}+1\begin{bsmallmatrix} 2\\2 \end{bsmallmatrix}=\begin{bsmallmatrix} 5\\11 \end{bsmallmatrix}$. Name the move
+\textbf{elimination} --- Lesson~2.1 makes it systematic.
+
+\textbf{4. Geometry \& solvability.} Each row is a line; the solution is where they
+\textbf{cross}. Lines crossing once $=$ one solution; \textbf{parallel} $=$ none (inconsistent);
+the \textbf{same line} $=$ infinitely many. Tie back to 1.3: a solution exists exactly when
+$\bb$ is \emph{reachable} (in the column space).
+
+\textbf{5. The road ahead.} Preview Unit~2: \textbf{2.1} elimination in general, \textbf{2.2}
+elimination matrices \& inverses, \textbf{2.3} $A=LU$, \textbf{2.4} permutations \& transposes.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item mixing up the two readings --- combining down the columns vs.\ writing one equation per row;
+  \item subtracting equations in the wrong order or forgetting to subtract the \emph{right-hand
+        sides} too ($11-5$, not just the left sides);
+  \item stopping at one variable and not back-substituting; skipping the check.
+\end{itemize}
+Cold-call prompts: ``What does $x_1$ mean in the trail-mix story?'' ``Which move made $x_2$
+disappear?'' ``How would the picture look if there were \emph{no} solution?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Blend the Batch} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} One given system with an integer answer: rewrite $A\xx=\bb$ as
+two equations, eliminate a variable, back-substitute, and check by rebuilding $\bb$.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} A blend problem in context: set up $A\xx=\bb$ from two base
+mixes and a target, solve it, and \emph{interpret} the scoops. Then a decide-the-outcome item.
+
+\columnbreak
+\textbf{Tier E --- Extension.} A system with \emph{no} solution and one with \emph{infinitely
+many}; justify each from both the picture (two lines) and reachability of $\bb$.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): rewrite a given $A\xx=\bb$ as a system of two
+equations; solve it by eliminating a variable and check; and a \textbf{conceptual/justification
+check} --- given two \emph{parallel} lines, explain why the system has no solution and connect it
+to $\bb$ not being reachable. Collect and sort into ``got it / setup slip / elimination slip'' to
+decide whether 2.1 opens with a quick re-teach.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} translate between the three views of $A\xx=\bb$, solve $2\times 2$ systems by
+elimination with a check, one applied blend problem with an interpret part, and a
+one/none/infinitely-many classification. \textbf{Extension:} a $3\times 3$ system solved by
+eliminating one variable at a time --- previews the staircase of 2.1. \textbf{Preview:}
+Lesson~2.1, \emph{The Idea of Elimination} --- turning today's ``subtract to kill a variable''
+into a reliable procedure with pivots.
 \end{skillbox}
 \end{document}

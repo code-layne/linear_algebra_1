@@ -1,6 +1,9 @@
 %! Sets of Vectors and the Road to Subspaces — Unit 3, Lesson 3.0 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
@@ -11,16 +14,147 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 3.0}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Sets of Vectors and the Road to Subspaces}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 3}
+    {\color{white}\bfseries\LARGE Sets of Vectors and the Road to Subspaces}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 3: The Four Fundamental Subspaces}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{Which points can the drone reach?}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.58\textwidth}
+      Start at the origin; repeat two moves, forwards or backwards:
+      \[ \vv=\begin{bmatrix} 2\\1 \end{bmatrix}, \qquad \ww=\begin{bmatrix} 1\\3 \end{bmatrix}. \]
+      \textbf{Reachable} $= $ every $c\vv+d\ww$.\\[8pt]
+      Different directions $\Rightarrow$ the \textbf{whole plane}.\\[4pt]
+      But if $\ww=2\vv$, you only reach a \textbf{line}.
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.5]
+        \draw[step=1, linegray!45, thin] (-2.2,-2.2) grid (2.2,2.2);
+        \draw[->, thick, charcoal] (-2.4,0)--(2.4,0);
+        \draw[->, thick, charcoal] (0,-2.4)--(0,2.4);
+        \draw[->, very thick, burgundy] (0,0)--(2,1) node[right]{\scriptsize $\vv$};
+        \draw[->, very thick, royalblue] (0,0)--(1,2) node[above]{\scriptsize $\ww$};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{4pt}
+  \begin{block}{The question of Unit 3}
+    What do these reachable sets have in common --- and what could break them?
+  \end{block}
+\end{frame}
+
+% R^n AND SPAN
+\begin{frame}[t, plain]
+  \burgundyheader{The arena: $\mathbb{R}^n$ and span}
+  \sectionlabel{Recall}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item $\mathbb{R}^n$ = all vectors with $n$ components. $\mathbb{R}^2$ = the plane, $\mathbb{R}^3$ = all of space.
+    \item The \textbf{span} of some vectors = \emph{all} combinations $c\vv+d\ww$ (Lessons 1.1, 1.3).
+  \end{itemize}
+  \vspace{4pt}
+  \begin{block}{A span is always one of\dots}
+    a \textbf{line} through the origin (one direction), a \textbf{plane} through the origin (two
+    directions), or \textbf{all of $\mathbb{R}^n$}. Weights all $0$ give $\zero$, so it always
+    passes through the origin.
+  \end{block}
+\end{frame}
+
+% THE CLOSURE TEST
+\begin{frame}[t, plain]
+  \burgundyheader{What makes a set a subspace?}
+  \sectionlabel[goldacc]{The closure test}
+  A set $S$ is a \textbf{subspace} when you cannot escape it by combining members:
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item[\textbf{(a)}] $\vv,\ww \in S \;\Rightarrow\; \vv+\ww \in S$ \quad(closed under \textbf{addition})
+    \item[\textbf{(b)}] $\vv \in S \;\Rightarrow\; c\vv \in S$ for every $c$ \quad(closed under \textbf{scaling})
+  \end{itemize}
+  \vspace{4pt}
+  \begin{block}{Fast first check}
+    Rule (b) with $c=0$ forces $\zero \in S$. \textbf{No zero vector $\Rightarrow$ not a subspace.}
+  \end{block}
+\end{frame}
+
+% CATALOG YOU CAN SEE
+\begin{frame}[t, plain]
+  \burgundyheader{A catalog you can see ($\mathbb{R}^2$)}
+  \sectionlabel{Yes vs.\ No}
+  \begin{columns}[T]
+    \begin{column}{0.32\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.42]
+        \draw[step=1, linegray!45, thin] (-2.2,-2.2) grid (2.2,2.2);
+        \draw[->, thick, charcoal] (-2.4,0)--(2.4,0);
+        \draw[->, thick, charcoal] (0,-2.4)--(0,2.4);
+        \draw[very thick, burgundy] (-2.1,-1.05)--(2.1,1.05);
+        \fill[black] (0,0) circle (2.5pt);
+      \end{tikzpicture}\\
+      {\footnotesize line through $\zero$}\\ {\color{burgundy}\bfseries\footnotesize SUBSPACE}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.42]
+        \draw[step=1, linegray!45, thin] (-2.2,-2.2) grid (2.2,2.2);
+        \draw[->, thick, charcoal] (-2.4,0)--(2.4,0);
+        \draw[->, thick, charcoal] (0,-2.4)--(0,2.4);
+        \draw[very thick, royalblue] (-2.1,-0.35)--(1.8,1.6);
+        \fill[black] (0,0) circle (2.5pt);
+      \end{tikzpicture}\\
+      {\footnotesize line missing $\zero$}\\ {\color{royalblue}\bfseries\footnotesize NOT}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.42]
+        \fill[burgundy!18] (0,0) rectangle (2.2,2.2);
+        \draw[step=1, linegray!45, thin] (-2.2,-2.2) grid (2.2,2.2);
+        \draw[->, thick, charcoal] (-2.4,0)--(2.4,0);
+        \draw[->, thick, charcoal] (0,-2.4)--(0,2.4);
+        \fill[black] (0,0) circle (2.5pt);
+      \end{tikzpicture}\\
+      {\footnotesize first quadrant}\\ {\color{royalblue}\bfseries\footnotesize NOT}
+    \end{column}
+  \end{columns}
+  \vspace{4pt}
+  \begin{block}{Why the ``NO''s fail}
+    Off-origin line: no $\zero$. \; First quadrant: closed under $+$, but $-1\cdot\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$ escapes.
+  \end{block}
+\end{frame}
+
+% THE BRIDGE
+\begin{frame}[t, plain]
+  \burgundyheader{The bridge: $C(A)$ is a subspace}
+  \sectionlabel[goldacc]{Column space}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item $C(A)$ = span of the columns = all reachable targets $A\mathbf x$.
+    \item Add or scale reachable targets $\Rightarrow$ still a combination of columns $\Rightarrow$ still reachable.
+  \end{itemize}
+  \vspace{4pt}
+  \begin{block}{Unit 2, renamed}
+    ``Is $\mathbf b$ reachable?'' $=$ ``Is $\mathbf b$ in the subspace $C(A)$?''
+  \end{block}
+\end{frame}
+
+% ROADMAP
+\begin{frame}[t, plain]
+  \burgundyheader{The road through Unit 3}
+  \sectionlabel{Connections}
+  \textbf{Today:} $\mathbb{R}^n$, span as a flat piece through the origin, the closure test, and $C(A)$ as a subspace.\\[8pt]
+  \begin{itemize}
+    \setlength{\itemsep}{4pt}
+    \item \textbf{3.1} Vector Spaces and Subspaces --- the closure test made precise.
+    \item \textbf{3.2} The Nullspace: solving $A\mathbf x=\zero$ (another subspace).
+    \item \textbf{3.3} The Complete Solution to $A\mathbf x=\mathbf b$.
+    \item \textbf{3.4} Independence, Basis, and Dimension.
+    \item \textbf{3.5} Dimensions of the Four Subspaces.
+  \end{itemize}
 \end{frame}
 
 \end{document}

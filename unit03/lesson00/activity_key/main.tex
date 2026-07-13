@@ -3,17 +3,84 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.0}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Which Sets Are ``Closed''?} A set of vectors is a \textbf{subspace} when you cannot
+escape it by \textbf{adding} two members or \textbf{scaling} one. Every subspace therefore
+contains $\zero$ and looks like a flat piece through the origin. Work with your partner, run the
+\emph{closure test}, and \emph{justify} each answer.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Warm your hands up with combinations and spans. Let
+$\vv=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ and $\ww=\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item Compute $\vv+\ww=\begin{bmatrix}{\color{keyred}\mathbf{3}}\\[2pt]{\color{keyred}\mathbf{6}}\end{bmatrix}$
+        \qquad and \qquad
+        $-2\vv=\begin{bmatrix}{\color{keyred}\mathbf{-2}}\\[2pt]{\color{keyred}\mathbf{-4}}\end{bmatrix}$.
+  \item The figure shows $\vv$ and $\ww$. Because $\ww=2\vv$, they lie along the \emph{same}
+        direction. Is their span a \textbf{line} or a \textbf{plane}? \; \ans{a line}
+        \begin{center}
+        \begin{tikzpicture}[scale=0.5]
+          \draw[step=1, linegray!45, thin] (-0.4,-0.4) grid (4.4,4.4);
+          \draw[->, thick, charcoal] (-0.4,0)--(4.6,0);
+          \draw[->, thick, charcoal] (0,-0.4)--(0,4.6);
+          \draw[->, very thick, burgundy] (0,0)--(1,2) node[above left]{\scriptsize $\vv$};
+          \draw[->, very thick, royalblue] (0,0)--(2,4) node[above right]{\scriptsize $\ww$};
+        \end{tikzpicture}
+        \end{center}
+  \item Does that span pass through the origin? \; \ans{yes} \quad
+        (Hint: what is $0\vv+0\ww$?)
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+For each set in $\mathbb{R}^2$, run the \textbf{closure test} and decide: subspace or not? If
+\emph{not}, name a specific member and a move (add or scale) that escapes it.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item $S_1$: all multiples of $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ (the line $y=2x$).
+        \ansline{\textbf{Subspace.} A line through the origin: sums and scalings of multiples of $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ are again multiples of it, and $\zero$ is included ($c=0$).}
+  \item $S_2$: all points on the line $y=2x+3$. \ansline{\textbf{Not a subspace.} It misses $\zero$ ($x=0$ gives $y=3$). Escape: $2\begin{bsmallmatrix} 0\\3 \end{bsmallmatrix}=\begin{bsmallmatrix} 0\\6 \end{bsmallmatrix}$, and $6\ne 2(0)+3$.}
+  \item $S_3$: the first quadrant --- all $\begin{bsmallmatrix} x\\y \end{bsmallmatrix}$ with
+        $x\ge 0$ and $y\ge 0$. \ansline{\textbf{Not a subspace.} Closed under adding, but scaling escapes: $-1\cdot\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}=\begin{bsmallmatrix} -1\\-1 \end{bsmallmatrix}$ is outside.}
+  \item \textbf{Tie it to a matrix.} $A=\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$ has parallel
+        columns. Describe the column space $C(A)$ as a set, and say which set above it matches. Is
+        it a subspace? \ansline{Columns $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}=2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$, so $C(A)$ is all multiples of $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ = the line $y=2x$ = $S_1$. Yes, a subspace.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{A first look at the nullspace.} Same $A=\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$. The
+\emph{nullspace} is the set of all $\mathbf x$ with $A\mathbf x=\zero$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Both rows give the \emph{same} equation $x_1+2x_2=0$. Write two different nonzero
+        solutions $\mathbf x$ (pick $x_2=1$, then $x_2=-2$). \ansline{$x_2=1\Rightarrow x_1=-2$: $\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}$. \quad $x_2=-2\Rightarrow x_1=4$: $\begin{bsmallmatrix} 4\\-2 \end{bsmallmatrix}$.}
+  \item \textbf{Closure check.} Add your two solutions. Is the sum also a solution of
+        $A\mathbf x=\zero$? Show it. \ansline{$\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}+\begin{bsmallmatrix} 4\\-2 \end{bsmallmatrix}=\begin{bsmallmatrix} 2\\-1 \end{bsmallmatrix}$, and $2+2(-1)=0$. \checkmark\ Yes.}
+  \item Describe the whole nullspace geometrically (a line? a plane? through the origin?), and
+        explain why this makes it a \textbf{subspace}. This is the star of Lesson~3.2. \ansline{All $\mathbf x=t\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}$: a line through the origin. Sums and scalings of solutions are again solutions, so it is closed --- a subspace.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~A item~4 and all of Tier~E are the point: both the column space and the nullspace turn out to
+be subspaces, which is exactly why Unit~3 studies ``the four fundamental subspaces.'' If Tier~E
+runs long, item~2 (closure) is the must-do --- it is the whole reason a nullspace is a subspace.
+\end{teachernote}
 
 \end{document}

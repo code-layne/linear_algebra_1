@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 3}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 3 \quad The Four Fundamental Subspaces}}\\[6pt]
   {\color{white}\textbf{\large Lesson 3.0 \quad Sets of Vectors and the Road to Subspaces}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} describe the \textbf{span} of some vectors as a \textbf{line} or \textbf{plane through the origin} (or all of $\mathbb{R}^n$).
+  \item \ldots{} test whether a set of vectors is a \textbf{subspace} --- closed under addition and scaling, so it contains $\mathbf{0}$.
+  \item \ldots{} recognize the \textbf{column space} $C(A)$ as a subspace and explain what Unit~3 is about.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,24 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: combinations, span as a line vs.\ plane, reachability & \blank{1.2cm} \\
+2 & Guided Notes   & $\mathbb{R}^n$, the closure test, and subspaces you can see           & \blank{1.2cm} \\
+3 & Group Activity & Which Sets Are ``Closed''? --- testing sets for being a subspace       & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check on span, the closure test, and the origin                 & \blank{1.2cm} \\
+5 & Homework       & Spans, subspace tests, the column space, and a nullspace preview      & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small A \textbf{subspace} is a set of vectors you cannot escape by \textbf{adding} or
+\textbf{scaling}: combine any members and you land back inside. Every subspace therefore contains
+the zero vector $\mathbf{0}$, and looks like a flat piece pinned to the origin --- a line, a
+plane, all of $\mathbb{R}^n$, or just $\{\mathbf{0}\}$. The \textbf{column space} $C(A)$ --- all
+targets $A\mathbf{x}$ you can reach --- is the prime example.
+\end{remindbox}
 
 \end{document}

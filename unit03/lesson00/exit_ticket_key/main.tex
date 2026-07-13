@@ -3,6 +3,7 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
@@ -11,9 +12,26 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Describe the span.} The vectors $\begin{bmatrix} 1 \\ 0 \end{bmatrix}$ and
+        $\begin{bmatrix} 0 \\ 1 \end{bmatrix}$ point in different directions. Is their span a
+        \emph{line}, a \emph{plane}, or all of $\mathbb{R}^2$? Does it pass through the origin?
+        \ansline{All of $\mathbb{R}^2$ (two independent directions span the whole plane). Yes --- $0\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}+0\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}=\zero$.}
+  \item \textbf{Closure test.} Is the set of all multiples of $\begin{bmatrix} 3 \\ 1 \end{bmatrix}$
+        a subspace of $\mathbb{R}^2$? State what you checked (adding, scaling, and $\zero$).
+        \ansline{Yes. Adding two multiples of $\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}$ gives a multiple; scaling a multiple gives a multiple; and $0\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}=\zero$ is included. It is the line through the origin in direction $\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}$.}
+  \item \textbf{Justify.} A classmate says the line $y = x + 4$ is a subspace. Explain why it is
+        \emph{not}, using the zero vector \emph{and} a scaling that escapes the line.
+        \ansline{$\zero=\begin{bsmallmatrix} 0\\0 \end{bsmallmatrix}$ is not on it ($0\ne 0+4$), so it fails at once. Also $\begin{bsmallmatrix} 0\\4 \end{bsmallmatrix}$ is on the line but $2\begin{bsmallmatrix} 0\\4 \end{bsmallmatrix}=\begin{bsmallmatrix} 0\\8 \end{bsmallmatrix}$ is not ($8\ne 0+4$) --- scaling escapes.}
+\end{enumerate}
+
+\begin{teachernote}
+Sort responses into ``got it / origin slip / closure slip.'' The most common miss is item~3
+students who only say ``it doesn't go through the origin'' without the scaling escape --- both
+halves are asked for. If many stumble, open 3.1 by re-running the closure test on one line through
+the origin and one off it, side by side.
+\end{teachernote}
 
 \end{document}

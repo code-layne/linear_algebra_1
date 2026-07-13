@@ -3,17 +3,153 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.0}{Guided Notes}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Guided Notes. See references/components.md for the expected structure.
-\begin{notesbox}{Guided Notes}
-\writelines{4}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item describe the \emph{span} of some vectors as a line or plane \emph{through the origin};
+  \item test whether a set of vectors is a \emph{subspace} --- closed under $+$ and scaling;
+  \item recognize the \emph{column space} $C(A)$ as a subspace and see where Unit~3 is headed.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.10in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\termblanklong{Vector space $\mathbb{R}^n$}
+\termblanklong{Span (of some vectors)}
+\termblanklong{Subspace}
+\termblanklong{Closed under addition / scaling}
+\termblanklong{Column space $C(A)$}
+\end{vocabbox}
+
+\begin{hookbox}
+A drone starts at the origin and repeats two moves, forwards or backwards as often as it likes:
+$\vv=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$ and $\ww=\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item Which points can it reach with $c\vv+d\ww$? Describe the set. \writeline
+  \item Now $\ww$ becomes $\begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}=2\vv$. What can it reach now? \writeline
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. The Arena: $\mathbb{R}^n$ and Span}
+The \textbf{vector space $\mathbb{R}^n$} is the set of \emph{all} vectors with $n$ real
+components. So $\mathbb{R}^2$ is the whole \blank{2.4cm}, and $\mathbb{R}^3$ is all of space.
+
+\vspace{3pt}
+From Lessons 1.1 and 1.3, the \textbf{span} of some vectors is the set of \emph{all} their linear
+combinations $c\vv + d\ww$. Geometrically the span is one of:
+\begin{itemize}[leftmargin=1.5em, itemsep=1pt]
+  \item a \textbf{line} through the origin --- when the vectors point along \blank{3.0cm};
+  \item a \textbf{plane} through the origin --- when they point in \blank{3.4cm} directions;
+  \item \textbf{all of $\mathbb{R}^n$}.
+\end{itemize}
+Every span passes through the origin, because taking all weights $=0$ gives the \blank{1.8cm}
+vector.
 \end{notesbox}
+
+\begin{notesbox}{2. What Makes a Set a Subspace?}
+A \textbf{subspace} is a set $S$ of vectors that you cannot \emph{escape} by combining its
+members. Two rules --- the \textbf{closure test}:
+\begin{enumerate}[leftmargin=1.9em, itemsep=3pt]
+  \item[\textbf{(a)}] \textbf{Closed under addition:} if $\vv$ and $\ww$ are in $S$, then
+        $\vv+\ww$ is \blank{2.6cm} $S$.
+  \item[\textbf{(b)}] \textbf{Closed under scaling:} if $\vv$ is in $S$, then $c\vv$ is in $S$ for
+        \emph{every} number $c$.
+\end{enumerate}
+Rule (b) with $c=0$ forces the \textbf{zero vector} $\zero$ to be in $S$. So a quick first check:
+\emph{if a set does not contain $\zero$, it is} \blank{3.2cm} \emph{a subspace}.
+\end{notesbox}
+
+\begin{notesbox}{3. A Catalog You Can See}
+In $\mathbb{R}^2$, compare three sets (each figure is the shaded/heavy set):
+\begin{center}
+\begin{tikzpicture}[scale=0.42]
+  % Panel 1: line through origin  (subspace)
+  \begin{scope}
+    \draw[step=1, linegray!45, thin] (-3.2,-3.2) grid (3.2,3.2);
+    \draw[->, thick, charcoal] (-3.4,0)--(3.4,0);
+    \draw[->, thick, charcoal] (0,-3.4)--(0,3.4);
+    \draw[very thick, burgundy] (-3.0,-1.5)--(3.0,1.5);
+    \fill[black] (0,0) circle (3pt);
+    \node[charcoal, font=\scriptsize] at (0,-4.1){line through $\zero$};
+    \node[burgundy, font=\scriptsize\bfseries] at (0,-4.9){SUBSPACE};
+  \end{scope}
+  % Panel 2: line NOT through origin  (not a subspace)
+  \begin{scope}[xshift=9.2cm]
+    \draw[step=1, linegray!45, thin] (-3.2,-3.2) grid (3.2,3.2);
+    \draw[->, thick, charcoal] (-3.4,0)--(3.4,0);
+    \draw[->, thick, charcoal] (0,-3.4)--(0,3.4);
+    \draw[very thick, royalblue] (-3.0,-0.5)--(2.5,2.25);
+    \fill[black] (0,0) circle (3pt);
+    \node[charcoal, font=\scriptsize] at (0,-4.1){line missing $\zero$};
+    \node[royalblue, font=\scriptsize\bfseries] at (0,-4.9){NOT a subspace};
+  \end{scope}
+  % Panel 3: first quadrant  (not a subspace)
+  \begin{scope}[xshift=18.4cm]
+    \fill[burgundy!18] (0,0) rectangle (3.2,3.2);
+    \draw[step=1, linegray!45, thin] (-3.2,-3.2) grid (3.2,3.2);
+    \draw[->, thick, charcoal] (-3.4,0)--(3.4,0);
+    \draw[->, thick, charcoal] (0,-3.4)--(0,3.4);
+    \fill[black] (0,0) circle (3pt);
+    \node[charcoal, font=\scriptsize] at (0,-4.1){first quadrant};
+    \node[royalblue, font=\scriptsize\bfseries] at (0,-4.9){NOT a subspace};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+
+\vspace{2pt}
+Fill in \emph{why} each middle/right set fails the closure test:
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item \textbf{Line missing $\zero$:} it does not contain \blank{1.6cm}; and scaling a point on
+        it by $0$ lands at the origin, which is \emph{off} the line. \textbf{Fails.}
+  \item \textbf{First quadrant:} it \emph{is} closed under adding, but scaling
+        $\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$ by $c=\blank{1.0cm}$ gives
+        $\begin{bsmallmatrix} -1\\-1 \end{bsmallmatrix}$, which \emph{leaves} the quadrant.
+        \textbf{Fails.}
+\end{itemize}
+\textbf{The complete list in $\mathbb{R}^2$:} just $\{\zero\}$, any line through the origin, and
+all of $\mathbb{R}^2$. (In $\mathbb{R}^3$, add every \blank{2.6cm} through the origin.) Every
+subspace is a flat piece \emph{pinned to the origin}.
+\end{notesbox}
+
+\begin{notesbox}{4. The Bridge: The Column Space Is a Subspace}
+The \textbf{column space} $C(A)$ is the span of the columns of $A$ = every target $A\mathbf x$ you
+can \textbf{reach}. Why is it a subspace? Add two reachable targets, or scale one, and the result
+is still a combination of the columns --- still \blank{2.6cm}. So $C(A)$ passes the closure test.
+
+\vspace{3pt}
+This renames a Unit~2 idea: ``$A\mathbf x=\mathbf b$ has a solution exactly when $\mathbf b$ is
+reachable'' becomes ``\dots exactly when $\mathbf b$ is in the subspace \blank{2.0cm}.''
+
+\vspace{3pt}
+\textbf{The road ahead (Unit 3).} \textbf{3.1} vector spaces \& subspaces\; $\bullet$\;
+\textbf{3.2} the \emph{nullspace} $N(A)$: all solutions of $A\mathbf x=\zero$ (another subspace)\;
+$\bullet$\; \textbf{3.3} the complete solution to $A\mathbf x=\mathbf b$\; $\bullet$\; \textbf{3.4}
+independence, basis \& dimension\; $\bullet$\; \textbf{3.5} the dimensions of the four subspaces.
+\end{notesbox}
+
+\begin{practicebox}
+Decide whether each set is a subspace of $\mathbb{R}^2$. If not, give a specific combination that
+\emph{escapes} it.
+\begin{enumerate}[leftmargin=1.6em, itemsep=4pt]
+  \item All vectors on the line $y=3x$ (i.e.\ all multiples of $\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$). \writeline
+  \item All vectors on the line $y=3x+2$. \writeline
+  \item All of $\mathbb{R}^2$. \writeline
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

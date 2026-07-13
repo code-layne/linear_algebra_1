@@ -3,17 +3,66 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.1}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Robot Moves.} A robot starts at the origin. It has two \emph{moves} it can scale
+(use a fraction, a multiple, or a negative to reverse) and combine: $\vv$ and $\ww$. A
+\textbf{linear combination} $c\,\vv + d\,\ww$ is a whole trip. Work with your partner and
+\emph{show your steps}.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+The robot's two moves are $\vv = \begin{bmatrix} 2 \\ 1 \end{bmatrix}$ and
+$\ww = \begin{bmatrix} 1 \\ 3 \end{bmatrix}$. Compute each combination and give the point where
+the robot ends up.
+\begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
+  \item $\vv + \ww$ \vspace{0.5cm}
+  \item $2\vv$ (use move $\vv$ twice) \vspace{0.5cm}
+  \item $\vv - \ww$ \vspace{0.5cm}
+  \item If the robot uses $0$ of each move ($0\,\vv + 0\,\ww$), where is it? Why does that make sense? \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Still with $\vv = \begin{bmatrix} 2 \\ 1 \end{bmatrix}$ and $\ww = \begin{bmatrix} 1 \\ 3 \end{bmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
+  \item Find weights $c$ and $d$ so the robot lands on $(7,6)$: solve $c\,\vv + d\,\ww =
+        \begin{bmatrix} 7 \\ 6 \end{bmatrix}$. \vspace{0.9cm}
+  \item A \emph{second} robot has broken moves $\mathbf{a} = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$
+        and $\mathbf{b} = \begin{bmatrix} 2 \\ 4 \end{bmatrix}$. Try to reach $(3,0)$ with
+        $c\,\mathbf{a} + d\,\mathbf{b}$. What goes wrong? \writelines{2}
+  \item \textbf{Interpret.} The first robot can reach any target, but the second cannot.
+        What is different about its two moves? \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
+  \item For each pair, decide whether its combinations span the \textbf{whole plane} or only a
+        \textbf{line}. Give a one-line reason.
+        \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+          \item $\begin{bsmallmatrix} 2 \\ 3 \end{bsmallmatrix},\ \begin{bsmallmatrix} 4 \\ 6 \end{bsmallmatrix}$ \hfill
+          \item $\begin{bsmallmatrix} 1 \\ 1 \end{bsmallmatrix},\ \begin{bsmallmatrix} -1 \\ 1 \end{bsmallmatrix}$ \hfill
+          \item $\begin{bsmallmatrix} 3 \\ -1 \end{bsmallmatrix},\ \begin{bsmallmatrix} -6 \\ 2 \end{bsmallmatrix}$
+        \end{enumerate}
+        \writelines{3}
+  \item \textbf{Justify.} Explain why two \emph{parallel} vectors can never span the whole
+        plane, no matter what weights you choose. \writelines{3}
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

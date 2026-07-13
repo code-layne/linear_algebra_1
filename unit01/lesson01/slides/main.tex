@@ -1,6 +1,8 @@
 %! Linear Combinations of Vectors — Unit 1, Lesson 1.1 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 
 \begin{document}
 
@@ -11,16 +13,103 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 1.1}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Linear Combinations of Vectors}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 1}
+    {\color{white}\bfseries\LARGE Linear Combinations of Vectors}\\[0.3cm]
+    {\color{white}\bfseries\large Scaling, adding, and what you can reach}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 1: Vectors and Matrices}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{Two moves, how far can you go?}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.58\textwidth}
+      A robot at the origin has only two moves it can scale and repeat:
+      $\vv=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$ and
+      $\ww=\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$.\\[8pt]
+      \textbf{Question.} Using $c$ copies of $\vv$ and $d$ copies of $\ww$, can it land on
+      $(5,5)$? On \emph{any} target?
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.5]
+        \draw[step=1, black!15, thin] (-0.3,-0.3) grid (5.3,5.3);
+        \draw[->, thick, black!60] (0,0)--(5.4,0);
+        \draw[->, thick, black!60] (0,0)--(0,5.4);
+        \draw[->, very thick, burgundy] (0,0)--(2,1) node[below right]{$\vv$};
+        \draw[->, very thick, royalblue] (0,0)--(1,3) node[above left]{$\ww$};
+        \fill[black!70] (5,5) circle (3pt) node[above right]{\scriptsize $(5,5)$};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% WHAT IS A LINEAR COMBINATION
+\begin{frame}[t, plain]
+  \burgundyheader{What is a linear combination?}
+  \sectionlabel{Definition}
+  A \textbf{linear combination} scales each vector, then adds:
+  \[
+    c\,\vv + d\,\ww .
+  \]
+  The scalars $c,d$ are the \textbf{coefficients} (weights).
+  \begin{itemize}
+    \item Example: $2\vv+\ww=\begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}+\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}=\begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}$.
+    \item Familiar cases: the \textbf{sum} $\vv+\ww$, the \textbf{difference} $\vv-\ww$, a lone \textbf{multiple} $c\,\vv$ ($d=0$).
+  \end{itemize}
+\end{frame}
+
+% ONE VECTOR = A LINE
+\begin{frame}[t, plain]
+  \burgundyheader{One vector fills a line}
+  \sectionlabel{Span}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      Scale a single $\vv$ by \emph{every} number $c$: all the points $c\,\vv$ lie on one
+      \textbf{line through the origin}.\\[8pt]
+      That set of reachable points is the \textbf{span} of $\vv$.
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.5]
+        \draw[step=1, black!15, thin] (-2.3,-1.3) grid (4.3,2.3);
+        \draw[->, thick, black!60] (-2.4,0)--(4.4,0);
+        \draw[->, thick, black!60] (0,-1.4)--(0,2.4);
+        \draw[burgundy!55, very thick] (-2.2,-1.1)--(4.2,2.1);
+        \draw[->, very thick, burgundy] (0,0)--(2,1) node[above left]{$\vv$};
+        \fill[burgundy] (4,2) circle (2.5pt);
+        \fill[burgundy] (-2,-1) circle (2.5pt);
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% TWO VECTORS = THE PLANE
+\begin{frame}[t, plain]
+  \burgundyheader{Two vectors fill the plane (usually)}
+  \sectionlabel[goldacc]{Span}
+  Let both weights vary in $c\,\vv+d\,\ww$:
+  \begin{itemize}
+    \item If $\vv$ and $\ww$ are \textbf{not parallel}, combinations reach \textbf{every} point in the plane.
+    \item The basis $\mathbf{i}=\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix},\ \mathbf{j}=\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}$:
+          every $\begin{bsmallmatrix} x\\y \end{bsmallmatrix}=x\,\mathbf{i}+y\,\mathbf{j}$ --- coordinates \emph{are} the weights.
+  \end{itemize}
+  \begin{block}{The exception}
+    If $\vv$ and $\ww$ are \textbf{parallel} (one a multiple of the other), their combinations
+    span only a \textbf{line}.
+  \end{block}
+\end{frame}
+
+% WRAP / PREVIEW
+\begin{frame}[t, plain]
+  \burgundyheader{Wrap-up and what's next}
+  \sectionlabel{Connections}
+  \textbf{Today:} linear combinations $c\,\vv+d\,\ww$; one vector spans a line, two
+  non-parallel vectors span the plane; finding the weights for a target.\\[8pt]
+  \textbf{Next --- Lesson 1.2:} the \textbf{dot product} --- a single number measuring how much
+  two vectors point the same way, and how it recovers length.
 \end{frame}
 
 \end{document}

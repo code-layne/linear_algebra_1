@@ -3,17 +3,73 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.1}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+Throughout, let $\vv = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$ and
+$\ww = \begin{bmatrix} 3 \\ 1 \end{bmatrix}$. Show your steps.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
+  \item Compute each linear combination.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\vv + \ww = {}$\ans{$\begin{bsmallmatrix} 4 \\ 3 \end{bsmallmatrix}$} \hfill
+      \item $2\vv - \ww = {}$\ans{$\begin{bsmallmatrix} -1 \\ 3 \end{bsmallmatrix}$} \hfill
+      \item $3\vv + \ww = {}$\ans{$\begin{bsmallmatrix} 6 \\ 7 \end{bsmallmatrix}$} \hfill
+      \item $-2\vv + 2\ww = {}$\ans{$\begin{bsmallmatrix} 4 \\ -2 \end{bsmallmatrix}$}
+    \end{enumerate}
+  \item Find weights $c,d$ so that $c\,\vv + d\,\ww$ equals the given target. Show the match-up.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item \ans{$c+3d=5,\ 2c+d=5 \Rightarrow c=2,\ d=1$} \hfill
+      \item \ans{$c+3d=7,\ 2c+d=9 \Rightarrow c=4,\ d=1$}
+    \end{enumerate}
+  \item For each pair of vectors, does it span the \textbf{whole plane} or only a
+        \textbf{line}? Give a one-line reason.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\begin{bsmallmatrix} 1 \\ 3 \end{bsmallmatrix},\ \begin{bsmallmatrix} 2 \\ 6 \end{bsmallmatrix}$ \hfill
+      \item $\begin{bsmallmatrix} 2 \\ 1 \end{bsmallmatrix},\ \begin{bsmallmatrix} 1 \\ 3 \end{bsmallmatrix}$ \hfill
+      \item $\begin{bsmallmatrix} 4 \\ -2 \end{bsmallmatrix},\ \begin{bsmallmatrix} -2 \\ 1 \end{bsmallmatrix}$
+    \end{enumerate}
+    \ansline{(a) Line --- $\begin{bsmallmatrix} 2\\6 \end{bsmallmatrix}=2\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$ (parallel).
+    \ (b) Plane --- not parallel.
+    \ (c) Line --- $\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}=-\tfrac12\begin{bsmallmatrix} 4\\-2 \end{bsmallmatrix}$ (parallel).}
+  \item A juice bar stores two base juices as vectors
+        $\begin{bsmallmatrix} \text{sugar (g)} \\ \text{vitamin C (mg)} \end{bsmallmatrix}$:
+        $\mathbf{a}=\begin{bmatrix} 8 \\ 30 \end{bmatrix}$ and
+        $\mathbf{b}=\begin{bmatrix} 5 \\ 50 \end{bmatrix}$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+      \item A new drink is the blend $2\mathbf{a}+\mathbf{b}$. Find its sugar and vitamin~C.
+            \ans{$2\begin{bsmallmatrix} 8\\30 \end{bsmallmatrix}+\begin{bsmallmatrix} 5\\50 \end{bsmallmatrix}
+            = \begin{bsmallmatrix} 21\\110 \end{bsmallmatrix}$: $21$ g sugar, $110$ mg vitamin C}
+      \item \emph{Interpret:} what does the weight $2$ on $\mathbf{a}$ mean for this recipe?
+            \ansline{The blend uses two parts of juice $\mathbf{a}$ for every one part of $\mathbf{b}$.}
+    \end{enumerate}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+Recall a vector can be a \textbf{data record}. A smoothie is stored as
+$\begin{bsmallmatrix} \text{cups fruit} \\ \text{cups yogurt} \end{bsmallmatrix}$, with base
+recipes $\mathbf{r}=\begin{bsmallmatrix} 2 \\ 1 \end{bsmallmatrix}$ and
+$\mathbf{s}=\begin{bsmallmatrix} 1 \\ 2 \end{bsmallmatrix}$. Write the blend $3\mathbf{r}+2\mathbf{s}$,
+and explain what a linear combination \emph{means} when the vectors are recipes instead of
+arrows. \ansline{$3\mathbf{r}+2\mathbf{s}=\begin{bsmallmatrix} 8\\7 \end{bsmallmatrix}$: use $3$
+batches of recipe $\mathbf{r}$ and $2$ of $\mathbf{s}$, giving $8$ cups fruit and $7$ cups
+yogurt. The weights are ``how many batches of each recipe'' you pour in.}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 1.2: Lengths and Angles from Dot Products.} You now combine
+vectors and know which points they can reach. Next we measure \emph{how much two vectors point
+the same way} with a single number --- the dot product --- which also recovers a vector's
+length as a special case.
+\end{spiralbox}
 
 \end{document}

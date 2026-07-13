@@ -3,17 +3,151 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.1}{Guided Notes}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Guided Notes. See references/components.md for the expected structure.
-\begin{notesbox}{Guided Notes}
-\writelines{4}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item build a \emph{linear combination} $c\,\vv + d\,\ww$ by scaling and then adding;
+  \item describe what the multiples of one vector reach, and what two vectors reach together;
+  \item find the weights $c,d$ that combine two vectors into a given target.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.10in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\termblanklong{Linear combination}
+\termblanklong{Coefficients (weights)}
+\termblanklong{Span}
+\termblanklong{Parallel vectors}
+\termblanklong{Standard basis vectors}
+\end{vocabbox}
+
+\begin{hookbox}
+A delivery robot sits at the origin and has only \textbf{two moves} it can scale and repeat:
+$\vv = \begin{bsmallmatrix} 2 \\ 1 \end{bsmallmatrix}$ and
+$\ww = \begin{bsmallmatrix} 1 \\ 3 \end{bsmallmatrix}$. Using $c$ copies of $\vv$ and $d$ copies
+of $\ww$:
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item Can it land exactly on $(5,5)$? Try to find the amounts $c$ and $d$. \blank{3.2cm}
+  \item Do you think it could reach \emph{any} target you name? \writeline
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. What Is a Linear Combination?}
+A \textbf{linear combination} of $\vv$ and $\ww$ scales each one and then adds:
+\[
+  c\,\vv + d\,\ww .
+\]
+The numbers $c$ and $d$ are the \textbf{coefficients} (or \textbf{weights}) --- they say how
+much of each vector to use.
+
+\vspace{2pt}
+\textit{Example.} With $\vv = \begin{bmatrix} 2 \\ 1 \end{bmatrix}$ and
+$\ww = \begin{bmatrix} 1 \\ 3 \end{bmatrix}$, compute $2\vv + \ww$:
+\[
+  2\begin{bmatrix} 2 \\ 1 \end{bmatrix} + \begin{bmatrix} 1 \\ 3 \end{bmatrix}
+  = \begin{bmatrix} 4 \\ 2 \end{bmatrix} + \begin{bmatrix} 1 \\ 3 \end{bmatrix}
+  = \begin{bmatrix}\rule{0pt}{1.1em}\blank{1.1cm}\\[2pt]\blank{1.1cm}\end{bmatrix}.
+\]
+
+Some combinations have familiar names. Fill in the weights $c$ and $d$:
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item the \textbf{sum} $\vv+\ww$ uses $c=\blank{1.0cm}$, $d=\blank{1.0cm}$;
+  \item the \textbf{difference} $\vv-\ww$ uses $c=1$, $d=\blank{1.0cm}$;
+  \item a lone \textbf{multiple} $c\,\vv$ uses $d=\blank{1.0cm}$.
+\end{itemize}
 \end{notesbox}
+
+\begin{notesbox}{2. The Multiples of One Vector Fill a Line}
+Take a single vector $\vv=\begin{bmatrix} 2 \\ 1 \end{bmatrix}$ and scale it by \emph{every}
+possible number $c$. Each $c\,\vv$ lands on the same straight \blank{2.4cm} through the origin.
+
+\vspace{2pt}
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+  \draw[step=1, linegray!60, thin] (-3.4,-2.4) grid (5.4,3.4);
+  \draw[->, thick, charcoal] (-3.6,0)--(5.6,0) node[right]{\scriptsize $x$};
+  \draw[->, thick, charcoal] (0,-2.6)--(0,3.6) node[above]{\scriptsize $y$};
+  % the line of all multiples of (2,1)
+  \draw[burgundy!55, very thick] (-3.2,-1.6)--(5.2,2.6);
+  \draw[->, very thick, burgundy] (0,0)--(2,1) node[midway, above left]{$\vv$};
+  \fill[burgundy] (2,1) circle (2.2pt);
+  \fill[burgundy] (4,2) circle (2.2pt) node[above left]{\scriptsize $2\vv$};
+  \fill[burgundy] (-2,-1) circle (2.2pt) node[below right]{\scriptsize $-\vv$};
+\end{tikzpicture}
+\end{center}
+The set of all points you can reach is called the \textbf{span} of $\vv$. For one nonzero
+vector, the span is a \blank{2.4cm}.
+
+\vspace{2pt}
+On the picture, $2\vv=\begin{bmatrix}\rule{0pt}{1.1em}\blank{1.0cm}\\[2pt]\blank{1.0cm}\end{bmatrix}$
+and $-\vv=\begin{bmatrix}\rule{0pt}{1.1em}\blank{1.0cm}\\[2pt]\blank{1.0cm}\end{bmatrix}$ --- both sit on that same line.
+\end{notesbox}
+
+\begin{notesbox}{3. Two Vectors Fill the Plane (Usually)}
+Now use \emph{two} vectors and let both weights vary in $c\,\vv+d\,\ww$. If $\vv$ and $\ww$ do
+\textbf{not} lie on the same line, their combinations can reach \textbf{every point in the
+plane}. Below, $2\vv+\ww$ lands on $(5,5)$ --- the Hook's target.
+
+\vspace{2pt}
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+  \draw[step=1, linegray!60, thin] (-0.4,-0.4) grid (5.4,5.4);
+  \draw[->, thick, charcoal] (-0.4,0)--(5.6,0) node[right]{\scriptsize $x$};
+  \draw[->, thick, charcoal] (0,-0.4)--(0,5.6) node[above]{\scriptsize $y$};
+  % 2v then w, tip to tail, to reach (5,5)
+  \draw[->, very thick, burgundy] (0,0)--(2,1) node[midway, below right]{$\vv$};
+  \draw[->, very thick, burgundy!55] (2,1)--(4,2) node[midway, below right]{\scriptsize $2\vv$};
+  \draw[->, very thick, royalblue] (4,2)--(5,5) node[midway, left]{$\ww$};
+  \fill[charcoal] (5,5) circle (2.4pt) node[above right]{\small $(5,5)$};
+\end{tikzpicture}
+\end{center}
+Two special vectors make this easy to see: the \textbf{standard basis vectors}
+$\mathbf{i}=\begin{bmatrix} 1 \\ 0 \end{bmatrix}$ and
+$\mathbf{j}=\begin{bmatrix} 0 \\ 1 \end{bmatrix}$. Any vector is a combination of them:
+\[
+  \begin{bmatrix} x \\ y \end{bmatrix} = x\,\mathbf{i} + y\,\mathbf{j}.
+\]
+So a point's \blank{2.8cm} are exactly the weights on $\mathbf{i}$ and $\mathbf{j}$.
+
+\vspace{4pt}
+\textbf{The exception.} If $\vv$ and $\ww$ \emph{are} on the same line --- that is, they are
+\textbf{parallel} (one is a multiple of the other) --- then adding scaled copies just gives
+more points on \blank{4.0cm}. Two parallel vectors span only a \blank{1.8cm}, not the plane.
+\end{notesbox}
+
+\begin{notesbox}{4. Finding the Weights}
+Sometimes we are handed the \emph{answer} and must find the weights. Write
+$\begin{bmatrix} 5 \\ 5 \end{bmatrix} = c\,\vv + d\,\ww$ and match components:
+\[
+  \begin{cases} 2c + d = 5 \\ \ c + 3d = 5 \end{cases}
+  \qquad\Rightarrow\qquad c = \blank{1.2cm}, \quad d = \blank{1.2cm}.
+\]
+Check: $c\,\vv+d\,\ww$ should return $(5,5)$. This confirms the robot in the Hook \emph{can}
+reach $(5,5)$.
+\end{notesbox}
+
+\begin{practicebox}
+Let $\vv = \begin{bmatrix} 2 \\ 1 \end{bmatrix}$ and $\ww = \begin{bmatrix} 1 \\ 3 \end{bmatrix}$.
+\begin{enumerate}[leftmargin=1.6em]
+  \item Compute $3\vv - \ww$. \hfill \blank{4.5cm}
+  \item Find weights $c,d$ so that $c\,\vv + d\,\ww = \begin{bmatrix} 4 \\ 7 \end{bmatrix}$. \writeline
+  \item Do $\begin{bmatrix} 1 \\ 2 \end{bmatrix}$ and $\begin{bmatrix} 3 \\ 6 \end{bmatrix}$
+        span the plane or only a line? How do you know? \writeline
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

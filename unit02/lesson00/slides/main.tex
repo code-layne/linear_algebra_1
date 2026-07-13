@@ -1,6 +1,8 @@
 %! From Combinations to Solutions --- Setting Up Ax = b — Unit 2, Lesson 2.0 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
@@ -11,16 +13,131 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 2.0}\\[0.5cm]
-    {\color{white}\bfseries\LARGE From Combinations to Solutions --- Setting Up Ax = b}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 2}
+    {\color{white}\bfseries\LARGE From Combinations to Solutions}\\[0.3cm]
+    {\color{white}\bfseries\large Setting Up $A\xx=\bb$}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 2: Solving Linear Equations $A\xx=\bb$}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{Hit the target}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.60\textwidth}
+      One scoop of \textbf{Base A} $=1$ cup nuts, $3$ cups raisins.\\[4pt]
+      One scoop of \textbf{Base B} $=2$ cups nuts, $2$ cups raisins.\\[8pt]
+      A recipe needs \textbf{$5$ cups nuts} and \textbf{$11$ cups raisins}.\\[10pt]
+      \textbf{Question.} How many scoops of each --- and is there only one answer?
+    \end{column}
+    \begin{column}{0.38\textwidth}
+      \centering
+      \[
+        x_1\begin{bmatrix} 1 \\ 3 \end{bmatrix}
+        + x_2\begin{bmatrix} 2 \\ 2 \end{bmatrix}
+        = \begin{bmatrix} 5 \\ 11 \end{bmatrix}
+      \]
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% RUNNING UNIT 1 BACKWARDS
+\begin{frame}[t, plain]
+  \burgundyheader{Running Unit 1 backwards}
+  \sectionlabel{Set-up}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item In Lesson~1.3 we \textbf{built} the target: given $A$ and $\xx$, compute $\bb=A\xx$.
+    \item Now the target $\bb$ is \textbf{given} --- we hunt for the weights $\xx$.
+  \end{itemize}
+  \vspace{4pt}
+  \[
+    A = \begin{bmatrix} 1 & 2 \\ 3 & 2 \end{bmatrix}, \qquad
+    \bb = \begin{bmatrix} 5 \\ 11 \end{bmatrix}, \qquad
+    \text{solve } A\xx=\bb.
+  \]
+  \begin{block}{To solve $A\xx=\bb$}
+    Find the weights $\xx$ that combine the \textbf{columns} of $A$ into the target $\bb$.
+  \end{block}
+\end{frame}
+
+% TWO LANGUAGES
+\begin{frame}[t, plain]
+  \burgundyheader{One problem, two languages}
+  \sectionlabel[goldacc]{Columns vs.\ Rows}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \textbf{Column view} (down the columns):
+      \[
+        x_1\begin{bmatrix} 1 \\ 3 \end{bmatrix}
+        + x_2\begin{bmatrix} 2 \\ 2 \end{bmatrix}
+        = \begin{bmatrix} 5 \\ 11 \end{bmatrix}
+      \]
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \textbf{Row view} (across the rows):
+      \[
+        \begin{aligned}
+          x_1 + 2x_2 &= 5 \\
+          3x_1 + 2x_2 &= 11
+        \end{aligned}
+      \]
+    \end{column}
+  \end{columns}
+  \vspace{8pt}
+  \begin{block}{Same numbers, two readings}
+    Down the columns is a \textbf{combination}; across the rows is a \textbf{system of equations}.
+  \end{block}
+\end{frame}
+
+% ELIMINATION
+\begin{frame}[t, plain]
+  \burgundyheader{Solve by elimination}
+  \sectionlabel{The key move}
+  Both equations carry a $2x_2$, so \textbf{subtract} the first from the second:
+  \[
+    (3x_1+2x_2)-(x_1+2x_2) = 11-5
+    \quad\Longrightarrow\quad 2x_1 = 6 \quad\Longrightarrow\quad x_1 = 3.
+  \]
+  Back-substitute into $x_1+2x_2=5$: \quad $x_2 = 1$.
+  \begin{block}{Check by rebuilding $\bb$}
+    $3\begin{bsmallmatrix} 1 \\ 3 \end{bsmallmatrix}
+     + 1\begin{bsmallmatrix} 2 \\ 2 \end{bsmallmatrix}
+     = \begin{bsmallmatrix} 5 \\ 11 \end{bsmallmatrix}$ \checkmark\quad
+    $3$ scoops of A, $1$ of B. \textbf{Subtracting to kill a variable $=$ elimination.}
+  \end{block}
+\end{frame}
+
+% ONE / NONE / MANY
+\begin{frame}[t, plain]
+  \burgundyheader{One, none, or infinitely many}
+  \sectionlabel[goldacc]{Geometry}
+  Each equation is a \textbf{line}; a solution is where they meet.
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item Lines \textbf{cross once} $\Rightarrow$ \textbf{one} solution (consistent).
+    \item Lines \textbf{parallel} $\Rightarrow$ \textbf{no} solution (inconsistent).
+    \item \textbf{Same line} $\Rightarrow$ \textbf{infinitely many} solutions.
+  \end{itemize}
+  \vspace{4pt}
+  \begin{block}{Back to reachability (Lesson 1.3)}
+    $A\xx=\bb$ has a solution exactly when $\bb$ is \textbf{reachable} --- in the column space of $A$.
+  \end{block}
+\end{frame}
+
+% ROADMAP / PREVIEW
+\begin{frame}[t, plain]
+  \burgundyheader{The road through Unit 2}
+  \sectionlabel{Connections}
+  \textbf{Today:} $A\xx=\bb$ as columns and as equations; solve $2\times 2$ by elimination.\\[8pt]
+  \begin{itemize}
+    \setlength{\itemsep}{4pt}
+    \item \textbf{2.1} The Idea of Elimination --- pivots, done systematically.
+    \item \textbf{2.2} Elimination Matrices and Inverse Matrices.
+    \item \textbf{2.3} Matrix Computations and $A=LU$.
+    \item \textbf{2.4} Permutations and Transposes.
+  \end{itemize}
 \end{frame}
 
 \end{document}

@@ -3,6 +3,8 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
@@ -11,9 +13,18 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+Solve $A\xx=\bb$ with $A=\begin{bmatrix} 1 & 1 \\ 1 & 2 \end{bmatrix}$ and
+$\bb=\begin{bmatrix} 5 \\ 8 \end{bmatrix}$. Show your work.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item Write $A\xx=\bb$ as a system of two equations (one per row).
+        \vspace{1.0cm}
+  \item Solve the system by eliminating a variable, then \textbf{check} by rebuilding $\bb$.
+        \vspace{1.4cm}
+  \item Dev graphs another system and gets \textbf{two parallel lines} that never meet.
+        How many solutions does that system have, and why? Connect your answer to whether the
+        target $\bb$ is \emph{reachable}.
+        \writelines{2}
+\end{enumerate}
 
 \end{document}

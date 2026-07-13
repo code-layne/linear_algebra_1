@@ -3,17 +3,78 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.0}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+Show your steps and \textbf{check} every solution by rebuilding $\bb$.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Three views.} Let $A=\begin{bmatrix} 2 & 1 \\ 1 & 4 \end{bmatrix}$ and
+        $\bb=\begin{bmatrix} 8 \\ 11 \end{bmatrix}$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item Write $A\xx=\bb$ as a \emph{combination of the columns} of $A$.
+            \ans{$x_1\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}+x_2\begin{bsmallmatrix} 1\\4 \end{bsmallmatrix}=\begin{bsmallmatrix} 8\\11 \end{bsmallmatrix}$}
+      \item Write $A\xx=\bb$ as a \emph{system of two equations}.
+            \ans{$2x_1+x_2=8$;\ \ $x_1+4x_2=11$}
+    \end{enumerate}
+  \item \textbf{Solve by elimination.} Find $x_1$ and $x_2$ for each system.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item \ans{$x_1=2,\ x_2=4$} \hfill
+      \item \ans{$x_1=4,\ x_2=2$} \hfill
+      \item \ans{$x_1=3,\ x_2=2$}
+    \end{enumerate}
+    {\footnotesize (a) subtract eq1 from eq2: $x_1=2$, then $x_2=4$.\ \ (b) subtract eq2 from
+    eq1: $2x_1=8$, $x_1=4$, then $x_2=2$.\ \ (c) add the equations: $3x_1=9$, $x_1=3$, then $x_2=2$.}
+  \item \textbf{Fertilizer blend.} Each bag of \textbf{Base A} has $1$ kg nitrogen and $2$ kg
+        phosphorus; each bag of \textbf{Base B} has $3$ kg nitrogen and $1$ kg phosphorus. A
+        field needs $13$ kg nitrogen and $11$ kg phosphorus.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
+      \item Set up and solve $A\xx=\bb$ for the number of bags of each base.
+            \ansline{$x_1+3x_2=13,\ 2x_1+x_2=11$. Double eq1: $2x_1+6x_2=26$; subtract eq2:
+            $5x_2=15\Rightarrow x_2=3$, then $x_1=4$. Check: $4\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}+3\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}=\begin{bsmallmatrix} 13\\11 \end{bsmallmatrix}$ \checkmark}
+      \item \emph{Interpret:} how many bags of each, and does the answer make sense?
+            \ansline{$4$ bags of Base A and $3$ of Base B --- whole, positive bags, so it is a workable blend.}
+    \end{enumerate}
+  \item \textbf{How many solutions?} Classify each system as \emph{one}, \emph{none}, or
+        \emph{infinitely many}, and say why (parallel lines, same line, or crossing).
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item \ans{Infinitely many} \hfill
+      \item \ans{None} \hfill
+      \item \ans{One: $(1,2)$}
+    \end{enumerate}
+    {\footnotesize (a) eq2 is exactly $2\times$ eq1 --- same line.\ \ (b) $2\times$ eq1 would give
+    $10$, not $7$ --- parallel, no crossing.\ \ (c) subtract eq1 from eq2: $x_2=2$, then $x_1=1$ --- lines cross once.}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{One variable at a time.} Solve this $3\times 3$ system by eliminating $x$ first:
+\[
+  \begin{aligned}
+    x + y + z &= 6 \\
+    x + 2y + z &= 8 \\
+    2x + y + z &= 7
+  \end{aligned}
+\]
+Subtract the first equation from the second, and subtract twice the first from the third. You
+are left with a small system in $y$ and $z$ --- solve it, then back-substitute for $x$.
+\ansline{Eq2$-$Eq1 gives $y=2$. Eq3$-2\cdot$Eq1 gives $-y-z=-5$, i.e.\ $y+z=5$, so $z=3$.
+Back-substitute: $x=6-2-3=1$. Solution $(x,y,z)=(1,2,3)$; check all three equations.}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 2.1: The Idea of Elimination.} Today you subtracted one equation
+from another to make a variable disappear. Next we turn that into a reliable, step-by-step
+\emph{procedure} --- choosing \textbf{pivots} and clearing out the entries below them --- so it
+works for any size system, not just the lucky ones.
+\end{spiralbox}
 
 \end{document}

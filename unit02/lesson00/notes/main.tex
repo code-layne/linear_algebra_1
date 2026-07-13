@@ -3,17 +3,164 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.0}{Guided Notes}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Guided Notes. See references/components.md for the expected structure.
-\begin{notesbox}{Guided Notes}
-\writelines{4}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item read $A\xx=\bb$ as a \emph{combination of columns} and as a \emph{system of equations};
+  \item solve a $2\times 2$ system by \emph{eliminating} a variable, then check by rebuilding $\bb$;
+  \item explain when a system has \emph{one}, \emph{no}, or \emph{infinitely many} solutions.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.10in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\termblanklong{System of linear equations}
+\termblanklong{Matrix form $A\xx=\bb$}
+\termblanklong{Solution of a system}
+\termblanklong{Elimination}
+\termblanklong{Consistent / inconsistent}
+\end{vocabbox}
+
+\begin{hookbox}
+Two trail-mix \textbf{bases}. One scoop of \textbf{Base A} is $1$ cup nuts and $3$ cups raisins;
+one scoop of \textbf{Base B} is $2$ cups nuts and $2$ cups raisins. A recipe needs exactly
+$5$ cups nuts and $11$ cups raisins.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item How many scoops of each base hit the target? \; A: \blank{1.6cm} B: \blank{1.6cm}
+  \item Is there only \emph{one} answer, or could there be more? \writeline
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. Running Unit 1 Backwards}
+In Lesson~1.3 we \textbf{built} a target from weights: given a matrix $A$ and weights $\xx$, we
+combined the columns to get $\bb = A\xx$. Now we run the machine the other way.
+
+\vspace{2pt}
+\textbf{To solve $A\xx=\bb$} means: the matrix $A$ and the target $\bb$ are \emph{given}, and we
+must find the \blank{3.4cm} $\xx$ that combine the columns of $A$ into $\bb$.
+
+\vspace{4pt}
+For the trail mix, the two bases are the \textbf{columns} and the target is $\bb$:
+\[
+  A = \begin{bmatrix} 1 & 2 \\ 3 & 2 \end{bmatrix}, \qquad
+  \bb = \begin{bmatrix} 5 \\ 11 \end{bmatrix}, \qquad
+  \xx = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}
+      = \begin{bmatrix} \text{scoops of A} \\ \text{scoops of B} \end{bmatrix}.
+\]
 \end{notesbox}
+
+\begin{notesbox}{2. One Problem, Two Languages}
+The same equation $A\xx=\bb$ can be read two ways.
+
+\vspace{3pt}
+\textbf{Column view} (read \emph{down} the columns). Scale each column by its weight and add:
+\[
+  x_1\begin{bmatrix} 1 \\ 3 \end{bmatrix} + x_2\begin{bmatrix} 2 \\ 2 \end{bmatrix}
+  = \begin{bmatrix} 5 \\ 11 \end{bmatrix}.
+\]
+
+\textbf{Row view} (read \emph{across} the rows). Each row becomes one \textbf{equation}:
+\[
+  \begin{array}{r@{}c@{}l}
+    x_1 &{}+ 2x_2 ={}& 5 \qquad (\text{nuts})\\[2pt]
+    3x_1 &{}+ 2x_2 ={}& 11 \quad\ (\text{raisins})
+  \end{array}
+\]
+These are the \emph{same numbers}. The first component of each column becomes the \blank{2.8cm}
+row; the second component becomes the \blank{2.8cm} row. Together the two equations are a
+\textbf{system of linear equations}.
+\end{notesbox}
+
+\begin{notesbox}{3. Solving by Elimination}
+The trick is to \textbf{eliminate} one variable so a single equation is left. Line up the two
+equations and \emph{subtract the first from the second} --- notice both have a $2x_2$:
+\[
+  \begin{array}{r@{}c@{}l}
+    (3x_1 + 2x_2) - (x_1 + 2x_2) &{}={}& 11 - 5 \\[2pt]
+    2x_1 &{}={}& \blank{1.2cm}
+  \end{array}
+\]
+The $x_2$ terms cancel, so $x_1 = \blank{1.2cm}$. \textbf{Back-substitute} into $x_1+2x_2=5$:
+\[
+  \blank{0.9cm} + 2x_2 = 5 \;\Longrightarrow\; x_2 = \blank{1.2cm}.
+\]
+
+\vspace{2pt}
+\textbf{Check by rebuilding $\bb$.} Put the weights back into the columns:
+\[
+  3\begin{bmatrix} 1 \\ 3 \end{bmatrix} + 1\begin{bmatrix} 2 \\ 2 \end{bmatrix}
+  = \begin{bmatrix}\rule{0pt}{1.1em}\blank{1.1cm}\\[2pt]\blank{1.1cm}\end{bmatrix}.
+\]
+So the recipe needs \blank{1.4cm} scoops of A and \blank{1.4cm} scoop of B. Subtracting one
+equation from another to remove a variable is called \textbf{elimination} --- the engine of this
+whole unit.
+\end{notesbox}
+
+\begin{notesbox}{4. One, None, or Infinitely Many}
+Each equation is a \textbf{line}. A solution is a point that lies on \emph{both}, so it is where
+the lines \textbf{meet}. Three things can happen:
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+  % Panel 1: cross once
+  \begin{scope}
+    \draw[step=1, linegray!50, thin] (-0.3,-0.3) grid (4.3,4.3);
+    \draw[->, thick, charcoal] (-0.3,0)--(4.5,0);
+    \draw[->, thick, charcoal] (0,-0.3)--(0,4.5);
+    \draw[very thick, burgundy] (-0.2,3.6)--(4.2,1.4);
+    \draw[very thick, royalblue] (0.4,-0.2)--(3.6,4.2);
+    \fill[black] (2,2.5) circle (2.6pt);
+    \node[charcoal, font=\scriptsize] at (2,-1.0){cross once};
+    \node[charcoal, font=\scriptsize] at (2,-1.8){one solution};
+  \end{scope}
+  % Panel 2: parallel
+  \begin{scope}[xshift=7cm]
+    \draw[step=1, linegray!50, thin] (-0.3,-0.3) grid (4.3,4.3);
+    \draw[->, thick, charcoal] (-0.3,0)--(4.5,0);
+    \draw[->, thick, charcoal] (0,-0.3)--(0,4.5);
+    \draw[very thick, burgundy] (-0.2,1.0)--(4.2,3.2);
+    \draw[very thick, royalblue] (-0.2,2.6)--(4.2,4.8);
+    \node[charcoal, font=\scriptsize] at (2,-1.0){parallel};
+    \node[charcoal, font=\scriptsize] at (2,-1.8){no solution};
+  \end{scope}
+  % Panel 3: same line
+  \begin{scope}[xshift=14cm]
+    \draw[step=1, linegray!50, thin] (-0.3,-0.3) grid (4.3,4.3);
+    \draw[->, thick, charcoal] (-0.3,0)--(4.5,0);
+    \draw[->, thick, charcoal] (0,-0.3)--(0,4.5);
+    \draw[very thick, burgundy] (-0.2,0.8)--(4.2,4.0);
+    \draw[royalblue, line width=1pt, dash pattern=on 3pt off 3pt] (-0.2,0.8)--(4.2,4.0);
+    \node[charcoal, font=\scriptsize] at (2,-1.0){same line};
+    \node[charcoal, font=\scriptsize] at (2,-1.8){infinitely many};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+A system with at least one solution is \textbf{consistent}; one with none is \blank{3.0cm}.
+This is the reachability idea from Lesson~1.3: $A\xx=\bb$ has a solution exactly when $\bb$ is
+\blank{3.4cm} --- that is, in the column space of $A$.
+\end{notesbox}
+
+\begin{practicebox}
+Solve $A\xx=\bb$ with $A=\begin{bmatrix} 1 & 1 \\ 2 & 3 \end{bmatrix}$ and
+$\bb=\begin{bmatrix} 5 \\ 13 \end{bmatrix}$.
+\begin{enumerate}[leftmargin=1.6em]
+  \item Write the system as two equations. \hfill \blank{5.5cm}
+  \item Eliminate $x_1$ (subtract twice the first equation from the second) and find $x_2$. \writeline
+  \item Back-substitute to find $x_1$, then \textbf{check} by rebuilding $\bb$. \writeline
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

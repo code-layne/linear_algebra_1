@@ -3,6 +3,8 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
@@ -11,9 +13,26 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+Solve $A\xx=\bb$ with $A=\begin{bmatrix} 1 & 1 \\ 1 & 2 \end{bmatrix}$ and
+$\bb=\begin{bmatrix} 5 \\ 8 \end{bmatrix}$. Show your work.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=14pt]
+  \item Write $A\xx=\bb$ as a system of two equations (one per row).
+        \ansline{$x_1 + x_2 = 5$;\qquad $x_1 + 2x_2 = 8$}
+  \item Solve the system by eliminating a variable, then \textbf{check} by rebuilding $\bb$.
+        \ansline{Subtract the first from the second: $x_2 = 3$; then $x_1 = 5-3 = 2$.}
+        \ansline{Check: $2\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}+3\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}=\begin{bsmallmatrix} 5\\8 \end{bsmallmatrix}$ \checkmark}
+  \item Dev graphs another system and gets \textbf{two parallel lines} that never meet.
+        How many solutions does that system have, and why? Connect your answer to whether the
+        target $\bb$ is \emph{reachable}.
+        \ansline{\textbf{No solutions.} Parallel lines never cross, so no point satisfies both
+        equations. Equivalently, the columns point the same direction (a single line), and
+        $\bb$ is \emph{off} that line --- unreachable --- so the system is inconsistent.}
+\end{enumerate}
+
+\begin{teachernote}
+Item~3 checks the geometry--reachability link. Full credit needs both ``parallel lines don't
+meet $\Rightarrow$ no solution'' \emph{and} the connection to $\bb$ not being in the column space.
+\end{teachernote}
 
 \end{document}

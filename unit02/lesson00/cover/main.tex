@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 2}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 2 \quad Solving Linear Equations $A\mathbf{x}=\mathbf{b}$}}\\[6pt]
   {\color{white}\textbf{\large Lesson 2.0 \quad From Combinations to Solutions --- Setting Up Ax = b}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} read $A\mathbf{x}=\mathbf{b}$ as a \textbf{combination of columns} \emph{and} as a \textbf{system of equations}.
+  \item \ldots{} solve a $2\times 2$ system by \textbf{eliminating} a variable, then \textbf{check} by rebuilding $\mathbf{b}$.
+  \item \ldots{} explain when a system has \textbf{one}, \textbf{no}, or \textbf{infinitely many} solutions.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,24 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: solving a system, $A\mathbf{x}$ as columns, reachability & \blank{1.2cm} \\
+2 & Guided Notes   & $A\mathbf{x}=\mathbf{b}$ two ways; solving by elimination            & \blank{1.2cm} \\
+3 & Group Activity & Blend the Batch --- setting up and solving $A\mathbf{x}=\mathbf{b}$    & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check on setup, elimination, and solvability                   & \blank{1.2cm} \\
+5 & Homework       & Three views, more elimination, and a blend application               & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small To \textbf{solve} $A\mathbf{x}=\mathbf{b}$ is to find the weights $\mathbf{x}$ that combine
+the \textbf{columns} of $A$ into the target $\mathbf{b}$. Each row of $A\mathbf{x}=\mathbf{b}$ is a
+\textbf{linear equation}, so solving means finding where those lines meet.
+\textbf{Elimination} --- subtracting a multiple of one equation from another to remove a
+variable --- is the tool that finds $\mathbf{x}$.
+\end{remindbox}
 
 \end{document}

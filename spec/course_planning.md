@@ -7,19 +7,23 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-13 — Authored **Lesson 1.4 "Matrix Multiplication and $A=CR$" in full**
-(all components + keys + slides), mirroring Lessons 1.0–1.3 as the gold model. Content from
-LAfE §1.4, down-leveled: matrix multiplication **by columns** ($AB=[A\mathbf b_1\ A\mathbf b_2]$ —
-each column of the product is a combination of $A$'s columns), the factorization $A=CR$ ($C$ = the
-independent columns, $R$ = the recipe that rebuilds every column of $A$ from $C$), and **rank** =
-number of independent columns = columns in $C$. Running example $A=\begin{bsmallmatrix}1&3&4\\2&1&3\end{bsmallmatrix}$
-with col 3 = col 1 + col 2 → $C=\begin{bsmallmatrix}1&3\\2&1\end{bsmallmatrix}$, $R=\begin{bsmallmatrix}1&0&1\\0&1&1\end{bsmallmatrix}$.
-"Rebuilding a catalog from base products" application (base products = $C$, recipe card = $R$;
-data-as-a-table theme). Builds clean: `make -C unit01/lesson04 all` exit 0 → `lesson04_student.pdf`
-(9 pp) and `lesson04_full.pdf` (17 pp); warm-up and exit ticket 1 page each (blank + key);
-`\ans`-in-math scan clean; notes/activity/homework blank+key paginate in lockstep (2 pp each);
-TikZ dependent-column figure (dashed $\mathbf a_3=\mathbf a_1+\mathbf a_2$) renders. **Unit 1 lessons
-all authored** — next is the Unit 1 test + keys.
+**Last updated:** 2026-07-13 — Authored the **Unit 1 summative assessments in full**: practice
+test + actual test + both keys. All four share one format — **Part A Vocabulary** (8-term
+letter-matching, unit-wide terms), **Part B Multiple Choice** (6 concept checks), **Part C Short
+Answer & Computation** (7 items), **Part D Extended Response** (2 interpret/justify items) — with a
+`\parthead` strip per part and `\namedateperiod`. Coverage spans the whole unit arc: vector
+add/scale + magnitude + unit vector (1.0), linear combinations/weights + span + line-vs-plane
+(1.1), dot product + perpendicular⇔dot 0 (1.2), $A\mathbf x$ as a column combination + column
+space/reachability (1.3), $A=CR$ + rank (1.4). Practice and actual are **item-for-item parallel
+with different numbers/contexts** (practice: length-5 $[3,4]$ vector, viewer taste profiles; actual:
+length-13 $[5,12]$ vector, shopper preferences; vocab options scrambled between the two). Practice
+test opens with a `remindbox`; actual test opens with a plain instructions line (no "this is
+practice"). Keys mirror the blanks with `\ans{}`, MC tagged via `\ans{$\leftarrow$}` after the bold
+correct option, and `teachernote` scoring for Part D. Builds clean: `make -C unit01/tests all` and
+`make -C unit01/test_keys all` exit 0; `drop` published `practice_test`→`sample_test/main.pdf` (3 pp,
+student + full packet) and `practice_test_key`→`sample_test_key/main.pdf` (2 pp, full packet only).
+Actual test 2 pp, actual key 2 pp — never merged into a packet. `\ans`-in-math scan clean; visual
+QA of all pages passed. **Unit 1 complete** (5 lessons + tests) — next is the Unit 2 lesson map.
 
 ## Current state
 
@@ -59,7 +63,8 @@ all authored** — next is the Unit 1 test + keys.
   keys + slides). Content: multiply by columns $AB=[A\mathbf a_1\ \ldots]$, factorization $A=CR$
   ($C$ = independent columns, $R$ = recipe), rank = columns in $C$; catalog/base-product context;
   previews Unit 2 (solving $A\mathbf x=\mathbf b$).
-- `unit01/tests` + `unit01/test_keys` + `sample_test`/`sample_test_key` — test skeletons only.
+- `unit01/tests` (practice + actual) + `unit01/test_keys` (both keys) — **authored ✅ & built**;
+  `sample_test`/`sample_test_key` populated by `drop` (practice test + key).
 - Root `Makefile` and `unit01/Makefile` created. Toolchain present (xelatex, latexmk, pdfunite).
 
 ### Per-unit progress
@@ -68,7 +73,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 | Unit | Chapter | Lessons | Status |
 | --- | --- | --- | --- |
-| 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ◐ all lessons authored ✅; tests skeleton only |
+| 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
 | 2 | Solving Linear Equations Ax = b | 2.1–2.4 | ☐ |
 | 3 | The Four Fundamental Subspaces | 3.1–3.5 | ☐ |
 | 4 | Orthogonality | 4.1–4.4 | ☐ |
@@ -79,13 +84,11 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author the Unit 1 practice/actual tests + keys** (skeletons already scaffolded in
-   `unit01/tests` + `unit01/test_keys`; `drop` publishes practice test/key to `sample_test`/
-   `sample_test_key`). Cover the full arc: vectors + length (1.0), linear combinations/span (1.1),
-   dot product/angles (1.2), matrices + column space (1.3), and $A=CR$/rank (1.4). Keep practice and
-   actual in the same format. See `references/components.md` for the test structure.
-2. **Confirm the Unit 2 lesson map with the user** (Solving $A\mathbf x=\mathbf b$, §2.1–2.4, plus a
-   `lesson00` intro per the confirmed convention), then begin authoring Unit 2.
+1. **Confirm the Unit 2 lesson map with the user** (Solving $A\mathbf x=\mathbf b$, §2.1–2.4, plus a
+   `lesson00` intro per the confirmed convention), then begin authoring Unit 2. Unit 1 is done —
+   this is the next thing to build.
+2. *(optional)* Rebuild the whole Unit 1 packet (`make -C unit01 student|full`) to confirm the new
+   `sample_test`/`sample_test_key` merge in as expected before moving on.
 
 ## Notes for the next run
 

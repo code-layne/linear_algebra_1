@@ -2,6 +2,11 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\xx}{\mathbf{x}}
 
 % Part-divider strip
 \newcommand{\parthead}[1]{%
@@ -18,16 +23,111 @@
 \noindent\textbf{Instructions:} Show all work. No notes unless your teacher says so.
 
 % ======================================================================
-\parthead{Part A --- Vocabulary}
-% TODO: matching / fill-in vocabulary items for this unit.
+\parthead{Part A --- Vocabulary (8 pts)}
+Write the letter of the best description next to each term.
 
-\parthead{Part B --- Multiple Choice}
-% TODO: multiple-choice items (concept checks).
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.44\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=7pt, label=\arabic*.]
+  \item Linear combination \blank{1.2cm}
+  \item Rank \blank{1.2cm}
+  \item Dot product \blank{1.2cm}
+  \item Unit vector \blank{1.2cm}
+  \item Column space \blank{1.2cm}
+  \item Scalar \blank{1.2cm}
+  \item Span \blank{1.2cm}
+  \item Magnitude \blank{1.2cm}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.53\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=3pt]
+  \item[(A)] The length of a vector, $\sqrt{v_1^2+v_2^2}$.
+  \item[(B)] The set of \emph{all} linear combinations of a set of vectors.
+  \item[(C)] A single number that scales (stretches or flips) a vector.
+  \item[(D)] All vectors you can reach as $A\xx$ --- the span of a matrix's columns.
+  \item[(E)] A vector whose length is exactly $1$.
+  \item[(F)] $\vv\cdot\ww=v_1w_1+v_2w_2$; it measures length and angle.
+  \item[(G)] The number of independent columns of a matrix.
+  \item[(H)] A sum of scaled vectors, $c\vv+d\ww$.
+\end{description}
+\end{minipage}
 
-\parthead{Part C --- Short Answer \& Computation}
-% TODO: computation items; leave \vspace work room after each.
+% ======================================================================
+\parthead{Part B --- Multiple Choice (12 pts)}
+Circle the best answer.
 
-\parthead{Part D --- Extended Response}
-% TODO: one or two interpret/justify items ("what does this mean, and how do you know?").
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item Two nonzero vectors are \textbf{perpendicular} exactly when
+    \hfill (A) $\vv\cdot\ww=1$ \quad (B) they point the same way \quad
+    (C) $\vv\cdot\ww=0$ \quad (D) they have equal length
+  \item The vectors $\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$ and
+    $\begin{bsmallmatrix}4\\2\end{bsmallmatrix}$ span
+    \hfill (A) the whole plane \quad (B) a line \quad (C) a single point \quad (D) all of space
+  \item In the product $A\xx$, the entries of $\xx$ are
+    \hfill (A) the lengths of the rows \quad (B) the weights on the \emph{columns} of $A$ \\
+    \phantom{x}\hfill (C) always $0$ or $1$ \quad (D) the angle between columns
+  \item The matrix $\begin{bsmallmatrix}3&6\\1&2\end{bsmallmatrix}$ has rank
+    \hfill (A) $0$ \quad (B) $1$ \quad (C) $2$ \quad (D) $6$
+  \item If $\vv$ has length $10$, then the unit vector $\dfrac{\vv}{\|\vv\|}$ has length
+    \hfill (A) $10$ \quad (B) $100$ \quad (C) $1$ \quad (D) $\tfrac{1}{10}$
+  \item Every vector $\bb$ in the plane is reachable as $A\xx$ exactly when $A$'s two columns are
+    \hfill (A) parallel \quad (B) perpendicular \quad (C) unit vectors \quad (D) independent
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (30 pts)}
+Show your work.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=13pt]
+  \item Let $\vv=\begin{bsmallmatrix}5\\12\end{bsmallmatrix}$ and
+        $\ww=\begin{bsmallmatrix}-2\\3\end{bsmallmatrix}$. Compute
+        \textbf{(a)} $\vv+\ww$, \quad \textbf{(b)} $2\vv-\ww$, \quad \textbf{(c)} $\|\vv\|$.
+        \vspace{1.6cm}
+  \item Write the unit vector that points the same direction as
+        $\vv=\begin{bsmallmatrix}5\\12\end{bsmallmatrix}$.
+        \vspace{1.2cm}
+  \item Let $\uu=\begin{bsmallmatrix}3\\6\end{bsmallmatrix}$ and
+        $\vv=\begin{bsmallmatrix}2\\-1\end{bsmallmatrix}$. Compute $\uu\cdot\vv$, then state
+        whether $\uu$ and $\vv$ are perpendicular and how you know.
+        \vspace{1.6cm}
+  \item Find weights $c$ and $d$ so that
+        $c\begin{bsmallmatrix}3\\1\end{bsmallmatrix}+d\begin{bsmallmatrix}1\\2\end{bsmallmatrix}
+         =\begin{bsmallmatrix}9\\8\end{bsmallmatrix}$.
+        \vspace{1.6cm}
+  \item Let $A=\begin{bsmallmatrix}2&1\\1&3\end{bsmallmatrix}$ and
+        $\xx=\begin{bsmallmatrix}3\\1\end{bsmallmatrix}$. Compute $A\xx$ \emph{as a combination
+        of the columns of $A$}.
+        \vspace{1.6cm}
+  \item Factor $A=\begin{bsmallmatrix}1&2&4\\1&1&3\end{bsmallmatrix}$ as $A=CR$. Which columns are
+        independent? Write $C$, build the recipe $R$, and give the rank.
+        \vspace{1.8cm}
+  \item Let $A=\begin{bsmallmatrix}1&3\\2&6\end{bsmallmatrix}$. For each target, say whether it is
+        reachable as $A\xx$ (is it in the column space?) and justify in one line.
+        \textbf{(a)} $\bb=\begin{bsmallmatrix}2\\4\end{bsmallmatrix}$ \quad
+        \textbf{(b)} $\bb=\begin{bsmallmatrix}3\\3\end{bsmallmatrix}$
+        \vspace{1.6cm}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (10 pts)}
+Explain your reasoning in full sentences.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=16pt]
+  \item A matrix $A=\begin{bsmallmatrix}2&1\\1&1\end{bsmallmatrix}$ has columns
+        $\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$ and $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$.
+        \textbf{(a)} Is the column space a line or the whole plane? How do you know?
+        \textbf{(b)} Is $\bb=\begin{bsmallmatrix}5\\3\end{bsmallmatrix}$ reachable? If so, find the
+        weights. \textbf{(c)} If the second column were changed to
+        $\begin{bsmallmatrix}4\\2\end{bsmallmatrix}$, what would happen to the column space, and why?
+        \vspace{2.4cm}
+  \item Two shoppers' preference profiles are $\uu=\begin{bsmallmatrix}3\\2\end{bsmallmatrix}$ and
+        $\vv=\begin{bsmallmatrix}-2\\3\end{bsmallmatrix}$. Compute $\uu\cdot\vv$ and explain what the
+        result says about how similar the two shoppers' preferences are, using what you know about
+        the sign of a dot product.
+        \vspace{2.0cm}
+\end{enumerate}
 
 \end{document}

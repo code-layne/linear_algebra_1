@@ -2,6 +2,11 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\xx}{\mathbf{x}}
 
 % Part-divider strip
 \newcommand{\parthead}[1]{%
@@ -12,20 +17,131 @@
 \begin{document}
 
 \pageheader{Unit 1: Vectors and Matrices}{Unit Test --- Answer Key}
+\namedateperiod
 
-% Mirror the blank test EXACTLY, filling each answer with \ans{...} (inline) or
-% \ansline{...} (on a write-line). Use teachernote for scoring/teacher guidance.
+\vspace{0.06in}
+\noindent\textbf{Instructions:} Show all work. No notes unless your teacher says so.
+
 % ======================================================================
-\parthead{Part A --- Vocabulary}
-% TODO: answers via \ans{...}
+\parthead{Part A --- Vocabulary (8 pts)}
+Write the letter of the best description next to each term.
 
-\parthead{Part B --- Multiple Choice}
-% TODO: mark correct options, e.g. \textcolor{keyred}{\textbf{$\leftarrow$ correct}}
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.44\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=7pt, label=\arabic*.]
+  \item Linear combination \ans{H}
+  \item Rank \ans{G}
+  \item Dot product \ans{F}
+  \item Unit vector \ans{E}
+  \item Column space \ans{D}
+  \item Scalar \ans{C}
+  \item Span \ans{B}
+  \item Magnitude \ans{A}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.53\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=3pt]
+  \item[(A)] The length of a vector, $\sqrt{v_1^2+v_2^2}$.
+  \item[(B)] The set of \emph{all} linear combinations of a set of vectors.
+  \item[(C)] A single number that scales (stretches or flips) a vector.
+  \item[(D)] All vectors you can reach as $A\xx$ --- the span of a matrix's columns.
+  \item[(E)] A vector whose length is exactly $1$.
+  \item[(F)] $\vv\cdot\ww=v_1w_1+v_2w_2$; it measures length and angle.
+  \item[(G)] The number of independent columns of a matrix.
+  \item[(H)] A sum of scaled vectors, $c\vv+d\ww$.
+\end{description}
+\end{minipage}
 
-\parthead{Part C --- Short Answer \& Computation}
-% TODO: worked answers via \ans{...}
+% ======================================================================
+\parthead{Part B --- Multiple Choice (12 pts)}
+Circle the best answer.
 
-\parthead{Part D --- Extended Response}
-% TODO: sample response + scoring notes in a teachernote.
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item Two nonzero vectors are \textbf{perpendicular} exactly when
+    \hfill (A) $\vv\cdot\ww=1$ \quad (B) they point the same way \quad
+    \textbf{(C) $\vv\cdot\ww=0$} \ans{$\leftarrow$} \quad (D) they have equal length
+  \item The vectors $\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$ and
+    $\begin{bsmallmatrix}4\\2\end{bsmallmatrix}$ span
+    \hfill (A) the whole plane \quad \textbf{(B) a line} \ans{$\leftarrow$} \quad (C) a single point \quad (D) all of space
+  \item In the product $A\xx$, the entries of $\xx$ are
+    \hfill (A) the lengths of the rows \quad \textbf{(B) the weights on the \emph{columns} of $A$} \ans{$\leftarrow$} \\
+    \phantom{x}\hfill (C) always $0$ or $1$ \quad (D) the angle between columns
+  \item The matrix $\begin{bsmallmatrix}3&6\\1&2\end{bsmallmatrix}$ has rank
+    \hfill (A) $0$ \quad \textbf{(B) $1$} \ans{$\leftarrow$} \quad (C) $2$ \quad (D) $6$
+  \item If $\vv$ has length $10$, then the unit vector $\dfrac{\vv}{\|\vv\|}$ has length
+    \hfill (A) $10$ \quad (B) $100$ \quad \textbf{(C) $1$} \ans{$\leftarrow$} \quad (D) $\tfrac{1}{10}$
+  \item Every vector $\bb$ in the plane is reachable as $A\xx$ exactly when $A$'s two columns are
+    \hfill (A) parallel \quad (B) perpendicular \quad (C) unit vectors \quad \textbf{(D) independent} \ans{$\leftarrow$}
+\end{enumerate}
+
+\begin{teachernote}
+Item 2: $\begin{bsmallmatrix}4\\2\end{bsmallmatrix}=2\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$
+(parallel) $\Rightarrow$ line. Item 4: rank $1$ because column~2 is $2\times$ column~1. Item 6:
+independent columns $\Rightarrow$ column space is all of $\mathbb R^2$.
+\end{teachernote}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (30 pts)}
+Show your work.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item Let $\vv=\begin{bsmallmatrix}5\\12\end{bsmallmatrix}$ and
+        $\ww=\begin{bsmallmatrix}-2\\3\end{bsmallmatrix}$. Compute
+        \textbf{(a)} $\vv+\ww$, \quad \textbf{(b)} $2\vv-\ww$, \quad \textbf{(c)} $\|\vv\|$.
+        \ans{(a) $\begin{bsmallmatrix}3\\15\end{bsmallmatrix}$; \ (b) $\begin{bsmallmatrix}10\\24\end{bsmallmatrix}-\begin{bsmallmatrix}-2\\3\end{bsmallmatrix}=\begin{bsmallmatrix}12\\21\end{bsmallmatrix}$; \ (c) $\|\vv\|=\sqrt{5^2+12^2}=\sqrt{169}=13$.}
+  \item Write the unit vector that points the same direction as
+        $\vv=\begin{bsmallmatrix}5\\12\end{bsmallmatrix}$.
+        \ans{$\dfrac{1}{13}\begin{bsmallmatrix}5\\12\end{bsmallmatrix}=\begin{bsmallmatrix}5/13\\12/13\end{bsmallmatrix}$ (divide by the length $13$).}
+  \item Let $\uu=\begin{bsmallmatrix}3\\6\end{bsmallmatrix}$ and
+        $\vv=\begin{bsmallmatrix}2\\-1\end{bsmallmatrix}$. Compute $\uu\cdot\vv$, then state
+        whether $\uu$ and $\vv$ are perpendicular and how you know.
+        \ans{$\uu\cdot\vv=(3)(2)+(6)(-1)=6-6=0$. Yes, perpendicular: the dot product is $0$.}
+  \item Find weights $c$ and $d$ so that
+        $c\begin{bsmallmatrix}3\\1\end{bsmallmatrix}+d\begin{bsmallmatrix}1\\2\end{bsmallmatrix}
+         =\begin{bsmallmatrix}9\\8\end{bsmallmatrix}$.
+        \ans{$3c+d=9,\ c+2d=8 \Rightarrow c=2,\ d=3$. Check: $2\begin{bsmallmatrix}3\\1\end{bsmallmatrix}+3\begin{bsmallmatrix}1\\2\end{bsmallmatrix}=\begin{bsmallmatrix}9\\8\end{bsmallmatrix}$.}
+  \item Let $A=\begin{bsmallmatrix}2&1\\1&3\end{bsmallmatrix}$ and
+        $\xx=\begin{bsmallmatrix}3\\1\end{bsmallmatrix}$. Compute $A\xx$ \emph{as a combination
+        of the columns of $A$}.
+        \ans{$A\xx=3\begin{bsmallmatrix}2\\1\end{bsmallmatrix}+1\begin{bsmallmatrix}1\\3\end{bsmallmatrix}=\begin{bsmallmatrix}6\\3\end{bsmallmatrix}+\begin{bsmallmatrix}1\\3\end{bsmallmatrix}=\begin{bsmallmatrix}7\\6\end{bsmallmatrix}$.}
+  \item Factor $A=\begin{bsmallmatrix}1&2&4\\1&1&3\end{bsmallmatrix}$ as $A=CR$. Which columns are
+        independent? Write $C$, build the recipe $R$, and give the rank.
+        \ans{Columns~1 and~2 are independent; column~3 $=2\begin{bsmallmatrix}1\\1\end{bsmallmatrix}+\begin{bsmallmatrix}2\\1\end{bsmallmatrix}=\begin{bsmallmatrix}4\\3\end{bsmallmatrix}$. So $C=\begin{bsmallmatrix}1&2\\1&1\end{bsmallmatrix}$, $R=\begin{bsmallmatrix}1&0&2\\0&1&1\end{bsmallmatrix}$, rank $2$.}
+  \item Let $A=\begin{bsmallmatrix}1&3\\2&6\end{bsmallmatrix}$. For each target, say whether it is
+        reachable as $A\xx$ (is it in the column space?) and justify in one line.
+        \textbf{(a)} $\bb=\begin{bsmallmatrix}2\\4\end{bsmallmatrix}$ \quad
+        \textbf{(b)} $\bb=\begin{bsmallmatrix}3\\3\end{bsmallmatrix}$
+        \ans{Both columns are multiples of $\begin{bsmallmatrix}1\\2\end{bsmallmatrix}$, so $C(A)$ is that line. (a) Reachable: $\begin{bsmallmatrix}2\\4\end{bsmallmatrix}=2\begin{bsmallmatrix}1\\2\end{bsmallmatrix}$. (b) Not reachable: $\begin{bsmallmatrix}3\\3\end{bsmallmatrix}$ is not a multiple of $\begin{bsmallmatrix}1\\2\end{bsmallmatrix}$ (it is off the line).}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (10 pts)}
+Explain your reasoning in full sentences.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item A matrix $A=\begin{bsmallmatrix}2&1\\1&1\end{bsmallmatrix}$ has columns
+        $\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$ and $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$.
+        \textbf{(a)} Is the column space a line or the whole plane? How do you know?
+        \textbf{(b)} Is $\bb=\begin{bsmallmatrix}5\\3\end{bsmallmatrix}$ reachable? If so, find the
+        weights. \textbf{(c)} If the second column were changed to
+        $\begin{bsmallmatrix}4\\2\end{bsmallmatrix}$, what would happen to the column space, and why?
+        \ans{(a) The whole plane: the two columns are not multiples of each other (independent), so their span is all of $\mathbb R^2$. (b) Reachable --- $c\begin{bsmallmatrix}2\\1\end{bsmallmatrix}+d\begin{bsmallmatrix}1\\1\end{bsmallmatrix}=\begin{bsmallmatrix}5\\3\end{bsmallmatrix}$ gives $2c+d=5,\ c+d=3\Rightarrow c=2,\ d=1$. (c) Then column~2 $=\begin{bsmallmatrix}4\\2\end{bsmallmatrix}=2\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$ is parallel to column~1, so the columns collapse to one direction and $C(A)$ shrinks to a \emph{line} (rank drops to $1$).}
+  \item Two shoppers' preference profiles are $\uu=\begin{bsmallmatrix}3\\2\end{bsmallmatrix}$ and
+        $\vv=\begin{bsmallmatrix}-2\\3\end{bsmallmatrix}$. Compute $\uu\cdot\vv$ and explain what the
+        result says about how similar the two shoppers' preferences are, using what you know about
+        the sign of a dot product.
+        \ans{$\uu\cdot\vv=(3)(-2)+(2)(3)=0$. A zero dot product means the profiles are perpendicular --- neither aligned nor opposed --- so the two shoppers' preferences are essentially \emph{unrelated} (no shared preference direction). A positive dot would mean similar preferences, a negative dot opposite preferences.}
+\end{enumerate}
+
+\begin{teachernote}
+\textbf{Scoring Part D (5 pts each).} Award full credit only when the student both gives the
+correct result and \emph{justifies} it. D1: 2 pts (a) independence $\Rightarrow$ plane;
+2 pts (b) correct weights $c=2,d=1$; 1 pt (c) parallel $\Rightarrow$ line/rank~1. D2: 2 pts the
+computation $\uu\cdot\vv=0$; 3 pts interpreting $0\Rightarrow$ perpendicular $\Rightarrow$
+unrelated, with the sign meaning. This mirrors the practice test item-for-item with new numbers.
+\end{teachernote}
 
 \end{document}

@@ -3,17 +3,78 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.2}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+For Problem 1, let $\vv = \begin{bmatrix} 2 \\ 3 \end{bmatrix}$ and
+$\ww = \begin{bmatrix} 4 \\ -1 \end{bmatrix}$. Show your steps.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
+  \item Compute each dot product.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\vv\cdot\ww = {}$\ans{$8-3=5$} \hfill \item $\vv\cdot\vv = {}$\ans{$4+9=13$} \hfill
+      \item $\ww\cdot\ww = {}$\ans{$16+1=17$} \hfill
+      \item $\begin{bsmallmatrix} 1 \\ 2 \end{bsmallmatrix}\cdot\begin{bsmallmatrix} 3 \\ 4 \end{bsmallmatrix} = {}$\ans{$3+8=11$}
+    \end{enumerate}
+  \item Find each length using $\|\vv\|=\sqrt{\vv\cdot\vv}$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item \ans{$\sqrt{9+16}=\sqrt{25}=5$} \hfill
+      \item \ans{$\sqrt{25+144}=\sqrt{169}=13$}
+    \end{enumerate}
+  \item Find the angle between each pair with $\cos\theta=\dfrac{\vv\cdot\ww}{\|\vv\|\,\|\ww\|}$
+        (round to the nearest degree).
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\begin{bsmallmatrix} 1 \\ 0 \end{bsmallmatrix},\ \begin{bsmallmatrix} 1 \\ 1 \end{bsmallmatrix}$:
+            \ans{$\cos\theta=\tfrac{1}{(1)(\sqrt2)}=\tfrac{1}{\sqrt2}\Rightarrow\theta=45^\circ$} \hfill
+      \item $\begin{bsmallmatrix} 1 \\ 0 \end{bsmallmatrix},\ \begin{bsmallmatrix} -1 \\ 1 \end{bsmallmatrix}$:
+            \ans{$\cos\theta=\tfrac{-1}{(1)(\sqrt2)}=-\tfrac{1}{\sqrt2}\Rightarrow\theta=135^\circ$}
+    \end{enumerate}
+  \item For each pair, use the dot product to decide whether the vectors are
+        \textbf{perpendicular}. Show the number.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\begin{bsmallmatrix} 2 \\ 3 \end{bsmallmatrix},\ \begin{bsmallmatrix} 3 \\ -2 \end{bsmallmatrix}$ \hfill
+      \item $\begin{bsmallmatrix} 1 \\ 4 \end{bsmallmatrix},\ \begin{bsmallmatrix} 2 \\ 3 \end{bsmallmatrix}$ \hfill
+      \item $\begin{bsmallmatrix} 5 \\ -2 \end{bsmallmatrix},\ \begin{bsmallmatrix} 2 \\ 5 \end{bsmallmatrix}$
+    \end{enumerate}
+    \ansline{(a) $6-6=0$ --- perpendicular.
+    \ (b) $2+12=14\ne0$ --- not perpendicular.
+    \ (c) $10-10=0$ --- perpendicular.}
+  \item A music app stores two songs as vectors
+        $\begin{bsmallmatrix} \text{tempo} \\ \text{energy} \end{bsmallmatrix}$:
+        $\mathbf{p}=\begin{bmatrix} 3 \\ 4 \end{bmatrix}$ and
+        $\mathbf{q}=\begin{bmatrix} 6 \\ 8 \end{bmatrix}$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+      \item Compute $\mathbf{p}\cdot\mathbf{q}$. \ans{$18+32=50$}
+      \item Find the angle between $\mathbf{p}$ and $\mathbf{q}$, and \emph{interpret} what it says
+            about the two songs.
+            \ansline{$\cos\theta=\tfrac{50}{(5)(10)}=1\Rightarrow\theta=0^\circ$. Since $\mathbf{q}=2\mathbf{p}$,
+            the songs point the same way --- the same tempo/energy \emph{balance}, just a stronger version.}
+    \end{enumerate}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+A streaming app measures how alike two listeners are by the \textbf{angle} between their taste
+vectors --- the smaller the angle, the more alike. Listener $\mathbf{A}=\begin{bsmallmatrix} 4 \\ 3 \end{bsmallmatrix}$
+and listener $\mathbf{B}=\begin{bsmallmatrix} 3 \\ 4 \end{bsmallmatrix}$. The app recommends
+$\mathbf{A}$'s playlist to $\mathbf{B}$ whenever the angle between them is under $30^\circ$.
+Find the angle and decide: should it recommend?
+\ansline{$\cos\theta=\dfrac{(4)(3)+(3)(4)}{(5)(5)}=\dfrac{24}{25}=0.96$, so $\theta\approx16^\circ$.
+That is under $30^\circ$ --- yes, the app should recommend $\mathbf{A}$'s playlist to $\mathbf{B}$.}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 1.3: Matrices and Column Spaces.} You can now measure a single
+vector (length) and compare two (angle). Next we line vectors up as the \emph{columns of a
+matrix} and ask which targets $\mathbf{b}$ those columns can build --- the column space.
+\end{spiralbox}
 
 \end{document}

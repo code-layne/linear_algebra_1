@@ -3,17 +3,153 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.2}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item compute the \emph{dot product} $\vv\cdot\ww$ and use it to find a vector's \emph{length};
+  \item find the \emph{angle} between two vectors with the cosine formula;
+  \item decide when two vectors are \emph{perpendicular} and read the sign of the dot product.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.10in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{Dot product}{$\vv\cdot\ww=v_1w_1+v_2w_2$; multiply matching components and add --- the result is one number}
+\vocabans{Length (norm)}{$\|\vv\|=\sqrt{\vv\cdot\vv}=\sqrt{v_1^2+v_2^2}$; a vector's dot product with itself, square-rooted}
+\vocabans{Unit vector}{a vector of length $1$; scale $\vv$ by $1/\|\vv\|$ to build one}
+\vocabans{Angle formula}{$\cos\theta=\dfrac{\vv\cdot\ww}{\|\vv\|\,\|\ww\|}$; the dot product over the two lengths}
+\vocabans{Perpendicular (orthogonal)}{two vectors at a right angle; happens exactly when $\vv\cdot\ww=0$}
+\end{vocabbox}
+
+\begin{hookbox}
+Two pairs of arrows start at the origin. One pair points nearly the \emph{same} way; the other
+pair meets at a \emph{right angle}.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item Pair A: $\vv=\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}$ and $\ww=\begin{bsmallmatrix} 4\\3 \end{bsmallmatrix}$.
+        Multiply matching components and add: $(3)(4)+(4)(3)=\ans{$24$}$
+  \item Pair B: $\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} -1\\3 \end{bsmallmatrix}$.
+        Do the same: $(3)(-1)+(1)(3)=\ans{$0$}$
+\end{itemize}
+Which pair gave the bigger number? Which gave zero? \ansline{Pair A gave $24$ (they point almost the same way); Pair B gave $0$ (they meet at a right angle).}
+\end{hookbox}
+
+\begin{notesbox}{1. What Is the Dot Product?}
+The \textbf{dot product} of $\vv=\begin{bmatrix} v_1 \\ v_2 \end{bmatrix}$ and
+$\ww=\begin{bmatrix} w_1 \\ w_2 \end{bmatrix}$ multiplies \emph{matching} components and adds:
+\[
+  \vv\cdot\ww = v_1 w_1 + v_2 w_2 .
+\]
+The answer is a single \textbf{number} (a scalar) --- \emph{not} a vector.
+
+\vspace{2pt}
+\textit{Example.} With $\vv=\begin{bmatrix} 3 \\ 4 \end{bmatrix}$ and $\ww=\begin{bmatrix} 4 \\ 3 \end{bmatrix}$:
+\[
+  \vv\cdot\ww = (3)(4) + (4)(3) = {\color{keyred}\mathbf{24}}.
+\]
+
+\vspace{2pt}
+Your turn: $\begin{bmatrix} 2 \\ -1 \end{bmatrix}\cdot\begin{bmatrix} 3 \\ 5 \end{bmatrix}
+= (2)({\color{keyred}\mathbf{3}}) + (-1)({\color{keyred}\mathbf{5}}) = {\color{keyred}\mathbf{1}}$.
 \end{notesbox}
+
+\begin{notesbox}{2. Length Is a Dot Product with Itself}
+Dot a vector with \emph{itself} and every term becomes a square:
+\[
+  \vv\cdot\vv = v_1^2 + v_2^2 , \qquad\text{so}\qquad \|\vv\| = \sqrt{\vv\cdot\vv}.
+\]
+This is exactly the Lesson~1.0 length formula, now written with a dot product.
+
+\vspace{2pt}
+\textit{Example.} For $\vv=\begin{bmatrix} 3 \\ 4 \end{bmatrix}$:
+$\vv\cdot\vv = 9 + 16 = {\color{keyred}\mathbf{25}}$, so
+$\|\vv\| = \sqrt{\,{\color{keyred}\mathbf{25}}\,} = {\color{keyred}\mathbf{5}}$.
+
+\vspace{2pt}
+A \textbf{unit vector} has length $1$. To make one, scale $\vv$ by $\dfrac{1}{\|\vv\|}$:
+the unit vector along $\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}$ is
+$\dfrac{1}{{\color{keyred}\mathbf{5}}}\begin{bmatrix} 3 \\ 4 \end{bmatrix}
+= \begin{bmatrix}{\color{keyred}\mathbf{0.6}}\\[2pt]{\color{keyred}\mathbf{0.8}}\end{bmatrix}$.
+\end{notesbox}
+
+\begin{notesbox}{3. The Dot Product Finds the Angle}
+The dot product hides the angle $\theta$ between the two vectors:
+\[
+  \vv\cdot\ww = \|\vv\|\,\|\ww\|\cos\theta
+  \qquad\Longrightarrow\qquad
+  \cos\theta = \frac{\vv\cdot\ww}{\|\vv\|\,\|\ww\|}.
+\]
+\begin{center}
+\begin{tikzpicture}[scale=0.7]
+  \draw[->, thick, charcoal] (-0.4,0)--(3.4,0) node[right]{\scriptsize $x$};
+  \draw[->, thick, charcoal] (0,-0.4)--(0,3.4) node[above]{\scriptsize $y$};
+  \draw[->, very thick, burgundy] (0,0)--(3,0) node[midway, below]{$\vv$};
+  \draw[->, very thick, royalblue] (0,0)--(2,2) node[above right]{$\ww$};
+  \draw[burgundy!70] (0.7,0) arc (0:45:0.7);
+  \node at (1.15,0.35) {\scriptsize $\theta$};
+\end{tikzpicture}
+\end{center}
+\textit{Example.} $\vv=\begin{bmatrix} 2 \\ 0 \end{bmatrix}$, $\ww=\begin{bmatrix} 2 \\ 2 \end{bmatrix}$:
+$\vv\cdot\ww=4$, $\|\vv\|=2$, $\|\ww\|=2\sqrt2$, so
+$\cos\theta=\dfrac{4}{(2)(2\sqrt2)}=\dfrac{1}{\sqrt2}$ and $\theta={\color{keyred}\mathbf{45^\circ}}$.
+
+\vspace{4pt}
+\textbf{The sign tells the story.} Fill in the angle each sign forces:
+\begin{center}\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{c|c|c}
+$\vv\cdot\ww > 0$ & $\vv\cdot\ww = 0$ & $\vv\cdot\ww < 0$ \\ \hline
+angle is \ans{$<90^\circ$} & angle is \ans{$90^\circ$} & angle is \ans{$>90^\circ$} \\
+(same-ish way) & (right angle) & (opposing) \\
+\end{tabular}
+\end{center}
+\end{notesbox}
+
+\begin{notesbox}{4. Perpendicular Means Dot Product Zero}
+Since $\cos 90^\circ = 0$, the angle formula makes one case special: two vectors are
+\textbf{perpendicular} (meet at a right angle) exactly when
+\[
+  \vv\cdot\ww = 0 .
+\]
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+  \draw[step=1, linegray!60, thin] (-1.4,-0.4) grid (3.4,3.4);
+  \draw[->, thick, charcoal] (-1.6,0)--(3.6,0) node[right]{\scriptsize $x$};
+  \draw[->, thick, charcoal] (0,-0.6)--(0,3.6) node[above]{\scriptsize $y$};
+  \draw[->, very thick, burgundy] (0,0)--(3,1) node[right]{$\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}$};
+  \draw[->, very thick, royalblue] (0,0)--(-1,3) node[above left]{$\begin{bsmallmatrix} -1\\3 \end{bsmallmatrix}$};
+  \draw[charcoal] (0.28,0.09) -- (0.19,0.38) -- (-0.09,0.28);
+\end{tikzpicture}
+\end{center}
+\textit{Check.} $\begin{bmatrix} 3 \\ 1 \end{bmatrix}\cdot\begin{bmatrix} -1 \\ 3 \end{bmatrix}
+= (3)(-1)+(1)(3) = {\color{keyred}\mathbf{0}}$, so the two vectors are \ans{perpendicular}.
+
+\vspace{2pt}
+Your turn: Is $\begin{bmatrix} 4 \\ 2 \end{bmatrix}$ perpendicular to $\begin{bmatrix} 1 \\ -2 \end{bmatrix}$?
+Compute the dot product and decide. \ansline{$(4)(1)+(2)(-2)=4-4=0$, so yes --- they are perpendicular.}
+\end{notesbox}
+
+\begin{practicebox}
+Let $\vv = \begin{bmatrix} 6 \\ 8 \end{bmatrix}$ and $\ww = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$.
+\begin{enumerate}[leftmargin=1.6em]
+  \item Compute $\vv\cdot\ww$. \hfill \ans{$(6)(1)+(8)(2)=6+16=22$}
+  \item Find $\|\vv\|$ using $\|\vv\|=\sqrt{\vv\cdot\vv}$. \hfill \ans{$\sqrt{36+64}=\sqrt{100}=10$}
+  \item Is $\begin{bmatrix} 2 \\ 3 \end{bmatrix}$ perpendicular to $\begin{bmatrix} 3 \\ -2 \end{bmatrix}$?
+        Show how you know. \ansline{$(2)(3)+(3)(-2)=6-6=0$, so yes --- perpendicular.}
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

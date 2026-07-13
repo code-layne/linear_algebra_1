@@ -5,6 +5,8 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 \newcommand{\UnitNumberName}{Unit 1: Vectors and Matrices \quad}
 \newcommand{\LessonNumberName}{Lesson 1.2: Lengths and Angles from Dot Products}
 
@@ -16,55 +18,139 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can compute the dot product $\vv\cdot\ww$ and read it
+    geometrically --- a vector's \emph{length} is $\sqrt{\vv\cdot\vv}$, the \emph{angle} between
+    two vectors satisfies $\cos\theta=\dfrac{\vv\cdot\ww}{\|\vv\|\,\|\ww\|}$, and a dot product of
+    \emph{zero} means the vectors are perpendicular --- justifying the sign of $\vv\cdot\ww$ as a
+    measure of how much two vectors point the same way.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Compute a dot product $\vv\cdot\ww=v_1w_1+v_2w_2$.
+  \item Recover length as $\|\vv\|=\sqrt{\vv\cdot\vv}$.
+  \item Use $\cos\theta=\dfrac{\vv\cdot\ww}{\|\vv\|\,\|\ww\|}$ to find an angle.
+  \item Test perpendicularity with $\vv\cdot\ww=0$.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item The dot product turns two vectors into \emph{one number} carrying length and angle.
+  \item Length is just a vector's dot product with \emph{itself}, square-rooted.
+  \item The \emph{sign} of $\vv\cdot\ww$ says whether vectors point the same way, cross at a right angle, or oppose.
+  \item Perpendicular $\Leftrightarrow$ dot product zero --- the anchor for all of orthogonality.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Dot product} & \TallMath{\vv\cdot\ww = v_1w_1 + v_2w_2}; multiply matching components, then add. A single number (a scalar). \\
+\textbf{Length (norm)} & \TallMath{\|\vv\| = \sqrt{\vv\cdot\vv} = \sqrt{v_1^2+v_2^2}}; the dot product of $\vv$ with itself, square-rooted. \\
+\textbf{Unit vector} & A vector of length $1$; scale $\vv$ by $1/\|\vv\|$ to get one. \\
+\textbf{Angle formula} & \TallMath{\cos\theta = \dfrac{\vv\cdot\ww}{\|\vv\|\,\|\ww\|}}; the dot product divided by the two lengths. \\
+\textbf{Perpendicular (orthogonal)} & Two vectors meet at a right angle exactly when $\vv\cdot\ww=0$. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the Lesson~1.0 skills this lesson rebuilds into the dot product:
+    \textbf{(1)} multiplying \emph{matching components} of two vectors and adding the results
+    (the dot-product engine, still unnamed), \textbf{(2)} finding a length with
+    $\|\vv\|=\sqrt{v_1^2+v_2^2}$, and \textbf{(3)} squaring each component and adding
+    (which is exactly $\vv\cdot\vv$). Debrief item~2 out loud so the $3\text{-}4\text{-}5$
+    length is fresh --- it reappears the moment we write $\|\vv\|=\sqrt{\vv\cdot\vv}$.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Project two pairs of vectors on a grid: one pair pointing \emph{almost the same way}
+    ($\vv=\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}$, $\ww=\begin{bsmallmatrix} 4\\3 \end{bsmallmatrix}$)
+    and one pair at a \emph{right angle}
+    ($\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}$, $\begin{bsmallmatrix} -1\\3 \end{bsmallmatrix}$).
+    Ask: \textbf{``Without a protractor, can one \emph{number} tell us which pair points more the
+    same way?''} Let students guess, then reveal that multiplying matching components and adding
+    --- the \textbf{dot product} --- gives $24$ for the first pair and $0$ for the second. Big
+    number $=$ aligned; zero $=$ perpendicular. This frames the lesson: a single number that
+    packages both \emph{length} and \emph{angle}.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. What the dot product is.} Define $\vv\cdot\ww=v_1w_1+v_2w_2$: multiply matching
+components, then add. Stress the result is a single \textbf{number}, not a vector. Compute
+$\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}\cdot\begin{bsmallmatrix} 4\\3 \end{bsmallmatrix}=12+12=24$.
+
+\textbf{2. Length is a dot product with itself.} Show $\vv\cdot\vv=v_1^2+v_2^2$, so
+$\|\vv\|=\sqrt{\vv\cdot\vv}$. With $\vv=\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}$,
+$\vv\cdot\vv=25$ and $\|\vv\|=5$ --- the Lesson~1.0 length formula, now seen as a dot product.
+A \textbf{unit vector} scales $\vv$ by $1/\|\vv\|$.
+
+\columnbreak
+
+\textbf{3. The angle.} State $\vv\cdot\ww=\|\vv\|\,\|\ww\|\cos\theta$, so
+$\cos\theta=\dfrac{\vv\cdot\ww}{\|\vv\|\,\|\ww\|}$. Use the pre-drawn figure and work
+$\begin{bsmallmatrix} 2\\0 \end{bsmallmatrix},\begin{bsmallmatrix} 2\\2 \end{bsmallmatrix}$:
+$\cos\theta=\tfrac{4}{2\cdot 2\sqrt2}=\tfrac{1}{\sqrt2}$, so $\theta=45^\circ$. Read the
+\textbf{sign}: positive $\Rightarrow$ acute, zero $\Rightarrow$ right angle, negative
+$\Rightarrow$ obtuse.
+
+\textbf{4. Perpendicular $\Leftrightarrow$ dot $=0$.} Because $\cos 90^\circ=0$, two vectors are
+\textbf{perpendicular} exactly when $\vv\cdot\ww=0$. Test
+$\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}\cdot\begin{bsmallmatrix} -1\\3 \end{bsmallmatrix}=-3+3=0$
+--- the Hook's right-angle pair.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item writing the dot product as a \emph{vector} instead of a single number;
+  \item multiplying $v_1w_2$ (crossing components) instead of matching $v_1w_1+v_2w_2$;
+  \item forgetting the square root in $\|\vv\|=\sqrt{\vv\cdot\vv}$, or dividing by only one length in the cosine formula;
+  \item saying ``dot product zero'' means the vectors are equal or zero, rather than \emph{perpendicular}.
+\end{itemize}
+Cold-call prompts: ``Is the answer a number or a vector?'' ``What is $\vv\cdot\vv$ for
+$\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}$?'' ``What must the dot product be for a right angle?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Are These Records Alike?} activity (tiered; mirrors the notes). Vectors are
+\emph{data records} $\begin{bsmallmatrix} \text{steps} \\ \text{active min} \end{bsmallmatrix}$,
+and the dot product / angle measures how similar two days' activity profiles are.
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Compute dot products and lengths of given records. Rebuilds
+``multiply matching, add'' and $\|\vv\|=\sqrt{\vv\cdot\vv}$.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Find the angle between two records with the cosine formula, and
+decide from the sign whether two records are alike, unrelated (perpendicular), or opposed.
+
+\columnbreak
+\textbf{Tier E --- Extension.} Build a record perpendicular to a given one, and justify why
+$\vv\cdot\ww=0$ forces a right angle using the angle formula.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): compute a dot product; find a length with
+$\|\vv\|=\sqrt{\vv\cdot\vv}$; and a \textbf{perpendicularity/justification check} --- decide
+whether two vectors meet at a right angle using the dot product and say what that means about the
+angle. Collect and sort into ``got it / arithmetic slip / concept gap (number vs vector, or the
+meaning of dot $=0$)'' to decide whether 1.3 opens with a quick re-teach.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} mixed practice computing dot products and lengths, finding angles with the
+cosine formula, and testing perpendicularity. \textbf{Extension:} a \emph{data-similarity}
+blend --- comparing two streaming-profile records by the angle between them, previewing Unit~1's
+data theme. \textbf{Preview:} Lesson~1.3, \emph{Matrices and Column Spaces} --- collecting
+vectors as the columns of a matrix and asking which right-hand sides $\mathbf{b}$ the columns can
+build.
 \end{skillbox}
 \end{document}

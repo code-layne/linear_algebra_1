@@ -1,6 +1,8 @@
 %! Lengths and Angles from Dot Products — Unit 1, Lesson 1.2 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 
 \begin{document}
 
@@ -11,16 +13,116 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 1.2}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Lengths and Angles from Dot Products}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 1}
+    {\color{white}\bfseries\LARGE Lengths and Angles from Dot Products}\\[0.3cm]
+    {\color{white}\bfseries\large One number that carries length and angle}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 1: Vectors and Matrices}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{One number for ``how aligned?''}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.58\textwidth}
+      Two pairs of arrows from the origin --- one nearly aligned, one at a right angle:
+      \begin{itemize}
+        \item $\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}\cdot\begin{bsmallmatrix} 4\\3 \end{bsmallmatrix}=12+12=24$
+        \item $\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}\cdot\begin{bsmallmatrix} -1\\3 \end{bsmallmatrix}=-3+3=0$
+      \end{itemize}
+      \textbf{Question.} Can one \emph{number} tell us how much two vectors point the same way?
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.5]
+        \draw[step=1, black!15, thin] (-1.3,-0.3) grid (4.3,4.3);
+        \draw[->, thick, black!60] (-1.4,0)--(4.4,0);
+        \draw[->, thick, black!60] (0,-0.4)--(0,4.4);
+        \draw[->, very thick, burgundy] (0,0)--(4,3) node[right]{\scriptsize $\begin{bsmallmatrix} 4\\3 \end{bsmallmatrix}$};
+        \draw[->, very thick, royalblue] (0,0)--(-1,3) node[above left]{\scriptsize $\begin{bsmallmatrix} -1\\3 \end{bsmallmatrix}$};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% WHAT IS THE DOT PRODUCT
+\begin{frame}[t, plain]
+  \burgundyheader{What is the dot product?}
+  \sectionlabel{Definition}
+  The \textbf{dot product} multiplies matching components, then adds:
+  \[
+    \vv\cdot\ww = v_1 w_1 + v_2 w_2 .
+  \]
+  The result is a single \textbf{number} (a scalar), not a vector.
+  \begin{itemize}
+    \item Example: $\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}\cdot\begin{bsmallmatrix} 4\\3 \end{bsmallmatrix}=12+12=24$.
+    \item Watch out: match components ($v_1w_1+v_2w_2$) --- do \emph{not} cross them.
+  \end{itemize}
+\end{frame}
+
+% LENGTH
+\begin{frame}[t, plain]
+  \burgundyheader{Length is a dot product with itself}
+  \sectionlabel{Length}
+  Dot a vector with itself and every term is a square:
+  \[
+    \vv\cdot\vv = v_1^2 + v_2^2
+    \qquad\Longrightarrow\qquad
+    \|\vv\| = \sqrt{\vv\cdot\vv}.
+  \]
+  \begin{itemize}
+    \item For $\vv=\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}$: $\vv\cdot\vv=25$, so $\|\vv\|=5$ --- the Lesson 1.0 length formula.
+    \item A \textbf{unit vector} has length $1$: scale $\vv$ by $1/\|\vv\|$, e.g. $\tfrac15\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}=\begin{bsmallmatrix} 0.6\\0.8 \end{bsmallmatrix}$.
+  \end{itemize}
+\end{frame}
+
+% ANGLE
+\begin{frame}[t, plain]
+  \burgundyheader{The dot product finds the angle}
+  \sectionlabel{Angle}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \[
+        \cos\theta = \frac{\vv\cdot\ww}{\|\vv\|\,\|\ww\|}.
+      \]
+      Example: $\begin{bsmallmatrix} 2\\0 \end{bsmallmatrix},\begin{bsmallmatrix} 2\\2 \end{bsmallmatrix}$ give
+      $\cos\theta=\tfrac{4}{2\cdot2\sqrt2}=\tfrac{1}{\sqrt2}$, so $\theta=45^\circ$.\\[6pt]
+      \textbf{Sign:} $+$ acute \quad $0$ right \quad $-$ obtuse.
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.7]
+        \draw[->, thick, black!60] (-0.3,0)--(3.3,0);
+        \draw[->, thick, black!60] (0,-0.3)--(0,3.3);
+        \draw[->, very thick, burgundy] (0,0)--(3,0) node[below]{$\vv$};
+        \draw[->, very thick, royalblue] (0,0)--(2,2) node[above right]{$\ww$};
+        \draw[burgundy!70] (0.7,0) arc (0:45:0.7);
+        \node at (1.15,0.35) {\scriptsize $\theta$};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% PERPENDICULAR
+\begin{frame}[t, plain]
+  \burgundyheader{Perpendicular means dot product zero}
+  \sectionlabel[goldacc]{Orthogonality}
+  Because $\cos 90^\circ = 0$, one case is special:
+  \begin{block}{The rule}
+    Two nonzero vectors are \textbf{perpendicular} exactly when $\vv\cdot\ww = 0$.
+  \end{block}
+  Check: $\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}\cdot\begin{bsmallmatrix} -1\\3 \end{bsmallmatrix}=-3+3=0$ --- a right angle.
+\end{frame}
+
+% WRAP / PREVIEW
+\begin{frame}[t, plain]
+  \burgundyheader{Wrap-up and what's next}
+  \sectionlabel{Connections}
+  \textbf{Today:} the dot product $\vv\cdot\ww=v_1w_1+v_2w_2$; length $\|\vv\|=\sqrt{\vv\cdot\vv}$;
+  angle $\cos\theta=\tfrac{\vv\cdot\ww}{\|\vv\|\|\ww\|}$; perpendicular $\Leftrightarrow$ dot $=0$.\\[8pt]
+  \textbf{Next --- Lesson 1.3:} line vectors up as the \textbf{columns of a matrix} and ask which
+  targets $\mathbf{b}$ they can build --- the column space.
 \end{frame}
 
 \end{document}

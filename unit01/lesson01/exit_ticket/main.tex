@@ -3,6 +3,8 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 
 \begin{document}
 
@@ -11,9 +13,18 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+Let $\vv = \begin{bmatrix} 3 \\ 1 \end{bmatrix}$ and $\ww = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$.
+Show your work.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item Compute the linear combination $2\vv + 3\ww$.
+        \vspace{1.2cm}
+  \item Find weights $c$ and $d$ so that $c\,\vv + d\,\ww = \begin{bmatrix} 5 \\ 5 \end{bmatrix}$.
+        \vspace{1.2cm}
+  \item Sam says the two vectors $\begin{bmatrix} 2 \\ 4 \end{bmatrix}$ and
+        $\begin{bmatrix} 1 \\ 2 \end{bmatrix}$ can reach \emph{every} point in the plane.
+        Is Sam right? Explain.
+        \writelines{2}
+\end{enumerate}
 
 \end{document}

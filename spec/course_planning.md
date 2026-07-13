@@ -7,11 +7,14 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-12 — Authored **Lesson 1.0 in full** (all components + keys + slides)
-as the course's model lesson. Refocused/retitled it from "Unit Overview and Spiral Review" to
-**"Introducing Vectors — Vocabulary and Length"** per user request (intro vocabulary + the
-vector concept + magnitude). Builds clean: `make -C unit01/lesson00 all` exit 0 →
-`lesson00_student.pdf` (10 pp) and `lesson00_full.pdf` (17 pp); warm-up and exit ticket 1 page each.
+**Last updated:** 2026-07-13 — Authored **Lesson 1.1 "Linear Combinations of Vectors" in full**
+(all components + keys + slides), mirroring Lesson 1.0 as the gold model. Content from LAfE §1.1,
+down-leveled: linear combination $c\mathbf v+d\mathbf w$, coefficients/weights, span (informal),
+one vector → line, two non-parallel vectors → plane, parallel exception, standard basis
+$\mathbf i,\mathbf j$, and solving for weights. Robot-moves + juice/smoothie data-record contexts.
+Builds clean: `make -C unit01/lesson01 all` exit 0 → `lesson01_student.pdf` (10 pp) and
+`lesson01_full.pdf` (17 pp); warm-up and exit ticket 1 page each (blank + key); `\ans`-in-math
+scan clean; notes/activity paginate in lockstep (homework blank 2pp / key 1pp — same as 1.0).
 
 ## Current state
 
@@ -29,12 +32,15 @@ vector concept + magnitude). Builds clean: `make -C unit01/lesson00 all` exit 0 
 - **Standard component set per lesson:** cover, warmup, notes, activity, exit_ticket, homework,
   **slides** (+ keys for the keyed components). Teacher slide decks are in scope.
 
-**Unit 1 — lesson 1.0 authored; 1.1–1.4 scaffolded (skeletons only).**
+**Unit 1 — lessons 1.0 and 1.1 authored; 1.2–1.4 scaffolded (skeletons only).**
 - `unit01/lesson00` — id 1.0, **"Introducing Vectors — Vocabulary and Length"** ✅ authored
   (cover, warmup, notes, activity, exit_ticket, homework, slides + all keys). Content: vector
   as components/arrow, scalar, add/scale, magnitude $\|\mathbf v\|=\sqrt{v_1^2+v_2^2}$, unit
   vector; drone/displacement application; previews linear combinations (1.1).
-- `unit01/lesson01` — id 1.1, "Linear Combinations of Vectors"
+- `unit01/lesson01` — id 1.1, **"Linear Combinations of Vectors"** ✅ authored (all components +
+  keys + slides). Content: $c\mathbf v+d\mathbf w$, weights, span, line vs plane, parallel
+  exception, standard basis, finding weights; robot-moves + juice/smoothie contexts; previews
+  the dot product (1.2).
 - `unit01/lesson02` — id 1.2, "Lengths and Angles from Dot Products"
 - `unit01/lesson03` — id 1.3, "Matrices and Column Spaces"
 - `unit01/lesson04` — id 1.4, "Matrix Multiplication and A = CR"
@@ -47,7 +53,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 | Unit | Chapter | Lessons | Status |
 | --- | --- | --- | --- |
-| 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ◐ 1.0 authored ✅; 1.1–1.4 skeletons |
+| 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ◐ 1.0, 1.1 authored ✅; 1.2–1.4 skeletons |
 | 2 | Solving Linear Equations Ax = b | 2.1–2.4 | ☐ |
 | 3 | The Four Fundamental Subspaces | 3.1–3.5 | ☐ |
 | 4 | Orthogonality | 4.1–4.4 | ☐ |
@@ -58,10 +64,12 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author Unit 1, Lesson 1.1** (Linear Combinations of Vectors) from LAfE §1.1, using
-   **lesson 1.0 as the gold model** (mirror its preamble, box usage, tone, and `\vv`/`\ww`
-   macros; keep the compute→interpret→justify loop). Reuse the drone/data-record contexts.
-2. Then author 1.2–1.4 following the same model.
+1. **Author Unit 1, Lesson 1.2** (Lengths and Angles from Dot Products) from LAfE §1.2, using
+   **lessons 1.0/1.1 as the gold model** (mirror preamble, box usage, tone, `\vv`/`\ww` macros;
+   keep the compute→interpret→justify loop). Dot product $\mathbf v\cdot\mathbf w$, length as
+   $\sqrt{\mathbf v\cdot\mathbf v}$, angle/cosine, perpendicular ⇔ dot $=0$; similarity-of-
+   records context.
+2. Then author 1.3–1.4 following the same model.
 3. Author the Unit 1 practice/actual tests + keys once the lessons are drafted.
 
 ## Notes for the next run

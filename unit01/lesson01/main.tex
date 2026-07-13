@@ -5,6 +5,8 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 \newcommand{\UnitNumberName}{Unit 1: Vectors and Matrices \quad}
 \newcommand{\LessonNumberName}{Lesson 1.1: Linear Combinations of Vectors}
 
@@ -16,55 +18,140 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can build a linear combination $c\,\vv + d\,\ww$ by
+    scaling and then adding, and can describe geometrically \emph{which points a set of
+    vectors can reach} --- the multiples of one vector fill a line through the origin, and the
+    combinations of two non-parallel vectors fill the whole plane --- justifying why parallel
+    vectors are the exception.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Compute a linear combination $c\,\vv+d\,\ww$.
+  \item Recognize $\vv+\ww$, $\vv-\ww$, and $c\,\vv$ as special combinations.
+  \item Describe the multiples of one vector (a line) and combinations of two (a plane).
+  \item Write a target vector as a combination of two given vectors.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item A linear combination does the unit's two operations \emph{at once}: scale, then add.
+  \item The reachable points --- the \emph{span} --- have a shape: a line, or the whole plane.
+  \item Two non-parallel vectors reach everywhere; parallel vectors stay stuck on one line.
+  \item A point's coordinates \emph{are} the weights on $\mathbf{i}$ and $\mathbf{j}$.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Linear combination} & \TallMath{c\,\vv + d\,\ww}; scale each vector, then add the results. \\
+\textbf{Coefficients (weights)} & The scalars $c,d$ that say how much of each vector to use. \\
+\textbf{Span} & All the points you can reach as combinations of the given vectors. \\
+\textbf{Parallel vectors} & Two vectors on the same line through the origin --- one is a scalar multiple of the other. \\
+\textbf{Standard basis} & \TallMath{\mathbf{i}=\begin{bsmallmatrix} 1 \\ 0 \end{bsmallmatrix},\ \mathbf{j}=\begin{bsmallmatrix} 0 \\ 1 \end{bsmallmatrix}}; every $\begin{bsmallmatrix} x \\ y \end{bsmallmatrix}=x\,\mathbf{i}+y\,\mathbf{j}$. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the Lesson~1.0 skills this lesson stacks on:
+    \textbf{(1)} scaling a vector by a positive and a negative scalar,
+    \textbf{(2)} adding two vectors component by component, and
+    \textbf{(3)} deciding whether one vector is a \emph{multiple} of another. Debrief item~3
+    out loud --- ``is $\begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}$ a multiple of
+    $\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$?'' --- because being a multiple is exactly
+    what puts two vectors on the same line, the idea the whole lesson turns on.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Project a delivery robot at the origin with only \textbf{two fixed moves} it can repeat or
+    scale: $\vv=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$ and
+    $\ww=\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$. Ask: \textbf{``Using some amount of
+    each move --- $c$ copies of $\vv$ and $d$ copies of $\ww$ --- can the robot land exactly on
+    $(5,5)$? On \emph{any} target you name?''} Let students try a few weights before revealing
+    $2\vv+\ww=(5,5)$. This frames the lesson's real question: not just \emph{how} to combine
+    vectors, but \emph{which points combinations can reach}.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. What a linear combination is.} Define $c\,\vv+d\,\ww$ as ``scale each, then add,''
+naming $c,d$ the \textbf{coefficients} (weights). Compute
+$2\vv+\ww=\begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}+\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}=\begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}$
+with the Hook vectors. Point out the \textbf{special cases}: $\vv+\ww$ ($c=d=1$), $\vv-\ww$
+($d=-1$), a lone multiple $c\,\vv$ ($d=0$), and the zero vector ($c=d=0$).
+
+\textbf{2. Multiples of one vector = a line.} Sweep $c$ through all values for a single
+$\vv$: every $c\,\vv$ lands on \textbf{one line through the origin}. Use the pre-drawn figure
+in the notes; have students read off $2\vv$ and $-\vv$ as points on that line. This is the
+\textbf{span} of a single vector.
+
+\columnbreak
+
+\textbf{3. Two vectors = the whole plane (usually).} With two \emph{non-parallel} vectors,
+$c\,\vv+d\,\ww$ can reach \textbf{every} point in the plane --- dialing $c$ and $d$ steers you
+anywhere. Show $\mathbf{i}=\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}$,
+$\mathbf{j}=\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}$: since
+$\begin{bsmallmatrix} x\\y \end{bsmallmatrix}=x\,\mathbf{i}+y\,\mathbf{j}$, a point's
+coordinates \emph{are} its weights. \textbf{The exception:} if $\vv$ and $\ww$ are parallel
+(one a multiple of the other), their combinations only refill the same line.
+
+\textbf{4. Finding the weights.} Reverse the question: given a target, find $c,d$. Do
+$\begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}=c\vv+d\ww$ by matching components
+($2c+d=5,\ c+3d=5$) to recover $c=2,d=1$, tying the answer back to the Hook.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item scaling only one component of a vector, or adding before scaling;
+  \item calling two vectors ``different'' when one is actually a multiple of the other (parallel);
+  \item claiming two vectors reach the whole plane \emph{without} checking they are non-parallel;
+  \item mixing up the weights $c,d$ with the components of the answer vector.
+\end{itemize}
+Cold-call prompts: ``What does $d=0$ give you?'' ``Point to $2\vv+\ww$ on the grid.''
+``Why can't $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}$
+reach $(1,0)$?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Robot Moves} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Given two moves, compute named combinations ($\vv+\ww$, $2\vv$,
+$\vv-\ww$) and plot-read where each lands. Rebuilds the ``scale then add'' loop.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Find the weights $c,d$ that hit a target; then test a
+\emph{parallel} pair and explain why one target is unreachable.
+
+\columnbreak
+\textbf{Tier E --- Extension.} Decide for several vector pairs whether their span is a line or
+the plane, and justify the rule (non-parallel $\Rightarrow$ plane) in words.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): compute a linear combination; find the weights
+$c,d$ for a small target; and a \textbf{conceptual/justification check} --- explain why
+$\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$
+cannot reach every point in the plane (they are parallel; span is only a line). Collect and
+sort into ``got it / computation slip / span misconception'' to decide whether 1.2 opens with
+a quick re-teach.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} mixed practice computing combinations, finding weights for a target, and
+classifying each vector pair's span as a line or the plane. \textbf{Extension:} a
+\emph{data-record} blend --- mixing two base smoothies in amounts $c,d$ shows a linear
+combination as a recipe, previewing Unit~1's data theme. \textbf{Preview:} Lesson~1.2,
+\emph{Lengths and Angles from Dot Products} --- a single number, the dot product, that measures
+how much two vectors point the same way (and recovers length as a special case).
 \end{skillbox}
 \end{document}

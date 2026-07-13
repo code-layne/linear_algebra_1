@@ -3,17 +3,44 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.0}{Warm-Up}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Warm-Up. See references/components.md for the expected structure.
-\begin{notesbox}{Warm-Up}
-\writelines{4}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small These three skills from Unit~1 power everything in today's lesson. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. A linear combination.} With $\vv=\begin{bmatrix} 2 \\ 1 \end{bmatrix}$ and
+$\ww=\begin{bmatrix} 1 \\ 3 \end{bmatrix}$, scale and add:
+\[
+  2\vv + 1\ww = 2\begin{bmatrix} 2 \\ 1 \end{bmatrix} + 1\begin{bmatrix} 1 \\ 3 \end{bmatrix}
+  = \begin{bmatrix}\rule{0pt}{1.1em}\blank{1.1cm}\\[2pt]\blank{1.1cm}\end{bmatrix}.
+\]
+
+\vspace{4pt}
+\textbf{2. Same line, or not?} Two vectors span a \emph{line} if one is a multiple of the other,
+and a whole \emph{plane} if they point in different directions. For each pair, circle
+\textbf{line} or \textbf{plane}:
+\begin{itemize}[leftmargin=1.4em, itemsep=3pt]
+  \item $\begin{bmatrix} 2 \\ 1 \end{bmatrix}$ and $\begin{bmatrix} 4 \\ 2 \end{bmatrix}$:
+        \hfill \textbf{line} \qquad / \qquad \textbf{plane}
+  \item $\begin{bmatrix} 2 \\ 1 \end{bmatrix}$ and $\begin{bmatrix} 1 \\ 3 \end{bmatrix}$:
+        \hfill \textbf{line} \qquad / \qquad \textbf{plane}
+\end{itemize}
+
+\vspace{4pt}
+\textbf{3. Is the target reachable?} Is $\begin{bmatrix} 5 \\ 5 \end{bmatrix}$ a combination of
+the columns of $A=\begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}$ --- that is, in the column space of
+$A$? Try to find weights $x_1,x_2$ with
+$x_1\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}+x_2\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}=\begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}$.
+\writeline
 \end{notesbox}
 
 \end{document}

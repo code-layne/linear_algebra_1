@@ -3,17 +3,50 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.0}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small These three skills from Unit~1 power everything in today's lesson. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. A linear combination.} With $\vv=\begin{bmatrix} 2 \\ 1 \end{bmatrix}$ and
+$\ww=\begin{bmatrix} 1 \\ 3 \end{bmatrix}$, scale and add:
+\[
+  2\vv + 1\ww = 2\begin{bmatrix} 2 \\ 1 \end{bmatrix} + 1\begin{bmatrix} 1 \\ 3 \end{bmatrix}
+  = \begin{bmatrix}{\color{keyred}\mathbf{5}}\\[2pt]{\color{keyred}\mathbf{5}}\end{bmatrix}.
+\]
+
+\vspace{4pt}
+\textbf{2. Same line, or not?} Two vectors span a \emph{line} if one is a multiple of the other,
+and a whole \emph{plane} if they point in different directions. For each pair, circle
+\textbf{line} or \textbf{plane}:
+\begin{itemize}[leftmargin=1.4em, itemsep=3pt]
+  \item $\begin{bmatrix} 2 \\ 1 \end{bmatrix}$ and $\begin{bmatrix} 4 \\ 2 \end{bmatrix}$:
+        \hfill \ans{line} \;($\begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}=2\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$) \qquad / \qquad plane
+  \item $\begin{bmatrix} 2 \\ 1 \end{bmatrix}$ and $\begin{bmatrix} 1 \\ 3 \end{bmatrix}$:
+        \hfill line \qquad / \qquad \ans{plane} \;(different directions)
+\end{itemize}
+
+\vspace{4pt}
+\textbf{3. Is the target reachable?} Is $\begin{bmatrix} 5 \\ 5 \end{bmatrix}$ a combination of
+the columns of $A=\begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}$ --- that is, in the column space of
+$A$? Try to find weights $x_1,x_2$ with
+$x_1\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}+x_2\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}=\begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}$.
+\ansline{Yes --- $x_1=2,\ x_2=1$: $2\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}+1\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}=\begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}$. The columns point in different directions, so \emph{every} target is reachable.}
 \end{notesbox}
+
+\begin{teachernote}
+Item~2 previews ``line vs.\ plane through the origin''; item~3 is the reachability / column-space
+idea we rename as ``subspace'' today. If a student says the answer to~3 is ``no,'' have them notice
+the two columns are independent, so $C(A)=\mathbb{R}^2$ and \emph{any} $\mathbf b$ works.
+\end{teachernote}
 
 \end{document}

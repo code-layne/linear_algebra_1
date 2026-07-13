@@ -3,6 +3,7 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
@@ -11,9 +12,19 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Describe the span.} The vectors $\begin{bmatrix} 1 \\ 0 \end{bmatrix}$ and
+        $\begin{bmatrix} 0 \\ 1 \end{bmatrix}$ point in different directions. Is their span a
+        \emph{line}, a \emph{plane}, or all of $\mathbb{R}^2$? Does it pass through the origin?
+        \vspace{0.9cm}
+  \item \textbf{Closure test.} Is the set of all multiples of $\begin{bmatrix} 3 \\ 1 \end{bmatrix}$
+        a subspace of $\mathbb{R}^2$? State what you checked (adding, scaling, and $\zero$).
+        \vspace{1.3cm}
+  \item \textbf{Justify.} A classmate says the line $y = x + 4$ is a subspace. Explain why it is
+        \emph{not}, using the zero vector \emph{and} a scaling that escapes the line.
+        \writelines{2}
+\end{enumerate}
 
 \end{document}

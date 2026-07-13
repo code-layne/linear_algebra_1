@@ -7,15 +7,23 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-13 — **Scaffolded all of Unit 3 — "The Four Fundamental Subspaces."**
-Confirmed the §3.1–3.5 lesson map (intro-lesson convention → `lesson00` id 3.0 + 3.1–3.5 = 6 lessons)
-and ran `new_lesson.py` for all six with the standard component set (cover, warmup, notes, activity,
-exit_ticket, homework, slides + keys for the five keyed components). `lesson00` created the unit,
-which auto-scaffolded `unit03/tests/`, `unit03/test_keys/`, `unit03/sample_test/`, `unit03/sample_test_key/`
-(practice + actual test/key skeletons + thin-include Makefiles) and `unit03/Makefile`. **Every Unit 3
-file is currently a bare skeleton — nothing authored yet.** Next run authors the lessons in order,
-mirroring the Unit 1–2 lessons as the model (start with `lesson00` 3.0, build + proofread it as the
-unit's model, then scale out 3.1–3.5, then the summative tests).
+**Last updated:** 2026-07-13 — **Authored & built Unit 3 Lesson 3.0 — "Sets of Vectors and the
+Road to Subspaces" (the intro lesson).** Filled every skeleton: lesson plan, cover, warmup, notes,
+activity, exit_ticket, homework (+ the five keys) and the slides deck. Content bridges Unit 2
+(solving $A\xx=\bb$ / reachability) into Unit 3: $\mathbb{R}^n$ and span (recall from 1.1/1.3);
+**subspace** = a set closed under addition & scaling (so it contains $\zero$) — the two-part
+**closure test**; a geometric catalog in $\mathbb{R}^2$ ({$\zero$}, lines through the origin,
+all of $\mathbb{R}^2$ vs. the off-origin line and first-quadrant non-examples, shown as pre-drawn
+TikZ panels to read); the **column space $C(A)$ as the first named subspace** ("is $\bb$
+reachable?" = "is $\bb$ in $C(A)$?"); and a **nullspace preview** ($A\xx=\zero$ solutions are
+closed → a subspace, star of 3.2). Drone-reachable-set hook; running example $\vv=(2,1),\ww=(1,3)$
+and singular $A=\begin{bsmallmatrix}1&2\\2&4\end{bsmallmatrix}$ / $\begin{bsmallmatrix}1&3\\2&6\end{bsmallmatrix}$.
+All arithmetic hand-verified; keys wrap answers in `\ans{}`/`\ansline{}`, in-formula slots use
+`{\color{keyred}\mathbf{...}}`, `teachernote`s carry pacing/error notes. Built `make -C
+unit03/lesson00 all` → clean, both packets emitted. Page counts: cover/warmup/exit_ticket 1pp each,
+notes/activity/homework 2pp each (blank & key paginate identically), lesson plan 2pp, slides 7pp.
+Spot-checked notes p2 (catalog figure) and activity p1 (Tier R figure) — clean. **This lesson is
+the Unit 3 model.** Next run authors 3.1 (and onward) mirroring it.
 
 **Prior run:** Authored the Unit 2 summative tests in full (all 4 files),
 closing out Unit 2. Filled every skeleton: `unit02/tests/{practice_test,actual_test}` (blank) and
@@ -114,13 +122,21 @@ Confirmed lesson map:
 - `unit02/tests` (practice + actual) + `unit02/test_keys` (both keys) — **authored ✅ & built**;
   `sample_test`/`sample_test_key` populated by `drop` (practice test + key). `unit02/Makefile` present.
 
-**Unit 3 — scaffolded (skeletons only), authoring not started.** Confirmed lesson map (6 lessons):
-- `unit03/lesson00` — id 3.0, **"Sets of Vectors and the Road to Subspaces"** (intro) — ◐ scaffolded
+**Unit 3 — lesson 3.0 authored & built; 3.1–3.5 + tests still skeletons.** Confirmed lesson map (6 lessons):
+- `unit03/lesson00` — id 3.0, **"Sets of Vectors and the Road to Subspaces"** (intro) — ✅ authored
+  & built (all components + keys + slides). Content: $\mathbb{R}^n$ \& span (recall); subspace =
+  closed under $+$/scaling (contains $\zero$) via the closure test; geometric catalog (lines/planes
+  through the origin yes, off-origin line \& first quadrant no); $C(A)$ as a subspace (renames Unit~2
+  reachability); nullspace preview ($A\xx=\zero$). Serves as the Unit 3 model.
 - `unit03/lesson01` — id 3.1, **"Vector Spaces and Subspaces"** — ◐ scaffolded
 - `unit03/lesson02` — id 3.2, **"The Nullspace of A: Solving Ax = 0"** — ◐ scaffolded
 - `unit03/lesson03` — id 3.3, **"The Complete Solution to Ax = b"** — ◐ scaffolded
 - `unit03/lesson04` — id 3.4, **"Independence, Basis, and Dimension"** — ◐ scaffolded
 - `unit03/lesson05` — id 3.5, **"Dimensions of the Four Subspaces"** — ◐ scaffolded
+- `unit03/lesson06` — id 3.6, **"The Fundamental Theorem of Linear Algebra"** (capstone, added by
+  user 2026-07-13) — ◐ scaffolded. Synthesizes the unit: Strang's **Part 1** (dimensions/counting
+  of the four subspaces — rank $r$, row space $r$, nullspace $n-r$, left-nullspace $m-r$) and the
+  "big picture" diagram, previewing **Part 2** (orthogonality) → Unit 4 §4.1. Author *after* 3.1–3.5.
 - `unit03/tests` + `unit03/test_keys` (practice + actual, both keys) — ◐ scaffolded (skeletons);
   `sample_test`/`sample_test_key` drop dirs present. `unit03/Makefile` present.
 - Each lesson has the full component set (cover, warmup, notes, activity, exit_ticket, homework,
@@ -136,7 +152,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | --- | --- | --- | --- |
 | 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
 | 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ☑ all lessons + tests authored & built ✅ |
-| 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 | ◐ scaffolded (skeletons); authoring not started |
+| 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ◐ 3.0 authored & built ✅; 3.1–3.6 + tests still skeletons |
 | 4 | Orthogonality | 4.1–4.4 | ☐ |
 | 5 | Determinants and Linear Transformations | 5.1–5.3 | ☐ |
 | 6 | Eigenvalues and Eigenvectors | 6.1–6.4 (§6.4 optional) | ☐ |
@@ -145,12 +161,15 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author Unit 3, in order.** Unit 3 is fully scaffolded (skeletons only). Start with
-   `unit03/lesson00` (id 3.0) — author all components + keys from Strang §3.1 lead-in / Unit 2
-   bridge, down-leveled — then `make -C unit03/lesson00 all`, proofread, and use it as the unit's
-   model. Then author 3.1–3.5 the same way (each from its matching LAfE subchapter), then the
-   summative tests (`unit03/tests` + `unit03/test_keys`, then `make ... drop` to publish the
-   sample test/key). Mirror Unit 1–2 lessons for preamble, box usage, and tone.
+1. **Author Unit 3, in order — 3.0 done.** `unit03/lesson00` (id 3.0) is authored, built, and is
+   the unit model. Next author `unit03/lesson01` (id 3.1, **Vector Spaces and Subspaces**) from
+   Strang §3.1 — make the closure test precise, the vector-space axioms of $\mathbb{R}^n$, and
+   spans/column spaces always closed; mirror 3.0 for preamble, boxes, and tone; then 3.2–3.5 each
+   from its matching LAfE subchapter, then the **capstone `unit03/lesson06` (id 3.6, The
+   Fundamental Theorem of Linear Algebra)** — synthesize the four subspaces + their dimensions
+   (Strang Part 1 + the big-picture diagram), preview orthogonality (Part 2 → Unit 4). Finish with
+   the summative tests (`unit03/tests` + `unit03/test_keys`, then `make ... drop` to publish the
+   sample test/key). The unit test should now also draw on 3.6's synthesis.
 2. *(optional)* Rebuild the whole Unit 1/Unit 2 packets (`make -C unitXX student|full`) to confirm the
    `sample_test`/`sample_test_key` merge in as expected before moving on.
 

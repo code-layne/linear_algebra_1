@@ -5,6 +5,9 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\zero}{\mathbf{0}}
 \newcommand{\UnitNumberName}{Unit 3: The Four Fundamental Subspaces \quad}
 \newcommand{\LessonNumberName}{Lesson 3.0: Sets of Vectors and the Road to Subspaces}
 
@@ -16,55 +19,153 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can describe the set of all combinations of some
+    vectors as a \emph{line} or \emph{plane through the origin} (or all of $\mathbb{R}^n$),
+    test whether a set of vectors is a \emph{subspace} by checking it is closed under addition
+    and scalar multiplication (and so contains $\zero$), recognize the column space $C(A)$ as a
+    subspace, and explain why Unit~2's ``is $\mathbf b$ reachable?'' question is really ``is
+    $\mathbf b$ in a subspace?'' --- the doorway to Unit~3.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Read $\mathbb{R}^n$ as the set of \emph{all} vectors with $n$ components.
+  \item Describe the span of vectors as a line/plane through the origin (or all of $\mathbb{R}^n$).
+  \item Test a set of vectors for being a \textbf{subspace}: closed under $+$ and scalar $\times$.
+  \item See the column space $C(A)$ as a subspace, and preview the nullspace and the four subspaces.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item A subspace is a ``flat piece through the origin you can't escape'' by adding or scaling.
+  \item \emph{Closure} is the whole idea: combinations of members stay members.
+  \item Off-origin flats fail --- they miss $\zero$ and break under scaling.
+  \item Unit~2 asked ``is $\mathbf b$ reachable?''; Unit~3 studies those reachable sets directly.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Vector space $\mathbb{R}^n$} & The set of all vectors with $n$ real components; e.g.\ $\mathbb{R}^2$ is the whole plane, $\mathbb{R}^3$ is all of space. \\
+\textbf{Linear combination} (recall) & $c\vv+d\ww$: scale each vector by a weight and add (Lessons 1.1, 1.3). \\
+\textbf{Span} (recall) & The set of \emph{all} linear combinations of some vectors --- a line, a plane, or all of $\mathbb{R}^n$, always through the origin. \\
+\textbf{Subspace} & A set of vectors that is \emph{closed}: adding two members or scaling a member always lands you back inside it. \\
+\textbf{Closed under addition / scaling} & $\vv,\ww$ in the set $\Rightarrow \vv+\ww$ in the set; $\vv$ in the set $\Rightarrow c\vv$ in the set for every $c$. \\
+\textbf{Column space $C(A)$} (recall) & The span of the columns of $A$ = all reachable targets $A\mathbf x$; this is a subspace. \\
+\textbf{Nullspace $N(A)$} (preview) & All solutions of $A\mathbf x=\zero$ --- another subspace, the star of Lesson 3.2. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three skills this lesson stands on:
+    \textbf{(1)} forming a \emph{linear combination} $c\vv+d\ww$ (Lesson~1.1),
+    \textbf{(2)} deciding whether two vectors point along the \emph{same line} so their span is a
+    line vs.\ a plane (Lesson~1.3), and
+    \textbf{(3)} testing whether a target $\mathbf b$ is a \emph{combination of the columns} of a
+    matrix --- reachability / the column space (Lesson~1.3, Unit~2). Debrief item~3 aloud: ``in
+    the column space'' is exactly the subspace idea we name today.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    A delivery drone starts at the origin and can repeat two moves as often as it likes, forwards
+    or backwards: $\vv=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$ and
+    $\ww=\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$. Ask: \textbf{``Which points can it
+    reach?''} It reaches every $c\vv+d\ww$ --- the whole plane. Now change $\ww$ to
+    $\begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}$ (a copy of $\vv$): now it only reaches a single
+    \emph{line through the origin}. Pose the key question: \textbf{``What do these reachable sets
+    have in common --- and what could break them?''} Name it: a \emph{subspace} is a set of
+    vectors you can never escape by combining. That is the object of all of Unit~3.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. From span to a name.} Lessons 1.1 and 1.3 built the \emph{span}: all combinations
+$c\vv+d\ww$ of some vectors. Geometrically it is a \textbf{line} (one direction), a
+\textbf{plane} (two independent directions), or \textbf{all of $\mathbb{R}^n$} --- always
+\emph{through the origin}. Unit~3 gives these reachable sets a name: \textbf{subspaces}.
+
+\textbf{2. $\mathbb{R}^n$, the whole space.} First fix the arena. $\mathbb{R}^2$ is every
+$2$-vector (the whole plane), $\mathbb{R}^3$ is every $3$-vector (all of space). A subspace lives
+\emph{inside} some $\mathbb{R}^n$.
+
+\textbf{3. The closure test.} A set $S$ of vectors is a \textbf{subspace} when it is
+\emph{closed}: \textbf{(a)} add two vectors in $S$ $\Rightarrow$ still in $S$; \textbf{(b)} scale
+a vector in $S$ by any $c$ $\Rightarrow$ still in $S$. Scaling by $c=0$ forces $\zero\in S$ --- so
+\emph{every subspace contains the zero vector}.
+
+\columnbreak
+
+\textbf{4. A catalog in $\mathbb{R}^2$ and $\mathbb{R}^3$.} \textbf{Subspaces:} just $\{\zero\}$,
+any \emph{line through the origin}, any \emph{plane through the origin} (in $\mathbb{R}^3$), and
+the whole space. \textbf{Not subspaces:} a line that \emph{misses} the origin (no $\zero$; scaling
+leaves it), or the first quadrant (closed under $+$ but scaling by $-1$ escapes it). Draw the
+contrast: subspaces are flat and pinned to the origin.
+
+\textbf{5. The bridge: $C(A)$ is a subspace.} The column space $C(A)$ = all combinations of the
+columns = all reachable $A\mathbf x$. Combinations of reachable vectors are reachable, so $C(A)$
+is \emph{closed} --- a subspace. That is why Unit~2's ``is $\mathbf b$ reachable?'' was secretly
+``is $\mathbf b$ in the subspace $C(A)$?''
+
+\textbf{6. The road ahead.} Preview Unit~3: \textbf{3.1} vector spaces \& subspaces, \textbf{3.2}
+the nullspace $N(A)$ (solutions of $A\mathbf x=\zero$ --- also a subspace), \textbf{3.3} the
+complete solution to $A\mathbf x=\mathbf b$, \textbf{3.4} independence, basis \& dimension,
+\textbf{3.5} the dimensions of the four subspaces.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item forgetting that a span/subspace must pass through the \emph{origin} (calling an off-origin
+        line a subspace);
+  \item checking only addition and missing that scaling by a \emph{negative} (or by $0$) can
+        escape the set (the first-quadrant trap);
+  \item confusing ``two vectors'' with ``their span'' --- the subspace is \emph{all} their
+        combinations, not just the two arrows.
+\end{itemize}
+Cold-call prompts: ``Is $\zero$ in this set --- how do you know?'' ``Give me a scaling that leaves
+the set.'' ``Is this a line or a plane, and does it go through the origin?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Which Sets Are ``Closed''?} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Compute a few combinations $c\vv+d\ww$; read a pre-drawn figure to
+decide whether a given set is a line or a plane through the origin.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Run the closure test on candidate sets (a line through the
+origin, an off-origin line, the first quadrant); state which are subspaces and \emph{why}. Then
+tie one to a column space $C(A)$.
+
+\columnbreak
+\textbf{Tier E --- Extension.} Show the \emph{reachable set} of a matrix is a subspace, and take a
+first look at the nullspace: verify that two solutions of $A\mathbf x=\zero$ add to another
+solution.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): describe the span of two given vectors as a line or
+plane through the origin; apply the closure test to decide whether a set is a subspace; and a
+\textbf{conceptual/justification check} --- explain why a line that does \emph{not} pass through
+the origin cannot be a subspace, using $\zero$ and scaling. Collect and sort into ``got it /
+origin slip / closure slip'' to decide whether 3.1 opens with a quick re-teach.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} describe spans as lines/planes through the origin; run the closure test on
+several sets (with at least one off-origin non-example and the first-quadrant trap); identify a
+column space as a subspace; and one short justification item. \textbf{Extension:} verify that the
+solutions of a specific $A\mathbf x=\zero$ form a line through the origin --- a subspace --- a
+first look at the nullspace. \textbf{Preview:} Lesson~3.1, \emph{Vector Spaces and Subspaces} ---
+the closure test made precise, and the rules that make $\mathbb{R}^n$ a vector space.
 \end{skillbox}
 \end{document}

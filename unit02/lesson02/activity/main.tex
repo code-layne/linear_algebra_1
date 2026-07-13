@@ -3,17 +3,66 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.2}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Build the Solving Machine.} A single elimination step is a matrix
+$E=\begin{bsmallmatrix} 1&0\\-\ell&1 \end{bsmallmatrix}$; undoing it flips the sign
+($E^{-1}=\begin{bsmallmatrix} 1&0\\+\ell&1 \end{bsmallmatrix}$). Chain the undo-steps far enough and
+you get $A^{-1}$, the machine that solves $A\xx=\bb$ in one multiplication. Work with your partner
+and \emph{show every step}.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Let $A=\begin{bmatrix} 2 & 5 \\ 4 & 12 \end{bmatrix}$. The pivot is $2$, so the multiplier is
+$\ell=4\div2=2$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Write the elimination matrix $E_{21}$ (put $-\ell$ in the lower-left of $I$).
+        \; $E_{21}=\begin{bmatrix} 1 & 0 \\ \blank{0.9cm} & 1 \end{bmatrix}$ \vspace{0.2cm}
+  \item Multiply $E_{21}A$ to reach upper-triangular $U$. \vspace{1.3cm}
+  \item Write $E_{21}^{-1}$, the matrix that \emph{undoes} the step. \; $E_{21}^{-1}=\begin{bmatrix} 1 & 0 \\ \blank{0.9cm} & 1 \end{bmatrix}$ \vspace{0.2cm}
+  \item In one sentence: how are $E_{21}$ and $E_{21}^{-1}$ related? \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{One machine, many orders.} A gift shop packs two box types. Each \textbf{Small} box holds
+$1$ mug and $1$ candle; each \textbf{Large} box holds $2$ mugs and $3$ candles. With $s$ smalls and
+$t$ larges, the totals are $A\begin{bsmallmatrix} s\\ t \end{bsmallmatrix}=\bb$ where
+$A=\begin{bmatrix} 1 & 2 \\ 1 & 3 \end{bmatrix}$ (mug row, candle row).
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item Build the machine once: compute $ad-bc$ and write $A^{-1}$. \vspace{1.1cm}
+  \item \textbf{Monday's order:} $8$ mugs, $11$ candles. Use $\xx=A^{-1}\bb$ to find $s$ and $t$. \vspace{1.1cm}
+  \item \textbf{Tuesday's order:} $10$ mugs, $14$ candles. Same machine --- find $s$ and $t$. \vspace{1.1cm}
+  \item \emph{Interpret:} give each day's box counts, and say why building $A^{-1}$ once beats
+        re-running elimination every day. \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{(1) Gauss--Jordan.} Find $A^{-1}$ for $A=\begin{bmatrix} 1 & 2 \\ 3 & 7 \end{bmatrix}$ by
+row-reducing $[\,A\mid I\,]$ down \emph{then} up until the left side is $I$.
+\[
+  \left[\begin{array}{cc|cc} 1 & 2 & 1 & 0 \\ 3 & 7 & 0 & 1 \end{array}\right]
+\]
+\vspace{1.6cm}
+
+\textbf{(2) No machine.} Try to invert $A=\begin{bmatrix} 2 & 3 \\ 4 & 6 \end{bmatrix}$. Compute
+$ad-bc$, run one elimination step, and explain what goes wrong. Is $A$ \textbf{singular}? Connect it
+to the zero-pivot breakdown from Lesson~2.1. \writelines{3}
+\end{tcolorbox}
 
 \end{document}

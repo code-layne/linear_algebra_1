@@ -3,6 +3,8 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
@@ -11,9 +13,20 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Build and use an inverse.} Let $A=\begin{bmatrix} 4 & 3 \\ 5 & 4 \end{bmatrix}$ and
+        $\bb=\begin{bmatrix} 10 \\ 13 \end{bmatrix}$.
+        \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=8pt]
+          \item Compute $ad-bc$ and write $A^{-1}$ from the formula.
+                \hfill $ad-bc=\blank{1.4cm}$
+                \vspace{1.2cm}
+          \item Solve $A\xx=\bb$ using $\xx=A^{-1}\bb$. \hfill $x=\blank{1.4cm}$\quad $y=\blank{1.4cm}$
+        \end{enumerate}
+        \vspace{0.3cm}
+  \item \textbf{Undo a step.} Deshawn's one elimination step on a system is the matrix
+        $E=\begin{bmatrix} 1 & 0 \\ -4 & 1 \end{bmatrix}$. What single matrix $E^{-1}$ undoes it,
+        \emph{why} does it work, and what do you get when you multiply $E^{-1}E$?
+        \writelines{3}
+\end{enumerate}
 
 \end{document}

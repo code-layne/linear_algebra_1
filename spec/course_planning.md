@@ -7,20 +7,22 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-13 — **Authored Unit 2 Lesson 2.1 in full** (all 13 files). Filled
-every skeleton for `unit02/lesson01` — lesson plan + cover, warmup, notes, activity,
-exit_ticket, homework (+ all 5 keys) + slides. Through-line: **turn 2.0's "subtract to kill a
-variable" into a reliable procedure** — pick a **pivot**, compute the **multiplier**
-$\ell=\text{entry}\div\text{pivot}$, subtract $\ell\times$(pivot row) to make a zero, reach
-**upper-triangular** form, **back-substitute**, and check by rebuilding $\bb$. Motivating hook:
-2.0's plain subtraction only works when coefficients match ($2x+3y=13,\ 4x+7y=27$ needs a
-multiplier). Extends to a $3\times3$ staircase and previews $L$ (list the multipliers) in the
-homework extension; §4/exit-ticket cover the **zero-pivot → row exchange** case and the
-no/infinitely-many breakdown. Snack-pack + feed-blend applications. Built
-`make -C unit02/lesson01 all` → clean (both `lesson01_student.pdf` + `lesson01_full.pdf`).
-Page-count QA: warmup + exit_ticket each 1 page (blank AND key ✓). Fixed one build error
-(missing `\bb` def in `warmup`). Spot-checked notes_key (both pages) + cover visually — clean.
-Next run authors **Lesson 2.2** (Elimination Matrices and Inverse Matrices).
+**Last updated:** 2026-07-13 — **Authored Unit 2 Lesson 2.2 in full** (all 13 files). Filled
+every skeleton for `unit02/lesson02` — lesson plan + cover, warmup, notes, activity,
+exit_ticket, homework (+ all 5 keys) + slides. Through-line: **2.1's "subtract $\ell\times$ a
+row" IS a matrix**. Each step is an **elimination matrix** $E_{21}=\begin{bsmallmatrix}1&0\\-\ell&1\end{bsmallmatrix}$
+with $E_{21}A=U$; undo it by flipping the sign ($E^{-1}$ adds back, $E^{-1}E=I$); build the
+**inverse** $A^{-1}$ two ways (the $ad-bc$ formula and **Gauss–Jordan** on $[A\mid I]$) and solve
+via $\xx=A^{-1}\bb$; a **singular** matrix ($ad-bc=0$) is the zero-pivot breakdown from 2.1.
+Running example threaded through every component: $A=\begin{bsmallmatrix}1&3\\2&7\end{bsmallmatrix}$,
+$\det=1$, $A^{-1}=\begin{bsmallmatrix}7&-3\\-2&1\end{bsmallmatrix}$, solution $(4,1)$. Hook =
+"same recipe, new order weekly → build $A^{-1}$ once" (bakery/gift-box/juice-bar multi-RHS
+applications). Homework extension: $(EF)^{-1}=F^{-1}E^{-1}$ reverse-order → previews $L$.
+Built `make -C unit02/lesson02 all` → clean (both `lesson02_student.pdf` + `lesson02_full.pdf`).
+Page-count QA: warmup + exit_ticket each 1 page (blank AND key ✓); notes 3/3, activity 2/2,
+homework 2/2 (key paginates identically to blank). No build errors. Spot-checked notes_key (both
+pages), lesson plan p1, and activity_key visually — clean, all arithmetic verified. Next run
+authors **Lesson 2.3** (Matrix Computations and $A=LU$).
 
 ## Current state
 
@@ -64,7 +66,7 @@ Next run authors **Lesson 2.2** (Elimination Matrices and Inverse Matrices).
   `sample_test`/`sample_test_key` populated by `drop` (practice test + key).
 - Root `Makefile` and `unit01/Makefile` created. Toolchain present (xelatex, latexmk, pdfunite).
 
-**Unit 2 — lessons 2.0 & 2.1 authored & built; 2.2–2.4 scaffolded (skeletons + tests), NOT authored.**
+**Unit 2 — lessons 2.0, 2.1 & 2.2 authored & built; 2.3–2.4 scaffolded (skeletons + tests), NOT authored.**
 Confirmed lesson map:
 - `unit02/lesson00` — id 2.0, **"From Combinations to Solutions --- Setting Up Ax = b"** ✅ authored
   (all components + keys + slides; both packets built). Content: solve $A\xx=\bb$ = run 1.3
@@ -77,11 +79,17 @@ Confirmed lesson map:
   back-substitution, check by rebuilding $\bb$; $3\times3$ staircase; zero-pivot → row exchange +
   no/infinitely-many breakdown; snack-pack / feed-blend contexts; homework extension lists the
   multipliers as a first look at $L$; previews §2.2 elimination matrices & inverses.
-- `unit02/lesson02` — id 2.2, **"Elimination Matrices and Inverse Matrices"** (§2.2).
+- `unit02/lesson02` — id 2.2, **"Elimination Matrices and Inverse Matrices"** (§2.2) ✅ authored
+  (all components + keys + slides; both packets built). Content: elimination step as a matrix
+  $E_{21}$ ($EA=U$); undoing a step ($E^{-1}$, $E^{-1}E=I$); the inverse $A^{-1}A=I$ and
+  $\xx=A^{-1}\bb$; the $2\times2$ $ad-bc$ formula; **Gauss–Jordan** on $[A\mid I]\to[I\mid A^{-1}]$;
+  **singular** ($ad-bc=0$) = zero-pivot breakdown. Bakery / gift-box / juice-bar multi-RHS
+  contexts; homework extension does reverse-order $(EF)^{-1}=F^{-1}E^{-1}$ → previews $L$; previews
+  §2.3 $A=LU$.
 - `unit02/lesson03` — id 2.3, **"Matrix Computations and A = LU"** (§2.3).
 - `unit02/lesson04` — id 2.4, **"Permutations and Transposes"** (§2.4).
 - `unit02/{tests,test_keys,sample_test,sample_test_key}` + `unit02/Makefile` scaffolded.
-- All `main.tex` files are **skeletons only** — content authoring is the next run's job.
+- Lessons 2.3–2.4 `main.tex` files are **skeletons only** — content authoring is the next run's job.
 
 ### Per-unit progress
 
@@ -90,7 +98,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | Unit | Chapter | Lessons | Status |
 | --- | --- | --- | --- |
 | 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
-| 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ◐ 2.0 & 2.1 authored & built ✅; 2.2–2.4 scaffolded, not authored |
+| 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ◐ 2.0, 2.1 & 2.2 authored & built ✅; 2.3–2.4 scaffolded, not authored |
 | 3 | The Four Fundamental Subspaces | 3.1–3.5 | ☐ |
 | 4 | Orthogonality | 4.1–4.4 | ☐ |
 | 5 | Determinants and Linear Transformations | 5.1–5.3 | ☐ |
@@ -100,12 +108,13 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author Unit 2 Lesson 2.2 — "Elimination Matrices and Inverse Matrices"** (§2.2) into the
-   scaffolded skeletons, mirroring 2.0/2.1 as the model. Show each elimination step of 2.1 as a
-   matrix $E$ multiplying the system ($E_{21}$ subtracts $\ell\times$ a row); products of $E$s do
-   the whole elimination; running them backward gives the **inverse** ($A^{-1}A=I$, solving via
-   Gauss–Jordan). Tie to 2.1's multipliers/pivots and preview $A=LU$ (2.3). Then 2.3 → 2.4, then
-   the Unit 2 tests/keys. Keep blank/key in lockstep; source math from LAfE §2.2, down-leveled.
+1. **Author Unit 2 Lesson 2.3 — "Matrix Computations and A = LU"** (§2.3) into the scaffolded
+   skeletons, mirroring 2.0/2.1/2.2 as the model. Collect 2.2's undo-matrices $E^{-1}$ into one
+   lower-triangular $L$ (multipliers with $1$s on the diagonal) so $A=LU$; solve $A\xx=\bb$ in two
+   triangular sweeps ($L\mathbf{c}=\bb$ forward, then $U\xx=\mathbf{c}$ back); note the cost/count
+   angle from the section title. Tie straight to 2.2's $E^{-1}$'s and the homework-extension $L$
+   preview. Then 2.4 (Permutations and Transposes), then the Unit 2 tests/keys. Keep blank/key in
+   lockstep; source math from LAfE §2.3, down-leveled.
 2. *(optional)* Rebuild the whole Unit 1 packet (`make -C unit01 student|full`) to confirm the new
    `sample_test`/`sample_test_key` merge in as expected before moving on.
 

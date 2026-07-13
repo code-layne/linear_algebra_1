@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 2}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 2 \quad Solving Linear Equations $A\mathbf{x}=\mathbf{b}$}}\\[6pt]
   {\color{white}\textbf{\large Lesson 2.2 \quad Elimination Matrices and Inverse Matrices}}
 \end{center}
 
@@ -27,8 +27,10 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} write one elimination step as an \textbf{elimination matrix} $E$, and check that $EA$ does the step.
+  \item \ldots{} \textbf{undo} a step with $E^{-1}$ (add the multiplier back), knowing $E^{-1}E=I$.
+  \item \ldots{} build a $2\times2$ \textbf{inverse} $A^{-1}$ --- by the $ad-bc$ formula and by \textbf{Gauss--Jordan} on $[\,A\mid I\,]$ --- and solve with $\mathbf{x}=A^{-1}\mathbf{b}$.
+  \item \ldots{} recognize a \textbf{singular} matrix ($ad-bc=0$) as one with no inverse.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +43,25 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: matrix\,$\times$\,vector, matrix\,$\times$\,matrix, a multiplier & \blank{1.2cm} \\
+2 & Guided Notes   & Elimination matrices, undoing a step, $A^{-1}$, Gauss--Jordan               & \blank{1.2cm} \\
+3 & Group Activity & Build the Solving Machine --- inverses, two orders, a singular case          & \blank{1.2cm} \\
+4 & Exit Ticket    & Find and use an inverse + undo an elimination step                          & \blank{1.2cm} \\
+5 & Homework       & $E$ and $E^{-1}$, $2\times2$ inverses, Gauss--Jordan, an application          & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small An \textbf{elimination matrix} $E$ is the identity with $-\ell$ in one below-diagonal spot;
+$EA$ does one elimination step. Its inverse $E^{-1}$ puts $+\ell$ there and \textbf{adds back} what
+$E$ subtracted, so $E^{-1}E=I$. The \textbf{inverse} $A^{-1}$ satisfies $A^{-1}A=I$, so
+$A\mathbf{x}=\mathbf{b}$ has the single solution $\mathbf{x}=A^{-1}\mathbf{b}$. For $2\times2$,
+$A^{-1}=\frac{1}{ad-bc}\begin{bsmallmatrix} d&-b\\-c&a \end{bsmallmatrix}$; if $ad-bc=0$ the matrix
+is \textbf{singular} --- no inverse.
+\end{remindbox}
 
 \end{document}

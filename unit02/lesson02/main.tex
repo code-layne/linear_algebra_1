@@ -5,6 +5,8 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 \newcommand{\UnitNumberName}{Unit 2: Solving Linear Equations Ax = b \quad}
 \newcommand{\LessonNumberName}{Lesson 2.2: Elimination Matrices and Inverse Matrices}
 
@@ -16,55 +18,145 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can write a single elimination step as an
+    \emph{elimination matrix} $E$ (the identity with $-\ell$ in one spot) and see that $EA$
+    performs the step; they can \emph{undo} a step with $E^{-1}$ (add $\ell$ back) and explain why
+    $E^{-1}E=I$. They can build the \emph{inverse} $A^{-1}$ of a $2\times 2$ matrix --- by the
+    $ad-bc$ formula and by \emph{Gauss--Jordan} on $[\,A\mid I\,]$ --- and use $\xx=A^{-1}\bb$ to
+    solve $A\xx=\bb$, including for several right-hand sides at once. They can explain why a
+    \emph{singular} matrix ($ad-bc=0$, a zero pivot) has no inverse.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Write an elimination step as a matrix $E$; check that $EA$ does the step.
+  \item Undo a step with $E^{-1}$; know $E^{-1}E=I$ and the identity $I$.
+  \item Build $A^{-1}$ two ways: the $ad-bc$ formula and Gauss--Jordan on $[\,A\mid I\,]$.
+  \item Solve with $\xx=A^{-1}\bb$; recognize a \textbf{singular} matrix has no inverse.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item 2.1's ``subtract $\ell\times$ a row'' \emph{is} a matrix acting on the system.
+  \item Every elimination step is reversible --- adding back is the inverse of subtracting.
+  \item $A^{-1}$ is a reusable ``solving machine'': build it once, solve any $\bb$.
+  \item No inverse exactly when elimination breaks down --- the zero-pivot case from 2.1.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Identity matrix $I$} & Diagonal of $1$s, zeros elsewhere; $I\xx=\xx$ and $IA=A$ --- it changes nothing. \\
+\textbf{Elimination matrix $E$} & The identity with $-\ell$ in one below-diagonal spot; $EA$ subtracts $\ell\times$(pivot row) from a lower row. \\
+\textbf{Inverse of a step $E^{-1}$} & The identity with $+\ell$ in that spot; it \emph{adds back} what $E$ subtracted, so $E^{-1}E=I$. \\
+\textbf{Inverse matrix $A^{-1}$} & The matrix with $A^{-1}A=I=AA^{-1}$; then $A\xx=\bb$ has the one solution $\xx=A^{-1}\bb$. \\
+\textbf{$2\times2$ formula} & $A=\begin{bsmallmatrix} a&b\\c&d \end{bsmallmatrix}\Rightarrow A^{-1}=\dfrac{1}{ad-bc}\begin{bsmallmatrix} d&-b\\-c&a \end{bsmallmatrix}$. \\
+\textbf{Gauss--Jordan} & Row-reduce $[\,A\mid I\,]$ (down, then up) until it reads $[\,I\mid A^{-1}\,]$. \\
+\textbf{Singular matrix} & $ad-bc=0$ (a zero pivot): no inverse exists; $A\xx=\bb$ has no or infinitely many solutions. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the two products this lesson is built on:
+    \textbf{(1)} a matrix times a vector (Lesson~1.3) --- the shape of $E\bb$; \textbf{(2)} a matrix
+    times a matrix, column by column (Lesson~1.4) --- the shape of $EA$; and \textbf{(3)} naming a
+    multiplier $\ell$ for one elimination step (Lesson~2.1). Debrief item~2 aloud: multiplying by
+    $\begin{bsmallmatrix} 1&0\\-\ell&1 \end{bsmallmatrix}$ leaves row~1 alone and \emph{replaces}
+    row~2 --- that is precisely one elimination step, which is today's whole idea.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    A bakery ships the same two gift boxes all season, so its ``ingredients'' matrix
+    $A=\begin{bsmallmatrix} 1&3\\2&7 \end{bsmallmatrix}$ never changes --- only the weekly order
+    $\bb$ does. Ask: \textbf{``We could run elimination fresh every single week --- but is there a
+    smarter move if only $\bb$ changes?''} Draw out the idea of a build-once \emph{solving machine}:
+    a matrix $A^{-1}$ with $\xx=A^{-1}\bb$, so every new order is one multiplication. Getting there
+    means first seeing each elimination step \emph{as a matrix}.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. A step is a matrix.} Start from the \textbf{identity} $I=\begin{bsmallmatrix} 1&0\\0&1 \end{bsmallmatrix}$,
+which leaves everything alone: $IA=A$. Drop the multiplier's negative into one spot and you get an
+\textbf{elimination matrix}. For $A=\begin{bsmallmatrix} 1&3\\2&7 \end{bsmallmatrix}$ the multiplier
+is $\ell=2\div1=2$, so $E_{21}=\begin{bsmallmatrix} 1&0\\-2&1 \end{bsmallmatrix}$.
+
+\textbf{2. Check that $EA$ does the step.} Multiplying, $E_{21}A=\begin{bsmallmatrix} 1&3\\0&1 \end{bsmallmatrix}=U$
+--- row~1 untouched, row~2 replaced by (row~2)$-2\,$(row~1). The same matrix hits $\bb$:
+$E_{21}\begin{bsmallmatrix} 7\\15 \end{bsmallmatrix}=\begin{bsmallmatrix} 7\\1 \end{bsmallmatrix}$, the
+right-hand side from 2.1.
+
+\textbf{3. Undo it.} To reverse ``subtract $2\times$row~1'' you \emph{add} it back:
+$E_{21}^{-1}=\begin{bsmallmatrix} 1&0\\2&1 \end{bsmallmatrix}$, and indeed $E_{21}^{-1}E_{21}=I$.
+Every elimination step is reversible.
+
+\columnbreak
+
+\textbf{4. The inverse of $A$.} The matrix $A^{-1}$ with $A^{-1}A=I$ is the ``solving machine'':
+$A\xx=\bb\Rightarrow\xx=A^{-1}\bb$. For $2\times2$, $A^{-1}=\dfrac{1}{ad-bc}\begin{bsmallmatrix} d&-b\\-c&a \end{bsmallmatrix}$.
+Here $ad-bc=7-6=1$, so $A^{-1}=\begin{bsmallmatrix} 7&-3\\-2&1 \end{bsmallmatrix}$, and
+$\xx=A^{-1}\begin{bsmallmatrix} 7\\15 \end{bsmallmatrix}=\begin{bsmallmatrix} 4\\1 \end{bsmallmatrix}$.
+
+\textbf{5. Build it by Gauss--Jordan.} Augment $[\,A\mid I\,]$ and eliminate \emph{down then up}
+until the left side is $I$; the right side is $A^{-1}$. This is elimination run twice --- exactly
+the $E$'s from steps~1--3, applied to $I$.
+
+\textbf{6. When there is no inverse.} If $ad-bc=0$ the formula divides by zero and elimination hits
+a \textbf{zero pivot}: the matrix is \textbf{singular} and has no inverse --- the same no/infinitely
+-many breakdown from 2.0--2.1, now read off $A$ alone.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item wrong sign in $E$ --- it carries $-\ell$ (subtracting), while $E^{-1}$ carries $+\ell$;
+  \item multiplying $A\,E$ instead of $E\,A$ (order matters --- the step-matrix goes on the left);
+  \item dropping the $\tfrac{1}{ad-bc}$ factor, or swapping $a,d$ without negating $b,c$;
+  \item forgetting to run Gauss--Jordan \emph{upward} too --- stopping at $U$, not $I$, on the left.
+\end{itemize}
+Cold-call prompts: ``Where does $-\ell$ go in $E$?'' ``What does $E^{-1}$ add back?'' ``What is
+$ad-bc$ here --- and what if it's $0$?'' ``Why does $\xx=A^{-1}\bb$ solve the system?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Build the Solving Machine} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Given the multiplier, write $E_{21}$, multiply $E_{21}A$ to reach $U$,
+and write $E_{21}^{-1}$ that undoes it.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} A gift-box context with a fixed $A$: build $A^{-1}$ once, then use
+$\xx=A^{-1}\bb$ to fill \emph{two} different orders and \emph{interpret} the counts.
+
+\columnbreak
+\textbf{Tier E --- Extension.} Find an inverse by Gauss--Jordan, and show a \textbf{singular} matrix
+($ad-bc=0$) has none --- justify from the zero pivot.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): find the inverse of a $2\times2$ matrix and use
+$\xx=A^{-1}\bb$ to solve a system (with a check), plus a \textbf{conceptual/justification check}:
+given one elimination matrix $E$, name the matrix $E^{-1}$ that undoes it and say \emph{why}. Collect
+and sort into ``inverse procedure solid / sign or $ad-bc$ slip / unclear on undoing a step'' to
+decide whether 2.3 opens with a quick re-teach.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} write elimination matrices, multiply $EA$ to reach $U$, compute $2\times2$
+inverses and check $A^{-1}A=I$, solve an applied blend problem for two right-hand sides with one
+inverse, find an inverse by Gauss--Jordan, and show a singular matrix has none. \textbf{Extension:}
+undo a \emph{sequence} of steps --- reverse order, $(EF)^{-1}=F^{-1}E^{-1}$ (``socks then shoes''),
+a first look at how the step-matrices reassemble. \textbf{Preview:} Lesson~2.3, \emph{Matrix
+Computations and $A=LU$} --- collect the undo-matrices $E^{-1}$ into one lower-triangular $L$, so
+$A=LU$.
 \end{skillbox}
 \end{document}

@@ -7,7 +7,17 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-13 — **Authored the Unit 2 summative tests in full** (all 4 files),
+**Last updated:** 2026-07-13 — **Scaffolded all of Unit 3 — "The Four Fundamental Subspaces."**
+Confirmed the §3.1–3.5 lesson map (intro-lesson convention → `lesson00` id 3.0 + 3.1–3.5 = 6 lessons)
+and ran `new_lesson.py` for all six with the standard component set (cover, warmup, notes, activity,
+exit_ticket, homework, slides + keys for the five keyed components). `lesson00` created the unit,
+which auto-scaffolded `unit03/tests/`, `unit03/test_keys/`, `unit03/sample_test/`, `unit03/sample_test_key/`
+(practice + actual test/key skeletons + thin-include Makefiles) and `unit03/Makefile`. **Every Unit 3
+file is currently a bare skeleton — nothing authored yet.** Next run authors the lessons in order,
+mirroring the Unit 1–2 lessons as the model (start with `lesson00` 3.0, build + proofread it as the
+unit's model, then scale out 3.1–3.5, then the summative tests).
+
+**Prior run:** Authored the Unit 2 summative tests in full (all 4 files),
 closing out Unit 2. Filled every skeleton: `unit02/tests/{practice_test,actual_test}` (blank) and
 `unit02/test_keys/{practice_test_key,actual_test_key}` (keys). Same 4-part parthead structure as the
 Unit 1 tests — Part A vocab matching (8 terms: pivot, multiplier, upper-triangular $U$, inverse,
@@ -104,6 +114,20 @@ Confirmed lesson map:
 - `unit02/tests` (practice + actual) + `unit02/test_keys` (both keys) — **authored ✅ & built**;
   `sample_test`/`sample_test_key` populated by `drop` (practice test + key). `unit02/Makefile` present.
 
+**Unit 3 — scaffolded (skeletons only), authoring not started.** Confirmed lesson map (6 lessons):
+- `unit03/lesson00` — id 3.0, **"Sets of Vectors and the Road to Subspaces"** (intro) — ◐ scaffolded
+- `unit03/lesson01` — id 3.1, **"Vector Spaces and Subspaces"** — ◐ scaffolded
+- `unit03/lesson02` — id 3.2, **"The Nullspace of A: Solving Ax = 0"** — ◐ scaffolded
+- `unit03/lesson03` — id 3.3, **"The Complete Solution to Ax = b"** — ◐ scaffolded
+- `unit03/lesson04` — id 3.4, **"Independence, Basis, and Dimension"** — ◐ scaffolded
+- `unit03/lesson05` — id 3.5, **"Dimensions of the Four Subspaces"** — ◐ scaffolded
+- `unit03/tests` + `unit03/test_keys` (practice + actual, both keys) — ◐ scaffolded (skeletons);
+  `sample_test`/`sample_test_key` drop dirs present. `unit03/Makefile` present.
+- Each lesson has the full component set (cover, warmup, notes, activity, exit_ticket, homework,
+  slides) + keys for the five keyed components — all still bare skeletons.
+- Intro-lesson (3.0) title is a working title; refine during authoring. Bridge from Unit 2
+  (solving $A\xx=\bb$) into the idea of a *space of vectors* / solution structure.
+
 ### Per-unit progress
 
 Status legend: ☐ not started · ◐ in progress · ☑ complete
@@ -112,7 +136,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | --- | --- | --- | --- |
 | 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
 | 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ☑ all lessons + tests authored & built ✅ |
-| 3 | The Four Fundamental Subspaces | 3.1–3.5 | ☐ |
+| 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 | ◐ scaffolded (skeletons); authoring not started |
 | 4 | Orthogonality | 4.1–4.4 | ☐ |
 | 5 | Determinants and Linear Transformations | 5.1–5.3 | ☐ |
 | 6 | Eigenvalues and Eigenvectors | 6.1–6.4 (§6.4 optional) | ☐ |
@@ -121,10 +145,12 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Begin Unit 3 — The Four Fundamental Subspaces** (§3.1–3.5). First confirm the Unit 3 lesson
-   map with the user (decompose §3.1–3.5 from `spec/linear_algebra_v2.md`; note the intro-lesson
-   convention → likely `lesson00` id 3.0 + 3.1–3.5), then scaffold + author, mirroring the Unit 1–2
-   lessons as the model. Scaffolding a new unit auto-creates its tests/test_keys skeletons.
+1. **Author Unit 3, in order.** Unit 3 is fully scaffolded (skeletons only). Start with
+   `unit03/lesson00` (id 3.0) — author all components + keys from Strang §3.1 lead-in / Unit 2
+   bridge, down-leveled — then `make -C unit03/lesson00 all`, proofread, and use it as the unit's
+   model. Then author 3.1–3.5 the same way (each from its matching LAfE subchapter), then the
+   summative tests (`unit03/tests` + `unit03/test_keys`, then `make ... drop` to publish the
+   sample test/key). Mirror Unit 1–2 lessons for preamble, box usage, and tone.
 2. *(optional)* Rebuild the whole Unit 1/Unit 2 packets (`make -C unitXX student|full`) to confirm the
    `sample_test`/`sample_test_key` merge in as expected before moving on.
 

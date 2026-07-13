@@ -3,17 +3,72 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.1}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Which Subsets Are Subspaces?} A subset $S$ of $\mathbb{R}^n$ is a \textbf{subspace}
+exactly when it passes the \textbf{subspace requirement}: closed under \textbf{addition} and under
+\textbf{scaling}. Remember --- containing $\zero$ is \emph{necessary} but not enough. Work with your
+partner, name the rule that fails when a set is \emph{not} a subspace, and \emph{justify} every answer.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Warm up with a product and two lines. Let $A=\begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item Compute $A\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}=1\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}+1\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}
+        =\begin{bmatrix}\rule{0pt}{1.0em}\blank{1.0cm}\\[2pt]\blank{1.0cm}\end{bmatrix}$
+        \; --- a combination of the \blank{2.2cm} of $A$.
+  \item \textbf{Line through the origin.} Is the line $y=x$ (all multiples of $\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$)
+        a subspace? Is $\zero$ on it? \; \blank{3.2cm}
+  \item \textbf{Line off the origin.} Is the line $y=x+2$ a subspace? Check the $\zero$ vector first.
+        \; \blank{3.6cm}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+For each subset of $\mathbb{R}^2$, run the \textbf{subspace requirement}. If it is \emph{not} a
+subspace, name the failing rule (addition or scaling) and give a specific escape.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item $S_1$: all $\begin{bsmallmatrix} x\\y \end{bsmallmatrix}$ with $x+y=0$. \writelines{2}
+  \item $S_2$: all $\begin{bsmallmatrix} x\\y \end{bsmallmatrix}$ with $x\ge 0$ (the right half-plane). \writelines{2}
+  \item $S_3$: all $\begin{bsmallmatrix} x\\y \end{bsmallmatrix}$ with $xy=0$ (the union of the two axes). \writelines{2}
+  \item \textbf{Tie it to a matrix.} Describe the column space of $A=\begin{bmatrix} 1 & 2 \\ 3 & 6 \end{bmatrix}$
+        as a set, say which set above it matches, and confirm it is a subspace. \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Prove it, then widen the idea.}
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{$C(A)$ is a subspace.} Let $\bb_1=A\xx_1$ and $\bb_2=A\xx_2$ be two reachable
+        targets. Fill the blanks to finish the proof:
+        \[ \bb_1+\bb_2=A\xx_1+A\xx_2=A(\,\blank{1.6cm}\,), \qquad c\,\bb_1=c(A\xx_1)=A(\,\blank{1.2cm}\,). \]
+        Explain in one sentence why these two lines mean $C(A)$ is a subspace. \writelines{2}
+  \item \textbf{A vector space that is not $\mathbb{R}^n$.} Consider $M$ = the set of \emph{all}
+        $2\times2$ matrices, with the usual matrix addition and scalar multiplication. Add
+        $\begin{bsmallmatrix} 1 & 0 \\ 0 & 2 \end{bsmallmatrix}+\begin{bsmallmatrix} 0 & 3 \\ 1 & 0 \end{bsmallmatrix}$
+        and scale $\ 5\begin{bsmallmatrix} 1 & 0 \\ 0 & 2 \end{bsmallmatrix}$; are both results still
+        $2\times2$ matrices? Is $M$ closed under $+$ and scaling? \writelines{2}
+  \item Argue that $M$ is a vector space (there is a ``zero'' matrix; every matrix has a negative).
+        What plays the role of $\zero$? \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

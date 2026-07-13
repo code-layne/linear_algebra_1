@@ -5,6 +5,12 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\zero}{\mathbf{0}}
 \newcommand{\UnitNumberName}{Unit 3: The Four Fundamental Subspaces \quad}
 \newcommand{\LessonNumberName}{Lesson 3.1: Vector Spaces and Subspaces}
 
@@ -16,55 +22,142 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can explain what makes $\mathbb{R}^n$ a \emph{vector
+    space} (two operations --- add and scale --- that always keep you inside, following the usual
+    rules), apply the precise \emph{subspace requirement} (closed under addition and scaling, so it
+    contains $\zero$) to decide whether a subset of $\mathbb{R}^n$ is a subspace, name the catalog
+    of subspaces of $\mathbb{R}^2$ and $\mathbb{R}^3$, and \emph{prove} that the column space
+    $C(A)$ is a subspace using $A(\xx+\yy)=A\xx+A\yy$ and $A(c\xx)=c(A\xx)$.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Say what a \textbf{vector space} is: a set closed under $+$ and scaling, obeying the usual rules; $\mathbb{R}^n$ is the model.
+  \item Apply the precise \textbf{subspace requirement} to subsets given by a condition.
+  \item List the subspaces of $\mathbb{R}^2$ and $\mathbb{R}^3$ (the catalog).
+  \item \textbf{Prove} the column space $C(A)$ is a subspace of $\mathbb{R}^m$.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item A subspace is ``a vector space living inside a bigger one'' --- the same two rules, no new machinery.
+  \item Closure is checkable: pick members, add/scale, ask ``still inside?''
+  \item $\zero$ is forced by scaling by $0$ --- the fast reject.
+  \item $C(A)$ is closed \emph{because} $A(\xx+\yy)=A\xx+A\yy$ --- reachable $+$ reachable is reachable.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Vector space} & A set of vectors you can \emph{add} and \emph{scale} without ever leaving it, obeying the usual rules (commute, associate, distribute, a zero, negatives). \\
+\textbf{Vector space $\mathbb{R}^n$} & The model example: all vectors with $n$ real components. \\
+\textbf{Subspace} & A subset of a vector space that is itself a vector space --- equivalently, closed under $+$ and scaling. \\
+\textbf{Subspace requirement} & (1) closed under addition; (2) closed under scalar multiplication. Together these force $\zero$ to be inside. \\
+\textbf{Zero subspace $\{\zero\}$} & The smallest subspace --- just the zero vector; still closed. \\
+\textbf{Column space $C(A)$} & All combinations of the columns of $A$ = all reachable $A\xx$; a subspace of $\mathbb{R}^m$. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the machinery today's proof runs on:
+    \textbf{(1)} computing a matrix--vector product $A\xx$ as a \emph{combination of the columns}
+    (Lesson~1.3); \textbf{(2)} checking the distributive law $A(\xx+\yy)=A\xx+A\yy$ on numbers ---
+    the exact identity that makes $C(A)$ closed; and \textbf{(3)} the quick ``is $\zero$ in this
+    set?'' reject from Lesson~3.0. Debrief item~2 aloud: this is \emph{why} adding two reachable
+    targets lands on a reachable target.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    A robot arm parks its tip at $A\xx$ for whatever control settings $\xx$ we choose; the set of
+    \emph{all} tip positions it can reach is the column space $C(A)$. In Lesson~3.0 we \emph{believed}
+    such reachable sets are subspaces. Today we \textbf{prove} it: if the arm can reach $\bb_1=A\xx_1$
+    and $\bb_2=A\xx_2$, can it reach their sum $\bb_1+\bb_2$? Pose it: \textbf{``Find one control
+    setting that lands the tip on $\bb_1+\bb_2$.''} The answer $\xx_1+\xx_2$ (because
+    $A(\xx_1+\xx_2)=A\xx_1+A\xx_2$) is the whole lesson in one line --- closure is not a coincidence,
+    it follows from how $A\xx$ works.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. What is a vector space?} Lesson~3.0 tested sets for \emph{closure}; now name the object.
+A \textbf{vector space} is a set of vectors with two operations --- \emph{add} any two, \emph{scale}
+any one --- that never take you outside, and that obey the usual rules ($\vv+\ww=\ww+\vv$, a zero
+vector, every $\vv$ has $-\vv$, $1\vv=\vv$, the distributive laws). \textbf{$\mathbb{R}^n$ is the
+model:} all vectors with $n$ real components.
+
+\textbf{2. Subspaces, made precise.} A \textbf{subspace} is a subset of $\mathbb{R}^n$ that is
+\emph{itself} a vector space. You don't recheck all the rules --- they're inherited. You only check
+the two that can fail by leaving the set (the \textbf{subspace requirement}): \textbf{(a)} closed
+under addition, \textbf{(b)} closed under scaling. Scaling by $0$ then forces $\zero$ inside, the
+fast reject.
+
+\columnbreak
+
+\textbf{3. The catalog.} In $\mathbb{R}^2$: $\{\zero\}$, any line through the origin, all of
+$\mathbb{R}^2$. In $\mathbb{R}^3$: add every \emph{plane through the origin}. Every subspace is a
+flat piece pinned to the origin --- \emph{nothing} bent (a parabola), off-origin (a shifted line),
+or with an edge (the first quadrant) qualifies.
+
+\textbf{4. $C(A)$ is a subspace --- the proof.} $C(A)$ = all reachable $A\xx$. Take two members
+$\bb_1=A\xx_1$, $\bb_2=A\xx_2$. Then $\bb_1+\bb_2=A\xx_1+A\xx_2=A(\xx_1+\xx_2)$ --- reachable. And
+$c\bb_1=c(A\xx_1)=A(c\xx_1)$ --- reachable. Both closure rules hold, so $C(A)$ is a subspace of
+$\mathbb{R}^m$ ($m$ = number of rows). This is the precise version of Lesson~3.0's ``combinations of
+reachable vectors are reachable.''
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item checking only addition and skipping scaling (the union-of-axes trap: closed under scaling,
+        contains $\zero$, but \emph{not} closed under addition);
+  \item treating ``contains $\zero$'' as \emph{sufficient} rather than merely necessary;
+  \item in the $C(A)$ proof, stopping at ``$\bb_1+\bb_2$ is reachable'' without producing the
+        \emph{control setting} $\xx_1+\xx_2$ and citing $A(\xx_1+\xx_2)=A\xx_1+A\xx_2$.
+\end{itemize}
+Cold-call prompts: ``Which rule fails here --- adding, or scaling?'' ``Give me the $\xx$ that reaches
+$\bb_1+\bb_2$.'' ``Is $\{\zero\}$ a subspace --- why?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Which Subsets Are Subspaces?} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Compute $A\xx$ as a combination of columns; run the two-part
+requirement on one line through the origin and one off it; read a pre-drawn figure.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Test subsets given by a \emph{condition} ($x+y=0$; $x\ge 0$;
+$xy=0$ --- the union of axes); for each, state which rule fails and give an escaping example.
+
+\columnbreak
+\textbf{Tier E --- Extension.} Prove $C(A)$ is a subspace in full ($A(\xx+\yy)=A\xx+A\yy$), then
+meet a vector space that is not $\mathbb{R}^n$ (all $2\times2$ matrices) --- widening the idea.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): apply the subspace requirement to a subset given by a
+condition; describe a column space $C(A)$ and say which $\mathbb{R}^m$ it lives in; and a
+\textbf{conceptual/justification check} --- the union-of-the-two-axes set (contains $\zero$, closed
+under scaling, \emph{not} under addition), asking students to name the failing rule with a specific
+sum. Collect and sort into ``got it / addition-only slip / zero-is-enough slip'' to decide whether
+3.2 opens with a re-teach.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} run the subspace requirement on a battery of subsets of $\mathbb{R}^2$ and
+$\mathbb{R}^3$ (including the union-of-axes and an off-origin plane); describe column spaces and
+prove closure by citing $A(\xx+\yy)=A\xx+A\yy$; one short justification item. \textbf{Extension:}
+integer-entry vectors are closed under addition but \emph{not} scaling ($\tfrac12$ escapes) --- so
+not a subspace; and a first look at the space of all $2\times2$ matrices. \textbf{Preview:}
+Lesson~3.2, \emph{The Nullspace of $A$} --- the second fundamental subspace, all solutions of
+$A\xx=\zero$.
 \end{skillbox}
 \end{document}

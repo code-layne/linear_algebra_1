@@ -3,17 +3,138 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.1}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item explain what makes $\mathbb{R}^n$ a \emph{vector space} --- closed under $+$ and scaling;
+  \item apply the \emph{subspace requirement} to a subset given by a condition;
+  \item \emph{prove} the \emph{column space} $C(A)$ is a subspace using $A(\xx+\yy)=A\xx+A\yy$.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.10in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{Vector space}{a set of vectors closed under adding and scaling, obeying the usual rules (a zero, negatives, commute, associate, distribute); $\mathbb{R}^n$ is the model}
+\vocabans{Subspace}{a subset of a vector space that is itself a vector space --- i.e.\ closed under $+$ and scaling}
+\vocabans{Subspace requirement}{(a) closed under addition and (b) closed under scaling; together they force $\zero$ inside}
+\vocabans{Zero subspace $\{\zero\}$}{the smallest subspace --- just the zero vector; still closed under $+$ and scaling}
+\vocabans{Column space $C(A)$}{all combinations of the columns of $A$ = all reachable $A\xx$; a subspace of $\mathbb{R}^m$}
+\end{vocabbox}
+
+\begin{hookbox}
+A robot arm parks its tip at $A\xx$ for whatever control setting $\xx$ we choose; the set of
+\emph{all} reachable tip positions is the column space $C(A)$. Suppose it can reach
+$\bb_1=A\xx_1$ and $\bb_2=A\xx_2$.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item Can it reach the sum $\bb_1+\bb_2$? What single control setting $\xx$ gets there? \ansline{Yes --- use $\xx=\xx_1+\xx_2$, since $A(\xx_1+\xx_2)=A\xx_1+A\xx_2=\bb_1+\bb_2$.}
+  \item Which rule about $A\xx$ makes your answer work? \ansline{The distributive law $A(\xx+\yy)=A\xx+A\yy$.}
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. What Is a Vector Space?}
+Lesson~3.0 tested sets for \emph{closure}; now we name the object. A \textbf{vector space} is a set
+of vectors with two operations --- you may \emph{add} any two and \emph{scale} any one --- that
+\emph{never} take you outside the set, and that obey the usual rules:
+\begin{itemize}[leftmargin=1.5em, itemsep=1pt]
+  \item $\vv+\ww=\ww+\vv$ and $(\vv+\ww)+\mathbf u=\vv+(\ww+\mathbf u)$;
+  \item there is a \textbf{zero vector} with $\vv+\zero=\vv$, and every $\vv$ has a negative $-\vv$;
+  \item $1\vv=\vv$, and the distributive laws $c(\vv+\ww)=c\vv+c\ww$ hold.
+\end{itemize}
+The model example is $\mathbb{R}^n$ = the set of all vectors with $n$ real \ans{components}. Every rule
+above just says arithmetic in $\mathbb{R}^n$ behaves normally.
 \end{notesbox}
+
+\begin{notesbox}{2. Subspaces, Made Precise}
+A \textbf{subspace} is a subset of $\mathbb{R}^n$ that is \emph{itself} a \ans{vector space}. Here is the
+shortcut: the ``usual rules'' are inherited automatically, so you only check the two rules that a
+subset could \emph{break} by leaving --- the \textbf{subspace requirement}:
+\begin{enumerate}[leftmargin=1.9em, itemsep=3pt]
+  \item[\textbf{(a)}] closed under \textbf{addition}: $\vv,\ww$ in $S \Rightarrow \vv+\ww$ in $S$;
+  \item[\textbf{(b)}] closed under \textbf{scaling}: $\vv$ in $S \Rightarrow c\vv$ in $S$ for every $c$.
+\end{enumerate}
+Rule (b) with $c=0$ forces the zero vector into $S$. So ``contains $\zero$'' is \emph{necessary} but
+\textbf{not} enough --- a set can contain $\zero$ and still fail rule \ans{(a)}, as we'll see next.
+\end{notesbox}
+
+\begin{notesbox}{3. The Catalog --- and a Sneaky Non-Example}
+\textbf{Every} subspace is a flat piece pinned to the origin. The complete lists:
+\begin{itemize}[leftmargin=1.5em, itemsep=1pt]
+  \item In $\mathbb{R}^2$: just $\{\zero\}$, any \ans{line} through the origin, and all of $\mathbb{R}^2$.
+  \item In $\mathbb{R}^3$: $\{\zero\}$, lines through the origin, \emph{planes} through the origin, and all of $\mathbb{R}^3$.
+\end{itemize}
+Now the sneaky one. Let $S$ = the \textbf{union of the two axes} in $\mathbb{R}^2$ (every vector with
+$x=0$ \emph{or} $y=0$). It contains $\zero$ and is closed under scaling --- yet it is \emph{not} a
+subspace:
+\begin{center}
+\begin{tikzpicture}[scale=0.62]
+  \draw[step=1, linegray!45, thin] (-2.4,-2.4) grid (2.9,2.9);
+  \draw[very thick, burgundy] (-2.4,0)--(2.9,0);
+  \draw[very thick, burgundy] (0,-2.4)--(0,2.9);
+  \draw[->, very thick, charcoal] (0,0)--(2,0) node[below right]{\scriptsize $\vv=(2,0)$};
+  \draw[->, very thick, charcoal] (0,0)--(0,2) node[above left]{\scriptsize $\ww=(0,2)$};
+  \fill[royalblue] (2,2) circle (2.5pt);
+  \draw[->, thick, royalblue, dashed] (2,0)--(2,2);
+  \draw[->, thick, royalblue, dashed] (0,2)--(2,2);
+  \node[royalblue, font=\scriptsize\bfseries, right] at (2.05,2.25){$\vv+\ww=(2,2)$ escapes!};
+  \fill[black] (0,0) circle (2.5pt);
+\end{tikzpicture}
+\end{center}
+Here $\vv=(2,0)$ and $\ww=(0,2)$ are both in $S$ (each on an axis), but their sum
+$\vv+\ww=\begin{bsmallmatrix} 2\\2 \end{bsmallmatrix}$ is on \ans{neither} axis --- so $S$ fails rule
+\textbf{(a)}. \emph{Moral:} you must check \emph{both} rules, not just $\zero$ and scaling.
+\end{notesbox}
+
+\begin{notesbox}{4. The Column Space $C(A)$ Is a Subspace --- Proof}
+The \textbf{column space} $C(A)$ is all reachable targets $A\xx$ (a subspace of $\mathbb{R}^m$,
+where $m$ = number of rows). Take two members $\bb_1=A\xx_1$ and $\bb_2=A\xx_2$ and run the
+requirement:
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item \textbf{Addition:} $\bb_1+\bb_2=A\xx_1+A\xx_2=A(\,\ans{$\xx_1+\xx_2$}\,)$, so $\bb_1+\bb_2$ is
+        reachable --- it is $A$ times the control setting $\xx_1+\xx_2$.
+  \item \textbf{Scaling:} $c\,\bb_1=c(A\xx_1)=A(\,\ans{$c\xx_1$}\,)$, so $c\,\bb_1$ is reachable too.
+\end{itemize}
+Both rules hold, so $C(A)$ is a subspace. This is the \emph{precise} version of Lesson~3.0's
+``combinations of reachable vectors are reachable'' --- it works \emph{because}
+$A(\xx+\yy)=A\xx+A\yy$ and $A(c\xx)=c(A\xx)$.
+
+\vspace{3pt}
+\textbf{Next (3.2):} the \emph{nullspace} $N(A)$ --- all solutions of $A\xx=\zero$ --- is the second
+fundamental subspace.
+\end{notesbox}
+
+\begin{practicebox}
+Decide whether each set is a subspace of $\mathbb{R}^2$ (or $\mathbb{R}^3$). If not, name the rule
+that fails and a specific escape.
+\begin{enumerate}[leftmargin=1.6em, itemsep=4pt]
+  \item All $\begin{bsmallmatrix} x\\y \end{bsmallmatrix}$ with $x+y=0$. \ansline{Subspace --- the line $y=-x$ through the origin. If $x_1+y_1=0$ and $x_2+y_2=0$ then the sum has $(x_1+x_2)+(y_1+y_2)=0$, and any scaling keeps $cx+cy=0$.}
+  \item All $\begin{bsmallmatrix} x\\y \end{bsmallmatrix}$ with $xy=0$ (the union of the axes). \ansline{Not a subspace. Fails rule (a): $\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}$ satisfy $xy=0$, but their sum $\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$ has $xy=1\ne0$.}
+  \item The column space of $A=\begin{bsmallmatrix} 1 & 2 \\ 0 & 1 \end{bsmallmatrix}$. \ansline{Subspace (a column space always is). Columns $\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix},\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$ point in different directions, so $C(A)$ = all of $\mathbb{R}^2$.}
+\end{enumerate}
+\end{practicebox}
+
+\begin{teachernote}
+The new precision over 3.0 is twofold: (1) ``contains $\zero$'' is necessary but not sufficient ---
+the union-of-axes set in \S3 is the counterexample to memorize; and (2) the $C(A)$ proof in \S4 is
+exact, resting on $A(\xx+\yy)=A\xx+A\yy$ (Warm-Up item~2). If time is short, \S3 and \S4 are the
+must-dos --- \S1's rule list can be read quickly.
+\end{teachernote}
 
 \end{document}

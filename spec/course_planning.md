@@ -7,23 +7,26 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-13 — **Authored & built Unit 3 Lesson 3.0 — "Sets of Vectors and the
-Road to Subspaces" (the intro lesson).** Filled every skeleton: lesson plan, cover, warmup, notes,
-activity, exit_ticket, homework (+ the five keys) and the slides deck. Content bridges Unit 2
-(solving $A\xx=\bb$ / reachability) into Unit 3: $\mathbb{R}^n$ and span (recall from 1.1/1.3);
-**subspace** = a set closed under addition & scaling (so it contains $\zero$) — the two-part
-**closure test**; a geometric catalog in $\mathbb{R}^2$ ({$\zero$}, lines through the origin,
-all of $\mathbb{R}^2$ vs. the off-origin line and first-quadrant non-examples, shown as pre-drawn
-TikZ panels to read); the **column space $C(A)$ as the first named subspace** ("is $\bb$
-reachable?" = "is $\bb$ in $C(A)$?"); and a **nullspace preview** ($A\xx=\zero$ solutions are
-closed → a subspace, star of 3.2). Drone-reachable-set hook; running example $\vv=(2,1),\ww=(1,3)$
-and singular $A=\begin{bsmallmatrix}1&2\\2&4\end{bsmallmatrix}$ / $\begin{bsmallmatrix}1&3\\2&6\end{bsmallmatrix}$.
-All arithmetic hand-verified; keys wrap answers in `\ans{}`/`\ansline{}`, in-formula slots use
-`{\color{keyred}\mathbf{...}}`, `teachernote`s carry pacing/error notes. Built `make -C
-unit03/lesson00 all` → clean, both packets emitted. Page counts: cover/warmup/exit_ticket 1pp each,
-notes/activity/homework 2pp each (blank & key paginate identically), lesson plan 2pp, slides 7pp.
-Spot-checked notes p2 (catalog figure) and activity p1 (Tier R figure) — clean. **This lesson is
-the Unit 3 model.** Next run authors 3.1 (and onward) mirroring it.
+**Last updated:** 2026-07-13 — **Authored & built Unit 3 Lesson 3.1 — "Vector Spaces and Subspaces"
+(§3.1).** Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework
+(+ the five keys) and the slides deck, mirroring 3.0's preamble/boxes/tone. **New precision over
+3.0:** (1) names the object — **vector space** = set closed under $+$/scaling obeying the usual
+rules, $\mathbb{R}^n$ the model; (2) **subspace** = a subset that is itself a vector space ⇒ the
+two-part **subspace requirement**, with the sharpened point that *"contains $\zero$" is necessary
+but NOT sufficient* — the **union-of-the-two-axes** set ($xy=0$) is the memorized counterexample
+(contains $\zero$, closed under scaling, fails addition), drawn as a read-only TikZ figure; (3) the
+**precise $C(A)$ proof** resting on $A(\xx+\yy)=A\xx+A\yy$ and $A(c\xx)=c(A\xx)$ (robot-arm
+reachable-set hook; Warm-Up item 2 pre-verifies the distributive law numerically). Activity Tier A
+separates the two failure modes (half-plane fails *scaling*, axes fail *addition*); Tier E proves
+$C(A)$ closed then widens "vector space" to all $2\times2$ matrices; homework extension: integer
+vectors closed under $+$ but not scaling. All arithmetic hand-verified; keys use `\ans{}`/`\ansline{}`
+and `{\color{keyred}\mathbf{...}}` in-formula slots. **Build gotcha:** activity/activity_key used
+`\bb` without defining the macro (only defined `\vv\ww\xx\yy\zero`) → "Undefined control sequence";
+fixed by adding `\newcommand{\bb}`. Built `make -C unit03/lesson01 all` → clean. Page counts:
+cover/warmup/exit_ticket 1pp each, notes/activity/homework 2pp each (blank & key paginate
+identically), lesson plan 2pp, slides 7pp; student packet 9pp, full 18pp. Visually spot-checked
+notes_key p1–p2 (union-of-axes figure + $C(A)$ proof) and activity_key p1 (all three tiers) — clean.
+Next run authors 3.2 (The Nullspace of $A$) mirroring 3.0/3.1.
 
 **Prior run:** Authored the Unit 2 summative tests in full (all 4 files),
 closing out Unit 2. Filled every skeleton: `unit02/tests/{practice_test,actual_test}` (blank) and
@@ -122,13 +125,19 @@ Confirmed lesson map:
 - `unit02/tests` (practice + actual) + `unit02/test_keys` (both keys) — **authored ✅ & built**;
   `sample_test`/`sample_test_key` populated by `drop` (practice test + key). `unit02/Makefile` present.
 
-**Unit 3 — lesson 3.0 authored & built; 3.1–3.5 + tests still skeletons.** Confirmed lesson map (6 lessons):
+**Unit 3 — lessons 3.0 & 3.1 authored & built; 3.2–3.6 + tests still skeletons.** Confirmed lesson map (6 lessons):
 - `unit03/lesson00` — id 3.0, **"Sets of Vectors and the Road to Subspaces"** (intro) — ✅ authored
   & built (all components + keys + slides). Content: $\mathbb{R}^n$ \& span (recall); subspace =
   closed under $+$/scaling (contains $\zero$) via the closure test; geometric catalog (lines/planes
   through the origin yes, off-origin line \& first quadrant no); $C(A)$ as a subspace (renames Unit~2
   reachability); nullspace preview ($A\xx=\zero$). Serves as the Unit 3 model.
-- `unit03/lesson01` — id 3.1, **"Vector Spaces and Subspaces"** — ◐ scaffolded
+- `unit03/lesson01` — id 3.1, **"Vector Spaces and Subspaces"** (§3.1) — ✅ authored & built (all
+  components + keys + slides). Content: **vector space** (closed under $+$/scaling + usual rules,
+  $\mathbb{R}^n$ the model); **subspace** = subset that is itself a vector space ⇒ the two-part
+  subspace requirement; "$\zero$ necessary but not sufficient" with the union-of-axes counterexample
+  (fails addition); the catalog ($\mathbb{R}^2$/$\mathbb{R}^3$); the precise $C(A)$-is-a-subspace
+  proof via $A(\xx+\yy)=A\xx+A\yy$. Robot-arm reachable-set hook; extension widens "vector space" to
+  $2\times2$ matrices. Previews 3.2 (nullspace).
 - `unit03/lesson02` — id 3.2, **"The Nullspace of A: Solving Ax = 0"** — ◐ scaffolded
 - `unit03/lesson03` — id 3.3, **"The Complete Solution to Ax = b"** — ◐ scaffolded
 - `unit03/lesson04` — id 3.4, **"Independence, Basis, and Dimension"** — ◐ scaffolded
@@ -152,7 +161,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | --- | --- | --- | --- |
 | 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
 | 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ☑ all lessons + tests authored & built ✅ |
-| 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ◐ 3.0 authored & built ✅; 3.1–3.6 + tests still skeletons |
+| 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ◐ 3.0 & 3.1 authored & built ✅; 3.2–3.6 + tests still skeletons |
 | 4 | Orthogonality | 4.1–4.4 | ☐ |
 | 5 | Determinants and Linear Transformations | 5.1–5.3 | ☐ |
 | 6 | Eigenvalues and Eigenvectors | 6.1–6.4 (§6.4 optional) | ☐ |
@@ -161,15 +170,15 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author Unit 3, in order — 3.0 done.** `unit03/lesson00` (id 3.0) is authored, built, and is
-   the unit model. Next author `unit03/lesson01` (id 3.1, **Vector Spaces and Subspaces**) from
-   Strang §3.1 — make the closure test precise, the vector-space axioms of $\mathbb{R}^n$, and
-   spans/column spaces always closed; mirror 3.0 for preamble, boxes, and tone; then 3.2–3.5 each
-   from its matching LAfE subchapter, then the **capstone `unit03/lesson06` (id 3.6, The
-   Fundamental Theorem of Linear Algebra)** — synthesize the four subspaces + their dimensions
-   (Strang Part 1 + the big-picture diagram), preview orthogonality (Part 2 → Unit 4). Finish with
-   the summative tests (`unit03/tests` + `unit03/test_keys`, then `make ... drop` to publish the
-   sample test/key). The unit test should now also draw on 3.6's synthesis.
+1. **Author Unit 3, in order — 3.0 & 3.1 done.** Next author `unit03/lesson02` (id 3.2, **The
+   Nullspace of $A$: Solving $A\xx=\zero$**) from Strang §3.2 — special/free variables, the reduced
+   form, the nullspace as a subspace (all solutions of $A\xx=\zero$), and its line/plane description;
+   mirror 3.0/3.1 for preamble, boxes, and tone. Then 3.3–3.5 each from its matching LAfE
+   subchapter, then the **capstone `unit03/lesson06` (id 3.6, The Fundamental Theorem of Linear
+   Algebra)** — synthesize the four subspaces + their dimensions (Strang Part 1 + the big-picture
+   diagram), preview orthogonality (Part 2 → Unit 4). Finish with the summative tests
+   (`unit03/tests` + `unit03/test_keys`, then `make ... drop` to publish the sample test/key). The
+   unit test should now also draw on 3.6's synthesis.
 2. *(optional)* Rebuild the whole Unit 1/Unit 2 packets (`make -C unitXX student|full`) to confirm the
    `sample_test`/`sample_test_key` merge in as expected before moving on.
 
@@ -179,6 +188,9 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
   **not** a bare `scriptsize` key (that errors: "I do not know the key '/tikz/scriptsize'").
 - In-formula answer-key slots use `{\color{keyred}\mathbf{...}}` inside math, never `\ans{}`
   (which is text-mode) — see the `bmatrix` fill-ins in `notes_key`.
+- **Per-file `\vv\ww\xx\yy\bb\zero` macros are NOT shared** — each component defines its own in the
+  preamble. If a body uses `\bb` (or any such macro) but the preamble omits it → "Undefined control
+  sequence" (hit in 3.1 activity). Define every math-vector macro the body uses.
 
 ## Open questions / decisions pending
 

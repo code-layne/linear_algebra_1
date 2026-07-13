@@ -3,17 +3,40 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.1}{Warm-Up}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Warm-Up. See references/components.md for the expected structure.
-\begin{notesbox}{Warm-Up}
-\writelines{4}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small These three moves are the pieces elimination is built from. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Subtract to remove a variable.} Both equations already have a $2y$. Subtract the first
+from the second to remove $y$, then finish.
+\[
+  x + 2y = 7, \qquad 3x + 2y = 13.
+\]
+\hspace{2em} $x = \blank{1.6cm}$ \qquad $y = \blank{1.6cm}$
+
+\vspace{8pt}
+\textbf{2. Scale an equation.} Multiplying \emph{both sides} of an equation by the same number
+keeps it true. Double every term of $2x + 3y = 13$:
+\[
+  2\,(2x + 3y) = 2\,(13) \quad\Longrightarrow\quad
+  \blank{1.0cm}\,x + \blank{1.0cm}\,y = \blank{1.2cm}.
+\]
+
+\vspace{4pt}
+\textbf{3. Rows of $A\xx=\bb$.} Write $A\xx=\bb$ as two equations (one per row), with
+$A=\begin{bmatrix} 2 & 3 \\ 4 & 7 \end{bmatrix}$, $\xx=\begin{bmatrix} x \\ y \end{bmatrix}$, and
+$\bb=\begin{bmatrix} 13 \\ 27 \end{bmatrix}$.
+\writeline
 \end{notesbox}
 
 \end{document}

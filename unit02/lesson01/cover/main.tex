@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 2}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 2 \quad Solving Linear Equations $A\mathbf{x}=\mathbf{b}$}}\\[6pt]
   {\color{white}\textbf{\large Lesson 2.1 \quad The Idea of Elimination}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} find the \textbf{pivot} and the \textbf{multiplier} $\ell=$ entry $\div$ pivot, and use them to make a zero.
+  \item \ldots{} reach \textbf{upper-triangular} form and finish by \textbf{back-substitution}, then \textbf{check} by rebuilding $\mathbf{b}$.
+  \item \ldots{} fix a \textbf{zero pivot} with a \textbf{row exchange}, and read a breakdown as no or infinitely many solutions.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,24 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: direct subtraction, scaling an equation, row equations & \blank{1.2cm} \\
+2 & Guided Notes   & Pivots, multipliers, upper-triangular form, back-substitution       & \blank{1.2cm} \\
+3 & Group Activity & Elimination Assembly Line --- solve, interpret, fix a zero pivot     & \blank{1.2cm} \\
+4 & Exit Ticket    & Solve by elimination + fix a zero-pivot system                      & \blank{1.2cm} \\
+5 & Homework       & Multipliers, $2\times2$ and $3\times3$ elimination, an application   & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small \textbf{Elimination} turns a system into an easy one. The \textbf{pivot} is the coefficient
+you build on; the \textbf{multiplier} $\ell = \text{(entry to clear)} \div \text{(pivot)}$ tells you
+how many pivot rows to subtract to make a zero. Clear every entry below each pivot to reach an
+\textbf{upper-triangular} system, then \textbf{back-substitute} from the bottom up. A $0$ in a pivot
+spot? \textbf{Swap} in a row from below.
+\end{remindbox}
 
 \end{document}

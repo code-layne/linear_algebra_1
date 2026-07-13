@@ -3,17 +3,174 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.1}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item find the \emph{pivot} and the \emph{multiplier} $\ell=$ entry $\div$ pivot, and use them to make a zero;
+  \item reach \emph{upper-triangular} form, then \emph{back-substitute} and check by rebuilding $\bb$;
+  \item fix a \emph{zero pivot} with a \emph{row exchange}, and read a breakdown as no or infinitely many solutions.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.10in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{Pivot}{the first nonzero coefficient in a row; we use it to clear the entries below it}
+\vocabans{Multiplier $\ell$}{$\ell = \text{(entry to eliminate)} \div \text{(pivot)}$ --- how many pivot rows to subtract}
+\vocabans{Upper-triangular system}{all zeros below the diagonal; each equation going down has one fewer unknown}
+\vocabans{Back-substitution}{solve the bottom equation first, then work upward one unknown at a time}
+\vocabans{Row exchange}{swap two equations to move a nonzero into a zero pivot position}
+\end{vocabbox}
+
+\begin{hookbox}
+Two systems, side by side.
+\[
+  \text{(Lesson 2.0)}\quad
+  \begin{array}{r@{}c@{}l} x &{}+ 2y ={}& 5 \\ 3x &{}+ 2y ={}& 11 \end{array}
+  \qquad\qquad
+  \text{(today)}\quad
+  \begin{array}{r@{}c@{}l} 2x &{}+ 3y ={}& 13 \\ 4x &{}+ 7y ={}& 27 \end{array}
+\]
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item In the \emph{left} system, one subtraction removes $y$. Why does it work so easily?
+        \ansline{Both equations already carry the same $2y$, so subtracting cancels it right away.}
+  \item In the \emph{right} system, the $x$-terms are $2$ and $4$. What could you do to the first
+        equation \emph{before} subtracting so that $x$ disappears?
+        \ansline{Double the first equation ($4x+6y=26$) so its $x$-term matches, then subtract.}
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. Pivots and Multipliers}
+When the coefficients don't already match, we \textbf{make} them match. Work with the right-hand
+system above: $2x+3y=13$ and $4x+7y=27$.
+
+\vspace{3pt}
+The \textbf{pivot} is the first nonzero coefficient of the top row --- the coefficient we build on.
+Here the pivot is \ans{$2$} (in front of $x$).
+
+\vspace{3pt}
+To clear the $x$-term below the pivot, we need to know \emph{how many pivot rows} to subtract. That
+number is the \textbf{multiplier}:
+\[
+  \ell = \frac{\text{entry to eliminate}}{\text{pivot}} = \frac{4}{2} = {\color{keyred}\mathbf{2}}.
+\]
+Now do the \textbf{elimination step} --- replace row~2 by (row~2) $-\;\ell\times$(row~1):
+\[
+  \begin{array}{r@{}c@{}l}
+    (4x + 7y) - 2\,(2x + 3y) &{}={}& 27 - 2\,(13) \\[2pt]
+    (4-4)x + (7-6)y &{}={}& 27 - 26 \\[2pt]
+    y &{}={}& {\color{keyred}\mathbf{1}}
+  \end{array}
+\]
+The $x$-term vanished \emph{by design}: that is exactly what the multiplier was chosen to do.
 \end{notesbox}
+
+\begin{notesbox}{2. Triangular Form, Then Back-Substitute}
+After that one step the system looks like a staircase --- all zeros below the pivot. This is
+\textbf{upper-triangular} form:
+\[
+  \begin{array}{r@{}c@{}l}
+    2x &{}+ 3y ={}& 13 \\
+       & y ={}& 1
+  \end{array}
+\]
+The bottom equation already gives $y$. \textbf{Back-substitute} it into the top row and solve
+\emph{upward}:
+\[
+  2x + 3(1) = 13 \;\Longrightarrow\; 2x = {\color{keyred}\mathbf{10}} \;\Longrightarrow\; x = {\color{keyred}\mathbf{5}}.
+\]
+
+\vspace{2pt}
+\textbf{Check by rebuilding $\bb$.} The columns of $A$ are $\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}$
+and $\begin{bsmallmatrix} 3\\7 \end{bsmallmatrix}$; scale by the weights and add:
+\[
+  5\begin{bmatrix} 2 \\ 4 \end{bmatrix} + 1\begin{bmatrix} 3 \\ 7 \end{bmatrix}
+  = \begin{bmatrix}{\color{keyred}\mathbf{13}}\\[2pt]{\color{keyred}\mathbf{27}}\end{bmatrix}.
+\]
+So the solution is $x=\ans{$5$}$, $y=\ans{$1$}$.
+\end{notesbox}
+
+\begin{notesbox}{3. Bigger Systems: The Same Staircase}
+Elimination scales up. For three equations, use row~1's pivot to clear the \emph{whole} first
+column, then row~2's new pivot to clear below it.
+\[
+  \begin{array}{r@{}c@{}l}
+    x &{}+ y + z ={}& 6 \\
+    2x &{}+ 3y + z ={}& 11 \\
+    x &{}+ 3y + 6z ={}& 25
+  \end{array}
+\]
+\textbf{Round 1} (pivot $=1$ in row~1). Clear the $x$ from rows~2 and~3:
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item row~2 $-\;\ell_{21}\cdot$row~1 with $\ell_{21}=2\div1=\ans{$2$}$ \;$\Rightarrow$\; $y - z = -1$;
+  \item row~3 $-\;\ell_{31}\cdot$row~1 with $\ell_{31}=1\div1=\ans{$1$}$ \;$\Rightarrow$\; $2y + 5z = 19$.
+\end{itemize}
+\textbf{Round 2} (new pivot $=1$ in row~2). Clear the $y$ from row~3 with
+$\ell_{32}=2\div1=\ans{$2$}$: \;$(2y+5z)-2(y-z)=19-2(-1)\Rightarrow 7z=21$. The triangle:
+\[
+  \begin{array}{r@{}c@{}l}
+    x &{}+ y + z ={}& 6 \\
+     & y - z ={}& -1 \\
+     & 7z ={}& 21
+  \end{array}
+\]
+Back-substitute upward: $z=\ans{$3$}$, then $y=\ans{$2$}$, then $x=\ans{$1$}$.
+Solution $(x,y,z)=(\,\ans{$1,\,2,\,3$}\,)$.
+\end{notesbox}
+
+\begin{notesbox}{4. When a Pivot Is Zero}
+Elimination needs a \emph{nonzero} pivot. If the pivot slot holds a $0$, look \emph{below} for a row
+with a nonzero in that spot and \textbf{exchange rows}.
+\[
+  \begin{array}{r@{}c@{}l}
+    0x &{}+ 2y ={}& 4 \\ 3x &{}+ y ={}& 5
+  \end{array}
+  \qquad\xrightarrow{\text{swap the rows}}\qquad
+  \begin{array}{r@{}c@{}l}
+    3x &{}+ y ={}& 5 \\ & 2y ={}& 4
+  \end{array}
+\]
+After the swap it is already triangular: $2y=4$ gives $y=\ans{$2$}$, then $3x+2=5$ gives
+$x=\ans{$1$}$.
+
+\vspace{3pt}
+What if \emph{no} row can be swapped in? Then elimination stalls, and the last line tells the story:
+$0 = (\text{a nonzero})$ means \ans{no solution (inconsistent)}, while $0=0$ means
+\ans{infinitely many solutions}. (Row exchanges get their own lesson in 2.4.)
+\end{notesbox}
+
+\begin{practicebox}
+Solve $A\xx=\bb$ with $A=\begin{bmatrix} 3 & 2 \\ 6 & 7 \end{bmatrix}$ and
+$\bb=\begin{bmatrix} 8 \\ 19 \end{bmatrix}$ by elimination.
+\begin{enumerate}[leftmargin=1.6em]
+  \item Name the pivot and the multiplier $\ell$ that clears the entry below it. \hfill
+        pivot $=\ans{$3$}$\quad $\ell=\ans{$6\div3=2$}$
+  \item Do the elimination step to reach upper-triangular form, and find $y$.
+        \ansline{row~2 $-\,2\cdot$row~1: $(6x+7y)-2(3x+2y)=19-16\Rightarrow 3y=3\Rightarrow y=1$}
+  \item Back-substitute to find $x$, then \textbf{check} by rebuilding $\bb$.
+        \ansline{$3x+2=8\Rightarrow x=2$; check: $2\begin{bsmallmatrix} 3\\6 \end{bsmallmatrix}+1\begin{bsmallmatrix} 2\\7 \end{bsmallmatrix}=\begin{bsmallmatrix} 8\\19 \end{bsmallmatrix}$ \checkmark}
+\end{enumerate}
+\end{practicebox}
+
+\begin{teachernote}
+The heart of the lesson is the multiplier: $\ell=$ entry $\div$ pivot, applied as (lower row)
+$-\,\ell\times$(pivot row). Watch for the flipped ratio (pivot $\div$ entry) and for students
+forgetting to subtract $\ell\times$ the right-hand side. \S3's $3\times3$ is a big time sink ---
+consider doing Round~1 with the class and letting groups finish Round~2. \S4 (zero pivot) is only a
+preview of the permutations in 2.4.
+\end{teachernote}
 
 \end{document}

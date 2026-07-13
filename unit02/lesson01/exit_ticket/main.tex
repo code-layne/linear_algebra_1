@@ -3,6 +3,8 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
@@ -11,9 +13,20 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Solve by elimination:} $\quad 2x + y = 5,\qquad 4x + 3y = 13.$
+        \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=8pt]
+          \item Name the \textbf{pivot} and the \textbf{multiplier} $\ell$ that clears the entry below it.
+                \hfill pivot $=\blank{1.4cm}$\quad $\ell=\blank{1.4cm}$
+          \item Do the elimination step, write the upper-triangular system, and back-substitute.
+                \vspace{1.5cm}
+          \item \textbf{Check} by rebuilding $\bb$. \hfill $x=\blank{1.4cm}$\quad $y=\blank{1.4cm}$
+        \end{enumerate}
+        \vspace{0.4cm}
+  \item \textbf{Zero pivot.} Priya starts elimination on
+        $\ 0x + 3y = 9,\ \ x + 2y = 8\ $ and gets stuck: there is no pivot to work with in the top
+        row. What move fixes this, \emph{why} does it work, and what is the solution?
+        \writelines{3}
+\end{enumerate}
 
 \end{document}

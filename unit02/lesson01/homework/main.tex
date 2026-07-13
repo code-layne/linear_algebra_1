@@ -3,17 +3,73 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.1}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+Show your steps and \textbf{check} every solution by rebuilding $\bb$.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item \textbf{Just the multiplier.} For each pair, name the \emph{pivot} (top-left coefficient) and
+        the \emph{multiplier} $\ell=$ entry $\div$ pivot that would clear the term below it. Do not solve.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\begin{aligned}[t] 3x + y &= \phantom{0} \\ 6x + 5y &= \phantom{0} \end{aligned}$ \hfill
+      \item $\begin{aligned}[t] 2x + 5y &= \phantom{0} \\ 8x + y &= \phantom{0} \end{aligned}$ \hfill
+      \item $\begin{aligned}[t] x - 2y &= \phantom{0} \\ 5x + y &= \phantom{0} \end{aligned}$
+    \end{enumerate}
+    \vspace{0.9cm}
+  \item \textbf{Solve by elimination.} Find $x$ and $y$ for each system.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\begin{aligned}[t] x + y &= 5 \\ 2x + 3y &= 13 \end{aligned}$ \hfill
+      \item $\begin{aligned}[t] 2x + 3y &= 8 \\ 4x + 5y &= 14 \end{aligned}$ \hfill
+      \item $\begin{aligned}[t] x - y &= 1 \\ 2x + y &= 8 \end{aligned}$
+    \end{enumerate}
+    \vspace{1.6cm}
+  \item \textbf{Feed blend.} Each bag of \textbf{Feed A} has $2$ kg corn and $1$ kg oats; each bag of
+        \textbf{Feed B} has $1$ kg corn and $4$ kg oats. A farmer needs exactly $13$ kg corn and
+        $24$ kg oats.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
+      \item Set up $A\xx=\bb$ and solve by elimination for the number of bags of each feed.
+            (Reorder the equations first so the multiplier is a whole number.) \vspace{1.3cm}
+      \item \emph{Interpret:} how many bags of each, and does the answer make sense? \writeline
+    \end{enumerate}
+  \item \textbf{Three unknowns.} Solve by elimination --- clear column~1, then column~2, then
+        back-substitute:
+        \[
+          \begin{array}{r@{}c@{}l}
+            x &{}+ 2y + z ={}& 8 \\
+            x &{}+ 3y + 2z ={}& 13 \\
+            2x &{}+ 5y + 6z ={}& 30
+          \end{array}
+        \]
+        \vspace{1.8cm}
+  \item \textbf{Fix the zero pivot.} Elimination on $\ 0x + 4y = 8,\ \ x + 3y = 9\ $ can't start.
+        Say what is wrong, fix it with a \textbf{row exchange}, and solve. \writeline
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Meet $L$.} In Problem~4 you used three multipliers: $\ell_{21}$ and $\ell_{31}$ (Round~1)
+and $\ell_{32}$ (Round~2). List all three, then drop them into a lower-triangular array with $1$s
+on the diagonal:
+\[
+  L = \begin{bmatrix} 1 & 0 & 0 \\ \ell_{21} & 1 & 0 \\ \ell_{31} & \ell_{32} & 1 \end{bmatrix}.
+\]
+You have just recorded the \emph{whole} elimination in one matrix --- the $L$ of $A=LU$ coming in
+Lesson~2.3. \writeline
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 2.2: Elimination Matrices and Inverse Matrices.} Today each step was
+``subtract $\ell$ times a row.'' Next we show that step is itself a \textbf{matrix} multiplying the
+system --- and running the steps backward leads to the \textbf{inverse} of $A$.
+\end{spiralbox}
 
 \end{document}

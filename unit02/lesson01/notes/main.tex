@@ -3,17 +3,162 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.1}{Guided Notes}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Guided Notes. See references/components.md for the expected structure.
-\begin{notesbox}{Guided Notes}
-\writelines{4}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item find the \emph{pivot} and the \emph{multiplier} $\ell=$ entry $\div$ pivot, and use them to make a zero;
+  \item reach \emph{upper-triangular} form, then \emph{back-substitute} and check by rebuilding $\bb$;
+  \item fix a \emph{zero pivot} with a \emph{row exchange}, and read a breakdown as no or infinitely many solutions.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.10in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\termblanklong{Pivot}
+\termblanklong{Multiplier $\ell$}
+\termblanklong{Upper-triangular system}
+\termblanklong{Back-substitution}
+\termblanklong{Row exchange}
+\end{vocabbox}
+
+\begin{hookbox}
+Two systems, side by side.
+\[
+  \text{(Lesson 2.0)}\quad
+  \begin{array}{r@{}c@{}l} x &{}+ 2y ={}& 5 \\ 3x &{}+ 2y ={}& 11 \end{array}
+  \qquad\qquad
+  \text{(today)}\quad
+  \begin{array}{r@{}c@{}l} 2x &{}+ 3y ={}& 13 \\ 4x &{}+ 7y ={}& 27 \end{array}
+\]
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item In the \emph{left} system, one subtraction removes $y$. Why does it work so easily? \writeline
+  \item In the \emph{right} system, the $x$-terms are $2$ and $4$. What could you do to the first
+        equation \emph{before} subtracting so that $x$ disappears? \writeline
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. Pivots and Multipliers}
+When the coefficients don't already match, we \textbf{make} them match. Work with the right-hand
+system above: $2x+3y=13$ and $4x+7y=27$.
+
+\vspace{3pt}
+The \textbf{pivot} is the first nonzero coefficient of the top row --- the coefficient we build on.
+Here the pivot is \blank{1.0cm} (in front of $x$).
+
+\vspace{3pt}
+To clear the $x$-term below the pivot, we need to know \emph{how many pivot rows} to subtract. That
+number is the \textbf{multiplier}:
+\[
+  \ell = \frac{\text{entry to eliminate}}{\text{pivot}} = \frac{4}{2} = \blank{1.0cm}.
+\]
+Now do the \textbf{elimination step} --- replace row~2 by (row~2) $-\;\ell\times$(row~1):
+\[
+  \begin{array}{r@{}c@{}l}
+    (4x + 7y) - 2\,(2x + 3y) &{}={}& 27 - 2\,(13) \\[2pt]
+    (4-4)x + (7-6)y &{}={}& 27 - 26 \\[2pt]
+    y &{}={}& \blank{1.0cm}
+  \end{array}
+\]
+The $x$-term vanished \emph{by design}: that is exactly what the multiplier was chosen to do.
 \end{notesbox}
+
+\begin{notesbox}{2. Triangular Form, Then Back-Substitute}
+After that one step the system looks like a staircase --- all zeros below the pivot. This is
+\textbf{upper-triangular} form:
+\[
+  \begin{array}{r@{}c@{}l}
+    2x &{}+ 3y ={}& 13 \\
+       & y ={}& 1
+  \end{array}
+\]
+The bottom equation already gives $y$. \textbf{Back-substitute} it into the top row and solve
+\emph{upward}:
+\[
+  2x + 3(1) = 13 \;\Longrightarrow\; 2x = \blank{1.0cm} \;\Longrightarrow\; x = \blank{1.0cm}.
+\]
+
+\vspace{2pt}
+\textbf{Check by rebuilding $\bb$.} The columns of $A$ are $\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}$
+and $\begin{bsmallmatrix} 3\\7 \end{bsmallmatrix}$; scale by the weights and add:
+\[
+  5\begin{bmatrix} 2 \\ 4 \end{bmatrix} + 1\begin{bmatrix} 3 \\ 7 \end{bmatrix}
+  = \begin{bmatrix}\rule{0pt}{1.1em}\blank{1.1cm}\\[2pt]\blank{1.1cm}\end{bmatrix}.
+\]
+So the solution is $x=\blank{0.9cm}$, $y=\blank{0.9cm}$.
+\end{notesbox}
+
+\begin{notesbox}{3. Bigger Systems: The Same Staircase}
+Elimination scales up. For three equations, use row~1's pivot to clear the \emph{whole} first
+column, then row~2's new pivot to clear below it.
+\[
+  \begin{array}{r@{}c@{}l}
+    x &{}+ y + z ={}& 6 \\
+    2x &{}+ 3y + z ={}& 11 \\
+    x &{}+ 3y + 6z ={}& 25
+  \end{array}
+\]
+\textbf{Round 1} (pivot $=1$ in row~1). Clear the $x$ from rows~2 and~3:
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item row~2 $-\;\ell_{21}\cdot$row~1 with $\ell_{21}=2\div1=\blank{0.8cm}$ \;$\Rightarrow$\; $y - z = -1$;
+  \item row~3 $-\;\ell_{31}\cdot$row~1 with $\ell_{31}=1\div1=\blank{0.8cm}$ \;$\Rightarrow$\; $2y + 5z = 19$.
+\end{itemize}
+\textbf{Round 2} (new pivot $=1$ in row~2). Clear the $y$ from row~3 with
+$\ell_{32}=2\div1=\blank{0.8cm}$: \;$(2y+5z)-2(y-z)=19-2(-1)\Rightarrow 7z=21$. The triangle:
+\[
+  \begin{array}{r@{}c@{}l}
+    x &{}+ y + z ={}& 6 \\
+     & y - z ={}& -1 \\
+     & 7z ={}& 21
+  \end{array}
+\]
+Back-substitute upward: $z=\blank{0.8cm}$, then $y=\blank{0.8cm}$, then $x=\blank{0.8cm}$.
+Solution $(x,y,z)=(\,\blank{1.6cm}\,)$.
+\end{notesbox}
+
+\begin{notesbox}{4. When a Pivot Is Zero}
+Elimination needs a \emph{nonzero} pivot. If the pivot slot holds a $0$, look \emph{below} for a row
+with a nonzero in that spot and \textbf{exchange rows}.
+\[
+  \begin{array}{r@{}c@{}l}
+    0x &{}+ 2y ={}& 4 \\ 3x &{}+ y ={}& 5
+  \end{array}
+  \qquad\xrightarrow{\text{swap the rows}}\qquad
+  \begin{array}{r@{}c@{}l}
+    3x &{}+ y ={}& 5 \\ & 2y ={}& 4
+  \end{array}
+\]
+After the swap it is already triangular: $2y=4$ gives $y=\blank{0.8cm}$, then $3x+2=5$ gives
+$x=\blank{0.8cm}$.
+
+\vspace{3pt}
+What if \emph{no} row can be swapped in? Then elimination stalls, and the last line tells the story:
+$0 = (\text{a nonzero})$ means \blank{3.2cm}, while $0=0$ means \blank{3.6cm}. (Row exchanges get
+their own lesson in 2.4.)
+\end{notesbox}
+
+\begin{practicebox}
+Solve $A\xx=\bb$ with $A=\begin{bmatrix} 3 & 2 \\ 6 & 7 \end{bmatrix}$ and
+$\bb=\begin{bmatrix} 8 \\ 19 \end{bmatrix}$ by elimination.
+\begin{enumerate}[leftmargin=1.6em]
+  \item Name the pivot and the multiplier $\ell$ that clears the entry below it. \hfill
+        pivot $=\blank{1.2cm}$\quad $\ell=\blank{1.2cm}$
+  \item Do the elimination step to reach upper-triangular form, and find $y$. \writeline
+  \item Back-substitute to find $x$, then \textbf{check} by rebuilding $\bb$. \writeline
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

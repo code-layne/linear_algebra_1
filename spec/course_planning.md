@@ -7,16 +7,16 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-13 — Authored **Lesson 1.2 "Lengths and Angles from Dot Products" in
-full** (all components + keys + slides), mirroring Lessons 1.0/1.1 as the gold model. Content
-from LAfE §1.2, down-leveled: dot product $\mathbf v\cdot\mathbf w=v_1w_1+v_2w_2$ (a scalar),
-length as $\|\mathbf v\|=\sqrt{\mathbf v\cdot\mathbf v}$ (recovers the 1.0 formula), unit vector,
-angle via $\cos\theta=\tfrac{\mathbf v\cdot\mathbf w}{\|\mathbf v\|\|\mathbf w\|}$, sign of the dot
-product (acute/right/obtuse), and perpendicular $\Leftrightarrow$ dot $=0$. Movie/streaming-taste
-data-similarity contexts (viewers, songs, cosine-similarity recommend). Builds clean:
-`make -C unit01/lesson02 all` exit 0 → `lesson02_student.pdf` (10 pp) and `lesson02_full.pdf`
-(19 pp); warm-up and exit ticket 1 page each (blank + key); `\ans`-in-math scan clean; notes
-blank/key paginate in lockstep (3 pp each); TikZ angle + right-angle figures render.
+**Last updated:** 2026-07-13 — Authored **Lesson 1.3 "Matrices and Column Spaces" in full**
+(all components + keys + slides), mirroring Lessons 1.0–1.2 as the gold model. Content from
+LAfE §1.3, down-leveled: a matrix as vectors standing as columns, $A\mathbf x=x_1\mathbf a_1+x_2\mathbf a_2$
+(the "columns" way — a linear combination of the columns), the column space $C(A)=$ all $A\mathbf x=$
+span of the columns, independent columns fill the whole plane vs. parallel columns fill only a line,
+and $A\mathbf x=\mathbf b$ solvable $\Leftrightarrow\mathbf b\in C(A)$ (previews Unit 2). Gift-box
+"build an order from two boxes" application + production/kit contexts (data-as-a-table theme).
+Builds clean: `make -C unit01/lesson03 all` exit 0 → `lesson03_student.pdf` (10 pp) and
+`lesson03_full.pdf` (18 pp); warm-up and exit ticket 1 page each (blank + key); `\ans`-in-math scan
+clean; notes blank/key paginate in lockstep (3 pp each); TikZ whole-plane (shaded) + line figures render.
 
 ## Current state
 
@@ -34,7 +34,7 @@ blank/key paginate in lockstep (3 pp each); TikZ angle + right-angle figures ren
 - **Standard component set per lesson:** cover, warmup, notes, activity, exit_ticket, homework,
   **slides** (+ keys for the keyed components). Teacher slide decks are in scope.
 
-**Unit 1 — lessons 1.0, 1.1, 1.2 authored; 1.3–1.4 scaffolded (skeletons only).**
+**Unit 1 — lessons 1.0, 1.1, 1.2, 1.3 authored; 1.4 scaffolded (skeletons only).**
 - `unit01/lesson00` — id 1.0, **"Introducing Vectors — Vocabulary and Length"** ✅ authored
   (cover, warmup, notes, activity, exit_ticket, homework, slides + all keys). Content: vector
   as components/arrow, scalar, add/scale, magnitude $\|\mathbf v\|=\sqrt{v_1^2+v_2^2}$, unit
@@ -47,7 +47,11 @@ blank/key paginate in lockstep (3 pp each); TikZ angle + right-angle figures ren
   components + keys + slides). Content: dot product, length $\sqrt{\mathbf v\cdot\mathbf v}$,
   unit vector, angle/cosine, sign, perpendicular $\Leftrightarrow$ dot $=0$; viewer/song
   data-similarity contexts; previews matrices \& column spaces (1.3).
-- `unit01/lesson03` — id 1.3, "Matrices and Column Spaces"
+- `unit01/lesson03` — id 1.3, **"Matrices and Column Spaces"** ✅ authored (all components +
+  keys + slides). Content: matrix as columns, $A\mathbf x$ as a combination of columns, column
+  space $C(A)=$ span of columns, line (parallel columns) vs. plane (independent columns),
+  reachability of $\mathbf b$; gift-box "build an order" + kit/production contexts; previews
+  $A=CR$ (1.4).
 - `unit01/lesson04` — id 1.4, "Matrix Multiplication and A = CR"
 - `unit01/tests` + `unit01/test_keys` + `sample_test`/`sample_test_key` — test skeletons only.
 - Root `Makefile` and `unit01/Makefile` created. Toolchain present (xelatex, latexmk, pdfunite).
@@ -58,7 +62,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 | Unit | Chapter | Lessons | Status |
 | --- | --- | --- | --- |
-| 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ◐ 1.0, 1.1, 1.2 authored ✅; 1.3–1.4 skeletons |
+| 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ◐ 1.0, 1.1, 1.2, 1.3 authored ✅; 1.4 skeleton |
 | 2 | Solving Linear Equations Ax = b | 2.1–2.4 | ☐ |
 | 3 | The Four Fundamental Subspaces | 3.1–3.5 | ☐ |
 | 4 | Orthogonality | 4.1–4.4 | ☐ |
@@ -69,13 +73,13 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author Unit 1, Lesson 1.3** (Matrices and Column Spaces) from LAfE §1.3, using
-   **lessons 1.0–1.2 as the gold model** (mirror preamble, box usage, tone, `\vv`/`\ww` macros;
-   keep the compute→interpret→justify loop). Matrix as columns, $A\mathbf x$ as a combination of
-   columns, column space $C(A)$ = all reachable $\mathbf b$; tie back to span (1.1) and the
-   data-record theme.
-2. Then author 1.4 (Matrix Multiplication and $A=CR$) following the same model.
-3. Author the Unit 1 practice/actual tests + keys once the lessons are drafted.
+1. **Author Unit 1, Lesson 1.4** (Matrix Multiplication and $A=CR$) from LAfE §1.4, using
+   **lessons 1.0–1.3 as the gold model** (mirror preamble, box usage, tone, `\vv`/`\ww`/`\xx`/`\bb`
+   macros; keep the compute→interpret→justify loop). Multiplying matrices as combinations of
+   columns; the factorization $A=CR$ ($C$ = independent columns, $R$ = how to rebuild every
+   column); tie back to the column space (1.3) and the data-as-a-table theme.
+2. Author the Unit 1 practice/actual tests + keys once 1.4 is drafted (test skeletons already
+   scaffolded in `unit01/tests` + `unit01/test_keys`).
 
 ## Notes for the next run
 

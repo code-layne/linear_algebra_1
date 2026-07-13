@@ -3,17 +3,46 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.3}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small These Lesson~1.1 moves become today's \emph{matrix} and \emph{column space}. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Linear combination.} Scale each vector, then add.
+\begin{enumerate}[label=(\alph*), leftmargin=2.0em, itemsep=10pt]
+  \item $2\begin{bmatrix} 1 \\ 2 \end{bmatrix} + 3\begin{bmatrix} 0 \\ 1 \end{bmatrix}
+        = {}$\ans{$\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}+\begin{bsmallmatrix} 0\\3 \end{bsmallmatrix}=\begin{bsmallmatrix} 2\\7 \end{bsmallmatrix}$}
+  \item $1\begin{bmatrix} 3 \\ 1 \end{bmatrix} + 2\begin{bmatrix} 1 \\ 2 \end{bmatrix}
+        = {}$\ans{$\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}+\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}=\begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}$}
+\end{enumerate}
+
+\vspace{8pt}
+\textbf{2. Is it a multiple?} Is $\begin{bmatrix} 2 \\ 4 \end{bmatrix}$ a multiple of
+$\begin{bmatrix} 1 \\ 2 \end{bmatrix}$? Is $\begin{bmatrix} 3 \\ 1 \end{bmatrix}$?
+\ansline{$\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}=2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ --- yes, a multiple (parallel). $\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}$ is \emph{not} a multiple of $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ (not parallel).}
+
+\vspace{6pt}
+\textbf{3. Line or plane?} Two \emph{non-parallel} vectors in the plane --- do all their
+combinations $c\vv+d\ww$ fill a single \emph{line} or the \emph{whole plane}?
+\ansline{The whole plane --- non-parallel vectors reach every point.}
 \end{notesbox}
+
+\begin{teachernote}
+Every item previews today's matrix. Item~1 \emph{is} $A\xx$: a linear combination of two columns
+(1b is exactly $A\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ for $A=\begin{bsmallmatrix} 3&1\\1&2 \end{bsmallmatrix}$).
+Item~2 is the parallel test that decides whether a column space is a line. Item~3 is the ``line
+vs.\ plane'' fact that becomes the shape of the column space.
+\end{teachernote}
 
 \end{document}

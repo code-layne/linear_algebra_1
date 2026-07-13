@@ -1,6 +1,8 @@
 %! Matrices and Column Spaces — Unit 1, Lesson 1.3 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
@@ -11,16 +13,105 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 1.3}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Matrices and Column Spaces}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 1}
+    {\color{white}\bfseries\LARGE Matrices and Column Spaces}\\[0.3cm]
+    {\color{white}\bfseries\large A matrix is vectors in columns --- what can they build?}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 1: Vectors and Matrices}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{A matrix is just vectors side by side}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.58\textwidth}
+      Read $A=\begin{bsmallmatrix} 1 & 3 \\ 2 & 1 \end{bsmallmatrix}$ as two columns
+      $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}$.
+      Multiplying by $\xx$ \emph{combines} them:
+      \[
+        A\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}
+        = 2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix} + 1\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}
+        = \begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}.
+      \]
+      \textbf{Question.} As $\xx$ ranges over everything, which targets $\bb$ can we build?
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.5]
+        \draw[step=1, black!15, thin] (-0.3,-0.3) grid (5.3,5.3);
+        \draw[->, thick, black!60] (-0.4,0)--(5.4,0);
+        \draw[->, thick, black!60] (0,-0.4)--(0,5.4);
+        \draw[->, very thick, burgundy] (0,0)--(1,2) node[left]{\scriptsize $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$};
+        \draw[->, very thick, royalblue] (0,0)--(3,1) node[right]{\scriptsize $\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}$};
+        \draw[->, very thick, black!70, dashed] (0,0)--(5,5) node[above right]{\scriptsize $\begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}$};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% MATRIX AS COLUMNS + Ax
+\begin{frame}[t, plain]
+  \burgundyheader{$A\xx$ combines the columns}
+  \sectionlabel{Definition}
+  A matrix is vectors lined up as columns; $A\xx$ weights them by $\xx$ and adds:
+  \[
+    A\xx = \begin{bmatrix} \mathbf{a}_1 & \mathbf{a}_2 \end{bmatrix}\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}
+    = x_1\,\mathbf{a}_1 + x_2\,\mathbf{a}_2 .
+  \]
+  \begin{itemize}
+    \item This is a \textbf{linear combination of the columns} --- the Lesson 1.1 idea, repackaged.
+    \item Example: $\begin{bsmallmatrix} 4 & 0 \\ 1 & 5 \end{bsmallmatrix}\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}=1\begin{bsmallmatrix} 4\\1 \end{bsmallmatrix}+2\begin{bsmallmatrix} 0\\5 \end{bsmallmatrix}=\begin{bsmallmatrix} 4\\11 \end{bsmallmatrix}$.
+  \end{itemize}
+\end{frame}
+
+% COLUMN SPACE
+\begin{frame}[t, plain]
+  \burgundyheader{The column space: everything the columns build}
+  \sectionlabel{Column space}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      The \textbf{column space} $C(A)$ is the set of \emph{all} $A\xx$ --- every combination of the
+      columns (their \textbf{span}).\\[6pt]
+      For $\begin{bsmallmatrix} 1 & 3 \\ 2 & 1 \end{bsmallmatrix}$ the columns are not parallel, so
+      $C(A)$ is the \textbf{whole plane}: every $\bb$ is reachable.
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.6]
+        \fill[burgundy!12] (-2.2,-2.2) rectangle (2.2,2.2);
+        \draw[step=1, black!15, thin] (-2.2,-2.2) grid (2.2,2.2);
+        \draw[->, thick, black!60] (-2.4,0)--(2.4,0);
+        \draw[->, thick, black!60] (0,-2.4)--(0,2.4);
+        \draw[->, very thick, burgundy] (0,0)--(1,2) node[above]{\scriptsize $\mathbf{a}_1$};
+        \draw[->, very thick, royalblue] (0,0)--(2,0.667) node[right]{\scriptsize $\mathbf{a}_2$};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% LINE VS PLANE
+\begin{frame}[t, plain]
+  \burgundyheader{Line vs.\ plane --- is $\bb$ reachable?}
+  \sectionlabel[goldacc]{Independence}
+  \begin{block}{The rule}
+    Independent (non-parallel) columns fill the whole \textbf{plane}. Parallel columns fill only a
+    \textbf{line}. And $A\xx=\bb$ has a solution exactly when $\bb$ lies in $C(A)$.
+  \end{block}
+  For $B=\begin{bsmallmatrix} 1 & 2 \\ 2 & 4 \end{bsmallmatrix}$ column 2 is $2\times$ column 1, so
+  $C(B)$ is a line: $\begin{bsmallmatrix} 3\\6 \end{bsmallmatrix}$ is reachable, but
+  $\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}$ is \emph{not}.
+\end{frame}
+
+% WRAP / PREVIEW
+\begin{frame}[t, plain]
+  \burgundyheader{Wrap-up and what's next}
+  \sectionlabel{Connections}
+  \textbf{Today:} a matrix is vectors in columns; $A\xx=x_1\mathbf{a}_1+x_2\mathbf{a}_2$; the column
+  space $C(A)$ is the span of the columns --- a line (parallel columns) or the whole plane
+  (independent columns).\\[8pt]
+  \textbf{Next --- Lesson 1.4:} build every column of a matrix from a few \emph{independent}
+  columns --- the factorization $A=CR$.
 \end{frame}
 
 \end{document}

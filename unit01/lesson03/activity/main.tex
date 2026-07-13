@@ -3,17 +3,64 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.3}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Building Orders from Two Boxes.} A gift shop sells two boxes. Each box is a vector
+$\begin{bsmallmatrix} \text{mugs} \\ \text{shirts} \end{bsmallmatrix}$, and the shop's matrix lines
+them up as columns:
+$A=\begin{bsmallmatrix} 2 & 1 \\ 1 & 3 \end{bsmallmatrix}$ ---
+Classic $=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$, Deluxe $=\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$.
+If $\xx=\begin{bsmallmatrix} \text{\# Classic}\\ \text{\# Deluxe} \end{bsmallmatrix}$, then $A\xx$ is the
+\emph{total order}. Work with your partner and \emph{show your steps}.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Columns of $A=\begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}$: Classic $=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$,
+Deluxe $=\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
+  \item Write out the two columns of $A$. \vspace{0.3cm}
+  \item Compute $A\begin{bmatrix} 2 \\ 1 \end{bmatrix}$ as a combination of the columns
+        (2 Classic, 1 Deluxe). \vspace{0.7cm}
+  \item Compute $A\begin{bmatrix} 3 \\ 0 \end{bmatrix}$. What does the answer mean in mugs and shirts? \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Same shop, $A=\begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
+  \item A customer wants a total order of $\begin{bmatrix} 5 \\ 5 \end{bmatrix}$ (5 mugs, 5 shirts).
+        Find $\xx$ with $A\xx=\begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}$. (Hint: check Tier~R.) \vspace{0.8cm}
+  \item Are the two columns of $A$ parallel (multiples of each other)? \writeline
+  \item \textbf{Interpret.} Because the two boxes are \emph{independent}, is the column space a
+        line or the whole plane? What does that say about which orders the shop can fill? \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+A different shop stocks two boxes that are \emph{parallel}:
+$M=\begin{bmatrix} 2 & 4 \\ 1 & 2 \end{bmatrix}$, columns $\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$ and
+$\begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
+  \item Show that column~2 is a multiple of column~1. What line is the column space $C(M)$? \writeline
+  \item Can this shop fill an order of $\begin{bmatrix} 3 \\ 3 \end{bmatrix}$? Decide, and explain
+        using the columns. \writelines{2}
+  \item \textbf{Justify.} Explain why \emph{any} order this shop fills must have
+        twice as many mugs as shirts --- no matter how many of each box it uses. \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

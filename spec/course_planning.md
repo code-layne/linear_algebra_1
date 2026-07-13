@@ -7,23 +7,17 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-13 — Authored the **Unit 1 summative assessments in full**: practice
-test + actual test + both keys. All four share one format — **Part A Vocabulary** (8-term
-letter-matching, unit-wide terms), **Part B Multiple Choice** (6 concept checks), **Part C Short
-Answer & Computation** (7 items), **Part D Extended Response** (2 interpret/justify items) — with a
-`\parthead` strip per part and `\namedateperiod`. Coverage spans the whole unit arc: vector
-add/scale + magnitude + unit vector (1.0), linear combinations/weights + span + line-vs-plane
-(1.1), dot product + perpendicular⇔dot 0 (1.2), $A\mathbf x$ as a column combination + column
-space/reachability (1.3), $A=CR$ + rank (1.4). Practice and actual are **item-for-item parallel
-with different numbers/contexts** (practice: length-5 $[3,4]$ vector, viewer taste profiles; actual:
-length-13 $[5,12]$ vector, shopper preferences; vocab options scrambled between the two). Practice
-test opens with a `remindbox`; actual test opens with a plain instructions line (no "this is
-practice"). Keys mirror the blanks with `\ans{}`, MC tagged via `\ans{$\leftarrow$}` after the bold
-correct option, and `teachernote` scoring for Part D. Builds clean: `make -C unit01/tests all` and
-`make -C unit01/test_keys all` exit 0; `drop` published `practice_test`→`sample_test/main.pdf` (3 pp,
-student + full packet) and `practice_test_key`→`sample_test_key/main.pdf` (2 pp, full packet only).
-Actual test 2 pp, actual key 2 pp — never merged into a packet. `\ans`-in-math scan clean; visual
-QA of all pages passed. **Unit 1 complete** (5 lessons + tests) — next is the Unit 2 lesson map.
+**Last updated:** 2026-07-13 — **Scaffolded Unit 2 in full** (directories + skeletons only; no
+content authored yet). Confirmed the Unit 2 lesson map with the user: 5 lessons — `lesson00`
+(id 2.0) intro + §2.1–2.4. Ran `new_lesson.py` for all five with the standard component set
+(cover, warmup, notes, activity, exit_ticket, homework, slides + keys). Each lesson has 13
+subdirs (7 components + 5 keys + images). The `lesson00` run also auto-laid-down the unit
+assessments: `unit02/tests/{practice_test,actual_test}`, `unit02/test_keys/{practice,actual}_test_key`,
+and the `sample_test`/`sample_test_key` drop-in dirs, plus `unit02/Makefile`. Sanity-built
+`make -C unit02/lesson00 all` → clean (both `lesson00_student.pdf` + `lesson00_full.pdf` in
+`target/compiled/unit02/`), confirming the skeletons are build-ready. **Nothing authored** —
+every `main.tex` is still a preambled skeleton. Next run authors the content, starting with
+lesson00 (per Unit 1, the first lesson sets the tone).
 
 ## Current state
 
@@ -67,6 +61,16 @@ QA of all pages passed. **Unit 1 complete** (5 lessons + tests) — next is the 
   `sample_test`/`sample_test_key` populated by `drop` (practice test + key).
 - Root `Makefile` and `unit01/Makefile` created. Toolchain present (xelatex, latexmk, pdfunite).
 
+**Unit 2 — scaffolded (all 5 lessons + tests), NOT authored.** Confirmed lesson map:
+- `unit02/lesson00` — id 2.0, **"From Combinations to Solutions --- Setting Up Ax = b"** — intro:
+  spiral-review $A\mathbf x$ as a column combination + reachability (from 1.3), roadmap elimination.
+- `unit02/lesson01` — id 2.1, **"The Idea of Elimination"** (§2.1).
+- `unit02/lesson02` — id 2.2, **"Elimination Matrices and Inverse Matrices"** (§2.2).
+- `unit02/lesson03` — id 2.3, **"Matrix Computations and A = LU"** (§2.3).
+- `unit02/lesson04` — id 2.4, **"Permutations and Transposes"** (§2.4).
+- `unit02/{tests,test_keys,sample_test,sample_test_key}` + `unit02/Makefile` scaffolded.
+- All `main.tex` files are **skeletons only** — content authoring is the next run's job.
+
 ### Per-unit progress
 
 Status legend: ☐ not started · ◐ in progress · ☑ complete
@@ -74,7 +78,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | Unit | Chapter | Lessons | Status |
 | --- | --- | --- | --- |
 | 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
-| 2 | Solving Linear Equations Ax = b | 2.1–2.4 | ☐ |
+| 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ◐ scaffolded (skeletons + tests), not authored |
 | 3 | The Four Fundamental Subspaces | 3.1–3.5 | ☐ |
 | 4 | Orthogonality | 4.1–4.4 | ☐ |
 | 5 | Determinants and Linear Transformations | 5.1–5.3 | ☐ |
@@ -84,9 +88,10 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Confirm the Unit 2 lesson map with the user** (Solving $A\mathbf x=\mathbf b$, §2.1–2.4, plus a
-   `lesson00` intro per the confirmed convention), then begin authoring Unit 2. Unit 1 is done —
-   this is the next thing to build.
+1. **Author Unit 2 content into the scaffolded skeletons.** Start with `unit02/lesson00` (per
+   Unit 1, the first lesson sets the model), then 2.1 → 2.4, then the unit tests/keys. All dirs +
+   skeletons already exist; just fill each `main.tex` per `references/components.md`, keeping
+   blank/key in lockstep. Source math from LAfE §2.1–2.4, down-leveled.
 2. *(optional)* Rebuild the whole Unit 1 packet (`make -C unit01 student|full`) to confirm the new
    `sample_test`/`sample_test_key` merge in as expected before moving on.
 

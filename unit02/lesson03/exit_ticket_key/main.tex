@@ -3,6 +3,9 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\cc}{\mathbf{c}}
 
 \begin{document}
 
@@ -11,9 +14,33 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{enumerate}[leftmargin=1.8em, itemsep=14pt]
+  \item \textbf{Factor and solve.} Let $A=\begin{bmatrix} 1 & 4 \\ 3 & 14 \end{bmatrix}$ and
+        $\bb=\begin{bmatrix} 1 \\ 5 \end{bmatrix}$.
+        \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=7pt]
+          \item Factor $A=LU$: find the multiplier, then write $L$ and $U$.
+                \hfill $\ell=\ans{$3$}$
+                \ansline{$U=\begin{bsmallmatrix} 1&4\\0&2 \end{bsmallmatrix}$ (row$_2-3\,$row$_1$), $L=\begin{bsmallmatrix} 1&0\\3&1 \end{bsmallmatrix}$. Check: $LU=\begin{bsmallmatrix} 1&4\\3&14 \end{bsmallmatrix}=A$ \checkmark}
+          \item Solve $A\xx=\bb$ in two sweeps ($L\cc=\bb$, then $U\xx=\cc$).
+                \hfill $x=\ans{$-3$}$\quad $y=\ans{$1$}$
+                \ansline{Forward: $c_1=1$, $3(1)+c_2=5\Rightarrow c_2=2$, so $\cc=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$. Back: $2y=2\Rightarrow y=1$, $x+4=1\Rightarrow x=-3$. Check: $1(-3)+4(1)=1$, $3(-3)+14(1)=5$ \checkmark}
+        \end{enumerate}
+        \vspace{2pt}
+  \item \textbf{What does $L$ record?} In a factorization $A=LU$, what do the numbers \emph{below} the
+        diagonal of $L$ represent, and why does building $L$ take no extra work once you have
+        eliminated?
+        \ansline{They are the \emph{multipliers} $\ell$ from elimination --- each entry $\ell_{ij}$ is
+        how many of the pivot row you subtracted to clear position $(i,j)$. Building $L$ is free because
+        you already computed those multipliers while eliminating; you just record them (with a plus
+        sign) instead of throwing them away.}
+\end{enumerate}
+
+\begin{teachernote}
+Item~1 checks the whole method: full credit needs the multiplier, correct $L$ and $U$ (watch the sign
+--- $L$ holds $+3$), \emph{and} the two-sweep solve (note the negative $x$). Item~2 is the conceptual
+check --- students must name the below-diagonal entries as the multipliers and justify that $L$ is a
+free by-product of elimination. Sort into ``factors \& sweeps solid / sign or diagonal slip / unclear
+on the two sweeps'' to set up Lesson~2.4 (row swaps, $PA=LU$).
+\end{teachernote}
 
 \end{document}

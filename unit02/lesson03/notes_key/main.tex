@@ -3,17 +3,148 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\cc}{\mathbf{c}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.3}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item factor a matrix as $A=LU$ --- $U$ is elimination's result, $L$ \emph{stores the multipliers};
+  \item \emph{check} a factorization by multiplying $LU$ back to $A$;
+  \item solve $A\xx=\bb$ in two sweeps: forward-solve $L\cc=\bb$, then back-solve $U\xx=\cc$;
+  \item explain why $A=LU$ is the efficient way to re-solve one system for many right-hand sides.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.10in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{Lower triangular $L$}{$1$s on the diagonal, the multipliers $\ell$ below, $0$s above; entry $\ell_{ij}$ is the multiplier that cleared position $(i,j)$}
+\vocabans{Upper triangular $U$}{the result of forward elimination: pivots on the diagonal, $0$s below}
+\vocabans{Factorization $A=LU$}{splitting $A$ into (lower)$\times$(upper); $L$ remembers how we eliminated, $U$ remembers what we got}
+\vocabans{Forward substitution}{solve a lower-triangular system $L\cc=\bb$ from the top row down}
+\vocabans{Two triangular sweeps}{solve $A\xx=\bb$ as $L\cc=\bb$ (forward) then $U\xx=\cc$ (back) --- no inverse}
+\end{vocabbox}
+
+\begin{hookbox}
+Same bakery as last lesson: the recipe matrix $A$ never changes --- only the order $\bb$ does.
+\[
+  A = \begin{bmatrix} 1 & 3 \\ 2 & 7 \end{bmatrix}, \qquad
+  \text{this week } \bb = \begin{bmatrix} 7 \\ 15 \end{bmatrix}.
+\]
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item In 2.2 we built the whole inverse $A^{-1}$. But elimination in 2.1 already did the hard part.
+        What if we could just \emph{save} that work and reuse it for every order?
+        \ansline{Save elimination as $A=LU$: keep the result $U$ and the multipliers in $L$, then reuse them on any new $\bb$.}
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. Saving Elimination as $A=LU$}
+Run elimination on $A=\begin{bsmallmatrix} 1&3\\2&7 \end{bsmallmatrix}$ once (pivot $1$, multiplier
+$\ell=2$). Row~2 becomes (row~2)$-2\,$(row~1), leaving the upper-triangular
+\[
+  U = \begin{bmatrix} 1 & 3 \\ 0 & 1 \end{bmatrix}.
+\]
+Now build the lower-triangular $\mathbf{L}$: start from the identity, put $1$s on the diagonal, and
+drop the multiplier $\ell=2$ into the spot it cleared --- \emph{with a plus sign} (this is the
+undo-matrix $E^{-1}$ from 2.2):
+\[
+  L = \begin{bmatrix} 1 & 0 \\ {\color{keyred}\mathbf{2}} & 1 \end{bmatrix}.
+\]
+\textbf{Check the factorization} by multiplying $LU$ --- it should rebuild $A$:
+\[
+  LU = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}\begin{bmatrix} 1 & 3 \\ 0 & 1 \end{bmatrix}
+  = \begin{bmatrix} {\color{keyred}\mathbf{1}} & {\color{keyred}\mathbf{3}}\\[2pt]{\color{keyred}\mathbf{2}} & {\color{keyred}\mathbf{7}}\end{bmatrix} = A. \quad\checkmark
+\]
+So $A=LU$: $U$ remembers \emph{what elimination got}; $L$ remembers \emph{how we did it}.
 \end{notesbox}
+
+\begin{notesbox}{2. $L$ Just Stores the Multipliers (a $3\times3$)}
+Here is the payoff: building $L$ takes \textbf{no extra work}. Whatever multipliers you use during
+elimination, you simply drop each one into $L$ (with $1$s on the diagonal). Eliminate
+$A=\begin{bsmallmatrix} 1&2&1\\2&5&5\\3&7&8 \end{bsmallmatrix}$, recording each multiplier
+$\ell=\dfrac{\text{entry}}{\text{pivot}}$:
+\[
+  \begin{array}{ll}
+    \ell_{21} = 2 \div 1 = 2, & \text{(clears the $(2,1)$ entry)}\\[3pt]
+    \ell_{31} = 3 \div 1 = {\color{keyred}\mathbf{3}}, & \text{(clears the $(3,1)$ entry)}\\[3pt]
+    \ell_{32} = 1 \div 1 = {\color{keyred}\mathbf{1}}. & \text{(clears the $(3,2)$ entry)}
+  \end{array}
+\]
+Elimination leaves $U=\begin{bsmallmatrix} 1&2&1\\0&1&3\\0&0&2 \end{bsmallmatrix}$ (pivots $1,1,2$). Now
+place each multiplier into its spot in $L$:
+\[
+  L = \begin{bmatrix} 1 & 0 & 0 \\ \ell_{21} & 1 & 0 \\ \ell_{31} & \ell_{32} & 1 \end{bmatrix}
+    = \begin{bmatrix} 1 & 0 & 0 \\ {\color{keyred}\mathbf{2}} & 1 & 0 \\ {\color{keyred}\mathbf{3}} & {\color{keyred}\mathbf{1}} & 1 \end{bmatrix}.
+\]
+The multipliers slot straight in --- $L$ is a free record of the elimination.
+\end{notesbox}
+
+\begin{notesbox}{3. Solving $A\xx=\bb$ in Two Triangular Sweeps}
+Once $A=LU$, we \emph{never} touch $A$ again. Since $A\xx=\bb$ means $L(U\xx)=\bb$, give the inside
+piece a name: $\cc=U\xx$. Then solve two easy triangular systems back-to-back.
+
+\vspace{3pt}
+\textbf{Sweep 1 --- forward, $L\cc=\bb$} (top row down). For the bakery, $\bb=\begin{bsmallmatrix} 7\\15 \end{bsmallmatrix}$:
+\[
+  \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}\begin{bmatrix} c_1 \\ c_2 \end{bmatrix} = \begin{bmatrix} 7 \\ 15 \end{bmatrix}
+  \;\Rightarrow\; c_1 = {\color{keyred}\mathbf{7}},\quad 2c_1 + c_2 = 15 \Rightarrow c_2 = {\color{keyred}\mathbf{1}}.
+\]
+So $\cc=\begin{bsmallmatrix} 7\\1 \end{bsmallmatrix}$ --- exactly the updated right-hand side from 2.1!
+The forward sweep \emph{is} ``update $\bb$ as you eliminate.''
+
+\vspace{3pt}
+\textbf{Sweep 2 --- back, $U\xx=\cc$} (bottom row up):
+\[
+  \begin{bmatrix} 1 & 3 \\ 0 & 1 \end{bmatrix}\begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} 7 \\ 1 \end{bmatrix}
+  \;\Rightarrow\; y = {\color{keyred}\mathbf{1}},\quad x + 3y = 7 \Rightarrow x = {\color{keyred}\mathbf{4}}.
+\]
+So $(x,y)=(\,\ans{$4,\,1$}\,)$ --- the same answer as 2.1 and 2.2, with no inverse in sight.
+\end{notesbox}
+
+\begin{notesbox}{4. Why Factor? The ``Matrix Computations'' Point}
+Factoring $A=LU$ is the \emph{expensive} step --- but you do it \textbf{once}. After that, every new
+order $\bb$ costs only the two quick sweeps above. Compare the options for the same $A$ with many
+right-hand sides:
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item Re-run elimination from scratch each time --- repeats all the hard work every order.
+  \item Build $A^{-1}$ (Lesson 2.2) --- powerful, but more work to build than $L$ and $U$.
+  \item \textbf{Factor once, then two sweeps per order} --- cheapest for solving. \emph{This is what
+        computers actually do.}
+\end{itemize}
+$L$ and $U$ are just elimination, \emph{saved} and ready to reuse.
+\end{notesbox}
+
+\begin{practicebox}
+Let $A=\begin{bmatrix} 1 & 4 \\ 3 & 10 \end{bmatrix}$ and $\bb=\begin{bmatrix} 6 \\ 16 \end{bmatrix}$.
+\begin{enumerate}[leftmargin=1.6em]
+  \item Find the multiplier, then write $L$ and $U$. \hfill $\ell=\ans{$3$}$
+        \ansline{$U=\begin{bsmallmatrix} 1&4\\0&-2 \end{bsmallmatrix}$ (row$_2-3\,$row$_1$), $L=\begin{bsmallmatrix} 1&0\\3&1 \end{bsmallmatrix}$.}
+  \item \textbf{Check} $LU=A$.
+        \ansline{$\begin{bsmallmatrix} 1&0\\3&1 \end{bsmallmatrix}\begin{bsmallmatrix} 1&4\\0&-2 \end{bsmallmatrix}=\begin{bsmallmatrix} 1&4\\3&10 \end{bsmallmatrix}=A$ \checkmark}
+  \item Solve $A\xx=\bb$ by two sweeps ($L\cc=\bb$, then $U\xx=\cc$). \hfill $x=\ans{$2$}$\quad $y=\ans{$1$}$
+        \ansline{Forward: $c_1=6$, $3(6)+c_2=16\Rightarrow c_2=-2$, so $\cc=\begin{bsmallmatrix} 6\\-2 \end{bsmallmatrix}$. Back: $-2y=-2\Rightarrow y=1$, $x+4=6\Rightarrow x=2$.}
+\end{enumerate}
+\end{practicebox}
+
+\begin{teachernote}
+The through-line: $A=LU$ is elimination \emph{saved}. $U$ is the 2.1 result; $L$ is the 2.2
+undo-matrices $E^{-1}$ gathered up, so its below-diagonal entries are just the multipliers (with a
+\emph{plus} sign --- the most common slip is writing $-\ell$). Emphasize \S3: the forward sweep
+reproduces ``update the right-hand side'' (watch $\cc=\begin{bsmallmatrix} 7\\1 \end{bsmallmatrix}$ match
+2.1), and the back sweep is ordinary back-substitution. \S4 is the concept behind the section title:
+factor once, then two cheap sweeps per order --- how real solvers work.
+\end{teachernote}
 
 \end{document}

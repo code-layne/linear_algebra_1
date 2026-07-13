@@ -3,6 +3,9 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\cc}{\mathbf{c}}
 
 \begin{document}
 
@@ -11,9 +14,21 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Factor and solve.} Let $A=\begin{bmatrix} 1 & 4 \\ 3 & 14 \end{bmatrix}$ and
+        $\bb=\begin{bmatrix} 1 \\ 5 \end{bmatrix}$.
+        \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=8pt]
+          \item Factor $A=LU$: find the multiplier, then write $L$ and $U$.
+                \hfill $\ell=\blank{1.4cm}$
+                \vspace{1.2cm}
+          \item Solve $A\xx=\bb$ in two sweeps ($L\cc=\bb$, then $U\xx=\cc$).
+                \hfill $x=\blank{1.4cm}$\quad $y=\blank{1.4cm}$
+        \end{enumerate}
+        \vspace{0.3cm}
+  \item \textbf{What does $L$ record?} In a factorization $A=LU$, what do the numbers \emph{below} the
+        diagonal of $L$ represent, and why does building $L$ take no extra work once you have
+        eliminated?
+        \writelines{3}
+\end{enumerate}
 
 \end{document}

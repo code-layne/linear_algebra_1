@@ -16,8 +16,8 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 2}}\\[6pt]
-  {\color{white}\textbf{\large Lesson 2.3 \quad Matrix Computations and A = LU}}
+  {\color{blushmid}\large\textbf{Unit 2 \quad Solving Linear Equations $A\mathbf{x}=\mathbf{b}$}}\\[6pt]
+  {\color{white}\textbf{\large Lesson 2.3 \quad Matrix Computations and $A=LU$}}
 \end{center}
 
 \vspace{0.22in}
@@ -27,8 +27,10 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} factor a matrix as $A=LU$: $U$ is elimination's result, and $L$ \textbf{stores the multipliers} (with $1$s on its diagonal).
+  \item \ldots{} \textbf{check} a factorization by multiplying $LU$ back to $A$.
+  \item \ldots{} solve $A\mathbf{x}=\mathbf{b}$ in \textbf{two triangular sweeps} --- forward-solve $L\mathbf{c}=\mathbf{b}$, then back-solve $U\mathbf{x}=\mathbf{c}$.
+  \item \ldots{} explain why $A=LU$ is the efficient way to re-solve one system for many right-hand sides.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +43,25 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: $L\times U$ product, back-substitution, a multiplier           & \blank{1.2cm} \\
+2 & Guided Notes   & Saving elimination as $A=LU$; solving in two triangular sweeps                & \blank{1.2cm} \\
+3 & Group Activity & Factor Once, Solve Fast --- factor $A=LU$, run two orders, a $3\times3$        & \blank{1.2cm} \\
+4 & Exit Ticket    & Factor a $2\times2$ as $LU$ and solve $A\mathbf{x}=\mathbf{b}$ in two sweeps    & \blank{1.2cm} \\
+5 & Homework       & $LU$ factoring, two-sweep solves, an application, a $3\times3$                & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small The factorization $A=LU$ \textbf{saves} elimination: $U$ is the upper-triangular result, and
+$L$ is lower-triangular with $1$s on the diagonal and the \textbf{multipliers} $\ell$ below it --- no
+extra work, since those are the same multipliers elimination already used. To solve
+$A\mathbf{x}=\mathbf{b}$, take \textbf{two sweeps}: forward-solve $L\mathbf{c}=\mathbf{b}$ (top down),
+then back-solve $U\mathbf{x}=\mathbf{c}$ (bottom up). Factor once, and every new $\mathbf{b}$ is just
+two quick sweeps.
+\end{remindbox}
 
 \end{document}

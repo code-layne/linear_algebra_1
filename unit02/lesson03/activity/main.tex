@@ -3,17 +3,62 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\cc}{\mathbf{c}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.3}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Factor Once, Solve Fast.} A factorization $A=LU$ \emph{saves} elimination: $U$ is the
+upper-triangular result, and $L$ is lower-triangular with $1$s on the diagonal and the multipliers
+$\ell$ below. To solve $A\xx=\bb$, sweep twice --- forward $L\cc=\bb$, then back $U\xx=\cc$. Work with
+your partner and \emph{show every step}.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Factor $A=\begin{bmatrix} 2 & 6 \\ 6 & 20 \end{bmatrix}$. The pivot is $2$, so the multiplier is
+$\ell=6\div2=3$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Eliminate (row$_2 - 3\,$row$_1$) to get $U$. \; $U=\begin{bmatrix} 2 & 6 \\ \blank{0.9cm} & \blank{0.9cm} \end{bmatrix}$ \vspace{0.2cm}
+  \item Write $L$: put $1$s on the diagonal and the multiplier below. \; $L=\begin{bmatrix} 1 & 0 \\ \blank{0.9cm} & 1 \end{bmatrix}$ \vspace{0.2cm}
+  \item \textbf{Check} $LU=A$ by multiplying. \vspace{1.3cm}
+  \item In one sentence: what does the $3$ in $L$ record? \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{One factorization, many orders.} A juice bar blends two mixes. Each liter of \textbf{Mix P}
+carries $1$ unit sugar and $3$ units vitamin; each liter of \textbf{Mix Q} carries $2$ sugar and $8$
+vitamin. With $p$ liters of P and $q$ of Q the totals are $A\begin{bsmallmatrix} p\\q \end{bsmallmatrix}=\bb$,
+where $A=\begin{bmatrix} 1 & 2 \\ 3 & 8 \end{bmatrix}$ (sugar row, vitamin row).
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item Factor once: find $\ell$, and write $L$ and $U$. \vspace{1.1cm}
+  \item \textbf{Order 1:} sugar $4$, vitamin $14$. Two sweeps ($L\cc=\bb$, then $U\xx=\cc$) --- find $p,q$. \vspace{1.3cm}
+  \item \textbf{Order 2:} sugar $7$, vitamin $27$. Same $L$ and $U$ --- find $p,q$. \vspace{1.3cm}
+  \item \emph{Interpret:} give each order's liters, and say why keeping $L$ and $U$ beats re-eliminating
+        every order. \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{A $3\times3$ factorization.} Factor $A=\begin{bmatrix} 2 & 4 & 2 \\ 4 & 9 & 5 \\ 2 & 7 & 8 \end{bmatrix}$
+by elimination, recording all three multipliers $\ell_{21},\ell_{31},\ell_{32}$ into $L$.
+\vspace{2.0cm}
+
+\textbf{Then solve} $A\xx=\bb$ for $\bb=\begin{bmatrix} 10 \\ 22 \\ 19 \end{bmatrix}$ using two sweeps
+($L\cc=\bb$ forward, then $U\xx=\cc$ back). \emph{Justify:} explain why writing down $L$ cost you no
+extra arithmetic beyond the elimination you already did. \writelines{3}
+\end{tcolorbox}
 
 \end{document}

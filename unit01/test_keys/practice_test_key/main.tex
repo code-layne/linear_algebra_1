@@ -2,6 +2,11 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\xx}{\mathbf{x}}
 
 % Part-divider strip
 \newcommand{\parthead}[1]{%
@@ -12,20 +17,138 @@
 \begin{document}
 
 \pageheader{Unit 1: Vectors and Matrices}{Practice Test --- Study Copy --- Answer Key}
+\namedateperiod
 
-% Mirror the blank test EXACTLY, filling each answer with \ans{...} (inline) or
-% \ansline{...} (on a write-line). Use teachernote for scoring/teacher guidance.
+\vspace{0.10in}
+\begin{remindbox}
+\small
+\textbf{This is a practice test.} It mirrors the real Unit 1 test in length, format,
+and the ideas it covers, but the numbers and contexts differ. Work every problem
+with no notes, then check your answers against the key.
+\end{remindbox}
+
 % ======================================================================
-\parthead{Part A --- Vocabulary}
-% TODO: answers via \ans{...}
+\parthead{Part A --- Vocabulary (8 pts)}
+Write the letter of the best description next to each term.
 
-\parthead{Part B --- Multiple Choice}
-% TODO: mark correct options, e.g. \textcolor{keyred}{\textbf{$\leftarrow$ correct}}
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.44\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=7pt, label=\arabic*.]
+  \item Scalar \ans{D}
+  \item Magnitude \ans{F}
+  \item Unit vector \ans{B}
+  \item Linear combination \ans{G}
+  \item Span \ans{H}
+  \item Dot product \ans{E}
+  \item Column space \ans{C}
+  \item Rank \ans{A}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.53\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=3pt]
+  \item[(A)] The number of independent columns of a matrix.
+  \item[(B)] A vector whose length is exactly $1$.
+  \item[(C)] All vectors you can reach as $A\xx$ --- the span of a matrix's columns.
+  \item[(D)] A single number that scales (stretches or flips) a vector.
+  \item[(E)] $\vv\cdot\ww=v_1w_1+v_2w_2$; it measures length and angle.
+  \item[(F)] The length of a vector, $\sqrt{v_1^2+v_2^2}$.
+  \item[(G)] A sum of scaled vectors, $c\vv+d\ww$.
+  \item[(H)] The set of \emph{all} linear combinations of a set of vectors.
+\end{description}
+\end{minipage}
 
-\parthead{Part C --- Short Answer \& Computation}
-% TODO: worked answers via \ans{...}
+% ======================================================================
+\parthead{Part B --- Multiple Choice (12 pts)}
+Circle the best answer.
 
-\parthead{Part D --- Extended Response}
-% TODO: sample response + scoring notes in a teachernote.
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item Two nonzero vectors are \textbf{perpendicular} exactly when
+    \hfill (A) their sum is $\mathbf 0$ \quad \textbf{(B) $\vv\cdot\ww=0$} \ans{$\leftarrow$} \quad
+    (C) $\vv\cdot\ww=1$ \quad (D) they have equal length
+  \item The vectors $\begin{bsmallmatrix}1\\2\end{bsmallmatrix}$ and
+    $\begin{bsmallmatrix}3\\6\end{bsmallmatrix}$ span
+    \hfill (A) a single point \quad \textbf{(B) a line} \ans{$\leftarrow$} \quad (C) the whole plane \quad (D) all of space
+  \item The product $A\xx$ is
+    \hfill \textbf{(A) a combination of the \emph{columns} of $A$} \ans{$\leftarrow$} \quad (B) a combination of the rows of $A$ \\
+    \phantom{x}\hfill (C) always $\mathbf 0$ \quad (D) the length of $\xx$
+  \item The matrix $\begin{bsmallmatrix}1&2\\2&4\end{bsmallmatrix}$ has rank
+    \hfill (A) $0$ \quad \textbf{(B) $1$} \ans{$\leftarrow$} \quad (C) $2$ \quad (D) $4$
+  \item The unit vector $\dfrac{\vv}{\|\vv\|}$ has length
+    \hfill (A) $0$ \quad \textbf{(B) $1$} \ans{$\leftarrow$} \quad (C) $\|\vv\|$ \quad (D) $\|\vv\|^2$
+  \item A vector $\bb$ lies in the column space of $A$ exactly when
+    \hfill (A) $\bb=\mathbf 0$ \quad \textbf{(B) $A\xx=\bb$ has a solution} \ans{$\leftarrow$} \\
+    \phantom{x}\hfill (C) $\bb$ is a unit vector \quad (D) $\bb$ is perpendicular to every column
+\end{enumerate}
+
+\begin{teachernote}
+Item 2: parallel columns ($\begin{bsmallmatrix}3\\6\end{bsmallmatrix}=3\begin{bsmallmatrix}1\\2\end{bsmallmatrix}$)
+span only a line. Item 4: rank $1$ because column~2 is $2\times$ column~1. Watch for students
+picking (A) ``rows'' in item~3 --- reinforce that $A\xx$ combines \emph{columns}.
+\end{teachernote}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (30 pts)}
+Show your work.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item Let $\vv=\begin{bsmallmatrix}3\\4\end{bsmallmatrix}$ and
+        $\ww=\begin{bsmallmatrix}-1\\2\end{bsmallmatrix}$. Compute
+        \textbf{(a)} $\vv+\ww$, \quad \textbf{(b)} $2\vv-\ww$, \quad \textbf{(c)} $\|\vv\|$.
+        \ans{(a) $\begin{bsmallmatrix}2\\6\end{bsmallmatrix}$; \ (b) $\begin{bsmallmatrix}6\\8\end{bsmallmatrix}-\begin{bsmallmatrix}-1\\2\end{bsmallmatrix}=\begin{bsmallmatrix}7\\6\end{bsmallmatrix}$; \ (c) $\|\vv\|=\sqrt{3^2+4^2}=\sqrt{25}=5$.}
+  \item Write the unit vector that points the same direction as
+        $\vv=\begin{bsmallmatrix}3\\4\end{bsmallmatrix}$.
+        \ans{$\dfrac{1}{5}\begin{bsmallmatrix}3\\4\end{bsmallmatrix}=\begin{bsmallmatrix}3/5\\4/5\end{bsmallmatrix}$ (divide by the length $5$).}
+  \item Let $\uu=\begin{bsmallmatrix}4\\2\end{bsmallmatrix}$ and
+        $\vv=\begin{bsmallmatrix}-1\\2\end{bsmallmatrix}$. Compute $\uu\cdot\vv$, then state
+        whether $\uu$ and $\vv$ are perpendicular and how you know.
+        \ans{$\uu\cdot\vv=(4)(-1)+(2)(2)=-4+4=0$. Yes, perpendicular: the dot product is $0$.}
+  \item Find weights $c$ and $d$ so that
+        $c\begin{bsmallmatrix}2\\1\end{bsmallmatrix}+d\begin{bsmallmatrix}1\\3\end{bsmallmatrix}
+         =\begin{bsmallmatrix}5\\5\end{bsmallmatrix}$.
+        \ans{$2c+d=5,\ c+3d=5 \Rightarrow c=2,\ d=1$. Check: $2\begin{bsmallmatrix}2\\1\end{bsmallmatrix}+\begin{bsmallmatrix}1\\3\end{bsmallmatrix}=\begin{bsmallmatrix}5\\5\end{bsmallmatrix}$.}
+  \item Let $A=\begin{bsmallmatrix}1&2\\3&1\end{bsmallmatrix}$ and
+        $\xx=\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$. Compute $A\xx$ \emph{as a combination
+        of the columns of $A$}.
+        \ans{$A\xx=2\begin{bsmallmatrix}1\\3\end{bsmallmatrix}+1\begin{bsmallmatrix}2\\1\end{bsmallmatrix}=\begin{bsmallmatrix}2\\6\end{bsmallmatrix}+\begin{bsmallmatrix}2\\1\end{bsmallmatrix}=\begin{bsmallmatrix}4\\7\end{bsmallmatrix}$.}
+  \item Factor $A=\begin{bsmallmatrix}1&2&3\\2&1&3\end{bsmallmatrix}$ as $A=CR$. Which columns are
+        independent? Write $C$, build the recipe $R$, and give the rank.
+        \ans{Columns~1 and~2 are independent; column~3 $=\begin{bsmallmatrix}1\\2\end{bsmallmatrix}+\begin{bsmallmatrix}2\\1\end{bsmallmatrix}=\begin{bsmallmatrix}3\\3\end{bsmallmatrix}$. So $C=\begin{bsmallmatrix}1&2\\2&1\end{bsmallmatrix}$, $R=\begin{bsmallmatrix}1&0&1\\0&1&1\end{bsmallmatrix}$, rank $2$.}
+  \item Let $A=\begin{bsmallmatrix}1&2\\2&4\end{bsmallmatrix}$. For each target, say whether it is
+        reachable as $A\xx$ (is it in the column space?) and justify in one line.
+        \textbf{(a)} $\bb=\begin{bsmallmatrix}3\\6\end{bsmallmatrix}$ \quad
+        \textbf{(b)} $\bb=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$
+        \ans{Both columns are multiples of $\begin{bsmallmatrix}1\\2\end{bsmallmatrix}$, so $C(A)$ is that line. (a) Reachable: $\begin{bsmallmatrix}3\\6\end{bsmallmatrix}=3\begin{bsmallmatrix}1\\2\end{bsmallmatrix}$. (b) Not reachable: $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ is not a multiple of $\begin{bsmallmatrix}1\\2\end{bsmallmatrix}$ (it is off the line).}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (10 pts)}
+Explain your reasoning in full sentences.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item A matrix $A=\begin{bsmallmatrix}1&2\\1&3\end{bsmallmatrix}$ has columns
+        $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ and $\begin{bsmallmatrix}2\\3\end{bsmallmatrix}$.
+        \textbf{(a)} Is the column space a line or the whole plane? How do you know?
+        \textbf{(b)} Is $\bb=\begin{bsmallmatrix}4\\5\end{bsmallmatrix}$ reachable? If so, find the
+        weights. \textbf{(c)} If the second column were changed to
+        $\begin{bsmallmatrix}2\\2\end{bsmallmatrix}$, what would happen to the column space, and why?
+        \ans{(a) The whole plane: the two columns are not multiples of each other (independent), so their span is all of $\mathbb R^2$. (b) Reachable --- $c\begin{bsmallmatrix}1\\1\end{bsmallmatrix}+d\begin{bsmallmatrix}2\\3\end{bsmallmatrix}=\begin{bsmallmatrix}4\\5\end{bsmallmatrix}$ gives $c+2d=4,\ c+3d=5\Rightarrow d=1,\ c=2$. (c) Then column~2 $=\begin{bsmallmatrix}2\\2\end{bsmallmatrix}=2\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ is parallel to column~1, so the columns collapse to one direction and $C(A)$ shrinks to a \emph{line} (rank drops to $1$).}
+  \item Two viewers' taste profiles are $\uu=\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$ and
+        $\vv=\begin{bsmallmatrix}-1\\2\end{bsmallmatrix}$. Compute $\uu\cdot\vv$ and explain what the
+        result says about how similar the two viewers' tastes are, using what you know about the
+        sign of a dot product.
+        \ans{$\uu\cdot\vv=(2)(-1)+(1)(2)=0$. A zero dot product means the profiles are perpendicular --- neither aligned nor opposed --- so the two viewers' tastes are essentially \emph{unrelated} (no shared preference direction). A positive dot would mean similar tastes, a negative dot opposite tastes.}
+\end{enumerate}
+
+\begin{teachernote}
+\textbf{Scoring Part D (5 pts each).} Award full credit only when the student both gives the
+correct result and \emph{justifies} it. D1: 2 pts (a) independence $\Rightarrow$ plane;
+2 pts (b) correct weights $c=2,d=1$; 1 pt (c) parallel $\Rightarrow$ line/rank~1. D2: 2 pts the
+computation $\uu\cdot\vv=0$; 3 pts interpreting $0\Rightarrow$ perpendicular $\Rightarrow$
+unrelated, with the sign meaning. Full-credit language for the arc: \emph{combine columns $\to$
+span $\to$ line vs.\ plane $\to$ reachability}.
+\end{teachernote}
 
 \end{document}

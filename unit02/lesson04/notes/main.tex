@@ -3,17 +3,134 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\cc}{\mathbf{c}}
+\newcommand{\PP}{P}
+\newcommand{\tp}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.4}{Guided Notes}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Guided Notes. See references/components.md for the expected structure.
-\begin{notesbox}{Guided Notes}
-\writelines{4}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item build a \emph{permutation matrix} $\PP$ and use it to swap the rows of a matrix;
+  \item fix a \emph{zero pivot} with a row swap and write the factorization $\PP A=LU$;
+  \item \emph{transpose} a matrix and recognize \emph{symmetric} matrices ($A^{\tp}=A$);
+  \item explain why swapping two rows never changes the solution to $A\xx=\bb$.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.10in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\termblanklong{Permutation matrix $\PP$}
+\termblanklong{Zero pivot / row exchange}
+\termblanklong{Factorization $\PP A=LU$}
+\termblanklong{Transpose $A^{\tp}$}
+\termblanklong{Symmetric matrix}
+\end{vocabbox}
+
+\begin{hookbox}
+Try to start elimination on the matrix below, the way we did all last lesson:
+\[
+  A = \begin{bmatrix} 0 & 2 \\ 1 & 3 \end{bmatrix}.
+\]
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item The first pivot is the top-left entry --- but it is $0$. Elimination can't start. What simple
+        move rescues the system? \writeline
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. A Permutation Matrix Swaps Rows}
+A \textbf{permutation matrix} $\PP$ is just the identity $I$ with its rows reordered. The $2\times2$
+\emph{swap} matrix is
+\[
+  \PP = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix},
+  \qquad
+  \PP\begin{bmatrix} a \\ b \end{bmatrix} = \begin{bmatrix}\rule{0pt}{1.1em}\blank{0.8cm}\\[2pt]\blank{0.8cm}\end{bmatrix}.
+\]
+Multiplying on the left, $\PP A$ swaps the two \emph{rows} of $A$:
+\[
+  \PP\begin{bmatrix} 0 & 2 \\ 1 & 3 \end{bmatrix}
+  = \begin{bmatrix}\rule{0pt}{1.1em}\blank{0.8cm} & \blank{0.8cm}\\[2pt]\blank{0.8cm} & \blank{0.8cm}\end{bmatrix}.
+\]
+$\PP$ never changes the numbers --- it only changes their \emph{order}. And swapping twice puts
+everything back, so $\PP\PP=I$; a permutation \emph{undoes itself}.
 \end{notesbox}
+
+\begin{notesbox}{2. Fixing a Zero Pivot: $\PP A=LU$}
+Back to the hook, $A=\begin{bsmallmatrix} 0&2\\1&3 \end{bsmallmatrix}$. The zero pivot blocks elimination,
+so \textbf{swap the rows first} with $\PP=\begin{bsmallmatrix} 0&1\\1&0 \end{bsmallmatrix}$:
+\[
+  \PP A = \begin{bmatrix} 1 & 3 \\ 0 & 2 \end{bmatrix}.
+\]
+Now the pivots are $\blank{0.7cm}$ and $\blank{0.7cm}$ --- both nonzero, so elimination runs. Here
+$\PP A$ is \emph{already} upper triangular, so $U=\begin{bsmallmatrix} 1&3\\0&2 \end{bsmallmatrix}$ and no
+elimination step is needed: $L=I$. The factorization is
+\[
+  \PP A = LU, \qquad L=\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix},\quad U=\begin{bmatrix} 1 & 3 \\ 0 & 2 \end{bmatrix}.
+\]
+\textbf{The rule:} whenever a zero pivot appears, a permutation $\PP$ swaps rows to bring up a nonzero
+pivot, and then $\PP A$ factors the ordinary way. For bigger matrices, after the swap you run 2.3's
+elimination and the multipliers fill $L$ as usual (you'll do a $3\times3$ in the activity).
+\end{notesbox}
+
+\begin{notesbox}{3. Why the Swap is Safe: Solving $A\xx=\bb$}
+Swapping two rows just \emph{reorders the equations} --- so the solution can't change, as long as we swap
+the same two entries of $\bb$. To solve $A\xx=\bb$ we solve $\PP A\xx=\PP\bb$ instead.
+
+\vspace{3pt}
+Take $A=\begin{bsmallmatrix} 0&2\\1&3 \end{bsmallmatrix}$ and $\bb=\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}$.
+Swap both: $\PP A=\begin{bsmallmatrix} 1&3\\0&2 \end{bsmallmatrix}$ and
+$\PP\bb=\begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}$. Since $L=I$, we back-solve $U\xx=\PP\bb$:
+\[
+  \begin{bmatrix} 1 & 3 \\ 0 & 2 \end{bmatrix}\begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} 4 \\ 2 \end{bmatrix}
+  \;\Rightarrow\; 2y=2 \Rightarrow y = \blank{0.8cm},\quad x+3y=4 \Rightarrow x = \blank{0.8cm}.
+\]
+So $(x,y)=(\,\blank{1.4cm}\,)$. Check it in the \emph{original} order: $0(1)+2(1)=2$ \checkmark\ and
+$1(1)+3(1)=4$ \checkmark. Same equations, just reordered --- same answer.
+\end{notesbox}
+
+\begin{notesbox}{4. The Transpose and Symmetric Matrices}
+The \textbf{transpose} $A^{\tp}$ flips $A$ across its diagonal: \emph{row $i$ becomes column $i$}, so the
+entry at $(i,j)$ moves to $(j,i)$. Rows turn into columns:
+\[
+  A = \begin{bmatrix} 1 & 2 & 0 \\ 3 & 1 & 4 \end{bmatrix}
+  \;\Rightarrow\;
+  A^{\tp} = \begin{bmatrix}\rule{0pt}{1.1em}\blank{0.7cm} & \blank{0.7cm}\\[2pt] \blank{0.7cm} & \blank{0.7cm}\\[2pt] \blank{0.7cm} & \blank{0.7cm}\end{bmatrix}.
+\]
+A square matrix is \textbf{symmetric} when $A^{\tp}=A$ --- it is its own mirror image across the
+diagonal. Circle the symmetric one:
+\[
+  S = \begin{bmatrix} 2 & 5 \\ 5 & 3 \end{bmatrix}, \qquad
+  T = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}.
+  \qquad\text{Symmetric: } \blank{1.6cm}
+\]
+
+\vspace{2pt}
+Two rules we'll reuse. Transpose \textbf{reverses the order} of a product (2.2's socks-and-shoes again):
+\[
+  (AB)^{\tp} = \blank{1.2cm}\,\blank{1.2cm}\quad\text{(fill in: } B^{\tp}A^{\tp}\text{ or } A^{\tp}B^{\tp}?\text{)}.
+\]
+And a permutation's transpose is its inverse: $\PP^{\tp}=\PP^{-1}$ (swapping, then swapping back, is $I$).
+\end{notesbox}
+
+\begin{practicebox}
+Let $A=\begin{bmatrix} 0 & 4 \\ 2 & 6 \end{bmatrix}$ and $\bb=\begin{bmatrix} 4 \\ 8 \end{bmatrix}$.
+\begin{enumerate}[leftmargin=1.6em]
+  \item Write the swap matrix $\PP$ and compute $\PP A$. \hfill $\PP A=\begin{bmatrix}\ \blank{0.7cm} & \blank{0.7cm}\ \\[2pt] \blank{0.7cm} & \blank{0.7cm} \end{bmatrix}$
+  \item Solve $A\xx=\bb$ using $\PP A\xx=\PP\bb$. \hfill $x=\blank{1.1cm}$\quad $y=\blank{1.1cm}$
+  \item Write $A^{\tp}$. Is $A$ symmetric? \writeline
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

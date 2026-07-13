@@ -3,17 +3,65 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\cc}{\mathbf{c}}
+\newcommand{\PP}{P}
+\newcommand{\tp}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.4}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Swap, Factor, Flip.} A \emph{permutation matrix} $\PP$ swaps rows: when a zero pivot blocks
+elimination, $\PP A$ brings up a good pivot and $\PP A=LU$. The \emph{transpose} $A^{\tp}$ flips a matrix
+across its diagonal. Work with your partner and \emph{show every step}.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Solve $A\xx=\bb$ where $A=\begin{bmatrix} 0 & 5 \\ 2 & 3 \end{bmatrix}$ and $\bb=\begin{bmatrix} 10 \\ 8 \end{bmatrix}$.
+The top-left entry is $0$, so a swap is needed.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Write the swap matrix $\PP$ and compute $\PP A$. \; $\PP A=\begin{bmatrix} \blank{0.9cm} & \blank{0.9cm} \\ \blank{0.9cm} & \blank{0.9cm} \end{bmatrix}$ \vspace{0.2cm}
+  \item Swap $\bb$ the same way: $\PP\bb=\begin{bmatrix} \blank{0.9cm} \\ \blank{0.9cm} \end{bmatrix}$. \vspace{0.2cm}
+  \item Solve $\PP A\xx=\PP\bb$ (here $\PP A$ is already upper triangular, so back-substitute). \; $x=\blank{1.1cm}$\quad $y=\blank{1.1cm}$ \vspace{1.0cm}
+  \item In one sentence: why is this the same answer as the original (unswapped) system? \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Flipping and symmetry.}
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item Transpose $A=\begin{bmatrix} 4 & 1 & 2 \\ 0 & 3 & 5 \end{bmatrix}$. \; $A^{\tp}=\begin{bmatrix} \blank{0.8cm} & \blank{0.8cm} \\ \blank{0.8cm} & \blank{0.8cm} \\ \blank{0.8cm} & \blank{0.8cm} \end{bmatrix}$ \vspace{0.2cm}
+  \item Which of these is \emph{symmetric}? Explain how you can tell.
+        $\ S=\begin{bmatrix} 6 & 2 \\ 2 & 9 \end{bmatrix},\quad T=\begin{bmatrix} 1 & 4 \\ 2 & 1 \end{bmatrix}.$ \writeline
+  \item \textbf{Verify the reversal rule} $(AB)^{\tp}=B^{\tp}A^{\tp}$ for
+        $A=\begin{bmatrix} 1 & 2 \\ 0 & 1 \end{bmatrix}$, $B=\begin{bmatrix} 1 & 0 \\ 3 & 1 \end{bmatrix}$.
+        Compute $AB$, then $(AB)^{\tp}$, then $B^{\tp}A^{\tp}$, and check they match. \vspace{2.2cm}
+  \item \emph{Interpret:} what does it mean, in terms of its entries, for a matrix to be symmetric? \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{A $3\times3$ with a zero pivot.} Solve $A\xx=\bb$ where
+$A=\begin{bmatrix} 0 & 1 & 4 \\ 1 & 2 & 2 \\ 2 & 5 & 9 \end{bmatrix}$ and $\bb=\begin{bmatrix} 5 \\ 6 \\ 18 \end{bmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=7pt]
+  \item The top-left entry is $0$. Write a permutation $\PP$ that swaps rows to get a nonzero pivot, and
+        compute $\PP A$ and $\PP\bb$. \vspace{1.6cm}
+  \item Factor $\PP A=LU$ by elimination (collect the multipliers into $L$). \vspace{1.6cm}
+  \item Solve in two sweeps: $L\cc=\PP\bb$ (forward), then $U\xx=\cc$ (back). \; $\xx=(\ \blank{2.4cm}\ )$ \vspace{1.4cm}
+  \item \emph{Justify:} explain why swapping rows (and the matching entries of $\bb$) does not change the
+        solution $\xx$. \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

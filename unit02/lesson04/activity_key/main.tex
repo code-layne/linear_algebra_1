@@ -3,17 +3,90 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\cc}{\mathbf{c}}
+\newcommand{\PP}{P}
+\newcommand{\tp}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.4}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Swap, Factor, Flip.} A \emph{permutation matrix} $\PP$ swaps rows: when a zero pivot blocks
+elimination, $\PP A$ brings up a good pivot and $\PP A=LU$. The \emph{transpose} $A^{\tp}$ flips a matrix
+across its diagonal. Work with your partner and \emph{show every step}.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Solve $A\xx=\bb$ where $A=\begin{bmatrix} 0 & 5 \\ 2 & 3 \end{bmatrix}$ and $\bb=\begin{bmatrix} 10 \\ 8 \end{bmatrix}$.
+The top-left entry is $0$, so a swap is needed.
+\begin{enumerate}[leftmargin=1.7em, itemsep=7pt]
+  \item Write the swap matrix $\PP$ and compute $\PP A$. \; $\PP=\begin{bsmallmatrix} 0&1\\1&0 \end{bsmallmatrix}$, \;
+        $\PP A=\begin{bmatrix} {\color{keyred}\mathbf{2}} & {\color{keyred}\mathbf{3}} \\ {\color{keyred}\mathbf{0}} & {\color{keyred}\mathbf{5}} \end{bmatrix}$
+  \item Swap $\bb$ the same way: $\PP\bb=\begin{bmatrix} {\color{keyred}\mathbf{8}} \\ {\color{keyred}\mathbf{10}} \end{bmatrix}$.
+  \item Solve $\PP A\xx=\PP\bb$ (here $\PP A$ is already upper triangular, so back-substitute). \; $x={\color{keyred}\mathbf{1}}$\quad $y={\color{keyred}\mathbf{2}}$
+        \ansline{$5y=10\Rightarrow y=2$; $2x+3(2)=8\Rightarrow x=1$. Check: $A\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}=\begin{bsmallmatrix} 10\\8 \end{bsmallmatrix}$ \checkmark}
+  \item In one sentence: why is this the same answer as the original (unswapped) system?
+        \ansline{The swap only reordered the two equations (and the matching entries of $\bb$) --- same equations, so the same solution.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Flipping and symmetry.}
+\begin{enumerate}[leftmargin=1.7em, itemsep=6pt]
+  \item Transpose $A=\begin{bmatrix} 4 & 1 & 2 \\ 0 & 3 & 5 \end{bmatrix}$. \;
+        $A^{\tp}=\begin{bmatrix} {\color{keyred}\mathbf{4}} & {\color{keyred}\mathbf{0}} \\ {\color{keyred}\mathbf{1}} & {\color{keyred}\mathbf{3}} \\ {\color{keyred}\mathbf{2}} & {\color{keyred}\mathbf{5}} \end{bmatrix}$
+        \hfill{\footnotesize (each row of $A$ becomes a column)}
+  \item Which of these is \emph{symmetric}? Explain how you can tell.
+        $\ S=\begin{bmatrix} 6 & 2 \\ 2 & 9 \end{bmatrix},\quad T=\begin{bmatrix} 1 & 4 \\ 2 & 1 \end{bmatrix}.$
+        \ansline{$S$ is symmetric: the off-diagonal entries match ($2=2$), so $S^{\tp}=S$. $T$ is not: $4\ne2$.}
+  \item \textbf{Verify the reversal rule} $(AB)^{\tp}=B^{\tp}A^{\tp}$ for
+        $A=\begin{bmatrix} 1 & 2 \\ 0 & 1 \end{bmatrix}$, $B=\begin{bmatrix} 1 & 0 \\ 3 & 1 \end{bmatrix}$.
+        Compute $AB$, then $(AB)^{\tp}$, then $B^{\tp}A^{\tp}$, and check they match.
+        \ansline{$AB=\begin{bsmallmatrix} 7&2\\3&1 \end{bsmallmatrix}$, so $(AB)^{\tp}=\begin{bsmallmatrix} 7&3\\2&1 \end{bsmallmatrix}$.
+        $B^{\tp}A^{\tp}=\begin{bsmallmatrix} 1&3\\0&1 \end{bsmallmatrix}\begin{bsmallmatrix} 1&0\\2&1 \end{bsmallmatrix}=\begin{bsmallmatrix} 7&3\\2&1 \end{bsmallmatrix}$. They match \checkmark\ (note $A^{\tp}B^{\tp}$ would give the wrong answer).}
+  \item \emph{Interpret:} what does it mean, in terms of its entries, for a matrix to be symmetric?
+        \ansline{The entry in row $i$, column $j$ equals the entry in row $j$, column $i$ for every $i,j$ --- the matrix is a mirror image across its main diagonal.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{A $3\times3$ with a zero pivot.} Solve $A\xx=\bb$ where
+$A=\begin{bmatrix} 0 & 1 & 4 \\ 1 & 2 & 2 \\ 2 & 5 & 9 \end{bmatrix}$ and $\bb=\begin{bmatrix} 5 \\ 6 \\ 18 \end{bmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=6pt]
+  \item The top-left entry is $0$. Write a permutation $\PP$ that swaps rows to get a nonzero pivot, and
+        compute $\PP A$ and $\PP\bb$.
+        \ansline{Swap rows 1 and 2: $\PP=\begin{bsmallmatrix} 0&1&0\\1&0&0\\0&0&1 \end{bsmallmatrix}$,
+        $\PP A=\begin{bsmallmatrix} 1&2&2\\0&1&4\\2&5&9 \end{bsmallmatrix}$, $\PP\bb=\begin{bsmallmatrix} 6\\5\\18 \end{bsmallmatrix}$.}
+  \item Factor $\PP A=LU$ by elimination (collect the multipliers into $L$).
+        \ansline{$\ell_{21}=0$, $\ell_{31}=2$ (row$_3-2\,$row$_1=(0,1,5)$), then $\ell_{32}=1$ (row$_3-$row$_2=(0,0,1)$). So
+        $U=\begin{bsmallmatrix} 1&2&2\\0&1&4\\0&0&1 \end{bsmallmatrix}$, $L=\begin{bsmallmatrix} 1&0&0\\0&1&0\\2&1&1 \end{bsmallmatrix}$.}
+  \item Solve in two sweeps: $L\cc=\PP\bb$ (forward), then $U\xx=\cc$ (back). \; $\xx=(\ \ans{$2,\,1,\,1$}\ )$
+        \ansline{Forward: $c_1=6$, $c_2=5$, $2(6)+5+c_3=18\Rightarrow c_3=1$, so $\cc=\begin{bsmallmatrix} 6\\5\\1 \end{bsmallmatrix}$.
+        Back: $z=1$; $y+4=5\Rightarrow y=1$; $x+2+2=6\Rightarrow x=2$.}
+  \item \emph{Justify:} explain why swapping rows (and the matching entries of $\bb$) does not change the
+        solution $\xx$.
+        \ansline{A row swap just reorders the equations. The system still says the same things about $x,y,z$ --- only the order changed --- so the solution set is identical. Swapping $\bb$ the same way keeps each equation paired with its right-hand side.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~R is the core skill (2$\times$2 swap $\to$ solve); watch for students swapping columns, or forgetting
+to swap $\bb$. Tier~A is all transpose: reflect across the diagonal, test symmetry by comparing $(i,j)$
+with $(j,i)$, and the reversal rule $(AB)^{\tp}=B^{\tp}A^{\tp}$ (order flips, exactly like the inverse in
+2.2). Tier~E is the full $\PP A=LU$ payoff: swap first, then it factors and solves by 2.3's two sweeps ---
+and the justification is the conceptual heart of the lesson. Note the $3\times3$ has a nontrivial $L$
+(unlike the $2\times2$, where a swap lands straight on $U$).
+\end{teachernote}
 
 \end{document}

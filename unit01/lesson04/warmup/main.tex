@@ -3,17 +3,38 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.4}{Warm-Up}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Warm-Up. See references/components.md for the expected structure.
-\begin{notesbox}{Warm-Up}
-\writelines{4}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small These Lesson~1.3 moves become today's \emph{matrix product} and \emph{factorization $A=CR$}.
+Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Combine the columns.} For $A=\begin{bsmallmatrix} 1 & 3 \\ 2 & 1 \end{bsmallmatrix}$,
+compute $A\begin{bmatrix} 2 \\ 1 \end{bmatrix}$ as a combination of the columns.
+\[
+  A\begin{bmatrix} 2 \\ 1 \end{bmatrix}
+  = 2\begin{bmatrix} 1 \\ 2 \end{bmatrix} + 1\begin{bmatrix} 3 \\ 1 \end{bmatrix}
+  = \blank{2.6cm}
+\]
+
+\vspace{4pt}
+\textbf{2. Find the weights.} Write $\begin{bmatrix} 4 \\ 3 \end{bmatrix}$ as a combination of
+$\begin{bmatrix} 1 \\ 2 \end{bmatrix}$ and $\begin{bmatrix} 3 \\ 1 \end{bmatrix}$:
+$\begin{bmatrix} 4 \\ 3 \end{bmatrix}=\blank{0.8cm}\begin{bmatrix} 1 \\ 2 \end{bmatrix}
++\blank{0.8cm}\begin{bmatrix} 3 \\ 1 \end{bmatrix}$. \writeline
+
+\vspace{6pt}
+\textbf{3. Independent?} Are the columns $\begin{bmatrix} 1 \\ 2 \end{bmatrix}$ and
+$\begin{bmatrix} 3 \\ 1 \end{bmatrix}$ independent (not multiples of each other)? \writeline
 \end{notesbox}
 
 \end{document}

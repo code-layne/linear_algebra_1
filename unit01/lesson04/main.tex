@@ -5,6 +5,10 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 \newcommand{\UnitNumberName}{Unit 1: Vectors and Matrices \quad}
 \newcommand{\LessonNumberName}{Lesson 1.4: Matrix Multiplication and A = CR}
 
@@ -16,55 +20,137 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can multiply matrices \emph{by columns} --- each column
+    of $AB$ is $A$ times a column of $B$, a combination of $A$'s columns --- and factor a matrix as
+    $A=CR$, where $C$ holds the \emph{independent} columns of $A$ and $R$ is the \emph{recipe} that
+    rebuilds every column of $A$ from $C$. They can find $C$, $R$, and the \emph{rank} (the number
+    of independent columns) for a small matrix, and explain what each piece means.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Multiply $AB$ one column at a time: $AB=\begin{bsmallmatrix} A\bb_1 & A\bb_2 \end{bsmallmatrix}$.
+  \item Spot the \emph{independent} columns of $A$ and collect them in $C$.
+  \item Build $R$: write each column of $A$ as a combination of the columns of $C$.
+  \item Read off the \emph{rank} = number of columns in $C$.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Every column of a product is a combination of $A$'s columns --- the Lesson~1.3 idea, once per column.
+  \item $C$ is a \emph{menu} of the truly different columns; the rest are repeats of these.
+  \item $R$ is the \emph{recipe card}: it says how to mix $C$'s columns to get each column of $A$.
+  \item The rank counts how many independent directions the columns actually span (line $=1$, plane $=2$).
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Matrix multiplication (by columns)} & \TallMath{AB=\begin{bsmallmatrix} A\bb_1 & A\bb_2 \end{bsmallmatrix}}; column $j$ of $AB$ is $A$ times column $j$ of $B$. \\
+\textbf{Independent columns} & Columns that are \emph{not} combinations of the others --- the ones that add a new direction. \\
+\textbf{$C$ (columns)} & The matrix of $A$'s independent columns; a basis for the column space $C(A)$. \\
+\textbf{$R$ (rows / recipe)} & The matrix that rebuilds each column of $A$ from $C$: $A=CR$. \\
+\textbf{Rank} & The number of independent columns --- the number of columns in $C$. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the Lesson~1.3 skills this lesson builds on:
+    \textbf{(1)} computing $A\xx$ as a \emph{combination of the columns} (which becomes one column
+    of a product), \textbf{(2)} writing a target vector as a combination of two others and
+    \emph{finding the weights} (which becomes a column of $R$), and \textbf{(3)} deciding whether
+    two columns are \emph{independent} (which decides what goes into $C$). Debrief item~2 aloud ---
+    ``find the weights'' is exactly how each column of $R$ is built.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Put a three-column matrix on the board,
+    $A=\begin{bsmallmatrix} 1 & 3 & 4 \\ 2 & 1 & 3 \end{bsmallmatrix}$, and ask:
+    \textbf{``Is any column just a mix of the others?''} Lead them to see column~3 is
+    column~1 $+$ column~2: $\begin{bsmallmatrix} 4\\3 \end{bsmallmatrix}=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}+\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}$.
+    So only \emph{two} columns are really new --- the rest are repeats. Frame the lesson: we can
+    pull out the independent columns into $C$ and record a \textbf{recipe} $R$ for rebuilding the
+    whole matrix, $A=CR$. Multiplication and factoring are the same ``combine the columns'' move,
+    run forward and backward.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. Multiply by columns.} For $AB$, each column of $B$ says how to combine the columns of
+$A$: $AB=\begin{bsmallmatrix} A\bb_1 & A\bb_2 \end{bsmallmatrix}$. With
+$A=\begin{bsmallmatrix} 1&3\\2&1 \end{bsmallmatrix}$, $B=\begin{bsmallmatrix} 2&1\\1&0 \end{bsmallmatrix}$:
+$A\bb_1=\begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}$, $A\bb_2=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$,
+so $AB=\begin{bsmallmatrix} 5&1\\5&2 \end{bsmallmatrix}$. Each column is Lesson~1.3, once per column.
+
+\textbf{2. Find the independent columns $C$.} In
+$A=\begin{bsmallmatrix} 1&3&4\\2&1&3 \end{bsmallmatrix}$, columns~1 and~2 are not parallel (keep
+both); column~3 $=$ col~1 $+$ col~2 (a repeat). So $C=\begin{bsmallmatrix} 1&3\\2&1 \end{bsmallmatrix}$.
+
+\columnbreak
+
+\textbf{3. Build the recipe $R$.} Each column of $R$ says how to mix $C$'s columns to get that
+column of $A$. Col~1 $=1\!\cdot\!c_1+0\!\cdot\!c_2\to\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}$;
+col~2 $\to\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}$; col~3 $=c_1+c_2\to\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$.
+So $R=\begin{bsmallmatrix} 1&0&1\\0&1&1 \end{bsmallmatrix}$ and $A=CR$. Note the identity sits in
+$R$'s independent-column spots.
+
+\textbf{4. Rank.} The \textbf{rank} is the number of columns in $C$ --- here $2$. Independent
+columns span the plane (rank~2); parallel columns span only a line (rank~1). $A=CR$ makes the
+count visible.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item multiplying $AB$ row-by-row and losing the ``each column of $B$ combines $A$'s columns'' picture;
+  \item putting a \emph{dependent} (repeat) column into $C$ --- $C$ holds only independent columns;
+  \item filling a column of $R$ with the wrong weights (not checking that $C\times$(that column) rebuilds the original);
+  \item confusing \emph{rank} with the size of the matrix --- rank counts independent columns, not rows or entries.
+\end{itemize}
+Cold-call prompts: ``Which columns are really new?'' ``What does column~$j$ of $R$ tell you?''
+``Rebuild column~3 from $C$ --- does it match?'' ``What is the rank, and why?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Rebuilding a Catalog from Base Products} activity (tiered; mirrors the notes). A shop's
+catalog is a matrix $A$ whose columns are products (in $\begin{bsmallmatrix} \text{parts} \\ \text{labor} \end{bsmallmatrix}$).
+Some products are \emph{bundles} of others, so $C$ is the set of \emph{base} products and $R$ is
+the recipe card that rebuilds the whole catalog: $A=CR$.
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Multiply by columns: given $C$ and a recipe $R$, compute $CR$ and
+check it rebuilds the catalog $A$.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Given $A$, find which columns are independent (the base products
+$C$), then build the recipe $R$ and state the rank.
+
+\columnbreak
+\textbf{Tier E --- Extension.} A catalog whose columns all lie on one line: show the rank is $1$,
+find $C$ (one column) and $R$ (one row), and justify why every product is a multiple of the base.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): multiply a small $AB$ \emph{by columns}, then factor
+a $2\times 3$ matrix as $A=CR$ --- identify the independent columns $C$, build the recipe $R$, and
+state the rank. Collect and sort into ``got it / arithmetic slip / concept gap (which columns are
+independent, or how $R$ is built)'' to decide whether the Unit~1 review opens with a quick re-teach.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} mixed practice --- multiplying $AB$ by columns, finding $C$ and $R$ for
+$2\times 3$ matrices, stating the rank, and checking $CR=A$. \textbf{Extension:} a
+\emph{production catalog} context --- base products vs.\ bundles, reading the recipe $R$ off a
+price/parts table, extending the unit's data-as-a-table theme. \textbf{Preview:} Unit~2,
+\emph{Solving $A\xx=\bb$} --- now that a matrix is columns with a rank, we ask exactly when (and
+how) a target $\bb$ can be reached.
 \end{skillbox}
 \end{document}

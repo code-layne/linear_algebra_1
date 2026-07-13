@@ -3,6 +3,8 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
@@ -11,9 +13,16 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+Show your work.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item Multiply \emph{by columns}:
+        $\begin{bmatrix} 2 & 1 \\ 1 & 1 \end{bmatrix}\begin{bmatrix} 1 & 3 \\ 2 & 1 \end{bmatrix}$.
+        Compute each column of the product as a combination of the first matrix's columns.
+        \vspace{1.6cm}
+  \item Factor $A=\begin{bmatrix} 1 & 2 & 3 \\ 1 & 3 & 4 \end{bmatrix}$ as $A=CR$. Which columns are
+        \textbf{independent} (they go in $C$)? Build the recipe $R$, and give the \textbf{rank}.
+        \writelines{3}
+\end{enumerate}
 
 \end{document}

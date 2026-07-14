@@ -3,6 +3,9 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
@@ -11,9 +14,28 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Dot product \& right angle.} Compute
+        $\begin{bmatrix} 4 \\ 1 \end{bmatrix}\cdot\begin{bmatrix} 2 \\ -8 \end{bmatrix}$.
+        Are the two vectors perpendicular? How do you know?
+        \ansline{$(4)(2)+(1)(-8)=8-8=0$. Yes --- the dot product is $0$, so they meet at a right angle.}
+  \item \textbf{Length \& unit vector.} For $\begin{bmatrix} 5 \\ 12 \end{bmatrix}$, find the length
+        $\|\cdot\|=\sqrt{\;\cdot\;}$ and the unit vector in the same direction.
+        \ansline{$\|\cdot\|=\sqrt{5^2+12^2}=\sqrt{169}=13$; unit vector $\begin{bsmallmatrix} 5/13\\12/13 \end{bsmallmatrix}$.}
+  \item \textbf{Solve \& justify.} Find the value of $x$ that makes
+        $\begin{bmatrix} 3 \\ x \end{bmatrix}$ perpendicular to $\begin{bmatrix} 6 \\ -2 \end{bmatrix}$.
+        Then explain in one sentence what $\vv\cdot\ww=0$ tells you about the \emph{angle} between two
+        vectors.
+        \ansline{$3(6)+x(-2)=0\Rightarrow 18-2x=0\Rightarrow x=9$. A dot product of $0$ means the two vectors are perpendicular --- they meet at a right angle ($90^\circ$).}
+\end{enumerate}
+
+\begin{teachernote}
+Sort responses into ``got it / arithmetic slip / concept slip.'' Item~1 is a clean orthogonality
+check; item~2 tests the square root and the divide-by-length step. In item~3, the most common miss
+is solving for $x$ correctly but describing $\vv\cdot\ww=0$ vaguely --- look for the words
+``perpendicular / right angle.'' If many stumble, open 4.1 with a 60-second dot-product re-warm.
+\end{teachernote}
 
 \end{document}

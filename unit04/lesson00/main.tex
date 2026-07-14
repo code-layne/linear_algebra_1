@@ -5,6 +5,12 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 \newcommand{\UnitNumberName}{Unit 4: Orthogonality \quad}
 \newcommand{\LessonNumberName}{Lesson 4.0: Right Angles Revisited --- Setting Up Orthogonality}
 
@@ -16,55 +22,154 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can compute the \emph{dot product} of two vectors, find a
+    vector's \emph{length} and \emph{unit vector}, and use the rule
+    \emph{$\vv\cdot\ww=0 \Leftrightarrow \vv$ and $\ww$ are perpendicular} (Lesson~1.2) to test
+    for and build \emph{orthogonal} vectors. They can explain why the four fundamental subspaces
+    come in \emph{perpendicular pairs} (the §3.6 picture) and describe where Unit~4 is going:
+    dropping a right angle to find the \emph{closest point} --- projection, least squares, and
+    orthogonal matrices $Q$.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Compute a dot product $\vv\cdot\ww$ and read its \emph{sign} (acute / right / obtuse).
+  \item Find a length $\|\vv\|=\sqrt{\vv\cdot\vv}$ and the \textbf{unit vector} $\vv/\|\vv\|$.
+  \item Test orthogonality: $\vv\perp\ww \Leftrightarrow \vv\cdot\ww=0$; solve for a missing entry.
+  \item See the four subspaces as \emph{perpendicular pairs}; preview projection \& least squares.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item The dot product measures alignment; $0$ means the arrows make a \emph{right angle}.
+  \item Orthogonality is the one idea the whole unit rests on --- it is Lesson~1.2, reused.
+  \item ``Perpendicular'' turns a picture (a right angle) into an \emph{equation} ($\cdot=0$).
+  \item The shortest way from a point to a line/plane is along a \emph{perpendicular} --- projection.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Dot product $\vv\cdot\ww$} (recall) & $v_1w_1+v_2w_2+\cdots+v_nw_n$: multiply matching components and add (Lesson~1.2). \\
+\textbf{Length / norm $\|\vv\|$} (recall) & $\|\vv\|=\sqrt{\vv\cdot\vv}$; the length of the arrow (Lessons~1.0, 1.2). \\
+\textbf{Unit vector} (recall) & $\vv/\|\vv\|$: same direction as $\vv$, length $1$. \\
+\textbf{Orthogonal / perpendicular} & $\vv\perp\ww$ means the arrows meet at a right angle; the test is $\vv\cdot\ww=0$. \\
+\textbf{Orthogonal complement} (recall §3.6) & Two subspaces that are perpendicular and together fill the whole space (e.g.\ $N(A)$ and the row space). \\
+\textbf{Projection} (preview 4.2) & The ``shadow'' of a vector on a line or subspace --- the closest point, found by dropping a perpendicular. \\
+\textbf{Least squares} (preview 4.3) & The best answer when $A\mathbf x=\mathbf b$ has \emph{no} exact solution: make the error perpendicular to what you can reach. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three prerequisite skills this unit is built on, all from Unit~1:
+    \textbf{(1)} computing a \emph{dot product} $\vv\cdot\ww$ (Lesson~1.2),
+    \textbf{(2)} finding a \emph{length} $\|\vv\|=\sqrt{\vv\cdot\vv}$ and a \emph{unit vector}
+    (Lessons~1.0, 1.2), and
+    \textbf{(3)} deciding whether two vectors are \emph{perpendicular} by checking
+    $\vv\cdot\ww=0$ (Lesson~1.2). Debrief item~3 aloud: ``dot $=0$ means a right angle'' is the
+    single fact all of Unit~4 turns on.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    A hiker stands \emph{off} a straight trail and wants the shortest walk back to it. Sketch the
+    trail as a line and the hiker as a point. Ask: \textbf{``Which route back is shortest?''}
+    Everyone's instinct is right: the shortest path meets the trail at a \textbf{right angle}. Name
+    the payoff: when you cannot land \emph{on} a target exactly --- a line you can't reach, a data
+    cloud no straight line passes through --- the \emph{closest} you can get is found by dropping a
+    \textbf{perpendicular}, and ``perpendicular'' is just $\vv\cdot\ww=0$. Pose the unit question:
+    \textbf{``How do we turn a right angle into an equation we can solve?''} That equation ---
+    orthogonality --- runs the whole unit: projection, least squares, and orthogonal matrices.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. The dot product, recalled.} From Lesson~1.2, $\vv\cdot\ww=v_1w_1+v_2w_2+\cdots$:
+multiply matching components, add. It is one number. Its \textbf{sign} reports the angle: positive
+= acute (aligned), $0$ = right angle, negative = obtuse (opposed).
+
+\textbf{2. Length and unit vectors, recalled.} $\|\vv\|=\sqrt{\vv\cdot\vv}$ is the length of the
+arrow. Dividing by the length, $\vv/\|\vv\|$, keeps the direction but makes the length $1$ --- a
+\textbf{unit vector}. E.g.\ $\vv=\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}$ has $\|\vv\|=5$ and
+unit vector $\begin{bsmallmatrix} 3/5\\4/5 \end{bsmallmatrix}$.
+
+\textbf{3. The one big idea: perpendicular $\Leftrightarrow$ dot $=0$.} Two nonzero vectors meet
+at a \textbf{right angle} exactly when $\vv\cdot\ww=0$. This is the whole unit in one line: it
+turns the \emph{picture} of a right angle into an \emph{equation}. Check:
+$\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}\cdot\begin{bsmallmatrix} 4\\-3 \end{bsmallmatrix}=12-12=0$
+--- perpendicular. And you can \emph{solve} for orthogonality: what $x$ makes
+$\begin{bsmallmatrix} 2\\3 \end{bsmallmatrix}\perp\begin{bsmallmatrix} x\\-2 \end{bsmallmatrix}$?
+Set $2x-6=0$, so $x=3$.
+
+\columnbreak
+
+\textbf{4. The four subspaces are perpendicular pairs (spiral §3.6).} We closed Unit~3 with the
+big picture: for an $m\times n$ matrix, the nullspace $N(A)$ is perpendicular to the row space
+$C(A^{\T})$ inside $\mathbb{R}^n$, and $N(A^{\T})\perp C(A)$ inside $\mathbb{R}^m$. \emph{Why}
+perpendicular? $A\mathbf x=\zero$ read row by row says (row)$\cdot\mathbf x=0$ --- every row is
+orthogonal to $\mathbf x$. That is dot $=0$ again. Unit~4 makes this pairing the main character.
+
+\textbf{5. The road ahead: drop a perpendicular.} When a target $\mathbf b$ is out of reach, the
+closest reachable point is the \textbf{projection} --- the foot of the perpendicular, where the
+error $\mathbf b-\mathbf p$ is orthogonal to the space. Preview the sequence:
+\textbf{4.1} orthogonality of the four subspaces; \textbf{4.2} projections onto lines and
+subspaces; \textbf{4.3} least squares (best-fit lines on real data); \textbf{4.4} orthogonal
+matrices $Q$ and Gram--Schmidt. Every step is ``make something perpendicular.''
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item dot-product slips --- adding the vectors, or multiplying \emph{mismatched} components,
+        instead of pairing $v_1w_1+v_2w_2$;
+  \item forgetting the square root in $\|\vv\|=\sqrt{\vv\cdot\vv}$, or not dividing by the length
+        when asked for a \emph{unit} vector;
+  \item reading a \emph{negative} dot product as ``perpendicular'' --- only \emph{zero} is a right
+        angle (negative = obtuse).
+\end{itemize}
+Cold-call prompts: ``What does the \emph{sign} of the dot product tell you?'' ``How do you shrink a
+vector to length~1?'' ``Give me a vector perpendicular to $\begin{bsmallmatrix} 2\\5 \end{bsmallmatrix}$
+--- how do you know?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Right Angles, Everywhere} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Compute dot products and lengths; find a unit vector; decide
+perpendicular / not from the sign of the dot product.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Solve for a missing entry that makes two vectors perpendicular;
+check that a matrix's rows are orthogonal to a nullspace vector (the §3.6 pairing on a $2\times2$).
+
+\columnbreak
+\textbf{Tier E --- Extension.} \emph{First look at projection:} given a target $\mathbf b$ and a
+line direction $\mathbf a$, find the multiple $t\mathbf a$ so the error $\mathbf b-t\mathbf a$ is
+perpendicular to $\mathbf a$ --- deriving $t=\frac{\mathbf a\cdot\mathbf b}{\mathbf a\cdot\mathbf a}$.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): compute a dot product and decide whether the pair is
+perpendicular; find a length and a unit vector; and a \textbf{conceptual/justification check} ---
+solve for the entry that makes two vectors orthogonal and explain what $\vv\cdot\ww=0$ means about
+the angle. Collect and sort into ``got it / arithmetic slip / concept slip'' to decide whether 4.1
+opens with a quick dot-product re-warm.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} dot products and their signs; lengths and unit vectors; orthogonality tests and
+solve-for-the-entry; one item checking a matrix's rows against its nullspace vector (§3.6); and a
+short justification item. \textbf{Extension:} derive the projection multiplier
+$t=\frac{\mathbf a\cdot\mathbf b}{\mathbf a\cdot\mathbf a}$ by forcing the error perpendicular --- a
+first taste of Lesson~4.2. \textbf{Preview:} Lesson~4.1, \emph{Orthogonality of the Four Subspaces}
+--- \emph{why} each pair is perpendicular, and how the two pairs fill their spaces.
 \end{skillbox}
 \end{document}

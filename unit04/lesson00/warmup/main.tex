@@ -3,17 +3,39 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.0}{Warm-Up}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Warm-Up. See references/components.md for the expected structure.
-\begin{notesbox}{Warm-Up}
-\writelines{4}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small These three Unit~1 skills (Lessons 1.0 and 1.2) power all of Unit~4. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Dot product.} With $\vv=\begin{bmatrix} 2 \\ 1 \end{bmatrix}$ and
+$\ww=\begin{bmatrix} 3 \\ 4 \end{bmatrix}$, multiply matching components and add:
+\[
+  \vv\cdot\ww = (2)(3) + (1)(4) = \blank{2.2cm}.
+\]
+
+\vspace{4pt}
+\textbf{2. Length and unit vector.} For $\vv=\begin{bmatrix} 3 \\ 4 \end{bmatrix}$:
+\[
+  \|\vv\| = \sqrt{\vv\cdot\vv} = \sqrt{3^2+4^2} = \blank{1.4cm},
+  \qquad
+  \frac{\vv}{\|\vv\|} = \begin{bmatrix}\rule{0pt}{1.1em}\blank{1.1cm}\\[2pt]\blank{1.1cm}\end{bmatrix}.
+\]
+
+\vspace{4pt}
+\textbf{3. A right angle?} Two vectors are \emph{perpendicular} exactly when their dot product is
+$0$. Are $\begin{bmatrix} 3 \\ 4 \end{bmatrix}$ and $\begin{bmatrix} 4 \\ -3 \end{bmatrix}$
+perpendicular? Compute the dot product and decide.
+\writeline
 \end{notesbox}
 
 \end{document}

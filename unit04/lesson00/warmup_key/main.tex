@@ -3,17 +3,46 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.0}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small These three Unit~1 skills (Lessons 1.0 and 1.2) power all of Unit~4. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Dot product.} With $\vv=\begin{bmatrix} 2 \\ 1 \end{bmatrix}$ and
+$\ww=\begin{bmatrix} 3 \\ 4 \end{bmatrix}$, multiply matching components and add:
+\[
+  \vv\cdot\ww = (2)(3) + (1)(4) = {\color{keyred}\mathbf{10}}.
+\]
+
+\vspace{4pt}
+\textbf{2. Length and unit vector.} For $\vv=\begin{bmatrix} 3 \\ 4 \end{bmatrix}$:
+\[
+  \|\vv\| = \sqrt{\vv\cdot\vv} = \sqrt{3^2+4^2} = {\color{keyred}\mathbf{5}},
+  \qquad
+  \frac{\vv}{\|\vv\|} = \begin{bmatrix}{\color{keyred}\mathbf{3/5}}\\[2pt]{\color{keyred}\mathbf{4/5}}\end{bmatrix}.
+\]
+
+\vspace{4pt}
+\textbf{3. A right angle?} Two vectors are \emph{perpendicular} exactly when their dot product is
+$0$. Are $\begin{bmatrix} 3 \\ 4 \end{bmatrix}$ and $\begin{bmatrix} 4 \\ -3 \end{bmatrix}$
+perpendicular? Compute the dot product and decide.
+\ansline{Yes --- $(3)(4)+(4)(-3)=12-12=0$, so the dot product is $0$ and they meet at a right angle.}
 \end{notesbox}
+
+\begin{teachernote}
+All three items are Lesson~1.2, recalled. Item~3 is the fact all of Unit~4 rests on:
+\emph{dot $=0$ $\Leftrightarrow$ perpendicular}. If students hesitate on the unit vector in item~2,
+remind them ``divide by the length'' --- same direction, length~1. Watch for anyone \emph{adding}
+components in item~1 instead of multiplying-then-adding.
+\end{teachernote}
 
 \end{document}

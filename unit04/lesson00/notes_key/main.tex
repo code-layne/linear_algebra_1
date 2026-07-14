@@ -2,18 +2,153 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
+\usetikzlibrary{calc}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.0}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item compute a \emph{dot product}, a \emph{length} $\|\vv\|=\sqrt{\vv\cdot\vv}$, and a \emph{unit vector};
+  \item test whether two vectors are \emph{perpendicular} with $\vv\cdot\ww=0$, and solve for a missing entry;
+  \item explain why the four subspaces are \emph{perpendicular pairs} and where Unit~4 is headed.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.08in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we recall or build it together.
+\vspace{2pt}
+\vocabans{Dot product $\vv\cdot\ww$}{multiply matching components and add: $v_1w_1+v_2w_2+\cdots$; one number whose sign gives the angle}
+\vocabans{Length $\|\vv\|$ and unit vector}{$\|\vv\|=\sqrt{\vv\cdot\vv}$; the unit vector $\vv/\|\vv\|$ has the same direction and length $1$}
+\vocabans{Orthogonal (perpendicular)}{two vectors meeting at a right angle; the test is $\vv\cdot\ww=0$}
+\vocabans{Orthogonal complement (recall §3.6)}{two subspaces that are perpendicular and together fill the whole space (e.g.\ $N(A)$ and the row space)}
+\vocabans{Projection (preview)}{the closest point of a line/subspace to a target --- the foot of the perpendicular}
+\end{vocabbox}
+
+\begin{hookbox}
+A hiker stands \emph{off} a straight trail and wants the shortest walk back to it.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item Of all the routes from the hiker back to the trail, which is \emph{shortest}? \ansline{The one that meets the trail straight on --- the perpendicular route.}
+  \item What is the \emph{angle} between that shortest route and the trail? \ansline{A right angle ($90^\circ$).}
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. Recall: Dot Product, Length, Unit Vector}
+From Lesson~1.2, the \textbf{dot product} multiplies matching components and adds:
+\[
+  \vv\cdot\ww = v_1w_1 + v_2w_2 + \cdots + v_nw_n \quad(\text{one \ans{number}}).
+\]
+Its \textbf{sign} reports the angle: positive $=$ \ans{acute}, zero $=$ a \ans{right} angle,
+negative $=$ obtuse.
+
+\vspace{3pt}
+The \textbf{length} (or norm) is $\|\vv\|=\sqrt{\vv\cdot\vv}$. For
+$\vv=\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}$:
+$\|\vv\|=\sqrt{3^2+4^2}=\ans{$5$}$. To make a \textbf{unit vector} (same direction, length~1),
+\ans{divide} by the length: $\dfrac{\vv}{\|\vv\|}=\begin{bsmallmatrix} 3/5\\4/5 \end{bsmallmatrix}$.
 \end{notesbox}
+
+\begin{notesbox}{2. The One Big Idea: Perpendicular $\Leftrightarrow$ Dot $=0$}
+Two nonzero vectors meet at a \textbf{right angle} exactly when
+\[
+  \vv\cdot\ww = {\color{keyred}\mathbf{0}}.
+\]
+This single rule runs all of Unit~4: it turns the \emph{picture} of a right angle into an
+\emph{equation}. \textbf{Check} the pair on the right:
+$\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}\cdot\begin{bsmallmatrix} 4\\-3 \end{bsmallmatrix}
+= 12 + ({\color{keyred}\mathbf{-12}}) = 0$, so they are \ans{perpendicular}.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+  \draw[step=1, linegray!45, thin] (-3.4,-3.4) grid (4.4,4.4);
+  \draw[->, thick, charcoal] (-3.6,0)--(4.6,0);
+  \draw[->, thick, charcoal] (0,-3.6)--(0,4.6);
+  \draw[->, very thick, burgundy] (0,0)--(3,4) node[above right]{\scriptsize $\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}$};
+  \draw[->, very thick, royalblue] (0,0)--(4,-3) node[below right]{\scriptsize $\begin{bsmallmatrix} 4\\-3 \end{bsmallmatrix}$};
+  % right-angle mark at the origin between the two arrows
+  \draw[charcoal, thin] (0.48,0.64)--(0.88,0.34)--(0.58,-0.06);
+\end{tikzpicture}
+\end{center}
+
+\textbf{You can also solve for orthogonality.} What value of $x$ makes
+$\begin{bsmallmatrix} 2\\3 \end{bsmallmatrix}$ perpendicular to
+$\begin{bsmallmatrix} x\\-2 \end{bsmallmatrix}$? Set the dot product to zero:
+$2x + 3(-2) = 0$, so $2x = 6$ and $x = \ans{$3$}$.
+\end{notesbox}
+
+\begin{notesbox}{3. The Four Subspaces Are Perpendicular Pairs (Recall §3.6)}
+We ended Unit~3 with the big picture: the four fundamental subspaces come in two
+\textbf{perpendicular pairs}. In the input space $\mathbb{R}^n$, the nullspace $N(A)$ is
+perpendicular to the row space $C(A^{\T})$; in the output space, $N(A^{\T})\perp C(A)$.
+
+\vspace{3pt}
+\emph{Why} perpendicular? Read $A\xx=\zero$ \textbf{row by row}: each row of $A$ dotted with $\xx$
+gives $0$. So every row is \ans{orthogonal (perpendicular)} to $\xx$ --- that is just
+$\vv\cdot\ww=0$ again. Try it on
+$A=\begin{bsmallmatrix} 1 & 2\\ 2 & 4 \end{bsmallmatrix}$: the nullspace is all multiples of
+$\xx=\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}$. Check row~1:
+$\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}\cdot\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}
+= -2 + 2 = \ans{$0$}$. \checkmark\ Orthogonality is the engine of the whole picture.
+\end{notesbox}
+
+\begin{notesbox}{4. The Road Ahead: Drop a Perpendicular}
+Back to the hiker. When a target $\bb$ is \emph{out of reach} of a line (or subspace), the
+\textbf{closest} reachable point $\bb$ can get to is the \textbf{projection} $\pp$ --- the foot of
+the perpendicular. The gap $\bb-\pp$ (the \emph{error}) is \ans{perpendicular} to the line.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0]
+  \draw[->, very thick, burgundy] (-0.6,-0.4)--(4.6,3.07) node[right]{\scriptsize line (reachable)};
+  \coordinate (O) at (0,0);
+  \coordinate (b) at (1.4,3.0);
+  \coordinate (p) at (2.53,1.69);   % foot of perpendicular from b to the line y=(2/3)x
+  \fill[charcoal] (b) circle (1.6pt) node[above left]{\scriptsize target $\bb$};
+  \fill[charcoal] (p) circle (1.6pt) node[below right]{\scriptsize projection $\pp$};
+  \draw[->, very thick, royalblue] (p)--(b) node[midway, above left]{\scriptsize error $\bb-\pp$};
+  % right-angle mark at p
+  \draw[charcoal, thin] ($(p)+(-0.20,0.30)$)--($(p)+(-0.44,0.14)$)--($(p)+(-0.28,-0.10)$);
+\end{tikzpicture}
+\end{center}
+
+\textbf{The road through Unit 4.} \textbf{4.1} orthogonality of the four subspaces (the §3.6 pairs,
+in full)\; $\bullet$\; \textbf{4.2} \emph{projections} onto lines and subspaces (the closest
+point)\; $\bullet$\; \textbf{4.3} \emph{least squares} --- best-fit lines when no exact answer
+exists\; $\bullet$\; \textbf{4.4} orthogonal matrices $Q$ and Gram--Schmidt. Every step is the same
+move: \emph{make something} \ans{perpendicular}.
+\end{notesbox}
+
+\begin{practicebox}
+Use $\vv\cdot\ww=0$ for perpendicular. Show your dot products.
+\begin{enumerate}[leftmargin=1.6em, itemsep=4pt]
+  \item Are $\begin{bsmallmatrix} 5\\2 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 2\\-5 \end{bsmallmatrix}$ perpendicular? \ansline{Yes --- $(5)(2)+(2)(-5)=10-10=0$.}
+  \item Find the length and unit vector of $\begin{bsmallmatrix} 6\\8 \end{bsmallmatrix}$. \ansline{$\|\cdot\|=\sqrt{36+64}=\sqrt{100}=10$; unit vector $\begin{bsmallmatrix} 6/10\\8/10 \end{bsmallmatrix}=\begin{bsmallmatrix} 3/5\\4/5 \end{bsmallmatrix}$.}
+  \item Find $x$ so that $\begin{bsmallmatrix} 4\\x \end{bsmallmatrix}$ is perpendicular to $\begin{bsmallmatrix} 3\\6 \end{bsmallmatrix}$. \ansline{$4(3)+x(6)=0\Rightarrow 12+6x=0\Rightarrow x=-2$.}
+\end{enumerate}
+\end{practicebox}
+
+\begin{teachernote}
+The whole unit rests on Section~2: \emph{dot $=0$ $\Leftrightarrow$ perpendicular}. Sections~3 and~4
+show the two big payoffs --- the §3.6 subspace pairs are perpendicular \emph{because} of dot $=0$
+(read $A\xx=\zero$ row by row), and the closest-point/projection idea is dropping a perpendicular.
+Most common errors: forgetting the square root in $\|\vv\|$, and reading a negative dot product as
+``perpendicular.'' Only \emph{zero} is a right angle.
+\end{teachernote}
 
 \end{document}

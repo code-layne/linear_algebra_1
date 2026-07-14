@@ -7,18 +7,36 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-14 — **Scaffolded all of Unit 4 (Orthogonality) — skeletons only, no content authored yet.**
+**Last updated:** 2026-07-14 — **Authored & built Unit 4 Lesson 4.0 — "Right Angles Revisited --- Setting Up
+Orthogonality" (the intro/spiral lesson).** Filled every skeleton: lesson plan, cover, warmup, notes, activity,
+exit_ticket, homework (+ the five keys) and the slides deck, mirroring Unit 3's lesson-3.0 preamble/boxes/tone.
+**Content — spiral + roadmap for Orthogonality:** (1) recall the **dot product** $\vv\cdot\ww$, its **sign**
+(acute/right/obtuse), **length** $\|\vv\|=\sqrt{\vv\cdot\vv}$, and **unit vector** (Lessons 1.0/1.2); (2) the one
+big idea **perpendicular $\Leftrightarrow$ dot $=0$** — check $(3,4)\cdot(4,-3)=0$, and *solve* for orthogonality
+($2x-6=0\Rightarrow x=3$); (3) the **four subspaces are perpendicular pairs** (§3.6 spiral) — read $A\xx=\zero$
+row by row so every row $\perp\xx$, verified on $A=[[1,2],[2,4]]$, null dir $(-2,1)$; (4) roadmap **drop a
+perpendicular** — closest point / projection, previewing 4.1→4.4. **Hook:** hiker off a straight trail, shortest
+route back is the perpendicular (motivates projection/least squares). Two TikZ figures (right-angle mark on
+$(3,4)\perp(4,-3)$; closest-point/projection diagram) + a projection-preview extension deriving
+$t=\frac{\avec\cdot\bb}{\avec\cdot\avec}$ (activity Tier E + homework). All numbers hand-checked. **Built
+`make -C unit04/lesson00 all` → clean** (0 `^!` errors on a full 13-file scan; no `\ans`-in-math). Page counts:
+cover/warmup/exit 1pp (blank & key), notes 3pp (blank & key), activity/homework 2pp (blank & key), slides 6pp,
+lesson plan 2pp; **student 10pp, full 18pp.** Visually spot-checked notes_key p2 (both figures), lesson plan p1,
+slide 4 — clean. **Gotchas fixed:** (a) `\aa` is LaTeX's built-in å — renamed the column-vector macro to `\avec`
+across all 8 files that used it (same trap as `\ss`, already flagged in Notes below); (b) the `($(p)+(...)$)`
+right-angle marks need `\usetikzlibrary{calc}` — added to notes/notes_key/slides (self-contained, no `shared/`
+change); (c) `\pp` must be defined per-file — added to the activity/homework blanks (keys already had it).
+**Next run: author Lesson 4.1** ("Orthogonality of the Four Subspaces"). Lesson 4.0 is the Unit 4 model.
+
+**Prior run:** **Scaffolded all of Unit 4 (Orthogonality) — skeletons only.**
 Ran `new_lesson.py` for lessons 4.0–4.4 (component set: cover, warmup, notes, activity, exit_ticket, homework,
 slides + keys for keyed components). The 4.0 run created the unit, so `unit04/tests/` (practice + actual),
 `unit04/test_keys/` (both keys), `unit04/sample_test/`, `unit04/sample_test_key/`, `unit04/Makefile`, and the
 thin-include test Makefiles were all auto-scaffolded too. **Confirmed lesson map (5 lessons):** 4.0 "Right Angles
 Revisited --- Setting Up Orthogonality" (intro/spiral) · 4.1 "Orthogonality of the Four Subspaces" · 4.2
 "Projections onto Subspaces" · 4.3 "Least Squares Approximations" · 4.4 "Orthogonal Matrices and Gram--Schmidt" —
-matches `spec/linear_algebra_v2.md` §4.1–4.4 exactly plus the customary `lesson00` intro. Title macros interpolate
-correctly (`\UnitNumberName`=Unit 4: Orthogonality; per-lesson `\LessonNumberName`). **Nothing authored yet** —
-every `main.tex` is still the scaffolder skeleton. **Next run: author lesson-by-lesson starting with 4.0**, then
-build. `sample_test`/`sample_test_key` PDFs are NOT yet populated (they come from `drop` after the tests are
-authored). Unit 4 is the natural continuation of Unit 3's FTLA (§3.6 already set up orthogonal complements).
+matches `spec/linear_algebra_v2.md` §4.1–4.4 exactly plus the customary `lesson00` intro. `sample_test`/
+`sample_test_key` PDFs are NOT yet populated (they come from `drop` after the tests are authored).
 
 **Prior run:** **Authored & built the Unit 3 summative tests — Unit 3 is now complete.**
 Filled all four skeletons (`tests/practice_test`, `tests/actual_test`, `test_keys/practice_test_key`,
@@ -217,7 +235,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
 | 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ☑ all lessons + tests authored & built ✅ |
 | 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ☑ all lessons + tests authored & built ✅ |
-| 4 | Orthogonality | 4.0 intro + 4.1–4.4 | ◐ all lessons + tests **scaffolded** (skeletons only); authoring not started |
+| 4 | Orthogonality | 4.0 intro + 4.1–4.4 | ◐ 4.0 authored & built ✅; 4.1–4.4 + tests still skeletons |
 | 5 | Determinants and Linear Transformations | 5.1–5.3 | ☐ |
 | 6 | Eigenvalues and Eigenvectors | 6.1–6.4 (§6.4 optional) | ☐ |
 | 7 | The Singular Value Decomposition *(optional/advanced)* | 7.1–7.4 | ☐ |
@@ -225,11 +243,11 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author Unit 4 lesson-by-lesson, starting with 4.0** (all skeletons already scaffolded on disk).
+1. **Author Unit 4 lesson-by-lesson, next up 4.1** (4.0 is authored & built — use it as the Unit 4 model).
    Read each `unit04/lessonYY/**/main.tex` skeleton with the Read tool before writing it, then fill it
    following `references/components.md`. Planned content per lesson (down-level from LAfE Ch. 4):
-   - **4.0** intro/spiral — recall dot product & perpendicular ($\vv\cdot\ww=0$, Lesson 1.2), length/unit
-     vectors, and the FTLA orthogonal-complement picture (§3.6); roadmap projection → least squares → $Q$.
+   - **4.0** intro/spiral — ✅ authored & built (dot product, length/unit vectors, perpendicular $\Leftrightarrow$
+     dot $=0$, the §3.6 perpendicular-pairs spiral, roadmap projection → least squares → $Q$).
    - **4.1** Orthogonality of the four subspaces — $C(A^{\mathsf T})\perp N(A)$ and $C(A)\perp N(A^{\mathsf T})$
      as *orthogonal complements* (each pair fills its room); extends §3.6 with the "why perpendicular."
    - **4.2** Projections onto subspaces — projection onto a line ($\hat\xx=\frac{\aa\cdot\bb}{\aa\cdot\aa}\aa$),

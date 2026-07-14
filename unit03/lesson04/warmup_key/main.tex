@@ -3,17 +3,58 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.4}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small These skills from Lessons 1.1 and 3.2 power today's work. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Are they parallel? (Lesson 1.1)} Is one vector a multiple of the other? Circle \textbf{yes}/\textbf{no}.
+\[
+  \vv=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix},\ \ww=\begin{bsmallmatrix} 3\\6 \end{bsmallmatrix}:\ \ \ans{yes}/\text{no}
+  \qquad\qquad
+  \vv=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix},\ \ww=\begin{bsmallmatrix} 2\\5 \end{bsmallmatrix}:\ \ \text{yes}/\ans{no}
+\]
+\ansline{Left: $\ww=3\vv$, so parallel (\emph{dependent}). Right: $2/1\ne5/2$, not a multiple (\emph{independent}).}
+
+\vspace{4pt}
+\textbf{2. Special solution of $A\xx=\zero$ (Lesson 3.2).} Reduce
+$A=\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$ and give the special solution:
+\[
+  \begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}
+  \;\longrightarrow\;
+  \begin{bmatrix} 1 & 2 \\[2pt] {\color{keyred}\mathbf{0}} & {\color{keyred}\mathbf{0}} \end{bmatrix},
+  \qquad
+  \svec=\begin{bmatrix}\rule{0pt}{1.1em}{\color{keyred}\mathbf{-2}}\\[2pt]{\color{keyred}\mathbf{1}}\end{bmatrix}.
+\]
+
+\vspace{4pt}
+\textbf{3. Pivot or free? (Lesson 3.2).} The reduced matrix below has pivots circled for you. Label each
+column \textbf{P} (pivot) or \textbf{F} (free), then say how many free columns there are.
+\[
+  \begin{bmatrix} 1 & 0 & 3 \\ 0 & 1 & 2 \end{bmatrix}
+  \qquad
+  \text{col 1: }\ans{P}\quad \text{col 2: }\ans{P}\quad \text{col 3: }\ans{F}
+\]
+Number of free columns: \ans{1}
 \end{notesbox}
+
+\begin{teachernote}
+Each item is one leg of today's lesson. Item~1 is dependence in its smallest form (parallel $=$ one is a
+multiple of the other). Item~2's nonzero special solution $\svec=\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}$
+is a \emph{nontrivial} combination of the columns equal to $\zero$ ($-2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}+1\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}=\zero$), so those columns are \emph{dependent}.
+Item~3's one free column is the count that becomes $\dim N(A)=n-r$.
+\end{teachernote}
 
 \end{document}

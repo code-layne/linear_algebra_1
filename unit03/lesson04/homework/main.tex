@@ -3,17 +3,61 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.4}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+Stack vectors as columns and test with $N(A)$. For a basis, use the \emph{original} pivot columns for
+$C(A)$ and the special solutions for $N(A)$; always \emph{justify} and give each dimension.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Independent or dependent?} State which and give a one-line reason.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+      \item $\begin{bsmallmatrix} 1\\4 \end{bsmallmatrix},\ \begin{bsmallmatrix} 2\\8 \end{bsmallmatrix}$ \hfill
+      \item $\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix},\ \begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$ \hfill
+      \item $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix},\ \begin{bsmallmatrix} 3\\4 \end{bsmallmatrix},\ \begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}$ \hfill
+    \end{enumerate}
+    \vspace{0.9cm}
+  \item \textbf{Basis and dimension.} For each matrix, give a basis for $C(A)$ and $\dim C(A)$, a basis for
+        $N(A)$ and $\dim N(A)$, and check $r+(n-r)=n$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
+      \item $A=\begin{bmatrix} 1 & 3 & 4 \\ 2 & 7 & 9 \end{bmatrix}$ \vspace{1.1cm}
+      \item $A=\begin{bmatrix} 1 & 2 \\ 3 & 6 \end{bmatrix}$ \vspace{1.1cm}
+    \end{enumerate}
+  \item \textbf{Read the dependency.} For $A=\begin{bmatrix} 1 & 2 & 5 \\ 0 & 1 & 2 \end{bmatrix}$ the
+        nullspace has special solution $\svec=\begin{bsmallmatrix} -1\\-2\\1 \end{bsmallmatrix}$. Which
+        column of $A$ is a combination of the others, and what combination? \writelines{2}
+  \item \textbf{Explain.} A plane through the origin in $\mathbb{R}^3$ has dimension $2$. Why do
+        \emph{any} $2$ independent vectors lying in it form a basis, while a single vector cannot span it
+        and $3$ vectors in it cannot be independent? \writelines{2}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Independent, spanning, and the magic number $n$.}
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item \textbf{Too many are dependent.} Explain why any $5$ vectors in $\mathbb{R}^4$ must be dependent
+        (stack as a $4\times5$ matrix --- what does $r\le4$ force?).
+  \item \textbf{$n$ independent $\Rightarrow$ a basis.} If $n$ vectors in $\mathbb{R}^n$ are independent,
+        their matrix is $n\times n$ with $r=n$ --- no free columns and no zero rows. Explain why they then
+        also \emph{span} $\mathbb{R}^n$, so they automatically form a basis.
+\end{enumerate}
+\writelines{3}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 3.5: Dimensions of the Four Subspaces.} Today one number $r$ gave two
+dimensions: $\dim C(A)=r$ and $\dim N(A)=n-r$. Next we meet all \emph{four} fundamental subspaces --- the
+column space, the row space, the nullspace, and the left nullspace --- and find every dimension
+($r$, $r$, $n-r$, $m-r$) from that same $r$.
+\end{spiralbox}
 
 \end{document}

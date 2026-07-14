@@ -3,17 +3,70 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.4}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+Stack vectors as columns and test with $N(A)$. For a basis, use the \emph{original} pivot columns for
+$C(A)$ and the special solutions for $N(A)$; always \emph{justify} and give each dimension.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Independent or dependent?} State which and give a one-line reason.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+      \item $\begin{bsmallmatrix} 1\\4 \end{bsmallmatrix},\ \begin{bsmallmatrix} 2\\8 \end{bsmallmatrix}$ \hfill \ans{Dependent: $\begin{bsmallmatrix} 2\\8 \end{bsmallmatrix}=2\begin{bsmallmatrix} 1\\4 \end{bsmallmatrix}$ (parallel).}
+      \item $\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix},\ \begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$ \hfill \ans{Independent: not multiples; $N(A)=\{\zero\}$.}
+      \item $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix},\ \begin{bsmallmatrix} 3\\4 \end{bsmallmatrix},\ \begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}$ \hfill \ans{Dependent: $3$ vectors in $\mathbb{R}^2$ ($>n=2$).}
+    \end{enumerate}
+  \item \textbf{Basis and dimension.} For each matrix, give a basis for $C(A)$ and $\dim C(A)$, a basis for
+        $N(A)$ and $\dim N(A)$, and check $r+(n-r)=n$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
+      \item $A=\begin{bmatrix} 1 & 3 & 4 \\ 2 & 7 & 9 \end{bmatrix}$ \quad \ans{$R_2-2R_1$ then $R_1-3R_2$ give $\left[\begin{smallmatrix} 1&0&1\\0&1&1 \end{smallmatrix}\right]$: pivots $1,2$, free $3$, $r=2$, $n=3$. $C(A)$ basis $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix},\begin{bsmallmatrix} 3\\7 \end{bsmallmatrix}$, $\dim=2$. Special solution $\svec=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$, $\dim N(A)=1$. $2+1=3=n$.}
+      \item $A=\begin{bmatrix} 1 & 2 \\ 3 & 6 \end{bmatrix}$ \quad \ans{$R_2-3R_1\Rightarrow\left[\begin{smallmatrix} 1&2\\0&0 \end{smallmatrix}\right]$: pivot $1$, free $2$, $r=1$, $n=2$. $C(A)$ basis $\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$ (a line), $\dim=1$. Special solution $\svec=\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}$, $\dim N(A)=1$. $1+1=2=n$. Columns dependent.}
+    \end{enumerate}
+  \item \textbf{Read the dependency.} For $A=\begin{bmatrix} 1 & 2 & 5 \\ 0 & 1 & 2 \end{bmatrix}$ the
+        nullspace has special solution $\svec=\begin{bsmallmatrix} -1\\-2\\1 \end{bsmallmatrix}$. Which
+        column of $A$ is a combination of the others, and what combination? \ansline{$A\svec=\zero$ means $-\mathbf{a}_1-2\mathbf{a}_2+\mathbf{a}_3=\zero$, so $\mathbf{a}_3=\mathbf{a}_1+2\mathbf{a}_2$. Column~3 is the redundant one: $\begin{bsmallmatrix} 5\\2 \end{bsmallmatrix}=\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}+2\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$.}
+  \item \textbf{Explain.} A plane through the origin in $\mathbb{R}^3$ has dimension $2$. Why do
+        \emph{any} $2$ independent vectors lying in it form a basis, while a single vector cannot span it
+        and $3$ vectors in it cannot be independent? \ansline{The dimension is $2$: a basis needs exactly $2$ vectors. One vector spans only a line (can't reach the whole plane). Three vectors inside a $2$-dimensional space must be dependent (too many). So any $2$ independent vectors in the plane are both independent \emph{and} spanning --- a basis.}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Independent, spanning, and the magic number $n$.}
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item \textbf{Too many are dependent.} Explain why any $5$ vectors in $\mathbb{R}^4$ must be dependent
+        (stack as a $4\times5$ matrix --- what does $r\le4$ force?).
+  \item \textbf{$n$ independent $\Rightarrow$ a basis.} If $n$ vectors in $\mathbb{R}^n$ are independent,
+        their matrix is $n\times n$ with $r=n$ --- no free columns and no zero rows. Explain why they then
+        also \emph{span} $\mathbb{R}^n$, so they automatically form a basis.
+\end{enumerate}
+\ansline{(a) The matrix is $4\times5$ with $r\le4<5=n$, so there is at least one free column --- a nonzero special solution, i.e.\ a nontrivial combination equal to $\zero$. Hence the $5$ vectors are dependent.}
+\ansline{(b) With $r=n$ the square matrix is invertible: no zero rows means every $\bb$ is reachable, so $C(A)=\mathbb{R}^n$ --- the columns span. Independent ($r=n$, no free columns) $+$ spanning $=$ a basis. (In $\mathbb{R}^n$, any $n$ independent vectors automatically span.)}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 3.5: Dimensions of the Four Subspaces.} Today one number $r$ gave two
+dimensions: $\dim C(A)=r$ and $\dim N(A)=n-r$. Next we meet all \emph{four} fundamental subspaces --- the
+column space, the row space, the nullspace, and the left nullspace --- and find every dimension
+($r$, $r$, $n-r$, $m-r$) from that same $r$.
+\end{spiralbox}
+
+\begin{teachernote}
+Problem~1 spans the outcomes: (a) parallel dependence, (b) an independent pair, (c) the ``more than $n$''
+shortcut. Problem~2 is the core skill (basis $+$ dimension for both spaces from one reduction); insist on
+\emph{original} pivot columns for $C(A)$. Problem~3 makes the special solution concrete --- it \emph{is}
+the column dependency. Extension~(b) ties independence and spanning together in the square case: for $n$
+vectors in $\mathbb{R}^n$, either property forces the other. Assign it if you assign only one extension part.
+\end{teachernote}
 
 \end{document}

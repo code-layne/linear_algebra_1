@@ -3,17 +3,80 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.4}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Independent, Basis, Dimension.} Stack vectors as the columns of $A$: they are
+\emph{independent} exactly when $N(A)=\{\zero\}$. A \emph{basis} is an independent set that spans a space
+--- the pivot columns of $A$ give a basis for $C(A)$, and the special solutions give a basis for $N(A)$.
+The \emph{dimension} is the size of a basis: $\dim C(A)=r$ and $\dim N(A)=n-r$. One reduction reveals all
+three. Work with your partner and \emph{justify} every answer.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Two vectors are dependent exactly when one is a multiple of the other (they lie on one line).
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item \textbf{Independent or dependent?} Circle one and give a one-line reason.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+      \item $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix},\ \begin{bsmallmatrix} 3\\6 \end{bsmallmatrix}$ \quad \textbf{independent}/\ans{dependent} \quad because \ans{$\begin{bsmallmatrix} 3\\6 \end{bsmallmatrix}=3\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ (parallel).}
+      \item $\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix},\ \begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}$ \quad \ans{independent}/\textbf{dependent} \quad because \ans{neither is a multiple of the other; only $0\vv+0\ww=\zero$.}
+      \item $\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix},\ \begin{bsmallmatrix} -4\\-2 \end{bsmallmatrix}$ \quad \textbf{independent}/\ans{dependent} \quad because \ans{$\begin{bsmallmatrix} -4\\-2 \end{bsmallmatrix}=-2\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$ (parallel).}
+    \end{enumerate}
+  \item \textbf{Basis and dimension of a line.} A line through the origin points along
+        $\begin{bsmallmatrix} 2\\3 \end{bsmallmatrix}$. Give a basis for the line and its dimension.
+        \; Basis: \ans{$\left\{\begin{bsmallmatrix} 2\\3 \end{bsmallmatrix}\right\}$} \quad Dimension: \ans{$1$}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+For each matrix: reduce, mark pivot/free columns, then give a basis for $C(A)$ and its dimension, a basis
+for $N(A)$ and its dimension, and check that $r+(n-r)=n$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item $A=\begin{bmatrix} 1 & 2 & 3 \\ 2 & 5 & 8 \end{bmatrix}$ \quad (\emph{one free column}). \ansline{$R_2-2R_1$ then $R_1-2R_2$ give $\left[\begin{smallmatrix} 1&0&-1\\0&1&2 \end{smallmatrix}\right]$: pivots in columns $1,2$, column $3$ free, $r=2$, $n=3$. Basis for $C(A)$: $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix},\begin{bsmallmatrix} 2\\5 \end{bsmallmatrix}$, $\dim C(A)=2$. Special solution ($x_3=1$): $\svec=\begin{bsmallmatrix} 1\\-2\\1 \end{bsmallmatrix}$, $\dim N(A)=1$. Check $2+1=3=n$.}
+  \item $A=\begin{bmatrix} 1 & 2 & 2 \\ 2 & 4 & 4 \end{bmatrix}$ \quad (\emph{expect two free columns}). \ansline{$R_2-2R_1\Rightarrow\left[\begin{smallmatrix} 1&2&2\\0&0&0 \end{smallmatrix}\right]$: pivot column $1$, columns $2,3$ free, $r=1$, $n=3$. Basis for $C(A)$: $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$, $\dim C(A)=1$ (a line). Special solutions $\svec_1=\begin{bsmallmatrix} -2\\1\\0 \end{bsmallmatrix},\svec_2=\begin{bsmallmatrix} -2\\0\\1 \end{bsmallmatrix}$, $\dim N(A)=2$. Check $1+2=3=n$.}
+  \item \textbf{Are the columns independent?} For each matrix above, state yes/no and point to the fact
+        that decides it. \ansline{Both \emph{dependent}: each has a free column, so $N(A)\ne\{\zero\}$ (a nonzero special solution is a nontrivial combination of the columns equal to $\zero$). Independence would need \emph{no} free columns ($r=n$).}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Why the counting works.}
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Too many vectors.} Explain why any $4$ vectors in $\mathbb{R}^3$ must be dependent. (Hint:
+        stack them as columns of a $3\times4$ matrix --- what does $r\le 3$ force?) \ansline{As columns, $A$ is $3\times4$. There are at most $3$ pivots ($r\le3$), so with $n=4$ columns there is at least $n-r\ge1$ free column --- a nonzero nullspace vector, i.e.\ a nontrivial combination equal to $\zero$. So the $4$ vectors are dependent.}
+  \item \textbf{Minimal and maximal.} A basis is both a \emph{minimal} spanning set and a \emph{maximal}
+        independent set. In one sentence each: why does removing a vector from a basis lose spanning, and
+        why does adding another vector break independence? \ansline{Remove a vector: since a basis is independent, the removed vector is \emph{not} a combination of the rest, so it can no longer be reached --- the set stops spanning. Add a vector: the new vector already lies in the span of the basis, so it is a combination of them --- a nontrivial dependence, breaking independence.}
+  \item \textbf{Same size every time.} The columns of $A=\begin{bsmallmatrix} 1&1&2\\1&2&3 \end{bsmallmatrix}$
+        span $C(A)=\mathbb{R}^2$. Explain why \emph{no} basis for $\mathbb{R}^2$ can have just $1$ vector,
+        and why none can have $3$ --- so every basis has exactly $2$ (the dimension). \ansline{One vector spans only a line, not all of $\mathbb{R}^2$, so it can't span (not enough). Three vectors in $\mathbb{R}^2$ are always dependent (more than $n=2$ in $\mathbb{R}^2$), so they can't be independent (too many). A basis must be both, so it has exactly $2$ vectors --- that common count is $\dim\mathbb{R}^2=2$.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~A is the core skill: one reduction $\to$ pivot/free $\to$ basis and dimension for \emph{both} $C(A)$
+and $N(A)$, with $r+(n-r)=n$ as the sanity check. Problem~1 hides the dependence (three columns, one
+free); problem~2 is the two-free-variable case (a $C(A)$ line and a $2$-dimensional nullspace). The most
+common slip is reporting reduced columns for the $C(A)$ basis --- insist on the \emph{original} pivot
+columns. Tier~E is the ``why dimension is well-defined'' thread: too-many-are-dependent (item~1) plus
+minimal-spanning/maximal-independent (item~2) pin the count in item~3. If Tier~E runs long, item~1 is the
+must-do.
+\end{teachernote}
 
 \end{document}

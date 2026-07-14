@@ -3,17 +3,142 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\cc}{\mathbf{c}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.4}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.06in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item test a set of vectors for \emph{independence} by checking whether $A\xx=\zero$ has only $\xx=\zero$;
+  \item build a \emph{basis} (independent \emph{and} spanning): pivot columns for $C(A)$, special solutions for $N(A)$;
+  \item give the \emph{dimension} of a space --- $\dim C(A)=r$, $\dim N(A)=n-r$ --- and say what it counts.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.04in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{Linearly independent}{the only combination equal to $\zero$ is all-zero: $c_1\vv_1+\dots+c_k\vv_k=\zero$ forces every $c_i=0$; no vector is a combination of the others}
+\vocabans{Linearly dependent}{some nontrivial combination gives $\zero$, so at least one vector is a combination of the rest (redundant)}
+\vocabans{Basis}{an independent set that spans the space --- enough to reach everything, with no redundancy}
+\vocabans{Dimension}{the number of vectors in a basis (the same for every basis of that space)}
+\end{vocabbox}
+
+\begin{hookbox}
+The robot arm: each lever $\xx$ moves the tip to $A\xx$, and the reachable set is $C(A)$. The arm has
+\textbf{three} levers, but lever~3 does exactly what levers~1 and~2 do together (column~3 $=$ column~1 $+$
+column~2).
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item How many levers are \emph{really} doing something new? \ansline{Two --- levers 1 and 2. Lever 3 is redundant; it repeats a move you can already make.}
+  \item So how many independent directions can the tip move in? \ansline{Two: the reachable set $C(A)$ is a plane, dimension $2$. Three levers, but only two \emph{degrees of freedom}.}
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. Independent or Dependent?}
+Vectors $\vv_1,\dots,\vv_k$ are \textbf{linearly independent} when the \emph{only} combination equal to
+$\zero$ is the all-zero one:
+\[
+  c_1\vv_1+c_2\vv_2+\dots+c_k\vv_k=\zero \quad\Longrightarrow\quad \text{every } c_i=\ans{$0$}.
+\]
+If instead \emph{some} combination with not-all-zero weights gives $\zero$, they are \textbf{dependent} ---
+and then at least one vector is a \ans{combination} of the others (it is redundant).
+\begin{minipage}[t]{0.60\linewidth}\vspace{3pt}
+\textbf{Geometry.} Two vectors are dependent exactly when they lie on one \ans{line} (one is a multiple
+of the other). Three vectors in $\mathbb{R}^3$ are dependent when they lie in one plane. Independent means
+each vector points a genuinely \emph{new} direction.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.36\linewidth}\vspace{0pt}\centering
+\begin{tikzpicture}[scale=0.52]
+  \draw[->, thick, charcoal] (-0.3,0)--(3.3,0);
+  \draw[->, thick, charcoal] (0,-0.3)--(0,3.3);
+  % independent pair
+  \draw[->, very thick, burgundy] (0,0)--(2.4,0.8);
+  \draw[->, very thick, royalblue] (0,0)--(0.8,2.4);
+  \node[burgundy, font=\scriptsize] at (2.6,0.55){$\vv$};
+  \node[royalblue, font=\scriptsize] at (1.15,2.3){$\ww$};
+\end{tikzpicture}\\[-2pt]
+{\scriptsize\itshape Independent: two directions span a plane.}
+\end{minipage}
 \end{notesbox}
+
+\begin{notesbox}{2. The Test Is the Nullspace}
+Stack the vectors as the columns of $A$. A combination $c_1\vv_1+\dots+c_k\vv_k$ is just $A\cc$, so a
+combination equal to $\zero$ is a solution of $A\cc=\zero$. Therefore:
+\[
+  \text{columns independent} \iff N(A)=\{\zero\} \ (\text{only } \cc=\zero), \qquad
+  \text{dependent} \iff \text{there is a nonzero }\svec\in N(A).
+\]
+The special solution $\svec$ \emph{names the redundancy}. Try $A=\begin{bmatrix} 1 & 1 & 2 \\ 1 & 2 & 3 \end{bmatrix}$:
+\[
+  \begin{bmatrix} 1 & 1 & 2 \\ 1 & 2 & 3 \end{bmatrix}
+  \xrightarrow{\;R_2-R_1\;}
+  \begin{bmatrix} 1 & 1 & 2 \\ 0 & 1 & 1 \end{bmatrix}
+  \xrightarrow{\;R_1-R_2\;}
+  \begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \end{bmatrix}.
+\]
+Columns $1,2$ are pivots; column $3$ is \textbf{free}, so there \emph{is} a nonzero special solution ---
+the columns are \ans{dependent}. Setting the free variable to $1$ gives
+$\svec=\begin{bmatrix}\rule{0pt}{1.0em}{\color{keyred}\mathbf{-1}}\\ {\color{keyred}\mathbf{-1}}\\ {\color{keyred}\mathbf{1}}\end{bmatrix}$, which
+says $-\mathbf{a}_1-\mathbf{a}_2+\mathbf{a}_3=\zero$, i.e.\ $\mathbf{a}_3=\mathbf{a}_1+\mathbf{a}_2$.
+\end{notesbox}
+
+\begin{notesbox}{3. Basis: Independent \emph{and} Spanning}
+A \textbf{basis} for a space is a set that is \textbf{independent} \emph{and} \textbf{spans} the space ---
+just enough vectors to reach everything, with none wasted. Two everyday cases come straight from one
+reduction:
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item \textbf{Basis for $C(A)$:} the \ans{pivot} columns of $A$ (the \emph{original} columns, not the reduced ones). Above: $\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix},\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$.
+  \item \textbf{Basis for $N(A)$:} the \ans{special} solutions (one per free column). Above: $\svec=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$.
+\end{itemize}
+The standard vectors $\mathbf{e}_1,\dots,\mathbf{e}_n$ are a basis for $\mathbb{R}^n$. \emph{Why drop
+column~3 from the $C(A)$ basis?} It is redundant --- $\mathbf{a}_3=\mathbf{a}_1+\mathbf{a}_2$ adds no new
+direction, so keeping it would break independence.
+\end{notesbox}
+
+\begin{notesbox}{4. Dimension --- How Many Independent Directions}
+Every basis of a given space has the \emph{same} number of vectors. That number is the
+\textbf{dimension}. So, reading off the reduction above ($r=2$ pivots, $n=3$ columns):
+\[
+  \dim C(A)=r=\ans{$2$}, \qquad \dim N(A)=n-r=\ans{$1$}, \qquad r+(n-r)=n=\ans{$3$}.
+\]
+Dimension counts the \emph{independent directions} --- the ``degrees of freedom'' --- in the space, no
+matter which basis you choose. A line has dimension $1$, a plane $2$, all of $\mathbb{R}^3$ has $3$.
+
+\vspace{2pt}
+\textbf{Next (3.5):} the \emph{four} subspaces and their dimensions --- $C(A)$ and the row space each have
+dimension $r$, the nullspace $n-r$, and the left nullspace $m-r$ --- all from the single number $r$.
+\end{notesbox}
+
+\begin{practicebox}
+Show your reasoning.
+\begin{enumerate}[leftmargin=1.6em, itemsep=2pt]
+  \item Are $\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 2\\6 \end{bsmallmatrix}$ independent? Say how you know. \ansline{No --- $\begin{bsmallmatrix} 2\\6 \end{bsmallmatrix}=2\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$ (parallel), so $2\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}-\begin{bsmallmatrix} 2\\6 \end{bsmallmatrix}=\zero$ is a nontrivial combination: \emph{dependent}.}
+  \item For $A=\begin{bmatrix} 1 & 2 & 1 \\ 0 & 0 & 1 \end{bmatrix}$, give a basis for $C(A)$ and its dimension, and a basis for $N(A)$ and its dimension. \ansline{Pivots in columns $1,3$, column $2$ free ($r=2$, $n=3$). Basis for $C(A)$: $\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix},\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$, so $\dim C(A)=2$. Special solution ($x_2=1$): $\svec=\begin{bsmallmatrix} -2\\1\\0 \end{bsmallmatrix}$, so basis for $N(A)$ is $\{\svec\}$, $\dim N(A)=1$.}
+  \item Can $4$ vectors in $\mathbb{R}^3$ ever be independent? Explain in one sentence. \ansline{No --- stacked as columns, $A$ is $3\times4$, so $r\le3<4=n$ forces a free column (a nonzero nullspace), i.e.\ dependence. More than $n$ vectors in $\mathbb{R}^n$ are always dependent.}
+\end{enumerate}
+\end{practicebox}
+
+\begin{teachernote}
+The must-dos are \S2 (independence $=$ ``$N(A)=\{\zero\}$'') and \S3--\S4 (read a basis and its dimension
+off one reduction: pivot columns for $C(A)$, special solutions for $N(A)$). Two recurring slips: giving the
+$C(A)$ basis as columns of the \emph{reduced} matrix instead of the original pivot columns, and calling a
+set a basis after checking only one of the two properties (independent \emph{and} spanning). Stress that
+the special solution is the \emph{recipe} for the redundancy ($\mathbf{a}_3=\mathbf{a}_1+\mathbf{a}_2$).
+\end{teachernote}
 
 \end{document}

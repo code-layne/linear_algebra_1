@@ -3,6 +3,9 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
@@ -11,9 +14,21 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Independent?} Are the vectors $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$,
+        $\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}$, $\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}$
+        linearly independent? Answer and explain in one line.
+        \writelines{2}
+  \item \textbf{Basis and dimension.} For $A=\begin{bmatrix} 1 & 0 & 2 \\ 1 & 1 & 5 \end{bmatrix}$, which
+        reduces to $\begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & 3 \end{bmatrix}$, give a basis for $C(A)$ and
+        $\dim C(A)$, and a basis for $N(A)$ and $\dim N(A)$.
+        \writelines{3}
+  \item \textbf{What does dimension count?} A space has dimension $2$, and a classmate hands you $3$
+        vectors that \emph{span} it. Can all three be part of a basis? What does the dimension tell you
+        about redundancy among them?
+        \writelines{2}
+\end{enumerate}
 
 \end{document}

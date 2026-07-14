@@ -3,17 +3,50 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.4}{Warm-Up}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Warm-Up. See references/components.md for the expected structure.
-\begin{notesbox}{Warm-Up}
-\writelines{4}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small These skills from Lessons 1.1 and 3.2 power today's work. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Are they parallel? (Lesson 1.1)} Is one vector a multiple of the other? Circle \textbf{yes}/\textbf{no}.
+\[
+  \vv=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix},\ \ww=\begin{bsmallmatrix} 3\\6 \end{bsmallmatrix}:\ \ \textbf{yes}/\textbf{no}
+  \qquad\qquad
+  \vv=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix},\ \ww=\begin{bsmallmatrix} 2\\5 \end{bsmallmatrix}:\ \ \textbf{yes}/\textbf{no}
+\]
+
+\vspace{4pt}
+\textbf{2. Special solution of $A\xx=\zero$ (Lesson 3.2).} Reduce
+$A=\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$ and give the special solution:
+\[
+  \begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}
+  \;\longrightarrow\;
+  \begin{bmatrix} 1 & 2 \\[2pt] \blank{0.6cm} & \blank{0.6cm} \end{bmatrix},
+  \qquad
+  \svec=\begin{bmatrix}\rule{0pt}{1.1em}\blank{0.8cm}\\[2pt]\blank{0.8cm}\end{bmatrix}.
+\]
+
+\vspace{4pt}
+\textbf{3. Pivot or free? (Lesson 3.2)} The reduced matrix below has pivots circled for you. Label each
+column \textbf{P} (pivot) or \textbf{F} (free), then say how many free columns there are.
+\[
+  \begin{bmatrix} 1 & 0 & 3 \\ 0 & 1 & 2 \end{bmatrix}
+  \qquad
+  \text{col 1: }\blank{0.8cm}\quad \text{col 2: }\blank{0.8cm}\quad \text{col 3: }\blank{0.8cm}
+\]
+Number of free columns: \blank{1.0cm}
 \end{notesbox}
 
 \end{document}

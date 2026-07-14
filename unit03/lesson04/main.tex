@@ -5,6 +5,14 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\cc}{\mathbf{c}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 \newcommand{\UnitNumberName}{Unit 3: The Four Fundamental Subspaces \quad}
 \newcommand{\LessonNumberName}{Lesson 3.4: Independence, Basis, and Dimension}
 
@@ -16,55 +24,163 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can decide whether a set of vectors is \emph{linearly
+    independent} --- no vector is a combination of the others, equivalently the only combination equal to
+    $\zero$ is the all-zero one --- by testing whether $A\xx=\zero$ forces $\xx=\zero$. They can build a
+    \emph{basis} for a space (an independent set that \emph{spans} it): the pivot columns of $A$ for the
+    column space $C(A)$, and the special solutions for the nullspace $N(A)$. They can state the
+    \emph{dimension} --- the number of vectors in any basis --- and read it off as $\dim C(A)=r$ and
+    $\dim N(A)=n-r$, interpreting dimension as the number of independent directions (``degrees of
+    freedom'') in the space.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Test \textbf{independence}: columns of $A$ are independent exactly when $N(A)=\{\zero\}$ (no free variables).
+  \item Recognize \textbf{dependence}: a free variable / a special solution names a vector that is a combination of the others.
+  \item Build a \textbf{basis} --- independent \emph{and} spanning: pivot columns for $C(A)$, special solutions for $N(A)$.
+  \item Give the \textbf{dimension}: $\dim C(A)=r$, $\dim N(A)=n-r$; the count is the same for \emph{every} basis.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Independent $=$ no redundancy; dependent $=$ one vector is ``already reachable'' from the rest.
+  \item A special solution of $A\xx=\zero$ \emph{is} the recipe showing which columns are redundant.
+  \item A basis is a \emph{minimal} spanning set --- just enough directions to reach everything, none wasted.
+  \item Dimension $=$ number of independent directions $=$ the space's ``degrees of freedom.''
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Linearly independent} & Vectors with only the trivial combination equal to $\zero$: $c_1\vv_1+\dots+c_k\vv_k=\zero$ forces every $c_i=0$. No vector is a combination of the others. \\
+\textbf{Linearly dependent} & Some \emph{nontrivial} combination gives $\zero$ --- so at least one vector is a combination of the rest (redundant). \\
+\textbf{Spans a space} & Every vector in the space is a combination of the set --- the set ``reaches'' all of it. \\
+\textbf{Basis} & An independent set that spans the space: enough to reach everything, with no redundancy. \\
+\textbf{Dimension} & The number of vectors in a basis --- the same for every basis of that space. \\
+\textbf{Rank $r$} & The number of pivots $=$ number of independent columns $=\dim C(A)$. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three tools this lesson builds on: \textbf{(1)} spotting when two vectors are
+    \emph{parallel} (one a multiple of the other) --- the smallest case of dependence, from Lesson~1.1;
+    \textbf{(2)} solving $A\xx=\zero$ and finding a \emph{special solution} (Lesson~3.2) --- the engine of
+    the independence test, since a nonzero nullspace \emph{is} dependence; and \textbf{(3)} reading
+    \emph{pivot vs.\ free} columns from a reduced matrix (Lesson~3.2). Debrief item~2 aloud: a nonzero
+    special solution is exactly a nontrivial combination of the columns that equals $\zero$, so the columns
+    are \emph{dependent}.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Back to the robot arm: each lever $\xx$ moves the tip to $A\xx$, and the reachable set is the column
+    space $C(A)$. Suppose the arm has \textbf{three} levers but the third does exactly what levers~1 and~2
+    already do together (its column is the sum of the other two). \textbf{``How many levers does the arm
+    \emph{really} have?''} Only two do anything new --- the third is \emph{redundant}. The genuinely
+    different levers are \emph{independent}; a smallest complete set of them is a \textbf{basis}; and their
+    count --- the arm's true \textbf{degrees of freedom} --- is the \textbf{dimension} of the reachable
+    space. Today we make ``no redundancy,'' ``just enough to reach everything,'' and ``how many independent
+    directions'' precise, and we read all three straight off a reduced matrix.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. Independence.} Vectors $\vv_1,\dots,\vv_k$ are \textbf{linearly independent} if the \emph{only}
+combination equal to $\zero$ is the all-zero one: $c_1\vv_1+\dots+c_k\vv_k=\zero\Rightarrow$ every
+$c_i=0$. If some \emph{nontrivial} combination gives $\zero$, they are \textbf{dependent} and one vector
+is a combination of the others. Geometry: two vectors are dependent exactly when they lie on one line
+(parallel); three are dependent when they lie in one plane.
+
+\textbf{2. The test is the nullspace.} Stack the vectors as columns of $A$. A combination
+$c_1\vv_1+\dots=\zero$ is just $A\cc=\zero$. So the columns are \textbf{independent} $\Leftrightarrow$
+$N(A)=\{\zero\}$ (no free variables, $r=n$), and \textbf{dependent} $\Leftrightarrow$ there is a nonzero
+special solution. That special solution \emph{names the redundancy}.
+
+\columnbreak
+
+\textbf{3. Basis.} A \textbf{basis} for a space is an independent set that also \textbf{spans} it --- just
+enough vectors to reach everything, with none wasted. The \emph{pivot columns} of $A$ are a basis for
+$C(A)$; the \emph{special solutions} are a basis for $N(A)$; the standard vectors $\mathbf{e}_1,\dots$ are
+a basis for $\mathbb{R}^n$.
+
+\textbf{4. Dimension.} Every basis of a given space has the \emph{same} number of vectors --- that number
+is the \textbf{dimension}. So $\dim C(A)=r$ (the rank) and $\dim N(A)=n-r$ (the free-variable count).
+Dimension counts the \emph{independent directions} --- the degrees of freedom --- in the space, no matter
+which basis you pick.
+\end{multicols}
+\end{skillbox}
+
+\begin{skillbox}[Explicit Instruction: Basis \& Dimension from One Reduction]{blush}
+\begin{tabularx}{\linewidth}{@{}p{0.46\linewidth} X@{}}
+\textbf{Steps (one reduction does it all):}
+\begin{enumerate}[leftmargin=1.3em, nosep]
+  \item Reduce $A$; mark \textbf{pivot} vs.\ \textbf{free} columns.
+  \item \textbf{Independent?} Yes iff \emph{no} free columns ($r=n$).
+  \item \textbf{Basis for $C(A)$:} the \emph{pivot columns of $A$} (original columns). Count $=r=\dim C(A)$.
+  \item \textbf{Basis for $N(A)$:} the \emph{special solutions} (one per free column). Count $=n-r=\dim N(A)$.
+\end{enumerate}
+&
+\vspace{-2pt}
+\textbf{Worked} ($A=\begin{bsmallmatrix} 1&1&2\\1&2&3 \end{bsmallmatrix}$). Reduce to
+$\begin{bsmallmatrix} 1&0&1\\0&1&1 \end{bsmallmatrix}$: pivots in columns $1,2$, column~$3$ free, so $r=2$,
+$n=3$. Columns \emph{dependent} ($\mathbf{a}_3=\mathbf{a}_1+\mathbf{a}_2$). \textbf{Basis for $C(A)$:}
+$\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix},\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$, so
+$\dim C(A)=2$. \textbf{Basis for $N(A)$:} $\svec=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$, so
+$\dim N(A)=1$. Note $2+1=n=3$.
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item testing independence by ``are any two parallel?'' --- with three or more vectors you must check the whole nullspace, not just pairs;
+  \item giving the basis for $C(A)$ as columns of the \emph{reduced} matrix --- use the \emph{original} pivot columns of $A$;
+  \item calling a spanning set a basis without checking independence (or an independent set a basis without checking it spans);
+  \item confusing the two dimensions --- $\dim C(A)=r$ lives in $\mathbb{R}^m$; $\dim N(A)=n-r$ lives in $\mathbb{R}^n$.
+\end{itemize}
+Cold-call prompts: ``What single equation tests independence?'' ``Which columns form the basis --- and of
+\emph{which} space?'' ``What does the special solution tell you about the columns?'' ``What is the
+dimension, and what does that number count?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Independent, Basis, Dimension} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Decide independence for pairs of vectors (parallel or not); write the
+dependent one as a multiple of the other; give a basis and dimension for a line/plane.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} From one reduction of a $2\times3$ / $3\times3$ matrix: name pivot/free
+columns, give a basis for $C(A)$ and for $N(A)$, and state both dimensions; verify $r+(n-r)=n$.
+
+\columnbreak
+\textbf{Tier E --- Extension.} Argue why more than $n$ vectors in $\mathbb{R}^n$ must be dependent; why a
+basis is a \emph{minimal} spanning set; and why every basis has the same size (dimension well-defined).
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): test a set of vectors for independence via $N(A)$; from a
+reduced matrix, give a basis for $C(A)$ and $N(A)$ with their dimensions; and a
+\textbf{conceptual/justification check} --- explain what the dimension counts (independent directions /
+degrees of freedom) and why a redundant vector doesn't change it. Collect and sort into ``got it /
+pivot-column slip / independence-vs-spanning slip'' to decide whether 3.5 opens with a re-teach.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} test independence for several sets (pairs, triples, and more-than-$n$ cases); from one
+reduction give bases and dimensions for $C(A)$ and $N(A)$; and interpret the special solution as the
+column dependency. \textbf{Extension:} more vectors than $n$ in $\mathbb{R}^n$ are always dependent; a
+basis is both a maximal independent set and a minimal spanning set; every basis of a space has the same
+size. \textbf{Preview:} Lesson~3.5, \emph{Dimensions of the Four Subspaces} --- $C(A)$ and the row space
+each have dimension $r$, $N(A)$ has dimension $n-r$, and the left nullspace $m-r$, all from the one number
+$r$.
 \end{skillbox}
 \end{document}

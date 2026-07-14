@@ -3,6 +3,9 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
@@ -11,9 +14,29 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Independent?} Are the vectors $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$,
+        $\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}$, $\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}$
+        linearly independent? Answer and explain in one line.
+        \ansline{No --- they are $3$ vectors in $\mathbb{R}^2$, and more than $n=2$ vectors in $\mathbb{R}^2$ are always dependent. (Concretely $\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}=2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ is already redundant.)}
+  \item \textbf{Basis and dimension.} For $A=\begin{bmatrix} 1 & 0 & 2 \\ 1 & 1 & 5 \end{bmatrix}$, which
+        reduces to $\begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & 3 \end{bmatrix}$, give a basis for $C(A)$ and
+        $\dim C(A)$, and a basis for $N(A)$ and $\dim N(A)$.
+        \ansline{Pivots in columns $1,2$, column $3$ free ($r=2$, $n=3$). Basis for $C(A)$: the original pivot columns $\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix},\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}$, so $\dim C(A)=2$. Special solution ($x_3=1$): $\svec=\begin{bsmallmatrix} -2\\-3\\1 \end{bsmallmatrix}$, so basis for $N(A)$ is $\{\svec\}$, $\dim N(A)=1$. ($2+1=3=n$.)}
+  \item \textbf{What does dimension count?} A space has dimension $2$, and a classmate hands you $3$
+        vectors that \emph{span} it. Can all three be part of a basis? What does the dimension tell you
+        about redundancy among them?
+        \ansline{No. A basis for a $2$-dimensional space has exactly $2$ vectors, so $3$ spanning vectors must be dependent --- at least one is a combination of the others (redundant). Dimension counts the independent directions ($2$ here), so only $2$ of the three can be independent.}
+\end{enumerate}
+
+\begin{teachernote}
+Sort responses into ``got it / pivot-column slip / independence-vs-spanning slip.'' Item~1 checks the
+``more than $n$ $\Rightarrow$ dependent'' idea (accept the count \emph{or} the explicit multiple). Item~2 is
+the discriminator: a full-credit $C(A)$ basis uses the \emph{original} pivot columns, not the reduced ones.
+Item~3 is the conceptual crux --- spanning alone is not a basis; dimension caps how many can be
+independent. If many slip on item~2, open 3.5 by re-reading a basis off one reduction.
+\end{teachernote}
 
 \end{document}

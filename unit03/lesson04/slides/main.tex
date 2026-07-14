@@ -1,6 +1,13 @@
 %! Independence, Basis, and Dimension — Unit 3, Lesson 3.4 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\cc}{\mathbf{c}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
@@ -11,16 +18,124 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 3.4}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Independence, Basis, and Dimension}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 3}
+    {\color{white}\bfseries\LARGE Independence, Basis, and Dimension}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 3: The Four Fundamental Subspaces}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{How many levers does the arm \emph{really} have?}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.58\textwidth}
+      Each lever $\xx$ moves the tip to $A\xx$; the reachable set is $C(A)$.\\[6pt]
+      The arm has \textbf{three} levers --- but lever~3 does exactly what levers~1 and~2 do together
+      (column~3 $=$ column~1 $+$ column~2).\\[6pt]
+      Only \emph{two} do anything new. The third is \textbf{redundant}.
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.55]
+        \draw[->, thick, charcoal] (-0.3,0)--(3.2,0);
+        \draw[->, thick, charcoal] (0,-0.3)--(0,3.2);
+        \draw[->, very thick, burgundy] (0,0)--(2.4,0.8) node[right]{\scriptsize lever 1};
+        \draw[->, very thick, royalblue] (0,0)--(0.8,2.4) node[above]{\scriptsize lever 2};
+        \draw[->, very thick, goldacc, dashed] (0,0)--(3.2,3.2) node[right]{\scriptsize lever 3};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{2pt}
+  \begin{block}{Three words for today}
+    \emph{Independent} (no redundancy), \emph{basis} (just enough to reach everything), \emph{dimension}
+    (how many independent directions).
+  \end{block}
+\end{frame}
+
+% BIG IDEA: INDEPENDENCE = NULLSPACE
+\begin{frame}[t, plain]
+  \burgundyheader{Independence is a nullspace test}
+  \sectionlabel{The big idea}
+  Vectors are \textbf{independent} when the \emph{only} combination equal to $\zero$ is all-zero:
+  \[ c_1\vv_1+\dots+c_k\vv_k=\zero \;\Rightarrow\; \text{every } c_i=0. \]
+  Stack them as columns of $A$; a combination is $A\cc$, so:
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item \textbf{Independent} $\iff N(A)=\{\zero\}$ (no free variables, $r=n$).
+    \item \textbf{Dependent} $\iff$ a nonzero special solution $\svec$ --- which \emph{names} the redundancy.
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{Geometry}
+    Two vectors are dependent when they share a line; three when they share a plane.
+  \end{block}
+\end{frame}
+
+% READ IT OFF ONE REDUCTION
+\begin{frame}[t, plain]
+  \burgundyheader{Independence from one reduction}
+  \sectionlabel[goldacc]{Test}
+  \[
+    A=\begin{bmatrix} 1 & 1 & 2 \\ 1 & 2 & 3 \end{bmatrix}
+    \longrightarrow
+    \begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \end{bmatrix}.
+  \]
+  \begin{itemize}
+    \setlength{\itemsep}{4pt}
+    \item Columns $1,2$ pivot; column $3$ is \textbf{free} $\Rightarrow$ a nonzero $\svec$ exists $\Rightarrow$ \textbf{dependent}.
+    \item $\svec=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$ says $\mathbf{a}_3=\mathbf{a}_1+\mathbf{a}_2$: column~3 is redundant.
+    \item Independence would need \emph{no} free column ($r=n$).
+  \end{itemize}
+\end{frame}
+
+% BASIS
+\begin{frame}[t, plain]
+  \burgundyheader{Basis: independent \emph{and} spanning}
+  \sectionlabel{Just enough, no waste}
+  A \textbf{basis} spans the space \emph{and} is independent. From the same reduction:
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item \textbf{Basis for $C(A)$:} the \emph{original} pivot columns --- $\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix},\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ (drop the redundant column~3).
+    \item \textbf{Basis for $N(A)$:} the special solutions --- $\svec=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$.
+    \item \textbf{Standard basis} of $\mathbb{R}^n$: $\mathbf{e}_1,\dots,\mathbf{e}_n$.
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{Watch out}
+    Use the pivot columns of $A$ itself --- \emph{not} the columns of the reduced matrix.
+  \end{block}
+\end{frame}
+
+% DIMENSION
+\begin{frame}[t, plain]
+  \burgundyheader{Dimension --- independent directions}
+  \sectionlabel[goldacc]{Count}
+  Every basis of a space has the \emph{same} number of vectors: the \textbf{dimension}.
+  \[
+    \dim C(A)=r=2, \qquad \dim N(A)=n-r=1, \qquad r+(n-r)=n=3.
+  \]
+  \begin{itemize}
+    \setlength{\itemsep}{4pt}
+    \item Dimension counts the \emph{degrees of freedom} --- line $1$, plane $2$, all of $\mathbb{R}^3$ is $3$.
+    \item More than $n$ vectors in $\mathbb{R}^n$ are always dependent (too many for the room).
+    \item In $\mathbb{R}^n$, any $n$ independent vectors automatically span --- a basis.
+  \end{itemize}
+\end{frame}
+
+% ROADMAP
+\begin{frame}[t, plain]
+  \burgundyheader{Where this goes}
+  \sectionlabel{Connections}
+  \textbf{Today:} independence ($N(A)=\{\zero\}$), basis (independent $+$ spans), and dimension
+  ($\dim C(A)=r$, $\dim N(A)=n-r$) --- all from one reduction.\\[8pt]
+  \begin{itemize}
+    \setlength{\itemsep}{4pt}
+    \item \textbf{3.5} Dimensions of the Four Subspaces: $C(A)$ and the row space have dimension $r$; $N(A)$ has $n-r$; the left nullspace $m-r$.
+    \item \textbf{3.6} The Fundamental Theorem of Linear Algebra.
+  \end{itemize}
+  \vspace{4pt}
+  \begin{block}{Keep in mind}
+    One number $r$ controls it all: independent columns, the size of a basis, the dimension.
+  \end{block}
 \end{frame}
 
 \end{document}

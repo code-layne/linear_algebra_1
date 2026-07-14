@@ -7,32 +7,42 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-13 — **Authored & built Unit 3 Lesson 3.3 — "The Complete Solution to
-$A\xx=\bb$" (§3.3).** Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket,
-homework (+ the five keys) and the slides deck, mirroring 3.0–3.2's preamble/boxes/tone. **Content:**
-(1) **particular + nullspace = complete** — if $A\xx_p=\bb$ and $A\xx_n=\zero$ then $A(\xx_p+\xx_n)=\bb$,
-and conversely any two solutions differ by a nullspace vector, so the **complete solution** is
-$\xx=\xx_p+\xx_n$; (2) **find $\xx_p$** by reducing the augmented $[A\mid\bb]$ and setting free vars to 0
-(worked on 3.2's $A=[[1,1,2],[1,2,3]]$ with $\bb=(3,5)\to\xx_p=(1,2,0)$); (3) **complete solution + its
-picture** — $\xx=(1,2,0)+t(-1,-1,1)$ = the nullspace line **slid** through $\xx_p$ (parallel, off origin;
-through origin only if $\bb=\zero$); includes a schematic TikZ figure to *read*; (4) **solvability** — a
-solution exists iff $\bb\in C(A)$; a zero row of reduced $A$ meeting a nonzero RHS gives $0=$nonzero (no
-solution); solution-count by rank ($r=n$: 0/1; $r=m$: always solvable; $r=m=n$: exactly one). Robot-arm
-"hit the target $\bb$" hook reuses 3.2's lever framing. Activity Tier A hides the free column in the
-middle (shifted line) + a two-free-variable shifted plane, Tier E does solvability/uniqueness/proof;
-homework contrasts same $A$ with solvable vs. unsolvable $\bb$ ((b) vs (c)), previews 3.4 basis/dimension.
-Key insight stressed throughout: the solution set is a **subspace only when $\bb=\zero$** (misses origin
-otherwise). All arithmetic hand-verified; keys use `\ans{}`/`\ansline{}` and `{\color{keyred}\mathbf{...}}`
-slots; augmented matrices via `\left[\begin{array}{ccc|c}...\right]`. Built `make -C unit03/lesson03 all`
-→ clean. **Pagination note:** blank notes first ran 3pp (ruled `\writeline`/`\termblanklong` blanks are
-taller than the key's filled text) while the key was 2pp — trimmed section-4 wording, two practice
-questions, a vspace, itemsep, and the figure scale (0.62→0.54) to bring the blank to 2pp so blank & key
-match. Final page counts identical to 3.2: cover/warmup/exit 1pp, notes/activity/homework 2pp (blank &
-key match), lesson plan 2pp, slides 7pp; student 9pp, full 18pp. Visually spot-checked notes_key p1–2,
-activity_key p1–2, warmup_key, homework_key p1–2 — clean. Next run authors 3.4 (Independence, Basis, and
-Dimension).
+**Last updated:** 2026-07-13 — **Authored & built Unit 3 Lesson 3.4 — "Independence, Basis, and
+Dimension" (§3.4).** Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket,
+homework (+ the five keys) and the slides deck, mirroring 3.0–3.3's preamble/boxes/tone. **Content:**
+(1) **independence** — vectors are independent iff the only combination equal to $\zero$ is all-zero
+(no vector a combination of the others); dependent = a nontrivial combination gives $\zero$; geometry
+(dependent = share a line/plane); (2) **the test is the nullspace** — stack vectors as columns of $A$:
+independent $\iff N(A)=\{\zero\}$ ($r=n$, no free cols), dependent $\iff$ a nonzero special solution,
+which *names* the redundancy; (3) **basis** = independent **and** spans — **pivot columns of $A$** (the
+*original* columns) are a basis for $C(A)$, the **special solutions** are a basis for $N(A)$, standard
+$\mathbf{e}_i$ for $\mathbb{R}^n$; (4) **dimension** = size of any basis (well-defined): $\dim C(A)=r$,
+$\dim N(A)=n-r$, with $r+(n-r)=n$; dimension = independent directions = "degrees of freedom." Running
+matrix reuses 3.2/3.3's $A=[[1,1,2],[1,2,3]]$: $r=2$, special solution $\svec=(-1,-1,1)$ literally
+encodes $\mathbf{a}_3=\mathbf{a}_1+\mathbf{a}_2$ (the column dependency) — a clean tie-back. **Robot-arm
+"how many levers does it really have?"** hook (redundant lever = dependent column → degrees of freedom).
+Activity Tier A reads basis+dim for $C(A)$ and $N(A)$ off one reduction (1-free and 2-free cases), Tier E
+proves "more than $n$ ⇒ dependent," minimal-spanning/maximal-independent, and well-definedness; homework
+adds "read the dependency from $\svec$" and the square-case "n independent ⇒ spans." All arithmetic
+hand-verified; keys use `\ans{}`/`\ansline{}` and `{\color{keyred}\mathbf{...}}` slots. Built
+`make -C unit03/lesson04 all` → clean. **Build gotchas (both fixed):** (a) lesson-plan `\textbf{Worked
+($A=\begin{bsmallmatrix}...\\...\end{bsmallmatrix}$)}` errored ("Forbidden control sequence ...
+\check@nocorr@") — the `\\` in a matrix inside `\textbf{}` is illegal; moved the math **outside** the
+bold. (b) lesson plan used `\cc` and homework_key used `\bb` without defining those per-file macros
+(the recurring "each component defines its own vector macros" trap) — added them. Page counts match the
+3.3 profile: cover/warmup/exit 1pp, notes/activity/homework 2pp (blank & key match), slides 7pp; student
+9pp, full 19pp. **Lesson plan is 3pp** here (3.3 was 2pp) because I added the canonical **Explicit
+Instruction** box ("Basis & Dimension from One Reduction"); teacher-facing, no one-page constraint, left
+as-is. Visually spot-checked notes_key p1–2, activity_key p1, lesson-plan p3 — clean. Next run authors
+3.5 (Dimensions of the Four Subspaces).
 
-**Prior run:** Authored & built Unit 3 Lesson 3.2 — "The Nullspace of $A$: Solving $A\xx=\zero$" (§3.2).
+**Prior run:** Authored & built Unit 3 Lesson 3.3 — "The Complete Solution to $A\xx=\bb$" (§3.3). Complete
+solution $\xx=\xx_p+\xx_n$ (one particular + whole nullspace); find $\xx_p$ by reducing $[A\mid\bb]$ (free
+vars 0); shifted line/plane parallel to $N(A)$ (subspace only if $\bb=\zero$); solvability $\bb\in C(A)$
+(zero row vs nonzero RHS = $0=$nonzero); solution count by rank. Reused $A=[[1,1,2],[1,2,3]]$, $\xx_p=(1,2,0)$,
+$\svec=(-1,-1,1)$. Robot-arm "hit the target" hook. Same page profile (student 9pp, full 18pp).
+
+**Earlier run:** Authored & built Unit 3 Lesson 3.2 — "The Nullspace of $A$: Solving $A\xx=\zero$" (§3.2).
 Nullspace $N(A)=\{\xx:A\xx=\zero\}$ as a subspace of $\mathbb{R}^n$ (inputs, vs. $C(A)\subseteq\mathbb{R}^m$);
 solve $A\xx=\zero$ by elimination; pivot vs. free columns/variables; special solutions (free var $=1$,
 solve back); $N(A)$ = all combinations, free count $n-r$; point/line/plane by $n-r$. Robot-lever
@@ -117,7 +127,7 @@ Confirmed lesson map:
 - `unit02/tests` (practice + actual) + `unit02/test_keys` (both keys) — **authored ✅ & built**;
   `sample_test`/`sample_test_key` populated by `drop` (practice test + key). `unit02/Makefile` present.
 
-**Unit 3 — lessons 3.0–3.3 authored & built; 3.4–3.6 + tests still skeletons.** Confirmed lesson map (6 lessons):
+**Unit 3 — lessons 3.0–3.4 authored & built; 3.5–3.6 + tests still skeletons.** Confirmed lesson map (6 lessons):
 - `unit03/lesson00` — id 3.0, **"Sets of Vectors and the Road to Subspaces"** (intro) — ✅ authored
   & built (all components + keys + slides). Content: $\mathbb{R}^n$ \& span (recall); subspace =
   closed under $+$/scaling (contains $\zero$) via the closure test; geometric catalog (lines/planes
@@ -145,7 +155,16 @@ Confirmed lesson map:
   origin unless $\bb=\zero$ — so *not* a subspace); **solvability** $\bb\in C(A)$ (zero row vs. nonzero RHS
   = $0=$nonzero); solution count by rank. Reuses 3.2's $A=[[1,1,2],[1,2,3]]$, $\bb=(3,5)$, $\xx_p=(1,2,0)$,
   $\svec=(-1,-1,1)$. Robot-arm "hit the target" hook. Previews 3.4 (basis/dimension).
-- `unit03/lesson04` — id 3.4, **"Independence, Basis, and Dimension"** — ◐ scaffolded
+- `unit03/lesson04` — id 3.4, **"Independence, Basis, and Dimension"** — ✅ authored & built (all
+  components + keys + slides). Content: **linear independence** (only the trivial combination gives
+  $\zero$; no vector a combination of the others); the **test is the nullspace** (columns independent
+  $\iff N(A)=\{\zero\}$; a special solution names the redundancy); **basis** = independent $+$ spans (pivot
+  columns of $A$ for $C(A)$, special solutions for $N(A)$, standard $\mathbf{e}_i$ for $\mathbb{R}^n$);
+  **dimension** = size of any basis, $\dim C(A)=r$, $\dim N(A)=n-r$, $r+(n-r)=n$. Running matrix reuses
+  3.2/3.3's $A=[[1,1,2],[1,2,3]]$ ($\svec=(-1,-1,1)$ encodes $\mathbf{a}_3=\mathbf{a}_1+\mathbf{a}_2$).
+  Robot-arm "how many levers does it really have?" (degrees-of-freedom) hook. Extension: more than $n$ in
+  $\mathbb{R}^n$ ⇒ dependent; basis is min-spanning/max-independent; in the square case $n$ independent ⇒
+  spans. Previews 3.5 (four subspaces). Lesson plan runs 3pp (added Explicit Instruction box).
 - `unit03/lesson05` — id 3.5, **"Dimensions of the Four Subspaces"** — ◐ scaffolded
 - `unit03/lesson06` — id 3.6, **"The Fundamental Theorem of Linear Algebra"** (capstone, added by
   user 2026-07-13) — ◐ scaffolded. Synthesizes the unit: Strang's **Part 1** (dimensions/counting
@@ -166,7 +185,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | --- | --- | --- | --- |
 | 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
 | 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ☑ all lessons + tests authored & built ✅ |
-| 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ◐ 3.0–3.3 authored & built ✅; 3.4–3.6 + tests still skeletons |
+| 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ◐ 3.0–3.4 authored & built ✅; 3.5–3.6 + tests still skeletons |
 | 4 | Orthogonality | 4.1–4.4 | ☐ |
 | 5 | Determinants and Linear Transformations | 5.1–5.3 | ☐ |
 | 6 | Eigenvalues and Eigenvectors | 6.1–6.4 (§6.4 optional) | ☐ |
@@ -175,17 +194,17 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author Unit 3, in order — 3.0–3.3 done.** Next author `unit03/lesson04` (id 3.4, **Independence,
-   Basis, and Dimension**) from Strang §3.4 — linear independence (no vector a combination of the
-   others; only the trivial combination gives $\zero$); a **basis** = an independent set that spans a
-   space (the columns of $C$ from $A=CR$; the special solutions as a basis for $N(A)$); **dimension** =
-   the number of vectors in any basis (well-defined). This extends 3.3 (which of the special solutions
-   are "really" independent). Mirror 3.0–3.3 for preamble, boxes, and tone. Then 3.5 from its LAfE
-   subchapter, then the **capstone `unit03/lesson06` (id 3.6, The Fundamental Theorem of Linear
-   Algebra)** — synthesize the four subspaces + their dimensions (Strang Part 1 + the big-picture
-   diagram), preview orthogonality (Part 2 → Unit 4). Finish with the summative tests (`unit03/tests`
-   + `unit03/test_keys`, then `make ... drop` to publish the sample test/key). The unit test should
-   now also draw on 3.6's synthesis.
+1. **Author Unit 3, in order — 3.0–3.4 done.** Next author `unit03/lesson05` (id 3.5, **Dimensions of the
+   Four Subspaces**) from Strang §3.5 — the four fundamental subspaces of $A$ ($m\times n$, rank $r$):
+   column space $C(A)\subseteq\mathbb{R}^m$ ($\dim r$), row space $C(A^{\mathsf T})\subseteq\mathbb{R}^n$
+   ($\dim r$ — same $r$, "row rank = column rank"), nullspace $N(A)\subseteq\mathbb{R}^n$ ($\dim n-r$),
+   left nullspace $N(A^{\mathsf T})\subseteq\mathbb{R}^m$ ($\dim m-r$); read bases off the reduced form.
+   Builds directly on 3.4 (basis/dimension via one reduction). Mirror 3.0–3.4 for preamble, boxes, and
+   tone. Then the **capstone `unit03/lesson06` (id 3.6, The Fundamental Theorem of Linear Algebra)** —
+   synthesize the four subspaces + their dimensions (Strang Part 1 + the big-picture diagram), preview
+   orthogonality (Part 2 → Unit 4). Finish with the summative tests (`unit03/tests` + `unit03/test_keys`,
+   then `make ... drop` to publish the sample test/key). The unit test should now also draw on 3.6's
+   synthesis.
 2. *(optional)* Rebuild the whole Unit 1/Unit 2 packets (`make -C unitXX student|full`) to confirm the
    `sample_test`/`sample_test_key` merge in as expected before moving on.
 
@@ -201,7 +220,12 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 - **Do NOT name a macro `\ss`** — it's LaTeX's built-in ß, so `\newcommand{\ss}` errors "Command
   already defined" (hit in 3.2 for the special-solution vector). Use `\svec` (or similar). Watch for a
   key that uses a macro the blank doesn't define, too (3.2 exit_ticket_key used `\ss` in math without
-  a def).
+  a def). Same trap for **`\aa`** (built-in å) and **`\cc`** — `\cc` is *not* a built-in, so defining
+  it is fine, but you must define it per-file (3.4 lesson plan used `\cc` undefined).
+- **`\\` inside a matrix inside `\textbf{}`/`\emph{}` is illegal** — errors "Forbidden control sequence
+  found while scanning use of \check@nocorr@" (hit in 3.4 lesson plan: `\textbf{Worked ($A=\begin{bsmallmatrix}
+  1\\2\end{bsmallmatrix}$)}`). Fix: keep the math (with its `\\`) **outside** the bold/italic argument —
+  `\textbf{Worked} ($A=...$)`. Bold math \emph{without} a `\\` (e.g. `\textbf{Basis for $C(A)$:}`) is fine.
 
 ## Open questions / decisions pending
 

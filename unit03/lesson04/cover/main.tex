@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 3}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 3 \quad The Four Fundamental Subspaces}}\\[6pt]
   {\color{white}\textbf{\large Lesson 3.4 \quad Independence, Basis, and Dimension}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} test a set of vectors for \textbf{linear independence} by checking whether $A\mathbf{x}=\mathbf{0}$ has only the trivial solution ($N(A)=\{\mathbf{0}\}$).
+  \item \ldots{} build a \textbf{basis} --- an independent set that spans a space: the pivot columns for the column space $C(A)$ and the special solutions for the nullspace $N(A)$.
+  \item \ldots{} give the \textbf{dimension} of a space ($\dim C(A)=r$, $\dim N(A)=n-r$) and explain what that number counts.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,26 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: parallel vectors, a nullspace special solution, pivot vs.\ free columns & \blank{1.2cm} \\
+2 & Guided Notes   & Independence via $N(A)$, basis (independent $+$ spans), dimension $=r$ and $n-r$     & \blank{1.2cm} \\
+3 & Group Activity & Independent, Basis, Dimension --- reading all three from one reduction              & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check on independence, a basis with its dimension, and what dimension counts   & \blank{1.2cm} \\
+5 & Homework       & Independence tests, bases \& dimensions of $C(A)$ and $N(A)$, four-subspaces preview  & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small A set of vectors is \textbf{linearly independent} when the only combination equal to $\mathbf{0}$ is
+the all-zero one --- equivalently, stacking them as the columns of $A$, when $A\mathbf{x}=\mathbf{0}$ forces
+$\mathbf{x}=\mathbf{0}$ ($N(A)=\{\mathbf{0}\}$). A \textbf{basis} is an independent set that also
+\emph{spans} the space --- just enough vectors to reach everything, with none wasted. The pivot columns of
+$A$ are a basis for $C(A)$; the special solutions are a basis for $N(A)$. The \textbf{dimension} is the
+number of vectors in a basis (the same for every basis): $\dim C(A)=r$ and $\dim N(A)=n-r$. Dimension
+counts the independent directions --- the ``degrees of freedom'' --- in the space.
+\end{remindbox}
 
 \end{document}

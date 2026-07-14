@@ -3,17 +3,70 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.4}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Independent, Basis, Dimension.} Stack vectors as the columns of $A$: they are
+\emph{independent} exactly when $N(A)=\{\zero\}$. A \emph{basis} is an independent set that spans a space
+--- the pivot columns of $A$ give a basis for $C(A)$, and the special solutions give a basis for $N(A)$.
+The \emph{dimension} is the size of a basis: $\dim C(A)=r$ and $\dim N(A)=n-r$. One reduction reveals all
+three. Work with your partner and \emph{justify} every answer.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Two vectors are dependent exactly when one is a multiple of the other (they lie on one line).
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item \textbf{Independent or dependent?} Circle one and give a one-line reason.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+      \item $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix},\ \begin{bsmallmatrix} 3\\6 \end{bsmallmatrix}$ \quad \textbf{independent}/\textbf{dependent} \quad because \blank{4.5cm}
+      \item $\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix},\ \begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}$ \quad \textbf{independent}/\textbf{dependent} \quad because \blank{4.5cm}
+      \item $\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix},\ \begin{bsmallmatrix} -4\\-2 \end{bsmallmatrix}$ \quad \textbf{independent}/\textbf{dependent} \quad because \blank{4.5cm}
+    \end{enumerate}
+  \item \textbf{Basis and dimension of a line.} A line through the origin points along
+        $\begin{bsmallmatrix} 2\\3 \end{bsmallmatrix}$. Give a basis for the line and its dimension.
+        \; Basis: \blank{2.2cm} \quad Dimension: \blank{1.2cm}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+For each matrix: reduce, mark pivot/free columns, then give a basis for $C(A)$ and its dimension, a basis
+for $N(A)$ and its dimension, and check that $r+(n-r)=n$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item $A=\begin{bmatrix} 1 & 2 & 3 \\ 2 & 5 & 8 \end{bmatrix}$ \quad (\emph{one free column}). \writelines{3}
+  \item $A=\begin{bmatrix} 1 & 2 & 2 \\ 2 & 4 & 4 \end{bmatrix}$ \quad (\emph{expect two free columns}). \writelines{3}
+  \item \textbf{Are the columns independent?} For each matrix above, state yes/no and point to the fact
+        that decides it. \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Why the counting works.}
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Too many vectors.} Explain why any $4$ vectors in $\mathbb{R}^3$ must be dependent. (Hint:
+        stack them as columns of a $3\times4$ matrix --- what does $r\le 3$ force?) \writelines{2}
+  \item \textbf{Minimal and maximal.} A basis is both a \emph{minimal} spanning set and a \emph{maximal}
+        independent set. In one sentence each: why does removing a vector from a basis lose spanning, and
+        why does adding another vector break independence? \writelines{3}
+  \item \textbf{Same size every time.} The columns of $A=\begin{bsmallmatrix} 1&1&2\\1&2&3 \end{bsmallmatrix}$
+        span $C(A)=\mathbb{R}^2$. Explain why \emph{no} basis for $\mathbb{R}^2$ can have just $1$ vector,
+        and why none can have $3$ --- so every basis has exactly $2$ (the dimension). \writelines{3}
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

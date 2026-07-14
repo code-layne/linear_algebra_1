@@ -16,8 +16,8 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 3}}\\[6pt]
-  {\color{white}\textbf{\large Lesson 3.2 \quad The Nullspace of A: Solving Ax = 0}}
+  {\color{blushmid}\large\textbf{Unit 3 \quad The Four Fundamental Subspaces}}\\[6pt]
+  {\color{white}\textbf{\large Lesson 3.2 \quad The Nullspace of $A$: Solving $A\mathbf{x}=\mathbf{0}$}}
 \end{center}
 
 \vspace{0.22in}
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} describe the \textbf{nullspace} $N(A)$ --- all solutions of $A\mathbf{x}=\mathbf{0}$ --- and explain why it is a subspace of $\mathbb{R}^n$.
+  \item \ldots{} solve $A\mathbf{x}=\mathbf{0}$ by \textbf{elimination}, telling \textbf{pivot columns} from \textbf{free columns}.
+  \item \ldots{} build a \textbf{special solution} for each free variable and describe $N(A)$ as a point, line, or plane (there are $n-r$ free variables).
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,25 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: verify $A\mathbf{x}=\mathbf{0}$, one elimination step, the subspace requirement & \blank{1.2cm} \\
+2 & Guided Notes   & The nullspace, pivots vs.\ free columns, special solutions, and its geometry              & \blank{1.2cm} \\
+3 & Group Activity & Find the Nullspace --- reducing, special solutions, and lines vs.\ planes                  & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check on nullspaces, free variables, and what $N(A)=\{\mathbf{0}\}$ means           & \blank{1.2cm} \\
+5 & Homework       & Nullspace practice, $C(A)$ vs.\ $N(A)$, and a complete-solution preview                    & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small The \textbf{nullspace} $N(A)$ is every solution $\mathbf{x}$ of $A\mathbf{x}=\mathbf{0}$ --- the
+``do-nothing'' inputs. It is a subspace of $\mathbb{R}^n$ (the columns' world). To find it, reduce $A$:
+columns \emph{with} a pivot give \textbf{pivot variables}, columns \emph{without} one give \textbf{free
+variables}. Set one free variable to $1$ (the rest to $0$) and solve back for a \textbf{special
+solution}; $N(A)$ is all combinations of them. There are $n-r$ free variables, so $N(A)$ is a point
+($n-r=0$), a line ($1$), or a plane ($2$) through the origin.
+\end{remindbox}
 
 \end{document}

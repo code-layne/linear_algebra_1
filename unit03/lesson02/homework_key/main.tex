@@ -3,17 +3,71 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.2}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+Reduce, find every special solution, and \emph{justify}. Always say which shape ($\{\zero\}$, line, or
+plane) the nullspace is, and note $n-r$.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Find $N(A)$.} For each matrix, reduce it, give the special solution(s), and describe
+        $N(A)$ geometrically.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
+      \item $A=\begin{bmatrix} 1 & 2 \\ 3 & 6 \end{bmatrix}$ \quad \ans{$R_2-3R_1\Rightarrow\begin{bsmallmatrix} 1&2\\0&0 \end{bsmallmatrix}$; $x_1+2x_2=0$, $\svec=\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}$. Line ($n-r=1$).}
+      \item $A=\begin{bmatrix} 1 & 2 \\ 3 & 5 \end{bmatrix}$ \quad \ans{$R_2-3R_1\Rightarrow\begin{bsmallmatrix} 1&2\\0&-1 \end{bsmallmatrix}$: two pivots, no free variable. $N(A)=\{\zero\}$, a point ($n-r=0$).}
+      \item $A=\begin{bmatrix} 1 & 1 & 3 \\ 2 & 2 & 6 \end{bmatrix}$ \quad \ans{$R_2-2R_1\Rightarrow\begin{bsmallmatrix} 1&1&3\\0&0&0 \end{bsmallmatrix}$; $x_1+x_2+3x_3=0$, free $x_2,x_3$. $\svec_1=\begin{bsmallmatrix} -1\\1\\0 \end{bsmallmatrix},\ \svec_2=\begin{bsmallmatrix} -3\\0\\1 \end{bsmallmatrix}$. Plane ($n-r=2$).}
+      \item $A=\begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & 3 \end{bmatrix}$ \quad \ans{Already reduced; pivots $1,2$, free $3$. $x_1+2x_3=0,\ x_2+3x_3=0$, so $\svec=\begin{bsmallmatrix} -2\\-3\\1 \end{bsmallmatrix}$. Line ($n-r=1$).}
+    \end{enumerate}
+  \item \textbf{Count without solving.} State the number of free variables and the dimension of $N(A)$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $A$ has $3$ columns and rank $r=3$. \hfill \ans{$n-r=0$ free variables; $\dim N(A)=0$ (just $\{\zero\}$).}
+      \item $A$ has $5$ columns and rank $r=2$. \hfill \ans{$n-r=3$ free variables; $\dim N(A)=3$.}
+    \end{enumerate}
+  \item \textbf{A nullspace vector is a dependency.} Show $\xx=\begin{bsmallmatrix} 2\\-1\\0 \end{bsmallmatrix}$
+        is in the nullspace of $A=\begin{bmatrix} 1 & 2 & 5 \\ 3 & 6 & 1 \end{bmatrix}$, then say what it
+        tells you about the \emph{columns} of $A$. \ansline{$A\xx=2\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}-1\begin{bsmallmatrix} 2\\6 \end{bsmallmatrix}+0\begin{bsmallmatrix} 5\\1 \end{bsmallmatrix}=\begin{bsmallmatrix} 0\\0 \end{bsmallmatrix}$. So $2\,$col$_1=$col$_2$: column~2 is twice column~1 --- the columns are \emph{dependent}, and that dependency is exactly the nullspace vector.}
+  \item \textbf{Explain.} Why does $N(A)$ live in $\mathbb{R}^n$ (columns) while $C(A)$ lives in
+        $\mathbb{R}^m$ (rows)? Use a $2\times3$ matrix to make the point concrete. \ansline{$N(A)$ holds the \emph{inputs} $\xx$, which have one entry per column ($n$ of them); $C(A)$ holds the \emph{outputs} $A\xx$, which have one entry per row ($m$). For a $2\times3$ matrix, $\xx\in\mathbb{R}^3$ so $N(A)\subseteq\mathbb{R}^3$, while $A\xx\in\mathbb{R}^2$ so $C(A)\subseteq\mathbb{R}^2$.}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Toward the complete solution.}
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item \textbf{Invertible $\Leftrightarrow$ trivial nullspace.} Explain why a square matrix $A$ is
+        invertible \emph{exactly} when $N(A)=\{\zero\}$. (Hint: a free variable would give a second
+        solution of $A\xx=\zero$.)
+  \item \textbf{Wiggle room.} Suppose $A\xx_p=\bb$ (a ``particular'' solution) and $A\svec=\zero$.
+        Show that $\xx_p+\svec$ \emph{also} solves $A\xx=\bb$. What does this say about \emph{all}
+        solutions of $A\xx=\bb$?
+\end{enumerate}
+\ansline{(a) If $N(A)=\{\zero\}$ then every column is a pivot column (no free variables), so $A\xx=\bb$ has exactly one solution for each $\bb$ --- $A$ is invertible. If instead some nonzero $\svec$ has $A\svec=\zero$, then $\zero$ and $\svec$ are \emph{two} solutions of $A\xx=\zero$, so $A$ cannot be invertible.}
+\ansline{(b) $A(\xx_p+\svec)=A\xx_p+A\svec=\bb+\zero=\bb$, so $\xx_p+\svec$ is a solution too. Hence \emph{every} solution of $A\xx=\bb$ has the form $\xx_p+(\text{a nullspace vector})$ --- the solution set is the nullspace shifted to pass through $\xx_p$. (That is exactly Lesson 3.3.)}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 3.3: The Complete Solution to $A\xx=\bb$.} Today the nullspace $N(A)$
+collected the ``do-nothing'' inputs of $A\xx=\zero$. Next we attach a right side: every solution of
+$A\xx=\bb$ is \emph{one} particular solution plus the whole nullspace --- the nullspace is the wiggle
+room around any single answer.
+\end{spiralbox}
+
+\begin{teachernote}
+Problem~1 spans the three shapes deliberately: (a),(d) lines, (b) the trivial point, (c) a plane. The
+most-missed is (d) --- an already-reduced matrix whose free column is the \emph{last}, giving
+$\svec=(-2,-3,1)$ (both pivot entries fill in). Extension~(b) is the entire hook of 3.3; if you assign
+only one extension part, assign it.
+\end{teachernote}
 
 \end{document}

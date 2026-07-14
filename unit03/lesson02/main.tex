@@ -5,6 +5,13 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 \newcommand{\UnitNumberName}{Unit 3: The Four Fundamental Subspaces \quad}
 \newcommand{\LessonNumberName}{Lesson 3.2: The Nullspace of A: Solving Ax = 0}
 
@@ -16,55 +23,143 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can describe the \emph{nullspace} $N(A)$ --- all
+    solutions $\xx$ of $A\xx=\zero$ --- and explain why it is a subspace of $\mathbb{R}^n$; solve
+    $A\xx=\zero$ by elimination, identifying \emph{pivot columns} and \emph{free columns}; build a
+    \emph{special solution} for each free variable (set that variable to $1$, the rest to $0$, solve
+    back) and write the whole nullspace as their combinations; and count the free variables as
+    $n-r$ to decide whether $N(A)$ is a point, a line, or a plane through the origin.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Define the \textbf{nullspace} $N(A)=\{\xx:A\xx=\zero\}$ and show it is a subspace of $\mathbb{R}^n$.
+  \item Solve $A\xx=\zero$ by \textbf{elimination}; the right side stays $\zero$, so just reduce $A$.
+  \item Tell \textbf{pivot columns} from \textbf{free columns}; find one \textbf{special solution} per free variable.
+  \item Write $N(A)$ as all combinations of the special solutions; count free variables $=n-r$.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item $N(A)$ collects the \emph{inputs} that produce nothing --- the ``redundancy'' in the columns.
+  \item $C(A)$ lives in $\mathbb{R}^m$ (outputs); $N(A)$ lives in $\mathbb{R}^n$ (inputs). Different homes.
+  \item A \textbf{free} variable is one you may choose; each choice of $1$ names one direction of $N(A)$.
+  \item Free count $n-r$ = the nullspace's dimension: $0\Rightarrow$ point, $1\Rightarrow$ line, $2\Rightarrow$ plane.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Nullspace $N(A)$} & All solutions $\xx$ of $A\xx=\zero$; a subspace of $\mathbb{R}^n$ ($n$ = number of columns). \\
+\textbf{Pivot column} & A column that holds a pivot after elimination; its variable is a \emph{pivot variable}. \\
+\textbf{Free column / free variable} & A column with \emph{no} pivot; its variable is free to choose. \\
+\textbf{Special solution} & The nullspace vector from setting one free variable to $1$, the other free variables to $0$, then solving for the pivot variables. \\
+\textbf{Rank $r$} & The number of pivots. Free variables $=n-r$. \\
+\textbf{$N(A)$ as combinations} & The whole nullspace = all combinations of the special solutions (one per free variable). \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three tools this lesson runs on:
+    \textbf{(1)} checking that a vector solves $A\xx=\zero$ by computing $A\xx$ as a
+    \emph{combination of the columns} (Lesson~1.3) --- this pre-verifies the hook's cancelling
+    levers; \textbf{(2)} one \emph{elimination} step on a $2\times3$ matrix (Unit~2), noticing that a
+    column can end up with \emph{no pivot}; and \textbf{(3)} the Lesson~3.1 \emph{subspace
+    requirement}, since $N(A)$ will pass it. Debrief item~1 aloud: a nonzero $\xx$ with $A\xx=\zero$
+    is exactly a ``do-nothing'' combination of the columns.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    A robot arm has two levers; setting them to $\xx=\begin{bsmallmatrix} x_1\\x_2 \end{bsmallmatrix}$
+    moves the tip to $A\xx$, a combination of the two lever-direction columns of $A$. In Lesson~3.1
+    the question was ``where \emph{can} the tip go?'' ($C(A)$). Today flip it: \textbf{``Which lever
+    settings leave the tip exactly where it started --- $A\xx=\zero$?''} If the two levers push along
+    the \emph{same} line (columns are multiples), you can push one forward and pull the other back to
+    cancel. For $A=\begin{bsmallmatrix} 1 & 2\\ 2 & 4 \end{bsmallmatrix}$, the setting
+    $\xx=\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}$ does nothing:
+    $-2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}+1\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}=\zero$.
+    The set of \emph{all} such do-nothing settings is the \textbf{nullspace} --- the redundancy hiding
+    in the controls.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. The nullspace, and why it is a subspace.} The \textbf{nullspace} $N(A)$ is the set of all
+solutions $\xx$ of $A\xx=\zero$. It always contains $\zero$ (since $A\zero=\zero$), and it passes the
+subspace requirement: if $A\xx_1=\zero$ and $A\xx_2=\zero$ then $A(\xx_1+\xx_2)=\zero+\zero=\zero$ and
+$A(c\xx_1)=c\,\zero=\zero$. So $N(A)$ is a subspace of $\mathbb{R}^n$ ($n$ = columns) --- note $C(A)$
+lived in $\mathbb{R}^m$, so the two fundamental subspaces have \emph{different} homes.
+
+\textbf{2. Solve $A\xx=\zero$ by elimination.} The right side is all zeros and \emph{stays} zero under
+every row operation, so we simply row-reduce $A$. For $A=\begin{bsmallmatrix} 1&1&2\\1&2&3 \end{bsmallmatrix}$,
+one step gives $\begin{bsmallmatrix} 1&1&2\\0&1&1 \end{bsmallmatrix}$, then
+$\begin{bsmallmatrix} 1&0&1\\0&1&1 \end{bsmallmatrix}$: pivots sit in columns~1 and~2 (\textbf{pivot
+columns}, variables $x_1,x_2$); column~3 has \emph{no} pivot (\textbf{free column}, free variable $x_3$).
+
+\columnbreak
+
+\textbf{3. Special solutions.} Give the free variable the value $1$ and solve back: from $x_1+x_3=0$,
+$x_2+x_3=0$ with $x_3=1$ we get $x_1=x_2=-1$, so $\svec=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$.
+Every nullspace vector is a multiple of $\svec$. \textbf{Rule:} one special solution \emph{per} free
+variable; $N(A)$ = all combinations of them; the number of free variables is $n-r$ ($r$ = pivots).
+
+\textbf{4. Point, line, or plane.} The free count $n-r$ is the nullspace's dimension. \emph{No} free
+variables ($r=n$): only $\xx=\zero$, so $N(A)=\{\zero\}$, a \textbf{point}. One free variable: a
+\textbf{line} through the origin. Two: a \textbf{plane} through the origin (e.g.
+$A=\begin{bsmallmatrix} 1&2&3 \end{bsmallmatrix}$ has $n-r=2$ and $N(A)$ = the plane spanned by
+$\begin{bsmallmatrix} -2\\1\\0 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} -3\\0\\1 \end{bsmallmatrix}$).
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item saying $N(A)$ lives in $\mathbb{R}^m$ --- it is a set of \emph{inputs} $\xx$, so it lives in $\mathbb{R}^n$ (columns);
+  \item choosing pivot columns as ``free'' --- the free columns are exactly the ones \emph{without} a pivot;
+  \item forgetting to solve \emph{back} for the pivot variables after setting a free variable to $1$;
+  \item writing only the special solution and stopping --- the nullspace is \emph{all multiples/combinations} of it.
+\end{itemize}
+Cold-call prompts: ``Which columns are free here --- how do you know?'' ``Give me the special solution.''
+``Is $N(A)$ a point, a line, or a plane --- and why?'' ``What is $n-r$ for this matrix?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Find the Nullspace} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Verify a given $\xx$ solves $A\xx=\zero$; solve $x_1+2x_2=0$ for the
+free-variable form; label pivot vs.\ free columns in an already-reduced matrix.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Reduce a matrix, name the pivot/free columns, build the special
+solution(s), describe $N(A)$ as a line or plane, and count $n-r$.
+
+\columnbreak
+\textbf{Tier E --- Extension.} Prove $N(A)$ is a subspace in full; connect a nonzero nullspace to
+\emph{dependent columns}; and tie $N(A)=\{\zero\}$ to an invertible square matrix / unique solution.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): find the nullspace of a small matrix (special solution
++ geometric description); use $n-r$ to state how many free variables a given size/rank forces; and a
+\textbf{conceptual/justification check} --- a $3\times3$ matrix with $N(A)=\{\zero\}$: what does that
+say about solutions of $A\xx=\bb$? Collect and sort into ``got it / free-vs-pivot slip / stopped at
+one special solution'' to decide whether 3.3 opens with a re-teach.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} find nullspaces across a battery of matrices (verify membership, reduce, name
+free columns, build special solutions, describe the geometry, count $n-r$); contrast where $C(A)$ and
+$N(A)$ live. \textbf{Extension:} a nonzero nullspace vector \emph{is} a dependency among the columns;
+and $N(A)=\{\zero\}\Leftrightarrow$ a square $A$ is invertible ($A\xx=\bb$ has exactly one solution).
+\textbf{Preview:} Lesson~3.3, \emph{The Complete Solution to $A\xx=\bb$} --- one particular solution
+plus the whole nullspace as ``wiggle room.''
 \end{skillbox}
 \end{document}

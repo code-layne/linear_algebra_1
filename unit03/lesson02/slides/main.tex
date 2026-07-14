@@ -1,6 +1,13 @@
 %! The Nullspace of A: Solving Ax = 0 — Unit 3, Lesson 3.2 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
@@ -11,16 +18,141 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 3.2}\\[0.5cm]
-    {\color{white}\bfseries\LARGE The Nullspace of A: Solving Ax = 0}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 3}
+    {\color{white}\bfseries\LARGE The Nullspace of $A$: Solving $A\xx=\zero$}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 3: The Four Fundamental Subspaces}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{Which lever settings do nothing?}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.58\textwidth}
+      A robot arm's tip moves to $A\xx$. For $A=\begin{bsmallmatrix} 1 & 2\\ 2 & 4 \end{bsmallmatrix}$ the
+      two lever directions lie on the \emph{same} line.\\[8pt]
+      \textbf{Which $\xx$ leave the tip unmoved ($A\xx=\zero$)?}\\[4pt]
+      Push lever 2 forward $1$, pull lever 1 back $2$:
+      \[ -2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}+1\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}=\zero. \]
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.5]
+        \draw[step=1, linegray!45, thin] (-0.3,-0.3) grid (3.3,4.3);
+        \draw[->, thick, charcoal] (-0.3,0)--(3.5,0);
+        \draw[->, thick, charcoal] (0,-0.3)--(0,4.5);
+        \draw[burgundy!35, very thick, dashed] (0,0)--(2,4);
+        \draw[->, very thick, burgundy] (0,0)--(1,2) node[right]{\scriptsize col$_1$};
+        \draw[->, very thick, royalblue] (0,0)--(2,4) node[right]{\scriptsize col$_2$};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{2pt}
+  \begin{block}{The nullspace}
+    All such ``do-nothing'' settings form $N(A)$ --- the redundancy in the columns.
+  \end{block}
+\end{frame}
+
+% NULLSPACE + SUBSPACE
+\begin{frame}[t, plain]
+  \burgundyheader{The nullspace is a subspace}
+  \sectionlabel{Name the object}
+  The \textbf{nullspace} $N(A)=\{\xx : A\xx=\zero\}$. It always contains $\zero$ ($A\zero=\zero$), and:
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item \textbf{Add:} $A\xx_1=\zero,\ A\xx_2=\zero \Rightarrow A(\xx_1+\xx_2)=\zero$.
+    \item \textbf{Scale:} $A(c\xx_1)=c(A\xx_1)=\zero$.
+  \end{itemize}
+  \vspace{4pt}
+  \begin{block}{Different home}
+    $N(A)$ is a subspace of $\mathbb{R}^n$ (\textbf{inputs}, one entry per column). Contrast: $C(A)$
+    lives in $\mathbb{R}^m$ (\textbf{outputs}, one entry per row).
+  \end{block}
+\end{frame}
+
+% SOLVE BY ELIMINATION: PIVOT VS FREE
+\begin{frame}[t, plain]
+  \burgundyheader{Solve $A\xx=\zero$: pivot vs.\ free columns}
+  \sectionlabel[goldacc]{Elimination}
+  The right side is all zeros and \emph{stays} zero --- so just reduce $A$:
+  \[
+    \begin{bmatrix} 1 & 1 & 2 \\ 1 & 2 & 3 \end{bmatrix}
+    \xrightarrow{\;R_2-R_1\;}
+    \begin{bmatrix} 1 & 1 & 2 \\ 0 & 1 & 1 \end{bmatrix}
+    \xrightarrow{\;R_1-R_2\;}
+    \begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \end{bmatrix}.
+  \]
+  \begin{itemize}
+    \setlength{\itemsep}{4pt}
+    \item Columns $1,2$ hold pivots $\Rightarrow$ \textbf{pivot variables} $x_1,x_2$.
+    \item Column $3$ has no pivot $\Rightarrow$ \textbf{free variable} $x_3$ (choose its value).
+    \item Read back: $x_1+x_3=0,\quad x_2+x_3=0$.
+  \end{itemize}
+\end{frame}
+
+% SPECIAL SOLUTIONS + COUNT
+\begin{frame}[t, plain]
+  \burgundyheader{Special solutions --- and all of $N(A)$}
+  \sectionlabel{One per free variable}
+  Set the free variable to $1$, solve back: $x_3=1 \Rightarrow x_1=x_2=-1$, so
+  \[ \svec=\begin{bmatrix} -1\\-1\\1 \end{bmatrix}, \qquad N(A)=\{\,t\,\svec\,\}. \]
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item \textbf{One special solution per free variable.}
+    \item $N(A)$ = all combinations of the special solutions.
+    \item Free variables $=n-r=$ (columns) $-$ (pivots) $=3-2=1$.
+  \end{itemize}
+\end{frame}
+
+% POINT / LINE / PLANE
+\begin{frame}[t, plain]
+  \burgundyheader{Point, line, or plane?}
+  \sectionlabel[goldacc]{The shape is $n-r$}
+  \begin{columns}[T]
+    \begin{column}{0.56\textwidth}
+      The free count $n-r$ \emph{is} the dimension of $N(A)$:
+      \begin{itemize}
+        \setlength{\itemsep}{4pt}
+        \item $n-r=0$: only $\zero$ --- a \textbf{point}.
+        \item $n-r=1$: a \textbf{line} through the origin.
+        \item $n-r=2$: a \textbf{plane} through the origin.
+      \end{itemize}
+      \vspace{4pt}
+      $A=\begin{bsmallmatrix} 1 & 2 & 3 \end{bsmallmatrix}$: $n-r=2$, so $N(A)$ is the plane spanned by
+      $\begin{bsmallmatrix} -2\\1\\0 \end{bsmallmatrix},\begin{bsmallmatrix} -3\\0\\1 \end{bsmallmatrix}$.
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.5]
+        \draw[step=1, linegray!45, thin] (-2.3,-2.3) grid (2.3,2.3);
+        \draw[->, thick, charcoal] (-2.3,0)--(2.5,0);
+        \draw[->, thick, charcoal] (0,-2.3)--(0,2.5);
+        \draw[very thick, burgundy] (-2,1)--(2,-1);
+        \draw[->, very thick, royalblue] (0,0)--(-2,1) node[above left]{\scriptsize $\svec$};
+        \fill[black] (0,0) circle (2.5pt);
+        \node[charcoal, font=\scriptsize] at (1.7,-1.3){$N(A)$: line};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ROADMAP
+\begin{frame}[t, plain]
+  \burgundyheader{Where this goes}
+  \sectionlabel{Connections}
+  \textbf{Today:} the nullspace $N(A)$, solving $A\xx=\zero$, pivot vs.\ free columns, special
+  solutions, and the shape $n-r$.\\[8pt]
+  \begin{itemize}
+    \setlength{\itemsep}{4pt}
+    \item \textbf{3.3} The Complete Solution to $A\xx=\bb$: one particular solution $+$ the whole nullspace.
+    \item \textbf{3.4} Independence, Basis, and Dimension.
+    \item \textbf{3.5} Dimensions of the Four Subspaces.
+  \end{itemize}
+  \vspace{4pt}
+  \begin{block}{Keep in mind}
+    $N(A)=\{\zero\}$ (no free variables) $\Leftrightarrow$ a square $A$ is invertible --- exactly one solution.
+  \end{block}
 \end{frame}
 
 \end{document}

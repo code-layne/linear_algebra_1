@@ -7,45 +7,36 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-13 — **Authored & built Unit 3 Lesson 3.1 — "Vector Spaces and Subspaces"
-(§3.1).** Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework
-(+ the five keys) and the slides deck, mirroring 3.0's preamble/boxes/tone. **New precision over
-3.0:** (1) names the object — **vector space** = set closed under $+$/scaling obeying the usual
-rules, $\mathbb{R}^n$ the model; (2) **subspace** = a subset that is itself a vector space ⇒ the
-two-part **subspace requirement**, with the sharpened point that *"contains $\zero$" is necessary
-but NOT sufficient* — the **union-of-the-two-axes** set ($xy=0$) is the memorized counterexample
-(contains $\zero$, closed under scaling, fails addition), drawn as a read-only TikZ figure; (3) the
-**precise $C(A)$ proof** resting on $A(\xx+\yy)=A\xx+A\yy$ and $A(c\xx)=c(A\xx)$ (robot-arm
-reachable-set hook; Warm-Up item 2 pre-verifies the distributive law numerically). Activity Tier A
-separates the two failure modes (half-plane fails *scaling*, axes fail *addition*); Tier E proves
-$C(A)$ closed then widens "vector space" to all $2\times2$ matrices; homework extension: integer
-vectors closed under $+$ but not scaling. All arithmetic hand-verified; keys use `\ans{}`/`\ansline{}`
-and `{\color{keyred}\mathbf{...}}` in-formula slots. **Build gotcha:** activity/activity_key used
-`\bb` without defining the macro (only defined `\vv\ww\xx\yy\zero`) → "Undefined control sequence";
-fixed by adding `\newcommand{\bb}`. Built `make -C unit03/lesson01 all` → clean. Page counts:
-cover/warmup/exit_ticket 1pp each, notes/activity/homework 2pp each (blank & key paginate
-identically), lesson plan 2pp, slides 7pp; student packet 9pp, full 18pp. Visually spot-checked
-notes_key p1–p2 (union-of-axes figure + $C(A)$ proof) and activity_key p1 (all three tiers) — clean.
-Next run authors 3.2 (The Nullspace of $A$) mirroring 3.0/3.1.
+**Last updated:** 2026-07-13 — **Authored & built Unit 3 Lesson 3.2 — "The Nullspace of $A$: Solving
+$A\xx=\zero$" (§3.2).** Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket,
+homework (+ the five keys) and the slides deck, mirroring 3.0/3.1's preamble/boxes/tone. **Content:**
+(1) **nullspace** $N(A)=\{\xx:A\xx=\zero\}$, shown a subspace of $\mathbb{R}^n$ by the 3.1 requirement
+($A(\xx_1+\xx_2)=\zero$, $A(c\xx_1)=\zero$) — stresses the *different home* vs. $C(A)\subseteq\mathbb{R}^m$
+(inputs vs. outputs); (2) **solve $A\xx=\zero$ by elimination** (RHS stays $\zero$, just reduce $A$);
+**pivot columns/variables** vs. **free columns/variables** (worked on $A=[[1,1,2],[1,2,3]]\to R=[[1,0,1],[0,1,1]]$);
+(3) **special solutions** — set one free var to 1, rest to 0, solve back ($\svec=(-1,-1,1)$); $N(A)$ = all
+combinations; free count $=n-r$; (4) **point/line/plane** by $n-r$ (plane example $A=[[1,2,3]]$, two
+special solutions). Robot-lever "do-nothing settings" hook reuses 3.1's $A=[[1,2],[2,4]]$ (whose $C(A)$
+was the line $y=2x$; here $N(A)$ = the line through $(-2,1)$). Activity Tier A hides the free column in
+the *middle* (cols 1,3 pivot) + a two-free-variable plane; Tier E ties nonzero nullspace ⇔ dependent
+columns and $N(A)=\{\zero\}$ ⇔ invertible; homework extension previews 3.3 (particular + nullspace).
+All arithmetic hand-verified; keys use `\ans{}`/`\ansline{}` and `{\color{keyred}\mathbf{...}}` in-formula
+slots. **Build gotcha:** special-solution macro was named `\ss` — collides with LaTeX's built-in ß
+("Command \ss already defined") → renamed to `\svec` across the 8 files that use it (incl. adding the
+def to exit_ticket_key, which used `\ss` in math without defining it). Built `make -C unit03/lesson02 all`
+→ clean. Page counts: cover/warmup/exit_ticket 1pp each, notes/activity/homework 2pp each (blank & key
+paginate identically), lesson plan 2pp, slides 7pp; student packet 9pp, full 18pp. Visually spot-checked
+notes_key p1–p2 (pivot/free elimination + special solutions), activity_key p1 (all three tiers), and
+warmup_key — clean. Next run authors 3.3 (The Complete Solution to $A\xx=\bb$) mirroring 3.0–3.2.
 
-**Prior run:** Authored the Unit 2 summative tests in full (all 4 files),
-closing out Unit 2. Filled every skeleton: `unit02/tests/{practice_test,actual_test}` (blank) and
-`unit02/test_keys/{practice_test_key,actual_test_key}` (keys). Same 4-part parthead structure as the
-Unit 1 tests — Part A vocab matching (8 terms: pivot, multiplier, upper-triangular $U$, inverse,
-singular, $LU$, permutation $P$, transpose), Part B 6× MC (concept checks: multiplier formula, $L$
-holds multipliers, singular $\Leftrightarrow ad-bc=0$, $PA$ swaps rows, $(AB)^{\mathsf T}=B^{\mathsf T}A^{\mathsf T}$,
-solution count), Part C 7× computation spanning all five lessons (solve $2\times2$ by elimination;
-$3\times3$ row-reduce to $U$ with multipliers/pivots; $2\times2$ inverse via $ad-bc$; solve via
-$A^{-1}\bb$; factor $A=LU$; two-sweep $L\cc=\bb$ then $U\xx=\cc$; $P$ + transpose/symmetric), Part D
-2× extended response (singular matrix → 0/∞ solutions via elimination on $\bb$; $A^{\mathsf T}A$ always
-symmetric via reversal rule). Practice test opens with a `remindbox`; keys wrap answers in `\ans{}`,
-tag MC with $\leftarrow$, carry `teachernote` scoring. Practice and actual stay parallel (different
-numbers, same difficulty); all arithmetic hand-verified. Built `make -C unit02/tests all` +
-`make -C unit02/test_keys all` → clean; `drop` published practice test → `sample_test/main.pdf` and
-practice key → `sample_test_key/main.pdf`. Page counts: blank tests 3pp each, practice key 3pp,
-actual key 2pp (answers compress the work-room whitespace). Visually spot-checked practice_key p1–2
-and actual_test p1 — clean. **Unit 2 is now fully authored & built. Next run begins Unit 3 (confirm
-the §3.1–3.5 lesson map with the user first).**
+**Prior run:** Authored & built Unit 3 Lesson 3.1 — "Vector Spaces and Subspaces" (§3.1). Named the
+object (**vector space** = closed under $+$/scaling + usual rules, $\mathbb{R}^n$ the model);
+**subspace** = subset that is itself a vector space ⇒ the two-part **subspace requirement**, with
+"contains $\zero$ is necessary but NOT sufficient" (union-of-axes counterexample, fails addition); the
+$\mathbb{R}^2/\mathbb{R}^3$ catalog; the precise $C(A)$-is-a-subspace proof via $A(\xx+\yy)=A\xx+A\yy$.
+Robot-arm reachable-set hook; extension widens "vector space" to $2\times2$ matrices. Build gotcha:
+activity used `\bb` without defining it → fixed. All components + keys + slides built clean; same page
+profile as 3.2 (student 9pp, full 18pp).
 
 ## Current state
 
@@ -125,7 +116,7 @@ Confirmed lesson map:
 - `unit02/tests` (practice + actual) + `unit02/test_keys` (both keys) — **authored ✅ & built**;
   `sample_test`/`sample_test_key` populated by `drop` (practice test + key). `unit02/Makefile` present.
 
-**Unit 3 — lessons 3.0 & 3.1 authored & built; 3.2–3.6 + tests still skeletons.** Confirmed lesson map (6 lessons):
+**Unit 3 — lessons 3.0, 3.1 & 3.2 authored & built; 3.3–3.6 + tests still skeletons.** Confirmed lesson map (6 lessons):
 - `unit03/lesson00` — id 3.0, **"Sets of Vectors and the Road to Subspaces"** (intro) — ✅ authored
   & built (all components + keys + slides). Content: $\mathbb{R}^n$ \& span (recall); subspace =
   closed under $+$/scaling (contains $\zero$) via the closure test; geometric catalog (lines/planes
@@ -138,7 +129,14 @@ Confirmed lesson map:
   (fails addition); the catalog ($\mathbb{R}^2$/$\mathbb{R}^3$); the precise $C(A)$-is-a-subspace
   proof via $A(\xx+\yy)=A\xx+A\yy$. Robot-arm reachable-set hook; extension widens "vector space" to
   $2\times2$ matrices. Previews 3.2 (nullspace).
-- `unit03/lesson02` — id 3.2, **"The Nullspace of A: Solving Ax = 0"** — ◐ scaffolded
+- `unit03/lesson02` — id 3.2, **"The Nullspace of A: Solving Ax = 0"** — ✅ authored & built (all
+  components + keys + slides). Content: **nullspace** $N(A)=\{\xx:A\xx=\zero\}$, a subspace of
+  $\mathbb{R}^n$ (inputs — contrast $C(A)\subseteq\mathbb{R}^m$); solving $A\xx=\zero$ by elimination;
+  **pivot vs. free columns/variables**; **special solutions** (free var $=1$, solve back); $N(A)$ = all
+  combinations, free count $=n-r$; **point/line/plane** by $n-r$. Robot-lever "do-nothing settings"
+  hook (reuses 3.1's $A=[[1,2],[2,4]]$). Extension: nonzero nullspace ⇔ dependent columns, and
+  $N(A)=\{\zero\}$ ⇔ invertible. Previews 3.3 (particular + nullspace). Macro gotcha: `\ss` collides
+  with LaTeX's built-in ß → renamed `\svec`.
 - `unit03/lesson03` — id 3.3, **"The Complete Solution to Ax = b"** — ◐ scaffolded
 - `unit03/lesson04` — id 3.4, **"Independence, Basis, and Dimension"** — ◐ scaffolded
 - `unit03/lesson05` — id 3.5, **"Dimensions of the Four Subspaces"** — ◐ scaffolded
@@ -161,7 +159,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | --- | --- | --- | --- |
 | 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
 | 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ☑ all lessons + tests authored & built ✅ |
-| 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ◐ 3.0 & 3.1 authored & built ✅; 3.2–3.6 + tests still skeletons |
+| 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ◐ 3.0, 3.1 & 3.2 authored & built ✅; 3.3–3.6 + tests still skeletons |
 | 4 | Orthogonality | 4.1–4.4 | ☐ |
 | 5 | Determinants and Linear Transformations | 5.1–5.3 | ☐ |
 | 6 | Eigenvalues and Eigenvectors | 6.1–6.4 (§6.4 optional) | ☐ |
@@ -170,13 +168,15 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author Unit 3, in order — 3.0 & 3.1 done.** Next author `unit03/lesson02` (id 3.2, **The
-   Nullspace of $A$: Solving $A\xx=\zero$**) from Strang §3.2 — special/free variables, the reduced
-   form, the nullspace as a subspace (all solutions of $A\xx=\zero$), and its line/plane description;
-   mirror 3.0/3.1 for preamble, boxes, and tone. Then 3.3–3.5 each from its matching LAfE
-   subchapter, then the **capstone `unit03/lesson06` (id 3.6, The Fundamental Theorem of Linear
-   Algebra)** — synthesize the four subspaces + their dimensions (Strang Part 1 + the big-picture
-   diagram), preview orthogonality (Part 2 → Unit 4). Finish with the summative tests
+1. **Author Unit 3, in order — 3.0, 3.1 & 3.2 done.** Next author `unit03/lesson03` (id 3.3, **The
+   Complete Solution to $A\xx=\bb$**) from Strang §3.3 — a particular solution $\xx_p$ + the whole
+   nullspace = the complete solution; solving $A\xx=\bb$ by reducing $[A\mid\bb]$; the
+   solvability/consistency condition; the $\xx_p+N(A)$ picture as an off-origin line/plane (parallel
+   to $N(A)$). This directly extends 3.2 (the homework/exit-ticket already seeded "wiggle room" and
+   $N(A)=\{\zero\}$ ⇔ unique). Mirror 3.0–3.2 for preamble, boxes, and tone. Then 3.4–3.5 each from
+   its matching LAfE subchapter, then the **capstone `unit03/lesson06` (id 3.6, The Fundamental
+   Theorem of Linear Algebra)** — synthesize the four subspaces + their dimensions (Strang Part 1 +
+   the big-picture diagram), preview orthogonality (Part 2 → Unit 4). Finish with the summative tests
    (`unit03/tests` + `unit03/test_keys`, then `make ... drop` to publish the sample test/key). The
    unit test should now also draw on 3.6's synthesis.
 2. *(optional)* Rebuild the whole Unit 1/Unit 2 packets (`make -C unitXX student|full`) to confirm the
@@ -191,6 +191,10 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 - **Per-file `\vv\ww\xx\yy\bb\zero` macros are NOT shared** — each component defines its own in the
   preamble. If a body uses `\bb` (or any such macro) but the preamble omits it → "Undefined control
   sequence" (hit in 3.1 activity). Define every math-vector macro the body uses.
+- **Do NOT name a macro `\ss`** — it's LaTeX's built-in ß, so `\newcommand{\ss}` errors "Command
+  already defined" (hit in 3.2 for the special-solution vector). Use `\svec` (or similar). Watch for a
+  key that uses a macro the blank doesn't define, too (3.2 exit_ticket_key used `\ss` in math without
+  a def).
 
 ## Open questions / decisions pending
 

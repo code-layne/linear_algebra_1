@@ -3,17 +3,71 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.2}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Find the Nullspace.} The \textbf{nullspace} $N(A)$ is every solution of $A\xx=\zero$ ---
+the ``do-nothing'' inputs. To find it: reduce $A$, spot the \textbf{free columns} (no pivot), set one
+free variable to $1$ (the rest to $0$), and solve back for a \textbf{special solution}. There are
+$n-r$ free variables, so $N(A)$ is a point, line, or plane. Work with your partner and \emph{justify}
+every answer.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Warm up: verify, solve, and label.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item \textbf{Verify.} For $A=\begin{bmatrix} 2 & 4 \\ 1 & 2 \end{bmatrix}$, check that
+        $\xx=\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}$ is in the nullspace:
+        $A\xx=\begin{bmatrix}\rule{0pt}{1.0em}\blank{1.0cm}\\[2pt]\blank{1.0cm}\end{bmatrix}$. Is it $\zero$? \; \blank{1.6cm}
+  \item \textbf{Solve for the free-variable form.} The one equation $x_1+2x_2=0$ gives
+        $x_1=\blank{1.6cm}$. Taking $x_2=1$, the special solution is $\svec=\begin{bmatrix}\rule{0pt}{1.0em}\blank{0.8cm}\\[2pt]\blank{0.8cm}\end{bmatrix}$.
+  \item \textbf{Label the columns.} A matrix reduces to $\begin{bmatrix} 1 & 0 & 4 \\ 0 & 1 & 5 \end{bmatrix}$.
+        Which columns are \emph{pivot} columns? \blank{2.0cm} \; Which is \emph{free}? \blank{1.6cm}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+For each matrix: reduce it, name the pivot and free columns, build every special solution, and say
+whether $N(A)$ is a point, line, or plane (state $n-r$).
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item $A=\begin{bmatrix} 1 & 2 & 1 \\ 2 & 4 & 3 \end{bmatrix}$ \quad (\emph{hint: the free column is not the last one}). \writelines{3}
+  \item $A=\begin{bmatrix} 1 & 2 & 2 \\ 2 & 4 & 4 \end{bmatrix}$ \quad (\emph{expect two free variables}). \writelines{3}
+  \item \textbf{Compare homes.} For the matrix in problem~2, which $\mathbb{R}^m$ does $C(A)$ live in, and
+        which $\mathbb{R}^n$ does $N(A)$ live in? Why are they different? \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Prove it, then connect the ideas.}
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{$N(A)$ is a subspace.} Suppose $A\xx_1=\zero$ and $A\xx_2=\zero$. Fill the blanks:
+        \[ A(\xx_1+\xx_2)=A\xx_1+A\xx_2=\blank{1.2cm}, \qquad A(c\,\xx_1)=c\,(A\xx_1)=\blank{1.2cm}. \]
+        In one sentence, why do these two lines make $N(A)$ a subspace? \writelines{2}
+  \item \textbf{A nullspace vector is a dependency.} For $A=\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$
+        the special solution is $\svec=\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}$. Rewrite $A\svec=\zero$ as
+        a statement about the \emph{columns} of $A$ (which column is a multiple of which?). \writelines{2}
+  \item \textbf{When is the nullspace just a point?} Solve $A\xx=\zero$ for $A=\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$.
+        What is $N(A)$? What does that tell you about whether $A$ is invertible and how many solutions
+        $A\xx=\bb$ has? \writelines{3}
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

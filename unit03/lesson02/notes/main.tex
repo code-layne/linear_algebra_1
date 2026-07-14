@@ -3,17 +3,127 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.2}{Guided Notes}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Guided Notes. See references/components.md for the expected structure.
-\begin{notesbox}{Guided Notes}
-\writelines{4}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item describe the \emph{nullspace} $N(A)$ --- all solutions of $A\xx=\zero$ --- and say why it is a subspace;
+  \item solve $A\xx=\zero$ by \emph{elimination}, telling \emph{pivot columns} from \emph{free columns};
+  \item build a \emph{special solution} for each free variable and describe $N(A)$ as a point, line, or plane.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.10in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\termblanklong{Nullspace $N(A)$}
+\termblanklong{Pivot column / pivot variable}
+\termblanklong{Free column / free variable}
+\termblanklong{Special solution}
+\termblanklong{Free variables $=n-r$}
+\end{vocabbox}
+
+\begin{hookbox}
+A robot arm has two levers; the setting $\xx=\begin{bsmallmatrix} x_1\\x_2 \end{bsmallmatrix}$ moves the
+tip to $A\xx$. For $A=\begin{bsmallmatrix} 1 & 2\\ 2 & 4 \end{bsmallmatrix}$ the two lever directions
+$\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}$ lie on
+the \emph{same} line.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item Find one nonzero setting $\xx$ that leaves the tip unmoved ($A\xx=\zero$). \writeline
+  \item Is there more than one such setting? Describe them all. \writeline
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. The Nullspace --- and Why It Is a Subspace}
+The \textbf{nullspace} of $A$, written $N(A)$, is the set of \emph{all} solutions $\xx$ of
+$A\,\xx=\blank{1.2cm}$. It always contains the zero vector, because $A\zero=\zero$. Run the Lesson~3.1
+subspace requirement on it: if $A\xx_1=\zero$ and $A\xx_2=\zero$, then
+\[
+  A(\xx_1+\xx_2)=A\xx_1+A\xx_2=\zero, \qquad A(c\,\xx_1)=c\,(A\xx_1)=\blank{1.0cm}.
+\]
+Both closure rules hold, so $N(A)$ is a \textbf{subspace} of $\mathbb{R}^{\,\blank{0.7cm}}$ (here $n$ =
+number of \emph{columns} of $A$, because $\xx$ has one entry per column). \emph{Contrast:} the column
+space $C(A)$ lived in $\mathbb{R}^m$ (outputs); the nullspace lives in $\mathbb{R}^n$ (inputs).
 \end{notesbox}
+
+\begin{notesbox}{2. Solve $A\xx=\zero$ by Elimination: Pivot vs.\ Free Columns}
+The right-hand side is all zeros, and stays $\zero$ under \emph{every} row operation --- so to solve
+$A\xx=\zero$ we just row-reduce $A$. Take $A=\begin{bmatrix} 1 & 1 & 2 \\ 1 & 2 & 3 \end{bmatrix}$:
+\[
+  \begin{bmatrix} 1 & 1 & 2 \\ 1 & 2 & 3 \end{bmatrix}
+  \xrightarrow{\;R_2-R_1\;}
+  \begin{bmatrix} 1 & 1 & 2 \\ 0 & 1 & 1 \end{bmatrix}
+  \xrightarrow{\;R_1-R_2\;}
+  \begin{bmatrix} 1 & 0 & \blank{0.6cm} \\ 0 & 1 & \blank{0.6cm} \end{bmatrix}.
+\]
+The pivots sit in columns $1$ and $2$ --- these are the \textbf{pivot columns}, and $x_1,x_2$ are
+\textbf{pivot variables}. Column $3$ has \emph{no} pivot: it is a \textbf{free column}, and $x_3$ is a
+\textbf{free variable} --- we are free to \blank{2.6cm} its value. Reading the reduced rows back:
+\[
+  x_1 + x_3 = 0, \qquad x_2 + x_3 = 0.
+\]
+\end{notesbox}
+
+\begin{notesbox}{3. Special Solutions --- and the Whole Nullspace}
+To pin down a nullspace vector, give the free variable the value \blank{0.6cm} and solve back for the
+pivot variables. With $x_3=1$: $\;x_1=-x_3=\blank{0.8cm}$ and $x_2=-x_3=\blank{0.8cm}$, so the
+\textbf{special solution} is
+\[
+  \svec=\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+  =\begin{bmatrix} \rule{0pt}{1.0em}\blank{0.7cm} \\ \blank{0.7cm} \\ \blank{0.7cm} \end{bmatrix}.
+\]
+Every solution of $A\xx=\zero$ is a multiple of $\svec$, so $N(A)=\{\,t\,\svec : t \text{ any number}\,\}$.
+\textbf{The rule:} there is one special solution \emph{per free variable}, and the nullspace is all
+\blank{2.6cm} of the special solutions. The number of free variables is
+\[
+  n-r \;=\; (\text{columns}) - (\text{pivots}) \;=\; 3 - 2 \;=\; \blank{0.7cm}.
+\]
+\end{notesbox}
+
+\begin{notesbox}{4. Point, Line, or Plane}
+The free count $n-r$ is the nullspace's \emph{dimension}, so it tells you the shape:
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item $n-r=0$ (no free variables): only $\xx=\zero$, so $N(A)=\{\zero\}$ --- a \textbf{point}.
+  \item $n-r=1$: one special solution, so $N(A)$ is a \textbf{line} through the origin (our example above).
+  \item $n-r=2$: two special solutions, so $N(A)$ is a \textbf{plane} through the origin.
+\end{itemize}
+A plane example: $A=\begin{bmatrix} 1 & 2 & 3 \end{bmatrix}$ gives one equation $x_1+2x_2+3x_3=0$ with
+pivot column $1$ and free columns $2,3$. Setting $(x_2,x_3)=(1,0)$ then $(0,1)$:
+\[
+  \svec_1=\begin{bmatrix} \rule{0pt}{1.0em}\blank{0.7cm} \\ 1 \\ 0 \end{bmatrix}, \qquad
+  \svec_2=\begin{bmatrix} \rule{0pt}{1.0em}\blank{0.7cm} \\ 0 \\ 1 \end{bmatrix},
+\]
+and $N(A)$ is the plane of all combinations $t_1\svec_1+t_2\svec_2$ in $\mathbb{R}^3$ ($n-r=3-1=2$).
+
+\vspace{3pt}
+\textbf{Next (3.3):} attach a right side --- the \emph{complete} solution of $A\xx=\bb$ is one
+particular solution \emph{plus} the whole nullspace.
+\end{notesbox}
+
+\begin{practicebox}
+Show your reasoning.
+\begin{enumerate}[leftmargin=1.6em, itemsep=4pt]
+  \item Is $\xx=\begin{bsmallmatrix} 2\\-1 \end{bsmallmatrix}$ in the nullspace of $A=\begin{bsmallmatrix} 1 & 2 \\ 3 & 6 \end{bsmallmatrix}$? Check $A\xx$. \writeline
+  \item Find the nullspace of $A=\begin{bsmallmatrix} 1 & 3 \\ 2 & 6 \end{bsmallmatrix}$: give the special solution and say whether $N(A)$ is a point, line, or plane. \writeline
+  \item A matrix has $5$ columns and rank $r=3$. How many free variables does $A\xx=\zero$ have? What is the dimension of $N(A)$? \writeline
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

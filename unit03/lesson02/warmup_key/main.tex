@@ -3,17 +3,48 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.2}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small These skills from Units 1--2 and Lesson 3.1 power today's work. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Does this $\xx$ solve $A\xx=\zero$?} With $A=\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$
+and $\xx=\begin{bmatrix} -2 \\ 1 \end{bmatrix}$, compute
+$A\xx = -2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}+1\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}$:
+\[
+  A\xx = \begin{bmatrix}{\color{keyred}\mathbf{0}}\\[2pt]{\color{keyred}\mathbf{0}}\end{bmatrix}.
+\]
+So is $\xx=\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}$ a solution of $A\xx=\zero$? \; \ans{yes} \quad / \quad no
+
+\vspace{4pt}
+\textbf{2. One elimination step.} Subtract row~1 from row~2 in
+$\begin{bmatrix} 1 & 1 & 2 \\ 1 & 2 & 3 \end{bmatrix}$ to make a zero in the lower-left:
+\[
+  \begin{bmatrix} 1 & 1 & 2 \\ 1 & 2 & 3 \end{bmatrix}
+  \;\longrightarrow\;
+  \begin{bmatrix} 1 & 1 & 2 \\[2pt] {\color{keyred}\mathbf{0}} & {\color{keyred}\mathbf{1}} & {\color{keyred}\mathbf{1}} \end{bmatrix}.
+\]
+
+\vspace{4pt}
+\textbf{3. Subspace requirement (from 3.1).} If $\xx_1$ and $\xx_2$ both satisfy $A\xx=\zero$, is
+their sum $\xx_1+\xx_2$ also a solution? Circle one and give a one-line reason. \quad \ans{yes} / no
+\ansline{Yes --- $A(\xx_1+\xx_2)=A\xx_1+A\xx_2=\zero+\zero=\zero$. This is exactly why the solution set is a subspace.}
 \end{notesbox}
+
+\begin{teachernote}
+Item~1 \emph{is} the hook: a nonzero $\xx$ with $A\xx=\zero$ is a ``do-nothing'' combination of the
+columns (here column~2 is twice column~1, so $-2\,$col$_1+1\,$col$_2=\zero$). Item~2 is the elimination
+they will lean on to find pivots and free columns. Item~3 pre-establishes that $N(A)$ is closed under
+addition, so today's job is just to \emph{find} it.
+\end{teachernote}
 
 \end{document}

@@ -3,17 +3,71 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.3}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+Reduce $[A\mid\bb]$, find $\xx_p$ (free variables $=0$), attach the nullspace, and \emph{justify}. Always
+say which shape (point, line, or plane) the solution set is, and whether it passes through the origin.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Complete solutions.} For each system, give $\xx_p$, the nullspace part, the complete
+        solution, and its shape.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
+      \item $\begin{bmatrix} 1 & 2 \\ 1 & 3 \end{bmatrix}\xx=\begin{bmatrix} 3 \\ 4 \end{bmatrix}$ \quad \ans{Two pivots, no free variable: unique $\xx=\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$. $N(A)=\{\zero\}$, so the solution set is a single \emph{point}.}
+      \item $\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}\xx=\begin{bmatrix} 2 \\ 4 \end{bmatrix}$ \quad \ans{$R_2-2R_1\Rightarrow\left[\begin{smallmatrix} 1&2&2\\0&0&0 \end{smallmatrix}\right]$: $x_1+2x_2=2$, free $x_2$. $\xx_p=\begin{bsmallmatrix} 2\\0 \end{bsmallmatrix}$, $\svec=\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}$. $\xx=\begin{bsmallmatrix} 2\\0 \end{bsmallmatrix}+t\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}$ --- a \emph{line} off the origin.}
+      \item $\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}\xx=\begin{bmatrix} 2 \\ 5 \end{bmatrix}$ \quad \ans{$R_2-2R_1\Rightarrow\left[\begin{smallmatrix} 1&2&2\\0&0&1 \end{smallmatrix}\right]$: bottom row $0=1$. \emph{No solution} ($\bb\notin C(A)$).}
+      \item $\begin{bmatrix} 1 & 1 & 2 \\ 0 & 1 & 1 \end{bmatrix}\xx=\begin{bmatrix} 4 \\ 1 \end{bmatrix}$ \quad \ans{$R_1-R_2\Rightarrow\left[\begin{smallmatrix} 1&0&1&3\\0&1&1&1 \end{smallmatrix}\right]$: free $x_3$. $\xx_p=\begin{bsmallmatrix} 3\\1\\0 \end{bsmallmatrix}$, $\svec=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$. $\xx=\begin{bsmallmatrix} 3\\1\\0 \end{bsmallmatrix}+t\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$ --- a \emph{line} off the origin.}
+    \end{enumerate}
+  \item \textbf{Count without solving.} The system $A\xx=\bb$ is solvable. State how many solutions.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $A$ has $3$ columns and rank $r=3$. \hfill \ans{$n-r=0$ free variables --- \emph{exactly one} solution.}
+      \item $A$ has $5$ columns and rank $r=3$. \hfill \ans{$n-r=2$ free variables --- \emph{infinitely many} (a 2-parameter family, a shifted plane).}
+    \end{enumerate}
+  \item \textbf{Solvable or not?} For $A=\begin{bmatrix} 1 & 3 \\ 2 & 6 \end{bmatrix}$, decide which of
+        $\bb=\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}$ and $\bb=\begin{bsmallmatrix} 2\\5 \end{bsmallmatrix}$
+        gives a solvable system. Reduce $[A\mid\bb]$ in each case to justify. \ansline{$\bb=\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}$: $R_2-2R_1\Rightarrow\left[\begin{smallmatrix} 1&3&2\\0&0&0 \end{smallmatrix}\right]$ --- \emph{solvable} ($x_1+3x_2=2$, infinitely many). $\bb=\begin{bsmallmatrix} 2\\5 \end{bsmallmatrix}$: $\Rightarrow\left[\begin{smallmatrix} 1&3&2\\0&0&1 \end{smallmatrix}\right]$, bottom row $0=1$ --- \emph{not solvable}. Only right-hand sides with $b_2=2b_1$ (on the line $y=2x=C(A)$) work.}
+  \item \textbf{Explain.} When $\bb\ne\zero$, why is the solution set of $A\xx=\bb$ \emph{never} a
+        subspace, even though the nullspace always is? What is the one thing it is missing? \ansline{A subspace must contain $\zero$. But $A\zero=\zero\ne\bb$, so $\zero$ is not a solution --- the solution set misses the origin. It is the nullspace \emph{shifted} by $\xx_p$ (a line/plane parallel to $N(A)$, off the origin), which is not a subspace.}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Rank and the number of solutions.}
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item \textbf{Four cases.} For a solvable $A\xx=\bb$, say how many solutions each rank situation forces
+        (one, or infinitely many): (i) full column rank $r=n$; (ii) $r<n$. Then say which case
+        \emph{always} has a solution for every $\bb$: full row rank $r=m$.
+  \item \textbf{Two means infinitely many.} Show that if $A\xx=\bb$ has \emph{two different} solutions
+        $\xx_1\ne\xx_2$, then it has infinitely many. (Hint: what is $\xx_1-\xx_2$?)
+\end{enumerate}
+\ansline{(a) (i) $r=n$: no free variables, so $N(A)=\{\zero\}$ --- \emph{exactly one} solution. (ii) $r<n$: at least one free variable, so a nonzero nullspace --- \emph{infinitely many}. Full row rank $r=m$: the columns span all of $\mathbb{R}^m$, so $\bb\in C(A)$ for \emph{every} $\bb$ --- always at least one solution.}
+\ansline{(b) Let $\svec=\xx_1-\xx_2\ne\zero$. Then $A\svec=A\xx_1-A\xx_2=\bb-\bb=\zero$, so $\svec$ is a nonzero nullspace vector. Hence $\xx_1+t\,\svec$ solves $A\xx=\bb$ for \emph{every} $t$ --- infinitely many solutions. (Two solutions force a whole line of them.)}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 3.4: Independence, Basis, and Dimension.} Today every solution was
+$\xx_p$ plus a combination of the special solutions. Next: which of those special solutions are
+\emph{really} independent (none a combination of the others), and the smallest set that still spans a
+space --- a \emph{basis} --- with the count called the \emph{dimension}.
+\end{spiralbox}
+
+\begin{teachernote}
+Problem~1 deliberately spans the outcomes: (a) unique point ($N(A)=\{\zero\}$), (b),(d) shifted lines,
+(c) \emph{no} solution. The most-missed contrast is (b) vs.\ (c): same $A$, different $\bb$ --- one on
+the column-space line, one off it. Problem~4 is the conceptual crux (the solution set is not a subspace
+unless $\bb=\zero$). Extension~(b) ``two solutions $\Rightarrow$ infinitely many'' is the cleanest way to
+see why free variables blow up the count; assign it if you assign only one extension part.
+\end{teachernote}
 
 \end{document}

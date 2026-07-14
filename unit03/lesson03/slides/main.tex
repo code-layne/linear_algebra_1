@@ -1,6 +1,13 @@
 %! The Complete Solution to Ax = b — Unit 3, Lesson 3.3 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
@@ -11,16 +18,145 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 3.3}\\[0.5cm]
-    {\color{white}\bfseries\LARGE The Complete Solution to Ax = b}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 3}
+    {\color{white}\bfseries\LARGE The Complete Solution to $A\xx=\bb$}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 3: The Four Fundamental Subspaces}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{Which settings hit the target $\bb$?}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.58\textwidth}
+      The robot arm's tip moves to $A\xx$. In 3.2 we found the \emph{do-nothing} settings ($A\xx=\zero$).
+      Now aim at a target $\bb$.\\[8pt]
+      \textbf{Find \emph{one} winning setting} $\xx_p$ ($A\xx_p=\bb$).\\[4pt]
+      Then add \emph{any} do-nothing move $\xx_n$:
+      \[ A(\xx_p+\xx_n)=\bb+\zero=\bb. \]
+      Still on target! So the winners are $\xx_p$ + the whole nullspace.
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.5]
+        \draw[step=1, linegray!45, thin] (-2.3,-1.3) grid (2.3,3.3);
+        \draw[->, thick, charcoal] (-2.3,0)--(2.5,0);
+        \draw[->, thick, charcoal] (0,-1.3)--(0,3.5);
+        \draw[very thick, burgundy] (-2,-1)--(2,1) node[right]{\scriptsize $N(A)$};
+        \draw[very thick, royalblue, dashed] (-2,1)--(2,3);
+        \draw[->, very thick, goldacc] (0,0)--(0,2);
+        \fill[royalblue] (0,2) circle (2.5pt) node[right]{\scriptsize $\xx_p$};
+        \fill[black] (0,0) circle (2.5pt);
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{2pt}
+  \begin{block}{The complete solution}
+    Every solution of $A\xx=\bb$ is one particular solution plus the whole nullspace.
+  \end{block}
+\end{frame}
+
+% BIG IDEA: PARTICULAR + NULLSPACE
+\begin{frame}[t, plain]
+  \burgundyheader{Particular $+$ nullspace $=$ complete}
+  \sectionlabel{The big idea}
+  If $A\xx_p=\bb$ and $A\xx_n=\zero$, then:
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item \textbf{Still a solution:} $A(\xx_p+\xx_n)=A\xx_p+A\xx_n=\bb+\zero=\bb$.
+    \item \textbf{Nothing else:} if $A\xx=\bb$ too, then $A(\xx-\xx_p)=\zero$, so $\xx-\xx_p\in N(A)$.
+  \end{itemize}
+  \vspace{4pt}
+  \begin{block}{Complete solution}
+    \[ \xx=\xx_p+\xx_n \qquad(\text{one particular solution} \;+\; \text{the whole nullspace}). \]
+  \end{block}
+\end{frame}
+
+% FIND x_p FROM AUGMENTED MATRIX
+\begin{frame}[t, plain]
+  \burgundyheader{Find $\xx_p$: reduce $[A\mid\bb]$}
+  \sectionlabel[goldacc]{Particular solution}
+  Attach $\bb$ as an extra column and reduce; then set the free variable to $0$:
+  \[
+    \left[\begin{array}{ccc|c} 1 & 1 & 2 & 3 \\ 1 & 2 & 3 & 5 \end{array}\right]
+    \longrightarrow
+    \left[\begin{array}{ccc|c} 1 & 0 & 1 & 1 \\ 0 & 1 & 1 & 2 \end{array}\right].
+  \]
+  \begin{itemize}
+    \setlength{\itemsep}{4pt}
+    \item Columns $1,2$ pivot; column $3$ is \textbf{free} --- set $x_3=0$.
+    \item Read back: $x_1=1,\ x_2=2$, so $\xx_p=\begin{bsmallmatrix} 1\\2\\0 \end{bsmallmatrix}$.
+    \item Check: $1\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}+2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}=\begin{bsmallmatrix} 3\\5 \end{bsmallmatrix}=\bb.\ \checkmark$
+  \end{itemize}
+\end{frame}
+
+% COMPLETE SOLUTION + PICTURE
+\begin{frame}[t, plain]
+  \burgundyheader{The complete solution --- shifted nullspace}
+  \sectionlabel{Anchor $+$ wiggle room}
+  \begin{columns}[T]
+    \begin{column}{0.56\textwidth}
+      Same $A$ as 3.2: nullspace is all $t\,\svec$ with $\svec=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$. So
+      \[ \xx=\begin{bmatrix} 1\\2\\0 \end{bmatrix}+t\begin{bmatrix} -1\\-1\\1 \end{bmatrix}. \]
+      \begin{itemize}
+        \setlength{\itemsep}{3pt}
+        \item Only the nullspace part carries $t$; $\xx_p$ is a fixed anchor.
+        \item The solution set is $N(A)$ \textbf{slid} through $\xx_p$ --- parallel, off the origin.
+        \item Through the origin only when $\bb=\zero$.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.5]
+        \draw[step=1, linegray!45, thin] (-2.3,-1.8) grid (2.3,3.3);
+        \draw[->, thick, charcoal] (-2.3,0)--(2.5,0);
+        \draw[->, thick, charcoal] (0,-1.8)--(0,3.5);
+        \draw[very thick, burgundy] (-2,-1)--(2,1) node[right]{\scriptsize $N(A)$};
+        \draw[very thick, royalblue, dashed] (-2,1)--(2,3) node[right]{\scriptsize $\xx_p{+}N(A)$};
+        \draw[->, very thick, goldacc] (0,0)--(0,2);
+        \fill[royalblue] (0,2) circle (2.5pt) node[left]{\scriptsize $\xx_p$};
+        \fill[black] (0,0) circle (2.5pt);
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% SOLVABILITY
+\begin{frame}[t, plain]
+  \burgundyheader{Is $A\xx=\bb$ even solvable?}
+  \sectionlabel[goldacc]{Consistency}
+  A solution exists exactly when $\bb$ lies in $C(A)$ (a reachable combination of the columns).
+  \[
+    \left[\begin{array}{cc|c} 1 & 1 & 1 \\ 2 & 2 & 3 \end{array}\right]
+    \xrightarrow{\;R_2-2R_1\;}
+    \left[\begin{array}{cc|c} 1 & 1 & 1 \\ 0 & 0 & 1 \end{array}\right]
+    \;\Rightarrow\; 0=1 \text{ (no solution).}
+  \]
+  \begin{itemize}
+    \setlength{\itemsep}{4pt}
+    \item \textbf{Solvability:} every zero row of $A$ must meet a zero on the right.
+    \item Full column rank $r=n$: $0$ or $1$ solution. \quad Full row rank $r=m$: always solvable.
+    \item Invertible square ($r=m=n$): \emph{exactly one} for every $\bb$; a free variable $\Rightarrow$ infinitely many.
+  \end{itemize}
+\end{frame}
+
+% ROADMAP
+\begin{frame}[t, plain]
+  \burgundyheader{Where this goes}
+  \sectionlabel{Connections}
+  \textbf{Today:} the complete solution $\xx=\xx_p+\xx_n$ --- reduce $[A\mid\bb]$ for $\xx_p$, add the
+  whole nullspace, read the shifted geometry, and test solvability.\\[8pt]
+  \begin{itemize}
+    \setlength{\itemsep}{4pt}
+    \item \textbf{3.4} Independence, Basis, and Dimension: which special solutions are really independent.
+    \item \textbf{3.5} Dimensions of the Four Subspaces.
+    \item \textbf{3.6} The Fundamental Theorem of Linear Algebra.
+  \end{itemize}
+  \vspace{4pt}
+  \begin{block}{Keep in mind}
+    The solution set is a subspace \emph{only} when $\bb=\zero$; otherwise it is $N(A)$ shifted off the origin.
+  \end{block}
 \end{frame}
 
 \end{document}

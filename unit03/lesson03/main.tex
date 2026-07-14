@@ -5,6 +5,13 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 \newcommand{\UnitNumberName}{Unit 3: The Four Fundamental Subspaces \quad}
 \newcommand{\LessonNumberName}{Lesson 3.3: The Complete Solution to Ax = b}
 
@@ -16,55 +23,144 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can find the \emph{complete solution} of $A\xx=\bb$ by
+    combining \emph{one particular solution} $\xx_p$ with the whole \emph{nullspace} $N(A)$: reduce the
+    augmented matrix $[A\mid\bb]$, set the free variables to $0$ to read off $\xx_p$, and add the
+    special solutions to get every solution $\xx=\xx_p+\xx_n$. They can explain \emph{why} this captures
+    all solutions ($A(\xx_p+\xx_n)=\bb+\zero=\bb$), describe the solution set geometrically as the
+    nullspace \emph{shifted} to pass through $\xx_p$ (a line or plane \emph{parallel} to $N(A)$, off the
+    origin), and test \emph{solvability} --- $A\xx=\bb$ has a solution exactly when $\bb$ lies in $C(A)$.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Find a \textbf{particular solution} $\xx_p$ by reducing $[A\mid\bb]$ and setting free variables to $0$.
+  \item Write the \textbf{complete solution} $\xx=\xx_p+\xx_n$ ($\xx_n$ = any nullspace vector).
+  \item Picture the solution set as $N(A)$ \textbf{shifted} through $\xx_p$ --- a line/plane off the origin.
+  \item Test \textbf{solvability}: $A\xx=\bb$ has a solution only if $\bb$ is in $C(A)$.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item $\xx_p$ gets you \emph{to} $\bb$; the nullspace is the \emph{wiggle room} that keeps you there.
+  \item $A(\xx_p+\xx_n)=A\xx_p+A\xx_n=\bb+\zero=\bb$, so every shift by $N(A)$ is still a solution.
+  \item The solution set is \emph{parallel} to $N(A)$; it passes through the origin only when $\bb=\zero$.
+  \item No solution when a zero row of the reduced $A$ meets a nonzero right-hand side ($\bb\notin C(A)$).
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Particular solution $\xx_p$} & \emph{One} solution of $A\xx=\bb$; found by setting all free variables to $0$ and solving $[A\mid\bb]$. \\
+\textbf{Nullspace part $\xx_n$} & Any solution of $A\xx=\zero$; a combination of the special solutions from Lesson~3.2. \\
+\textbf{Complete solution} & Every solution of $A\xx=\bb$: $\xx=\xx_p+\xx_n$ (one particular solution $+$ the whole nullspace). \\
+\textbf{Augmented matrix $[A\mid\bb]$} & $A$ with the right-hand side $\bb$ attached as an extra column; reduce it to solve. \\
+\textbf{Solvable / consistent} & $A\xx=\bb$ has at least one solution --- true exactly when $\bb$ lies in the column space $C(A)$. \\
+\textbf{Solvability condition} & After reduction, every zero row of $A$ must line up with a zero in the $\bb$ column. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three tools this lesson stitches together:
+    \textbf{(1)} finding the whole \emph{nullspace} of a matrix (reduce, spot the free column, build the
+    special solution) --- straight from Lesson~3.2, since the nullspace \emph{is} the wiggle room we add
+    today; \textbf{(2)} solving $A\xx=\bb$ by \emph{elimination} on the augmented matrix (Unit~2), the
+    engine for finding $\xx_p$; and \textbf{(3)} reading a \emph{combination of columns} to see whether a
+    target $\bb$ is reachable (Lesson~1.3) --- the seed of today's solvability test. Debrief item~3
+    aloud: ``reachable'' means $\bb$ lies in $C(A)$, which is exactly when $A\xx=\bb$ has a solution.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Back to the robot arm from Lesson~3.2: lever settings $\xx$ move the tip to $A\xx$. In~3.2 we asked
+    which settings \emph{do nothing} ($A\xx=\zero$ --- the nullspace). Today we aim at a \textbf{target}:
+    \textbf{``Which settings land the tip exactly on $\bb$?''} First find \emph{one} setting that works
+    --- a \textbf{particular solution} $\xx_p$. Then notice you can add \emph{any} do-nothing setting on
+    top and still hit the target: if $A\xx_p=\bb$ and $A\xx_n=\zero$, then $A(\xx_p+\xx_n)=\bb+\zero=\bb$.
+    So the \emph{complete} set of winning settings is ``$\xx_p$ plus the whole nullspace'' --- one anchor
+    point, and all the wiggle room around it. Geometrically it is the nullspace line/plane \emph{slid
+    over} to pass through $\xx_p$.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. One solution plus the nullspace.} Suppose $\xx_p$ solves $A\xx=\bb$ (a \textbf{particular
+solution}) and $\xx_n$ is \emph{any} nullspace vector ($A\xx_n=\zero$). Then
+$A(\xx_p+\xx_n)=A\xx_p+A\xx_n=\bb+\zero=\bb$ --- so $\xx_p+\xx_n$ solves it too. Conversely, if $\xx$ is
+\emph{any} solution, then $A(\xx-\xx_p)=\bb-\bb=\zero$, so $\xx-\xx_p$ is in $N(A)$. Every solution is
+$\xx_p$ plus a nullspace vector: the \textbf{complete solution} is $\xx=\xx_p+\xx_n$.
+
+\textbf{2. Find $\xx_p$ from $[A\mid\bb]$.} Attach $\bb$ as an extra column and reduce. For
+$A=\begin{bsmallmatrix} 1&1&2\\1&2&3 \end{bsmallmatrix}$, $\bb=\begin{bsmallmatrix} 3\\5 \end{bsmallmatrix}$:
+$[A\mid\bb]\to\begin{bsmallmatrix} 1&0&1&1\\0&1&1&2 \end{bsmallmatrix}$. Column~3 is free; set the free
+variable $x_3=0$ and read $x_1=1,\ x_2=2$, so $\xx_p=\begin{bsmallmatrix} 1\\2\\0 \end{bsmallmatrix}$.
+
+\columnbreak
+
+\textbf{3. The complete solution and its picture.} From Lesson~3.2 this $A$ has special solution
+$\svec=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$, so
+$\xx=\xx_p+t\,\svec=\begin{bsmallmatrix} 1\\2\\0 \end{bsmallmatrix}+t\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$.
+Geometrically this is the nullspace \emph{line} slid over to pass through $\xx_p$ --- a line
+\textbf{parallel} to $N(A)$ but \emph{off} the origin (it hits the origin only when $\bb=\zero$). With
+two free variables it is a shifted plane.
+
+\textbf{4. Is $A\xx=\bb$ even solvable?} A solution exists exactly when $\bb$ lies in $C(A)$ (a reachable
+combination of the columns). In the reduced $[A\mid\bb]$, a \emph{zero row} of $A$ must meet a \emph{zero}
+on the right; a row like $[\,0\ 0\ 0\mid 5\,]$ says $0=5$ --- no solution. Counting: full column rank
+($r=n$) gives $0$ or $1$ solution; full row rank ($r=m$) is always solvable; full rank square ($r=m=n$,
+invertible) gives \emph{exactly one} solution for every $\bb$.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item stopping at $\xx_p$ and forgetting the nullspace --- the answer is \emph{all} of $\xx_p+\xx_n$ when there are free variables;
+  \item scaling or shifting $\xx_p$ itself --- it is a fixed anchor; only the nullspace part carries the parameter $t$;
+  \item calling the solution set a subspace --- it passes through the origin (contains $\zero$) only when $\bb=\zero$;
+  \item declaring ``no solution'' without checking the reduced right-hand side against the zero rows of $A$.
+\end{itemize}
+Cold-call prompts: ``What is one particular solution here?'' ``What do we add to it?'' ``Does this set
+pass through the origin --- why or why not?'' ``How can you tell $A\xx=\bb$ has no solution?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{The Complete Solution} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Verify a given $\xx_p$ solves $A\xx=\bb$; add a supplied nullspace vector
+and check it still works; assemble $\xx_p+t\svec$ from the two pieces.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Reduce $[A\mid\bb]$, read off $\xx_p$ (free variables $=0$), attach the
+nullspace, write the complete solution, and describe it as a shifted point/line/plane.
+
+\columnbreak
+\textbf{Tier E --- Extension.} Decide solvability from the reduced right-hand side; connect ``unique
+solution'' to $N(A)=\{\zero\}$; and prove every solution has the form $\xx_p+\xx_n$.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): find the complete solution of a small $A\xx=\bb$
+($\xx_p$ + nullspace, with a geometric description); state how a rank/size forces one vs.\ infinitely
+many solutions; and a \textbf{solvability/justification check} --- given a reduced $[A\mid\bb]$ with a
+zero row, decide whether a solution exists and say why. Collect and sort into ``got it / stopped at
+$\xx_p$ / solvability slip'' to decide whether 3.4 opens with a re-teach.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} build complete solutions across a battery of systems (reduce $[A\mid\bb]$, read
+$\xx_p$, attach the nullspace, describe the geometry); spot unsolvable systems from the reduced form;
+contrast $\bb=\zero$ (through the origin) with $\bb\ne\zero$ (shifted). \textbf{Extension:} the four
+rank cases ($r=n$, $r=m$, $r=m=n$, and $r<m,n$) and how many solutions each forces; a proof that the
+solution set is $N(A)$ translated by $\xx_p$. \textbf{Preview:} Lesson~3.4, \emph{Independence, Basis,
+and Dimension} --- how many special solutions are ``really'' independent, and the smallest set that
+spans a space.
 \end{skillbox}
 \end{document}

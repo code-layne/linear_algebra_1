@@ -7,36 +7,37 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-13 — **Authored & built Unit 3 Lesson 3.2 — "The Nullspace of $A$: Solving
-$A\xx=\zero$" (§3.2).** Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket,
-homework (+ the five keys) and the slides deck, mirroring 3.0/3.1's preamble/boxes/tone. **Content:**
-(1) **nullspace** $N(A)=\{\xx:A\xx=\zero\}$, shown a subspace of $\mathbb{R}^n$ by the 3.1 requirement
-($A(\xx_1+\xx_2)=\zero$, $A(c\xx_1)=\zero$) — stresses the *different home* vs. $C(A)\subseteq\mathbb{R}^m$
-(inputs vs. outputs); (2) **solve $A\xx=\zero$ by elimination** (RHS stays $\zero$, just reduce $A$);
-**pivot columns/variables** vs. **free columns/variables** (worked on $A=[[1,1,2],[1,2,3]]\to R=[[1,0,1],[0,1,1]]$);
-(3) **special solutions** — set one free var to 1, rest to 0, solve back ($\svec=(-1,-1,1)$); $N(A)$ = all
-combinations; free count $=n-r$; (4) **point/line/plane** by $n-r$ (plane example $A=[[1,2,3]]$, two
-special solutions). Robot-lever "do-nothing settings" hook reuses 3.1's $A=[[1,2],[2,4]]$ (whose $C(A)$
-was the line $y=2x$; here $N(A)$ = the line through $(-2,1)$). Activity Tier A hides the free column in
-the *middle* (cols 1,3 pivot) + a two-free-variable plane; Tier E ties nonzero nullspace ⇔ dependent
-columns and $N(A)=\{\zero\}$ ⇔ invertible; homework extension previews 3.3 (particular + nullspace).
-All arithmetic hand-verified; keys use `\ans{}`/`\ansline{}` and `{\color{keyred}\mathbf{...}}` in-formula
-slots. **Build gotcha:** special-solution macro was named `\ss` — collides with LaTeX's built-in ß
-("Command \ss already defined") → renamed to `\svec` across the 8 files that use it (incl. adding the
-def to exit_ticket_key, which used `\ss` in math without defining it). Built `make -C unit03/lesson02 all`
-→ clean. Page counts: cover/warmup/exit_ticket 1pp each, notes/activity/homework 2pp each (blank & key
-paginate identically), lesson plan 2pp, slides 7pp; student packet 9pp, full 18pp. Visually spot-checked
-notes_key p1–p2 (pivot/free elimination + special solutions), activity_key p1 (all three tiers), and
-warmup_key — clean. Next run authors 3.3 (The Complete Solution to $A\xx=\bb$) mirroring 3.0–3.2.
+**Last updated:** 2026-07-13 — **Authored & built Unit 3 Lesson 3.3 — "The Complete Solution to
+$A\xx=\bb$" (§3.3).** Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket,
+homework (+ the five keys) and the slides deck, mirroring 3.0–3.2's preamble/boxes/tone. **Content:**
+(1) **particular + nullspace = complete** — if $A\xx_p=\bb$ and $A\xx_n=\zero$ then $A(\xx_p+\xx_n)=\bb$,
+and conversely any two solutions differ by a nullspace vector, so the **complete solution** is
+$\xx=\xx_p+\xx_n$; (2) **find $\xx_p$** by reducing the augmented $[A\mid\bb]$ and setting free vars to 0
+(worked on 3.2's $A=[[1,1,2],[1,2,3]]$ with $\bb=(3,5)\to\xx_p=(1,2,0)$); (3) **complete solution + its
+picture** — $\xx=(1,2,0)+t(-1,-1,1)$ = the nullspace line **slid** through $\xx_p$ (parallel, off origin;
+through origin only if $\bb=\zero$); includes a schematic TikZ figure to *read*; (4) **solvability** — a
+solution exists iff $\bb\in C(A)$; a zero row of reduced $A$ meeting a nonzero RHS gives $0=$nonzero (no
+solution); solution-count by rank ($r=n$: 0/1; $r=m$: always solvable; $r=m=n$: exactly one). Robot-arm
+"hit the target $\bb$" hook reuses 3.2's lever framing. Activity Tier A hides the free column in the
+middle (shifted line) + a two-free-variable shifted plane, Tier E does solvability/uniqueness/proof;
+homework contrasts same $A$ with solvable vs. unsolvable $\bb$ ((b) vs (c)), previews 3.4 basis/dimension.
+Key insight stressed throughout: the solution set is a **subspace only when $\bb=\zero$** (misses origin
+otherwise). All arithmetic hand-verified; keys use `\ans{}`/`\ansline{}` and `{\color{keyred}\mathbf{...}}`
+slots; augmented matrices via `\left[\begin{array}{ccc|c}...\right]`. Built `make -C unit03/lesson03 all`
+→ clean. **Pagination note:** blank notes first ran 3pp (ruled `\writeline`/`\termblanklong` blanks are
+taller than the key's filled text) while the key was 2pp — trimmed section-4 wording, two practice
+questions, a vspace, itemsep, and the figure scale (0.62→0.54) to bring the blank to 2pp so blank & key
+match. Final page counts identical to 3.2: cover/warmup/exit 1pp, notes/activity/homework 2pp (blank &
+key match), lesson plan 2pp, slides 7pp; student 9pp, full 18pp. Visually spot-checked notes_key p1–2,
+activity_key p1–2, warmup_key, homework_key p1–2 — clean. Next run authors 3.4 (Independence, Basis, and
+Dimension).
 
-**Prior run:** Authored & built Unit 3 Lesson 3.1 — "Vector Spaces and Subspaces" (§3.1). Named the
-object (**vector space** = closed under $+$/scaling + usual rules, $\mathbb{R}^n$ the model);
-**subspace** = subset that is itself a vector space ⇒ the two-part **subspace requirement**, with
-"contains $\zero$ is necessary but NOT sufficient" (union-of-axes counterexample, fails addition); the
-$\mathbb{R}^2/\mathbb{R}^3$ catalog; the precise $C(A)$-is-a-subspace proof via $A(\xx+\yy)=A\xx+A\yy$.
-Robot-arm reachable-set hook; extension widens "vector space" to $2\times2$ matrices. Build gotcha:
-activity used `\bb` without defining it → fixed. All components + keys + slides built clean; same page
-profile as 3.2 (student 9pp, full 18pp).
+**Prior run:** Authored & built Unit 3 Lesson 3.2 — "The Nullspace of $A$: Solving $A\xx=\zero$" (§3.2).
+Nullspace $N(A)=\{\xx:A\xx=\zero\}$ as a subspace of $\mathbb{R}^n$ (inputs, vs. $C(A)\subseteq\mathbb{R}^m$);
+solve $A\xx=\zero$ by elimination; pivot vs. free columns/variables; special solutions (free var $=1$,
+solve back); $N(A)$ = all combinations, free count $n-r$; point/line/plane by $n-r$. Robot-lever
+"do-nothing settings" hook. Build gotcha: `\ss` macro collides with LaTeX's ß → renamed `\svec`. Same
+page profile (student 9pp, full 18pp).
 
 ## Current state
 
@@ -116,7 +117,7 @@ Confirmed lesson map:
 - `unit02/tests` (practice + actual) + `unit02/test_keys` (both keys) — **authored ✅ & built**;
   `sample_test`/`sample_test_key` populated by `drop` (practice test + key). `unit02/Makefile` present.
 
-**Unit 3 — lessons 3.0, 3.1 & 3.2 authored & built; 3.3–3.6 + tests still skeletons.** Confirmed lesson map (6 lessons):
+**Unit 3 — lessons 3.0–3.3 authored & built; 3.4–3.6 + tests still skeletons.** Confirmed lesson map (6 lessons):
 - `unit03/lesson00` — id 3.0, **"Sets of Vectors and the Road to Subspaces"** (intro) — ✅ authored
   & built (all components + keys + slides). Content: $\mathbb{R}^n$ \& span (recall); subspace =
   closed under $+$/scaling (contains $\zero$) via the closure test; geometric catalog (lines/planes
@@ -137,7 +138,13 @@ Confirmed lesson map:
   hook (reuses 3.1's $A=[[1,2],[2,4]]$). Extension: nonzero nullspace ⇔ dependent columns, and
   $N(A)=\{\zero\}$ ⇔ invertible. Previews 3.3 (particular + nullspace). Macro gotcha: `\ss` collides
   with LaTeX's built-in ß → renamed `\svec`.
-- `unit03/lesson03` — id 3.3, **"The Complete Solution to Ax = b"** — ◐ scaffolded
+- `unit03/lesson03` — id 3.3, **"The Complete Solution to Ax = b"** — ✅ authored & built (all
+  components + keys + slides). Content: **complete solution** $\xx=\xx_p+\xx_n$ (one particular solution
+  $+$ the whole nullspace); why it captures every solution ($A(\xx_p+\xx_n)=\bb$); finding $\xx_p$ by
+  reducing $[A\mid\bb]$ (free vars $=0$); the **shifted** solution set (line/plane parallel to $N(A)$, off
+  origin unless $\bb=\zero$ — so *not* a subspace); **solvability** $\bb\in C(A)$ (zero row vs. nonzero RHS
+  = $0=$nonzero); solution count by rank. Reuses 3.2's $A=[[1,1,2],[1,2,3]]$, $\bb=(3,5)$, $\xx_p=(1,2,0)$,
+  $\svec=(-1,-1,1)$. Robot-arm "hit the target" hook. Previews 3.4 (basis/dimension).
 - `unit03/lesson04` — id 3.4, **"Independence, Basis, and Dimension"** — ◐ scaffolded
 - `unit03/lesson05` — id 3.5, **"Dimensions of the Four Subspaces"** — ◐ scaffolded
 - `unit03/lesson06` — id 3.6, **"The Fundamental Theorem of Linear Algebra"** (capstone, added by
@@ -159,7 +166,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | --- | --- | --- | --- |
 | 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
 | 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ☑ all lessons + tests authored & built ✅ |
-| 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ◐ 3.0, 3.1 & 3.2 authored & built ✅; 3.3–3.6 + tests still skeletons |
+| 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ◐ 3.0–3.3 authored & built ✅; 3.4–3.6 + tests still skeletons |
 | 4 | Orthogonality | 4.1–4.4 | ☐ |
 | 5 | Determinants and Linear Transformations | 5.1–5.3 | ☐ |
 | 6 | Eigenvalues and Eigenvectors | 6.1–6.4 (§6.4 optional) | ☐ |
@@ -168,17 +175,17 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author Unit 3, in order — 3.0, 3.1 & 3.2 done.** Next author `unit03/lesson03` (id 3.3, **The
-   Complete Solution to $A\xx=\bb$**) from Strang §3.3 — a particular solution $\xx_p$ + the whole
-   nullspace = the complete solution; solving $A\xx=\bb$ by reducing $[A\mid\bb]$; the
-   solvability/consistency condition; the $\xx_p+N(A)$ picture as an off-origin line/plane (parallel
-   to $N(A)$). This directly extends 3.2 (the homework/exit-ticket already seeded "wiggle room" and
-   $N(A)=\{\zero\}$ ⇔ unique). Mirror 3.0–3.2 for preamble, boxes, and tone. Then 3.4–3.5 each from
-   its matching LAfE subchapter, then the **capstone `unit03/lesson06` (id 3.6, The Fundamental
-   Theorem of Linear Algebra)** — synthesize the four subspaces + their dimensions (Strang Part 1 +
-   the big-picture diagram), preview orthogonality (Part 2 → Unit 4). Finish with the summative tests
-   (`unit03/tests` + `unit03/test_keys`, then `make ... drop` to publish the sample test/key). The
-   unit test should now also draw on 3.6's synthesis.
+1. **Author Unit 3, in order — 3.0–3.3 done.** Next author `unit03/lesson04` (id 3.4, **Independence,
+   Basis, and Dimension**) from Strang §3.4 — linear independence (no vector a combination of the
+   others; only the trivial combination gives $\zero$); a **basis** = an independent set that spans a
+   space (the columns of $C$ from $A=CR$; the special solutions as a basis for $N(A)$); **dimension** =
+   the number of vectors in any basis (well-defined). This extends 3.3 (which of the special solutions
+   are "really" independent). Mirror 3.0–3.3 for preamble, boxes, and tone. Then 3.5 from its LAfE
+   subchapter, then the **capstone `unit03/lesson06` (id 3.6, The Fundamental Theorem of Linear
+   Algebra)** — synthesize the four subspaces + their dimensions (Strang Part 1 + the big-picture
+   diagram), preview orthogonality (Part 2 → Unit 4). Finish with the summative tests (`unit03/tests`
+   + `unit03/test_keys`, then `make ... drop` to publish the sample test/key). The unit test should
+   now also draw on 3.6's synthesis.
 2. *(optional)* Rebuild the whole Unit 1/Unit 2 packets (`make -C unitXX student|full`) to confirm the
    `sample_test`/`sample_test_key` merge in as expected before moving on.
 

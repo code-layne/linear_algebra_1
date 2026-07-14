@@ -2,6 +2,11 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\T}{^{\mathsf T}}
 
 % Part-divider strip
 \newcommand{\parthead}[1]{%
@@ -23,16 +28,105 @@ with no notes, then check your answers against the key.
 \end{remindbox}
 
 % ======================================================================
-\parthead{Part A --- Vocabulary}
-% TODO: matching / fill-in vocabulary items for this unit.
+\parthead{Part A --- Vocabulary (8 pts)}
+Write the letter of the best description next to each term.
 
-\parthead{Part B --- Multiple Choice}
-% TODO: multiple-choice items (concept checks).
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=7pt, label=\arabic*.]
+  \item Subspace \blank{1.2cm}
+  \item Nullspace $N(A)$ \blank{1.2cm}
+  \item Column space $C(A)$ \blank{1.2cm}
+  \item Special solution \blank{1.2cm}
+  \item Linear independence \blank{1.2cm}
+  \item Basis \blank{1.2cm}
+  \item Dimension \blank{1.2cm}
+  \item Rank \blank{1.2cm}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.57\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=3pt]
+  \item[(A)] The number of vectors in a basis (e.g.\ $r$ for $C(A)$, $n-r$ for $N(A)$).
+  \item[(B)] The span of the columns of $A$; the reachable outputs $\bb$, a subspace of $\mathbb{R}^m$.
+  \item[(C)] A set in which only the all-zero combination gives $\zero$ (no vector is a combination of the others).
+  \item[(D)] The set of all solutions to $A\xx=\zero$; a subspace of $\mathbb{R}^n$.
+  \item[(E)] The number of pivots $r$; equals both the row rank and the column rank.
+  \item[(F)] A subset closed under addition and scalar multiplication (so it contains $\zero$).
+  \item[(G)] An independent set that spans the space --- the fewest vectors that build every vector in it.
+  \item[(H)] A solution of $A\xx=\zero$ found by setting one free variable to $1$ and the rest to $0$.
+\end{description}
+\end{minipage}
 
-\parthead{Part C --- Short Answer \& Computation}
-% TODO: computation items; leave \vspace work room after each.
+% ======================================================================
+\parthead{Part B --- Multiple Choice (12 pts)}
+Circle the best answer.
 
-\parthead{Part D --- Extended Response}
-% TODO: one or two interpret/justify items ("what does this mean, and how do you know?").
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item Which set is \textbf{not} a subspace of $\mathbb{R}^2$?
+    \hfill (A) the line $y=2x$ \quad (B) all of $\mathbb{R}^2$ \quad (C) the line $y=2x+1$ \quad (D) $\{\zero\}$
+  \item For an $m\times n$ matrix of rank $r$, the nullspace $N(A)$ has dimension
+    \hfill (A) $r$ \quad (B) $n-r$ \quad (C) $m-r$ \quad (D) $n$
+  \item The columns of $A$ are linearly independent exactly when
+    \hfill (A) $N(A)=\{\zero\}$ \quad (B) $C(A)=\mathbb{R}^m$ \quad (C) $A$ is square \quad (D) $A$ has a zero row
+  \item For \emph{any} matrix, the row rank and the column rank are
+    \hfill (A) always equal \quad (B) equal only if $A$ is square \quad (C) never equal \quad (D) unrelated
+  \item When $A\xx=\bb$ is solvable, its complete solution has the form
+    \hfill (A) $\xx_p$ only \quad (B) $\xx_n$ only \\
+    \phantom{x}\hfill (C) $\xx_p+\xx_n$ (one particular $+$ the whole nullspace) \quad (D) always a single point
+  \item If $\xx$ is in the nullspace of $A$, then $\xx$ is perpendicular to
+    \hfill (A) every column of $A$ \quad (B) every row of $A$ \quad (C) the vector $\bb$ \quad (D) nothing
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (35 pts)}
+Show your work. Problems 2--7 all use the same matrix
+$A=\begin{bsmallmatrix}1&1&2\\2&1&3\\3&2&5\end{bsmallmatrix}$.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=13pt]
+  \item Use the \textbf{closure test} to decide whether $W=\{(x,y,z)\in\mathbb{R}^3 : x+y+z=0\}$ is a
+        subspace of $\mathbb{R}^3$. Check all three conditions (contains $\zero$; closed under addition;
+        closed under scalar multiplication).
+        \vspace{2.4cm}
+  \item Row-reduce $A$ and find every \textbf{special solution} of $A\xx=\zero$. State $\dim N(A)$.
+        \vspace{2.6cm}
+  \item Solve $A\xx=\bb$ \textbf{completely} for $\bb=\begin{bsmallmatrix}2\\3\\5\end{bsmallmatrix}$.
+        Write your answer as $\xx=\xx_p+(\text{nullspace part})$.
+        \vspace{2.4cm}
+  \item Is $\bb=\begin{bsmallmatrix}1\\0\\0\end{bsmallmatrix}$ in the column space $C(A)$? Show how you
+        know (reduce $[A\mid\bb]$ and read off solvability).
+        \vspace{2.4cm}
+  \item Are the columns of $A$ linearly independent? Give a \textbf{basis} for $C(A)$ and state its
+        dimension (the rank $r$).
+        \vspace{2.2cm}
+  \item $A$ is $3\times3$ with rank $r=2$. State the dimensions of all \textbf{four} subspaces:
+        $C(A)$, $N(A)$, the row space $C(A\T)$, and the left nullspace $N(A\T)$. Which two live in the
+        input space $\mathbb{R}^3$ and which two in the output space $\mathbb{R}^3$?
+        \vspace{2.4cm}
+  \item Verify that the special solution $\svec=\begin{bsmallmatrix}-1\\-1\\1\end{bsmallmatrix}$ is
+        perpendicular to \emph{every} row of $A$ (compute the three dot products). Which theorem does
+        this illustrate?
+        \vspace{2.2cm}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (10 pts)}
+Explain your reasoning in full sentences.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=16pt]
+  \item Consider the line $W=\{(x,y)\in\mathbb{R}^2 : y=2x+1\}$.
+        \textbf{(a)} Does $W$ contain the zero vector? \textbf{(b)} Is $W$ a subspace of $\mathbb{R}^2$?
+        Justify with the closure test. \textbf{(c)} Contrast $W$ with the line $y=2x$: which is a
+        subspace, and why?
+        \vspace{3.0cm}
+  \item For the matrix $A$ above (rank $2$, special solution $\svec=(-1,-1,1)$):
+        \textbf{(a)} Explain why $N(A)$ and the row space are perpendicular, using the idea that
+        ``$A\xx=\zero$ says each row $\cdot\,\xx=0$.'' \textbf{(b)} The two subspaces have dimensions
+        $2$ and $1$ inside $\mathbb{R}^3$. Explain why together they ``fill'' $\mathbb{R}^3$ and meet only
+        at $\zero$.
+        \vspace{2.8cm}
+\end{enumerate}
 
 \end{document}

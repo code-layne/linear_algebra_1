@@ -7,7 +7,28 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-14 — **Authored & built Unit 3 Lesson 3.6 — "The Fundamental Theorem of
+**Last updated:** 2026-07-14 — **Authored & built the Unit 3 summative tests — Unit 3 is now complete.**
+Filled all four skeletons (`tests/practice_test`, `tests/actual_test`, `test_keys/practice_test_key`,
+`test_keys/actual_test_key`), mirroring the Unit 1/Unit 2 test format (`shared/tests.mk` + `test_keys.mk`;
+`\parthead` burgundy strips; Part A vocab matching / B multiple choice / C computation / D extended
+response). **Blueprint spans the whole unit:** A (8 terms — subspace, nullspace, column space, special
+solution, independence, basis, dimension, rank), B (6 MC concept checks across 3.1–3.6), C (7 items — closure
+test 3.1; special solutions + $\dim N(A)$ 3.2; complete solution $\xx_p+\xx_n$ 3.3; solvability $\bb\in C(A)$
+3.3; independence/basis/rank 3.4; four-subspace dims $r,n-r,r,m-r$ 3.5; orthogonality dot-product right-angle
+check 3.6), D (2 items — off-origin line is not a subspace; FTLA orthogonality synthesis). **Practice test
+reuses the 3.5/3.6 spine** $A=[[1,1,2],[2,1,3],[3,2,5]]$ (RREF $[[1,0,1],[0,1,1],[0,0,0]]$, $\svec=(-1,-1,1)$,
+col3=col1+col2) for continuity; **actual test uses a parallel-but-distinct** $B=[[1,2,1],[2,4,3],[3,6,4]]$
+(RREF $[[1,2,0],[0,0,1],[0,0,0]]$, $\svec=(-2,1,0)$, col2=2·col1 → free variable in the *middle*, so students
+can't pattern-match). All matrix answers hand-verified in Python (rref, augmented solvability, orthogonality
+dot products all $0$). Built `make -C unit03/tests all` and `make -C unit03/test_keys all` → clean (0 `^!`
+errors; only overfull is the shared 10.77pt `\namedateperiod` header). Each of the four PDFs is **3pp**;
+`drop` published `sample_test/main.pdf` (practice, 3pp) and `sample_test_key/main.pdf` (practice key, 3pp).
+Visually spot-checked the practice key p1 (vocab matching + MC marks) and p3 (Part D + teachernote) — clean.
+**Gotcha fixed:** the D2 answer uses `\vv` for a generic vector ($\vv\cdot\vv=0\Rightarrow\vv=\zero$), but the
+test/key preambles only defined `\bb\xx\zero\svec\T` — added `\newcommand{\vv}{\mathbf{v}}` to both keys.
+**Unit 3 is now fully complete (lessons 3.0–3.6 + tests); next run begins Unit 4 (Orthogonality).**
+
+**Prior run:** **Authored & built Unit 3 Lesson 3.6 — "The Fundamental Theorem of
 Linear Algebra" (§3.6, the Unit 3 capstone).** Filled every skeleton: lesson plan, cover, warmup, notes,
 activity, exit_ticket, homework (+ the five keys) and the slides deck, mirroring 3.0–3.5's preamble/boxes/tone.
 **Content — synthesis of the whole unit in two parts:** (1) **the big picture** — assemble the four subspaces
@@ -115,7 +136,7 @@ Confirmed lesson map:
 - `unit02/tests` (practice + actual) + `unit02/test_keys` (both keys) — **authored ✅ & built**;
   `sample_test`/`sample_test_key` populated by `drop` (practice test + key). `unit02/Makefile` present.
 
-**Unit 3 — lessons 3.0–3.6 all authored & built; tests still skeletons.** Confirmed lesson map (6 lessons):
+**Unit 3 — COMPLETE: lessons 3.0–3.6 AND the summative tests all authored & built.** Confirmed lesson map (6 lessons):
 - `unit03/lesson00` — id 3.0, **"Sets of Vectors and the Road to Subspaces"** (intro) — ✅ authored
   & built (all components + keys + slides). Content: $\mathbb{R}^n$ \& span (recall); subspace =
   closed under $+$/scaling (contains $\zero$) via the closure test; geometric catalog (lines/planes
@@ -169,10 +190,10 @@ Confirmed lesson map:
   $N(A^{\mathsf T})\perp C(A)$; the pairs are **orthogonal complements**. Reduces Part 2 to Lesson 1.2
   (dot $=0$ ⇔ perpendicular). Reuses the 3.5 spine matrix; two-room TikZ big-picture diagram (notes §1 +
   slides). Previews **Unit 4 (Orthogonality)**.
-- `unit03/tests` + `unit03/test_keys` (practice + actual, both keys) — ◐ scaffolded (skeletons);
-  `sample_test`/`sample_test_key` drop dirs present. `unit03/Makefile` present.
+- `unit03/tests` (practice + actual) + `unit03/test_keys` (both keys) — **authored ✅ & built**;
+  `sample_test`/`sample_test_key` populated by `drop` (practice test + key, 3pp each). `unit03/Makefile` present.
 - All six lessons (3.0–3.6) have the full authored component set (cover, warmup, notes, activity,
-  exit_ticket, homework, slides) + keys — the only Unit 3 skeletons left are the `tests`/`test_keys`.
+  exit_ticket, homework, slides) + keys. **Unit 3 has nothing left — lessons and tests all done.**
 
 ### Per-unit progress
 
@@ -182,7 +203,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | --- | --- | --- | --- |
 | 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
 | 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ☑ all lessons + tests authored & built ✅ |
-| 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ◐ 3.0–3.6 all authored & built ✅; tests still skeletons |
+| 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ☑ all lessons + tests authored & built ✅ |
 | 4 | Orthogonality | 4.1–4.4 | ☐ |
 | 5 | Determinants and Linear Transformations | 5.1–5.3 | ☐ |
 | 6 | Eigenvalues and Eigenvectors | 6.1–6.4 (§6.4 optional) | ☐ |
@@ -191,15 +212,13 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author the Unit 3 summative tests — all six lessons (3.0–3.6) are done.** Fill `unit03/tests`
-   (`practice_test` + `actual_test`) and `unit03/test_keys` (both keys), then `make -C unit03 <target>` and
-   `make -C unit03/tests drop` / `make -C unit03/test_keys drop` to publish the sample test/key into
-   `sample_test`/`sample_test_key`. The test should span the unit: subspace/closure (3.0–3.1), nullspace &
-   special solutions (3.2), complete solution $\xx=\xx_p+\xx_n$ & solvability (3.3), independence/basis/
-   dimension (3.4), the four subspaces & their dimensions $r,\,n-r,\,r,\,m-r$ (3.5), and the big picture +
-   orthogonality (3.6: $A\xx=\zero\Rightarrow\xx\perp$ rows, a dot-product right-angle check). Mirror the
-   Unit 1/Unit 2 test format (`shared/tests.mk`); reuse the spine matrix $[[1,1,2],[2,1,3],[3,2,5]]$ for
-   continuity. Then Unit 3 is complete → begin Unit 4 (Orthogonality).
+1. **Begin Unit 4 — Orthogonality (Strang Ch. 4).** Confirm the lesson map with the user first
+   (decompose §4.1–4.4 from `spec/linear_algebra_v2.md`, plus the customary `lesson00` intro id 4.0).
+   Likely: 4.0 intro/spiral (dot product, perpendicular, projection preview) → 4.1 Orthogonality of the
+   four subspaces → 4.2 Projections onto a line/subspace → 4.3 Least squares & the normal equations
+   $A\T A\hat\xx=A\T\bb$ → 4.4 Orthonormal bases & Gram–Schmidt ($Q$, $A=QR$). Unit 3's FTLA (§3.6) already
+   set up orthogonal complements, so Unit 4 is the natural continuation. Scaffold with `new_lesson.py`
+   (a new unit auto-scaffolds `tests/`+`test_keys/`), then author lesson-by-lesson as in Units 1–3.
 2. *(optional)* Rebuild the whole Unit 1/Unit 2/Unit 3 packets (`make -C unitXX student|full`) to confirm the
    `sample_test`/`sample_test_key` merge in as expected before moving on.
 

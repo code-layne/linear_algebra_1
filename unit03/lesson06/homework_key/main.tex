@@ -3,17 +3,79 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\aaa}{\mathbf{a}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.6}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+The \textbf{Fundamental Theorem}: \emph{Part~1} --- $\dim C(A)=\dim C(A^{\T})=r$, $\dim N(A)=n-r$, $\dim
+N(A^{\T})=m-r$; \emph{Part~2} --- $N(A)\perp C(A^{\T})$ in $\mathbb{R}^n$ and $N(A^{\T})\perp C(A)$ in
+$\mathbb{R}^m$. Check a right angle with a \emph{dot product of $0$}. Always \emph{justify}.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Part 1 --- dimensions.} Fill in the four dimensions for each matrix.
+    \begin{center}\small
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{@{}l c c c c@{}}
+    \textbf{Matrix} & $\dim C(A)$ & $\dim C(A^{\T})$ & $\dim N(A)$ & $\dim N(A^{\T})$ \\
+    \hline
+    (a) $2\times5$, $r=2$ & \ans{$2$} & \ans{$2$} & \ans{$3$} & \ans{$0$} \\
+    (b) $4\times4$, $r=4$ & \ans{$4$} & \ans{$4$} & \ans{$0$} & \ans{$0$} \\
+    (c) $5\times3$, $r=2$ & \ans{$2$} & \ans{$2$} & \ans{$1$} & \ans{$3$} \\
+    \end{tabular}
+    \end{center}
+  \item \textbf{Both parts, one matrix.} For $A=\begin{bmatrix} 1 & 0 & 1 \\ 2 & 1 & 3 \\ 3 & 1 & 4 \end{bmatrix}$
+        (row~3 $=$ row~1 $+$ row~2), which reduces to $\begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \\ 0 & 0 & 0 \end{bmatrix}$:
+        give a basis for all four subspaces (Part~1), then \emph{verify both right angles} with dot products
+        (Part~2). The nullspace vector is $\svec=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$ and a
+        left-nullspace vector is $\yy=\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}$.
+        \ansline{$m=n=3$, $r=2$. \textbf{Bases:} $C(A^{\T})$: $(1,0,1),(0,1,1)$; $N(A)$: $\svec=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$; $C(A)$: pivot columns $\aaa_1=\begin{bsmallmatrix} 1\\2\\3 \end{bsmallmatrix},\aaa_2=\begin{bsmallmatrix} 0\\1\\1 \end{bsmallmatrix}$; $N(A^{\T})$: $\yy=\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}$. \textbf{Input right angle:} $(1,0,1)\cdot\svec=-1+0+1=0$, $(0,1,1)\cdot\svec=0-1+1=0$, so $N(A)\perp C(A^{\T})$. \textbf{Output right angle:} $\yy\cdot\aaa_1=1+2-3=0$, $\yy\cdot\aaa_2=0+1-1=0$, so $N(A^{\T})\perp C(A)$.}
+  \item \textbf{Read the right angle.} A matrix has row space spanned by $(1,2,2)$ and nullspace vector
+        $\svec=\begin{bsmallmatrix} 2\\-2\\1 \end{bsmallmatrix}$. Show these are perpendicular, and explain in
+        words what that says about the two subspaces. \ansline{$(1,2,2)\cdot\svec=(1)(2)+(2)(-2)+(2)(1)=2-4+2=0$. The dot product is $0$, so the nullspace vector is perpendicular to the row-space spanning vector --- hence to the whole row space. This is Part~2: $N(A)\perp C(A^{\T})$, the nullspace and row space sit at a right angle in $\mathbb{R}^3$.}
+  \item \textbf{Explain.} Using ``$A\xx$ is computed row by row,'' explain why every vector in the nullspace
+        is perpendicular to every vector in the row space. \ansline{Entry $i$ of $A\xx$ is (row$_i$)$\,\cdot\,\xx$. A nullspace vector has $A\xx=\zero$, so every row$_i\cdot\xx=0$: $\xx$ is perpendicular to each row. Any row-space vector is a combination of the rows, and $\xx$ dotted with a combination is the same combination of those zero dot products --- still $0$. So $\xx$ is perpendicular to every row-space vector.}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Orthogonal complements.}
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item \textbf{Meet only at $\zero$.} If $\vv$ is in both the row space and the nullspace, then
+        $\vv\cdot\vv=0$. Explain why this forces $\vv=\zero$. (Use $\vv\cdot\vv=\|\vv\|^2$.)
+  \item \textbf{The invertible case.} Let $A$ be an invertible $n\times n$ matrix. State all four dimensions
+        and describe the big picture: what are the nullspace and left nullspace, and what do the row space
+        and column space fill?
+\end{enumerate}
+\ansline{(a) A vector in both spaces is perpendicular to itself, so $\vv\cdot\vv=0$. But $\vv\cdot\vv=\|\vv\|^2$, which is $0$ only when $\|\vv\|=0$, i.e.\ $\vv=\zero$. So the row space and nullspace share only the zero vector.}
+\ansline{(b) $r=n=m$: $\dim C(A)=\dim C(A^{\T})=n$ and $\dim N(A)=\dim N(A^{\T})=0$. Both nullspaces are $\{\zero\}$; the row space and column space each fill their whole room $\mathbb{R}^n$. The big picture has no ``vanishing'' half --- every direction ``does something.''}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Unit 4: Orthogonality.} You just discovered that a matrix's four subspaces come in two
+\emph{perpendicular} pairs. Unit~4 makes that the main event: given a subspace and a point outside it, find
+the closest point \emph{in} the subspace (a \emph{projection}), and use it to fit the best line to data
+(\emph{least squares}). Every one of those tools rests on the right angles in today's big picture.
+\end{spiralbox}
+
+\begin{teachernote}
+Problem~1 is pure Part~1 counting --- watch (c), a $5\times3$: $\dim N(A^{\T})=m-r=3$ (uses the row count),
+$\dim N(A)=n-r=1$. Problem~2 is the full skill: all four bases \emph{and} both dot-product checks. Problem~3
+isolates one right-angle check and its meaning. Problem~4 is the row-by-row argument in prose --- the
+conceptual target of the lesson. Extension~(a) is the elegant ``$\vv\cdot\vv=0\Rightarrow\vv=\zero$'' reason
+the pair meets only at $\zero$; (b) is the invertible capstone (both nullspaces vanish) and a clean lead-in to
+the Unit~3 test.
+\end{teachernote}
 
 \end{document}

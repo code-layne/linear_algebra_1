@@ -3,6 +3,11 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,9 +16,24 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=15pt]
+  \item \textbf{The big picture.} A matrix $A$ is $4\times 3$ with rank $r=2$. Give the four dimensions and
+        the room ($\mathbb{R}^m$ or $\mathbb{R}^n$) each subspace lives in, then name the two perpendicular
+        pairs (Part~2).
+        \[
+          \dim C(A)=\blank{0.8cm}\ \ \dim C(A^{\T})=\blank{0.8cm}\ \
+          \dim N(A)=\blank{0.8cm}\ \ \dim N(A^{\T})=\blank{0.8cm}
+        \]
+        \writelines{2}
+  \item \textbf{Check a right angle.} For $A=\begin{bmatrix} 2 & 1 \\ 4 & 2 \end{bmatrix}$, the nullspace
+        vector is $\svec=\begin{bsmallmatrix} -1\\2 \end{bsmallmatrix}$ and the top row is $(2,1)$. Compute
+        $(2,1)\cdot\svec$ and say what it shows about the nullspace and the row space.
+        \writelines{2}
+  \item \textbf{Why?} In one or two sentences, use ``$A\xx$ is computed row by row'' to explain why
+        $A\xx=\zero$ forces $\xx$ to be perpendicular to every row of $A$.
+        \writelines{2}
+\end{enumerate}
 
 \end{document}

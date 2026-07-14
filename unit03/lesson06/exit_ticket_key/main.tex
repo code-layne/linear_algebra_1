@@ -3,6 +3,11 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,9 +16,33 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=15pt]
+  \item \textbf{The big picture.} A matrix $A$ is $4\times 3$ with rank $r=2$. Give the four dimensions and
+        the room ($\mathbb{R}^m$ or $\mathbb{R}^n$) each subspace lives in, then name the two perpendicular
+        pairs (Part~2).
+        \[
+          \dim C(A)=\ans{$2$}\ \ \dim C(A^{\T})=\ans{$2$}\ \
+          \dim N(A)=\ans{$1$}\ \ \dim N(A^{\T})=\ans{$2$}
+        \]
+        \ansline{$m=4$, $n=3$. $C(A)$ and $N(A^{\T})$ live in $\mathbb{R}^m=\mathbb{R}^4$; $C(A^{\T})$ and $N(A)$ live in $\mathbb{R}^n=\mathbb{R}^3$. Perpendicular pairs: in $\mathbb{R}^3$, $C(A^{\T})\perp N(A)$; in $\mathbb{R}^4$, $C(A)\perp N(A^{\T})$. (Checks: $2+1=3=n$, $2+2=4=m$.)}
+  \item \textbf{Check a right angle.} For $A=\begin{bmatrix} 2 & 1 \\ 4 & 2 \end{bmatrix}$, the nullspace
+        vector is $\svec=\begin{bsmallmatrix} -1\\2 \end{bsmallmatrix}$ and the top row is $(2,1)$. Compute
+        $(2,1)\cdot\svec$ and say what it shows about the nullspace and the row space.
+        \ansline{$(2,1)\cdot\svec=(2)(-1)+(1)(2)=-2+2=0$. A dot product of $0$ means perpendicular, so the nullspace vector $\svec$ is perpendicular to the row $(2,1)$ --- i.e.\ $N(A)\perp C(A^{\T})$ (the row space is spanned by that row).}
+  \item \textbf{Why?} In one or two sentences, use ``$A\xx$ is computed row by row'' to explain why
+        $A\xx=\zero$ forces $\xx$ to be perpendicular to every row of $A$.
+        \ansline{Each entry of $A\xx$ is a row of $A$ dotted with $\xx$. So $A\xx=\zero$ makes every one of those dot products $0$, and a dot product of $0$ means the vectors are perpendicular --- hence $\xx$ is perpendicular to every row.}
+\end{enumerate}
+
+\begin{teachernote}
+Sort responses into ``got it / paired across rooms / checked only one vector.'' Item~1 is the Part~1
+discriminator (four dimensions \emph{and} the right room --- note $\dim N(A^{\T})=m-r=2$ uses the row count
+$m=4$). Item~2 is the concrete Part~2 check: one dot product, and the reading that dot $=0$ means the two
+subspaces are perpendicular. Item~3 is the conceptual crux --- the row-by-row reason. If many pair subspaces
+across rooms or state the wrong dimension for $N(A^{\T})$, re-draw the two-room big picture before the Unit~3
+test.
+\end{teachernote}
 
 \end{document}

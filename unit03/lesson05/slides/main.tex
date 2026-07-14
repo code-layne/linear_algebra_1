@@ -1,6 +1,14 @@
 %! Dimensions of the Four Subspaces — Unit 3, Lesson 3.5 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\cc}{\mathbf{c}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,16 +19,130 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 3.5}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Dimensions of the Four Subspaces}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 3}
+    {\color{white}\bfseries\LARGE Dimensions of the Four Subspaces}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 3: The Four Fundamental Subspaces}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{How does a matrix carve up each room?}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.58\textwidth}
+      A lever setting is an input $\xx\in\mathbb{R}^n$; the tip lands at $A\xx\in\mathbb{R}^m$.\\[6pt]
+      So $A$ connects \textbf{two rooms}: an \emph{input room} $\mathbb{R}^n$ and an \emph{output room}
+      $\mathbb{R}^m$.\\[6pt]
+      Each room splits in two --- ``directions that do something'' and ``directions that vanish.'' That is
+      the \textbf{four fundamental subspaces}.
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.62]
+        \draw[rounded corners, burgundy, very thick] (-1.1,-1.1) rectangle (1.1,1.1);
+        \node[burgundy] at (0,1.45) {\scriptsize input $\mathbb{R}^n$};
+        \draw[rounded corners, royalblue, very thick] (2.9,-1.1) rectangle (5.1,1.1);
+        \node[royalblue] at (4,1.45) {\scriptsize output $\mathbb{R}^m$};
+        \draw[->, ultra thick, charcoal] (1.3,0)--(2.7,0) node[midway, above]{\scriptsize $A$};
+        \node[burgundy] at (0,0.35){\scriptsize row space};
+        \node[burgundy] at (0,-0.35){\scriptsize nullspace};
+        \node[royalblue] at (4,0.35){\scriptsize column sp.};
+        \node[royalblue] at (4,-0.35){\scriptsize left null};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{2pt}
+  \begin{block}{Today}
+    Count the dimension of all four subspaces --- from the single number $r$.
+  \end{block}
+\end{frame}
+
+% BIG IDEA: TWO ROOMS, FOUR SUBSPACES
+\begin{frame}[t, plain]
+  \burgundyheader{Two rooms, four subspaces}
+  \sectionlabel{The big idea}
+  For an $m\times n$ matrix $A$ (rank $r$):
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item \textbf{Input room $\mathbb{R}^n$:} the \emph{row space} $C(A^{\T})$ (combinations of the rows) and the \emph{nullspace} $N(A)$ (do-nothing inputs).
+    \item \textbf{Output room $\mathbb{R}^m$:} the \emph{column space} $C(A)$ (reachable outputs) and the \emph{left nullspace} $N(A^{\T})$ (the $\yy$ with $A^{\T}\yy=\zero$).
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{Just transpose}
+    The row space is ``$C$ of $A^{\T}$'' and the left nullspace is ``$N$ of $A^{\T}$'' --- old tools, applied to $A^{\T}$.
+  \end{block}
+\end{frame}
+
+% DIMENSIONS FROM r
+\begin{frame}[t, plain]
+  \burgundyheader{Every dimension comes from $r$}
+  \sectionlabel[goldacc]{Count}
+  \[
+    \dim C(A)=r, \quad \dim C(A^{\T})=r, \quad \dim N(A)=n-r, \quad \dim N(A^{\T})=m-r.
+  \]
+  \begin{itemize}
+    \setlength{\itemsep}{4pt}
+    \item \textbf{Row rank $=$ column rank:} independent rows and independent columns are the \emph{same} number $r$.
+    \item Two counting rules, one per room:
+      \[ r+(n-r)=n \quad\text{(input)}, \qquad r+(m-r)=m \quad\text{(output)}. \]
+  \end{itemize}
+\end{frame}
+
+% ALL FOUR FROM ONE REDUCTION
+\begin{frame}[t, plain]
+  \burgundyheader{All four bases from one reduction}
+  \sectionlabel{Read it off}
+  \[
+    A=\begin{bmatrix} 1 & 1 & 2 \\ 2 & 1 & 3 \\ 3 & 2 & 5 \end{bmatrix}
+    \longrightarrow
+    \begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \\ 0 & 0 & 0 \end{bmatrix}, \qquad r=2.
+  \]
+  \begin{itemize}
+    \setlength{\itemsep}{3pt}
+    \item \textbf{$C(A)$:} pivot columns $\begin{bsmallmatrix} 1\\2\\3 \end{bsmallmatrix},\begin{bsmallmatrix} 1\\1\\2 \end{bsmallmatrix}$ \; \textbf{$C(A^{\T})$:} rows $(1,0,1),(0,1,1)$ \quad ($\dim 2$ each).
+    \item \textbf{$N(A)$:} $\svec=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$ \; \textbf{$N(A^{\T})$:} $\yy=\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}$ \quad ($\dim 1$ each).
+    \item Checks: $2+1=n=3$ and $2+1=m=3$.
+  \end{itemize}
+\end{frame}
+
+% TWO REDUNDANCIES
+\begin{frame}[t, plain]
+  \burgundyheader{Two nullspaces, two redundancies}
+  \sectionlabel[goldacc]{Meaning}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \textbf{Nullspace} $\to$ column redundancy\\[4pt]
+      $\svec=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$ says $A\svec=\zero$:\\[3pt]
+      $\mathbf{a}_3=\mathbf{a}_1+\mathbf{a}_2$ (column~3 redundant).
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \textbf{Left nullspace} $\to$ row redundancy\\[4pt]
+      $\yy=\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}$ says $A^{\T}\yy=\zero$:\\[3pt]
+      row$_3=$ row$_1+$ row$_2$ (row~3 redundant).
+    \end{column}
+  \end{columns}
+  \vspace{6pt}
+  \begin{block}{Same tool, two directions}
+    The nullspace names dependencies among \emph{columns}; the left nullspace names dependencies among \emph{rows}.
+  \end{block}
+\end{frame}
+
+% ROADMAP
+\begin{frame}[t, plain]
+  \burgundyheader{Where this goes}
+  \sectionlabel{Connections}
+  \textbf{Today:} four subspaces, two rooms, all dimensions from $r$ --- $r,\,r,\,n-r,\,m-r$ --- read off one
+  reduction.\\[8pt]
+  \begin{itemize}
+    \setlength{\itemsep}{4pt}
+    \item \textbf{3.6} The Fundamental Theorem of Linear Algebra: assemble the four subspaces into the ``big picture,'' with the two pairs at right angles.
+    \item \textbf{Unit 4} Orthogonality: the row space and nullspace really are perpendicular.
+  \end{itemize}
+  \vspace{4pt}
+  \begin{block}{Keep in mind}
+    One number $r$ controls it all: rank, row rank, column rank, and every dimension.
+  \end{block}
 \end{frame}
 
 \end{document}

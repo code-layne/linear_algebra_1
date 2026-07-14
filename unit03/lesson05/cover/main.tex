@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 3}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 3 \quad The Four Fundamental Subspaces}}\\[6pt]
   {\color{white}\textbf{\large Lesson 3.5 \quad Dimensions of the Four Subspaces}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} name the \textbf{four fundamental subspaces} of a matrix and say which ``room'' ($\mathbb{R}^m$ or $\mathbb{R}^n$) each one lives in.
+  \item \ldots{} give the \textbf{dimension} of each subspace from the single number $r$: $\dim C(A)=\dim C(A^{\mathsf T})=r$, $\dim N(A)=n-r$, $\dim N(A^{\mathsf T})=m-r$.
+  \item \ldots{} read a \textbf{basis} for all four subspaces off one reduction of $A$, and check the counting rules $r+(n-r)=n$ and $r+(m-r)=m$.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,25 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: transpose, rank \& shape from a reduced matrix, $\dim N(A)=n-r$ & \blank{1.2cm} \\
+2 & Guided Notes   & The four subspaces, their rooms, and all four dimensions from $r$           & \blank{1.2cm} \\
+3 & Group Activity & The Four Subspaces --- bases \& dimensions from one reduction                & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check on the four dimensions, a row-space \& left-nullspace basis      & \blank{1.2cm} \\
+5 & Homework       & Four dimensions from $r$, bases for each subspace, FTLA preview              & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small Every $m\times n$ matrix $A$ of rank $r$ has \textbf{four fundamental subspaces}. Two live in the
+\emph{input room} $\mathbb{R}^n$: the \textbf{row space} $C(A^{\mathsf T})$ (dimension $r$) and the
+\textbf{nullspace} $N(A)$ (dimension $n-r$). Two live in the \emph{output room} $\mathbb{R}^m$: the
+\textbf{column space} $C(A)$ (dimension $r$) and the \textbf{left nullspace} $N(A^{\mathsf T})$ (dimension
+$m-r$). The single number $r$ fixes all four dimensions, and ``\emph{row rank $=$ column rank}'' says the
+row space and column space always share it. One reduction of $A$ hands you a basis for each.
+\end{remindbox}
 
 \end{document}

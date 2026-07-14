@@ -3,17 +3,143 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\cc}{\mathbf{c}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.5}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.06in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item name the \emph{four fundamental subspaces} of $A$ and say which room ($\mathbb{R}^m$ or $\mathbb{R}^n$) each lives in;
+  \item give every dimension from the single number $r$: $\dim C(A)=\dim C(A^{\T})=r$, $\dim N(A)=n-r$, $\dim N(A^{\T})=m-r$;
+  \item read a \emph{basis} for all four off one reduction, and check $r+(n-r)=n$ and $r+(m-r)=m$.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.04in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{Row space $C(A^{\T})$}{all combinations of the rows of $A$ --- a subspace of $\mathbb{R}^n$; the same as the column space of $A^{\T}$; dimension $r$}
+\vocabans{Left nullspace $N(A^{\T})$}{all $\yy$ with $A^{\T}\yy=\zero$ --- combinations of the rows that give the zero row; a subspace of $\mathbb{R}^m$; dimension $m-r$}
+\vocabans{Row rank $=$ column rank}{the number of independent rows equals the number of independent columns; both equal $r$}
+\vocabans{Counting rules}{$r+(n-r)=n$ in the input room $\mathbb{R}^n$; $r+(m-r)=m$ in the output room $\mathbb{R}^m$}
+\end{vocabbox}
+
+\begin{hookbox}
+The robot arm connects \textbf{two rooms}: a lever setting is an input $\xx$ in $\mathbb{R}^n$, and the tip
+lands at the output $A\xx$ in $\mathbb{R}^m$.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item Which input settings leave the tip \emph{fixed} (do nothing)? That subspace is called the \ansline{nullspace $N(A)$ --- the inputs with $A\xx=\zero$ (Lesson 3.2).}
+  \item Which output positions can the tip actually \emph{reach}? That subspace is called the \ansline{column space $C(A)$ --- all outputs $A\xx$, i.e.\ all combinations of the columns.}
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. Two Rooms, Four Subspaces}
+An $m\times n$ matrix takes inputs $\xx\in\mathbb{R}^n$ to outputs $A\xx\in\mathbb{R}^m$ --- so it lives
+between an \textbf{input room} $\mathbb{R}^n$ and an \textbf{output room} $\mathbb{R}^m$. Each room splits
+into \emph{two} fundamental subspaces:
+\begin{center}\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}l l l@{}}
+\textbf{Subspace} & \textbf{What it holds} & \textbf{Room} \\
+\hline
+Column space $C(A)$ & all combinations of the columns (reachable outputs) & $\mathbb{R}^{\ans{$m$}}$ \\
+Left nullspace $N(A^{\T})$ & all $\yy$ with $A^{\T}\yy=\zero$ (rows combine to $\zero$) & $\mathbb{R}^{\ans{$m$}}$ \\
+Row space $C(A^{\T})$ & all combinations of the rows & $\mathbb{R}^{\ans{$n$}}$ \\
+Nullspace $N(A)$ & all $\xx$ with $A\xx=\zero$ (do-nothing inputs) & $\mathbb{R}^{\ans{$n$}}$ \\
+\end{tabular}
+\end{center}
+The column space and left nullspace live in the \textbf{output} room $\mathbb{R}^m$; the row space and
+nullspace live in the \textbf{input} room $\mathbb{R}^n$. The row space is just ``the column space of
+$A^{\T}$,'' and the left nullspace is ``the nullspace of $A^{\T}$'' --- transpose, and you are back to tools
+from Lessons~1.3 and~3.2.
 \end{notesbox}
+
+\begin{notesbox}{2. Every Dimension Comes from $r$}
+The rank $r$ (the number of pivots) fixes all four dimensions:
+\[
+  \dim C(A)=\ans{$r$}, \qquad \dim C(A^{\T})=\ans{$r$}, \qquad
+  \dim N(A)=\ans{$n-r$}, \qquad \dim N(A^{\T})=\ans{$m-r$}.
+\]
+The headline is \textbf{row rank $=$ column rank}: the number of independent rows equals the number of
+independent columns --- \emph{both} are $r$. So $\dim C(A)=\dim C(A^{\T})=r$ even when the two spaces live
+in different-sized rooms. \textbf{Two counting rules} follow, one per room:
+\[
+  \underbrace{r+(n-r)}_{\text{input room}}=n, \qquad\qquad \underbrace{r+(m-r)}_{\text{output room}}=m.
+\]
+Each room is split into ``directions that do something'' ($r$-dimensional) plus ``directions that vanish.''
+\end{notesbox}
+
+\begin{notesbox}{3. All Four Bases from One Reduction}
+Reduce $A$ \emph{once} and read off everything. Take
+$A=\begin{bmatrix} 1 & 1 & 2 \\ 2 & 1 & 3 \\ 3 & 2 & 5 \end{bmatrix}$ ($m=3$, $n=3$):
+\[
+  \begin{bmatrix} 1 & 1 & 2 \\ 2 & 1 & 3 \\ 3 & 2 & 5 \end{bmatrix}
+  \xrightarrow{\substack{R_2-2R_1\\ R_3-3R_1}}
+  \begin{bmatrix} 1 & 1 & 2 \\ 0 & -1 & -1 \\ 0 & -1 & -1 \end{bmatrix}
+  \xrightarrow{\substack{R_3-R_2,\ -R_2\\ R_1-R_2}}
+  \begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \\ 0 & 0 & 0 \end{bmatrix}.
+\]
+Pivots in columns $1,2$, so $r=\ans{$2$}$. Now read the four bases:
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item \textbf{$C(A)$} (in $\mathbb{R}^3$): the \emph{pivot columns of $A$} $\begin{bsmallmatrix} 1\\2\\3 \end{bsmallmatrix},\begin{bsmallmatrix} 1\\1\\2 \end{bsmallmatrix}$; $\dim=r=\ans{$2$}$.
+  \item \textbf{$C(A^{\T})$} (in $\mathbb{R}^3$): the \emph{nonzero rows} of the reduced form $(1,0,1),(0,1,1)$; $\dim=r=\ans{$2$}$.
+  \item \textbf{$N(A)$} (in $\mathbb{R}^3$): the special solution $\svec=\begin{bsmallmatrix}\rule{0pt}{1.0em}{\color{keyred}\mathbf{-1}}\\ {\color{keyred}\mathbf{-1}}\\ {\color{keyred}\mathbf{1}}\end{bsmallmatrix}$ (column~3 free); $\dim=n-r=\ans{$1$}$.
+  \item \textbf{$N(A^{\T})$} (in $\mathbb{R}^3$): the row-combination giving the zero row. Here row${}_1+{}$row${}_2-{}$row${}_3=\zero$, so $\yy=\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}$; $\dim=m-r=\ans{$1$}$.
+\end{itemize}
+Checks: $r+(n-r)=\ans{$3$}=n$ and $r+(m-r)=\ans{$3$}=m$.
+\end{notesbox}
+
+\begin{notesbox}{4. The Two Nullspaces Name the Two Redundancies}
+The special solution $\svec=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$ says $A\svec=\zero$, i.e.\
+$-\mathbf{a}_1-\mathbf{a}_2+\mathbf{a}_3=\zero$: \textbf{column}~3 is redundant
+($\mathbf{a}_3=\mathbf{a}_1+\mathbf{a}_2$). The left-nullspace vector
+$\yy=\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}$ says $A^{\T}\yy=\zero$, i.e.\
+$\text{row}_1+\text{row}_2-\text{row}_3=\zero$: \textbf{row}~3 is redundant
+(row${}_3=$ row${}_1+$ row${}_2$). Same idea, two directions:
+\begin{center}\small
+\begin{tabular}{@{}l l@{}}
+Nullspace vector $\to$ a \ans{column} dependency \quad&\quad Left-nullspace vector $\to$ a \ans{row} dependency
+\end{tabular}
+\end{center}
+\textbf{Next (3.6):} we assemble these four subspaces --- and their dimensions $r,r,n-r,m-r$ --- into the
+``big picture'' of a matrix (the Fundamental Theorem of Linear Algebra), and see how the two pairs sit at
+right angles.
+\end{notesbox}
+
+\begin{practicebox}
+Show your reasoning. Use $r$, $m$, and $n$.
+\begin{enumerate}[leftmargin=1.6em, itemsep=2pt]
+  \item A matrix $A$ is $4\times 6$ with rank $r=3$. Give all four dimensions: $\dim C(A)$, $\dim C(A^{\T})$, $\dim N(A)$, $\dim N(A^{\T})$. \ansline{$m=4$, $n=6$, $r=3$: $\dim C(A)=r=3$, $\dim C(A^{\T})=r=3$, $\dim N(A)=n-r=3$, $\dim N(A^{\T})=m-r=1$. (Checks: $3+3=6=n$, $3+1=4=m$.)}
+  \item For $A=\begin{bmatrix} 1 & 2 & 3 \\ 2 & 4 & 6 \end{bmatrix}$, find $r$, then give a basis for the row space and for the left nullspace, with their dimensions. \ansline{Row~2 $=2\cdot$row~1, so reducing gives $\left[\begin{smallmatrix} 1&2&3\\0&0&0 \end{smallmatrix}\right]$: $r=1$. Row space basis $(1,2,3)$, $\dim=r=1$. Left nullspace: $2\cdot$row$_1-$row$_2=\zero$, so $\yy=\begin{bsmallmatrix} 2\\-1 \end{bsmallmatrix}$, $\dim=m-r=2-1=1$.}
+  \item In one sentence: what does a left-nullspace vector tell you about the \emph{rows} of $A$? \ansline{Its entries are the weights of a combination of the rows of $A$ that equals the zero row --- i.e.\ it names a redundancy (dependency) among the rows.}
+\end{enumerate}
+\end{practicebox}
+
+\begin{teachernote}
+The must-dos are \S1--\S2 (name the four subspaces, place each in $\mathbb{R}^m$ or $\mathbb{R}^n$, and give
+all four dimensions from $r$) and \S3 (read the four bases off one reduction). Two recurring slips: mixing
+up the rooms (row space and nullspace are in $\mathbb{R}^n$; column space and left nullspace in
+$\mathbb{R}^m$), and computing $m-r$ with the wrong count. Stress the parallel in \S4: the nullspace names a
+\emph{column} dependency, the left nullspace a \emph{row} dependency --- the same tool applied to $A$ and to
+$A^{\T}$. Because $m=n=3$ here, both counting rules read ``$2+1=3$''; the practice problems use $m\ne n$ so
+students see the two rooms have different sizes.
+\end{teachernote}
 
 \end{document}

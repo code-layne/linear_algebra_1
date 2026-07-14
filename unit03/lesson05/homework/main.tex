@@ -3,17 +3,65 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.5}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+Remember the four subspaces: in $\mathbb{R}^n$ the row space $C(A^{\T})$ ($\dim r$) and nullspace $N(A)$
+($\dim n-r$); in $\mathbb{R}^m$ the column space $C(A)$ ($\dim r$) and left nullspace $N(A^{\T})$
+($\dim m-r$). Always \emph{justify} and give each dimension.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Dimensions from $r$.} Fill in the four dimensions for each matrix.
+    \begin{center}\small
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{@{}l c c c c@{}}
+    \textbf{Matrix} & $\dim C(A)$ & $\dim C(A^{\T})$ & $\dim N(A)$ & $\dim N(A^{\T})$ \\
+    \hline
+    (a) $3\times3$, $r=3$ & \blank{1.1cm} & \blank{1.1cm} & \blank{1.1cm} & \blank{1.1cm} \\
+    (b) $2\times4$, $r=2$ & \blank{1.1cm} & \blank{1.1cm} & \blank{1.1cm} & \blank{1.1cm} \\
+    (c) $5\times3$, $r=2$ & \blank{1.1cm} & \blank{1.1cm} & \blank{1.1cm} & \blank{1.1cm} \\
+    \end{tabular}
+    \end{center}
+  \item \textbf{All four from one reduction.} For $A=\begin{bmatrix} 1 & 2 & 1 \\ 1 & 3 & 2 \\ 2 & 5 & 3 \end{bmatrix}$
+        (row~3 $=$ row~1 $+$ row~2), reduce, then give a basis \emph{and} dimension for $C(A)$, $C(A^{\T})$,
+        $N(A)$, and $N(A^{\T})$. Check $r+(n-r)=n$ and $r+(m-r)=m$. \vspace{1.9cm}
+  \item \textbf{Read the redundancies.} For the matrix in problem~2, the nullspace vector is
+        $\svec=\begin{bsmallmatrix} 1\\-1\\1 \end{bsmallmatrix}$ and a left-nullspace vector is
+        $\yy=\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}$. Write the \emph{column} dependency $\svec$
+        names and the \emph{row} dependency $\yy$ names. \writelines{2}
+  \item \textbf{Explain.} A matrix has ``full column rank'' when $r=n$ and ``full row rank'' when $r=m$. Using
+        the dimension formulas, explain why full column rank forces $N(A)=\{\zero\}$ and full row rank forces
+        $N(A^{\T})=\{\zero\}$. \writelines{2}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{One number, four dimensions.}
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item \textbf{Why row rank $=$ column rank.} In one or two sentences, explain why the $r$ pivots of a
+        reduction count both the independent columns and the independent rows.
+  \item \textbf{An invertible matrix.} Let $A$ be an invertible $n\times n$ matrix ($r=n$). State all four
+        subspaces and their dimensions. What happens to the nullspace and the left nullspace?
+\end{enumerate}
+\writelines{3}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 3.6: The Fundamental Theorem of Linear Algebra.} You now have all four
+subspaces and their dimensions ($r$, $r$, $n-r$, $m-r$) from one number $r$. Next we assemble them into the
+``big picture'' of a matrix --- two subspaces in each room --- and see how the row space and nullspace (and
+the column space and left nullspace) sit at \emph{right angles}, opening the door to orthogonality in Unit~4.
+\end{spiralbox}
 
 \end{document}

@@ -7,47 +7,41 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-13 — **Authored & built Unit 3 Lesson 3.4 — "Independence, Basis, and
-Dimension" (§3.4).** Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket,
-homework (+ the five keys) and the slides deck, mirroring 3.0–3.3's preamble/boxes/tone. **Content:**
-(1) **independence** — vectors are independent iff the only combination equal to $\zero$ is all-zero
-(no vector a combination of the others); dependent = a nontrivial combination gives $\zero$; geometry
-(dependent = share a line/plane); (2) **the test is the nullspace** — stack vectors as columns of $A$:
-independent $\iff N(A)=\{\zero\}$ ($r=n$, no free cols), dependent $\iff$ a nonzero special solution,
-which *names* the redundancy; (3) **basis** = independent **and** spans — **pivot columns of $A$** (the
-*original* columns) are a basis for $C(A)$, the **special solutions** are a basis for $N(A)$, standard
-$\mathbf{e}_i$ for $\mathbb{R}^n$; (4) **dimension** = size of any basis (well-defined): $\dim C(A)=r$,
-$\dim N(A)=n-r$, with $r+(n-r)=n$; dimension = independent directions = "degrees of freedom." Running
-matrix reuses 3.2/3.3's $A=[[1,1,2],[1,2,3]]$: $r=2$, special solution $\svec=(-1,-1,1)$ literally
-encodes $\mathbf{a}_3=\mathbf{a}_1+\mathbf{a}_2$ (the column dependency) — a clean tie-back. **Robot-arm
-"how many levers does it really have?"** hook (redundant lever = dependent column → degrees of freedom).
-Activity Tier A reads basis+dim for $C(A)$ and $N(A)$ off one reduction (1-free and 2-free cases), Tier E
-proves "more than $n$ ⇒ dependent," minimal-spanning/maximal-independent, and well-definedness; homework
-adds "read the dependency from $\svec$" and the square-case "n independent ⇒ spans." All arithmetic
-hand-verified; keys use `\ans{}`/`\ansline{}` and `{\color{keyred}\mathbf{...}}` slots. Built
-`make -C unit03/lesson04 all` → clean. **Build gotchas (both fixed):** (a) lesson-plan `\textbf{Worked
-($A=\begin{bsmallmatrix}...\\...\end{bsmallmatrix}$)}` errored ("Forbidden control sequence ...
-\check@nocorr@") — the `\\` in a matrix inside `\textbf{}` is illegal; moved the math **outside** the
-bold. (b) lesson plan used `\cc` and homework_key used `\bb` without defining those per-file macros
-(the recurring "each component defines its own vector macros" trap) — added them. Page counts match the
-3.3 profile: cover/warmup/exit 1pp, notes/activity/homework 2pp (blank & key match), slides 7pp; student
-9pp, full 19pp. **Lesson plan is 3pp** here (3.3 was 2pp) because I added the canonical **Explicit
-Instruction** box ("Basis & Dimension from One Reduction"); teacher-facing, no one-page constraint, left
-as-is. Visually spot-checked notes_key p1–2, activity_key p1, lesson-plan p3 — clean. Next run authors
-3.5 (Dimensions of the Four Subspaces).
+**Last updated:** 2026-07-14 — **Authored & built Unit 3 Lesson 3.5 — "Dimensions of the Four
+Subspaces" (§3.5).** Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket,
+homework (+ the five keys) and the slides deck, mirroring 3.0–3.4's preamble/boxes/tone. **Content:**
+(1) **two rooms, four subspaces** — an $m\times n$ matrix maps inputs $\mathbb{R}^n$→outputs $\mathbb{R}^m$;
+the input room holds the **row space** $C(A^{\mathsf T})$ and **nullspace** $N(A)$, the output room holds
+the **column space** $C(A)$ and **left nullspace** $N(A^{\mathsf T})=\{\yy:A^{\mathsf T}\yy=\zero\}$;
+row space/left null are just "$C$/$N$ of $A^{\mathsf T}$"; (2) **every dimension from $r$** —
+$\dim C(A)=\dim C(A^{\mathsf T})=r$ (**row rank = column rank**), $\dim N(A)=n-r$, $\dim N(A^{\mathsf T})=m-r$;
+**two counting rules** $r+(n-r)=n$ (input room) and $r+(m-r)=m$ (output room); (3) **all four bases from one
+reduction** — pivot columns of $A$ ($C(A)$), nonzero reduced rows ($C(A^{\mathsf T})$), special solutions
+($N(A)$), vanishing row-combination / $N(A^{\mathsf T})$; (4) **two nullspaces = two redundancies** — the
+nullspace names a **column** dependency, the left nullspace a **row** dependency (same tool on $A$ vs
+$A^{\mathsf T}$). **Spine matrix** $A=[[1,1,2],[2,1,3],[3,2,5]]$ (non-symmetric, $r=2$) reduces to the
+familiar $[[1,0,1],[0,1,1],[0,0,0]]$: $\svec=(-1,-1,1)$ (col3=col1+col2, continuity with 3.2–3.4) and
+$\yy=(1,1,-1)$ (row3=row1+row2) — clean parallel. Activity Tier A uses **non-square** matrices ($2\times3$
+where left null $=\{\zero\}$ since $r=m$; $3\times4$ with $m\ne n$) so students see the two rooms differ in
+size. Two-room TikZ diagram on cover-of-notes hook + slides. **Robot-arm "how does the matrix carve up each
+room?"** hook. All arithmetic hand-verified; keys use `\ans{}`/`\ansline{}` and `{\color{keyred}\mathbf{...}}`
+slots. New per-file macro `\T` = `\mathsf{T}` (transpose) and `\yy` (left-null vector) added everywhere used.
+Built `make -C unit03/lesson05 all` → clean (no `^!` errors, worst overfull 6pt). Page counts: cover/warmup/
+exit 1pp (blank & key), notes 2pp (key 3pp — extra answer text + teachernote), activity/homework 2pp (blank
+& key match), slides 7pp, lesson plan 3pp (Explicit Instruction box); student 9pp, full 20pp. Visually
+spot-checked notes_key p2 and slides hook (two-room diagram) — clean. Next run authors 3.6 (FTLA capstone),
+then the Unit 3 tests.
 
-**Prior run:** Authored & built Unit 3 Lesson 3.3 — "The Complete Solution to $A\xx=\bb$" (§3.3). Complete
-solution $\xx=\xx_p+\xx_n$ (one particular + whole nullspace); find $\xx_p$ by reducing $[A\mid\bb]$ (free
-vars 0); shifted line/plane parallel to $N(A)$ (subspace only if $\bb=\zero$); solvability $\bb\in C(A)$
-(zero row vs nonzero RHS = $0=$nonzero); solution count by rank. Reused $A=[[1,1,2],[1,2,3]]$, $\xx_p=(1,2,0)$,
-$\svec=(-1,-1,1)$. Robot-arm "hit the target" hook. Same page profile (student 9pp, full 18pp).
+**Prior run:** Authored & built Unit 3 Lesson 3.4 — "Independence, Basis, and Dimension" (§3.4).
+Independence $\iff N(A)=\{\zero\}$ (a special solution names the redundancy); **basis** = independent +
+spans (pivot columns of $A$ for $C(A)$, special solutions for $N(A)$, $\mathbf{e}_i$ for $\mathbb{R}^n$);
+**dimension** = size of any basis: $\dim C(A)=r$, $\dim N(A)=n-r$. Reused $A=[[1,1,2],[1,2,3]]$,
+$\svec=(-1,-1,1)$. Robot-arm "how many levers really?" hook. Lesson plan 3pp (added Explicit Instruction
+box). Gotchas: `\\` in a matrix inside `\textbf{}` is illegal; define per-file vector macros (`\cc`, `\bb`).
 
-**Earlier run:** Authored & built Unit 3 Lesson 3.2 — "The Nullspace of $A$: Solving $A\xx=\zero$" (§3.2).
-Nullspace $N(A)=\{\xx:A\xx=\zero\}$ as a subspace of $\mathbb{R}^n$ (inputs, vs. $C(A)\subseteq\mathbb{R}^m$);
-solve $A\xx=\zero$ by elimination; pivot vs. free columns/variables; special solutions (free var $=1$,
-solve back); $N(A)$ = all combinations, free count $n-r$; point/line/plane by $n-r$. Robot-lever
-"do-nothing settings" hook. Build gotcha: `\ss` macro collides with LaTeX's ß → renamed `\svec`. Same
-page profile (student 9pp, full 18pp).
+**Earlier runs:** 3.3 — complete solution $\xx=\xx_p+\xx_n$, solvability $\bb\in C(A)$, count by rank.
+3.2 — nullspace $N(A)$, pivot/free columns, special solutions, $\dim N(A)=n-r$ (macro `\ss` collides with
+ß → use `\svec`).
 
 ## Current state
 
@@ -165,7 +159,15 @@ Confirmed lesson map:
   Robot-arm "how many levers does it really have?" (degrees-of-freedom) hook. Extension: more than $n$ in
   $\mathbb{R}^n$ ⇒ dependent; basis is min-spanning/max-independent; in the square case $n$ independent ⇒
   spans. Previews 3.5 (four subspaces). Lesson plan runs 3pp (added Explicit Instruction box).
-- `unit03/lesson05` — id 3.5, **"Dimensions of the Four Subspaces"** — ◐ scaffolded
+- `unit03/lesson05` — id 3.5, **"Dimensions of the Four Subspaces"** — ✅ authored & built (all
+  components + keys + slides). Content: the **four fundamental subspaces** of an $m\times n$ matrix (rank
+  $r$) split across two rooms — input $\mathbb{R}^n$ holds row space $C(A^{\mathsf T})$ ($\dim r$) and
+  nullspace $N(A)$ ($\dim n-r$); output $\mathbb{R}^m$ holds column space $C(A)$ ($\dim r$) and left
+  nullspace $N(A^{\mathsf T})$ ($\dim m-r$). **Row rank = column rank**; two counting rules $r+(n-r)=n$,
+  $r+(m-r)=m$; all four bases from one reduction; the two nullspaces name column vs. row redundancies. Spine
+  $A=[[1,1,2],[2,1,3],[3,2,5]]$ → $[[1,0,1],[0,1,1],[0,0,0]]$, $\svec=(-1,-1,1)$, $\yy=(1,1,-1)$; activity
+  uses non-square $2\times3$/$3\times4$. Two-room robot-arm hook. Previews 3.6 (FTLA). New macros `\T`,
+  `\yy` per file.
 - `unit03/lesson06` — id 3.6, **"The Fundamental Theorem of Linear Algebra"** (capstone, added by
   user 2026-07-13) — ◐ scaffolded. Synthesizes the unit: Strang's **Part 1** (dimensions/counting
   of the four subspaces — rank $r$, row space $r$, nullspace $n-r$, left-nullspace $m-r$) and the
@@ -185,7 +187,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | --- | --- | --- | --- |
 | 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
 | 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ☑ all lessons + tests authored & built ✅ |
-| 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ◐ 3.0–3.4 authored & built ✅; 3.5–3.6 + tests still skeletons |
+| 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ◐ 3.0–3.5 authored & built ✅; 3.6 + tests still skeletons |
 | 4 | Orthogonality | 4.1–4.4 | ☐ |
 | 5 | Determinants and Linear Transformations | 5.1–5.3 | ☐ |
 | 6 | Eigenvalues and Eigenvectors | 6.1–6.4 (§6.4 optional) | ☐ |
@@ -194,17 +196,14 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author Unit 3, in order — 3.0–3.4 done.** Next author `unit03/lesson05` (id 3.5, **Dimensions of the
-   Four Subspaces**) from Strang §3.5 — the four fundamental subspaces of $A$ ($m\times n$, rank $r$):
-   column space $C(A)\subseteq\mathbb{R}^m$ ($\dim r$), row space $C(A^{\mathsf T})\subseteq\mathbb{R}^n$
-   ($\dim r$ — same $r$, "row rank = column rank"), nullspace $N(A)\subseteq\mathbb{R}^n$ ($\dim n-r$),
-   left nullspace $N(A^{\mathsf T})\subseteq\mathbb{R}^m$ ($\dim m-r$); read bases off the reduced form.
-   Builds directly on 3.4 (basis/dimension via one reduction). Mirror 3.0–3.4 for preamble, boxes, and
-   tone. Then the **capstone `unit03/lesson06` (id 3.6, The Fundamental Theorem of Linear Algebra)** —
-   synthesize the four subspaces + their dimensions (Strang Part 1 + the big-picture diagram), preview
-   orthogonality (Part 2 → Unit 4). Finish with the summative tests (`unit03/tests` + `unit03/test_keys`,
-   then `make ... drop` to publish the sample test/key). The unit test should now also draw on 3.6's
-   synthesis.
+1. **Author Unit 3, in order — 3.0–3.5 done.** Next author the **capstone `unit03/lesson06` (id 3.6, The
+   Fundamental Theorem of Linear Algebra)** from Strang §3.6 — synthesize the four subspaces + their
+   dimensions ($r,r,n-r,m-r$, all from 3.5) into the **big-picture diagram** (Strang Part 1: dimensions and
+   counting), and **preview orthogonality** (Part 2: row space ⟂ nullspace, column space ⟂ left nullspace →
+   Unit 4 §4.1). Reuse a running matrix (the 3.5 spine $[[1,1,2],[2,1,3],[3,2,5]]$ or the familiar
+   $[[1,1,2],[1,2,3]]$) so the diagram is concrete. Mirror 3.0–3.5 for preamble, boxes, and tone. Then
+   finish with the summative tests (`unit03/tests` + `unit03/test_keys`, then `make ... drop` to publish the
+   sample test/key); the unit test should draw on 3.5's four-subspaces counting and 3.6's synthesis.
 2. *(optional)* Rebuild the whole Unit 1/Unit 2 packets (`make -C unitXX student|full`) to confirm the
    `sample_test`/`sample_test_key` merge in as expected before moving on.
 

@@ -5,6 +5,13 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 \newcommand{\UnitNumberName}{Unit 3: The Four Fundamental Subspaces \quad}
 \newcommand{\LessonNumberName}{Lesson 3.5: Dimensions of the Four Subspaces}
 
@@ -16,55 +23,158 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can name the \emph{four fundamental subspaces} of an $m\times n$
+    matrix $A$ of rank $r$ --- the column space $C(A)$ and left nullspace $N(A^{\T})$ living in
+    $\mathbb{R}^m$, the row space $C(A^{\T})$ and nullspace $N(A)$ living in $\mathbb{R}^n$ --- and give
+    each dimension from the single number $r$: $\dim C(A)=\dim C(A^{\T})=r$ (``row rank $=$ column rank''),
+    $\dim N(A)=n-r$, and $\dim N(A^{\T})=m-r$. They can read a basis for all four off \emph{one} reduction
+    of $A$, and interpret the two counting rules $r+(n-r)=n$ and $r+(m-r)=m$ as splitting each ``room''
+    ($\mathbb{R}^n$ of inputs, $\mathbb{R}^m$ of outputs) into two complementary subspaces.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Name the \textbf{four subspaces} and say which ``room'' ($\mathbb{R}^m$ or $\mathbb{R}^n$) each lives in.
+  \item Give each \textbf{dimension} from $r$: $r$, $r$, $n-r$, $m-r$.
+  \item Read a \textbf{basis} for all four off one reduction (pivot columns, nonzero reduced rows, special solutions, row-combinations that vanish).
+  \item Use the two \textbf{counting rules} $r+(n-r)=n$ and $r+(m-r)=m$.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item ``Row rank $=$ column rank'': the \emph{same} $r$ counts independent rows and independent columns.
+  \item $A$ splits its input room $\mathbb{R}^n$ into row space $+$ nullspace, and its output room $\mathbb{R}^m$ into column space $+$ left nullspace.
+  \item The nullspace names the \emph{column} redundancies; the left nullspace names the \emph{row} redundancies.
+  \item One number $r$ controls all four dimensions --- the ``big picture'' of the matrix.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Row space $C(A^{\T})$} & All combinations of the \emph{rows} of $A$ --- a subspace of $\mathbb{R}^n$; equals the column space of $A^{\T}$. Dimension $r$. \\
+\textbf{Left nullspace $N(A^{\T})$} & All $\yy$ with $A^{\T}\yy=\zero$, i.e.\ combinations of the rows that give the zero row --- a subspace of $\mathbb{R}^m$. Dimension $m-r$. \\
+\textbf{Rank $r$} & The number of pivots $=$ independent columns $=$ independent rows. \\
+\textbf{Row rank $=$ column rank} & The row space and column space always have the \emph{same} dimension $r$. \\
+\textbf{Counting rules} & $r+(n-r)=n$ in $\mathbb{R}^n$; \; $r+(m-r)=m$ in $\mathbb{R}^m$. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three tools this lesson stitches together: \textbf{(1)} the \emph{transpose}
+    (Lesson~2.4) --- flipping rows into columns, which is exactly how the row space and left nullspace
+    become ``the column space and nullspace of $A^{\T}$''; \textbf{(2)} reading \emph{rank $r$ and the shape
+    $m\times n$} off a reduced matrix (Lesson~3.4) --- the three numbers every dimension is built from; and
+    \textbf{(3)} the nullspace dimension $\dim N(A)=n-r$ (Lessons~3.2/3.4). Debrief item~3 aloud: today the
+    same $r$ also fixes the row space ($r$), the column space ($r$), and the \emph{left} nullspace ($m-r$).
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Back to the robot arm one last time. A lever setting is an input vector $\xx$ in $\mathbb{R}^n$; the tip
+    lands at the output $A\xx$ in $\mathbb{R}^m$. So $A$ connects \textbf{two rooms}: an \emph{input room}
+    $\mathbb{R}^n$ and an \emph{output room} $\mathbb{R}^m$. \textbf{``How does the matrix carve up each
+    room?''} The input room splits in two: settings that actually \emph{move} the tip (the \textbf{row
+    space}) and the ``do-nothing'' settings that leave it fixed (the \textbf{nullspace}, from Lesson~3.2).
+    The output room also splits in two: tip positions the arm \emph{can} reach (the \textbf{column space})
+    and directions it can \emph{never} reach (the \textbf{left nullspace}). That is all four fundamental
+    subspaces --- and today we count the dimension of each, all from the single number $r$.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. Two rooms, four subspaces.} An $m\times n$ matrix sends inputs $\xx\in\mathbb{R}^n$ to outputs
+$A\xx\in\mathbb{R}^m$. Its \emph{input room} $\mathbb{R}^n$ holds the \textbf{row space} $C(A^{\T})$ (all
+combinations of the rows) and the \textbf{nullspace} $N(A)$. Its \emph{output room} $\mathbb{R}^m$ holds the
+\textbf{column space} $C(A)$ and the \textbf{left nullspace} $N(A^{\T})$ (the $\yy$ with $A^{\T}\yy=\zero$).
+
+\textbf{2. All four dimensions from $r$.} The rank $r$ (the pivot count) fixes everything:
+$\dim C(A)=r$, $\dim C(A^{\T})=r$, $\dim N(A)=n-r$, $\dim N(A^{\T})=m-r$. The headline is \textbf{row rank
+$=$ column rank}: independent rows and independent columns are the \emph{same} number $r$.
+
+\columnbreak
+
+\textbf{3. Two counting rules.} In the input room, $r+(n-r)=n$; in the output room, $r+(m-r)=m$. Each room
+splits cleanly into two complementary pieces --- ``directions that do something'' plus ``directions that
+vanish.''
+
+\textbf{4. All four bases from one reduction.} Reduce $A$ once. \emph{Pivot columns of $A$} $\to$ basis for
+$C(A)$. \emph{Nonzero rows of the reduced form} $\to$ basis for $C(A^{\T})$. \emph{Special solutions} $\to$
+basis for $N(A)$. \emph{Row-combinations that produced a zero row} (equivalently, the nullspace of
+$A^{\T}$) $\to$ basis for $N(A^{\T})$. The nullspace names the column redundancies; the left nullspace names
+the row redundancies.
+\end{multicols}
+\end{skillbox}
+
+\begin{skillbox}[Explicit Instruction: Four Bases from One Reduction]{blush}
+\begin{tabularx}{\linewidth}{@{}p{0.44\linewidth} X@{}}
+\textbf{Steps (one reduction of $A$):}
+\begin{enumerate}[leftmargin=1.3em, nosep]
+  \item Reduce $A$; record $m$, $n$, $r$ (pivots).
+  \item $C(A)$: \emph{pivot columns of $A$}. $\dim=r$.
+  \item $C(A^{\T})$: \emph{nonzero rows} of the reduced form. $\dim=r$.
+  \item $N(A)$: \emph{special solutions}. $\dim=n-r$.
+  \item $N(A^{\T})$: solve $A^{\T}\yy=\zero$ (or spot the vanishing row-combination). $\dim=m-r$.
+\end{enumerate}
+&
+\vspace{-2pt}
+\textbf{Worked} ($A=\begin{bsmallmatrix} 1&1&2\\2&1&3\\3&2&5 \end{bsmallmatrix}$, $m=n=3$). Reduce to
+$\begin{bsmallmatrix} 1&0&1\\0&1&1\\0&0&0 \end{bsmallmatrix}$: $r=2$. $C(A)$ basis
+$\begin{bsmallmatrix} 1\\2\\3 \end{bsmallmatrix},\begin{bsmallmatrix} 1\\1\\2 \end{bsmallmatrix}$ ($\dim2$).
+$C(A^{\T})$ basis $(1,0,1),(0,1,1)$ ($\dim2$). $N(A)$ basis $\svec=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$
+($\dim1$). $N(A^{\T})$ basis $\yy=\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}$ (row$_1+$row$_2-$row$_3=\zero$;
+$\dim1$). Checks: $2+1=n=3$ and $2+1=m=3$.
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item mixing up the rooms --- row space and nullspace live in $\mathbb{R}^n$; column space and left nullspace in $\mathbb{R}^m$;
+  \item giving the row-space basis as rows of the \emph{original} $A$ instead of the \emph{nonzero rows of the reduced form} (either is correct as a space, but the reduced rows are the clean basis);
+  \item forgetting that $\dim C(A)=\dim C(A^{\T})=r$ (``row rank $=$ column rank'') even when $m\ne n$;
+  \item computing $m-r$ with $m$ and $n$ swapped --- the left nullspace dimension uses the \emph{row} count $m$.
+\end{itemize}
+Cold-call prompts: ``Which room does the row space live in --- and what is its dimension?'' ``How many
+independent rows does $A$ have? How do you know without looking at the rows?'' ``What does a left-nullspace
+vector tell you about the rows of $A$?'' ``Why do the two counting rules add up to $n$ and to $m$?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{The Four Subspaces} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} For a small matrix already reduced: name $m$, $n$, $r$; state which room each
+subspace lives in; give the four dimensions from $r$.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} From one reduction of a \emph{non-square} matrix ($2\times3$ and $3\times4$):
+give a basis and dimension for all four subspaces; verify $r+(n-r)=n$ and $r+(m-r)=m$.
+
+\columnbreak
+\textbf{Tier E --- Extension.} Explain why row rank $=$ column rank; why the left nullspace of a
+full-row-rank matrix is just $\{\zero\}$; and read a row dependency straight from a left-nullspace vector.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): from a reduced matrix, state the four dimensions and which
+room each subspace lives in; give a basis for the row space and the left nullspace; and a
+\textbf{conceptual/justification check} --- explain what a left-nullspace vector says about the rows, and why
+``row rank $=$ column rank'' means one number $r$ suffices. Collect and sort into ``got it / room mix-up /
+$m$-vs-$n$ slip'' to decide whether 3.6 opens with a re-teach.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} for several matrices, give the four dimensions from $r$ and a basis for each subspace;
+read column and row redundancies from nullspace and left-nullspace vectors; and check both counting rules.
+\textbf{Extension:} why row rank $=$ column rank; the full-rank cases ($r=m$: left nullspace $\{\zero\}$;
+$r=n$: nullspace $\{\zero\}$). \textbf{Preview:} Lesson~3.6, \emph{The Fundamental Theorem of Linear
+Algebra} --- assembling the four subspaces and their dimensions into the ``big picture,'' and previewing how
+the two pairs sit at right angles (orthogonality, Unit~4).
 \end{skillbox}
 \end{document}

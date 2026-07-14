@@ -3,6 +3,11 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,9 +16,30 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Four dimensions.} A matrix $A$ is $3\times 5$ with rank $r=2$. Give all four dimensions and
+        say which room ($\mathbb{R}^m$ or $\mathbb{R}^n$) each subspace lives in:
+        $\dim C(A)$, $\dim C(A^{\T})$, $\dim N(A)$, $\dim N(A^{\T})$.
+        \ansline{$m=3$, $n=5$, $r=2$. $\dim C(A)=r=2$ in $\mathbb{R}^m=\mathbb{R}^3$; $\dim N(A^{\T})=m-r=1$ in $\mathbb{R}^3$; $\dim C(A^{\T})=r=2$ in $\mathbb{R}^n=\mathbb{R}^5$; $\dim N(A)=n-r=3$ in $\mathbb{R}^5$. (Checks: $2+3=5=n$, $2+1=3=m$.)}
+  \item \textbf{Two bases.} For $A=\begin{bmatrix} 1 & 2 & 3 \\ 0 & 1 & 1 \\ 1 & 3 & 4 \end{bmatrix}$ (row~3 $=$
+        row~1 $+$ row~2), which reduces to $\begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \\ 0 & 0 & 0 \end{bmatrix}$,
+        give a basis for the \emph{row space} and a basis for the \emph{left nullspace}, with their dimensions.
+        \ansline{Row space (nonzero reduced rows): $(1,0,1),(0,1,1)$, $\dim=r=2$. Left nullspace: row$_1+$row$_2-$row$_3=\zero$, so $\yy=\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}$, $\dim=m-r=3-2=1$.}
+  \item \textbf{What does it mean?} In one or two sentences: what does a left-nullspace vector tell you about
+        the \emph{rows} of $A$, and why does ``row rank $=$ column rank'' let one number $r$ give both
+        $\dim C(A)$ and $\dim C(A^{\T})$?
+        \ansline{A left-nullspace vector's entries are the weights of a combination of the rows of $A$ that equals the zero row --- it names a row dependency. Because a reduction has exactly $r$ pivots, and those $r$ pivots count \emph{both} the independent columns and the independent rows, $\dim C(A)=\dim C(A^{\T})=r$.}
+\end{enumerate}
+
+\begin{teachernote}
+Sort responses into ``got it / room mix-up / $m$-vs-$n$ slip.'' Item~1 is the discriminator: the four
+dimensions \emph{and} the correct room for each ($C(A),N(A^{\T})$ in $\mathbb{R}^3$; $C(A^{\T}),N(A)$ in
+$\mathbb{R}^5$). Item~2 checks the two \emph{new} bases (nonzero reduced rows; the row-combination that
+vanishes). Item~3 is the conceptual crux --- a left-nullspace vector is a row dependency, and one number $r$
+serves both column and row space. If many miss the rooms in item~1, open 3.6 by re-drawing the two-room
+``big picture.''
+\end{teachernote}
 
 \end{document}

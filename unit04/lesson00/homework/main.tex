@@ -3,17 +3,72 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.0}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+Show each dot product. Two vectors are \textbf{perpendicular} exactly when
+$\vv\cdot\ww=0$.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item \textbf{Dot products \& signs.} Compute each dot product and label the angle
+        \emph{acute}, \emph{right}, or \emph{obtuse}.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\begin{bmatrix} 1 \\ 2 \end{bmatrix}\cdot\begin{bmatrix} 3 \\ 4 \end{bmatrix}$ \hfill
+      \item $\begin{bmatrix} 2 \\ -3 \end{bmatrix}\cdot\begin{bmatrix} 3 \\ 2 \end{bmatrix}$ \hfill
+      \item $\begin{bmatrix} 1 \\ 1 \end{bmatrix}\cdot\begin{bmatrix} -2 \\ 1 \end{bmatrix}$
+    \end{enumerate}
+    \vspace{1.0cm}
+  \item \textbf{Length \& unit vector.} Find $\|\vv\|$ and the unit vector $\vv/\|\vv\|$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\vv=\begin{bmatrix} 3 \\ 4 \end{bmatrix}$ \hfill
+      \item $\vv=\begin{bmatrix} 0 \\ 7 \end{bmatrix}$
+    \end{enumerate}
+    \vspace{1.0cm}
+  \item \textbf{Test \& build orthogonality.}
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
+      \item Are $\begin{bmatrix} 4 \\ 6 \end{bmatrix}$ and $\begin{bmatrix} 3 \\ -2 \end{bmatrix}$ perpendicular? \vspace{0.6cm}
+      \item Find $x$ so that $\begin{bmatrix} x \\ 4 \end{bmatrix}$ is perpendicular to $\begin{bmatrix} 2 \\ -1 \end{bmatrix}$. \vspace{0.6cm}
+      \item Give a nonzero vector perpendicular to $\begin{bmatrix} 2 \\ 7 \end{bmatrix}$, and check. \vspace{0.6cm}
+    \end{enumerate}
+  \item \textbf{The four-subspace pairing (§3.6).} Let $A=\begin{bmatrix} 2 & 4 \\ 1 & 2 \end{bmatrix}$.
+        Its nullspace is all multiples of $\xx=\begin{bmatrix} -2 \\ 1 \end{bmatrix}$. Dot each row of
+        $A$ with $\xx$. What do you get, and what does it say about the nullspace and the rows?
+        \writelines{2}
+  \item \textbf{Explain.} What does the \emph{sign} of $\vv\cdot\ww$ tell you about the angle
+        between $\vv$ and $\ww$? What does $\vv\cdot\ww=0$ mean? \writelines{2}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Closest point on a line (a first look at projection).} A target
+$\bb=\begin{bmatrix} 4 \\ 3 \end{bmatrix}$ is not on the line through
+$\avec=\begin{bmatrix} 1 \\ 2 \end{bmatrix}$. The closest point $t\avec$ is where the error
+$\bb-t\avec$ is \emph{perpendicular} to $\avec$.
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item Set $\avec\cdot(\bb-t\avec)=0$ and solve for $t$. (You should get $t=\frac{\avec\cdot\bb}{\avec\cdot\avec}$.)
+  \item Find the projection $\pp=t\avec$ and the error $\bb-\pp$, and check $\avec\cdot(\bb-\pp)=0$.
+\end{enumerate}
+\writelines{3}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 4.1: Orthogonality of the Four Subspaces.} Today you saw that
+$A\mathbf x=\zero$ makes the nullspace perpendicular to the rows. Next we make both pairs precise
+--- $N(A)\perp C(A^{\mathsf T})$ and $N(A^{\mathsf T})\perp C(A)$ --- and see how each pair
+\emph{fills} its space, the foundation for projection in 4.2.
+\end{spiralbox}
 
 \end{document}

@@ -1,6 +1,15 @@
 %! Right Angles Revisited --- Setting Up Orthogonality — Unit 4, Lesson 4.0 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\usetikzlibrary{calc}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,16 +20,130 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 4.0}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Right Angles Revisited --- Setting Up Orthogonality}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 4}
+    {\color{white}\bfseries\LARGE Right Angles Revisited --- Setting Up Orthogonality}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 4: Orthogonality}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{What's the shortest walk back to the trail?}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.56\textwidth}
+      A hiker stands \emph{off} a straight trail.\\[6pt]
+      Of all the ways back, the \textbf{shortest} route meets the trail at a \textbf{right angle}.\\[8pt]
+      When you can't land \emph{on} a target, the \textbf{closest} you can get is found by dropping a
+      \textbf{perpendicular}.
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.9]
+        \draw[->, very thick, burgundy] (-0.5,-0.33)--(4.0,2.67) node[right]{\scriptsize trail};
+        \coordinate (b) at (1.2,2.6);
+        \coordinate (p) at (2.17,1.45);
+        \fill[charcoal] (b) circle (1.4pt) node[above left]{\scriptsize hiker};
+        \draw[->, very thick, royalblue] (b)--(p);
+        \draw[charcoal, thin] ($(p)+(-0.17,0.26)$)--($(p)+(-0.38,0.12)$)--($(p)+(-0.24,-0.09)$);
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{4pt}
+  \begin{block}{The question of Unit 4}
+    How do we turn a \textbf{right angle} into an equation we can solve?
+  \end{block}
+\end{frame}
+
+% RECALL: DOT PRODUCT, LENGTH, UNIT VECTOR
+\begin{frame}[t, plain]
+  \burgundyheader{Recall: dot product, length, unit vector}
+  \sectionlabel{Recall (1.0, 1.2)}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item \textbf{Dot product:} $\vv\cdot\ww=v_1w_1+v_2w_2+\cdots$ --- one number; its \emph{sign} gives the angle.
+    \item \textbf{Length:} $\|\vv\|=\sqrt{\vv\cdot\vv}$. \quad E.g.\ $\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}$ has length $\sqrt{9+16}=5$.
+    \item \textbf{Unit vector:} divide by the length. \quad $\dfrac{1}{5}\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}=\begin{bsmallmatrix} 3/5\\4/5 \end{bsmallmatrix}$ --- same direction, length $1$.
+  \end{itemize}
+  \vspace{4pt}
+  \begin{block}{The sign of $\vv\cdot\ww$}
+    positive $=$ acute \quad$\bullet$\quad $0=$ \textbf{right angle} \quad$\bullet$\quad negative $=$ obtuse
+  \end{block}
+\end{frame}
+
+% THE BIG IDEA
+\begin{frame}[t, plain]
+  \burgundyheader{The one big idea: perpendicular $\Leftrightarrow$ dot $=0$}
+  \sectionlabel[goldacc]{The whole unit}
+  \begin{columns}[T]
+    \begin{column}{0.56\textwidth}
+      Two nonzero vectors are \textbf{perpendicular} exactly when
+      \[ \vv\cdot\ww = 0. \]
+      A right angle becomes an \textbf{equation}.\\[6pt]
+      \textbf{Check:} $\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}\cdot\begin{bsmallmatrix} 4\\-3 \end{bsmallmatrix}=12-12=0.$\\[6pt]
+      \textbf{Solve:} which $x$ makes $\begin{bsmallmatrix} 2\\3 \end{bsmallmatrix}\perp\begin{bsmallmatrix} x\\-2 \end{bsmallmatrix}$?
+      \; $2x-6=0\Rightarrow x=3.$
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.4]
+        \draw[step=1, linegray!45, thin] (-3.2,-3.2) grid (4.2,4.2);
+        \draw[->, thick, charcoal] (-3.4,0)--(4.4,0);
+        \draw[->, thick, charcoal] (0,-3.4)--(0,4.4);
+        \draw[->, very thick, burgundy] (0,0)--(3,4) node[above right]{\scriptsize $\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}$};
+        \draw[->, very thick, royalblue] (0,0)--(4,-3) node[below right]{\scriptsize $\begin{bsmallmatrix} 4\\-3 \end{bsmallmatrix}$};
+        \draw[charcoal, thin] (0.48,0.64)--(0.88,0.34)--(0.58,-0.06);
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% FOUR SUBSPACES = PERPENDICULAR PAIRS
+\begin{frame}[t, plain]
+  \burgundyheader{The four subspaces are perpendicular pairs}
+  \sectionlabel{Recall §3.6}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item Input $\mathbb{R}^n$: \quad nullspace $N(A)\perp$ row space $C(A^{\T})$.
+    \item Output $\mathbb{R}^m$: \quad $N(A^{\T})\perp C(A)$.
+    \item \textbf{Why?} Read $A\xx=\zero$ \emph{row by row}: each row $\cdot\,\xx=0$ --- every row $\perp\xx$. Dot $=0$ again!
+  \end{itemize}
+  \vspace{4pt}
+  \begin{block}{Quick check}
+    $A=\begin{bsmallmatrix} 1 & 2\\ 2 & 4 \end{bsmallmatrix}$, nullspace direction $\xx=\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}$:
+    \; $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}\cdot\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}=-2+2=0.$ \checkmark
+  \end{block}
+\end{frame}
+
+% THE ROAD AHEAD
+\begin{frame}[t, plain]
+  \burgundyheader{The road ahead: drop a perpendicular}
+  \sectionlabel[goldacc]{Projection}
+  \begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+      Target $\bb$ out of reach of a line?\\[4pt]
+      The \textbf{closest} point is the \textbf{projection} $\pp$ --- the foot of the perpendicular.\\[6pt]
+      The error $\bb-\pp$ is \textbf{perpendicular} to the line.
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.85]
+        \draw[->, very thick, burgundy] (-0.5,-0.33)--(4.2,2.8) node[right]{\scriptsize line};
+        \coordinate (b) at (1.2,2.6);
+        \coordinate (p) at (2.17,1.45);
+        \fill[charcoal] (b) circle (1.4pt) node[above left]{\scriptsize $\bb$};
+        \fill[charcoal] (p) circle (1.4pt) node[below right]{\scriptsize $\pp$};
+        \draw[->, very thick, royalblue] (p)--(b) node[midway, above left]{\scriptsize $\bb-\pp$};
+        \draw[charcoal, thin] ($(p)+(-0.17,0.26)$)--($(p)+(-0.38,0.12)$)--($(p)+(-0.24,-0.09)$);
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{2pt}
+  \begin{block}{Unit 4}
+    \textbf{4.1} orthogonality of the four subspaces \;$\bullet$\; \textbf{4.2} projections \;$\bullet$\;
+    \textbf{4.3} least squares \;$\bullet$\; \textbf{4.4} orthogonal matrices $Q$ \& Gram--Schmidt.
+    Every step: \emph{make something perpendicular.}
+  \end{block}
 \end{frame}
 
 \end{document}

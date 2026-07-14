@@ -3,17 +3,154 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.3}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.06in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item find a \emph{particular solution} $\xx_p$ of $A\xx=\bb$ by reducing $[A\mid\bb]$ and setting free variables to $0$;
+  \item write the \emph{complete solution} $\xx=\xx_p+\xx_n$ and describe it as a shifted point, line, or plane;
+  \item test \emph{solvability} --- decide when $A\xx=\bb$ has no solution, one, or infinitely many.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.04in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{Particular solution $\xx_p$}{one solution of $A\xx=\bb$; get it by setting all free variables to $0$ and solving $[A\mid\bb]$}
+\vocabans{Complete solution $\xx=\xx_p+\xx_n$}{every solution: one particular solution plus the whole nullspace $N(A)$}
+\vocabans{Augmented matrix $[A\mid\bb]$}{$A$ with $\bb$ attached as an extra column; reduce it to solve $A\xx=\bb$}
+\vocabans{Solvable / consistent}{$A\xx=\bb$ has at least one solution --- true exactly when $\bb$ lies in $C(A)$}
+\vocabans{Solvability condition}{after reduction, every zero row of $A$ must line up with a zero on the right}
+\end{vocabbox}
+
+\begin{hookbox}
+The robot arm from Lesson~3.2: a setting $\xx$ moves the tip to $A\xx$. Last time we found the
+\emph{do-nothing} settings ($A\xx=\zero$). Now aim at a \textbf{target} $\bb$.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item Find \emph{one} setting $\xx_p$ with $A\xx_p=\bb$. \ansline{Any single solution works --- e.g.\ reduce $[A\mid\bb]$ and set the free levers to $0$. This is the \emph{particular} solution $\xx_p$.}
+  \item If $\xx_n$ is a do-nothing setting, why does $\xx_p+\xx_n$ \emph{also} hit the target? \ansline{$A(\xx_p+\xx_n)=A\xx_p+A\xx_n=\bb+\zero=\bb$: adding a do-nothing move can't change where the tip lands.}
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. One Particular Solution, Plus the Whole Nullspace}
+Suppose $\xx_p$ solves $A\xx=\bb$ --- we call it a \textbf{particular solution}. Let $\xx_n$ be
+\emph{any} nullspace vector, so $A\xx_n=\zero$. Then
+\[
+  A(\xx_p+\xx_n)=A\xx_p+A\xx_n=\bb+\zero=\ans{$\bb$},
+\]
+so $\xx_p+\xx_n$ is a solution too. Going the other way, if $\xx$ is \emph{any} solution then
+$A(\xx-\xx_p)=\bb-\bb=\ans{$\zero$}$, so $\xx-\xx_p$ lives in $N(A)$. Every solution is a particular one
+plus a nullspace vector. The \textbf{complete solution} is
+\[
+  \xx=\xx_p+\xx_n \qquad (\text{one particular solution} \; + \; \text{the whole nullspace}).
+\]
 \end{notesbox}
+
+\begin{notesbox}{2. Find $\xx_p$ by Reducing $[A\mid\bb]$}
+Attach $\bb$ to $A$ as an extra column (the \textbf{augmented matrix}) and reduce. Take
+$A=\begin{bmatrix} 1 & 1 & 2 \\ 1 & 2 & 3 \end{bmatrix}$, $\bb=\begin{bmatrix} 3 \\ 5 \end{bmatrix}$:
+\[
+  \left[\begin{array}{ccc|c} 1 & 1 & 2 & 3 \\ 1 & 2 & 3 & 5 \end{array}\right]
+  \xrightarrow{\;R_2-R_1\;}
+  \left[\begin{array}{ccc|c} 1 & 1 & 2 & 3 \\ 0 & 1 & 1 & 2 \end{array}\right]
+  \xrightarrow{\;R_1-R_2\;}
+  \left[\begin{array}{ccc|c} 1 & 0 & 1 & {\color{keyred}\mathbf{1}} \\ 0 & 1 & 1 & {\color{keyred}\mathbf{2}} \end{array}\right].
+\]
+Columns $1,2$ are pivot columns; column $3$ is \textbf{free}. To get \emph{one} solution, set the free
+variable $x_3=\ans{$0$}$. Then $x_1=\ans{$1$}$ and $x_2=\ans{$2$}$, so
+\[
+  \xx_p=\begin{bmatrix} \rule{0pt}{1.0em}{\color{keyred}\mathbf{1}} \\ {\color{keyred}\mathbf{2}} \\ {\color{keyred}\mathbf{0}} \end{bmatrix}.
+  \qquad\text{Check: } A\xx_p=1\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}+2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}=\begin{bsmallmatrix} 3\\5 \end{bsmallmatrix}.\checkmark
+\]
+\end{notesbox}
+
+\begin{notesbox}{3. The Complete Solution --- and Its Picture}
+This is the \emph{same} $A$ as in Lesson~3.2, whose nullspace was all multiples of
+$\svec=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$. So the complete solution is
+\[
+  \xx=\xx_p+t\,\svec
+   =\begin{bmatrix} 1\\2\\0 \end{bmatrix}+t\begin{bmatrix} -1\\-1\\1 \end{bmatrix}, \qquad t \text{ any number}.
+\]
+\begin{minipage}[t]{0.60\linewidth}\vspace{2pt}
+Only the \emph{nullspace part} carries the parameter $t$; the anchor $\xx_p$ stays fixed. Geometrically
+the solution set is the nullspace line \textbf{slid over} to pass through $\xx_p$ --- a line
+\ans{parallel} to $N(A)$, but \emph{off} the origin. It passes through the origin only when
+$\bb=\ans{$\zero$}$ (then $\xx_p=\zero$ works and we are back to the nullspace). With \emph{two} free
+variables it is a shifted plane.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.36\linewidth}\vspace{0pt}\centering
+\begin{tikzpicture}[scale=0.54]
+  \draw[step=1, linegray!40, thin] (-2.2,-2.2) grid (2.6,2.6);
+  \draw[->, thick, charcoal] (-2.2,0)--(2.8,0);
+  \draw[->, thick, charcoal] (0,-2.2)--(0,2.8);
+  % nullspace line through origin
+  \draw[very thick, burgundy] (-2.2,-1.1)--(2.2,1.1);
+  \node[burgundy, font=\scriptsize] at (2.1,1.55){$N(A)$};
+  % solution line (parallel), shifted through x_p
+  \draw[very thick, royalblue, dashed] (-2.2,0.9)--(2.0,3.0);
+  \node[royalblue, font=\scriptsize] at (-1.4,1.9){$\xx_p+N(A)$};
+  % anchor x_p
+  \draw[->, very thick, goldacc] (0,0)--(0,2);
+  \fill[royalblue] (0,2) circle (2.2pt);
+  \node[charcoal, font=\scriptsize] at (0.45,2.15){$\xx_p$};
+  \fill[black] (0,0) circle (2pt);
+\end{tikzpicture}\\[-2pt]
+{\scriptsize\itshape Schematic: same direction, shifted off the origin.}
+\end{minipage}
+\end{notesbox}
+
+\begin{notesbox}{4. Is $A\xx=\bb$ Even Solvable?}
+$A\xx=\bb$ has a solution exactly when $\bb$ is a combination of the columns --- that is, $\bb$ lies in
+the column space \ans{$C(A)$}. Watch what the reduced augmented matrix reveals for
+$A=\begin{bmatrix} 1 & 1 \\ 2 & 2 \end{bmatrix}$, $\bb=\begin{bmatrix} 1 \\ 3 \end{bmatrix}$:
+\[
+  \left[\begin{array}{cc|c} 1 & 1 & 1 \\ 2 & 2 & 3 \end{array}\right]
+  \xrightarrow{\;R_2-2R_1\;}
+  \left[\begin{array}{cc|c} 1 & 1 & 1 \\ 0 & 0 & {\color{keyred}\mathbf{1}} \end{array}\right].
+\]
+The bottom row reads $0=\ans{$1$}$ --- impossible, so there is \textbf{no solution}.
+\textbf{Solvability condition:} after reduction,
+every zero row of $A$ must meet a \emph{zero} on the right. Counting: no free variables ($r=n$) gives $0$
+or $1$; an invertible square matrix gives \emph{exactly one} for every $\bb$; a free variable (when
+solvable) gives \emph{infinitely many}.
+
+\vspace{2pt}
+\textbf{Next (3.4):} which special solutions are ``really'' independent, and the smallest spanning set ---
+\emph{independence, basis, and dimension}.
+\end{notesbox}
+
+\begin{practicebox}
+Show your reasoning.
+\begin{enumerate}[leftmargin=1.6em, itemsep=2pt]
+  \item If $\xx_p=\begin{bsmallmatrix} 4\\0 \end{bsmallmatrix}$ solves $A\xx=\bb$ and $\svec=\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}\in N(A)$, write the complete solution. \ansline{$\xx=\xx_p+t\,\svec=\begin{bsmallmatrix} 4\\0 \end{bsmallmatrix}+t\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}$ for any $t$ --- a line through $(4,0)$ parallel to $N(A)$.}
+  \item Solve $\begin{bmatrix} 1 & 3 \\ 2 & 6 \end{bmatrix}\xx=\begin{bmatrix} 2 \\ 4 \end{bmatrix}$: give $\xx_p$, attach the nullspace, and name the shape. \ansline{$R_2-2R_1\Rightarrow\left[\begin{smallmatrix} 1&3&2\\0&0&0 \end{smallmatrix}\right]$, so $x_1+3x_2=2$ with $x_2$ free. Set $x_2=0$: $\xx_p=\begin{bsmallmatrix} 2\\0 \end{bsmallmatrix}$; nullspace $\svec=\begin{bsmallmatrix} -3\\1 \end{bsmallmatrix}$. Complete: $\xx=\begin{bsmallmatrix} 2\\0 \end{bsmallmatrix}+t\begin{bsmallmatrix} -3\\1 \end{bsmallmatrix}$ --- a \emph{line} off the origin.}
+  \item Reducing $[A\mid\bb]$ gives a row $[\,0\ 0\ 0\mid 4\,]$. How many solutions does $A\xx=\bb$ have, and why? \ansline{None --- that row says $0=4$, which is impossible. The system is inconsistent ($\bb\notin C(A)$).}
+\end{enumerate}
+\end{practicebox}
+
+\begin{teachernote}
+The must-dos are \S1 (the identity $A(\xx_p+\xx_n)=\bb$ --- why the nullspace is the ``wiggle room'') and
+\S2--\S3 (reduce $[A\mid\bb]$, set free variables to $0$ for $\xx_p$, then \emph{add the whole
+nullspace}). The most common slip is stopping at $\xx_p$: stress that with any free variable there are
+infinitely many solutions. \S4's ``$0=$ nonzero'' row is the solvability tell. Note the solution set is
+\emph{not} a subspace unless $\bb=\zero$ (it misses the origin) --- a good contrast with 3.1--3.2.
+\end{teachernote}
 
 \end{document}

@@ -3,17 +3,78 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.3}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{The Complete Solution.} Every solution of $A\xx=\bb$ is $\xx=\xx_p+\xx_n$: \emph{one}
+particular solution plus the \emph{whole} nullspace. Find $\xx_p$ by reducing $[A\mid\bb]$ and setting
+the free variables to $0$; attach the special solutions for the nullspace part. The solution set is
+$N(A)$ \emph{shifted} to pass through $\xx_p$ --- and $A\xx=\bb$ is solvable only if $\bb$ lies in $C(A)$.
+Work with your partner and \emph{justify} every answer.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Build a complete solution from its two pieces. Use $A=\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$ and
+$\bb=\begin{bmatrix} 3 \\ 6 \end{bmatrix}$ throughout.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item \textbf{Check the particular solution.} Verify $\xx_p=\begin{bsmallmatrix} 3\\0 \end{bsmallmatrix}$ solves $A\xx=\bb$:
+        $A\xx_p=\begin{bmatrix}\rule{0pt}{1.0em}{\color{keyred}\mathbf{3}}\\[2pt]{\color{keyred}\mathbf{6}}\end{bmatrix}$. Does it equal $\bb$? \; \ans{Yes}
+  \item \textbf{Add a do-nothing move.} The nullspace is all multiples of $\svec=\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}$.
+        Check that $\xx_p+\svec=\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$ \emph{also} solves $A\xx=\bb$:
+        $A(\xx_p+\svec)=\begin{bmatrix}\rule{0pt}{1.0em}{\color{keyred}\mathbf{3}}\\[2pt]{\color{keyred}\mathbf{6}}\end{bmatrix}$. \; \ans{$=\bb$, yes}
+  \item \textbf{Write the complete solution} by combining the two pieces:
+        $\xx=\ans{$\begin{bsmallmatrix} 3\\0 \end{bsmallmatrix}$}+\;t\,\ans{$\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}$}$.
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+For each system: reduce $[A\mid\bb]$, set the free variable(s) to $0$ to read $\xx_p$, attach the
+nullspace, write the complete solution, and say what shape the solution set is.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item $A=\begin{bmatrix} 1 & 2 & 1 \\ 2 & 4 & 3 \end{bmatrix}$, $\bb=\begin{bmatrix} 4 \\ 9 \end{bmatrix}$ \quad (\emph{the free column is the middle one}). \ansline{$R_2-2R_1$ then $R_1-R_2$ give $\left[\begin{smallmatrix} 1&2&0&3\\0&0&1&1 \end{smallmatrix}\right]$: $x_1+2x_2=3,\ x_3=1$, free $x_2$. Set $x_2=0$: $\xx_p=\begin{bsmallmatrix} 3\\0\\1 \end{bsmallmatrix}$; nullspace $\svec=\begin{bsmallmatrix} -2\\1\\0 \end{bsmallmatrix}$. Complete $\xx=\begin{bsmallmatrix} 3\\0\\1 \end{bsmallmatrix}+t\begin{bsmallmatrix} -2\\1\\0 \end{bsmallmatrix}$ --- a \emph{line} off the origin.}
+  \item $A=\begin{bmatrix} 1 & 2 & 2 \\ 2 & 4 & 4 \end{bmatrix}$, $\bb=\begin{bmatrix} 3 \\ 6 \end{bmatrix}$ \quad (\emph{expect two free variables}). \ansline{$R_2-2R_1\Rightarrow\left[\begin{smallmatrix} 1&2&2&3\\0&0&0&0 \end{smallmatrix}\right]$: $x_1+2x_2+2x_3=3$, free $x_2,x_3$. Set both $0$: $\xx_p=\begin{bsmallmatrix} 3\\0\\0 \end{bsmallmatrix}$; $\svec_1=\begin{bsmallmatrix} -2\\1\\0 \end{bsmallmatrix},\svec_2=\begin{bsmallmatrix} -2\\0\\1 \end{bsmallmatrix}$. Complete $\xx=\begin{bsmallmatrix} 3\\0\\0 \end{bsmallmatrix}+t_1\svec_1+t_2\svec_2$ --- a \emph{plane} off the origin.}
+  \item \textbf{Through the origin?} Is the solution set in problem~2 a subspace --- does it pass through
+        $\zero$? Explain in one sentence. \ansline{No --- $\xx=\zero$ gives $A\zero=\zero\ne\bb$, so $\zero$ is not a solution. The set is a plane \emph{parallel} to $N(A)$ but shifted off the origin, so it is not a subspace (that happens only when $\bb=\zero$).}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Solvability, uniqueness, and a proof.}
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Which $\bb$ are reachable?} For $A=\begin{bmatrix} 1 & 2 \\ 3 & 6 \end{bmatrix}$, the columns
+        both lie on the line $y=3x$. For which right-hand sides $\bb=\begin{bsmallmatrix} b_1\\b_2 \end{bsmallmatrix}$
+        is $A\xx=\bb$ solvable? Give one solvable $\bb$ and one that is not. \ansline{Solvable exactly when $\bb$ is on the line $y=3x$, i.e.\ $b_2=3b_1$ ($\bb\in C(A)$). Solvable: $\bb=\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$. Not solvable: $\bb=\begin{bsmallmatrix} 1\\4 \end{bsmallmatrix}$ (reduces to a row $0=1$).}
+  \item \textbf{When is the solution unique?} Explain why a \emph{solvable} system $A\xx=\bb$ has exactly
+        one solution precisely when $N(A)=\{\zero\}$ (no free variables). \ansline{If $N(A)=\{\zero\}$ the only way two solutions $\xx,\xx'$ can occur is $\xx-\xx'\in N(A)=\{\zero\}$, forcing $\xx=\xx'$ --- unique. If instead some $\svec\ne\zero$ is in $N(A)$, then $\xx_p$ and $\xx_p+\svec$ are two different solutions --- infinitely many.}
+  \item \textbf{Prove the form.} Suppose $\xx$ and $\xx_p$ both solve $A\xx=\bb$. Show that $\xx-\xx_p$ is
+        in $N(A)$, and conclude that \emph{every} solution has the form $\xx_p+\xx_n$. \ansline{$A(\xx-\xx_p)=A\xx-A\xx_p=\bb-\bb=\zero$, so $\xx-\xx_p=\xx_n\in N(A)$. Then $\xx=\xx_p+\xx_n$: every solution is the fixed $\xx_p$ plus some nullspace vector. Conversely each such sum solves the system, so this is the complete solution.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~A problem~1 hides the free column in the \emph{middle} (like 3.2) and yields a shifted line;
+problem~2 is the first two-free-variable case (a shifted plane). Problem~3 is the key contrast with
+Units 3.1--3.2: the solution set is a subspace \emph{only} when $\bb=\zero$. Tier~E ties it together ---
+solvability ($\bb\in C(A)$), uniqueness ($N(A)=\{\zero\}$), and the proof that the solution set is $N(A)$
+translated by $\xx_p$. If Tier~E runs long, item~3 is the must-do (it is the whole lesson in one line).
+\end{teachernote}
 
 \end{document}

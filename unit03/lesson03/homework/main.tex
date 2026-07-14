@@ -3,17 +3,63 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.3}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+Reduce $[A\mid\bb]$, find $\xx_p$ (free variables $=0$), attach the nullspace, and \emph{justify}. Always
+say which shape (point, line, or plane) the solution set is, and whether it passes through the origin.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Complete solutions.} For each system, give $\xx_p$, the nullspace part, the complete
+        solution, and its shape.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
+      \item $\begin{bmatrix} 1 & 2 \\ 1 & 3 \end{bmatrix}\xx=\begin{bmatrix} 3 \\ 4 \end{bmatrix}$ \vspace{0.9cm}
+      \item $\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}\xx=\begin{bmatrix} 2 \\ 4 \end{bmatrix}$ \vspace{0.9cm}
+      \item $\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}\xx=\begin{bmatrix} 2 \\ 5 \end{bmatrix}$ \vspace{0.9cm}
+      \item $\begin{bmatrix} 1 & 1 & 2 \\ 0 & 1 & 1 \end{bmatrix}\xx=\begin{bmatrix} 4 \\ 1 \end{bmatrix}$ \vspace{1.1cm}
+    \end{enumerate}
+  \item \textbf{Count without solving.} The system $A\xx=\bb$ is solvable. State how many solutions.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $A$ has $3$ columns and rank $r=3$. \hfill
+      \item $A$ has $5$ columns and rank $r=3$. \hfill
+    \end{enumerate}
+    \vspace{0.7cm}
+  \item \textbf{Solvable or not?} For $A=\begin{bmatrix} 1 & 3 \\ 2 & 6 \end{bmatrix}$, decide which of
+        $\bb=\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}$ and $\bb=\begin{bsmallmatrix} 2\\5 \end{bsmallmatrix}$
+        gives a solvable system. Reduce $[A\mid\bb]$ in each case to justify. \writelines{2}
+  \item \textbf{Explain.} When $\bb\ne\zero$, why is the solution set of $A\xx=\bb$ \emph{never} a
+        subspace, even though the nullspace always is? What is the one thing it is missing? \writelines{2}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Rank and the number of solutions.}
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item \textbf{Four cases.} For a solvable $A\xx=\bb$, say how many solutions each rank situation forces
+        (one, or infinitely many): (i) full column rank $r=n$; (ii) $r<n$. Then say which case
+        \emph{always} has a solution for every $\bb$: full row rank $r=m$.
+  \item \textbf{Two means infinitely many.} Show that if $A\xx=\bb$ has \emph{two different} solutions
+        $\xx_1\ne\xx_2$, then it has infinitely many. (Hint: what is $\xx_1-\xx_2$?)
+\end{enumerate}
+\writelines{3}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 3.4: Independence, Basis, and Dimension.} Today every solution was
+$\xx_p$ plus a combination of the special solutions. Next: which of those special solutions are
+\emph{really} independent (none a combination of the others), and the smallest set that still spans a
+space --- a \emph{basis} --- with the count called the \emph{dimension}.
+\end{spiralbox}
 
 \end{document}

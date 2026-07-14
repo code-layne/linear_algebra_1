@@ -16,8 +16,8 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 3}}\\[6pt]
-  {\color{white}\textbf{\large Lesson 3.3 \quad The Complete Solution to Ax = b}}
+  {\color{blushmid}\large\textbf{Unit 3 \quad The Four Fundamental Subspaces}}\\[6pt]
+  {\color{white}\textbf{\large Lesson 3.3 \quad The Complete Solution to $A\mathbf{x}=\mathbf{b}$}}
 \end{center}
 
 \vspace{0.22in}
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} find a \textbf{particular solution} $\mathbf{x}_p$ of $A\mathbf{x}=\mathbf{b}$ by reducing $[A\mid\mathbf{b}]$ and setting the free variables to $0$.
+  \item \ldots{} write the \textbf{complete solution} $\mathbf{x}=\mathbf{x}_p+\mathbf{x}_n$ (one particular solution $+$ the whole nullspace) and describe it as a point, line, or plane.
+  \item \ldots{} test \textbf{solvability} --- explain when $A\mathbf{x}=\mathbf{b}$ has no solution, one solution, or infinitely many.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,26 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: find a nullspace, solve $A\mathbf{x}=\mathbf{b}$, reach a target $\mathbf{b}$ & \blank{1.2cm} \\
+2 & Guided Notes   & Particular $+$ nullspace, reducing $[A\mid\mathbf{b}]$, the shifted solution set, solvability & \blank{1.2cm} \\
+3 & Group Activity & The Complete Solution --- assembling $\mathbf{x}_p+\mathbf{x}_n$ and reading the geometry & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check on complete solutions, solution counts, and solvability                & \blank{1.2cm} \\
+5 & Homework       & Complete-solution practice, unsolvable systems, and a basis/dimension preview       & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small The \textbf{complete solution} of $A\mathbf{x}=\mathbf{b}$ is $\mathbf{x}=\mathbf{x}_p+\mathbf{x}_n$:
+\emph{one} particular solution $\mathbf{x}_p$ plus the \emph{whole} nullspace $N(A)$. Find $\mathbf{x}_p$
+by reducing the augmented matrix $[A\mid\mathbf{b}]$ and setting every free variable to $0$; attach the
+special solutions from Lesson~3.2 for the nullspace part. Geometrically the solution set is the nullspace
+line or plane \emph{slid over} to pass through $\mathbf{x}_p$ --- parallel to $N(A)$, through the origin
+only when $\mathbf{b}=\mathbf{0}$. And $A\mathbf{x}=\mathbf{b}$ is \textbf{solvable} exactly when
+$\mathbf{b}$ lies in the column space $C(A)$.
+\end{remindbox}
 
 \end{document}

@@ -3,17 +3,45 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.3}{Warm-Up}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Warm-Up. See references/components.md for the expected structure.
-\begin{notesbox}{Warm-Up}
-\writelines{4}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small These skills from Units 1--2 and Lesson 3.2 power today's work. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Find a nullspace (Lesson 3.2).} Reduce $A=\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$ and
+give the special solution of $A\xx=\zero$:
+\[
+  \begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}
+  \;\longrightarrow\;
+  \begin{bmatrix} 1 & 2 \\[2pt] \blank{0.6cm} & \blank{0.6cm} \end{bmatrix},
+  \qquad
+  \svec=\begin{bmatrix}\rule{0pt}{1.1em}\blank{0.8cm}\\[2pt]\blank{0.8cm}\end{bmatrix}.
+\]
+
+\vspace{4pt}
+\textbf{2. Solve $A\xx=\bb$ by elimination (Unit 2).} Solve
+$\begin{bmatrix} 1 & 1 \\ 1 & 2 \end{bmatrix}\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}=\begin{bmatrix} 3 \\ 5 \end{bmatrix}$:
+\[
+  x_1=\blank{1.0cm}, \qquad x_2=\blank{1.0cm}.
+\]
+
+\vspace{4pt}
+\textbf{3. Can we reach the target? (Lesson 1.3)} The columns of $A=\begin{bmatrix} 1 & 3 \\ 2 & 6 \end{bmatrix}$
+both lie on the line $y=2x$. Is the target $\bb=\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}$ a combination
+of these columns --- that is, does $A\xx=\bb$ have a solution? Circle one and give a one-line reason.
+\quad \textbf{yes} / \textbf{no}
+\writeline
 \end{notesbox}
 
 \end{document}

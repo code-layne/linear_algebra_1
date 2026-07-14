@@ -3,17 +3,93 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\aaa}{\mathbf{a}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.6}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{The Big Picture.} The Fundamental Theorem has two parts. \textbf{Part~1:} the four dimensions
+$r,\,n-r,\,r,\,m-r$. \textbf{Part~2:} in each room the two subspaces are \emph{perpendicular} --- $N(A)\perp
+C(A^{\T})$ in $\mathbb{R}^n$ and $N(A^{\T})\perp C(A)$ in $\mathbb{R}^m$. You check a right angle the same way
+as always: a \emph{dot product of $0$}. Work with your partner and \emph{justify} every answer.
+\end{headlinebox}
+
+\vspace{0.08in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+A matrix $A$ is $3\times 4$ with rank $r=2$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item \textbf{Two rooms.} The input room is $\mathbb{R}^{\ans{$4$}}$ and the output room is
+        $\mathbb{R}^{\ans{$3$}}$.
+  \item \textbf{Place each subspace} in its room (write ``input'' or ``output'') and give its dimension.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item Column space $C(A)$: room \ans{output ($\mathbb{R}^3$)}, $\dim=\ans{$2$}$
+      \item Row space $C(A^{\T})$: room \ans{input ($\mathbb{R}^4$)}, $\dim=\ans{$2$}$
+      \item Nullspace $N(A)$: room \ans{input ($\mathbb{R}^4$)}, $\dim=\ans{$2$}$
+      \item Left nullspace $N(A^{\T})$: room \ans{output ($\mathbb{R}^3$)}, $\dim=\ans{$1$}$
+    \end{enumerate}
+  \item \textbf{The two right angles.} Name the perpendicular pair in each room.
+        \\ In $\mathbb{R}^n$: \ans{row space $C(A^{\T})$} $\perp$ \ans{nullspace $N(A)$}
+        \\ In $\mathbb{R}^m$: \ans{column space $C(A)$} $\perp$ \ans{left nullspace $N(A^{\T})$}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+For each matrix (reduction supplied): give a basis for all four subspaces, then \emph{verify both right
+angles} by computing dot products against the bases.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item $A=\begin{bmatrix} 1 & 2 & 1 \\ 1 & 3 & 2 \\ 2 & 5 & 3 \end{bmatrix}
+        \longrightarrow \begin{bmatrix} 1 & 0 & -1 \\ 0 & 1 & 1 \\ 0 & 0 & 0 \end{bmatrix}$
+        \; (nullspace $\svec=\begin{bsmallmatrix} 1\\-1\\1 \end{bsmallmatrix}$, left null
+        $\yy=\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}$).
+        \ansline{$m=n=3$, $r=2$. \textbf{Bases:} $C(A^{\T})$: $(1,0,-1),(0,1,1)$; $N(A)$: $\svec=\begin{bsmallmatrix} 1\\-1\\1 \end{bsmallmatrix}$; $C(A)$: pivot columns $\aaa_1=\begin{bsmallmatrix} 1\\1\\2 \end{bsmallmatrix},\aaa_2=\begin{bsmallmatrix} 2\\3\\5 \end{bsmallmatrix}$; $N(A^{\T})$: $\yy=\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}$. \textbf{Right angle in $\mathbb{R}^3$ (input):} $(1,0,-1)\cdot\svec=1+0-1=0$, $(0,1,1)\cdot\svec=0-1+1=0$, so $N(A)\perp C(A^{\T})$. \textbf{Right angle in $\mathbb{R}^3$ (output):} $\yy\cdot\aaa_1=1+1-2=0$, $\yy\cdot\aaa_2=2+3-5=0$, so $N(A^{\T})\perp C(A)$.}
+  \item $A=\begin{bmatrix} 1 & 1 & 2 & 1 \\ 1 & 2 & 3 & 1 \\ 2 & 3 & 5 & 2 \end{bmatrix}
+        \longrightarrow \begin{bmatrix} 1 & 0 & 1 & 1 \\ 0 & 1 & 1 & 0 \\ 0 & 0 & 0 & 0 \end{bmatrix}$
+        \; (left null $\yy=\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}$; \emph{two} nullspace
+        vectors).
+        \ansline{$m=3$, $n=4$, $r=2$. \textbf{Bases:} $C(A^{\T})\subseteq\mathbb{R}^4$: $(1,0,1,1),(0,1,1,0)$; $N(A)\subseteq\mathbb{R}^4$: $\svec_1=\begin{bsmallmatrix} -1\\-1\\1\\0 \end{bsmallmatrix},\svec_2=\begin{bsmallmatrix} -1\\0\\0\\1 \end{bsmallmatrix}$; $C(A)\subseteq\mathbb{R}^3$: $\aaa_1=\begin{bsmallmatrix} 1\\1\\2 \end{bsmallmatrix},\aaa_2=\begin{bsmallmatrix} 1\\2\\3 \end{bsmallmatrix}$; $N(A^{\T})\subseteq\mathbb{R}^3$: $\yy=\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}$. \textbf{Input right angle:} $(1,0,1,1)\cdot\svec_1=-1+1=0$, $(1,0,1,1)\cdot\svec_2=-1+1=0$, $(0,1,1,0)\cdot\svec_1=-1+1=0$, $(0,1,1,0)\cdot\svec_2=0$ --- so $N(A)\perp C(A^{\T})$. \textbf{Output right angle:} $\yy\cdot\aaa_1=1+1-2=0$, $\yy\cdot\aaa_2=1+2-3=0$ --- so $N(A^{\T})\perp C(A)$.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Why the right angles are forced.}
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{The one-line proof.} Explain, using ``$A\xx$ is computed row by row,'' why every nullspace
+        vector $\xx$ is perpendicular to every row of $A$ --- and hence to the whole row space.
+        \ansline{Entry $i$ of $A\xx$ is (row$_i$ of $A$)$\,\cdot\,\xx$. If $A\xx=\zero$, every one of those dot products is $0$, so $\xx$ is perpendicular to each row. A dot product is linear, so $\xx$ is also perpendicular to every combination of the rows --- i.e.\ to the entire row space. Hence $N(A)\perp C(A^{\T})$.}
+  \item \textbf{Meet only at $\zero$.} Suppose a vector $\vv$ lies in \emph{both} the row space and the
+        nullspace. Then $\vv\perp\vv$, so $\vv\cdot\vv=0$. What does that force $\vv$ to be, and why? (Recall
+        $\vv\cdot\vv=\|\vv\|^2$ from Lesson~1.2.)
+        \ansline{$\vv\cdot\vv=\|\vv\|^2$, and this is $0$ only when $\|\vv\|=0$, i.e.\ $\vv=\zero$. So the only vector in both the row space and the nullspace is the zero vector --- the two subspaces meet \emph{only} at $\zero$. (Together with their dimensions adding to $n$, that is what ``orthogonal complements'' means.)}
+  \item \textbf{The invertible case.} Let $A$ be an invertible $n\times n$ matrix ($r=n$). State the four
+        dimensions, and say what Part~2 (the two right angles) reduces to here.
+        \ansline{$r=n=m$: $\dim C(A)=\dim C(A^{\T})=n$, and $\dim N(A)=\dim N(A^{\T})=0$. Both nullspaces are just $\{\zero\}$, so each row/column space fills its whole room ($\mathbb{R}^n$). Part~2 becomes trivial: the only thing perpendicular to everything is $\zero$, and indeed $N(A)=N(A^{\T})=\{\zero\}$.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~A is the core skill: from a supplied reduction, list all four bases and then \emph{verify both right
+angles} by dot products. Insist students check against \emph{every} basis vector (both reduced rows, both
+nullspace vectors in problem~2), not just one --- that is the most common shortcut error. Problem~2's two
+nullspace vectors make the point that ``perpendicular to a subspace'' means perpendicular to a whole basis.
+Tier~E~1 is the must-do proof (row-by-row $\Rightarrow$ perpendicular); Tier~E~2 is the elegant reason the
+pair meets only at $\zero$ ($\vv\cdot\vv=0\Rightarrow\vv=\zero$), which is worth sharing with the whole class
+if time allows.
+\end{teachernote}
 
 \end{document}

@@ -3,17 +3,60 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.6}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small These skills from Lessons 1.2, 1.3, and 3.5 power today's capstone. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Perpendicular $\Leftrightarrow$ dot $=0$ (Lesson 1.2).} Two vectors are perpendicular exactly when
+their dot product is $0$. Compute each dot product and circle perpendicular or not.
+\[
+  \vv=\begin{bsmallmatrix} 1\\0\\1 \end{bsmallmatrix},\ \ww=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}:
+  \quad \vv\cdot\ww=\ans{$0$}\ \ \ans{(perp)}
+  \qquad
+  \vv=\begin{bsmallmatrix} 1\\2\\3 \end{bsmallmatrix},\ \ww=\begin{bsmallmatrix} 1\\1\\1 \end{bsmallmatrix}:
+  \quad \vv\cdot\ww=\ans{$6$}\ \ \ans{(not)}
+\]
+
+\vspace{4pt}
+\textbf{2. $A\xx$ row by row (Lesson 1.3).} Each entry of $A\xx$ is a \emph{row of $A$ dotted with $\xx$}.
+Fill in the two dot products, then $A\xx$.
+\[
+  A=\begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \end{bmatrix},\quad
+  \xx=\begin{bmatrix} -1 \\ -1 \\ 1 \end{bmatrix}
+  \qquad
+  A\xx=\begin{bmatrix} \text{row}_1\cdot\xx \\[3pt] \text{row}_2\cdot\xx \end{bmatrix}
+      =\begin{bmatrix}\rule{0pt}{1.1em}{\color{keyred}\mathbf{0}}\\[3pt] {\color{keyred}\mathbf{0}}\end{bmatrix}
+\]
+
+\vspace{4pt}
+\textbf{3. Four dimensions from $r$ (Lesson 3.5).} A matrix $A$ is $3\times 5$ with rank $r=2$. Give the four
+dimensions.
+\[
+  \dim C(A)=\ans{$2$}\quad \dim C(A^{\T})=\ans{$2$}\quad
+  \dim N(A)=\ans{$3$}\quad \dim N(A^{\T})=\ans{$1$}
+\]
 \end{notesbox}
+
+\begin{teachernote}
+Every item is a piece of today's punchline. Item~1: $\vv=(1,0,1)$ is a row-space vector and $\ww=(-1,-1,1)$
+is the nullspace vector of today's running matrix --- their dot product is $0$, i.e.\ they are perpendicular
+(foreshadowing Part~2). Item~2 shows \emph{why}: $A\xx=\zero$ is exactly ``every row dotted with $\xx$ is
+$0$,'' so $\xx$ is perpendicular to each row. Item~3 recalls the four dimensions ($r=2$, $n-r=3$, $m-r=1$) ---
+the ``Part~1'' the lesson assembles. Connect items 1--2 aloud: dot $0$ means perpendicular, and $A\xx=\zero$
+makes every row perpendicular to $\xx$.
+\end{teachernote}
 
 \end{document}

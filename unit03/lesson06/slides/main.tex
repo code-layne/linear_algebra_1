@@ -1,6 +1,14 @@
 %! The Fundamental Theorem of Linear Algebra — Unit 3, Lesson 3.6 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\aaa}{\mathbf{a}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,16 +19,109 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 3.6}\\[0.5cm]
-    {\color{white}\bfseries\LARGE The Fundamental Theorem of Linear Algebra}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 3}
+    {\color{white}\bfseries\LARGE The Fundamental Theorem of Linear Algebra}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 3: The Four Fundamental Subspaces}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK: THE WHOLE MACHINE
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{The whole machine in one picture}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.44\textwidth}
+      All unit long we met the four subspaces \emph{one at a time}.\\[6pt]
+      Today: put them in \textbf{one diagram} --- two rooms, four subspaces, four dimensions.\\[6pt]
+      Then the surprise: in each room the two subspaces sit at a \textbf{right angle}.
+    \end{column}
+    \begin{column}{0.54\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.62, every node/.style={font=\scriptsize}]
+        \draw[burgundy, very thick, rounded corners] (0,0) rectangle (3.2,4);
+        \node[burgundy, font=\bfseries\scriptsize] at (1.6,4.35) {input $\mathbb{R}^n$};
+        \draw[burgundy, thick] (0,2) -- (3.2,2);
+        \node[burgundy] at (1.6,3.0) {row space};
+        \node[burgundy] at (1.6,1.0) {nullspace};
+        \node[fill=white, text=burgundy, inner sep=1pt] at (1.6,2) {$\perp$};
+        \draw[royalblue, very thick, rounded corners] (5.6,0) rectangle (8.8,4);
+        \node[royalblue, font=\bfseries\scriptsize] at (7.2,4.35) {output $\mathbb{R}^m$};
+        \draw[royalblue, thick] (5.6,2) -- (8.8,2);
+        \node[royalblue] at (7.2,3.0) {column space};
+        \node[royalblue] at (7.2,1.0) {left null};
+        \node[fill=white, text=royalblue, inner sep=1pt] at (7.2,2) {$\perp$};
+        \draw[->, ultra thick, charcoal] (3.4,2) -- (5.4,2) node[midway, above]{$A$};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% THE THEOREM: TWO PARTS
+\begin{frame}[t, plain]
+  \burgundyheader{The Fundamental Theorem: two parts}
+  \sectionlabel{The big idea}
+  For an $m\times n$ matrix $A$ of rank $r$:
+  \begin{block}{Part 1 --- dimensions}
+    $\dim C(A)=\dim C(A^{\T})=r$, \quad $\dim N(A)=n-r$, \quad $\dim N(A^{\T})=m-r$.
+  \end{block}
+  \begin{block}{Part 2 --- orthogonality}
+    $N(A)\perp C(A^{\T})$ in the input room $\mathbb{R}^n$; \quad $N(A^{\T})\perp C(A)$ in the output room $\mathbb{R}^m$.
+  \end{block}
+  \vspace{2pt}
+  In each room the two subspaces are \textbf{orthogonal complements}: perpendicular \emph{and} filling the room.
+\end{frame}
+
+% WHY PART 2
+\begin{frame}[t, plain]
+  \burgundyheader{Why the nullspace $\perp$ the row space}
+  \sectionlabel[goldacc]{The one line}
+  Compute $A\xx$ \textbf{row by row} --- entry $i$ is a dot product:
+  \[
+    A\xx=\begin{bmatrix}\text{row}_1\cdot\xx\\ \vdots \\ \text{row}_m\cdot\xx\end{bmatrix}
+    =\zero \quad\Longleftrightarrow\quad \text{every row}_i\cdot\xx=0.
+  \]
+  \begin{itemize}
+    \setlength{\itemsep}{4pt}
+    \item Dot product $0$ means \textbf{perpendicular} (Lesson 1.2).
+    \item So $\xx$ is perpendicular to \emph{every} row --- hence to the whole row space.
+    \item Transpose the argument: $A^{\T}\yy=\zero \Rightarrow \yy\perp$ every column, so $N(A^{\T})\perp C(A)$.
+  \end{itemize}
+  \begin{block}{No new machinery}
+    Just ``$A\xx$ is a stack of dot products'' $+$ ``dot $=0$ means perpendicular.''
+  \end{block}
+\end{frame}
+
+% WORKED CHECK
+\begin{frame}[t, plain]
+  \burgundyheader{The whole theorem, on one matrix}
+  \sectionlabel{Check it}
+  \[
+    A=\begin{bmatrix} 1 & 1 & 2 \\ 2 & 1 & 3 \\ 3 & 2 & 5 \end{bmatrix}
+    \longrightarrow
+    \begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \\ 0 & 0 & 0 \end{bmatrix}, \qquad r=2.
+  \]
+  \begin{itemize}
+    \setlength{\itemsep}{3pt}
+    \item \textbf{Input $\mathbb{R}^3$:} rows $(1,0,1),(0,1,1)$ \; and \; $\svec=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$. Checks: $(1,0,1)\cdot\svec=0$, $(0,1,1)\cdot\svec=0$ \; $\Rightarrow N(A)\perp C(A^{\T})$.
+    \item \textbf{Output $\mathbb{R}^3$:} columns $\begin{bsmallmatrix} 1\\2\\3 \end{bsmallmatrix},\begin{bsmallmatrix} 1\\1\\2 \end{bsmallmatrix}$ \; and \; $\yy=\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}$. Checks: $\yy\cdot(1,2,3)=0$, $\yy\cdot(1,1,2)=0$ \; $\Rightarrow N(A^{\T})\perp C(A)$.
+  \end{itemize}
+\end{frame}
+
+% ROADMAP
+\begin{frame}[t, plain]
+  \burgundyheader{Where this goes}
+  \sectionlabel[goldacc]{Connections}
+  \textbf{Today:} the big picture --- four subspaces, four dimensions ($r,\,n-r,\,r,\,m-r$), and two right
+  angles.\\[8pt]
+  \begin{itemize}
+    \setlength{\itemsep}{4pt}
+    \item \textbf{Unit 3 test} next: the four subspaces, their dimensions, and the big picture.
+    \item \textbf{Unit 4} Orthogonality: use the right angles to \emph{project} onto a subspace and fit the best line (least squares).
+  \end{itemize}
+  \vspace{4pt}
+  \begin{block}{The big idea of the unit}
+    One matrix, two rooms, four subspaces --- dimensions from $r$, and two perpendicular pairs.
+  \end{block}
 \end{frame}
 
 \end{document}

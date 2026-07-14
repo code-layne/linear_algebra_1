@@ -7,41 +7,35 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-14 — **Authored & built Unit 3 Lesson 3.5 — "Dimensions of the Four
-Subspaces" (§3.5).** Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket,
-homework (+ the five keys) and the slides deck, mirroring 3.0–3.4's preamble/boxes/tone. **Content:**
-(1) **two rooms, four subspaces** — an $m\times n$ matrix maps inputs $\mathbb{R}^n$→outputs $\mathbb{R}^m$;
-the input room holds the **row space** $C(A^{\mathsf T})$ and **nullspace** $N(A)$, the output room holds
-the **column space** $C(A)$ and **left nullspace** $N(A^{\mathsf T})=\{\yy:A^{\mathsf T}\yy=\zero\}$;
-row space/left null are just "$C$/$N$ of $A^{\mathsf T}$"; (2) **every dimension from $r$** —
-$\dim C(A)=\dim C(A^{\mathsf T})=r$ (**row rank = column rank**), $\dim N(A)=n-r$, $\dim N(A^{\mathsf T})=m-r$;
-**two counting rules** $r+(n-r)=n$ (input room) and $r+(m-r)=m$ (output room); (3) **all four bases from one
-reduction** — pivot columns of $A$ ($C(A)$), nonzero reduced rows ($C(A^{\mathsf T})$), special solutions
-($N(A)$), vanishing row-combination / $N(A^{\mathsf T})$; (4) **two nullspaces = two redundancies** — the
-nullspace names a **column** dependency, the left nullspace a **row** dependency (same tool on $A$ vs
-$A^{\mathsf T}$). **Spine matrix** $A=[[1,1,2],[2,1,3],[3,2,5]]$ (non-symmetric, $r=2$) reduces to the
-familiar $[[1,0,1],[0,1,1],[0,0,0]]$: $\svec=(-1,-1,1)$ (col3=col1+col2, continuity with 3.2–3.4) and
-$\yy=(1,1,-1)$ (row3=row1+row2) — clean parallel. Activity Tier A uses **non-square** matrices ($2\times3$
-where left null $=\{\zero\}$ since $r=m$; $3\times4$ with $m\ne n$) so students see the two rooms differ in
-size. Two-room TikZ diagram on cover-of-notes hook + slides. **Robot-arm "how does the matrix carve up each
-room?"** hook. All arithmetic hand-verified; keys use `\ans{}`/`\ansline{}` and `{\color{keyred}\mathbf{...}}`
-slots. New per-file macro `\T` = `\mathsf{T}` (transpose) and `\yy` (left-null vector) added everywhere used.
-Built `make -C unit03/lesson05 all` → clean (no `^!` errors, worst overfull 6pt). Page counts: cover/warmup/
-exit 1pp (blank & key), notes 2pp (key 3pp — extra answer text + teachernote), activity/homework 2pp (blank
-& key match), slides 7pp, lesson plan 3pp (Explicit Instruction box); student 9pp, full 20pp. Visually
-spot-checked notes_key p2 and slides hook (two-room diagram) — clean. Next run authors 3.6 (FTLA capstone),
-then the Unit 3 tests.
+**Last updated:** 2026-07-14 — **Authored & built Unit 3 Lesson 3.6 — "The Fundamental Theorem of
+Linear Algebra" (§3.6, the Unit 3 capstone).** Filled every skeleton: lesson plan, cover, warmup, notes,
+activity, exit_ticket, homework (+ the five keys) and the slides deck, mirroring 3.0–3.5's preamble/boxes/tone.
+**Content — synthesis of the whole unit in two parts:** (1) **the big picture** — assemble the four subspaces
+into one two-room diagram; **Part 1** = the dimensions from $r$ ($r$, $n-r$, $r$, $m-r$; recap of 3.5); (2)
+**Part 2 = orthogonality (the new idea)** — $A\xx=\zero$ computed **row by row** says every row $\cdot\,\xx=0$,
+so $\xx\perp$ every row ⇒ $N(A)\perp C(A^{\mathsf T})$ in $\mathbb{R}^n$; transpose ⇒ $N(A^{\mathsf T})\perp C(A)$
+in $\mathbb{R}^m$; the pair in each room are **orthogonal complements** (perpendicular + dims fill the room +
+meet only at $\zero$ since $\vv\cdot\vv=0\Rightarrow\vv=\zero$). The lesson explicitly reduces Part 2 to
+Lesson 1.2 ("dot $=0$ ⇔ perpendicular") — no new machinery. **Reused the 3.5 spine matrix** $A=[[1,1,2],[2,1,3],[3,2,5]]$
+→ $[[1,0,1],[0,1,1],[0,0,0]]$, $r=2$, $\svec=(-1,-1,1)$, $\yy=(1,1,-1)$; orthogonality hand-verified in
+Python (all dot products $0$: rows·$\svec$, cols·$\yy$). Activity/HW use fresh singular $3\times3$ and the
+$3\times4$ (two null vectors) so students check a right angle against a **whole basis**. **Big-picture two-room
+TikZ diagram** (burgundy input $\mathbb{R}^n$ / blue output $\mathbb{R}^m$, $\perp$ on each divider) on notes §1
++ slides hook. **Robot-arm "the whole machine in one picture"** hook. Previews **Unit 4 (Orthogonality:
+projection, least squares)**. Built `make -C unit03/lesson06 all` → clean (no `^!` errors; only overfull is the
+shared 10.77pt `\namedateperiod` header, present in every lesson). Page counts: cover/warmup/exit 1pp (blank &
+key), notes 3pp (blank & key), activity/homework 2pp (blank & key), slides 6pp, lesson plan 3pp; student 10pp,
+full 19pp. **Gotcha fixed:** in a TikZ node a bare color name (e.g. `burgundy`) resets `fill`, so `$\perp$`
+rendered as a solid "tofu" box — use `text=<color>` (keep `fill=white`) instead; `\perp` renders fine in body
+math. Visually spot-checked notes p1/p2 (diagram + Part 2) and the slides hook — clean. New per-file macro
+`\aaa` (matrix column) added where used. **Unit 3 lessons complete; next run authors the Unit 3 tests.**
 
-**Prior run:** Authored & built Unit 3 Lesson 3.4 — "Independence, Basis, and Dimension" (§3.4).
-Independence $\iff N(A)=\{\zero\}$ (a special solution names the redundancy); **basis** = independent +
-spans (pivot columns of $A$ for $C(A)$, special solutions for $N(A)$, $\mathbf{e}_i$ for $\mathbb{R}^n$);
-**dimension** = size of any basis: $\dim C(A)=r$, $\dim N(A)=n-r$. Reused $A=[[1,1,2],[1,2,3]]$,
-$\svec=(-1,-1,1)$. Robot-arm "how many levers really?" hook. Lesson plan 3pp (added Explicit Instruction
-box). Gotchas: `\\` in a matrix inside `\textbf{}` is illegal; define per-file vector macros (`\cc`, `\bb`).
-
-**Earlier runs:** 3.3 — complete solution $\xx=\xx_p+\xx_n$, solvability $\bb\in C(A)$, count by rank.
-3.2 — nullspace $N(A)$, pivot/free columns, special solutions, $\dim N(A)=n-r$ (macro `\ss` collides with
-ß → use `\svec`).
+**Prior runs:** 3.5 "Dimensions of the Four Subspaces" — the four subspaces across two rooms, all dims from
+$r$ (row rank = column rank), all four bases from one reduction, two nullspaces = column vs row redundancy;
+spine matrix, non-square activity; macros `\T`, `\yy`. 3.4 "Independence, Basis, and Dimension" — independence
+$\iff N(A)=\{\zero\}$, basis = independent + spans, dimension = basis size; gotcha: `\\` in a matrix inside
+`\textbf{}` is illegal. 3.3 — complete solution $\xx=\xx_p+\xx_n$, solvability $\bb\in C(A)$. 3.2 — nullspace
+$N(A)$, special solutions, $\dim N(A)=n-r$ (macro `\ss` collides with ß → use `\svec`).
 
 ## Current state
 
@@ -121,7 +115,7 @@ Confirmed lesson map:
 - `unit02/tests` (practice + actual) + `unit02/test_keys` (both keys) — **authored ✅ & built**;
   `sample_test`/`sample_test_key` populated by `drop` (practice test + key). `unit02/Makefile` present.
 
-**Unit 3 — lessons 3.0–3.4 authored & built; 3.5–3.6 + tests still skeletons.** Confirmed lesson map (6 lessons):
+**Unit 3 — lessons 3.0–3.6 all authored & built; tests still skeletons.** Confirmed lesson map (6 lessons):
 - `unit03/lesson00` — id 3.0, **"Sets of Vectors and the Road to Subspaces"** (intro) — ✅ authored
   & built (all components + keys + slides). Content: $\mathbb{R}^n$ \& span (recall); subspace =
   closed under $+$/scaling (contains $\zero$) via the closure test; geometric catalog (lines/planes
@@ -168,16 +162,17 @@ Confirmed lesson map:
   $A=[[1,1,2],[2,1,3],[3,2,5]]$ → $[[1,0,1],[0,1,1],[0,0,0]]$, $\svec=(-1,-1,1)$, $\yy=(1,1,-1)$; activity
   uses non-square $2\times3$/$3\times4$. Two-room robot-arm hook. Previews 3.6 (FTLA). New macros `\T`,
   `\yy` per file.
-- `unit03/lesson06` — id 3.6, **"The Fundamental Theorem of Linear Algebra"** (capstone, added by
-  user 2026-07-13) — ◐ scaffolded. Synthesizes the unit: Strang's **Part 1** (dimensions/counting
-  of the four subspaces — rank $r$, row space $r$, nullspace $n-r$, left-nullspace $m-r$) and the
-  "big picture" diagram, previewing **Part 2** (orthogonality) → Unit 4 §4.1. Author *after* 3.1–3.5.
+- `unit03/lesson06` — id 3.6, **"The Fundamental Theorem of Linear Algebra"** (capstone) — ✅ authored
+  & built (all components + keys + slides). Synthesizes the unit into the **big picture**: **Part 1**
+  (the four dimensions $r,\,n-r,\,r,\,m-r$, recap of 3.5) and **Part 2 (new)** orthogonality —
+  $A\xx=\zero$ row-by-row ⇒ $\xx\perp$ every row ⇒ $N(A)\perp C(A^{\mathsf T})$, and (transpose)
+  $N(A^{\mathsf T})\perp C(A)$; the pairs are **orthogonal complements**. Reduces Part 2 to Lesson 1.2
+  (dot $=0$ ⇔ perpendicular). Reuses the 3.5 spine matrix; two-room TikZ big-picture diagram (notes §1 +
+  slides). Previews **Unit 4 (Orthogonality)**.
 - `unit03/tests` + `unit03/test_keys` (practice + actual, both keys) — ◐ scaffolded (skeletons);
   `sample_test`/`sample_test_key` drop dirs present. `unit03/Makefile` present.
-- Each lesson has the full component set (cover, warmup, notes, activity, exit_ticket, homework,
-  slides) + keys for the five keyed components — all still bare skeletons.
-- Intro-lesson (3.0) title is a working title; refine during authoring. Bridge from Unit 2
-  (solving $A\xx=\bb$) into the idea of a *space of vectors* / solution structure.
+- All six lessons (3.0–3.6) have the full authored component set (cover, warmup, notes, activity,
+  exit_ticket, homework, slides) + keys — the only Unit 3 skeletons left are the `tests`/`test_keys`.
 
 ### Per-unit progress
 
@@ -187,7 +182,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | --- | --- | --- | --- |
 | 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
 | 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ☑ all lessons + tests authored & built ✅ |
-| 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ◐ 3.0–3.5 authored & built ✅; 3.6 + tests still skeletons |
+| 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ◐ 3.0–3.6 all authored & built ✅; tests still skeletons |
 | 4 | Orthogonality | 4.1–4.4 | ☐ |
 | 5 | Determinants and Linear Transformations | 5.1–5.3 | ☐ |
 | 6 | Eigenvalues and Eigenvectors | 6.1–6.4 (§6.4 optional) | ☐ |
@@ -196,21 +191,26 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author Unit 3, in order — 3.0–3.5 done.** Next author the **capstone `unit03/lesson06` (id 3.6, The
-   Fundamental Theorem of Linear Algebra)** from Strang §3.6 — synthesize the four subspaces + their
-   dimensions ($r,r,n-r,m-r$, all from 3.5) into the **big-picture diagram** (Strang Part 1: dimensions and
-   counting), and **preview orthogonality** (Part 2: row space ⟂ nullspace, column space ⟂ left nullspace →
-   Unit 4 §4.1). Reuse a running matrix (the 3.5 spine $[[1,1,2],[2,1,3],[3,2,5]]$ or the familiar
-   $[[1,1,2],[1,2,3]]$) so the diagram is concrete. Mirror 3.0–3.5 for preamble, boxes, and tone. Then
-   finish with the summative tests (`unit03/tests` + `unit03/test_keys`, then `make ... drop` to publish the
-   sample test/key); the unit test should draw on 3.5's four-subspaces counting and 3.6's synthesis.
-2. *(optional)* Rebuild the whole Unit 1/Unit 2 packets (`make -C unitXX student|full`) to confirm the
+1. **Author the Unit 3 summative tests — all six lessons (3.0–3.6) are done.** Fill `unit03/tests`
+   (`practice_test` + `actual_test`) and `unit03/test_keys` (both keys), then `make -C unit03 <target>` and
+   `make -C unit03/tests drop` / `make -C unit03/test_keys drop` to publish the sample test/key into
+   `sample_test`/`sample_test_key`. The test should span the unit: subspace/closure (3.0–3.1), nullspace &
+   special solutions (3.2), complete solution $\xx=\xx_p+\xx_n$ & solvability (3.3), independence/basis/
+   dimension (3.4), the four subspaces & their dimensions $r,\,n-r,\,r,\,m-r$ (3.5), and the big picture +
+   orthogonality (3.6: $A\xx=\zero\Rightarrow\xx\perp$ rows, a dot-product right-angle check). Mirror the
+   Unit 1/Unit 2 test format (`shared/tests.mk`); reuse the spine matrix $[[1,1,2],[2,1,3],[3,2,5]]$ for
+   continuity. Then Unit 3 is complete → begin Unit 4 (Orthogonality).
+2. *(optional)* Rebuild the whole Unit 1/Unit 2/Unit 3 packets (`make -C unitXX student|full`) to confirm the
    `sample_test`/`sample_test_key` merge in as expected before moving on.
 
 ## Notes for the next run
 
 - **TikZ gotcha (hit + fixed in 1.0):** font size inside a `\node[...]` must be `font=\scriptsize`,
   **not** a bare `scriptsize` key (that errors: "I do not know the key '/tikz/scriptsize'").
+- **TikZ gotcha (hit + fixed in 3.6):** in a `\node`, a **bare color name** (e.g. `burgundy`) is
+  `color=`, which resets `fill` too — so `\node[fill=white, burgundy] {$\perp$}` fills the box with
+  burgundy and the glyph renders as a solid "tofu" square. Use `text=<color>` (keeps `fill=white`):
+  `\node[fill=white, text=burgundy, inner sep=1.2pt] {$\perp$}`. (`\perp` renders fine in body math.)
 - In-formula answer-key slots use `{\color{keyred}\mathbf{...}}` inside math, never `\ans{}`
   (which is text-mode) — see the `bmatrix` fill-ins in `notes_key`.
 - **Per-file `\vv\ww\xx\yy\bb\zero` macros are NOT shared** — each component defines its own in the

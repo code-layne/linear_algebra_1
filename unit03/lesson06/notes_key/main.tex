@@ -3,17 +3,157 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\aaa}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.6}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.06in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item draw the \emph{big picture} --- two rooms, four subspaces, four dimensions ($r$, $n-r$, $r$, $m-r$);
+  \item state \emph{Part~1} (the dimensions) and \emph{Part~2} (the row space $\perp$ nullspace, the column space $\perp$ left nullspace);
+  \item explain why $A\xx=\zero$ makes $\xx$ perpendicular to every row, and \emph{check} a right angle with dot products.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.04in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{Fundamental Theorem, Part 1}{the dimensions: $\dim C(A)=\dim C(A^{\T})=r$, $\dim N(A)=n-r$, $\dim N(A^{\T})=m-r$}
+\vocabans{Fundamental Theorem, Part 2}{the orthogonality: $N(A)\perp C(A^{\T})$ in $\mathbb{R}^n$; $N(A^{\T})\perp C(A)$ in $\mathbb{R}^m$}
+\vocabans{Orthogonal complement}{two subspaces that are perpendicular \emph{and} whose dimensions add to fill the room --- each is everything perpendicular to the other}
+\vocabans{The big picture}{the two-room diagram holding all four subspaces, their dimensions, and the two right angles}
+\end{vocabbox}
+
+\begin{hookbox}
+Across the unit we met the four subspaces one at a time. Today we put them in \textbf{one picture} --- and
+find a surprise.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item When you compute $A\xx$, what is entry $i$ (in terms of a row of $A$ and $\xx$)? \ansline{entry $i$ is (row$_i$ of $A$)$\,\cdot\,\xx$ --- a dot product.}
+  \item So if $A\xx=\zero$, what is true about \emph{every} row of $A$ and $\xx$? \ansline{every row$_i\cdot\xx=0$, i.e.\ $\xx$ is perpendicular to every row of $A$.}
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. The Big Picture (Part 1: the dimensions)}
+An $m\times n$ matrix $A$ of rank $r$ connects two rooms, and splits each into two fundamental subspaces:
+\begin{center}
+\begin{tikzpicture}[scale=0.92, every node/.style={font=\scriptsize}]
+  % input room
+  \draw[burgundy, very thick, rounded corners] (0,0) rectangle (3.4,4);
+  \node[burgundy, font=\bfseries\footnotesize] at (1.7,4.32) {input room $\mathbb{R}^n$};
+  \draw[burgundy, thick] (0,2) -- (3.4,2);
+  \node[burgundy, font=\bfseries\scriptsize] at (1.7,3.15) {row space $C(A^{\T})$};
+  \node[burgundy] at (1.7,2.6) {$\dim = r$};
+  \node[burgundy, font=\bfseries\scriptsize] at (1.7,1.35) {nullspace $N(A)$};
+  \node[burgundy] at (1.7,0.8) {$\dim = n-r$};
+  \node[fill=white, text=burgundy, inner sep=1.2pt] at (1.7,2) {$\perp$};
+  % output room
+  \draw[royalblue, very thick, rounded corners] (6.1,0) rectangle (9.5,4);
+  \node[royalblue, font=\bfseries\footnotesize] at (7.8,4.32) {output room $\mathbb{R}^m$};
+  \draw[royalblue, thick] (6.1,2) -- (9.5,2);
+  \node[royalblue, font=\bfseries\scriptsize] at (7.8,3.15) {column space $C(A)$};
+  \node[royalblue] at (7.8,2.6) {$\dim = r$};
+  \node[royalblue, font=\bfseries\scriptsize] at (7.8,1.35) {left nullspace $N(A^{\T})$};
+  \node[royalblue] at (7.8,0.8) {$\dim = m-r$};
+  \node[fill=white, text=royalblue, inner sep=1.2pt] at (7.8,2) {$\perp$};
+  % arrow A
+  \draw[->, ultra thick, charcoal] (3.6,2) -- (5.9,2);
+  \node[charcoal, font=\bfseries\small] at (4.75,2.35) {$A$};
+\end{tikzpicture}
+\end{center}
+Two subspaces live in the \textbf{input room} $\mathbb{R}^n$ and two in the \textbf{output room}
+$\mathbb{R}^m$. \textbf{Part~1} of the Fundamental Theorem gives every dimension from the one number $r$:
+\[
+  \dim C(A)=\ans{$r$},\quad \dim C(A^{\T})=\ans{$r$},\quad
+  \dim N(A)=\ans{$n-r$},\quad \dim N(A^{\T})=\ans{$m-r$},
+\]
+and the two counting rules $r+(n-r)=n$ and $r+(m-r)=m$ say each room is filled. (All of this is Lesson~3.5 ---
+now drawn as \emph{one} diagram.) The new idea is the little $\perp$ in each room.
 \end{notesbox}
+
+\begin{notesbox}{2. The Right-Angle Surprise (Part 2)}
+Why is the nullspace \emph{perpendicular} to the row space? One line. Compute $A\xx$ \textbf{row by row} ---
+entry $i$ is (row$_i$ of $A$)$\,\cdot\,\xx$. So
+\[
+  A\xx=\zero \quad\Longleftrightarrow\quad \text{every row}_i\cdot\xx=\ans{$0$}.
+\]
+By Lesson~1.2, a dot product of $0$ means the two vectors are \ans{perpendicular}. So a nullspace vector
+$\xx$ is perpendicular to \emph{every} row of $A$ --- and therefore to every combination of the rows, i.e.\ to
+the whole \ans{row space $C(A^{\T})$}. In symbols:
+\[
+  N(A)\ \perp\ C(A^{\T}) \quad\text{in the input room }\mathbb{R}^n.
+\]
+Nothing new was needed --- just ``$A\xx$ is a stack of dot products'' plus ``dot $=0$ means perpendicular.''
+\end{notesbox}
+
+\begin{notesbox}{3. The Other Pair, and Orthogonal Complements}
+Run the \emph{same} argument on $A^{\T}$. A left-nullspace vector $\yy$ satisfies $A^{\T}\yy=\zero$, so $\yy$ is
+perpendicular to every row of $A^{\T}$ --- that is, every \ans{column} of $A$. Hence
+\[
+  N(A^{\T})\ \perp\ C(A) \quad\text{in the output room }\mathbb{R}^m.
+\]
+In each room the two subspaces do \emph{two} things at once: they are perpendicular \textbf{and} their
+dimensions add to fill the room ($r+(n-r)=n$; $r+(m-r)=m$). A pair like that meets only at $\zero$ and
+together spans the room --- each is ``everything perpendicular to the other.'' We call them \textbf{orthogonal
+complements}:
+\begin{center}\small
+In $\mathbb{R}^n$: row space and nullspace are orthogonal complements.\\
+In $\mathbb{R}^m$: column space and left nullspace are orthogonal complements.
+\end{center}
+\end{notesbox}
+
+\begin{notesbox}{4. The Whole Theorem, on One Matrix}
+Take the unit's running matrix $A=\begin{bmatrix} 1 & 1 & 2 \\ 2 & 1 & 3 \\ 3 & 2 & 5 \end{bmatrix}$, which
+reduces to $\begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \\ 0 & 0 & 0 \end{bmatrix}$ ($m=n=3$, $r=2$). The bases:
+row space $(1,0,1),(0,1,1)$; nullspace $\svec=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$; columns
+$\aaa_1=\begin{bsmallmatrix} 1\\2\\3 \end{bsmallmatrix},\aaa_2=\begin{bsmallmatrix} 1\\1\\2 \end{bsmallmatrix}$;
+left nullspace $\yy=\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}$. Verify the right angles with dot products:
+\[
+  (1,0,1)\cdot\svec=\ans{$0$},\quad (0,1,1)\cdot\svec=\ans{$0$}
+  \qquad\Rightarrow\qquad N(A)\perp C(A^{\T});
+\]
+\[
+  \yy\cdot\aaa_1=\ans{$0$},\quad \yy\cdot\aaa_2=\ans{$0$}
+  \qquad\Rightarrow\qquad N(A^{\T})\perp C(A).
+\]
+\textbf{Next (Unit 4): Orthogonality.} These right angles are the whole idea behind \emph{projection} and
+\emph{least squares} --- finding the closest point in a subspace. The Fundamental Theorem is the bridge from
+Unit~3 (the four subspaces) to Unit~4.
+\end{notesbox}
+
+\begin{practicebox}
+Show your reasoning.
+\begin{enumerate}[leftmargin=1.6em, itemsep=2pt]
+  \item State both parts of the Fundamental Theorem for a $4\times 6$ matrix of rank $r=3$: the four dimensions, and which two pairs of subspaces are perpendicular (and in which room). \ansline{$m=4$, $n=6$, $r=3$. Part~1: $\dim C(A)=\dim C(A^{\T})=3$, $\dim N(A)=n-r=3$, $\dim N(A^{\T})=m-r=1$. Part~2: in $\mathbb{R}^6$, $N(A)\perp C(A^{\T})$; in $\mathbb{R}^4$, $N(A^{\T})\perp C(A)$.}
+  \item For $A=\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$, the nullspace vector is $\svec=\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}$ and a row is $(1,2)$. Show by a dot product that $\svec\perp$ the row space. \ansline{$(1,2)\cdot\svec=(1)(-2)+(2)(1)=-2+2=0$, so $\svec$ is perpendicular to the row $(1,2)$ --- and the row space is spanned by that row, so $\svec\perp C(A^{\T})$.}
+  \item In one sentence: why does $A\xx=\zero$ force $\xx$ to be perpendicular to every row of $A$? \ansline{Each entry of $A\xx$ is a row of $A$ dotted with $\xx$, so $A\xx=\zero$ makes every one of those dot products $0$ --- and a dot product of $0$ means perpendicular.}
+\end{enumerate}
+\end{practicebox}
+
+\begin{teachernote}
+The must-dos are \S1 (assemble the diagram; four dimensions from $r$ --- this is Part~1, all Lesson~3.5) and
+\S2 (the one-line reason for Part~2). \S2 is the intellectual heart: $A\xx$ is a stack of dot products, so
+$A\xx=\zero$ makes $\xx$ perpendicular to every row. Keep reducing it to Lesson~1.2 --- ``dot $=0$ means
+perpendicular'' --- so students see \emph{no new machinery} is needed. Two recurring slips: pairing subspaces
+\emph{across} rooms (the right angle is always within one room), and checking orthogonality against a single
+row/column instead of a whole basis. \S4's dot-product checks are the concrete payoff and preview Unit~4's
+projections; if time is short, do the first two checks together and assign the rest.
+\end{teachernote}
 
 \end{document}

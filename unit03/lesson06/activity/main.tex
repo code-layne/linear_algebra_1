@@ -3,17 +3,78 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\aaa}{\mathbf{a}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.6}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{The Big Picture.} The Fundamental Theorem has two parts. \textbf{Part~1:} the four dimensions
+$r,\,n-r,\,r,\,m-r$. \textbf{Part~2:} in each room the two subspaces are \emph{perpendicular} --- $N(A)\perp
+C(A^{\T})$ in $\mathbb{R}^n$ and $N(A^{\T})\perp C(A)$ in $\mathbb{R}^m$. You check a right angle the same way
+as always: a \emph{dot product of $0$}. Work with your partner and \emph{justify} every answer.
+\end{headlinebox}
+
+\vspace{0.08in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+A matrix $A$ is $3\times 4$ with rank $r=2$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item \textbf{Two rooms.} The input room is $\mathbb{R}^{\blank{0.7cm}}$ and the output room is
+        $\mathbb{R}^{\blank{0.7cm}}$.
+  \item \textbf{Place each subspace} in its room (write ``input'' or ``output'') and give its dimension.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item Column space $C(A)$: room \blank{1.6cm}, $\dim=\blank{0.8cm}$
+      \item Row space $C(A^{\T})$: room \blank{1.6cm}, $\dim=\blank{0.8cm}$
+      \item Nullspace $N(A)$: room \blank{1.6cm}, $\dim=\blank{0.8cm}$
+      \item Left nullspace $N(A^{\T})$: room \blank{1.6cm}, $\dim=\blank{0.8cm}$
+    \end{enumerate}
+  \item \textbf{The two right angles.} Name the perpendicular pair in each room.
+        \\ In $\mathbb{R}^n$: \blank{3.2cm} $\perp$ \blank{3.2cm}
+        \\ In $\mathbb{R}^m$: \blank{3.2cm} $\perp$ \blank{3.2cm}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+For each matrix (reduction supplied): give a basis for all four subspaces, then \emph{verify both right
+angles} by computing dot products against the bases.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item $A=\begin{bmatrix} 1 & 2 & 1 \\ 1 & 3 & 2 \\ 2 & 5 & 3 \end{bmatrix}
+        \longrightarrow \begin{bmatrix} 1 & 0 & -1 \\ 0 & 1 & 1 \\ 0 & 0 & 0 \end{bmatrix}$
+        \; (nullspace $\svec=\begin{bsmallmatrix} 1\\-1\\1 \end{bsmallmatrix}$, left null
+        $\yy=\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}$). \writelines{4}
+  \item $A=\begin{bmatrix} 1 & 1 & 2 & 1 \\ 1 & 2 & 3 & 1 \\ 2 & 3 & 5 & 2 \end{bmatrix}
+        \longrightarrow \begin{bmatrix} 1 & 0 & 1 & 1 \\ 0 & 1 & 1 & 0 \\ 0 & 0 & 0 & 0 \end{bmatrix}$
+        \; (left null $\yy=\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}$; \emph{two} nullspace
+        vectors). \writelines{5}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Why the right angles are forced.}
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{The one-line proof.} Explain, using ``$A\xx$ is computed row by row,'' why every nullspace
+        vector $\xx$ is perpendicular to every row of $A$ --- and hence to the whole row space. \writelines{2}
+  \item \textbf{Meet only at $\zero$.} Suppose a vector $\vv$ lies in \emph{both} the row space and the
+        nullspace. Then $\vv\perp\vv$, so $\vv\cdot\vv=0$. What does that force $\vv$ to be, and why? (Recall
+        $\vv\cdot\vv=\|\vv\|^2$ from Lesson~1.2.) \writelines{2}
+  \item \textbf{The invertible case.} Let $A$ be an invertible $n\times n$ matrix ($r=n$). State the four
+        dimensions, and say what Part~2 (the two right angles) reduces to here. \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

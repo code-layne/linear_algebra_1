@@ -5,6 +5,13 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 \newcommand{\UnitNumberName}{Unit 3: The Four Fundamental Subspaces \quad}
 \newcommand{\LessonNumberName}{Lesson 3.6: The Fundamental Theorem of Linear Algebra}
 
@@ -16,55 +23,157 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can assemble the four fundamental subspaces of an $m\times n$ matrix
+    $A$ of rank $r$ into the \emph{big picture of linear algebra}: the input room $\mathbb{R}^n$ split into
+    the row space $C(A^{\T})$ (dimension $r$) and nullspace $N(A)$ (dimension $n-r$), the output room
+    $\mathbb{R}^m$ split into the column space $C(A)$ (dimension $r$) and left nullspace $N(A^{\T})$
+    (dimension $m-r$). They can state \textbf{Part~1} (those dimensions and the counting rules) and
+    \textbf{Part~2} (the two subspaces in each room are \emph{orthogonal complements}: the row space is
+    perpendicular to the nullspace, the column space to the left nullspace), and justify Part~2 from a single
+    idea --- $A\xx=\zero$ means every row of $A$ dotted with $\xx$ is $0$, so $\xx$ is perpendicular to the
+    whole row space.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Draw and label the \textbf{big-picture diagram}: two rooms, four subspaces, four dimensions.
+  \item State \textbf{Part~1} (dimensions $r,\,n-r,\,r,\,m-r$) and \textbf{Part~2} (orthogonality) of the theorem.
+  \item Show $A\xx=\zero \Rightarrow \xx\perp$ every row, so $N(A)\perp C(A^{\T})$; likewise $N(A^{\T})\perp C(A)$.
+  \item Verify a pair is orthogonal by checking \textbf{dot products $=0$} on a basis.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item $A\xx$ is computed \emph{row by row}, so $A\xx=\zero$ literally says each row $\cdot\,\xx=0$.
+  \item ``Perpendicular $\Leftrightarrow$ dot product $0$'' (Lesson~1.2) is the bridge from subspaces to right angles.
+  \item In each room the two subspaces meet only at $\zero$ and, being perpendicular, \emph{fill} the room ($r+(n-r)=n$).
+  \item The theorem is the whole unit in one picture --- and the door into orthogonality (Unit~4).
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Fundamental Theorem (Part 1)} & Dimensions: $\dim C(A)=\dim C(A^{\T})=r$, $\dim N(A)=n-r$, $\dim N(A^{\T})=m-r$. \\
+\textbf{Fundamental Theorem (Part 2)} & Orthogonality: $N(A)\perp C(A^{\T})$ in $\mathbb{R}^n$; $N(A^{\T})\perp C(A)$ in $\mathbb{R}^m$. \\
+\textbf{Orthogonal} & Two vectors are orthogonal (perpendicular) when their dot product is $0$ (Lesson~1.2). \\
+\textbf{Orthogonal complement} & Two subspaces that are perpendicular \emph{and} whose dimensions add to fill the room --- each is ``everything perpendicular to the other.'' \\
+\textbf{Big picture} & The two-room diagram holding all four subspaces, their dimensions, and the right angles. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the two tools this capstone fuses: \textbf{(1)} the \emph{dot-product test for
+    perpendicularity} (Lesson~1.2) --- two vectors are perpendicular exactly when their dot product is $0$;
+    and \textbf{(2)} reading $A\xx$ \emph{row by row} (Lesson~1.3) --- each entry of $A\xx$ is a row of $A$
+    dotted with $\xx$. Debrief the punchline aloud: putting those together, $A\xx=\zero$ says every row of
+    $A$ is perpendicular to $\xx$ --- which is exactly why the nullspace sits at right angles to the row
+    space. Item~3 recalls the four dimensions from Lesson~3.5, the ``Part~1'' the lesson assembles.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    One last visit to the robot arm --- to see the whole machine at once. Across the unit we met the four
+    subspaces one at a time: the reachable tip positions (column space), the do-nothing lever settings
+    (nullspace), and their transposes (row space, left nullspace). \textbf{``What does the whole matrix look
+    like in one picture?''} Draw the \emph{two rooms} --- input $\mathbb{R}^n$ and output $\mathbb{R}^m$ ---
+    and drop the four subspaces into place: two per room, dimensions $r$, $n-r$, $r$, $m-r$. Then the
+    surprise: within each room the two subspaces are not just complementary in size --- they sit at a
+    \textbf{right angle}. The do-nothing settings are perpendicular to the settings that ``really move'' the
+    tip. That picture, dimensions plus right angles, \emph{is} the Fundamental Theorem of Linear Algebra.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. Assemble the big picture (Part 1).} An $m\times n$ matrix connects two rooms: input $\mathbb{R}^n$
+(holding the row space $C(A^{\T})$ and nullspace $N(A)$) and output $\mathbb{R}^m$ (holding the column space
+$C(A)$ and left nullspace $N(A^{\T})$). From one number $r$ come all four dimensions: $r$, $n-r$, $r$, $m-r$,
+with $r+(n-r)=n$ and $r+(m-r)=m$. This is Lesson~3.5, now drawn as \emph{one} diagram.
+
+\textbf{2. The right-angle surprise (Part 2).} Compute $A\xx$ row by row: entry $i$ is (row$_i$)$\cdot\xx$.
+So $A\xx=\zero$ means \emph{every} row of $A$ is perpendicular to $\xx$ --- hence $\xx$ is perpendicular to
+every combination of rows, the entire row space. Therefore $N(A)\perp C(A^{\T})$.
+
+\columnbreak
+
+\textbf{3. The other pair, by transpose.} Apply the same idea to $A^{\T}$: $A^{\T}\yy=\zero$ means $\yy$ is
+perpendicular to every row of $A^{\T}$ --- i.e.\ every \emph{column} of $A$. So $N(A^{\T})\perp C(A)$. Each
+room holds a perpendicular pair.
+
+\textbf{4. Orthogonal complements.} In $\mathbb{R}^n$ the row space and nullspace are perpendicular
+\emph{and} their dimensions add to $n$ --- they meet only at $\zero$ and together fill the room. Each is
+``everything perpendicular to the other'': \emph{orthogonal complements}. Same story in $\mathbb{R}^m$ for
+column space and left nullspace. Part~1 (dimensions) $+$ Part~2 (right angles) $=$ the Fundamental Theorem,
+and the launch pad for orthogonality in Unit~4.
+\end{multicols}
+\end{skillbox}
+
+\begin{skillbox}[Explicit Instruction: Why the Nullspace $\perp$ the Row Space]{blush}
+\begin{tabularx}{\linewidth}{@{}p{0.46\linewidth} X@{}}
+\textbf{The one-line argument:}
+\begin{enumerate}[leftmargin=1.3em, nosep]
+  \item $A\xx$ is a stack of dot products: entry $i$ is (row$_i$ of $A$)$\,\cdot\,\xx$.
+  \item $A\xx=\zero$ $\Rightarrow$ every row$_i\cdot\xx=0$.
+  \item Dot $=0$ means perpendicular (Lesson~1.2), so $\xx\perp$ each row.
+  \item Perpendicular to each row $\Rightarrow$ perpendicular to every combination of rows $=$ the row space.
+  \item So $N(A)\perp C(A^{\T})$. (Transpose for $N(A^{\T})\perp C(A)$.)
+\end{enumerate}
+&
+\vspace{-2pt}
+\textbf{Worked} ($A=\begin{bsmallmatrix} 1&1&2\\2&1&3\\3&2&5 \end{bsmallmatrix}$, $r=2$). Nullspace vector
+$\svec=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$; row space basis $(1,0,1),(0,1,1)$.
+Check: $(1,0,1)\cdot\svec=-1+0+1=0$ and $(0,1,1)\cdot\svec=0-1+1=0$ --- $\svec$ is perpendicular to the whole
+row space. Left-null $\yy=\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}$; columns
+$(1,2,3),(1,1,2)$: $\yy\cdot(1,2,3)=0$, $\yy\cdot(1,1,2)=0$ --- $\yy\perp C(A)$.
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item pairing the wrong subspaces --- the right angle is \emph{within} a room (row space~$\perp$~nullspace in $\mathbb{R}^n$; column space~$\perp$~left nullspace in $\mathbb{R}^m$), never across rooms;
+  \item testing orthogonality against only \emph{one} row/column --- perpendicular to the space means dot $=0$ with \emph{every} basis vector;
+  \item confusing ``dimensions add to $n$'' (Part~1) with ``perpendicular'' (Part~2) --- orthogonal complements need \emph{both};
+  \item forgetting the argument reduces to Lesson~1.2: dot product $0$ \emph{is} perpendicularity --- no new machinery.
+\end{itemize}
+Cold-call prompts: ``When you compute $A\xx$, what is entry $i$?'' ``So what does $A\xx=\zero$ say about the
+rows and $\xx$?'' ``Which two subspaces are perpendicular in $\mathbb{R}^m$?'' ``What two things does
+`orthogonal complement' require?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{The Big Picture} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} For a matrix with $m$, $n$, $r$ given: fill in the big-picture diagram ---
+place each subspace in its room and label its dimension; name the two perpendicular pairs.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} For a concrete matrix (reduction supplied): list a basis for all four
+subspaces, then \emph{verify} both right angles by computing dot products against the bases.
+
+\columnbreak
+\textbf{Tier E --- Extension.} Explain why $A\xx=\zero$ forces $\xx\perp$ the row space; why the two
+perpendicular subspaces meet only at $\zero$; and why their dimensions must add to fill the room.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): fill in a big-picture diagram (rooms, subspaces, four
+dimensions); verify one right angle by a dot-product check; and a \textbf{conceptual/justification check} ---
+explain, from $A\xx=\zero$, why the nullspace is perpendicular to the row space. Collect and sort into ``got
+it / paired across rooms / checked only one vector'' to gauge readiness for the Unit~3 test and Unit~4.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} state both parts of the theorem; complete big-picture diagrams; verify orthogonality by
+dot products; and read the right angles back as statements about rows and columns. \textbf{Extension:} why
+orthogonal complements meet only at $\zero$; the invertible case (both nullspaces $\{\zero\}$, both spaces
+fill $\mathbb{R}^n$). \textbf{Preview:} the Unit~3 test, then \emph{Unit~4: Orthogonality} --- projecting
+onto subspaces and least squares, built directly on the right angles discovered here.
 \end{skillbox}
 \end{document}

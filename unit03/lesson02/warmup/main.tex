@@ -3,17 +3,41 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.2}{Warm-Up}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Warm-Up. See references/components.md for the expected structure.
-\begin{notesbox}{Warm-Up}
-\writelines{4}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small These skills from Units 1--2 and Lesson 3.1 power today's work. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Does this $\xx$ solve $A\xx=\zero$?} With $A=\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$
+and $\xx=\begin{bmatrix} -2 \\ 1 \end{bmatrix}$, compute
+$A\xx = -2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}+1\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}$:
+\[
+  A\xx = \begin{bmatrix}\rule{0pt}{1.1em}\blank{1.1cm}\\[2pt]\blank{1.1cm}\end{bmatrix}.
+\]
+So is $\xx=\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}$ a solution of $A\xx=\zero$? \; \textbf{yes} \quad / \quad \textbf{no}
+
+\vspace{4pt}
+\textbf{2. One elimination step.} Subtract row~1 from row~2 in
+$\begin{bmatrix} 1 & 1 & 2 \\ 1 & 2 & 3 \end{bmatrix}$ to make a zero in the lower-left:
+\[
+  \begin{bmatrix} 1 & 1 & 2 \\ 1 & 2 & 3 \end{bmatrix}
+  \;\longrightarrow\;
+  \begin{bmatrix} 1 & 1 & 2 \\[2pt] \blank{0.7cm} & \blank{0.7cm} & \blank{0.7cm} \end{bmatrix}.
+\]
+
+\vspace{4pt}
+\textbf{3. Subspace requirement (from 3.1).} If $\xx_1$ and $\xx_2$ both satisfy $A\xx=\zero$, is
+their sum $\xx_1+\xx_2$ also a solution? Circle one and give a one-line reason. \quad \textbf{yes} / \textbf{no}
+\writeline
 \end{notesbox}
 
 \end{document}

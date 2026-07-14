@@ -3,17 +3,79 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 3, Lesson 3.2}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Find the Nullspace.} The \textbf{nullspace} $N(A)$ is every solution of $A\xx=\zero$ ---
+the ``do-nothing'' inputs. To find it: reduce $A$, spot the \textbf{free columns} (no pivot), set one
+free variable to $1$ (the rest to $0$), and solve back for a \textbf{special solution}. There are
+$n-r$ free variables, so $N(A)$ is a point, line, or plane. Work with your partner and \emph{justify}
+every answer.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Warm up: verify, solve, and label.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item \textbf{Verify.} For $A=\begin{bmatrix} 2 & 4 \\ 1 & 2 \end{bmatrix}$, check that
+        $\xx=\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}$ is in the nullspace:
+        $A\xx=\begin{bmatrix}\rule{0pt}{1.0em}{\color{keyred}\mathbf{0}}\\[2pt]{\color{keyred}\mathbf{0}}\end{bmatrix}$. Is it $\zero$? \; \ans{Yes}
+  \item \textbf{Solve for the free-variable form.} The one equation $x_1+2x_2=0$ gives
+        $x_1=\ans{$-2x_2$}$. Taking $x_2=1$, the special solution is $\svec=\begin{bmatrix}\rule{0pt}{1.0em}{\color{keyred}\mathbf{-2}}\\[2pt]{\color{keyred}\mathbf{1}}\end{bmatrix}$.
+  \item \textbf{Label the columns.} A matrix reduces to $\begin{bmatrix} 1 & 0 & 4 \\ 0 & 1 & 5 \end{bmatrix}$.
+        Which columns are \emph{pivot} columns? \ans{1 and 2} \; Which is \emph{free}? \ans{column 3}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+For each matrix: reduce it, name the pivot and free columns, build every special solution, and say
+whether $N(A)$ is a point, line, or plane (state $n-r$).
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item $A=\begin{bmatrix} 1 & 2 & 1 \\ 2 & 4 & 3 \end{bmatrix}$ \quad (\emph{hint: the free column is not the last one}). \ansline{$R_2-2R_1\Rightarrow\begin{bsmallmatrix} 1&2&1\\0&0&1 \end{bsmallmatrix}\xrightarrow{R_1-R_2}\begin{bsmallmatrix} 1&2&0\\0&0&1 \end{bsmallmatrix}$. Pivot columns $1,3$; free column $2$. Equations $x_1+2x_2=0,\ x_3=0$; with $x_2=1$: $\svec=\begin{bsmallmatrix} -2\\1\\0 \end{bsmallmatrix}$. $N(A)$ is a \emph{line} ($n-r=3-2=1$).}
+  \item $A=\begin{bmatrix} 1 & 2 & 2 \\ 2 & 4 & 4 \end{bmatrix}$ \quad (\emph{expect two free variables}). \ansline{$R_2-2R_1\Rightarrow\begin{bsmallmatrix} 1&2&2\\0&0&0 \end{bsmallmatrix}$. Pivot column $1$; free columns $2,3$. Equation $x_1+2x_2+2x_3=0$: $\svec_1=\begin{bsmallmatrix} -2\\1\\0 \end{bsmallmatrix}$ (set $x_2{=}1,x_3{=}0$), $\svec_2=\begin{bsmallmatrix} -2\\0\\1 \end{bsmallmatrix}$ (set $x_2{=}0,x_3{=}1$). $N(A)$ is a \emph{plane} ($n-r=3-1=2$).}
+  \item \textbf{Compare homes.} For the matrix in problem~2, which $\mathbb{R}^m$ does $C(A)$ live in, and
+        which $\mathbb{R}^n$ does $N(A)$ live in? Why are they different? \ansline{$C(A)\subseteq\mathbb{R}^2$ (outputs $A\xx$ have $m=2$ entries --- and here it is the line $y=2x$); $N(A)\subseteq\mathbb{R}^3$ (inputs $\xx$ have $n=3$ entries). Outputs and inputs are counted differently, so the two subspaces live in different spaces.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Prove it, then connect the ideas.}
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{$N(A)$ is a subspace.} Suppose $A\xx_1=\zero$ and $A\xx_2=\zero$. Fill the blanks:
+        \[ A(\xx_1+\xx_2)=A\xx_1+A\xx_2={\color{keyred}\mathbf{\zero}}, \qquad A(c\,\xx_1)=c\,(A\xx_1)={\color{keyred}\mathbf{\zero}}. \]
+        In one sentence, why do these two lines make $N(A)$ a subspace? \ansline{Both a sum and a scaling of nullspace vectors are again sent to $\zero$, so $N(A)$ is closed under addition and scaling --- the subspace requirement.}
+  \item \textbf{A nullspace vector is a dependency.} For $A=\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$
+        the special solution is $\svec=\begin{bsmallmatrix} -2\\1 \end{bsmallmatrix}$. Rewrite $A\svec=\zero$ as
+        a statement about the \emph{columns} of $A$ (which column is a multiple of which?). \ansline{$A\svec=-2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}+1\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}=\zero$ says $\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}=2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$: column~2 is twice column~1. A nonzero nullspace vector means the columns are \emph{dependent}.}
+  \item \textbf{When is the nullspace just a point?} Solve $A\xx=\zero$ for $A=\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$.
+        What is $N(A)$? What does that tell you about whether $A$ is invertible and how many solutions
+        $A\xx=\bb$ has? \ansline{$R_2-3R_1\Rightarrow\begin{bsmallmatrix} 1&2\\0&-2 \end{bsmallmatrix}$: two pivots, no free variable, so the only solution is $\xx=\zero$ and $N(A)=\{\zero\}$ (a point). Then $A$ is \emph{invertible} ($ad-bc=-2\ne0$) and $A\xx=\bb$ has \emph{exactly one} solution for every $\bb$.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~A problem~1 hides the free column in the \emph{middle} (columns $1,3$ pivot, column $2$ free) --- a
+common trap is to assume the last column is always free. Problem~2 is the first two-free-variable case
+(a plane). Tier~E ties the three big morals together: $N(A)$ is a subspace, a nonzero nullspace vector
+\emph{is} a dependency among the columns, and $N(A)=\{\zero\}$ is exactly ``square $A$ is invertible /
+unique solution.'' If Tier~E runs long, item~3 is the must-do (it bridges to 3.3).
+\end{teachernote}
 
 \end{document}

@@ -3,6 +3,9 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
@@ -11,9 +14,19 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Find the nullspace.} For $A=\begin{bmatrix} 1 & 4 \\ 2 & 8 \end{bmatrix}$, reduce $A$,
+        give the special solution, and say whether $N(A)$ is a point, line, or plane.
+        \writelines{3}
+  \item \textbf{Count the free variables.} A matrix $A$ has $4$ columns and rank $r=2$. How many free
+        variables does $A\xx=\zero$ have, and what is the dimension of $N(A)$?
+        \writelines{2}
+  \item \textbf{Justify.} A $3\times3$ matrix $A$ has nullspace $N(A)=\{\zero\}$ (only the zero vector).
+        What does this tell you about how many solutions $A\xx=\bb$ has, and whether $A$ is invertible?
+        Explain.
+        \writelines{2}
+\end{enumerate}
 
 \end{document}

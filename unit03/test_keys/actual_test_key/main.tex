@@ -2,6 +2,12 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\T}{^{\mathsf T}}
 
 % Part-divider strip
 \newcommand{\parthead}[1]{%
@@ -12,20 +18,110 @@
 \begin{document}
 
 \pageheader{Unit 3: The Four Fundamental Subspaces}{Unit Test --- Answer Key}
+\namedateperiod
 
-% Mirror the blank test EXACTLY, filling each answer with \ans{...} (inline) or
-% \ansline{...} (on a write-line). Use teachernote for scoring/teacher guidance.
+\vspace{0.06in}
+\noindent\textbf{Instructions:} Show all work. No notes unless your teacher says so.
+
 % ======================================================================
-\parthead{Part A --- Vocabulary}
-% TODO: answers via \ans{...}
+\parthead{Part A --- Vocabulary (8 pts)}
+Write the letter of the best description next to each term.
 
-\parthead{Part B --- Multiple Choice}
-% TODO: mark correct options, e.g. \textcolor{keyred}{\textbf{$\leftarrow$ correct}}
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=7pt, label=\arabic*.]
+  \item Rank \ans{C}
+  \item Basis \ans{D}
+  \item Special solution \ans{A}
+  \item Subspace \ans{B}
+  \item Column space $C(A)$ \ans{H}
+  \item Dimension \ans{F}
+  \item Nullspace $N(A)$ \ans{E}
+  \item Linear independence \ans{G}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.57\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=3pt]
+  \item[(A)] A solution of $A\xx=\zero$ found by setting one free variable to $1$ and the rest to $0$.
+  \item[(B)] A subset closed under addition and scalar multiplication (so it contains $\zero$).
+  \item[(C)] The number of pivots $r$; equals both the row rank and the column rank.
+  \item[(D)] An independent set that spans the space --- the fewest vectors that build every vector in it.
+  \item[(E)] The set of all solutions to $A\xx=\zero$; a subspace of $\mathbb{R}^n$.
+  \item[(F)] The number of vectors in a basis (e.g.\ $r$ for $C(A)$, $n-r$ for $N(A)$).
+  \item[(G)] A set in which only the all-zero combination gives $\zero$ (no vector is a combination of the others).
+  \item[(H)] The span of the columns of $A$; the reachable outputs $\bb$, a subspace of $\mathbb{R}^m$.
+\end{description}
+\end{minipage}
 
-\parthead{Part C --- Short Answer \& Computation}
-% TODO: worked answers via \ans{...}
+% ======================================================================
+\parthead{Part B --- Multiple Choice (12 pts)}
+Circle the best answer.
 
-\parthead{Part D --- Extended Response}
-% TODO: sample response + scoring notes in a teachernote.
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item Which set \textbf{is} a subspace of $\mathbb{R}^3$?
+    \hfill (A) the first octant $x,y,z\ge 0$ \quad (B) the plane $x+y+z=1$ \quad \textbf{(C) the plane $x+y+z=0$} \ans{$\leftarrow$} \quad (D) the unit sphere
+  \item For an $m\times n$ matrix of rank $r$, the column space $C(A)$ has dimension
+    \hfill (A) $n-r$ \quad \textbf{(B) $r$} \ans{$\leftarrow$} \quad (C) $m-r$ \quad (D) $m$
+  \item A square matrix $A$ is invertible exactly when its nullspace $N(A)$ equals
+    \hfill (A) all of $\mathbb{R}^n$ \quad \textbf{(B) $\{\zero\}$} \ans{$\leftarrow$} \quad (C) a line \quad (D) a plane
+  \item In the ``two rooms'' picture, the nullspace $N(A)$ lives in the same space as
+    \hfill (A) $C(A)$, in $\mathbb{R}^m$ \quad \textbf{(B) the row space, in $\mathbb{R}^n$} \ans{$\leftarrow$} \quad (C) the left nullspace \quad (D) none of these
+  \item $A\xx=\bb$ has \textbf{no} solution exactly when
+    \hfill (A) $\bb\in C(A)$ \quad \textbf{(B) $\bb\notin C(A)$} \ans{$\leftarrow$} \quad (C) $A$ is square \quad (D) $N(A)=\{\zero\}$
+  \item The row space and the nullspace of $A$ are orthogonal complements inside
+    \hfill (A) $\mathbb{R}^m$ \quad \textbf{(B) $\mathbb{R}^n$} \ans{$\leftarrow$} \quad (C) $\mathbb{R}^r$ \quad (D) $\mathbb{R}^{m+n}$
+\end{enumerate}
+
+\begin{teachernote}
+Item 1: only the plane through the origin ($x+y+z=0$) contains $\zero$ and is closed; the octant fails
+scaling by $-1$, the shifted plane and sphere miss $\zero$. Item 4: both the row space and $N(A)$ are
+subspaces of the \emph{input} space $\mathbb{R}^n$ (they partition that ``room''). Item 6: they are
+orthogonal complements in $\mathbb{R}^n$ because $\dim=r+(n-r)=n$ and they meet only at $\zero$.
+\end{teachernote}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (35 pts)}
+Show your work. Problems 2--7 all use the same matrix
+$A=\begin{bsmallmatrix}1&2&1\\2&4&3\\3&6&4\end{bsmallmatrix}$.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item Use the \textbf{closure test} to decide whether $W=\{(x,y,z)\in\mathbb{R}^3 : 2x-y+z=0\}$ is a
+        subspace of $\mathbb{R}^3$.
+        \ans{\textbf{Yes} --- $W$ is a subspace (a plane through the origin). \emph{Contains $\zero$:} $2(0)-0+0=0$. \emph{Addition:} if $2x_1-y_1+z_1=0$ and $2x_2-y_2+z_2=0$, adding gives $2(x_1{+}x_2)-(y_1{+}y_2)+(z_1{+}z_2)=0$, so the sum is in $W$. \emph{Scaling:} $c(2x-y+z)=c\cdot 0=0$, still in $W$. All three hold.}
+  \item Row-reduce $A$ and find every \textbf{special solution} of $A\xx=\zero$. State $\dim N(A)$.
+        \ans{$R_2-2R_1,\ R_3-3R_1$ then $R_3-R_2$ reduce $A$ to $\begin{bsmallmatrix}1&2&0\\0&0&1\\0&0&0\end{bsmallmatrix}$. Columns $1,3$ are pivots; column $2$ is free. Set $x_2=1$: $x_1=-2,\ x_3=0$, so the special solution is $\svec=\begin{bsmallmatrix}-2\\1\\0\end{bsmallmatrix}$. One free variable, so $\dim N(A)=n-r=3-2=1$.}
+  \item Solve $A\xx=\bb$ \textbf{completely} for $\bb=\begin{bsmallmatrix}2\\5\\7\end{bsmallmatrix}$.
+        \ans{Reducing $[A\mid\bb]$ gives $\begin{bsmallmatrix}1&2&0&\mid&1\\0&0&1&\mid&1\\0&0&0&\mid&0\end{bsmallmatrix}$ (consistent). Free $x_2=0$ gives a particular solution $\xx_p=\begin{bsmallmatrix}1\\0\\1\end{bsmallmatrix}$. Complete solution: $\xx=\begin{bsmallmatrix}1\\0\\1\end{bsmallmatrix}+t\begin{bsmallmatrix}-2\\1\\0\end{bsmallmatrix}$.}
+  \item Is $\bb=\begin{bsmallmatrix}1\\0\\0\end{bsmallmatrix}$ in the column space $C(A)$?
+        \ans{\textbf{No.} Reducing $[A\mid\bb]$ gives a last row $\begin{bsmallmatrix}0&0&0&\mid&1\end{bsmallmatrix}$, i.e.\ $0=1$ --- impossible. The system is inconsistent, so $\bb\notin C(A)$.}
+  \item Are the columns of $A$ linearly independent? Give a \textbf{basis} for $C(A)$ and its dimension.
+        \ans{\textbf{Not independent} --- $N(A)\ne\{\zero\}$, and $\svec=(-2,1,0)$ says column $2$ $=$ $2\times$ column $1$: $2\begin{bsmallmatrix}1\\2\\3\end{bsmallmatrix}=\begin{bsmallmatrix}2\\4\\6\end{bsmallmatrix}$. The pivot columns ($1$ and $3$) form a basis: $\left\{\begin{bsmallmatrix}1\\2\\3\end{bsmallmatrix},\begin{bsmallmatrix}1\\3\\4\end{bsmallmatrix}\right\}$, so $\dim C(A)=r=2$.}
+  \item State the dimensions of all four subspaces and where each lives.
+        \ans{$\dim C(A)=r=2$, $\dim N(A)=n-r=1$, $\dim C(A\T)=r=2$ (row space), $\dim N(A\T)=m-r=1$ (left nullspace). \textbf{Input $\mathbb{R}^3$:} row space $C(A\T)$ and $N(A)$ ($2+1=3$). \textbf{Output $\mathbb{R}^3$:} column space $C(A)$ and left nullspace $N(A\T)$ ($2+1=3$).}
+  \item Verify that $\svec=\begin{bsmallmatrix}-2\\1\\0\end{bsmallmatrix}$ is perpendicular to every row of $A$.
+        \ans{Row $1$: $(1,2,1)\cdot(-2,1,0)=-2+2+0=0$. Row $2$: $(2,4,3)\cdot\svec=-4+4+0=0$. Row $3$: $(3,6,4)\cdot\svec=-6+6+0=0$. All zero, so $\svec\perp$ every row. This illustrates the \textbf{Fundamental Theorem of Linear Algebra}: $N(A)$ is orthogonal to the row space $C(A\T)$.}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (10 pts)}
+Explain your reasoning in full sentences.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item Consider the line $W=\{(x,y)\in\mathbb{R}^2 : y=3x-2\}$.
+        \ans{\textbf{(a)} No. Putting $(x,y)=(0,0)$ gives $0=3(0)-2=-2$, which is false, so $\zero\notin W$. \textbf{(b)} $W$ is \emph{not} a subspace. A subspace must contain $\zero$, and $W$ fails that at once; closure also fails (e.g.\ $(0,-2)$ and $(1,1)$ are on the line but their sum $(1,-1)$ is not, since $3(1)-2=1\ne -1$). \textbf{(c)} The line $y=3x$ \emph{is} a subspace: it passes through the origin and equals all multiples $t(1,3)$, so it is closed under addition and scaling. The ``$-2$'' shifts the line off the origin and breaks every closure property.}
+  \item For $A$ above (rank $2$, special solution $\svec=(-2,1,0)$):
+        \ans{\textbf{(a)} $A\xx=\zero$ read one row at a time says (row~$1$)$\cdot\,\xx=0$, (row~$2$)$\cdot\,\xx=0$, (row~$3$)$\cdot\,\xx=0$. A zero dot product means perpendicular (Lesson 1.2), so any $\xx$ in $N(A)$ is perpendicular to every row --- hence to their whole span, the row space. \textbf{(b)} The dimensions add to $n$: $\dim N(A)+\dim C(A\T)=1+2=3$, so together they have enough directions to reach every vector in $\mathbb{R}^3$. They meet only at $\zero$ because a vector $\vv$ in \emph{both} would be perpendicular to itself, giving $\vv\cdot\vv=0$, which forces $\vv=\zero$. Perpendicular $+$ dimensions filling the space $\Rightarrow$ they are \textbf{orthogonal complements}.}
+\end{enumerate}
+
+\begin{teachernote}
+\textbf{Scoring Part D (5 pts each).} D1: 1 pt (a) $\zero\notin W$ with the $0=-2$ check; 2 pts (b) ``not a
+subspace'' \emph{because} it misses $\zero$ / fails closure; 2 pts (c) $y=3x$ is a subspace and \emph{why}
+(through origin, closed). D2: 3 pts (a) the row-by-row argument (dot $=0\Rightarrow\perp$, so $N(A)\perp$
+row space); 2 pts (b) dims $1+2=3$ fill $\mathbb{R}^3$ and $\vv\cdot\vv=0\Rightarrow\vv=\zero$ for the
+$\{\zero\}$ intersection. Accept ``orthogonal complements'' as the summary.
+\end{teachernote}
 
 \end{document}

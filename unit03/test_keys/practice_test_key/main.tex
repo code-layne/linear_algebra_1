@@ -2,6 +2,12 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\svec}{\mathbf{s}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\T}{^{\mathsf T}}
 
 % Part-divider strip
 \newcommand{\parthead}[1]{%
@@ -12,20 +18,115 @@
 \begin{document}
 
 \pageheader{Unit 3: The Four Fundamental Subspaces}{Practice Test --- Study Copy --- Answer Key}
+\namedateperiod
 
-% Mirror the blank test EXACTLY, filling each answer with \ans{...} (inline) or
-% \ansline{...} (on a write-line). Use teachernote for scoring/teacher guidance.
+\vspace{0.10in}
+\begin{remindbox}
+\small
+\textbf{This is a practice test.} It mirrors the real Unit 3 test in length, format,
+and the ideas it covers, but the numbers and contexts differ. Work every problem
+with no notes, then check your answers against the key.
+\end{remindbox}
+
 % ======================================================================
-\parthead{Part A --- Vocabulary}
-% TODO: answers via \ans{...}
+\parthead{Part A --- Vocabulary (8 pts)}
+Write the letter of the best description next to each term.
 
-\parthead{Part B --- Multiple Choice}
-% TODO: mark correct options, e.g. \textcolor{keyred}{\textbf{$\leftarrow$ correct}}
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=7pt, label=\arabic*.]
+  \item Subspace \ans{F}
+  \item Nullspace $N(A)$ \ans{D}
+  \item Column space $C(A)$ \ans{B}
+  \item Special solution \ans{H}
+  \item Linear independence \ans{C}
+  \item Basis \ans{G}
+  \item Dimension \ans{A}
+  \item Rank \ans{E}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.57\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=3pt]
+  \item[(A)] The number of vectors in a basis (e.g.\ $r$ for $C(A)$, $n-r$ for $N(A)$).
+  \item[(B)] The span of the columns of $A$; the reachable outputs $\bb$, a subspace of $\mathbb{R}^m$.
+  \item[(C)] A set in which only the all-zero combination gives $\zero$ (no vector is a combination of the others).
+  \item[(D)] The set of all solutions to $A\xx=\zero$; a subspace of $\mathbb{R}^n$.
+  \item[(E)] The number of pivots $r$; equals both the row rank and the column rank.
+  \item[(F)] A subset closed under addition and scalar multiplication (so it contains $\zero$).
+  \item[(G)] An independent set that spans the space --- the fewest vectors that build every vector in it.
+  \item[(H)] A solution of $A\xx=\zero$ found by setting one free variable to $1$ and the rest to $0$.
+\end{description}
+\end{minipage}
 
-\parthead{Part C --- Short Answer \& Computation}
-% TODO: worked answers via \ans{...}
+% ======================================================================
+\parthead{Part B --- Multiple Choice (12 pts)}
+Circle the best answer.
 
-\parthead{Part D --- Extended Response}
-% TODO: sample response + scoring notes in a teachernote.
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item Which set is \textbf{not} a subspace of $\mathbb{R}^2$?
+    \hfill (A) the line $y=2x$ \quad (B) all of $\mathbb{R}^2$ \quad \textbf{(C) the line $y=2x+1$} \ans{$\leftarrow$} \quad (D) $\{\zero\}$
+  \item For an $m\times n$ matrix of rank $r$, the nullspace $N(A)$ has dimension
+    \hfill (A) $r$ \quad \textbf{(B) $n-r$} \ans{$\leftarrow$} \quad (C) $m-r$ \quad (D) $n$
+  \item The columns of $A$ are linearly independent exactly when
+    \hfill \textbf{(A) $N(A)=\{\zero\}$} \ans{$\leftarrow$} \quad (B) $C(A)=\mathbb{R}^m$ \quad (C) $A$ is square \quad (D) $A$ has a zero row
+  \item For \emph{any} matrix, the row rank and the column rank are
+    \hfill \textbf{(A) always equal} \ans{$\leftarrow$} \quad (B) equal only if $A$ is square \quad (C) never equal \quad (D) unrelated
+  \item When $A\xx=\bb$ is solvable, its complete solution has the form
+    \hfill (A) $\xx_p$ only \quad (B) $\xx_n$ only \\
+    \phantom{x}\hfill \textbf{(C) $\xx_p+\xx_n$ (one particular $+$ the whole nullspace)} \ans{$\leftarrow$} \quad (D) always a single point
+  \item If $\xx$ is in the nullspace of $A$, then $\xx$ is perpendicular to
+    \hfill (A) every column of $A$ \quad \textbf{(B) every row of $A$} \ans{$\leftarrow$} \quad (C) the vector $\bb$ \quad (D) nothing
+\end{enumerate}
+
+\begin{teachernote}
+Item 1: a subspace must contain $\zero$; $y=2x+1$ misses the origin (and its points don't add to a
+point on the line). Item 3: independent columns $\iff$ the only solution of $A\xx=\zero$ is $\xx=\zero$.
+Item 6: $A\xx=\zero$ read row by row says (row)$\cdot\,\xx=0$ for every row --- the Part~D / FTLA idea.
+\end{teachernote}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (35 pts)}
+Show your work. Problems 2--7 all use the same matrix
+$A=\begin{bsmallmatrix}1&1&2\\2&1&3\\3&2&5\end{bsmallmatrix}$.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item Use the \textbf{closure test} to decide whether $W=\{(x,y,z)\in\mathbb{R}^3 : x+y+z=0\}$ is a
+        subspace of $\mathbb{R}^3$.
+        \ans{\textbf{Yes} --- $W$ is a subspace (a plane through the origin). \emph{Contains $\zero$:} $0+0+0=0$. \emph{Addition:} if $(x_1{+}y_1{+}z_1)=0$ and $(x_2{+}y_2{+}z_2)=0$, adding gives $(x_1{+}x_2)+(y_1{+}y_2)+(z_1{+}z_2)=0$, so the sum is in $W$. \emph{Scaling:} multiplying by $c$ gives $c(x+y+z)=c\cdot 0=0$, still in $W$. All three hold.}
+  \item Row-reduce $A$ and find every \textbf{special solution} of $A\xx=\zero$. State $\dim N(A)$.
+        \ans{$R_2-2R_1,\ R_3-3R_1$ then $R_3-R_2$ give the reduced form $\begin{bsmallmatrix}1&0&1\\0&1&1\\0&0&0\end{bsmallmatrix}$. Columns $1,2$ are pivots; column $3$ is free. Set $x_3=1$: $x_1=-1,\ x_2=-1$, so the special solution is $\svec=\begin{bsmallmatrix}-1\\-1\\1\end{bsmallmatrix}$. One free variable, so $\dim N(A)=n-r=3-2=1$.}
+  \item Solve $A\xx=\bb$ \textbf{completely} for $\bb=\begin{bsmallmatrix}2\\3\\5\end{bsmallmatrix}$.
+        \ans{Reducing $[A\mid\bb]$ gives $\begin{bsmallmatrix}1&0&1&\mid&1\\0&1&1&\mid&1\\0&0&0&\mid&0\end{bsmallmatrix}$ (consistent). Free $x_3=0$ gives a particular solution $\xx_p=\begin{bsmallmatrix}1\\1\\0\end{bsmallmatrix}$. Complete solution: $\xx=\begin{bsmallmatrix}1\\1\\0\end{bsmallmatrix}+t\begin{bsmallmatrix}-1\\-1\\1\end{bsmallmatrix}$.}
+  \item Is $\bb=\begin{bsmallmatrix}1\\0\\0\end{bsmallmatrix}$ in the column space $C(A)$?
+        \ans{\textbf{No.} Reducing $[A\mid\bb]$ gives a last row $\begin{bsmallmatrix}0&0&0&\mid&1\end{bsmallmatrix}$, i.e.\ $0=1$ --- impossible. The system is inconsistent, so $\bb\notin C(A)$.}
+  \item Are the columns of $A$ linearly independent? Give a \textbf{basis} for $C(A)$ and its dimension.
+        \ans{\textbf{Not independent} --- $N(A)\ne\{\zero\}$, and $\svec=(-1,-1,1)$ says column $3$ $=$ column $1$ $+$ column $2$: $\begin{bsmallmatrix}1\\2\\3\end{bsmallmatrix}+\begin{bsmallmatrix}1\\1\\2\end{bsmallmatrix}=\begin{bsmallmatrix}2\\3\\5\end{bsmallmatrix}$. The pivot columns form a basis: $\left\{\begin{bsmallmatrix}1\\2\\3\end{bsmallmatrix},\begin{bsmallmatrix}1\\1\\2\end{bsmallmatrix}\right\}$, so $\dim C(A)=r=2$.}
+  \item State the dimensions of all four subspaces and where each lives.
+        \ans{$\dim C(A)=r=2$, $\dim N(A)=n-r=1$, $\dim C(A\T)=r=2$ (row space), $\dim N(A\T)=m-r=1$ (left nullspace). \textbf{Input $\mathbb{R}^3$:} row space $C(A\T)$ and $N(A)$ ($2+1=3$). \textbf{Output $\mathbb{R}^3$:} column space $C(A)$ and left nullspace $N(A\T)$ ($2+1=3$).}
+  \item Verify that $\svec=\begin{bsmallmatrix}-1\\-1\\1\end{bsmallmatrix}$ is perpendicular to every row of $A$.
+        \ans{Row $1$: $(1,1,2)\cdot(-1,-1,1)=-1-1+2=0$. Row $2$: $(2,1,3)\cdot\svec=-2-1+3=0$. Row $3$: $(3,2,5)\cdot\svec=-3-2+5=0$. All zero, so $\svec\perp$ every row. This illustrates the \textbf{Fundamental Theorem of Linear Algebra}: $N(A)$ is orthogonal to the row space $C(A\T)$.}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (10 pts)}
+Explain your reasoning in full sentences.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item Consider the line $W=\{(x,y)\in\mathbb{R}^2 : y=2x+1\}$.
+        \ans{\textbf{(a)} No. Putting $(x,y)=(0,0)$ gives $0=2(0)+1=1$, which is false, so $\zero\notin W$. \textbf{(b)} $W$ is \emph{not} a subspace. A subspace must contain $\zero$, and $W$ fails that at once; closure also fails (e.g.\ $(0,1)$ and $(1,3)$ are on the line but their sum $(1,4)$ is not, since $4\ne 2(1)+1=3$). \textbf{(c)} The line $y=2x$ \emph{is} a subspace: it passes through the origin and equals all multiples $t(1,2)$, so it is closed under addition and scaling. The ``$+1$'' shifts the line off the origin and breaks every closure property.}
+  \item For $A$ above (rank $2$, special solution $\svec=(-1,-1,1)$):
+        \ans{\textbf{(a)} $A\xx=\zero$ read one row at a time says (row~$1$)$\cdot\,\xx=0$, (row~$2$)$\cdot\,\xx=0$, (row~$3$)$\cdot\,\xx=0$. A zero dot product means perpendicular (Lesson 1.2), so any $\xx$ in $N(A)$ is perpendicular to every row --- hence to their whole span, the row space. \textbf{(b)} The dimensions add to $n$: $\dim N(A)+\dim C(A\T)=1+2=3$, so together they have enough directions to reach every vector in $\mathbb{R}^3$. They meet only at $\zero$ because a vector $\vv$ in \emph{both} would be perpendicular to itself, giving $\vv\cdot\vv=0$, which forces $\vv=\zero$. Perpendicular $+$ dimensions filling the space $\Rightarrow$ they are \textbf{orthogonal complements}.}
+\end{enumerate}
+
+\begin{teachernote}
+\textbf{Scoring Part D (5 pts each).} D1: 1 pt (a) $\zero\notin W$ with the $0=1$ check; 2 pts (b) ``not a
+subspace'' \emph{because} it misses $\zero$ / fails closure; 2 pts (c) $y=2x$ is a subspace and \emph{why}
+(through origin, closed). D2: 3 pts (a) the row-by-row argument (dot $=0\Rightarrow\perp$, so $N(A)\perp$
+row space); 2 pts (b) dims $1+2=3$ fill $\mathbb{R}^3$ and $\vv\cdot\vv=0\Rightarrow\vv=\zero$ for the
+$\{\zero\}$ intersection. Accept ``orthogonal complements'' as the summary.
+\end{teachernote}
 
 \end{document}

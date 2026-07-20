@@ -3,17 +3,45 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.2}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small These three ideas (Lessons 1.2, 2.0) set up today's lesson. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Perpendicular test.} Are $\vv=\begin{bmatrix} 1 \\ 2 \end{bmatrix}$ and
+$\ww=\begin{bmatrix} 2 \\ -1 \end{bmatrix}$ perpendicular? Compute the dot product and decide.
+\[
+  \vv\cdot\ww = (1)(2)+(2)(-1) = {\color{keyred}\mathbf{0}} \quad(\text{yes, perpendicular})
+\]
+
+\vspace{4pt}
+\textbf{2. Two key dot products.} For $\avec=\begin{bmatrix} 1 \\ 2 \end{bmatrix}$ and
+$\bb=\begin{bmatrix} 4 \\ 3 \end{bmatrix}$, compute:
+\[
+  \avec\cdot\bb = {\color{keyred}\mathbf{10}} \qquad\qquad \avec\cdot\avec = {\color{keyred}\mathbf{5}}
+\]
+\vspace{-8pt}
+\ansline{$\avec\cdot\bb=4+6=10$; $\avec\cdot\avec=1+4=5$. (These build today's line-projection ratio $\hat{x}=\tfrac{\avec\cdot\bb}{\avec\cdot\avec}=2$.)}
+
+\vspace{4pt}
+\textbf{3. Solve a $2\times2$ system.} Find $x_1$ and $x_2$:
+\[
+  \begin{cases} 2x_1 + x_2 = 5 \\ x_1 + 2x_2 = 4 \end{cases}
+  \qquad x_1 = {\color{keyred}\mathbf{2}},\quad x_2 = {\color{keyred}\mathbf{1}}
+\]
+\vspace{-8pt}
+\ansline{Eliminate: subtract twice the second row from the first, or check $(2,1)$: $2(2)+1=5$ and $2+2(1)=4$. This is the shape of the normal equations we solve today.}
 \end{notesbox}
 
 \end{document}

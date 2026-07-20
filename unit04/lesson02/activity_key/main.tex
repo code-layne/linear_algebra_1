@@ -3,17 +3,79 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.2}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Drop the Perpendicular.} To find the closest point $\pp$ in a line or subspace, force the
+error $\ee=\bb-\pp$ to be \emph{perpendicular} to the space. A line uses one dot-product equation
+($\avec\cdot\ee=0$); a subspace uses one per column (the normal equations $A^{\T}A\hat{\xx}=A^{\T}\bb$).
+Show every dot product.
+\end{headlinebox}
+
+\vspace{0.08in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Project the target onto the line, then check the right angle.
+Line through $\avec=\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$, target $\bb=\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=7pt]
+  \item Compute $\avec\cdot\bb=\ans{$4$}$ and $\avec\cdot\avec=\ans{$2$}$, then
+        $\hat{x}=\dfrac{\avec\cdot\bb}{\avec\cdot\avec}=\ans{$2$}$.
+  \item Give the projection $\pp=\hat{x}\avec=\ans{$\begin{bsmallmatrix} 2\\2 \end{bsmallmatrix}$}$ and the error $\ee=\bb-\pp=\ans{$\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}$}$.
+  \item Check $\avec\cdot\ee=\ans{$0$}$. Is the error perpendicular to the line? \ans{Yes}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Project in $\mathbb{R}^3$ \emph{and} build the projection matrix.
+Line through $\avec=\begin{bsmallmatrix} 1\\1\\1 \end{bsmallmatrix}$, target $\bb=\begin{bsmallmatrix} 4\\1\\1 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Find $\hat{x}$, then $\pp=\hat{x}\avec$ and $\ee=\bb-\pp$. Verify $\avec\cdot\ee=0$.
+        \ansline{$\avec\cdot\bb=4+1+1=6$, $\avec\cdot\avec=3$, so $\hat{x}=2$; $\pp=(2,2,2)$; $\ee=(2,-1,-1)$; $\avec\cdot\ee=2-1-1=0$. \checkmark}
+  \item Build the projection matrix $P=\dfrac{\avec\avec^{\T}}{\avec^{\T}\avec}$ (a $3\times3$ matrix).
+        \ansline{$\avec\avec^{\T}=\begin{bsmallmatrix} 1&1&1\\1&1&1\\1&1&1 \end{bsmallmatrix}$ and $\avec^{\T}\avec=3$, so $P=\tfrac{1}{3}\begin{bsmallmatrix} 1&1&1\\1&1&1\\1&1&1 \end{bsmallmatrix}$.}
+  \item Confirm $P\bb=\pp$. Then explain in one sentence why $P\pp=\pp$ (projecting twice does nothing).
+        \ansline{$P\bb=\tfrac{1}{3}(6,6,6)=(2,2,2)=\pp$. \checkmark\ Since $\pp$ is already on the line, its projection is itself: $P\pp=\pp$.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Project onto a plane.} Let $A=\begin{bsmallmatrix} 1 & 1\\ 0 & 1\\ 1 & 1 \end{bsmallmatrix}$, so
+$C(A)$ is a plane in $\mathbb{R}^3$, and let $\bb=\begin{bsmallmatrix} 1\\1\\3 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Compute $A^{\T}A$ and $A^{\T}\bb$, and write the normal equations $A^{\T}A\hat{\xx}=A^{\T}\bb$.
+        \ansline{$A^{\T}A=\begin{bsmallmatrix} 2&2\\2&3 \end{bsmallmatrix}$, $A^{\T}\bb=\begin{bsmallmatrix} 4\\5 \end{bsmallmatrix}$; so $\begin{bsmallmatrix} 2&2\\2&3 \end{bsmallmatrix}\hat{\xx}=\begin{bsmallmatrix} 4\\5 \end{bsmallmatrix}$.}
+  \item Solve for $\hat{\xx}$, then find the projection $\pp=A\hat{\xx}$ and the error $\ee=\bb-\pp$.
+        \ansline{$\hat{\xx}=\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$; $\pp=A\hat{\xx}=\begin{bsmallmatrix} 2\\1\\2 \end{bsmallmatrix}$; $\ee=\bb-\pp=\begin{bsmallmatrix} -1\\0\\1 \end{bsmallmatrix}$.}
+  \item \textbf{Interpret.} Check $\ee$ is perpendicular to \emph{both} columns of $A$. Which of the four
+        subspaces does $\ee$ live in, and how does that connect to Lesson~4.1?
+        \ansline{$\ee\cdot(1,0,1)=-1+0+1=0$ and $\ee\cdot(1,1,1)=-1+0+1=0$. Since $A^{\T}\ee=\zero$, $\ee$ is in the left nullspace $N(A^{\T})$ --- the orthogonal complement of the column space $C(A)$ (Lesson~4.1). The error always lands in the complement.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~R is the whole method in miniature (one dot-product equation). Tier~A adds the projection matrix and
+the ``project twice $=$ once'' idea ($P^2=P$). Tier~E is the capstone: the same right angle, one equation
+per column, giving the normal equations --- and the error landing in $N(A^{\T})$ is the direct payoff of
+Lesson~4.1 and the launch point for least squares in 4.3. If a group struggles with the $2\times2$ solve
+in Tier~E, point them back to the Warm-Up system (same shape).
+\end{teachernote}
 
 \end{document}

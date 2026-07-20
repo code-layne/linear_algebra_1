@@ -3,6 +3,13 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,9 +18,20 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=15pt]
+  \item \textbf{Project onto a line.} Project $\bb=\begin{bmatrix} 4 \\ 2 \end{bmatrix}$ onto the line
+        through $\avec=\begin{bmatrix} 1 \\ 1 \end{bmatrix}$. Find $\hat{x}=\dfrac{\avec\cdot\bb}{\avec\cdot\avec}$
+        and the projection $\pp=\hat{x}\avec$.
+        \ansline{$\avec\cdot\bb=4+2=6$, $\avec\cdot\avec=2$, so $\hat{x}=3$ and $\pp=3\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}=\begin{bsmallmatrix} 3\\3 \end{bsmallmatrix}$.}
+  \item \textbf{What does it mean?} For the projection above, what is the error $\ee=\bb-\pp$, and why
+        must it be perpendicular to the line? Answer in one or two sentences.
+        \ansline{$\ee=\bb-\pp=\begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}-\begin{bsmallmatrix} 3\\3 \end{bsmallmatrix}=\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}$ (and $\avec\cdot\ee=1-1=0$). It is the shortest gap from $\bb$ to the line; if it were not perpendicular, a nearby point on the line would be closer, so $\pp$ would not be the closest point.}
+  \item \textbf{Onto a plane.} To project a vector $\bb$ onto the plane $C(A)$, which equation do you
+        solve for $\hat{\xx}$? Explain in one sentence why it comes from ``error perpendicular to every
+        column.''
+        \ansline{Solve the normal equations $A^{\T}A\hat{\xx}=A^{\T}\bb$. Requiring $\ee=\bb-A\hat{\xx}$ perpendicular to every column means $A^{\T}\ee=\zero$, i.e.\ $A^{\T}(\bb-A\hat{\xx})=\zero$, which rearranges to $A^{\T}A\hat{\xx}=A^{\T}\bb$.}
+\end{enumerate}
 
 \end{document}

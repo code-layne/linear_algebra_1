@@ -5,6 +5,15 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 \newcommand{\UnitNumberName}{Unit 4: Orthogonality \quad}
 \newcommand{\LessonNumberName}{Lesson 4.2: Projections onto Subspaces}
 
@@ -16,55 +25,142 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can find the \emph{projection} $\pp$ of a vector $\bb$ onto a
+    line or a subspace --- the closest point --- by forcing the \emph{error} $\ee=\bb-\pp$ to be
+    perpendicular to the space. They can derive and use $\hat{x}=\frac{\avec\cdot\bb}{\avec\cdot\avec}$
+    for a line and the \textbf{normal equations} $A^{\T}A\hat{\xx}=A^{\T}\bb$ for a subspace, and can
+    explain \emph{why} ``closest'' means ``error perpendicular'' --- the error lands in the orthogonal
+    complement of the space (Lesson~4.1).
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Find the closest point $\pp$ on a \textbf{line} to a target $\bb$: $\hat{x}=\frac{\avec\cdot\bb}{\avec\cdot\avec}$, $\pp=\hat{x}\avec$.
+  \item Read $\pp=P\bb$ off a \textbf{projection matrix} $P=\frac{\avec\avec^{\T}}{\avec^{\T}\avec}$.
+  \item Project onto a \textbf{subspace} $C(A)$ with the \textbf{normal equations} $A^{\T}A\hat{\xx}=A^{\T}\bb$.
+  \item Locate the \textbf{error} $\ee=\bb-\pp$ and check $\ee\perp$ the space.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item ``Closest'' $=$ ``error perpendicular'': drop a perpendicular to the space (Lesson~4.0).
+  \item $\avec\cdot\ee=0$ is one dot-product equation; $A^{\T}\ee=\zero$ is one per column.
+  \item The error lands in the \emph{orthogonal complement} $N(A^{\T})$ of the column space (Lesson~4.1).
+  \item Projecting an already-projected point changes nothing: $\pp$ is already in the space.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Projection $\pp$} & the closest point to $\bb$ that lies \emph{in} the line or subspace. \\
+\textbf{Error (residual) $\ee$} & $\ee=\bb-\pp$; it is perpendicular to the whole space ($\avec\cdot\ee=0$, or $A^{\T}\ee=\zero$). \\
+\textbf{Projection onto a line} & $\hat{x}=\dfrac{\avec\cdot\bb}{\avec\cdot\avec}$ and $\pp=\hat{x}\,\avec$. \\
+\textbf{Projection matrix $P$} & $\pp=P\bb$; a line gives $P=\dfrac{\avec\avec^{\T}}{\avec^{\T}\avec}$, a subspace $P=A(A^{\T}A)^{-1}A^{\T}$. \\
+\textbf{Normal equations} & $A^{\T}A\hat{\xx}=A^{\T}\bb$: solve for the weights $\hat{\xx}$, then $\pp=A\hat{\xx}$. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three skills this lesson builds on:
+    \textbf{(1)} the \emph{perpendicular test} $\vv\cdot\ww=0$ (Lessons~1.2, 4.0);
+    \textbf{(2)} computing the two dot products $\avec\cdot\bb$ and $\avec\cdot\avec$ (the pieces of
+    $\hat{x}$); and \textbf{(3)} \emph{solving a $2\times2$ system} (the shape of the normal equations).
+    Debrief item~3 aloud: emphasize that projecting onto a subspace ends in an ordinary linear system ---
+    the machinery is all from Units~1--2.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    A drone hovers at a point $\bb$ off to the side of a straight road (a \emph{line} through the
+    origin). Ask: \textbf{``Which point of the road is closest to the drone, and how do you know it is
+    the closest?''} Students reason to the \emph{foot of the perpendicular} --- the drone's shadow
+    straight down onto the road. Name the payoff: the closest point is $\pp$ (the \textbf{projection}),
+    and the segment from $\pp$ to $\bb$ is the \textbf{error} $\ee=\bb-\pp$, which is \emph{perpendicular}
+    to the road. Then pose the lesson question: \textbf{``If `closest' always means `error perpendicular,'
+    can we turn that one right angle into an equation and just solve for $\pp$?''}
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. Closest $=$ perpendicular error.} A target $\bb$ sits off a line through $\avec$. The closest
+point $\pp$ on the line is the one where the leftover $\ee=\bb-\pp$ points \emph{straight at} the line ---
+$\ee\perp\avec$. \textbf{Ask:} why perpendicular? Any other point on the line is farther (hypotenuse
+beats leg). This is ``drop a perpendicular'' from Lesson~4.0, now made exact.
+
+\textbf{2. Projection onto a line.} Write $\pp=\hat{x}\avec$ (some multiple of $\avec$). Force the right
+angle: $\avec\cdot(\bb-\hat{x}\avec)=0$. Solve for the one unknown:
+$\hat{x}=\dfrac{\avec\cdot\bb}{\avec\cdot\avec}$, so $\pp=\dfrac{\avec\cdot\bb}{\avec\cdot\avec}\,\avec$.
+\emph{One dot-product equation, one unknown.} Numbers: $\avec=(1,2)$, $\bb=(4,3)$ give $\hat{x}=2$,
+$\pp=(2,4)$, $\ee=(2,-1)$, and $\avec\cdot\ee=0$.
+
+\textbf{3. The projection matrix.} Since $\pp=P\bb$, a line gives $P=\frac{\avec\avec^{\T}}{\avec^{\T}\avec}$
+--- one matrix that projects \emph{any} $\bb$. \textbf{Ask:} what is $P\pp$? Still $\pp$ --- projecting
+an already-on-the-line point changes nothing.
+
+\columnbreak
+
+\textbf{4. Projection onto a subspace.} Now the target's ``road'' is a plane $=C(A)$ (columns of $A$).
+We want $\pp=A\hat{\xx}$ closest to $\bb$, so the error is perpendicular to \emph{every} column:
+$A^{\T}(\bb-A\hat{\xx})=\zero$. Rearranged, that is the \textbf{normal equations}
+\[ A^{\T}A\,\hat{\xx}=A^{\T}\bb. \]
+Solve this ordinary system for $\hat{\xx}$, then $\pp=A\hat{\xx}$. \emph{One dot-product equation per
+column} --- the line case, repeated.
+
+\textbf{5. Where the error goes.} $A^{\T}\ee=\zero$ says $\ee$ is in the \textbf{left nullspace}
+$N(A^{\T})$ --- the \emph{orthogonal complement} of the column space (Lesson~4.1). \textbf{Punchline:}
+projection splits $\bb$ into a piece \emph{in} the space ($\pp$) plus a piece \emph{perpendicular} to it
+($\ee$). Forcing $\ee$ into the complement (dot $=0$) is the whole method --- and it is exactly the
+setup for least squares in 4.3.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item flipping the fraction to $\frac{\avec\cdot\avec}{\avec\cdot\bb}$ --- the unknown multiplies $\avec$, so $\avec\cdot\avec$ is on the bottom;
+  \item projecting onto $\bb$ instead of onto $\avec$ (the space is spanned by $\avec$, not by the target);
+  \item in the subspace case, forgetting to multiply through by $A^{\T}$ --- $A\hat{\xx}=\bb$ usually has \emph{no} solution, which is the whole reason we project.
+\end{itemize}
+Cold-call prompts: ``Why is the closest point the one with a perpendicular error?'' ``What does
+$\avec\cdot\ee=0$ let you solve for?'' ``Which subspace does the error $\ee$ live in, and why?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Drop the Perpendicular} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Project a target onto a line in $\mathbb{R}^2$: compute $\hat{x}$, $\pp$,
+and $\ee$, and check $\avec\cdot\ee=0$.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Project onto a line in $\mathbb{R}^3$; build the projection matrix
+$P=\frac{\avec\avec^{\T}}{\avec^{\T}\avec}$ and confirm $P\bb=\pp$.
+
+\columnbreak
+\textbf{Tier E --- Extension.} Project onto a \emph{plane} $C(A)$: set up and solve the normal equations
+$A^{\T}A\hat{\xx}=A^{\T}\bb$, find $\pp$, and verify $\ee\perp$ both columns.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): project a target onto a line and give $\hat{x}$ and $\pp$;
+a \textbf{conceptual/justification check} --- say what the error $\ee$ measures and why it is
+perpendicular; and name the equation you solve to project onto a plane $C(A)$ and justify it from
+``error $\perp$ every column.'' Sort responses into ``sets up $\avec\cdot\ee=0$ / flips the fraction /
+projects onto $\bb$'' to decide whether 4.3 opens with a quick re-anchor on the perpendicular-error idea.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} project onto a line in $\mathbb{R}^2$ and $\mathbb{R}^3$ (with the projection matrix);
+set up and solve the normal equations to project onto a plane; and explain in words why the error is
+perpendicular. \textbf{Extension:} verify ``project twice $=$ project once'' ($P\pp=\pp$) and check the
+error lands in $N(A^{\T})$, tying back to 4.1. \textbf{Preview:} Lesson~4.3, \emph{Least Squares} ---
+when $A\xx=\bb$ has no solution, the projection $\pp$ gives the \emph{best-fit} answer, and the normal
+equations become the tool for fitting a line to real data.
 \end{skillbox}
 \end{document}

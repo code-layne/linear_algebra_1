@@ -2,18 +2,149 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
+\usetikzlibrary{calc}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.2}{Guided Notes}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Guided Notes. See references/components.md for the expected structure.
-\begin{notesbox}{Guided Notes}
-\writelines{4}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item find the projection of a vector onto a \emph{line} and locate the perpendicular error;
+  \item project onto a \emph{subspace} by solving the normal equations $A^{\T}A\hat{\xx}=A^{\T}\bb$;
+  \item explain \emph{why} the closest point is the one whose error is perpendicular to the space.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.04in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\termblanklong{Projection $\pp$ (closest point)}
+\termblanklong{Error $\ee=\bb-\pp$}
+\termblanklong{Normal equations}
+\end{vocabbox}
+
+\begin{hookbox}
+A drone hovers at a point $\bb$ off to the side of a straight road (a line through the origin).
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item Which point of the road is \emph{closest} to the drone? \writeline
+  \item How do you \emph{know} it is the closest --- what is special about the segment from that point to the drone? \writeline
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. Closest Means Perpendicular Error}
+A target $\bb$ sits off a line through the vector $\avec$. The closest point $\pp$ on the line is the one
+where the leftover $\ee=\bb-\pp$ points \emph{straight at} the line --- that is, $\ee$ is
+\blank{3.0cm} to $\avec$. Every other point on the line is \emph{farther} away (its distance is a
+hypotenuse; the perpendicular distance is a leg). We call $\pp$ the \textbf{projection} of $\bb$ and
+$\ee=\bb-\pp$ the \textbf{error}.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0, >=stealth]
+  % the line through a
+  \draw[burgundy, thick] (-0.6,-0.3)--(4.8,2.4) node[right, font=\footnotesize]{line through $\avec$};
+  % vectors
+  \coordinate (O) at (0,0);
+  \coordinate (P) at (3.2,1.6);   % projection p (on line)
+  \coordinate (B) at (2.0,3.0);   % target b (off line)
+  \draw[->, very thick, royalblue] (O)--(B) node[above left, font=\footnotesize]{$\bb$};
+  \draw[->, very thick, burgundy] (O)--(P) node[below right, font=\footnotesize]{$\pp=\hat{x}\avec$};
+  \draw[->, thick, charcoal, dashed] (P)--(B) node[midway, right, font=\footnotesize]{$\ee=\bb-\pp$};
+  % right-angle mark at P
+  \draw[charcoal, thin] ($(P)+(-0.28,0.14)$)--($(P)+(-0.14,0.42)$)--($(P)+(0.14,0.28)$);
+  \fill (O) circle (1.4pt) node[below left, font=\footnotesize]{$\zero$};
+\end{tikzpicture}
+\end{center}
 \end{notesbox}
+
+\begin{notesbox}{2. Projection onto a Line}
+Since $\pp$ lies on the line, it is some multiple of $\avec$: write $\pp=\hat{x}\,\avec$ for an unknown
+number $\hat{x}$. Now force the right angle --- $\avec$ is perpendicular to the error:
+\[
+  \avec\cdot(\bb-\hat{x}\avec)=0 \quad\Longrightarrow\quad \avec\cdot\bb-\hat{x}\,(\avec\cdot\avec)=0.
+\]
+Solve the one equation for the one unknown:
+\[
+  \hat{x}=\frac{\avec\cdot\bb}{\avec\cdot\blank{0.7cm}}, \qquad
+  \pp=\hat{x}\,\avec=\frac{\avec\cdot\bb}{\avec\cdot\avec}\,\avec.
+\]
+
+\textbf{Worked example.} Line through $\avec=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$, target
+$\bb=\begin{bsmallmatrix} 4\\3 \end{bsmallmatrix}$. From the Warm-Up, $\avec\cdot\bb=10$ and
+$\avec\cdot\avec=5$, so
+\[
+  \hat{x}=\frac{10}{5}=\blank{0.8cm}, \qquad
+  \pp=2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}=\begin{bsmallmatrix}\ \blank{0.6cm}\ \\[2pt] \blank{0.6cm} \end{bsmallmatrix},\qquad
+  \ee=\bb-\pp=\begin{bsmallmatrix} 4\\3 \end{bsmallmatrix}-\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}=\begin{bsmallmatrix} 2\\-1 \end{bsmallmatrix}.
+\]
+\textbf{Check the right angle:} $\avec\cdot\ee=(1)(2)+(2)(-1)=\blank{0.8cm}$. \checkmark
+\end{notesbox}
+
+\begin{notesbox}{3. The Projection Matrix (a Shortcut)}
+Because $\pp$ depends on $\bb$ in a linear way, there is a single \textbf{projection matrix} $P$ with
+$\pp=P\bb$. For a line,
+\[
+  P=\frac{\avec\,\avec^{\T}}{\avec^{\T}\avec}.
+\]
+For $\avec=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$: $\avec\avec^{\T}=\begin{bsmallmatrix} 1 & 2\\ 2 & 4 \end{bsmallmatrix}$ and $\avec^{\T}\avec=5$, so
+$P=\frac{1}{5}\begin{bsmallmatrix} 1 & 2\\ 2 & 4 \end{bsmallmatrix}$. Then
+$P\bb=\frac{1}{5}\begin{bsmallmatrix} 1 & 2\\ 2 & 4 \end{bsmallmatrix}\begin{bsmallmatrix} 4\\3 \end{bsmallmatrix}=\frac{1}{5}\begin{bsmallmatrix} 10\\20 \end{bsmallmatrix}=\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}=\pp.$
+\emph{One matrix projects any target.} And projecting again does nothing: $P\pp=\pp$, because $\pp$ is
+already \blank{2.6cm} the line.
+\end{notesbox}
+
+\begin{notesbox}{4. Projection onto a Subspace --- the Normal Equations}
+Now the ``road'' is a whole plane: the column space $C(A)$ of a matrix $A$ (its columns span the plane).
+We want $\pp=A\hat{\xx}$ closest to $\bb$, so the error $\ee=\bb-A\hat{\xx}$ must be perpendicular to
+\emph{every column} of $A$. Stacking those dot-product equations is exactly $A^{\T}\ee=\zero$:
+\[
+  A^{\T}(\bb-A\hat{\xx})=\zero \quad\Longrightarrow\quad
+  \boxed{\,A^{\T}A\,\hat{\xx}=A^{\T}\bb\,}\quad\text{(the \textbf{normal equations}).}
+\]
+Solve this ordinary system for $\hat{\xx}$; then $\pp=A\hat{\xx}$.
+
+\vspace{3pt}
+\textbf{Worked example.} Project $\bb=\begin{bsmallmatrix} 6\\0\\0 \end{bsmallmatrix}$ onto the plane
+$C(A)$ for $A=\begin{bsmallmatrix} 1 & 0\\ 1 & 1\\ 1 & 2 \end{bsmallmatrix}$.
+\[
+  A^{\T}A=\begin{bsmallmatrix} 3 & 3\\ 3 & 5 \end{bsmallmatrix},\qquad
+  A^{\T}\bb=\begin{bsmallmatrix} 6\\ 0 \end{bsmallmatrix}\ \Rightarrow\
+  \begin{bsmallmatrix} 3 & 3\\ 3 & 5 \end{bsmallmatrix}\hat{\xx}=\begin{bsmallmatrix} 6\\ 0 \end{bsmallmatrix}
+  \ \Rightarrow\ \hat{\xx}=\begin{bsmallmatrix}\ \blank{0.6cm}\ \\[2pt] \blank{0.6cm} \end{bsmallmatrix}=\begin{bsmallmatrix} 5\\ -3 \end{bsmallmatrix}.
+\]
+Then $\pp=A\hat{\xx}=\begin{bsmallmatrix} 5\\ 2\\ -1 \end{bsmallmatrix}$ and
+$\ee=\bb-\pp=\begin{bsmallmatrix} 1\\ -2\\ 1 \end{bsmallmatrix}$. The error is perpendicular to both
+columns: $\ee\cdot(1,1,1)=0$ and $\ee\cdot(0,1,2)=0$. So $\ee$ lands in the \textbf{left nullspace}
+$N(A^{\T})$ --- the \emph{orthogonal complement} of the column space (Lesson~4.1). Projection splits
+$\bb$ into a piece \emph{in} the space ($\pp$) plus a piece \emph{perpendicular} to it ($\ee$).
+\end{notesbox}
+
+\begin{practicebox}
+Show your work.
+\begin{enumerate}[leftmargin=1.6em, itemsep=6pt]
+  \item Project $\bb=\begin{bsmallmatrix} 1\\2\\3 \end{bsmallmatrix}$ onto the line through
+        $\avec=\begin{bsmallmatrix} 1\\1\\1 \end{bsmallmatrix}$. Find $\hat{x}$, $\pp$, and $\ee$, and
+        check $\avec\cdot\ee=0$. \writeline
+  \item In a projection, what does the error $\ee$ represent, and why must it be perpendicular to the
+        space? \writeline
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

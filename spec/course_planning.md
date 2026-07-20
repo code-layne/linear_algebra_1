@@ -7,7 +7,36 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-20 — **Authored & built Unit 4 Lesson 4.1 — "Orthogonality of the Four
+**Last updated:** 2026-07-20 — **Authored & built Unit 4 Lesson 4.2 — "Projections onto Subspaces"
+(§4.2).** Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the
+five keys) and the slides deck, mirroring Lesson 4.1's preamble/boxes/tone. **Content — turns 4.1's
+"error lands in the complement" into a method:** (1) **closest $=$ perpendicular error** — the closest
+point $\pp$ on a line to a target $\bb$ is where $\ee=\bb-\pp\perp$ the line (drop a perpendicular, from
+4.0); (2) **projection onto a line** — force $\avec\cdot(\bb-\hat{x}\avec)=0$ ⇒
+$\hat{x}=\frac{\avec\cdot\bb}{\avec\cdot\avec}$, $\pp=\hat{x}\avec$; (3) the **projection matrix**
+$P=\frac{\avec\avec^{\T}}{\avec^{\T}\avec}$ (line), $\pp=P\bb$, $P\pp=\pp$/$P^2=P$; (4) **projection onto
+a subspace** $C(A)$ — error ⊥ every column ⇒ $A^{\T}\ee=\zero$ ⇒ the **normal equations**
+$A^{\T}A\hat{\xx}=A^{\T}\bb$, then $\pp=A\hat{\xx}$; (5) **where the error goes** — $\ee\in N(A^{\T})$, the
+orthogonal complement of $C(A)$ (the 4.1 payoff), so projection splits $\bb=\pp+\ee$. **Hook:** drone off
+a straight road, closest point = foot of the perpendicular (its shadow). **Worked spine:** line
+$\avec=(1,2)$, $\bb=(4,3)$ → $\hat{x}=2$, $\pp=(2,4)$, $\ee=(2,-1)$; subspace
+$A=[[1,0],[1,1],[1,2]]$, $\bb=(6,0,0)$ → $\hat{\xx}=(5,-3)$, $\pp=(5,2,-1)$, $\ee=(1,-2,1)\in N(A^{\T})$
+(the least-squares matrix, treated purely as "project onto a plane" — reserves line-fitting for 4.3).
+Activity Tier E uses fresh $A=[[1,1],[0,1],[1,1]]$, $\bb=(1,1,3)$ → $\hat{\xx}=(1,1)$, $\pp=(2,1,2)$,
+$\ee=(-1,0,1)$; homework reuses the notes $A$ with $\bb=(2,1,6)$ → $\hat{\xx}=(1,2)$, $\pp=(1,3,5)$,
+$\ee=(1,-2,1)$. **All projections/dot products hand-verified in Python (fractions; every $\avec\cdot\ee$
+and $A^{\T}\ee$ is $0$).** Custom **closest-point TikZ figure** ($\bb$ blue, $\pp$ on line burgundy, $\ee$
+dashed + right-angle mark via `calc`) on notes §1 + the slides hook. **Built `make -C unit04/lesson02 all`
+→ clean** (0 `^!` errors across all 13 logs; no `\ans`-in-math). Page counts: cover/warmup/exit 1pp (blank
+& key ✓ 1-page constraint), notes 2pp blank / 3pp key, activity/homework 2pp (blank & key), slides 6pp,
+lesson plan 2pp; **student 9pp, full 18pp** (matches 4.1). Visually spot-checked notes_key p1
+(closest-point figure — clean, right-angle mark crisp), p3 (teachernote), slides hook — all clean.
+**Gotchas avoided:** used `\avec` for vector $a$ (not built-in `\aa`=å); defined `\zero` in the
+exit_ticket key preamble (blank didn't need it); in the key denominator fill used `{\color{keyred}\avec}`
+(not nested `\mathbf{\avec}`). **Next run: author Lesson 4.3** ("Least Squares Approximations"). Lesson 4.0
+remains the Unit 4 model.
+
+**Prior run:** **Authored & built Unit 4 Lesson 4.1 — "Orthogonality of the Four
 Subspaces" (§4.1).** Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket,
 homework (+ the five keys) and the slides deck, mirroring Lesson 4.0's preamble/boxes/tone.
 **Content — extends §3.6 from "perpendicular" to "orthogonal complements":** (1) lift $\vv\cdot\ww=0$
@@ -260,7 +289,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
 | 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ☑ all lessons + tests authored & built ✅ |
 | 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ☑ all lessons + tests authored & built ✅ |
-| 4 | Orthogonality | 4.0 intro + 4.1–4.4 | ◐ 4.0, 4.1 authored & built ✅; 4.2–4.4 + tests still skeletons |
+| 4 | Orthogonality | 4.0 intro + 4.1–4.4 | ◐ 4.0, 4.1, 4.2 authored & built ✅; 4.3–4.4 + tests still skeletons |
 | 5 | Determinants and Linear Transformations | 5.1–5.3 | ☐ |
 | 6 | Eigenvalues and Eigenvectors | 6.1–6.4 (§6.4 optional) | ☐ |
 | 7 | The Singular Value Decomposition *(optional/advanced)* | 7.1–7.4 | ☐ |
@@ -268,7 +297,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author Unit 4 lesson-by-lesson, next up 4.2** (4.0, 4.1 authored & built — 4.0 is the Unit 4 model).
+1. **Author Unit 4 lesson-by-lesson, next up 4.3** (4.0, 4.1, 4.2 authored & built — 4.0 is the Unit 4 model).
    Read each `unit04/lessonYY/**/main.tex` skeleton with the Read tool before writing it, then fill it
    following `references/components.md`. Planned content per lesson (down-level from LAfE Ch. 4):
    - **4.0** intro/spiral — ✅ authored & built (dot product, length/unit vectors, perpendicular $\Leftrightarrow$
@@ -276,8 +305,10 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
    - **4.1** Orthogonality of the four subspaces — ✅ authored & built ($C(A^{\mathsf T})\perp N(A)$ and
      $C(A)\perp N(A^{\mathsf T})$ as *orthogonal complements* — perpendicular AND dims fill the room;
      "why" via $A\xx=\zero$ row by row; $V^{\perp}=$ nullspace of the row matrix).
-   - **4.2** Projections onto subspaces — projection onto a line ($\hat\xx=\frac{\aa\cdot\bb}{\aa\cdot\aa}\aa$),
-     then onto a subspace; projection matrix $P=A(A^{\mathsf T}A)^{-1}A^{\mathsf T}$; error $\bb-\pp\perp$ the space.
+   - **4.2** Projections onto subspaces — ✅ authored & built (projection onto a line
+     $\hat{x}=\frac{\avec\cdot\bb}{\avec\cdot\avec}$; projection matrix $P=\frac{\avec\avec^{\T}}{\avec^{\T}\avec}$;
+     onto a subspace via the normal equations $A^{\mathsf T}A\hat\xx=A^{\mathsf T}\bb$; error $\bb-\pp\in N(A^{\mathsf T})$,
+     the complement of $C(A)$).
    - **4.3** Least squares — best-fit line on real data; the **normal equations** $A^{\mathsf T}A\hat\xx=A^{\mathsf T}\bb$;
      minimize the error; the U4 guided application (fit a line, then interpret).
    - **4.4** Orthogonal matrices & Gram–Schmidt — orthonormal vectors, $Q^{\mathsf T}Q=I$, why $Q$ makes

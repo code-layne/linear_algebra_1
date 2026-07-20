@@ -1,6 +1,13 @@
 %! Orthogonality of the Four Subspaces — Unit 4, Lesson 4.1 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\usetikzlibrary{calc}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,16 +18,138 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 4.1}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Orthogonality of the Four Subspaces}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 4}
+    {\color{white}\bfseries\LARGE Orthogonality of the Four Subspaces}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 4: Orthogonality}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{Which directions are perpendicular to the whole tabletop?}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.56\textwidth}
+      A flat tabletop is a \textbf{plane} in $\mathbb{R}^3$.\\[6pt]
+      Only \emph{one} direction --- straight up/down --- is perpendicular to the \textbf{entire} plane:
+      a single \textbf{line}.\\[8pt]
+      Plane (dim $2$) $+$ line (dim $1$) $=$ the whole room ($\mathbf{2+1=3}$). Perpendicular \emph{and}
+      filling: \textbf{orthogonal complements}.
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.9]
+        % tabletop plane
+        \draw[fill=blush, draw=burgundy, thick] (-1.3,-0.5)--(1.7,-0.5)--(1.3,0.5)--(-1.7,0.5)--cycle;
+        \node[burgundy, font=\scriptsize] at (1.9,0.15) {plane};
+        % vertical normal line
+        \draw[->, very thick, royalblue] (0,0)--(0,2.0) node[right, font=\scriptsize]{$\perp$ line};
+        \draw[->, very thick, royalblue] (0,0)--(0,-1.4);
+        % right-angle mark
+        \draw[charcoal, thin] (0,0.32)--(0.32,0.32)--(0.32,0);
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{4pt}
+  \begin{block}{The question of Lesson 4.1}
+    Every matrix splits its input space into a row-space plane and a nullspace line just like this ---
+    \textbf{why perpendicular, and why do they fill the space?}
+  \end{block}
+\end{frame}
+
+% ORTHOGONAL SUBSPACES
+\begin{frame}[t, plain]
+  \burgundyheader{From orthogonal vectors to orthogonal subspaces}
+  \sectionlabel{Definition}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item \textbf{Vectors:} $\vv\perp\ww$ means $\vv\cdot\ww=0$ (Lesson 1.2).
+    \item \textbf{Subspaces:} $V\perp W$ means \emph{every} vector in $V$ is $\perp$ \emph{every} vector in $W$.
+    \item \textbf{Shortcut:} enough to check each \emph{basis} vector of $V$ against each basis vector of $W$.
+  \end{itemize}
+  \vspace{4pt}
+  \begin{block}{Caution --- perpendicular-looking is not enough}
+    Two \textbf{walls} share a vertical line; a vector along it lies in both and can't be $\perp$ itself.
+    So walls are \emph{not} orthogonal. Orthogonal subspaces meet \textbf{only at $\zero$}.
+  \end{block}
+\end{frame}
+
+% WHY ROW SPACE PERP NULLSPACE
+\begin{frame}[t, plain]
+  \burgundyheader{Why the row space $\perp$ the nullspace}
+  \sectionlabel[goldacc]{The ``why'' behind §3.6}
+  Take $\xx$ in the nullspace: $A\xx=\zero$. Read it \textbf{one row at a time:}
+  \[
+    (\text{row }1)\cdot\xx=0,\quad (\text{row }2)\cdot\xx=0,\quad\dots,\quad (\text{row }m)\cdot\xx=0.
+  \]
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item So $\xx\perp$ \emph{every row} $\Rightarrow$ $\xx\perp$ every combination $\Rightarrow$ $\xx\perp$ the whole row space.
+    \item $\boxed{\,N(A)\perp C(A^{\T})\,}$ inside $\mathbb{R}^n$.
+    \item Same argument on $A^{\T}$ (rows of $A^{\T}=$ columns of $A$): $\boxed{\,N(A^{\T})\perp C(A)\,}$ inside $\mathbb{R}^m$.
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{One idea}
+    The four-subspace pairing is just $\text{dot}=0$, repeated one row at a time.
+  \end{block}
+\end{frame}
+
+% ORTHOGONAL COMPLEMENTS + BIG PICTURE
+\begin{frame}[t, plain]
+  \burgundyheader{Orthogonal complements: perpendicular \emph{and} filling}
+  \sectionlabel{The big picture}
+  \begin{columns}[T]
+    \begin{column}{0.40\textwidth}
+      In $\mathbb{R}^n$: \; $r+(n-r)=n$.\\[4pt]
+      The two perpendicular pieces \textbf{fill} the space, so the nullspace is \emph{every} vector
+      $\perp$ the row space --- its \textbf{orthogonal complement}.\\[6pt]
+      \emph{Not} enough to be perpendicular: two $\perp$ lines in $\mathbb{R}^3$ give $1+1\neq3$.
+    \end{column}
+    \begin{column}{0.58\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.72, every node/.style={font=\scriptsize}]
+        \draw[burgundy, thick, rounded corners] (-0.3,-0.3) rectangle (3.9,4.6);
+        \node[burgundy] at (1.8,4.95) {\textbf{Input } $\mathbb{R}^n$};
+        \node[draw=burgundy, fill=blush, rounded corners, align=center, minimum width=3.0cm] at (1.8,3.5) {$C(A^{\T})$, dim $r$};
+        \node[draw=burgundy, fill=blush, rounded corners, align=center, minimum width=3.0cm] at (1.8,1.0) {$N(A)$, dim $n{-}r$};
+        \node[text=burgundy] at (1.8,2.25) {$\perp$};
+        \draw[royalblue, thick, rounded corners] (5.9,-0.3) rectangle (10.1,4.6);
+        \node[royalblue] at (8.0,4.95) {\textbf{Output } $\mathbb{R}^m$};
+        \node[draw=royalblue, fill=skyblue, rounded corners, align=center, minimum width=3.0cm] at (8.0,3.5) {$C(A)$, dim $r$};
+        \node[draw=royalblue, fill=skyblue, rounded corners, align=center, minimum width=3.0cm] at (8.0,1.0) {$N(A^{\T})$, dim $m{-}r$};
+        \node[text=royalblue] at (8.0,2.25) {$\perp$};
+        \draw[->, very thick, charcoal] (4.1,2.15)--(5.7,2.15) node[midway, above]{$A$};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% WORKED EXAMPLE
+\begin{frame}[t, plain]
+  \burgundyheader{One matrix, all four subspaces}
+  \sectionlabel[goldacc]{Check it}
+  $A=\begin{bsmallmatrix} 1 & 1 & 2\\ 2 & 1 & 3\\ 3 & 2 & 5 \end{bsmallmatrix}$, rank $r=2$, with
+  nullspace direction $\xx=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$ and left-nullspace
+  direction $\yy=\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}$.
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Input room ($\mathbb{R}^3$)}
+        row$_1\cdot\xx=\begin{bsmallmatrix} 1\\1\\2 \end{bsmallmatrix}\cdot\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}=-1-1+2=0.$\\[4pt]
+        Plane (dim $2$) $\perp$ line (dim $1$), $2+1=3$.
+      \end{block}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Output room ($\mathbb{R}^3$)}
+        col$_1\cdot\yy=\begin{bsmallmatrix} 1\\2\\3 \end{bsmallmatrix}\cdot\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}=1+2-3=0.$\\[4pt]
+        Plane (dim $2$) $\perp$ line (dim $1$), $2+1=3$.
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{4pt}
+  \begin{block}{Next --- Lesson 4.2}
+    The error of a best guess lands in the \emph{complement}. We'll \emph{use} that: force the error
+    $\perp$ the subspace (dot $=0$) to find the closest point --- the \textbf{projection}.
+  \end{block}
 \end{frame}
 
 \end{document}

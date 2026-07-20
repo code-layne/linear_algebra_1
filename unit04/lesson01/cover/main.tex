@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 4}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 4 \quad Orthogonality}}\\[6pt]
   {\color{white}\textbf{\large Lesson 4.1 \quad Orthogonality of the Four Subspaces}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} say what it means for two \textbf{subspaces} to be \textbf{orthogonal}, and test it with dot products.
+  \item \ldots{} explain \emph{why} the \textbf{row space} $\perp$ the \textbf{nullspace} and the \textbf{column space} $\perp$ the \textbf{left nullspace}.
+  \item \ldots{} recognize each pair as an \textbf{orthogonal complement} --- perpendicular \emph{and} filling the whole space ($r+(n-r)=n$).
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,24 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: perpendicular test, nullspace direction, counting dimensions & \blank{1.2cm} \\
+2 & Guided Notes   & Orthogonal subspaces, the two perpendicular pairs, and orthogonal complements & \blank{1.2cm} \\
+3 & Group Activity & Two Rooms, Two Right Angles --- verifying both pairs and building a complement & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check on the pairing, dimension counts, and complements               & \blank{1.2cm} \\
+5 & Homework       & Orthogonal subspaces, both rooms of a matrix, and a complement extension     & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small One idea drives the lesson: reading $A\mathbf{x}=\mathbf{0}$ \emph{one row at a time} shows every
+nullspace vector is perpendicular to every row --- so the \textbf{nullspace} $\perp$ the \textbf{row
+space}. Add the dimension count $r+(n-r)=n$ and the two are \textbf{orthogonal complements}: perpendicular
+\emph{and} filling the space. The same story, transposed, pairs the \textbf{column space} with the
+\textbf{left nullspace}.
+\end{remindbox}
 
 \end{document}

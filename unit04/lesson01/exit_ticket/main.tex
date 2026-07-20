@@ -3,6 +3,8 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,9 +13,20 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=15pt]
+  \item \textbf{Check the pairing.} A matrix $A$ has rows $(1,2,3)$ and $(2,1,3)$, and
+        $\xx=\begin{bmatrix} 1 \\ 1 \\ -1 \end{bmatrix}$ is in its nullspace. Dot $\xx$ with
+        \emph{each} row. What do the two results show about $N(A)$ and the row space?
+        \vspace{1.5cm}
+  \item \textbf{Count \& name.} An $m\times n$ matrix has $m=3$, $n=5$, rank $r=2$. Give
+        $\dim N(A)$ and $\dim C(A^{\T})$, and check they fill $\mathbb{R}^5$. Which two subspaces are
+        orthogonal complements inside $\mathbb{R}^5$?
+        \writelines{2}
+  \item \textbf{Explain.} Two perpendicular \emph{lines} lie in $\mathbb{R}^3$. Are they orthogonal
+        complements? Answer and justify in one sentence, using dimensions.
+        \writelines{2}
+\end{enumerate}
 
 \end{document}

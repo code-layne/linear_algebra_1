@@ -3,17 +3,66 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.1}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+Two subspaces are \textbf{orthogonal} when every vector in one is perpendicular to every vector in the
+other; they are \textbf{complements} when they are also of dimensions that fill the space. Show your
+dot products.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Perpendicular to a whole subspace.} A plane $V\subset\mathbb{R}^3$ is spanned by
+        $\begin{bmatrix} 1\\0\\2 \end{bmatrix}$ and $\begin{bmatrix} 0\\1\\1 \end{bmatrix}$. Show that
+        $\ww=\begin{bmatrix} 2\\1\\-1 \end{bmatrix}$ is perpendicular to the \emph{entire} plane by
+        dotting it with \emph{both} spanning vectors. \writelines{2}
+  \item \textbf{Both rooms of one matrix.} Let
+        $C=\begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \\ 1 & 1 & 2 \end{bmatrix}$ (rank $r=2$), with
+        nullspace direction $\xx=\begin{bmatrix} -1\\-1\\1 \end{bmatrix}$ and left-nullspace direction
+        $\yy=\begin{bmatrix} 1\\1\\-1 \end{bmatrix}$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+      \item Dot $\xx$ with each \emph{row} of $C$. What pairing does this confirm? \vspace{0.9cm}
+      \item Dot $\yy$ with each \emph{column} of $C$. What pairing does this confirm? \vspace{0.9cm}
+    \end{enumerate}
+  \item \textbf{Count \& name.} An $m\times n$ matrix has $m=5$, $n=3$, rank $r=3$. Give the dimension
+        of all four subspaces. Which pair are complements in $\mathbb{R}^3$? in $\mathbb{R}^5$?
+        \writelines{2}
+  \item \textbf{Perpendicular vs.\ complement.} Explain the difference between two subspaces being
+        \emph{perpendicular} and being \emph{orthogonal complements}. Give a $\mathbb{R}^3$ example that
+        is perpendicular but \emph{not} a complement. \writelines{2}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{The complement of a line.} Let $L$ be the line in $\mathbb{R}^3$ through
+$\avec=\begin{bmatrix} 1\\2\\2 \end{bmatrix}$.
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item $L^{\perp}$ is all $\ww$ with $\avec\cdot\ww=0$. Write that single equation in $w_1,w_2,w_3$, and
+        give \emph{two} independent vectors that satisfy it.
+  \item What are $\dim L$ and $\dim L^{\perp}$? Do they fill $\mathbb{R}^3$? Explain why $L^{\perp}$ is the
+        \emph{nullspace} of the $1\times 3$ matrix $A=\begin{bsmallmatrix} 1 & 2 & 2 \end{bsmallmatrix}$.
+\end{enumerate}
+\writelines{3}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 4.2: Projections.} Today the error of a best guess will always land in an
+orthogonal complement. Next we \emph{use} that: to find the closest point of a line or subspace to a
+target $\bb$, we force the error $\bb-\pp$ into the complement (dot $=0$) and solve --- the projection.
+\end{spiralbox}
 
 \end{document}

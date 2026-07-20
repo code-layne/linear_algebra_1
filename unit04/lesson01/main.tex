@@ -5,6 +5,12 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 \newcommand{\UnitNumberName}{Unit 4: Orthogonality \quad}
 \newcommand{\LessonNumberName}{Lesson 4.1: Orthogonality of the Four Subspaces}
 
@@ -16,55 +22,144 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can say what it means for two \emph{subspaces} to be
+    \emph{orthogonal} and test it with dot products. They can explain \emph{why} the four fundamental
+    subspaces split into two perpendicular pairs --- $N(A)\perp C(A^{\T})$ and $N(A^{\T})\perp C(A)$ ---
+    by reading $A\xx=\zero$ one row at a time, and can recognize each pair as an \emph{orthogonal
+    complement}: perpendicular \emph{and} of dimensions that fill the space ($r+(n-r)=n$), so together
+    they reach every vector and meet only at $\zero$.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Define \textbf{orthogonal subspaces}; test by dotting basis against basis.
+  \item Explain why $N(A)\perp C(A^{\T})$ (read $A\xx=\zero$ row by row).
+  \item Transpose the argument to get $N(A^{\T})\perp C(A)$.
+  \item Recognize \textbf{orthogonal complements}: $\perp$ \emph{and} dims fill the room.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item A nullspace vector is perpendicular to \emph{every} row --- so to the whole row space.
+  \item ``Perpendicular'' is $\text{dot}=0$; the four-subspace pairing is that rule, repeated.
+  \item Complement $=$ perpendicular $+$ dimensions summing to $n$ (or $m$): nothing left out.
+  \item The nullspace \emph{is} the complement of the row space --- the setup for projection (4.2).
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Orthogonal vectors} (recall) & $\vv\cdot\ww=0$: the arrows meet at a right angle (Lesson~1.2). \\
+\textbf{Orthogonal subspaces} & $V\perp W$ means \emph{every} vector in $V$ is perpendicular to every vector in $W$; enough to check basis against basis. \\
+\textbf{Orthogonal complement $V^{\perp}$} & \emph{all} vectors perpendicular to $V$; $V$ and $V^{\perp}$ are perpendicular \emph{and} their dimensions fill the space, so they meet only at $\zero$. \\
+\textbf{Row space $\perp$ nullspace} & $C(A^{\T})\perp N(A)$ in $\mathbb{R}^n$: from $A\xx=\zero$ read row by row. \\
+\textbf{Column space $\perp$ left nullspace} & $C(A)\perp N(A^{\T})$ in $\mathbb{R}^m$: the same argument on $A^{\T}$. \\
+\textbf{Complement dimensions} & $r+(n-r)=n$ (input room) and $r+(m-r)=m$ (output room). \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three skills this lesson builds on:
+    \textbf{(1)} the \emph{perpendicular test} $\vv\cdot\ww=0$ (Lessons~1.2, 4.0);
+    \textbf{(2)} finding a \emph{nullspace direction} by solving $A\xx=\zero$ (Lesson~3.2); and
+    \textbf{(3)} \emph{counting the four dimensions} $r,\,n-r,\,r,\,m-r$ from the rank (Lesson~3.5).
+    Debrief item~3 aloud: the two dimensions in each room add to the whole ($r+(n-r)=n$) --- the fact
+    that turns ``perpendicular'' into ``complement'' today.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Hold up a flat tabletop (a \emph{plane} in $\mathbb{R}^3$) and ask:
+    \textbf{``Which directions point at a right angle to the \emph{whole} tabletop?''} Students converge
+    on \emph{straight up/down} --- a single direction, a \emph{line}. Name the payoff: the plane (dim~2)
+    and that perpendicular line (dim~1) are perpendicular \emph{and} together fill the room
+    ($2+1=3$) --- they are \textbf{orthogonal complements}. Then pose the lesson question:
+    \textbf{``Every matrix splits its input space into a row-space plane and a nullspace line just like
+    this --- why are they perpendicular, and why do they fill the space?''}
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. Orthogonal vectors $\to$ orthogonal subspaces.} From Lesson~1.2, two vectors are
+perpendicular when $\vv\cdot\ww=0$. Two \emph{subspaces} $V,W$ are \textbf{orthogonal} when every
+vector in $V$ is perpendicular to every vector in $W$. \textbf{Ask:} do we test infinitely many
+vectors? No --- checking each \emph{basis} vector of $V$ against each basis vector of $W$ is enough.
+
+\textbf{2. A caution.} Two \emph{walls} of a room look perpendicular but share a vertical line; a
+vector along that line lies in both and can't be perpendicular to itself. So walls are \emph{not}
+orthogonal subspaces --- orthogonal subspaces meet only at $\zero$.
+
+\textbf{3. Why the row space $\perp$ the nullspace.} Take $\xx$ in $N(A)$: $A\xx=\zero$. Read it
+\textbf{row by row}: (row~$i$)$\cdot\xx=0$ for every row. So $\xx\perp$ every row, hence $\xx\perp$
+every combination of rows --- the whole row space. That is $N(A)\perp C(A^{\T})$.
+
+\columnbreak
+
+\textbf{4. The second pair, for free.} Run the identical argument on $A^{\T}$ (whose rows are the
+columns of $A$): $N(A^{\T})\perp C(A)$. Two rooms, two right angles --- and both are just
+$\text{dot}=0$, one row at a time. \emph{This is the ``why'' behind §3.6.}
+
+\textbf{5. Perpendicular is not enough --- complements.} In $\mathbb{R}^n$ the row space (dim $r$) and
+nullspace (dim $n-r$) satisfy $r+(n-r)=n$: the two perpendicular pieces \emph{fill} the space. When
+subspaces are perpendicular \textbf{and} their dimensions fill the space, each is the
+\textbf{orthogonal complement} $V^{\perp}$ of the other --- \emph{all} perpendicular vectors, nothing
+left out. Contrast two perpendicular lines in $\mathbb{R}^3$ ($1+1\neq 3$): perpendicular, not
+complements. \textbf{Punchline:} the nullspace \emph{is} the complement of the row space --- the
+foundation for projecting onto a subspace in 4.2.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item testing only \emph{one} row against $\xx$ --- the pairing needs \emph{every} row (basis against basis);
+  \item calling any two perpendicular subspaces ``complements'' --- they must also \emph{fill} the space
+        (the two-lines counterexample);
+  \item confusing the rooms --- $N(A)\perp C(A^{\T})$ lives in $\mathbb{R}^n$; $N(A^{\T})\perp C(A)$ in $\mathbb{R}^m$.
+\end{itemize}
+Cold-call prompts: ``Why is a nullspace vector perpendicular to the \emph{whole} row space, not just one
+row?'' ``What does $r+(n-r)=n$ tell you about the two subspaces?'' ``Give me two perpendicular subspaces
+that are \emph{not} complements.''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Two Rooms, Two Right Angles} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Dot a nullspace direction against each row of a $2\times2$; fill in the
+four dimensions from the rank and check each room sums to $3$.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Work the whole picture for a rank-2 $3\times3$: verify $N(A)\perp$ rows
+and $N(A^{\T})\perp$ columns, and confirm both rooms' dimensions fill the space.
+
+\columnbreak
+\textbf{Tier E --- Extension.} \emph{Build a complement:} find $V^{\perp}$ for a plane in $\mathbb{R}^3$
+by solving dot $=0$ against both spanners, then recognize $V^{\perp}$ as the \emph{nullspace} of the
+matrix whose rows span $V$.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): dot a nullspace vector against each row and say what it
+proves about $N(A)$ and the row space; count $\dim N(A)$ and $\dim C(A^{\T})$ from $m,n,r$ and name the
+complement pair; and a \textbf{conceptual/justification check} --- decide whether two perpendicular lines
+in $\mathbb{R}^3$ are complements and justify with dimensions. Sort responses into ``got the pairing /
+tests one row only / confuses $\perp$ with complement'' to decide whether 4.2 opens with a quick
+re-anchor on the row-by-row argument.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} show a vector is perpendicular to a whole plane (both spanners); verify both pairs on
+a rank-2 $3\times3$; count the four dimensions from $m,n,r$ and name the complements; and explain
+perpendicular vs.\ complement with an $\mathbb{R}^3$ example. \textbf{Extension:} find the orthogonal
+complement of a line in $\mathbb{R}^3$ and recognize it as a \emph{nullspace}. \textbf{Preview:}
+Lesson~4.2, \emph{Projections} --- forcing the error into the orthogonal complement (dot $=0$) to find
+the closest point on a line or subspace.
 \end{skillbox}
 \end{document}

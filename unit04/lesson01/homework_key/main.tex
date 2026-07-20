@@ -3,17 +3,70 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.1}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+Two subspaces are \textbf{orthogonal} when every vector in one is perpendicular to every vector in the
+other; they are \textbf{complements} when they are also of dimensions that fill the space. Show your
+dot products.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Perpendicular to a whole subspace.} A plane $V\subset\mathbb{R}^3$ is spanned by
+        $\begin{bmatrix} 1\\0\\2 \end{bmatrix}$ and $\begin{bmatrix} 0\\1\\1 \end{bmatrix}$. Show that
+        $\ww=\begin{bmatrix} 2\\1\\-1 \end{bmatrix}$ is perpendicular to the \emph{entire} plane by
+        dotting it with \emph{both} spanning vectors.
+        \ansline{$\ww\cdot(1,0,2)=2+0-2=0$ and $\ww\cdot(0,1,1)=0+1-1=0$. Perpendicular to both spanners $\Rightarrow$ perpendicular to every combination $\Rightarrow$ to the whole plane.}
+  \item \textbf{Both rooms of one matrix.} Let
+        $C=\begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \\ 1 & 1 & 2 \end{bmatrix}$ (rank $r=2$), with
+        nullspace direction $\xx=\begin{bmatrix} -1\\-1\\1 \end{bmatrix}$ and left-nullspace direction
+        $\yy=\begin{bmatrix} 1\\1\\-1 \end{bmatrix}$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+      \item Dot $\xx$ with each \emph{row} of $C$. What pairing does this confirm?
+            \ansline{$-1{+}0{+}1=0$, $0{-}1{+}1=0$, $-1{-}1{+}2=0$; all $0$, so $N(A)\perp C(A^{\T})$.}
+      \item Dot $\yy$ with each \emph{column} of $C$. What pairing does this confirm?
+            \ansline{$\yy\cdot(1,0,1)=0$, $\yy\cdot(0,1,1)=0$, $\yy\cdot(1,1,2)=0$; all $0$, so $N(A^{\T})\perp C(A)$.}
+    \end{enumerate}
+  \item \textbf{Count \& name.} An $m\times n$ matrix has $m=5$, $n=3$, rank $r=3$. Give the dimension
+        of all four subspaces. Which pair are complements in $\mathbb{R}^3$? in $\mathbb{R}^5$?
+        \ansline{Row space $3$, nullspace $0$ (in $\mathbb{R}^3$: $3+0=3$); column space $3$, left nullspace $2$ (in $\mathbb{R}^5$: $3+2=5$). Complements: $C(A^{\T})\ \&\ N(A)$ in $\mathbb{R}^3$; $C(A)\ \&\ N(A^{\T})$ in $\mathbb{R}^5$.}
+  \item \textbf{Perpendicular vs.\ complement.} Explain the difference between two subspaces being
+        \emph{perpendicular} and being \emph{orthogonal complements}. Give a $\mathbb{R}^3$ example that
+        is perpendicular but \emph{not} a complement.
+        \ansline{Perpendicular = every vector of one $\perp$ every vector of the other; complements $=$ perpendicular \emph{and} dimensions add to fill the space (so together they reach every vector). Example: the $x$-axis and the $y$-axis in $\mathbb{R}^3$ --- perpendicular, but $1+1=2\neq 3$, so not complements (they miss the $z$-direction).}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{The complement of a line.} Let $L$ be the line in $\mathbb{R}^3$ through
+$\avec=\begin{bmatrix} 1\\2\\2 \end{bmatrix}$.
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item $L^{\perp}$ is all $\ww$ with $\avec\cdot\ww=0$. Write that single equation in $w_1,w_2,w_3$, and
+        give \emph{two} independent vectors that satisfy it.
+  \item What are $\dim L$ and $\dim L^{\perp}$? Do they fill $\mathbb{R}^3$? Explain why $L^{\perp}$ is the
+        \emph{nullspace} of the $1\times 3$ matrix $A=\begin{bsmallmatrix} 1 & 2 & 2 \end{bsmallmatrix}$.
+\end{enumerate}
+\ansline{(a) $w_1+2w_2+2w_3=0$; e.g.\ $\begin{bsmallmatrix} 2\\-1\\0 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 0\\1\\-1 \end{bsmallmatrix}$ (each dots to $0$). (b) $\dim L=1$, $\dim L^{\perp}=2$, and $1+2=3$ fills $\mathbb{R}^3$ --- complements. Taking $\avec$ as the single row of $A$, ``$\perp$ that row'' is exactly $A\ww=\zero$, so $L^{\perp}=N(A)$.}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 4.2: Projections.} Today the error of a best guess will always land in an
+orthogonal complement. Next we \emph{use} that: to find the closest point of a line or subspace to a
+target $\bb$, we force the error $\bb-\pp$ into the complement (dot $=0$) and solve --- the projection.
+\end{spiralbox}
 
 \end{document}

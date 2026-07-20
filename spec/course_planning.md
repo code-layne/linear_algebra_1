@@ -7,7 +7,32 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-14 — **Authored & built Unit 4 Lesson 4.0 — "Right Angles Revisited --- Setting Up
+**Last updated:** 2026-07-20 — **Authored & built Unit 4 Lesson 4.1 — "Orthogonality of the Four
+Subspaces" (§4.1).** Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket,
+homework (+ the five keys) and the slides deck, mirroring Lesson 4.0's preamble/boxes/tone.
+**Content — extends §3.6 from "perpendicular" to "orthogonal complements":** (1) lift $\vv\cdot\ww=0$
+from vectors to **orthogonal subspaces** (every vector ⊥ every vector; check basis-vs-basis; the
+two-walls-share-a-line counterexample → orthogonal subspaces meet only at $\zero$); (2) **why**
+$N(A)\perp C(A^{\T})$ — read $A\xx=\zero$ *row by row*, every row·$\xx=0$ ⇒ $\xx\perp$ whole row space;
+transpose ⇒ $N(A^{\T})\perp C(A)$; (3) the new idea past 3.6 = **orthogonal complement** = perpendicular
+**and** dims fill the room ($r+(n-r)=n$), so nullspace is *every* vector ⊥ the row space; counterexample
+two ⊥ lines in $\mathbb{R}^3$ ($1+1\ne3$); (4) **punchline** $V^{\perp}=$ nullspace of the matrix whose
+rows span $V$ (activity Tier E + homework ext) → sets up projection in 4.2. **Hook:** tabletop plane +
+the one perpendicular (up/down) line = complements filling $\mathbb{R}^3$. **Worked example reuses the
+3.5/3.6 spine** $A=[[1,1,2],[2,1,3],[3,2,5]]$ ($r=2$, null dir $\xx=(-1,-1,1)$, left-null dir
+$\yy=(1,1,-1)$); activity uses a fresh rank-2 $B=[[1,2,3],[2,4,6],[1,1,1]]$ ($\xx=(1,-2,1)$,
+$\yy=(2,-1,0)$); homework uses $C=[[1,0,1],[0,1,1],[1,1,2]]$ ($\xx=(-1,-1,1)$, $\yy=(1,1,-1)$). All dot
+products hand-verified. Two-room **big-picture TikZ diagram** (blush/skyblue boxes, $\perp$ via
+`text=<color>`, arrow $A$) on notes §3 + a slide; custom tabletop-plane+normal hook figure on the slides.
+**Built `make -C unit04/lesson01 all` → clean** (0 `^!` errors across all 13 logs; no `\ans`-in-math).
+Page counts: cover/warmup/exit 1pp (blank & key ✓ 1-page constraint), notes 2pp blank / 3pp key (key adds
+answers + teachernote), activity/homework 2pp (blank & key), slides 6pp, lesson plan 2pp; **student 9pp,
+full 18pp.** Visually spot-checked notes_key p2 (two-room diagram — $\perp$ clean, no tofu), slides
+big-picture + tabletop-hook frames — all clean. **Gotcha avoided:** kept the extensionbox/spiralbox macros
+(`\avec\bb\pp`) in the *preamble* (an early draft defined `\avec` mid-body, after first use). **Next run:
+author Lesson 4.2** ("Projections onto Subspaces"). Lesson 4.0 remains the Unit 4 model.
+
+**Prior run:** **Authored & built Unit 4 Lesson 4.0 — "Right Angles Revisited --- Setting Up
 Orthogonality" (the intro/spiral lesson).** Filled every skeleton: lesson plan, cover, warmup, notes, activity,
 exit_ticket, homework (+ the five keys) and the slides deck, mirroring Unit 3's lesson-3.0 preamble/boxes/tone.
 **Content — spiral + roadmap for Orthogonality:** (1) recall the **dot product** $\vv\cdot\ww$, its **sign**
@@ -235,7 +260,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
 | 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ☑ all lessons + tests authored & built ✅ |
 | 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ☑ all lessons + tests authored & built ✅ |
-| 4 | Orthogonality | 4.0 intro + 4.1–4.4 | ◐ 4.0 authored & built ✅; 4.1–4.4 + tests still skeletons |
+| 4 | Orthogonality | 4.0 intro + 4.1–4.4 | ◐ 4.0, 4.1 authored & built ✅; 4.2–4.4 + tests still skeletons |
 | 5 | Determinants and Linear Transformations | 5.1–5.3 | ☐ |
 | 6 | Eigenvalues and Eigenvectors | 6.1–6.4 (§6.4 optional) | ☐ |
 | 7 | The Singular Value Decomposition *(optional/advanced)* | 7.1–7.4 | ☐ |
@@ -243,13 +268,14 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author Unit 4 lesson-by-lesson, next up 4.1** (4.0 is authored & built — use it as the Unit 4 model).
+1. **Author Unit 4 lesson-by-lesson, next up 4.2** (4.0, 4.1 authored & built — 4.0 is the Unit 4 model).
    Read each `unit04/lessonYY/**/main.tex` skeleton with the Read tool before writing it, then fill it
    following `references/components.md`. Planned content per lesson (down-level from LAfE Ch. 4):
    - **4.0** intro/spiral — ✅ authored & built (dot product, length/unit vectors, perpendicular $\Leftrightarrow$
      dot $=0$, the §3.6 perpendicular-pairs spiral, roadmap projection → least squares → $Q$).
-   - **4.1** Orthogonality of the four subspaces — $C(A^{\mathsf T})\perp N(A)$ and $C(A)\perp N(A^{\mathsf T})$
-     as *orthogonal complements* (each pair fills its room); extends §3.6 with the "why perpendicular."
+   - **4.1** Orthogonality of the four subspaces — ✅ authored & built ($C(A^{\mathsf T})\perp N(A)$ and
+     $C(A)\perp N(A^{\mathsf T})$ as *orthogonal complements* — perpendicular AND dims fill the room;
+     "why" via $A\xx=\zero$ row by row; $V^{\perp}=$ nullspace of the row matrix).
    - **4.2** Projections onto subspaces — projection onto a line ($\hat\xx=\frac{\aa\cdot\bb}{\aa\cdot\aa}\aa$),
      then onto a subspace; projection matrix $P=A(A^{\mathsf T}A)^{-1}A^{\mathsf T}$; error $\bb-\pp\perp$ the space.
    - **4.3** Least squares — best-fit line on real data; the **normal equations** $A^{\mathsf T}A\hat\xx=A^{\mathsf T}\bb$;

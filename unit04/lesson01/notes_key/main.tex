@@ -3,17 +3,159 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.1}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item say what it means for two \emph{subspaces} to be \emph{orthogonal}, and test it;
+  \item explain \emph{why} the row space $\perp$ the nullspace and the column space $\perp$ the left nullspace;
+  \item recognize the two pairs as \emph{orthogonal complements} --- perpendicular \emph{and} filling the whole space.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.06in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{Orthogonal subspaces}{subspaces $V,W$ where every vector in $V$ is perpendicular to every vector in $W$ ($\vv\cdot\ww=0$); enough to check basis against basis}
+\vocabans{Orthogonal complement $V^{\perp}$}{\emph{all} vectors perpendicular to $V$; perpendicular to $V$ \emph{and} dimensions fill the space, so they meet only at $\zero$}
+\vocabans{The two perpendicular pairs (§3.6, now in full)}{$N(A)\perp C(A^{\T})$ in $\mathbb{R}^n$ and $N(A^{\T})\perp C(A)$ in $\mathbb{R}^m$; each pair is a complement pair}
+\end{vocabbox}
+
+\begin{hookbox}
+Picture a flat tabletop inside a room (a \emph{plane} in $\mathbb{R}^3$).
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item Which directions point at a \emph{right angle} to the \emph{entire} tabletop? \ansline{Straight up/down --- the single direction perpendicular to the whole plane.}
+  \item How many independent such directions are there --- a line, a plane, \dots? \ansline{Just one --- a line (dim $1$). The plane (dim $2$) $+$ the line (dim $1$) fill $\mathbb{R}^3$.}
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. From Orthogonal Vectors to Orthogonal Subspaces}
+Two \emph{vectors} are perpendicular when $\vv\cdot\ww=0$ (Lesson~1.2). We now lift this to whole
+subspaces. Two subspaces $V$ and $W$ are \textbf{orthogonal} when \emph{every} vector in $V$ is
+perpendicular to \ans{every vector} in $W$.
+
+\vspace{3pt}
+\textbf{A shortcut.} You do not have to test infinitely many vectors --- it is enough to check that
+every \textbf{basis} vector of $V$ is perpendicular to every basis vector of $W$ (dot products spread
+over sums).
+
+\vspace{3pt}
+\textbf{Careful --- perpendicular-looking is not enough.} Two walls of a room \emph{meet} along a
+vertical line, and a vector \emph{along} that shared line lies in both walls --- it cannot be
+perpendicular to itself (unless it is $\zero$). So two walls are \ans{not} orthogonal. Orthogonal
+subspaces may only share the point \ans{$\zero$}.
 \end{notesbox}
+
+\begin{notesbox}{2. Why the Row Space $\perp$ the Nullspace}
+Take any $\xx$ in the nullspace, so $A\xx=\zero$. Read this equation \textbf{one row at a time}:
+\[
+  (\text{row }1)\cdot\xx=0,\quad (\text{row }2)\cdot\xx=0,\quad \dots,\quad (\text{row }m)\cdot\xx=0.
+\]
+So $\xx$ is perpendicular to \emph{every row}. And if $\xx\perp$ every row, then $\xx\perp$ every
+\ans{combination} of the rows --- that is, $\xx\perp$ the whole \ans{row space}. Therefore
+\[
+  N(A)\ \perp\ C(A^{\T}) \qquad\text{(nullspace $\perp$ row space, inside }\mathbb{R}^n).
+\]
+Run the very same argument on $A^{\T}$ (its rows are the \emph{columns} of $A$) to get the second pair:
+\[
+  N(A^{\T})\ \perp\ C(A) \qquad\text{(left nullspace $\perp$ column space, inside }\mathbb{R}^m).
+\]
+This is the \emph{why} behind the §3.6 picture: orthogonality is just $\text{dot}=0$, one row at a time.
+\end{notesbox}
+
+\begin{notesbox}{3. Orthogonal Complements: Perpendicular \emph{and} Filling the Space}
+Perpendicular alone is not the whole story. Inside $\mathbb{R}^n$ the row space has dimension $r$ and
+the nullspace has dimension $n-r$, and
+\[
+  r+(n-r)=\ans{$n$}.
+\]
+The two perpendicular dimensions \emph{use up the entire space}. When two subspaces are perpendicular
+\textbf{and} their dimensions add to fill the space (so they meet only at $\zero$), each is the
+\textbf{orthogonal complement} of the other, written $V^{\perp}$. The nullspace is \emph{every} vector
+perpendicular to the row space --- no more, no less. The four fundamental subspaces are therefore
+\textbf{two orthogonal-complement pairs}, one in each room:
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
+  % Input room
+  \draw[burgundy, thick, rounded corners] (-0.3,-0.3) rectangle (4.3,4.9);
+  \node[burgundy] at (2,5.25) {\textbf{Input space } $\mathbb{R}^n$};
+  \node[draw=burgundy, fill=blush, rounded corners, align=center, minimum width=3.5cm] (rs) at (2,3.7) {Row space $C(A^{\T})$\\ dim $r$};
+  \node[draw=burgundy, fill=blush, rounded corners, align=center, minimum width=3.5cm] (ns) at (2,1.0) {Nullspace $N(A)$\\ dim $n-r$};
+  \node[text=burgundy] at (2,2.35) {$\perp$};
+  % Output room
+  \draw[royalblue, thick, rounded corners] (6.7,-0.3) rectangle (11.3,4.9);
+  \node[royalblue] at (9,5.25) {\textbf{Output space } $\mathbb{R}^m$};
+  \node[draw=royalblue, fill=skyblue, rounded corners, align=center, minimum width=3.5cm] (cs) at (9,3.7) {Column space $C(A)$\\ dim $r$};
+  \node[draw=royalblue, fill=skyblue, rounded corners, align=center, minimum width=3.5cm] (lns) at (9,1.0) {Left nullspace $N(A^{\T})$\\ dim $m-r$};
+  \node[text=royalblue] at (9,2.35) {$\perp$};
+  % Arrow A
+  \draw[->, very thick, charcoal] (4.5,2.3)--(6.5,2.3) node[midway, above]{$A$};
+\end{tikzpicture}
+\end{center}
+
+\emph{Not} every perpendicular pair is a complement: two perpendicular \emph{lines} in $\mathbb{R}^3$
+have dimensions $1+1=2\neq 3$, so they leave directions out --- perpendicular, but not complements.
+\end{notesbox}
+
+\begin{notesbox}{4. Worked Example --- All Four Subspaces of One Matrix}
+Let $A=\begin{bsmallmatrix} 1 & 1 & 2\\ 2 & 1 & 3\\ 3 & 2 & 5 \end{bsmallmatrix}$ (our Unit~3 matrix),
+which has rank $r=2$, with $m=n=3$. Elimination gave the nullspace direction
+$\xx=\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}$ and the left-nullspace direction
+$\yy=\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}$ (because row$_3=$ row$_1+$ row$_2$).
+
+\vspace{2pt}
+\textbf{Input room} ($\mathbb{R}^3$): row space is a \emph{plane} (dim $2$), nullspace is a
+\emph{line} (dim $1$). Check row$_1\cdot\xx$:
+$\begin{bsmallmatrix} 1\\1\\2 \end{bsmallmatrix}\cdot\begin{bsmallmatrix} -1\\-1\\1 \end{bsmallmatrix}
+= -1-1+2=\ans{$0$}$. Dimensions: $2+1=\ans{$3$}$, so they \emph{fill} $\mathbb{R}^3$ --- a
+complement pair.
+
+\vspace{2pt}
+\textbf{Output room} ($\mathbb{R}^3$): column space is a plane (dim $2$), left nullspace a line
+(dim $1$). Check column$_1\cdot\yy$:
+$\begin{bsmallmatrix} 1\\2\\3 \end{bsmallmatrix}\cdot\begin{bsmallmatrix} 1\\1\\-1 \end{bsmallmatrix}
+= 1+2-3=\ans{$0$}$. Again $2+1=3$: perpendicular \emph{and} filling --- complements.
+\end{notesbox}
+
+\begin{practicebox}
+Show your dot products.
+\begin{enumerate}[leftmargin=1.6em, itemsep=4pt]
+  \item For $A=\begin{bsmallmatrix} 1 & 2 & 2\\ 2 & 4 & 5 \end{bsmallmatrix}$, the nullspace direction is
+        $\xx=\begin{bsmallmatrix} -2\\1\\0 \end{bsmallmatrix}$. Dot $\xx$ with \emph{each} row to confirm
+        $N(A)\perp C(A^{\T})$. \ansline{Row$_1$: $(1)(-2)+(2)(1)+(2)(0)=0$; Row$_2$: $(2)(-2)+(4)(1)+(5)(0)=0$. Both $0$, so $\xx\perp$ the row space.}
+  \item An $m\times n$ matrix has $m=4$, $n=6$, rank $r=3$. Give the dimension of each of the four
+        subspaces, and name the two orthogonal-complement pairs. \ansline{Row space $r=3$ and nullspace $n-r=3$ (in $\mathbb{R}^6$, $3+3=6$); column space $r=3$ and left nullspace $m-r=1$ (in $\mathbb{R}^4$, $3+1=4$). Pairs: $C(A^{\T})\perp N(A)$ and $C(A)\perp N(A^{\T})$.}
+  \item Two perpendicular lines sit in $\mathbb{R}^3$. Are they orthogonal complements? Explain using
+        dimensions. \ansline{No --- $1+1=2\neq 3$, so they do not fill $\mathbb{R}^3$; perpendicular but not complements.}
+\end{enumerate}
+\end{practicebox}
+
+\begin{teachernote}
+The one new idea past §3.6 is \emph{complement}: perpendicular \textbf{plus} dimensions filling the
+space. Section~2 gives the ``why perpendicular'' (read $A\xx=\zero$ row by row --- dot $=0$ again);
+Section~3 adds ``why they fill'' ($r+(n-r)=n$). Watch for two errors: (a) calling any two
+perpendicular subspaces ``complements'' (they must also fill the space --- the two-lines counterexample),
+and (b) forgetting that a vector in the \emph{intersection} of two subspaces would have to be
+perpendicular to itself, forcing it to be $\zero$. The worked matrix is the Unit~3 spine, so students
+can lean on numbers they already trust and spend their attention on the orthogonality.
+\end{teachernote}
 
 \end{document}

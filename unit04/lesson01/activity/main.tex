@@ -3,17 +3,77 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.1}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Two Rooms, Two Right Angles.} The four fundamental subspaces come in two
+\textbf{orthogonal-complement pairs}: $C(A^{\T})\perp N(A)$ in the input room, $C(A)\perp N(A^{\T})$ in
+the output room. ``Complement'' means \emph{perpendicular} \textbf{and} \emph{dimensions filling the
+room}. Show every dot product and justify each claim.
+\end{headlinebox}
+
+\vspace{0.08in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Perpendicular means dot $=0$; ``fill the room'' means the dimensions add up.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item Let $A=\begin{bmatrix} 1 & 3 \\ 2 & 6 \end{bmatrix}$, with nullspace direction
+        $\xx=\begin{bsmallmatrix} -3\\1 \end{bsmallmatrix}$. Dot each row of $A$ with $\xx$:
+        \; row$_1\cdot\xx=\blank{1.6cm}$, \; row$_2\cdot\xx=\blank{1.6cm}$. Is $N(A)\perp$ the row space?
+        \blank{2.0cm}
+  \item A $3\times 3$ matrix has rank $r=2$. Fill in the four dimensions and check each room adds to $3$:
+        \[
+          \dim C(A^{\T})=\blank{0.9cm},\ \dim N(A)=\blank{0.9cm};\qquad
+          \dim C(A)=\blank{0.9cm},\ \dim N(A^{\T})=\blank{0.9cm}.
+        \]
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Work the \emph{whole picture} for
+$B=\begin{bmatrix} 1 & 2 & 3 \\ 2 & 4 & 6 \\ 1 & 1 & 1 \end{bmatrix}$, which has rank $r=2$. Elimination
+gives the nullspace direction $\xx=\begin{bsmallmatrix} 1\\-2\\1 \end{bsmallmatrix}$ and the
+left-nullspace direction $\yy=\begin{bsmallmatrix} 2\\-1\\0 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Input room.} Dot $\xx$ with \emph{each row} of $B$. Do you get $0$ every time? What does
+        that prove about $N(A)$ and the row space? \writelines{2}
+  \item \textbf{Output room.} Dot $\yy$ with \emph{each column} of $B$. What does that prove about
+        $N(A^{\T})$ and the column space? \writelines{2}
+  \item \textbf{Complements.} Give the dimension of all four subspaces and show each room's dimensions
+        add to $3$. Why does ``perpendicular \emph{and} dimensions fill the room'' make each pair a
+        \emph{complement}? \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Build an orthogonal complement.} Let $V$ be the plane in $\mathbb{R}^3$ spanned by
+$\begin{bsmallmatrix} 1\\1\\0 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 0\\1\\1 \end{bsmallmatrix}$.
+The complement $V^{\perp}$ is \emph{every} vector perpendicular to \textbf{both}.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Write a vector $\ww=\begin{bsmallmatrix} w_1\\w_2\\w_3 \end{bsmallmatrix}$ and set
+        $\ww\cdot\begin{bsmallmatrix} 1\\1\\0 \end{bsmallmatrix}=0$ and
+        $\ww\cdot\begin{bsmallmatrix} 0\\1\\1 \end{bsmallmatrix}=0$. Write the two equations. \writelines{2}
+  \item Solve them. You should get a single line of solutions --- give a direction vector for $V^{\perp}$.
+        \writelines{2}
+  \item \textbf{Interpret.} What are $\dim V$ and $\dim V^{\perp}$? Do they fill $\mathbb{R}^3$? Notice that
+        your two equations are exactly $A\ww=\zero$ for $A=\begin{bsmallmatrix} 1&1&0\\0&1&1 \end{bsmallmatrix}$
+        --- so $V^{\perp}$ is a \emph{nullspace}. Explain that connection in one sentence. \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

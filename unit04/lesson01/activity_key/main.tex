@@ -3,17 +3,91 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.1}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Two Rooms, Two Right Angles.} The four fundamental subspaces come in two
+\textbf{orthogonal-complement pairs}: $C(A^{\T})\perp N(A)$ in the input room, $C(A)\perp N(A^{\T})$ in
+the output room. ``Complement'' means \emph{perpendicular} \textbf{and} \emph{dimensions filling the
+room}. Show every dot product and justify each claim.
+\end{headlinebox}
+
+\vspace{0.08in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Perpendicular means dot $=0$; ``fill the room'' means the dimensions add up.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item Let $A=\begin{bmatrix} 1 & 3 \\ 2 & 6 \end{bmatrix}$, with nullspace direction
+        $\xx=\begin{bsmallmatrix} -3\\1 \end{bsmallmatrix}$. Dot each row of $A$ with $\xx$:
+        \; row$_1\cdot\xx=\ans{$0$}$, \; row$_2\cdot\xx=\ans{$0$}$. Is $N(A)\perp$ the row space?
+        \ans{Yes}
+  \item A $3\times 3$ matrix has rank $r=2$. Fill in the four dimensions and check each room adds to $3$:
+        \[
+          \dim C(A^{\T})={\color{keyred}\mathbf{2}},\ \dim N(A)={\color{keyred}\mathbf{1}};\qquad
+          \dim C(A)={\color{keyred}\mathbf{2}},\ \dim N(A^{\T})={\color{keyred}\mathbf{1}}.
+        \]
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Work the \emph{whole picture} for
+$B=\begin{bmatrix} 1 & 2 & 3 \\ 2 & 4 & 6 \\ 1 & 1 & 1 \end{bmatrix}$, which has rank $r=2$. Elimination
+gives the nullspace direction $\xx=\begin{bsmallmatrix} 1\\-2\\1 \end{bsmallmatrix}$ and the
+left-nullspace direction $\yy=\begin{bsmallmatrix} 2\\-1\\0 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Input room.} Dot $\xx$ with \emph{each row} of $B$. Do you get $0$ every time? What does
+        that prove about $N(A)$ and the row space?
+        \ansline{Row$_1$: $1-4+3=0$; Row$_2$: $2-8+6=0$; Row$_3$: $1-2+1=0$. All $0$, so $\xx\perp$ every row $\Rightarrow \xx\perp$ the whole row space: $N(A)\perp C(A^{\T})$.}
+  \item \textbf{Output room.} Dot $\yy$ with \emph{each column} of $B$. What does that prove about
+        $N(A^{\T})$ and the column space?
+        \ansline{$\yy\cdot(1,2,1)=0$; $\yy\cdot(2,4,1)=0$; $\yy\cdot(3,6,1)=0$. All $0$, so $\yy\perp$ every column $\Rightarrow N(A^{\T})\perp C(A)$.}
+  \item \textbf{Complements.} Give the dimension of all four subspaces and show each room's dimensions
+        add to $3$. Why does ``perpendicular \emph{and} dimensions fill the room'' make each pair a
+        \emph{complement}?
+        \ansline{Row space $2$, nullspace $1$ ($2+1=3$); column space $2$, left nullspace $1$ ($2+1=3$). Filling the room means the nullspace is \emph{every} vector $\perp$ the row space (nothing left out) and they meet only at $\zero$ --- that is what ``complement'' adds to ``perpendicular.''}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Build an orthogonal complement.} Let $V$ be the plane in $\mathbb{R}^3$ spanned by
+$\begin{bsmallmatrix} 1\\1\\0 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 0\\1\\1 \end{bsmallmatrix}$.
+The complement $V^{\perp}$ is \emph{every} vector perpendicular to \textbf{both}.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Write a vector $\ww=\begin{bsmallmatrix} w_1\\w_2\\w_3 \end{bsmallmatrix}$ and set
+        $\ww\cdot\begin{bsmallmatrix} 1\\1\\0 \end{bsmallmatrix}=0$ and
+        $\ww\cdot\begin{bsmallmatrix} 0\\1\\1 \end{bsmallmatrix}=0$. Write the two equations.
+        \ansline{$w_1+w_2=0$ \; and \; $w_2+w_3=0$.}
+  \item Solve them. You should get a single line of solutions --- give a direction vector for $V^{\perp}$.
+        \ansline{$w_1=-w_2$ and $w_3=-w_2$, so $\ww=w_2\begin{bsmallmatrix} -1\\1\\-1 \end{bsmallmatrix}$; a direction is $\begin{bsmallmatrix} -1\\1\\-1 \end{bsmallmatrix}$.}
+  \item \textbf{Interpret.} What are $\dim V$ and $\dim V^{\perp}$? Do they fill $\mathbb{R}^3$? Notice that
+        your two equations are exactly $A\ww=\zero$ for $A=\begin{bsmallmatrix} 1&1&0\\0&1&1 \end{bsmallmatrix}$
+        --- so $V^{\perp}$ is a \emph{nullspace}. Explain that connection in one sentence.
+        \ansline{$\dim V=2$, $\dim V^{\perp}=1$, and $2+1=3$ fills $\mathbb{R}^3$. Making $V$ the \emph{rows} of $A$, ``perpendicular to every row'' is exactly $A\ww=\zero$, so $V^{\perp}=N(A)$ --- the row space and nullspace are orthogonal complements.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~A is the core: the same ``dot $=0$, one row (or column) at a time'' argument, run in both rooms.
+Tier~E is the punchline of the lesson --- the orthogonal complement of a subspace $V$ is the
+\emph{nullspace} of the matrix whose rows are a basis of $V$. That reframes 4.1 as ``the nullspace is
+the complement of the row space,'' and it sets up projection in 4.2 (project onto $V$, error lands in
+$V^{\perp}$). If a group finishes early, ask them to confirm their $V^{\perp}$ direction is perpendicular
+to \emph{both} spanning vectors by dotting.
+\end{teachernote}
 
 \end{document}

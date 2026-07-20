@@ -1,6 +1,16 @@
 %! Projections onto Subspaces — Unit 4, Lesson 4.2 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\usetikzlibrary{calc}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,16 +21,132 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 4.2}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Projections onto Subspaces}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 4}
+    {\color{white}\bfseries\LARGE Projections onto Subspaces}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 4: Orthogonality}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{What is the closest point on the road to the drone?}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+      A drone hovers at $\bb$, off to the side of a straight road (a \textbf{line} through $\avec$).\\[6pt]
+      The closest point is the \emph{foot of the perpendicular} --- the drone's shadow straight down.\\[8pt]
+      Call it $\pp$, the \textbf{projection}. The leftover $\ee=\bb-\pp$ is the \textbf{error}, and it
+      meets the road at a \textbf{right angle}.
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.95, >=stealth]
+        \draw[burgundy, thick] (-0.5,-0.25)--(4.2,2.1) node[right, font=\scriptsize]{road};
+        \coordinate (O) at (0,0);
+        \coordinate (P) at (2.8,1.4);
+        \coordinate (B) at (1.7,2.7);
+        \draw[->, very thick, royalblue] (O)--(B) node[above left, font=\scriptsize]{$\bb$};
+        \draw[->, very thick, burgundy] (O)--(P) node[below right, font=\scriptsize]{$\pp$};
+        \draw[->, thick, charcoal, dashed] (P)--(B) node[midway, right, font=\scriptsize]{$\ee$};
+        \draw[charcoal, thin] ($(P)+(-0.26,0.13)$)--($(P)+(-0.13,0.39)$)--($(P)+(0.13,0.26)$);
+        \fill (O) circle (1.3pt);
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{4pt}
+  \begin{block}{The question of Lesson 4.2}
+    If ``closest'' always means ``error perpendicular,'' can we turn that one right angle into an
+    \textbf{equation} and just solve for $\pp$?
+  \end{block}
+\end{frame}
+
+% PROJECTION ONTO A LINE
+\begin{frame}[t, plain]
+  \burgundyheader{Projection onto a line}
+  \sectionlabel{One equation, one unknown}
+  Write $\pp=\hat{x}\avec$. Force $\avec\perp\ee$:
+  \[
+    \avec\cdot(\bb-\hat{x}\avec)=0 \;\Longrightarrow\;
+    \boxed{\;\hat{x}=\frac{\avec\cdot\bb}{\avec\cdot\avec}\;},\qquad \pp=\hat{x}\avec.
+  \]
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Example}
+        $\avec=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$, $\bb=\begin{bsmallmatrix} 4\\3 \end{bsmallmatrix}$:
+        $\avec\cdot\bb=10$, $\avec\cdot\avec=5$.\\[3pt]
+        $\hat{x}=2$, \; $\pp=\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}$, \; $\ee=\begin{bsmallmatrix} 2\\-1 \end{bsmallmatrix}$.
+      \end{block}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Check the right angle}
+        $\avec\cdot\ee=(1)(2)+(2)(-1)=0.$ \checkmark\\[3pt]
+        The error is perpendicular to the line --- so $\pp$ is the closest point.
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% PROJECTION MATRIX
+\begin{frame}[t, plain]
+  \burgundyheader{The projection matrix}
+  \sectionlabel[goldacc]{One matrix projects any $\bb$}
+  Since $\pp=P\bb$, a line gives
+  \[
+    P=\frac{\avec\,\avec^{\T}}{\avec^{\T}\avec}
+    =\frac{1}{5}\begin{bmatrix} 1 & 2\\ 2 & 4 \end{bmatrix}
+    \quad\text{for}\quad \avec=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}.
+  \]
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item $P\bb=\tfrac{1}{5}\begin{bsmallmatrix} 1 & 2\\ 2 & 4 \end{bsmallmatrix}\begin{bsmallmatrix} 4\\3 \end{bsmallmatrix}=\tfrac{1}{5}\begin{bsmallmatrix} 10\\20 \end{bsmallmatrix}=\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}=\pp.$
+    \item Projecting again does nothing: $P\pp=\pp$ (already on the line), so $P^2=P$.
+  \end{itemize}
+\end{frame}
+
+% PROJECTION ONTO A SUBSPACE
+\begin{frame}[t, plain]
+  \burgundyheader{Projection onto a subspace: the normal equations}
+  \sectionlabel{One equation per column}
+  Now the space is a plane $C(A)$. Want $\pp=A\hat{\xx}$ with $\ee=\bb-A\hat{\xx}\perp$ \emph{every column}:
+  \[
+    A^{\T}(\bb-A\hat{\xx})=\zero \;\Longrightarrow\; \boxed{\,A^{\T}A\,\hat{\xx}=A^{\T}\bb\,},\qquad \pp=A\hat{\xx}.
+  \]
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      \begin{block}{Example --- project $\bb=(6,0,0)$}
+        $A=\begin{bsmallmatrix} 1 & 0\\ 1 & 1\\ 1 & 2 \end{bsmallmatrix}$,\;
+        $A^{\T}A=\begin{bsmallmatrix} 3 & 3\\ 3 & 5 \end{bsmallmatrix}$,\;
+        $A^{\T}\bb=\begin{bsmallmatrix} 6\\ 0 \end{bsmallmatrix}$.\\[3pt]
+        $\hat{\xx}=\begin{bsmallmatrix} 5\\ -3 \end{bsmallmatrix}$, \;
+        $\pp=\begin{bsmallmatrix} 5\\ 2\\ -1 \end{bsmallmatrix}$, \;
+        $\ee=\begin{bsmallmatrix} 1\\ -2\\ 1 \end{bsmallmatrix}$.
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Where the error goes}
+        $A^{\T}\ee=\zero$: the error lands in $N(A^{\T})$ --- the \emph{orthogonal complement} of $C(A)$
+        (Lesson 4.1).
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% SUMMARY + NEXT
+\begin{frame}[t, plain]
+  \burgundyheader{One idea, two sizes}
+  \sectionlabel[goldacc]{Big picture}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item \textbf{Closest $=$ perpendicular error.} Force $\ee\perp$ the space, then solve.
+    \item \textbf{Line:} $\hat{x}=\dfrac{\avec\cdot\bb}{\avec\cdot\avec}$ --- one dot-product equation.
+    \item \textbf{Subspace:} $A^{\T}A\hat{\xx}=A^{\T}\bb$ --- one per column.
+    \item Projection splits $\bb$ into $\pp$ (in the space) $+\;\ee$ (perpendicular to it).
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{Next --- Lesson 4.3: Least Squares}
+    When $A\xx=\bb$ has \emph{no} solution, the projection $\pp$ is the \emph{best} answer --- and the
+    same normal equations fit a straight line to real data.
+  \end{block}
 \end{frame}
 
 \end{document}

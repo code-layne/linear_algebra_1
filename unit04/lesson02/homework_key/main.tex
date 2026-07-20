@@ -3,17 +3,68 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.2}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+To project onto a line: $\hat{x}=\dfrac{\avec\cdot\bb}{\avec\cdot\avec}$, $\pp=\hat{x}\avec$. To project
+onto a subspace $C(A)$: solve the normal equations $A^{\T}A\hat{\xx}=A^{\T}\bb$, then $\pp=A\hat{\xx}$.
+The error is always $\ee=\bb-\pp$. Show your dot products.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Line in $\mathbb{R}^2$.} Project $\bb=\begin{bmatrix} 3\\4 \end{bmatrix}$ onto the line
+        through $\avec=\begin{bmatrix} 2\\1 \end{bmatrix}$. Find $\hat{x}$, $\pp$, and $\ee$, and check
+        $\avec\cdot\ee=0$.
+        \ansline{$\avec\cdot\bb=6+4=10$, $\avec\cdot\avec=5$, so $\hat{x}=2$; $\pp=2\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}=\begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}$; $\ee=\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}-\begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}=\begin{bsmallmatrix} -1\\2 \end{bsmallmatrix}$; $\avec\cdot\ee=-2+2=0$. \checkmark}
+  \item \textbf{Line in $\mathbb{R}^3$, with the matrix.} Project $\bb=\begin{bmatrix} 4\\4\\3 \end{bmatrix}$
+        onto the line through $\avec=\begin{bmatrix} 1\\2\\2 \end{bmatrix}$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+      \item Find $\hat{x}$, $\pp$, and $\ee$.
+            \ansline{$\avec\cdot\bb=4+8+6=18$, $\avec\cdot\avec=1+4+4=9$, so $\hat{x}=2$; $\pp=(2,4,4)$; $\ee=(4,4,3)-(2,4,4)=(2,0,-1)$; $\avec\cdot\ee=2+0-2=0$. \checkmark}
+      \item Build the projection matrix $P=\dfrac{\avec\avec^{\T}}{\avec^{\T}\avec}$ and confirm $P\bb=\pp$.
+            \ansline{$P=\tfrac{1}{9}\begin{bsmallmatrix} 1&2&2\\2&4&4\\2&4&4 \end{bsmallmatrix}$; $P\bb=\tfrac{1}{9}(18,36,36)=(2,4,4)=\pp$. \checkmark}
+    \end{enumerate}
+  \item \textbf{Onto a plane.} Let $A=\begin{bmatrix} 1 & 0\\ 1 & 1\\ 1 & 2 \end{bmatrix}$ and
+        $\bb=\begin{bmatrix} 2\\1\\6 \end{bmatrix}$. Set up and solve the normal equations
+        $A^{\T}A\hat{\xx}=A^{\T}\bb$, then give $\pp=A\hat{\xx}$ and $\ee=\bb-\pp$.
+        \ansline{$A^{\T}A=\begin{bsmallmatrix} 3&3\\3&5 \end{bsmallmatrix}$, $A^{\T}\bb=\begin{bsmallmatrix} 9\\13 \end{bsmallmatrix}$; solving gives $\hat{\xx}=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$. Then $\pp=A\hat{\xx}=\begin{bsmallmatrix} 1\\3\\5 \end{bsmallmatrix}$ and $\ee=\bb-\pp=\begin{bsmallmatrix} 1\\-2\\1 \end{bsmallmatrix}$.}
+  \item \textbf{Explain.} Why is the closest point in a subspace the one whose error is perpendicular to
+        the subspace? Answer in two or three sentences.
+        \ansline{The error $\ee$ is the gap from $\bb$ to the chosen point $\pp$. If $\ee$ were not perpendicular, part of it would point \emph{along} the subspace, and moving $\pp$ a little in that direction would shrink the gap --- so $\pp$ would not be closest. Only when $\ee$ is perpendicular is there no way to move within the space and get closer, so that $\pp$ is the minimum-distance point.}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Project twice, and where the error lives.} Use your answers from Problem~3
+($A=\begin{bsmallmatrix} 1&0\\1&1\\1&2 \end{bsmallmatrix}$, $\pp$, and $\ee$).
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item Show the error lands in the \emph{left nullspace}: check $A^{\T}\ee=\zero$. Which subspace is the
+        orthogonal complement of $C(A)$ (Lesson~4.1)?
+  \item ``Project twice $=$ project once.'' Explain why projecting $\pp$ (already in the plane) onto the
+        plane again returns $\pp$ --- so its error would be $\zero$.
+\end{enumerate}
+\ansline{(a) $A^{\T}\ee$: column$_1\cdot\ee=(1,1,1)\cdot(1,-2,1)=0$ and column$_2\cdot\ee=(0,1,2)\cdot(1,-2,1)=0$, so $A^{\T}\ee=\zero$: $\ee\in N(A^{\T})$, the orthogonal complement of $C(A)$. (b) $\pp$ already lies in $C(A)$, so the closest point of the plane to $\pp$ is $\pp$ itself; the projection returns $\pp$ and the error is $\zero$. (This is why $P^2=P$.)}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 4.3: Least Squares.} When $A\xx=\bb$ has \emph{no} exact solution
+(too many equations, real data that does not line up), the projection $\pp$ is the \emph{best} we can do,
+and the same normal equations $A^{\T}A\hat{\xx}=A^{\T}\bb$ become the tool for fitting a straight line to
+data points.
+\end{spiralbox}
 
 \end{document}

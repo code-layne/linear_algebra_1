@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 4}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 4 \quad Orthogonality}}\\[6pt]
   {\color{white}\textbf{\large Lesson 4.2 \quad Projections onto Subspaces}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} find the \textbf{projection} of a vector onto a \textbf{line} using $\hat{x}=\frac{\mathbf{a}\cdot\mathbf{b}}{\mathbf{a}\cdot\mathbf{a}}$, and locate the perpendicular \textbf{error}.
+  \item \ldots{} project onto a \textbf{subspace} by setting up and solving the \textbf{normal equations} $A^{\mathsf{T}}A\hat{\mathbf{x}}=A^{\mathsf{T}}\mathbf{b}$.
+  \item \ldots{} explain \emph{why} the closest point is the one whose error is \textbf{perpendicular} to the space.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,24 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: perpendicular test, two key dot products, solving a $2\times2$ system & \blank{1.2cm} \\
+2 & Guided Notes   & Closest point, projection onto a line \& subspace, the error, normal equations & \blank{1.2cm} \\
+3 & Group Activity & Drop the Perpendicular --- projecting onto a line, a matrix, and a plane & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check on a line projection, the error's meaning, and normal equations & \blank{1.2cm} \\
+5 & Homework       & Line \& subspace projections, projection matrices, and where the error lives & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small One idea drives the lesson: the \textbf{closest} point $\mathbf{p}$ in a line or subspace is the
+one whose leftover \textbf{error} $\mathbf{e}=\mathbf{b}-\mathbf{p}$ is \emph{perpendicular} to the space.
+Turning that right angle into an equation gives $\hat{x}=\frac{\mathbf{a}\cdot\mathbf{b}}{\mathbf{a}\cdot\mathbf{a}}$
+for a line and the \textbf{normal equations} $A^{\mathsf{T}}A\hat{\mathbf{x}}=A^{\mathsf{T}}\mathbf{b}$ for
+a subspace --- and the error always lands in the orthogonal complement (Lesson~4.1).
+\end{remindbox}
 
 \end{document}

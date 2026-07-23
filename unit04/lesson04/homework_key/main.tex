@@ -3,17 +3,72 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\qq}{\mathbf{q}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.4}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+\textbf{Orthonormal} vectors are perpendicular ($q_i\cdot q_j=0$) \emph{and} unit length ($q_i\cdot q_i=1$).
+Stacked into $Q$ they give $Q^{\T}Q=I$, so coordinates are dot products: $\bb=\sum(q_i\cdot\bb)q_i$ and
+$\hat{\xx}=Q^{\T}\bb$. \textbf{Gram--Schmidt} builds them: normalize the first, subtract the overlap,
+normalize the remainder. Show your dot products.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Orthonormal or not?} Are $q_1=\tfrac13(1,2,2)$ and $q_2=\tfrac13(2,1,-2)$ orthonormal?
+        Compute $q_1\!\cdot\!q_1$, $q_2\!\cdot\!q_2$, and $q_1\!\cdot\!q_2$, then decide.
+        \ansline{$q_1\!\cdot\!q_1=\tfrac19(1{+}4{+}4)=1$; $q_2\!\cdot\!q_2=\tfrac19(4{+}1{+}4)=1$; $q_1\!\cdot\!q_2=\tfrac19(2{+}2{-}4)=0$. Both unit length and perpendicular, so \emph{yes} --- orthonormal.}
+  \item \textbf{Coordinates by dot product.} Let $Q=\tfrac15\begin{bmatrix} 3&4\\4&-3 \end{bmatrix}$, columns
+        $q_1=\tfrac15(3,4)$, $q_2=\tfrac15(4,-3)$. Write $\bb=\begin{bmatrix} 5\\10 \end{bmatrix}$ in this
+        orthonormal basis: find the weights $q_1\!\cdot\!\bb$ and $q_2\!\cdot\!\bb$, and state
+        $\bb=\underline{\ \ }\,q_1+\underline{\ \ }\,q_2$.
+        \ansline{$q_1\!\cdot\!\bb=\tfrac15(15{+}40)=11$; $q_2\!\cdot\!\bb=\tfrac15(20{-}30)=-2$. So $\bb=11\,q_1-2\,q_2$. (Check: $11\,q_1-2\,q_2=\tfrac15(33,44)-\tfrac15(8,-6)=\tfrac15(25,50)=(5,10)$. \checkmark)}
+  \item \textbf{Gram--Schmidt.} Start with $\avec_1=(3,4)$ and $\avec_2=(0,1)$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+      \item Normalize: $q_1=\avec_1/\|\avec_1\|$.
+            \ansline{$\|\avec_1\|=5$, so $q_1=\tfrac15(3,4)$.}
+      \item Compute $q_1\!\cdot\!\avec_2$, then $B=\avec_2-(q_1\!\cdot\!\avec_2)q_1$, and normalize to get
+            $q_2=B/\|B\|$.
+            \ansline{$q_1\!\cdot\!\avec_2=\tfrac45$; $B=(0,1)-\tfrac45\!\cdot\!\tfrac15(3,4)=(0,1)-\tfrac{4}{25}(3,4)=\left(-\tfrac{12}{25},\tfrac{9}{25}\right)$, $\|B\|=\tfrac{15}{25}=\tfrac35$; so $q_2=B/\tfrac35=\tfrac15(-4,3)$.}
+      \item Assemble $Q=\begin{bmatrix} q_1 & q_2 \end{bmatrix}$ and confirm the columns are orthonormal.
+            \ansline{$Q=\tfrac15\begin{bsmallmatrix} 3&-4\\4&3 \end{bsmallmatrix}$; $q_1\!\cdot\!q_1=1$, $q_2\!\cdot\!q_2=1$, $q_1\!\cdot\!q_2=\tfrac{1}{25}(-12{+}12)=0$, so $Q^{\T}Q=I$.}
+    \end{enumerate}
+  \item \textbf{Explain.} In two or three sentences, explain why orthonormal columns ($Q^{\T}Q=I$) make the
+        least-squares answer $\hat{\xx}=Q^{\T}\bb$ --- with \emph{no} equation to solve --- compared with
+        last lesson's $A^{\T}A\hat{\xx}=A^{\T}\bb$.
+        \ansline{The normal equations are $A^{\T}A\hat{\xx}=A^{\T}\bb$; with $A=Q$ orthonormal, $A^{\T}A=Q^{\T}Q=I$, so they read $I\hat{\xx}=Q^{\T}\bb$, i.e.\ $\hat{\xx}=Q^{\T}\bb$. Every coordinate is a single dot product $q_i\!\cdot\!\bb$ --- no matrix to invert and no system to eliminate, because perpendicular unit columns don't interfere with each other.}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{The factorization $A=QR$.} Put the Problem~3 vectors in a matrix
+$A=\begin{bsmallmatrix} 3&0\\4&1 \end{bsmallmatrix}$ (columns $\avec_1,\avec_2$), and use your
+$Q=\tfrac15\begin{bsmallmatrix} 3&-4\\4&3 \end{bsmallmatrix}$.
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item Compute $R=Q^{\T}A$ (its entries are the dot products $q_i\!\cdot\!\avec_j$). What special shape does
+        $R$ have?
+  \item Verify $QR=A$. Why is $R$ upper triangular --- what does the $0$ in its lower-left corner say about
+        $q_2$ and $\avec_1$?
+\end{enumerate}
+\ansline{(a) $R=Q^{\T}A=\begin{bsmallmatrix} q_1\!\cdot\!\avec_1 & q_1\!\cdot\!\avec_2\\ q_2\!\cdot\!\avec_1 & q_2\!\cdot\!\avec_2 \end{bsmallmatrix}=\begin{bsmallmatrix} 5 & 4/5\\ 0 & 3/5 \end{bsmallmatrix}$ --- \emph{upper triangular}. (b) $QR=\tfrac15\begin{bsmallmatrix} 3&-4\\4&3 \end{bsmallmatrix}\begin{bsmallmatrix} 5 & 4/5\\ 0 & 3/5 \end{bsmallmatrix}=\begin{bsmallmatrix} 3&0\\4&1 \end{bsmallmatrix}=A$. \checkmark\; The lower-left entry $q_2\!\cdot\!\avec_1=0$ because Gram--Schmidt built $q_2$ perpendicular to $q_1$ (hence to $\avec_1$, which points along $q_1$); the triangular shape records the order in which vectors were orthogonalized.}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{That wraps Unit 4 --- Orthogonality.} You can now split any vector into a piece on a subspace plus a
+perpendicular error (projection), fit data by least squares, and build perfect orthonormal axes with
+Gram--Schmidt. \textbf{Coming next:} the \emph{Unit~4 Test}, then Unit~5, \emph{Determinants and Linear
+Transformations} --- a single number that tells you whether a matrix is invertible and how it scales area.
+\end{spiralbox}
 
 \end{document}

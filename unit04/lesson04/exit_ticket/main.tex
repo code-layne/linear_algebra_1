@@ -3,6 +3,12 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\qq}{\mathbf{q}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,9 +17,17 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Orthonormal?} Are $q_1=\tfrac13(2,2,1)$ and $q_2=\tfrac13(2,-1,-2)$ orthonormal? Compute the
+        three dot products $q_1\!\cdot\!q_1$, $q_2\!\cdot\!q_2$, $q_1\!\cdot\!q_2$ and decide.
+        \writelines{2}
+  \item \textbf{First Gram--Schmidt step.} Normalize $\avec=(1,1,1,1)$ to a unit vector $q_1=\avec/\|\avec\|$.
+        \writelines{2}
+  \item \textbf{Why it helps.} If $Q$ has orthonormal columns, what is $Q^{\T}Q$? Explain in one or two
+        sentences why that makes the least-squares answer $\hat{\xx}=Q^{\T}\bb$ --- with no system to solve.
+        \writelines{2}
+\end{enumerate}
 
 \end{document}

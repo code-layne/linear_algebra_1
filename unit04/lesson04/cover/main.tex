@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 4}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 4 \quad Orthogonality}}\\[6pt]
   {\color{white}\textbf{\large Lesson 4.4 \quad Orthogonal Matrices and Gram--Schmidt}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} test whether vectors are \textbf{orthonormal} (perpendicular \emph{and} unit length) and build the matrix $Q$ with $Q^{\mathsf{T}}Q=I$.
+  \item \ldots{} find coordinates and projections with \textbf{no solving} --- each weight is a dot product $q_i\cdot\mathbf{b}$, so $\hat{\mathbf{x}}=Q^{\mathsf{T}}\mathbf{b}$.
+  \item \ldots{} run \textbf{Gram--Schmidt} to turn independent vectors into an orthonormal set, and explain \emph{why} the subtraction step makes them perpendicular.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,24 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: length \& unit vectors, the perpendicular test, the normal equations & \blank{1.2cm} \\
+2 & Guided Notes   & Orthonormal vectors, $Q^{\mathsf{T}}Q=I$, coordinates by dot product, Gram--Schmidt & \blank{1.2cm} \\
+3 & Group Activity & Perfect Axes --- test orthonormality, coordinates for free, build $Q$ by Gram--Schmidt & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check: orthonormality test, a normalize step, and why $Q^{\mathsf{T}}Q=I$ helps & \blank{1.2cm} \\
+5 & Homework       & Normalizing, coordinates by dot product, Gram--Schmidt, and $A=QR$ & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small One idea drives the lesson: \textbf{orthonormal} vectors are ``perfect graph paper'' ---
+perpendicular \emph{and} length~$1$. Stacked into a matrix $Q$, they satisfy $Q^{\mathsf{T}}Q=I$, so every
+coordinate is a single dot product $q_i\cdot\mathbf{b}$ and last lesson's normal equations collapse to
+$\hat{\mathbf{x}}=Q^{\mathsf{T}}\mathbf{b}$ --- projection with \emph{no} solving. \textbf{Gram--Schmidt}
+manufactures such vectors from any independent set by subtracting off overlaps and normalizing.
+\end{remindbox}
 
 \end{document}

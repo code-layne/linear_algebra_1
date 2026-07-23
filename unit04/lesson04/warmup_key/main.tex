@@ -3,17 +3,46 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.4}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small These three ideas (Lessons 1.2, 4.0, 4.3) set up today's lesson. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Length and unit vectors.} For $\vv=(3,4)$:
+\[
+  \|\vv\|=\sqrt{\vv\cdot\vv}={\color{keyred}\mathbf{5}}\,. \qquad
+  \text{A unit vector in the same direction is } \frac{\vv}{\|\vv\|}={\color{keyred}\tfrac15\mathbf{(3,4)}}\,.
+\]
+\vspace{-8pt}
+\ansline{$\|\vv\|=\sqrt{9+16}=\sqrt{25}=5$; dividing by $5$ gives the unit vector $\tfrac15(3,4)=(0.6,\,0.8)$, which has length $1$.}
+
+\vspace{4pt}
+\textbf{2. The perpendicular test.} Are $\vv=(3,4)$ and $\ww=(4,-3)$ perpendicular? Compute the dot
+product and decide.
+\[
+  \vv\cdot\ww={\color{keyred}\mathbf{0}} \qquad\Longrightarrow\qquad \text{perpendicular?}\ {\color{keyred}\mathbf{yes}}
+\]
+\vspace{-8pt}
+\ansline{$\vv\cdot\ww=3(4)+4(-3)=12-12=0$; a zero dot product means the vectors are perpendicular.}
+
+\vspace{4pt}
+\textbf{3. Last lesson's normal equations.} To fit data we solved $A^{\T}A\hat{\xx}=A^{\T}\bb$. Fill in: if
+$A^{\T}A$ turned out to be the identity $I$, then $\hat{\xx}={\color{keyred}\mathbf{A^{\T}\bb}}$ --- and there is
+{\color{keyred}\textbf{no}} system left to solve.
+\vspace{-8pt}
+\ansline{With $A^{\T}A=I$, the equation $I\hat{\xx}=A^{\T}\bb$ says $\hat{\xx}=A^{\T}\bb$ outright --- today we build columns that make this happen.}
 \end{notesbox}
 
 \end{document}

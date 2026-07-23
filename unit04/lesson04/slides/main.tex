@@ -1,6 +1,15 @@
 %! Orthogonal Matrices and Gram--Schmidt — Unit 4, Lesson 4.4 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\qq}{\mathbf{q}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,16 +20,119 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 4.4}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Orthogonal Matrices and Gram--Schmidt}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 4}
+    {\color{white}\bfseries\LARGE Orthogonal Matrices and Gram--Schmidt}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 4: Orthogonality}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{Graph paper vs.\ a skewed grid}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.56\textwidth}
+      On ordinary graph paper --- perpendicular lines, unit spacing --- you find a point's coordinates by
+      just reading \emph{across and up}. No work.\\[6pt]
+      On a \emph{skewed, stretched} grid you would have to \textbf{solve} for the weights.\\[8pt]
+      \textbf{Orthonormal} vectors are ``perfect graph paper'': perpendicular \emph{and} length $1$.
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.9, >=stealth]
+        \draw[->, charcoal] (-0.4,0)--(2.4,0);
+        \draw[->, charcoal] (0,-1.7)--(0,2.2);
+        \draw[burgundy, very thick, ->] (0,0)--(1.32,1.76) node[above right, font=\scriptsize]{$q_1$};
+        \draw[royalblue, very thick, ->] (0,0)--(1.76,-1.32) node[below right, font=\scriptsize]{$q_2$};
+        \draw[charcoal, thin] (0.21,0.28)--(0.49,0.07)--(0.28,-0.21);
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{4pt}
+  \begin{block}{The question of Lesson 4.4}
+    Fitting a line, we solved $A^{\T}A\hat{\xx}=A^{\T}\bb$. If the columns were perpendicular \emph{unit}
+    vectors, $A^{\T}A=I$ --- nothing to solve. Can we always build such columns?
+  \end{block}
+\end{frame}
+
+% ORTHONORMAL + Q^T Q = I
+\begin{frame}[t, plain]
+  \burgundyheader{Orthonormal vectors and the matrix $Q$}
+  \sectionlabel{Perpendicular \emph{and} unit length}
+  A set is \textbf{orthonormal} when $q_i\cdot q_j=0$ for $i\ne j$ and $q_i\cdot q_i=1$.\\[4pt]
+  Normalize the Lesson 4.0 pair $(3,4),(4,-3)$ (each length $5$):
+  \[
+    q_1=\tfrac15\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix},\quad
+    q_2=\tfrac15\begin{bsmallmatrix} 4\\-3 \end{bsmallmatrix},\qquad
+    Q=\tfrac15\begin{bsmallmatrix} 3&4\\4&-3 \end{bsmallmatrix}.
+  \]
+  \[
+    Q^{\T}Q=\begin{bsmallmatrix} q_1\!\cdot\!q_1 & q_1\!\cdot\!q_2\\ q_2\!\cdot\!q_1 & q_2\!\cdot\!q_2 \end{bsmallmatrix}
+    =\begin{bsmallmatrix} 1&0\\0&1 \end{bsmallmatrix}=I.
+  \]
+  If $Q$ is square, $Q^{\T}Q=I$ says $Q^{\T}=Q^{-1}$: \textbf{the inverse is free}.
+\end{frame}
+
+% COORDINATES FOR FREE / LEAST SQUARES TRIVIAL
+\begin{frame}[t, plain]
+  \burgundyheader{Coordinates and projection --- for free}
+  \sectionlabel[goldacc]{Every weight is one dot product}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Coordinates}
+        $\bb=(q_1\!\cdot\!\bb)q_1+(q_2\!\cdot\!\bb)q_2$.\\[3pt]
+        For $\bb=(5,0)$: $q_1\!\cdot\!\bb=3$, $q_2\!\cdot\!\bb=4$,\\[2pt]
+        so $\bb=3q_1+4q_2$. No solving.
+      \end{block}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Least squares}
+        Normal equations $A^{\T}A\hat{\xx}=A^{\T}\bb$\\[2pt]
+        with $A=Q$: $Q^{\T}Q=I$, so
+        \[
+          \hat{\xx}=Q^{\T}\bb,\qquad \pp=QQ^{\T}\bb.
+        \]
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{4pt}
+  \begin{itemize}
+    \item Perpendicular unit columns don't interfere --- projection collapses to a few dot products.
+  \end{itemize}
+\end{frame}
+
+% GRAM-SCHMIDT
+\begin{frame}[t, plain]
+  \burgundyheader{Gram--Schmidt: manufacture orthonormal columns}
+  \sectionlabel{Normalize, subtract the overlap, normalize}
+  Independent $\avec_1=(3,4)$, $\avec_2=(1,0)$:
+  \begin{enumerate}
+    \setlength{\itemsep}{4pt}
+    \item $q_1=\avec_1/\|\avec_1\|=\tfrac15(3,4)$.
+    \item $B=\avec_2-(q_1\!\cdot\!\avec_2)q_1=(1,0)-\tfrac35\!\cdot\!\tfrac15(3,4)=\left(\tfrac{16}{25},-\tfrac{12}{25}\right)$,\; $\|B\|=\tfrac45$.
+    \item $q_2=B/\|B\|=\tfrac15(4,-3)$.
+  \end{enumerate}
+  \vspace{2pt}
+  \begin{block}{Why the subtraction works}
+    $q_1\!\cdot\!B=q_1\!\cdot\!\avec_2-(q_1\!\cdot\!\avec_2)(q_1\!\cdot\!q_1)=\tfrac35-\tfrac35=0$ --- we
+    removed exactly the part of $\avec_2$ along $q_1$, so the leftover is perpendicular.
+  \end{block}
+\end{frame}
+
+% SUMMARY + NEXT
+\begin{frame}[t, plain]
+  \burgundyheader{Orthonormal $=$ everything gets easy}
+  \sectionlabel[goldacc]{Closing Unit 4}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item \textbf{Orthonormal:} perpendicular \emph{and} unit length; columns of $Q$ give $Q^{\T}Q=I$.
+    \item \textbf{Coordinates \& projection:} just dot products --- $\hat{\xx}=Q^{\T}\bb$, no solving.
+    \item \textbf{Gram--Schmidt:} normalize, subtract the overlap, normalize --- and $A=QR$.
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{Next --- the Unit 4 Test, then Unit 5: Determinants \& Linear Transformations}
+    One number that tells you whether a matrix is invertible and how it scales area.
+  \end{block}
 \end{frame}
 
 \end{document}

@@ -3,6 +3,12 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\qq}{\mathbf{q}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,9 +17,24 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Orthonormal?} Are $q_1=\tfrac13(2,2,1)$ and $q_2=\tfrac13(2,-1,-2)$ orthonormal? Compute the
+        three dot products $q_1\!\cdot\!q_1$, $q_2\!\cdot\!q_2$, $q_1\!\cdot\!q_2$ and decide.
+        \ansline{$q_1\!\cdot\!q_1=\tfrac19(4{+}4{+}1)=1$; $q_2\!\cdot\!q_2=\tfrac19(4{+}1{+}4)=1$; $q_1\!\cdot\!q_2=\tfrac19(4{-}2{-}2)=0$. Each is unit length and they are perpendicular, so \emph{yes} --- the pair is orthonormal.}
+  \item \textbf{First Gram--Schmidt step.} Normalize $\avec=(1,1,1,1)$ to a unit vector $q_1=\avec/\|\avec\|$.
+        \ansline{$\|\avec\|=\sqrt{1+1+1+1}=\sqrt4=2$, so $q_1=\tfrac12(1,1,1,1)=(0.5,0.5,0.5,0.5)$, which has length $1$.}
+  \item \textbf{Why it helps.} If $Q$ has orthonormal columns, what is $Q^{\T}Q$? Explain in one or two
+        sentences why that makes the least-squares answer $\hat{\xx}=Q^{\T}\bb$ --- with no system to solve.
+        \ansline{$Q^{\T}Q=I$ (each column dotted with itself is $1$, with a different column is $0$). The normal equations $Q^{\T}Q\hat{\xx}=Q^{\T}\bb$ then become $I\hat{\xx}=Q^{\T}\bb$, i.e.\ $\hat{\xx}=Q^{\T}\bb$ --- just dot products, with no matrix to invert and no system to solve.}
+\end{enumerate}
+
+\begin{teachernote}
+Full credit on \#1 needs all three dot products and the ``both perpendicular \emph{and} unit'' conclusion.
+On \#2 look for dividing by the length $2$ (not by $4$). On \#3 the key phrase is $Q^{\T}Q=I$ collapsing the
+normal equations. A student who nails \#1 and \#3 is ready for the Unit~4 test; if many miss the ``unit
+length'' half of \#1, re-anchor before the review.
+\end{teachernote}
 
 \end{document}

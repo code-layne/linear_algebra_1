@@ -3,17 +3,163 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\T}{\mathsf{T}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 5, Lesson 5.2}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item state the \emph{rules} determinants obey --- $\det I=1$, a \emph{swap} negates, a \emph{scale} multiplies, and adding a multiple of one row to another changes \emph{nothing};
+  \item compute a determinant the \emph{fast} way by reducing to triangular: $\det=\pm(\text{product of the pivots})$;
+  \item use the \emph{product rule} $\det(AB)=\det A\,\det B$ and its consequences ($\det A^{-1}=1/\det A$, $\det A=0\Leftrightarrow$ singular).
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.06in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{Founding rules ($\det I=1$; swap; scale)}{$\det I=1$; swapping two rows/columns negates $\det$; scaling a row by $t$ scales $\det$ by $t$}
+\vocabans{Shear invariance (add a multiple of a row)}{adding a multiple of one row to another leaves $\det$ unchanged --- the box is sheared, not resized}
+\vocabans{Product of pivots (fast determinant)}{reduce to triangular; $\det=\pm(\text{product of pivots})$, one sign flip per row swap}
+\vocabans{Product rule ($\det AB=\det A\det B$)}{determinants multiply; so $\det A^{-1}=1/\det A$ and $\det A^{\T}=\det A$}
+\end{vocabbox}
+
+\begin{hookbox}
+Expanding a $3\times3$ by cofactors is \emph{three} $2\times2$ determinants and a lot of bookkeeping.
+But you already own a machine that makes any matrix \textbf{triangular} --- elimination (Unit~2) --- and
+a triangular determinant is free (Lesson~5.1). The only missing link:
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item In the Warm-Up, did the elimination step change the determinant of $M$? \ansline{No --- $\det M=\det U=1$; the elimination step left it unchanged.}
+  \item So if we reduce $A$ all the way to a triangular $U$, how could we read off $\det A$? \ansline{Multiply the pivots (the diagonal of $U$) --- that product is $\det A$, up to a sign for any swaps.}
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. The Rules Determinants Live By}
+Every rule below is really a statement about the \textbf{volume} of the box the columns span.
+\begin{enumerate}[leftmargin=1.5em, itemsep=3pt]
+  \item \textbf{The identity.} $\det I=1$ --- the unit cube has volume $1$. \emph{(Our starting point.)}
+  \item \textbf{Swap $\Rightarrow$ sign flips.} Exchange two rows (or two columns) and $\det$ is
+        \textbf{negated}. Geometrically the box is \emph{reflected}: same size, flipped orientation.
+  \item \textbf{Scale $\Rightarrow$ multiply.} Multiply one row by $t$ and $\det$ is multiplied by $t$
+        --- stretch one edge by $t$, stretch the volume by $t$.
+\end{enumerate}
+A quick consequence: if two rows are \emph{equal}, the box is flat, so $\det=$ \ans{$0$}.
 \end{notesbox}
+
+\begin{notesbox}{2. The Key Property: A Shear Doesn't Change the Volume}
+Here is the rule that does all the work: \textbf{adding a multiple of one row to another leaves
+$\det$ unchanged.} That move is exactly an \emph{elimination step} (Unit~2), and geometrically it is a
+\textbf{shear} --- slide the top of the box sideways. The base and the height never change, so the
+\textbf{area (volume) is the same}:
+
+\begin{center}
+\begin{tikzpicture}[scale=0.95]
+  % original box (upright parallelogram)
+  \fill[burgundy!12] (0,0)--(2,0)--(2,1.6)--(0,1.6)--cycle;
+  \draw[charcoal, thin] (0,0)--(2,0)--(2,1.6)--(0,1.6)--cycle;
+  \draw[<->, linegray] (0,-0.28)--(2,-0.28) node[midway,below,charcoal]{\scriptsize base};
+  \node[charcoal] at (1,0.8){\scriptsize area $=bh$};
+  % arrow
+  \draw[->, very thick, burgundy!70] (2.5,0.8)--(3.5,0.8) node[midway,above]{\scriptsize shear};
+  % sheared box (same base, same height, top slid right)
+  \fill[greenacc!16] (4,0)--(6,0)--(6.8,1.6)--(4.8,1.6)--cycle;
+  \draw[charcoal, thin] (4,0)--(6,0)--(6.8,1.6)--(4.8,1.6)--cycle;
+  \draw[<->, linegray] (4,-0.28)--(6,-0.28) node[midway,below,charcoal]{\scriptsize base (same)};
+  \draw[dashed, linegray] (6,0)--(6,1.6);
+  \draw[<->, linegray] (7.1,0)--(7.1,1.6) node[midway,right,charcoal]{\scriptsize height (same)};
+  \node[charcoal] at (5.2,0.8){\scriptsize area $=bh$};
+\end{tikzpicture}
+\end{center}
+
+\textbf{Check it on a $2\times2$.} Start with $\det\begin{bsmallmatrix} 2 & 1 \\ 1 & 3 \end{bsmallmatrix}=5$.
+Now subtract $\tfrac12(\text{column }1)$ from column $2$ (a shear):
+\[
+  \det\begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix} = {\color{keyred}\mathbf{5}}
+  \qquad\text{and}\qquad
+  \det\begin{bmatrix} 2 & 0 \\ 1 & 2.5 \end{bmatrix} = {\color{keyred}\mathbf{5}}.
+\]
+Same answer --- the shear slid the box but kept its area.
+\end{notesbox}
+
+\begin{notesbox}{3. The Fast Way: Determinant $=$ Product of the Pivots}
+Put the rules together. \emph{Shears} (adding a multiple of one row to another) don't change $\det$, and
+\emph{swaps} only flip its sign. So run \textbf{elimination} until the matrix is triangular $U$, then
+just \textbf{multiply the pivots} --- flipping the sign once for each row swap you made:
+\[
+  \det A = \pm(\text{product of the pivots}), \qquad (-)\text{ once per row swap}.
+\]
+\textbf{Worked example (no cofactors).} Reduce
+$A=\begin{bsmallmatrix} 1 & 2 & 0 \\ 2 & 5 & 1 \\ 0 & 1 & 3 \end{bsmallmatrix}$:
+\[
+  \xrightarrow{\;R_2-2R_1\;}
+  \begin{bmatrix} 1 & 2 & 0 \\ 0 & 1 & 1 \\ 0 & 1 & 3 \end{bmatrix}
+  \xrightarrow{\;R_3-R_2\;}
+  \begin{bmatrix} 1 & 2 & 0 \\ 0 & 1 & 1 \\ 0 & 0 & 2 \end{bmatrix}.
+\]
+No swaps were needed, and the pivots are $1,\;1,\;2$, so
+\[
+  \det A = (+)\,(1)(1)(2) = {\color{keyred}\mathbf{2}}.
+\]
+That is the same number cofactor expansion would give --- with far less work.
+\end{notesbox}
+
+\begin{notesbox}{4. Determinants Multiply: the Product Rule}
+When you apply one transformation and then another, the volume factors \emph{multiply}. So determinants
+do too:
+\[
+  \boxed{\;\det(AB) = \det A \,\cdot\, \det B\;}
+\]
+\textbf{Worked example.} With $\det A=5$ and $\det B=6$,
+$\det(AB)=5\cdot 6={\color{keyred}\mathbf{30}}$. Three consequences fall right out:
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item \textbf{Inverses:} since $A A^{-1}=I$, we get $\det A\cdot\det A^{-1}=\det I=1$, so
+        $\det A^{-1}=\dfrac{1}{\det A}$. (If $\det A=5$, then $\det A^{-1}=$ \ans{$\tfrac15$}.)
+  \item \textbf{Singular means zero:} if $\det A=0$ there is \emph{no} number $1/\det A$, so $A$ has no
+        inverse --- $\det A=0\Leftrightarrow A$ is \ans{singular (not invertible)}. \emph{(The Unit~2 story again.)}
+  \item \textbf{Transpose:} flipping a matrix across its diagonal doesn't change its determinant:
+        $\det A^{\T}=\det A$ (so every row rule is also a \emph{column} rule).
+\end{itemize}
+
+\vspace{2pt}
+\textbf{The road ahead.} \textbf{5.3} \emph{linear transformations}: applying $A$ multiplies every
+area/volume by the factor $|\det A|$, and the \emph{sign} of $\det A$ tells you whether orientation was
+kept or \ans{flipped (reversed)}.
+\end{notesbox}
+
+\begin{practicebox}
+Show your work. Use the rules --- reduce to triangular for determinants, and the product rule for the rest.
+\begin{enumerate}[leftmargin=1.6em, itemsep=6pt]
+  \item Compute $\det\begin{bsmallmatrix} 1 & 3 & 2 \\ 2 & 7 & 5 \\ 0 & 1 & 4 \end{bsmallmatrix}$ by reducing to triangular (product of the pivots). \ansline{$R_2-2R_1\Rightarrow\begin{bsmallmatrix} 1 & 3 & 2\\ 0 & 1 & 1\\ 0 & 1 & 4\end{bsmallmatrix}$; $R_3-R_2\Rightarrow\begin{bsmallmatrix} 1 & 3 & 2\\ 0 & 1 & 1\\ 0 & 0 & 3\end{bsmallmatrix}$. No swaps, pivots $1,1,3$, so $\det=1\cdot1\cdot3=3$.}
+  \item You add $3\times(\text{row }1)$ to row $2$ of a matrix. What happens to its determinant? \ansline{Nothing --- adding a multiple of one row to another leaves the determinant unchanged (a shear).}
+  \item If $\det A=4$ and $\det B=2$, find $\det(AB)$ and $\det A^{-1}$. \ansline{$\det(AB)=\det A\,\det B=4\cdot2=8$; \; $\det A^{-1}=1/\det A=1/4$.}
+\end{enumerate}
+\end{practicebox}
+
+\begin{teachernote}
+The spine is one property: \emph{adding a multiple of one row to another does not change the
+determinant} (a shear keeps base and height). Everything else hangs off it. Section~1 sets the three
+founding rules ($\det I=1$, swap $=$ reflect $\Rightarrow$ sign flip, scale $=$ stretch $\Rightarrow$
+multiply). Section~3 is the payoff students will actually use: reduce to triangular (Unit~2
+elimination) and multiply the pivots --- far cheaper than cofactors, with one sign flip per row swap.
+Section~4 is the product rule (compose maps $\Rightarrow$ multiply volume factors), giving
+$\det A^{-1}=1/\det A$, the $\det=0\Leftrightarrow$ singular callback, and $\det A^{\T}=\det A$. Most
+common slips: confusing the scale rule (multiplies) with the shear rule (changes nothing), forgetting
+the sign flip on a swap, and the false ``$\det(A+B)=\det A+\det B$'' (the rule is about $AB$).
+\end{teachernote}
 
 \end{document}

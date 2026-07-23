@@ -3,17 +3,95 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\T}{\mathsf{T}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 5, Lesson 5.2}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Rules, Pivots, and Products.} You no longer have to expand every determinant. Use the
+\textbf{rules}: a \emph{shear} (adding a multiple of one row to another) changes \textbf{nothing}, a
+\emph{swap} flips the sign, and a \emph{scale} multiplies. Reduce to triangular and $\det=\pm(\text{product
+of the pivots})$. And determinants \textbf{multiply}: $\det(AB)=\det A\,\det B$. Work with your partner,
+show each step, and \emph{justify} every claim.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Reduce to triangular, then multiply the pivots. Show your work.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Compute $\det\begin{bsmallmatrix} 1 & 2 & 1 \\ 2 & 5 & 3 \\ 0 & 3 & 5 \end{bsmallmatrix}$ by
+        elimination (no swaps needed). List your pivots, then multiply.
+        \ansline{$R_2-2R_1\Rightarrow\begin{bsmallmatrix} 1 & 2 & 1\\ 0 & 1 & 1\\ 0 & 3 & 5\end{bsmallmatrix}$; $R_3-3R_2\Rightarrow\begin{bsmallmatrix} 1 & 2 & 1\\ 0 & 1 & 1\\ 0 & 0 & 2\end{bsmallmatrix}$. Pivots $1,1,2$, no swaps, so $\det=1\cdot1\cdot2=2$.}
+  \item \textbf{A shear changes nothing.} The matrix $\begin{bsmallmatrix} 3 & 1 \\ 2 & 4 \end{bsmallmatrix}$
+        has determinant $10$. Add $2\times(\text{row }1)$ to row $2$, write the new matrix, and compute
+        its determinant. Did it change?
+        \ansline{New matrix $\begin{bsmallmatrix} 3 & 1\\ 8 & 6\end{bsmallmatrix}$, $\det=(3)(6)-(1)(8)=18-8=10$. \emph{No change} --- a shear leaves the determinant alone.}
+  \item \textbf{A repeated column.} Compute $\det\begin{bsmallmatrix} 1 & 5 & 1 \\ 2 & 4 & 2 \\ 3 & 0 & 3 \end{bsmallmatrix}$
+        (notice column~3 $=$ column~1). What does an equal pair of columns do to the box, and to $\det$?
+        \ansline{$\det=0$. Two equal columns mean two edges of the box are identical, so the box is \emph{flat} (zero volume) --- the determinant is $0$.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Track the sign, and use the product rule.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{A swap flips the sign.} To start elimination on
+        $A=\begin{bsmallmatrix} 0 & 1 & 2 \\ 1 & 3 & 1 \\ 2 & 1 & 0 \end{bsmallmatrix}$ you must first
+        swap two rows (the top-left entry is $0$). Reduce to triangular, count your swaps, and give
+        $\det A$ with the correct sign.
+        \ansline{Swap $R_1\!\leftrightarrow\!R_2$ (\emph{one} swap): $\begin{bsmallmatrix} 1 & 3 & 1\\ 0 & 1 & 2\\ 2 & 1 & 0\end{bsmallmatrix}$. Then $R_3-2R_1\Rightarrow\begin{bsmallmatrix} 1 & 3 & 1\\ 0 & 1 & 2\\ 0 & -5 & -2\end{bsmallmatrix}$; $R_3+5R_2\Rightarrow\begin{bsmallmatrix} 1 & 3 & 1\\ 0 & 1 & 2\\ 0 & 0 & 8\end{bsmallmatrix}$. Pivots $1,1,8$; one swap flips the sign, so $\det A=-(1\cdot1\cdot8)=-8$.}
+  \item \textbf{Product rule.} Let $A=\begin{bsmallmatrix} 2 & 0 \\ 1 & 3 \end{bsmallmatrix}$ and
+        $B=\begin{bsmallmatrix} 1 & 2 \\ 0 & 4 \end{bsmallmatrix}$. Compute $\det A$, $\det B$, and
+        $\det A\cdot\det B$. Then multiply out $AB$ and compute $\det(AB)$ directly. Do they match?
+        \ansline{$\det A=6$, $\det B=4$, so $\det A\cdot\det B=24$. $AB=\begin{bsmallmatrix} 2 & 4\\ 1 & 14\end{bsmallmatrix}$, $\det(AB)=28-4=24$. Yes --- they match, as $\det(AB)=\det A\,\det B$ promises.}
+  \item \textbf{Inverses.} Using part~2, what is $\det A^{-1}$? If a matrix has $\det=0$, explain in one
+        sentence why it \emph{cannot} have an inverse.
+        \ansline{$\det A^{-1}=1/\det A=1/6$. If $\det A=0$, then $\det A\cdot\det A^{-1}$ could never equal $\det I=1$, so no inverse can exist (the flat box cannot be un-squashed).}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{An application: Cramer's rule.} Determinants can \emph{solve} a system. For
+$A\xx=\bb$, each unknown is a ratio of determinants: replace a column of $A$ with $\bb$, take the
+determinant, and divide by $\det A$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Solve $\begin{cases} 2x - y = 3 \\ \ x + 3y = 5 \end{cases}$ so that
+        $A=\begin{bsmallmatrix} 2 & -1 \\ 1 & 3 \end{bsmallmatrix}$, $\bb=\begin{bsmallmatrix} 3 \\ 5 \end{bsmallmatrix}$.
+        Compute $\det A$; then $x=\dfrac{\det A_x}{\det A}$ (replace column~1 by $\bb$) and
+        $y=\dfrac{\det A_y}{\det A}$ (replace column~2 by $\bb$).
+        \ansline{$\det A=(2)(3)-(-1)(1)=7$. $A_x=\begin{bsmallmatrix} 3 & -1\\ 5 & 3\end{bsmallmatrix}$, $\det A_x=9+5=14$, so $x=14/7=2$. $A_y=\begin{bsmallmatrix} 2 & 3\\ 1 & 5\end{bsmallmatrix}$, $\det A_y=10-3=7$, so $y=7/7=1$.}
+  \item Check your $(x,y)$ in both original equations.
+        \ansline{$(x,y)=(2,1)$: $2(2)-1=3$ \checkmark\ and $2+3(1)=5$ \checkmark.}
+  \item \textbf{Transpose rule.} Verify $\det A^{\T}=\det A$ for
+        $A=\begin{bsmallmatrix} 2 & 1 \\ 4 & 3 \end{bsmallmatrix}$: compute $\det A$ and $\det A^{\T}$.
+        Why does this mean every \emph{row} rule is also a \emph{column} rule?
+        \ansline{$\det A=(2)(3)-(1)(4)=2$; $A^{\T}=\begin{bsmallmatrix} 2 & 4\\ 1 & 3\end{bsmallmatrix}$, $\det A^{\T}=6-4=2$. Equal. Transposing swaps rows and columns without changing $\det$, so any rule about rows holds verbatim for columns.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~R is the core skill: reduce to triangular and multiply the pivots (item~1), confirm a shear
+leaves $\det$ alone (item~2), and see that equal columns flatten the box to $\det=0$ (item~3). Tier~A
+adds the sign bookkeeping of a swap (item~1 --- \emph{one} swap, so $\det=-8$), the product rule two
+ways (item~2), and the inverse consequences (item~3). Tier~E is the application layer: Cramer's rule as
+a determinant \emph{use} (watch signs when replacing a column) and the transpose rule. If time is
+short, Tier~A item~1 (swap sign) and item~2 (product rule) are the must-dos. Watch for students
+mistaking the shear rule for the scale rule, and for a dropped sign on the swap.
+\end{teachernote}
 
 \end{document}

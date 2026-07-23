@@ -1,6 +1,8 @@
 %! Properties and Applications of Determinants — Unit 5, Lesson 5.2 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\T}{\mathsf{T}}
+\newcommand{\xx}{\mathbf{x}}
 
 \begin{document}
 
@@ -11,16 +13,101 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 5.2}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Properties and Applications of Determinants}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 5}
+    {\color{white}\bfseries\LARGE Properties and Applications of Determinants}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 5: Determinants and Linear Transformations}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{Is there a faster way than cofactors?}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.56\textwidth}
+      Expanding a $3\times3$ by cofactors is \emph{three} $2\times2$s and a lot of bookkeeping.\\[8pt]
+      But you already own a machine that makes any matrix \textbf{triangular} --- \textbf{elimination}
+      (Unit~2) --- and a triangular determinant is free.\\[8pt]
+      The missing link: \emph{does elimination change the determinant?}
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.9]
+        \fill[burgundy!12] (0,0)--(1.6,0)--(1.6,1.3)--(0,1.3)--cycle;
+        \draw[charcoal, thin] (0,0)--(1.6,0)--(1.6,1.3)--(0,1.3)--cycle;
+        \draw[->, very thick, burgundy!70] (2.0,0.65)--(2.9,0.65) node[midway,above]{\scriptsize shear};
+        \fill[greenacc!16] (3.3,0)--(4.9,0)--(5.6,1.3)--(4.0,1.3)--cycle;
+        \draw[charcoal, thin] (3.3,0)--(4.9,0)--(5.6,1.3)--(4.0,1.3)--cycle;
+        \node[charcoal] at (0.8,0.6){\scriptsize $bh$};
+        \node[charcoal] at (4.5,0.6){\scriptsize $bh$};
+      \end{tikzpicture}\\[4pt]
+      {\scriptsize A shear keeps base \& height.}
+    \end{column}
+  \end{columns}
+  \vspace{2pt}
+  \begin{block}{Warm-Up punchline}
+    On $M=\begin{bsmallmatrix} 1 & 2\\ 2 & 5 \end{bsmallmatrix}$, one elimination step gave $\det M=\det U=1$.
+    \textbf{Elimination did not change the determinant.}
+  \end{block}
+\end{frame}
+
+% THE RULES + SHEAR
+\begin{frame}[t, plain]
+  \burgundyheader{The rules --- each one is about volume}
+  \sectionlabel[goldacc]{Rules}
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item $\det I = 1$ \; (the unit cube has volume $1$).
+    \item \textbf{Swap} two rows/columns $\Rightarrow$ $\det$ is \textbf{negated} (a mirror reflection).
+    \item \textbf{Scale} a row by $t$ $\Rightarrow$ $\det$ is \textbf{multiplied} by $t$ (stretch an edge).
+    \item \textbf{Shear} --- add a multiple of one row to another $\Rightarrow$ $\det$ is \textbf{unchanged}
+          (slide the box; base \& height stay).
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{Check}
+    $\det\begin{bsmallmatrix} 2 & 1\\ 1 & 3 \end{bsmallmatrix}=5$, and after a shear
+    $\det\begin{bsmallmatrix} 2 & 0\\ 1 & 2.5 \end{bsmallmatrix}=5.$ \; Two equal rows $\Rightarrow\det=0$ (flat).
+  \end{block}
+\end{frame}
+
+% PRODUCT OF PIVOTS
+\begin{frame}[t, plain]
+  \burgundyheader{Fast determinant: product of the pivots}
+  \sectionlabel{Method}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      Shears don't change $\det$; swaps only flip its sign. So reduce to triangular and
+      \textbf{multiply the pivots}:
+      \[ \det A = \pm(\text{product of pivots}). \]
+      One sign flip per row swap.
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      $\begin{bsmallmatrix} 1 & 2 & 0\\ 2 & 5 & 1\\ 0 & 1 & 3 \end{bsmallmatrix}
+       \xrightarrow{\;R_2-2R_1\;}\xrightarrow{\;R_3-R_2\;}
+       \begin{bsmallmatrix} 1 & 2 & 0\\ 0 & 1 & 1\\ 0 & 0 & 2 \end{bsmallmatrix}$\\[8pt]
+      pivots $1,1,2 \Rightarrow \det = 2.$\\[4pt]
+      {\scriptsize No cofactors, no swaps.}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% PRODUCT RULE + ROAD AHEAD
+\begin{frame}[t, plain]
+  \burgundyheader{Determinants multiply --- and what it buys}
+  \sectionlabel[goldacc]{Product rule}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item \textbf{Product rule:} $\det(AB)=\det A\,\det B$ (compose maps $\Rightarrow$ multiply volume factors).
+          E.g.\ $\det A=5,\ \det B=6\Rightarrow\det(AB)=30$.
+    \item \textbf{Inverses:} $\det A\cdot\det A^{-1}=\det I=1$, so $\det A^{-1}=1/\det A$.
+    \item \textbf{Singular:} $\det A=0\ \Leftrightarrow\ A$ has \textbf{no inverse}. \; And $\det A^{\T}=\det A$.
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{The road ahead}
+    \textbf{5.3} linear transformations: $|\det A|$ is the factor every area/volume is multiplied by,
+    and its \emph{sign} tells you if orientation was kept or flipped.
+  \end{block}
 \end{frame}
 
 \end{document}

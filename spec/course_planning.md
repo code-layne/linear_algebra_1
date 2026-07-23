@@ -7,7 +7,34 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-23 — **Authored & built Unit 5 Lesson 5.2 — "Properties and Applications of Determinants" (Strang §5.2).**
+**Last updated:** 2026-07-23 — **Authored & built Unit 5 Lesson 5.3 — "Linear Transformations" (Strang §5.3) — the final Unit 5 lesson.**
+Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides deck,
+mirroring Lesson 5.2's preamble/boxes/tone. **Content — the payoff the 5.0/5.1/5.2 Tier E/previews built toward: a matrix *moves
+space*.** (1) **A matrix is a linear transformation** $\xx\mapsto A\xx$ — origin fixed, grid lines stay straight & evenly spaced, so
+the unit square maps to a **parallelogram**; $A\ee_1,A\ee_2$ are the **columns** (Lesson 1.3 callback), so watching the unit square
+tells the whole map. (2) **Gallery of motions** read straight off the matrix: stretch $\mathrm{diag}(2,3)$ ($\det6$), rotation
+$[0,-1;1,0]$ ($\det1$), reflection $[1,0;0,-1]$ ($\det-1$), shear $[1,1;0,1]$ ($\det1$) — the last three have $|\det|=1$ (move without
+resizing). (3) **The determinant is the area factor:** unit square → column parallelogram of area $|\det A|$, so **new area
+$=|\det A|\cdot$ old area** (worked $A=[3,1;0,2]$, $\det6$: triangle area $4\to24$). (4) **Sign, collapse, road ahead:** $\det>0$
+preserves orientation, $\det<0$ **flips** it (reflection), $\det=0$ **collapses** the square onto a line (area 0) $\Rightarrow$ not
+invertible (Unit 2 "singular" seen geometrically); composition multiplies factors $|\det(AB)|=|\det A||\det B|$ (the 5.2 product rule
+as area). **Hook:** photo/animation software multiplies each pixel by a matrix — $|\det A|$ is how much the image grows, its sign says
+if it mirror-flipped. **Warmup is the lesson in miniature** ($A=[3,1;0,2]$: columns $(3,0),(1,2)$ → $\det6$ → image area $=|\det|=6$).
+**Custom unit-square→parallelogram TikZ** (burgundy $\ee_1$/royalblue $\ee_2$, arrow $A$, image parallelogram "area $|\det A|=6$") on
+notes §1 + slides hook. **Activity/Exit/HW spine** (all hand-verified in pure Python, exact ints): Tier R name-motion+area factor
+($\mathrm{diag}(2,3)$ area5→30; reflection/shear $|\det|=1$); Tier A orientation sign ($[0,2;2,0]\to-4$ flip), $\det=0$ collapse
+$[2,1;4,2]$ (parallel cols → line, no inverse), composition $\det(AB)=\det A\det B$; Tier E rotation $\det1$, rotate-then-stretch
+$SR=[0,-2;2,0]$ $\det4=4\cdot1$, **3D volume** $\mathrm{diag}(2,3,-1)\to-6$ (5.1 Tier E reflection callback). Exit: $[4,1;0,2]\to\det8$
+(area3→24), orientation flip, $\det=0$ collapse justification. HW: image areas, name-motion+orientation, composition $AB=[2,2;0,3]$
+$\det6$, $\det=0$ explain; ext rotation $\det1$ + 3D $\mathrm{diag}(2,2,3)\to12$, $\mathrm{diag}(1,1,-1)\to-1$. **Preview: Unit 6**
+(eigenvectors = directions only *stretched*). **Built `make -C unit05/lesson03 all` → clean** (0 `^!` errors across all 13 logs; no
+`\ans`-in-math; no overfull >15pt). Page counts: cover/warmup/exit 1pp (blank & key ✓ 1-page constraint), notes 2pp/3pp, activity
+2pp/2pp, homework 2pp/2pp, slides 6pp, lesson plan 2pp; **student 9pp, full 18pp**. Visually spot-checked notes_key p1 (unit-square→
+parallelogram figure — clean, colored basis arrows, no tofu) and slides hook — clean. **Gotcha (unchanged):** `\ee`/`\T`/`\xx`/`\yy`
+etc. are per-file macros — define every math macro the body uses (incl. the lesson-plan preamble). **Unit 5 lessons (5.0–5.3) are now
+all authored & built; next run authors the Unit 5 summative tests to complete the unit.**
+
+**Prior run:** **Authored & built Unit 5 Lesson 5.2 — "Properties and Applications of Determinants" (Strang §5.2).**
 Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides deck,
 mirroring Lesson 5.1's preamble/boxes/tone. **Content — the rules determinants obey, read as facts about volume, so you stop
 expanding:** (1) **three founding rules** — $\det I=1$ (unit cube, vol 1); a **swap** of two rows/cols **negates** $\det$ (reflection);
@@ -60,12 +87,11 @@ overfull-hbox scan.
 | 5.0 (lesson00) | Setting Up Determinants --- the 2 by 2 Determinant, Area, and Orientation (on-ramp, mirrors 4.0/2.0) | **authored & built** |
 | 5.1 (lesson01) | 3 by 3 Determinants (Strang §5.1) | **authored & built** |
 | 5.2 (lesson02) | Properties and Applications of Determinants (Strang §5.2) | **authored & built** |
-| 5.3 (lesson03) | Linear Transformations (Strang §5.3) | scaffold only |
+| 5.3 (lesson03) | Linear Transformations (Strang §5.3) | **authored & built** |
 
-Unit 5 summative tests (`tests/`, `test_keys/`, `sample_test*/`) are scaffold-only (skeletons compile clean). **Next run: author
-Unit 5 Lesson 5.3** ("Linear Transformations" — the last Unit 5 lesson: a matrix *moves space*; $|\det A|$ is the factor every
-area/volume is scaled by and its sign reports orientation; source Strang §5.3), then author the **Unit 5 summative tests** (practice +
-actual + keys) to complete the unit. Lessons 5.0/5.1/5.2 are now the Unit 5 models; Lesson 4.0 remains the cross-unit style model.
+Unit 5 summative tests (`tests/`, `test_keys/`, `sample_test*/`) are scaffold-only (skeletons compile clean). **Next run: author the
+Unit 5 summative tests** (practice + actual + keys, then `drop` to populate `sample_test*`) to complete the unit — all four lessons
+(5.0–5.3) are now authored & built. Lessons 5.0/5.1/5.2/5.3 are the Unit 5 models; Lesson 4.0 remains the cross-unit style model.
 
 ---
 
@@ -437,21 +463,23 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ☑ all lessons + tests authored & built ✅ |
 | 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ☑ all lessons + tests authored & built ✅ |
 | 4 | Orthogonality | 4.0 intro + 4.1–4.4 | ☑ all lessons + tests authored & built ✅ |
-| 5 | Determinants and Linear Transformations | 5.0 intro + 5.1–5.3 | ◐ 5.0, 5.1 authored & built; 5.2, 5.3 + tests remain |
+| 5 | Determinants and Linear Transformations | 5.0 intro + 5.1–5.3 | ◐ all lessons (5.0–5.3) authored & built; summative tests remain |
 | 6 | Eigenvalues and Eigenvectors | 6.1–6.4 (§6.4 optional) | ☐ |
 | 7 | The Singular Value Decomposition *(optional/advanced)* | 7.1–7.4 | ☐ |
 | 8 | Learning from Data *(optional enrichment)* | 8.1–8.4 | ☐ |
 
 ## Next steps
 
-1. **Continue Unit 5 — author Lesson 5.2** ("Properties and Applications of Determinants," Strang §5.2):
-   the rules that let you find a determinant *without* always expanding — row operations, swapping rows/cols
-   negates, a repeated row ⇒ $\det=0$, $\det(AB)=\det A\det B$, $\det A^{\T}=\det A$, triangular = product of
-   pivots — plus applications (e.g. Cramer's rule / inverse via cofactors, kept light and geometric). Then
-   Lesson 5.3 ("Linear Transformations," §5.3, where $|\det A|$ is the area/volume-scaling factor — the payoff
-   the 5.0/5.1 Tier E's have been previewing), and finally the Unit 5 summative tests (`tests/`, `test_keys/`,
-   then `drop` to populate `sample_test*`). Lessons 5.0/5.1 are the Unit 5 models; scaffold is already in place
-   for 5.2/5.3. Down-level LAfE Ch. 5 for secondary students (concrete numbers + geometry first).
+1. **Complete Unit 5 — author the summative tests** (`unit05/tests/` practice + actual, `unit05/test_keys/` both keys,
+   then `make -C unit05/tests all` + `make -C unit05/test_keys all`, then `drop` to publish `sample_test/main.pdf` and
+   `sample_test_key/main.pdf`). All four lessons (5.0–5.3) are authored & built; the test skeletons are already scaffolded and
+   compile clean. **Blueprint spans §5.0–5.3:** Part A vocab (determinant, cofactor expansion, minor, $\det I=1$/swap/scale/shear
+   rules, product of pivots, product rule, linear transformation, area/volume factor, orientation, singular); Part B MC concept
+   checks; Part C computation (2×2 & 3×3 determinants by cofactor and by pivots, row-rule effects, $\det(AB)$/$\det A^{-1}$, image
+   area under a transformation, orientation sign, $\det=0$ collapse); Part D extended response (why a shear preserves $\det$; why
+   $|\det A|$ is the area factor / $\det=0\Rightarrow$ not invertible). Use parallel-but-distinct numbers on practice vs. actual;
+   hand-verify all arithmetic in pure Python (no numpy/sympy on this host). Mirror the Unit 1–4 test format (`shared/tests.mk` +
+   `test_keys.mk`; `\parthead` strips). Lessons 5.0–5.3 are the Unit 5 models; Unit 4 tests are the format model.
 2. *(optional)* Rebuild the whole Unit 1–4 packets (`make -C unitXX student|full`, or `make student|full`
    at the root) to confirm the `sample_test`/`sample_test_key` drop-ins merge in as expected.
 

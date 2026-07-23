@@ -3,17 +3,97 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\T}{\mathsf{T}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 5, Lesson 5.3}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Moving Space with Matrices.} A matrix is a \emph{motion of the plane}: the columns tell
+you where $\ee_1$ and $\ee_2$ land, so the unit square maps to the parallelogram of the columns. Its
+area is $|\det A|$ --- the factor \emph{every} area is scaled by. The \emph{sign} of $\det A$ says
+whether orientation flipped, and $\det A=0$ means the plane was collapsed flat. Work with your partner,
+show each step, and \emph{justify} every claim.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Name the motion, find where $\ee_1,\ee_2$ land, and use $|\det A|$ as the area factor.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item $A=\begin{bsmallmatrix} 2 & 0 \\ 0 & 3 \end{bsmallmatrix}$. Name the motion. Where do $\ee_1$ and
+        $\ee_2$ land? Compute $\det A$, then give the area of the image of the unit square and of a
+        rectangle with area $5$.
+        \ansline{A \emph{stretch} ($\times2$ across, $\times3$ up). $A\ee_1=(2,0)$, $A\ee_2=(0,3)$. $\det A=6$. Unit square $\to$ area $6$; a rectangle of area $5\to6\cdot5=30$.}
+  \item \textbf{A reflection.} $B=\begin{bsmallmatrix} 1 & 0 \\ 0 & -1 \end{bsmallmatrix}$ reflects across
+        the $x$-axis. Compute $\det B$. What is the \emph{area} factor $|\det B|$? Did the size of a shape
+        change, or only its orientation?
+        \ansline{$\det B=(1)(-1)-(0)(0)=-1$. Area factor $|\det B|=1$, so the \emph{size} is unchanged --- only the \emph{orientation} flips (the shape is mirror-reversed).}
+  \item \textbf{A shear.} $C=\begin{bsmallmatrix} 1 & 2 \\ 0 & 1 \end{bsmallmatrix}$. Where do $\ee_1$ and
+        $\ee_2$ land? Compute $\det C$. Does a shear change area?
+        \ansline{$C\ee_1=(1,0)$, $C\ee_2=(2,1)$. $\det C=(1)(1)-(2)(0)=1$. Area factor $1$, so a shear slides the square but does \emph{not} change its area.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Use the \emph{sign} for orientation, watch a collapse, and compose two maps.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Orientation.} For each matrix give the area factor $|\det|$ and say whether orientation
+        is preserved or flipped: $\begin{bsmallmatrix} 3 & 0 \\ 0 & 2 \end{bsmallmatrix}$ and
+        $\begin{bsmallmatrix} 0 & 2 \\ 2 & 0 \end{bsmallmatrix}$.
+        \ansline{$\det\begin{bsmallmatrix} 3 & 0\\ 0 & 2\end{bsmallmatrix}=6>0$: area factor $6$, orientation \emph{preserved}. $\det\begin{bsmallmatrix} 0 & 2\\ 2 & 0\end{bsmallmatrix}=0-4=-4<0$: area factor $4$, orientation \emph{flipped}.}
+  \item \textbf{A collapse.} $A=\begin{bsmallmatrix} 2 & 1 \\ 4 & 2 \end{bsmallmatrix}$. Find where $\ee_1$
+        and $\ee_2$ land, and compute $\det A$. The two columns are parallel --- what shape is the image of
+        the unit square, and can this transformation be undone (is $A$ invertible)?
+        \ansline{$A\ee_1=(2,4)$, $A\ee_2=(1,2)$; note $(2,4)=2(1,2)$, so the columns are parallel. $\det A=(2)(2)-(1)(4)=0$. The unit square is squashed onto a \emph{line segment} (area $0$). The map cannot be undone --- $A$ is \emph{not} invertible.}
+  \item \textbf{Composition multiplies factors.} Let $A=\begin{bsmallmatrix} 2 & 0 \\ 0 & 1 \end{bsmallmatrix}$
+        and $B=\begin{bsmallmatrix} 1 & 0 \\ 0 & 3 \end{bsmallmatrix}$. Compute $\det A$ and $\det B$. Then
+        form $AB$ (do $B$, then $A$) and compute $\det(AB)$. Is the combined area factor $\det A\cdot\det B$?
+        \ansline{$\det A=2$, $\det B=3$. $AB=\begin{bsmallmatrix} 2 & 0\\ 0 & 3\end{bsmallmatrix}$, $\det(AB)=6=2\cdot3=\det A\cdot\det B$. Yes --- doing one map then the other multiplies the area factors.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Rotations, composites, and volume.}
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{A rotation preserves everything but direction.} $R=\begin{bsmallmatrix} 0 & -1 \\ 1 & 0
+        \end{bsmallmatrix}$ turns the plane $90^\circ$. Find where $\ee_1,\ee_2$ land, and compute $\det R$.
+        Explain in one sentence why a rotation must have area factor $1$ \emph{and} keep orientation.
+        \ansline{$R\ee_1=(0,1)$, $R\ee_2=(-1,0)$. $\det R=(0)(0)-(-1)(1)=1$. A rotation is a rigid turn: it does not stretch or shrink (so area factor $1$) and does not mirror the plane (so $\det>0$, orientation preserved).}
+  \item \textbf{Rotate, then stretch.} Let $S=\begin{bsmallmatrix} 2 & 0 \\ 0 & 2 \end{bsmallmatrix}$
+        (scale by $2$). Form $SR$ (rotate by $R$, then scale by $S$) and compute $\det(SR)$. Confirm it
+        equals $\det S\cdot\det R$, and say what the combined area factor is.
+        \ansline{$SR=\begin{bsmallmatrix} 0 & -2\\ 2 & 0\end{bsmallmatrix}$, $\det(SR)=0-(-4)=4$. And $\det S\cdot\det R=4\cdot1=4$ --- they match. The combined area factor is $4$ (the scale-by-$2$ quadruples area; the rotation adds nothing).}
+  \item \textbf{Up to 3-D (volume).} In space, $|\det A|$ is the \emph{volume} factor. For
+        $A=\begin{bsmallmatrix} 2 & 0 & 0 \\ 0 & 3 & 0 \\ 0 & 0 & -1 \end{bsmallmatrix}$ (a diagonal
+        matrix), compute $\det A$. What volume does the unit cube map to, and what does the \emph{negative}
+        sign tell you?
+        \ansline{Diagonal, so $\det A=(2)(3)(-1)=-6$. The unit cube (volume $1$) maps to a box of volume $|\det A|=6$. The negative sign means orientation was \emph{flipped} (the $-1$ reflects through the $xy$-plane).}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~R is the core skill: name the motion, find the columns, and use $|\det A|$ as the area factor
+(item~1), then see that a reflection (item~2) and a shear (item~3) both leave area alone ($|\det|=1$).
+Tier~A adds the sign as orientation (item~1), a $\det=0$ collapse to a line $\Rightarrow$ not invertible
+(item~2), and composition multiplying area factors (item~3, the 5.2 product rule as geometry). Tier~E is
+the synthesis: rotations preserve area and orientation ($\det=1$), a composite multiplies factors, and
+$|\det|$ is a \emph{volume} factor in 3-D (with a negative sign for a reflection --- the 5.1 Tier~E
+callback). If time is short, Tier~A item~1 (orientation) and item~2 (collapse) are the must-dos. Watch
+for a dropped absolute value (area is never negative) and for students thinking a reflection shrinks a
+shape.
+\end{teachernote}
 
 \end{document}

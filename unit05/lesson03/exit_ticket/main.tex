@@ -3,6 +3,7 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\ee}{\mathbf{e}}
 
 \begin{document}
 
@@ -11,9 +12,18 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Area factor.} For $A=\begin{bmatrix} 4 & 1 \\ 0 & 2 \end{bmatrix}$, compute $\det A$.
+        What is the area of the image of the unit square? Of a triangle with area $3$?
+        \vspace{1.5cm}
+  \item \textbf{Orientation.} Which of these flips orientation, $\begin{bmatrix} 3 & 0 \\ 0 & 2
+        \end{bmatrix}$ or $\begin{bmatrix} 0 & 2 \\ 2 & 0 \end{bmatrix}$? Give the area factor $|\det|$ of
+        each and explain how the determinant tells you.
+        \vspace{1.5cm}
+  \item \textbf{Explain.} A matrix $A$ has $\det A=0$. What does its transformation do to the unit
+        square, and why can the transformation \emph{not} be undone? \writelines{2}
+\end{enumerate}
 
 \end{document}

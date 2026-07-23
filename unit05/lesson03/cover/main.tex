@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 5}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 5 \quad Determinants and Linear Transformations}}\\[6pt]
   {\color{white}\textbf{\large Lesson 5.3 \quad Linear Transformations}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} read a matrix as a \textbf{motion of the plane} $\mathbf{x}\mapsto A\mathbf{x}$, and find where the unit square lands (the parallelogram of the columns).
+  \item \ldots{} name the motion --- \textbf{stretch, rotation, reflection, shear} --- from the matrix.
+  \item \ldots{} use $|\det A|$ as the factor \textbf{every area is multiplied by}, with the \textbf{sign} of $\det A$ reporting orientation and $\det A=0$ meaning the map \textbf{collapses} (no inverse).
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,25 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral: $A\mathbf{x}$ as a column combination, a $2\times2$ determinant, and area & \blank{1.2cm} \\
+2 & Guided Notes   & Matrices as motions; unit square $\to$ column parallelogram; $|\det A|$ as area factor & \blank{1.2cm} \\
+3 & Group Activity & Moving Space with Matrices --- naming motions, area factors, orientation             & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check on area factor, orientation, and a $\det=0$ collapse                     & \blank{1.2cm} \\
+5 & Homework       & Image areas, motions and orientation, composition, and a $3$-D volume factor        & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small A matrix does not just store numbers --- it \textbf{moves space}. Multiplying by $A$ sends the
+unit square to the parallelogram spanned by the \emph{columns} of $A$, and keeps grid lines straight, so
+\emph{every} shape is transformed the same way. The area of that image parallelogram is exactly
+$|\det A|$, so applying $A$ multiplies every area by $|\det A|$. The \textbf{sign} of $\det A$ tells you
+whether the picture was flipped (orientation), and $\det A=0$ means space was \textbf{collapsed} flat ---
+which is why such a matrix has no inverse.
+\end{remindbox}
 
 \end{document}

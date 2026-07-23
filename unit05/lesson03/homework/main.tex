@@ -3,17 +3,68 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\T}{\mathsf{T}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 5, Lesson 5.3}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+Read each matrix as a \textbf{motion of the plane}: the columns are where $\ee_1,\ee_2$ land, the area
+factor is $|\det A|$, and the \emph{sign} of $\det A$ tells you whether orientation flipped.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Image areas.} For each matrix, compute $\det A$ and the area of the image of the unit square.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+      \item $\begin{bmatrix} 5 & 0 \\ 0 & 2 \end{bmatrix}$ \hfill
+      \item $\begin{bmatrix} 1 & 3 \\ 0 & 1 \end{bmatrix}$ \; {\footnotesize(a shear)} \hfill
+      \item $\begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$
+    \end{enumerate}
+    \vspace{1.2cm}
+  \item \textbf{Name the motion and the orientation.} For each matrix, name the motion and state whether
+        orientation is preserved or flipped (use the sign of $\det$).
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+      \item $\begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}$ \hfill \blank{3.5cm}
+      \item $\begin{bmatrix} 3 & 0 \\ 0 & 3 \end{bmatrix}$ \hfill \blank{3.5cm}
+      \item $\begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}$ \hfill \blank{3.5cm}
+    \end{enumerate}
+    \vspace{0.3cm}
+  \item \textbf{Composition.} Let $A=\begin{bmatrix} 2 & 0 \\ 0 & 3 \end{bmatrix}$ and
+        $B=\begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$. Compute $\det A$ and $\det B$. Form $AB$ (do $B$,
+        then $A$), compute $\det(AB)$, and check that it equals $\det A\cdot\det B$. What area factor does
+        the combined map apply? \writelines{3}
+  \item \textbf{Explain.} The transformation of a matrix $A$ sends the whole plane onto a single line.
+        What is $\det A$? Is $A$ invertible? Explain in one sentence. \writelines{2}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Rotations and volume.}
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item \textbf{Rotation.} The $90^\circ$ rotation $R=\begin{bsmallmatrix} 0 & -1 \\ 1 & 0 \end{bsmallmatrix}$
+        turns the plane. Compute $\det R$, and explain why \emph{every} rotation must have determinant $1$
+        (think about area and orientation).
+  \item \textbf{Volume in 3-D.} $|\det A|$ is a \emph{volume} factor in space. For the diagonal
+        $A=\begin{bsmallmatrix} 2 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3 \end{bsmallmatrix}$, compute $\det A$
+        and give the volume of the image of the unit cube. Then do the same for
+        $\begin{bsmallmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & -1 \end{bsmallmatrix}$ and say what the sign means.
+\end{enumerate}
+\writelines{3}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Unit 6: Eigenvalues and Eigenvectors.} Under a transformation, most vectors get
+\emph{rotated} into a new direction. But a few special directions are only \emph{stretched} --- the arrow
+comes out longer or shorter but pointing the same way. Those directions (\emph{eigenvectors}) and their
+stretch factors (\emph{eigenvalues}) are the key to understanding a transformation you apply over and over.
+\end{spiralbox}
 
 \end{document}

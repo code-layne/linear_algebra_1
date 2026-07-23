@@ -3,17 +3,80 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\T}{\mathsf{T}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 5, Lesson 5.3}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+Read each matrix as a \textbf{motion of the plane}: the columns are where $\ee_1,\ee_2$ land, the area
+factor is $|\det A|$, and the \emph{sign} of $\det A$ tells you whether orientation flipped.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Image areas.} For each matrix, compute $\det A$ and the area of the image of the unit square.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+      \item $\begin{bmatrix} 5 & 0 \\ 0 & 2 \end{bmatrix}$ \hfill \ans{$\det=10$; image area $10$}
+      \item $\begin{bmatrix} 1 & 3 \\ 0 & 1 \end{bmatrix}$ \; {\footnotesize(a shear)} \hfill \ans{$\det=1$; image area $1$ (shear keeps area)}
+      \item $\begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$ \hfill \ans{$\det=4-1=3$; image area $3$}
+    \end{enumerate}
+  \item \textbf{Name the motion and the orientation.} For each matrix, name the motion and state whether
+        orientation is preserved or flipped (use the sign of $\det$).
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+      \item $\begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}$ \hfill \ans{reflection across $x$-axis; $\det=-1$, orientation flipped}
+      \item $\begin{bmatrix} 3 & 0 \\ 0 & 3 \end{bmatrix}$ \hfill \ans{scale by $3$; $\det=9>0$, orientation preserved}
+      \item $\begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}$ \hfill \ans{$90^\circ$ rotation; $\det=1>0$, orientation preserved}
+    \end{enumerate}
+  \item \textbf{Composition.} Let $A=\begin{bmatrix} 2 & 0 \\ 0 & 3 \end{bmatrix}$ and
+        $B=\begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$. Compute $\det A$ and $\det B$. Form $AB$ (do $B$,
+        then $A$), compute $\det(AB)$, and check that it equals $\det A\cdot\det B$. What area factor does
+        the combined map apply?
+        \ansline{$\det A=6$, $\det B=1$. $AB=\begin{bsmallmatrix} 2 & 2\\ 0 & 3\end{bsmallmatrix}$, $\det(AB)=6=6\cdot1=\det A\cdot\det B$. The combined map multiplies area by $6$ (the shear adds nothing, the stretch supplies all of it).}
+  \item \textbf{Explain.} The transformation of a matrix $A$ sends the whole plane onto a single line.
+        What is $\det A$? Is $A$ invertible? Explain in one sentence.
+        \ansline{$\det A=0$ --- flattening the plane to a line means the image (of the unit square) has area $0$. $A$ is \emph{not} invertible: once space is collapsed, points cannot be sent back to unique originals.}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Rotations and volume.}
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item \textbf{Rotation.} The $90^\circ$ rotation $R=\begin{bsmallmatrix} 0 & -1 \\ 1 & 0 \end{bsmallmatrix}$
+        turns the plane. Compute $\det R$, and explain why \emph{every} rotation must have determinant $1$
+        (think about area and orientation).
+  \item \textbf{Volume in 3-D.} $|\det A|$ is a \emph{volume} factor in space. For the diagonal
+        $A=\begin{bsmallmatrix} 2 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3 \end{bsmallmatrix}$, compute $\det A$
+        and give the volume of the image of the unit cube. Then do the same for
+        $\begin{bsmallmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & -1 \end{bsmallmatrix}$ and say what the sign means.
+\end{enumerate}
+\ansline{(a) $\det R=(0)(0)-(-1)(1)=1$. A rotation is a rigid turn --- it neither stretches nor shrinks (area factor $1$) and does not mirror the plane (orientation preserved), so its determinant must be $+1$.}
+\ansline{(b) Diagonal, so $\det=(2)(2)(3)=12$; the unit cube $\to$ volume $12$. For $\begin{bsmallmatrix} 1&0&0\\0&1&0\\0&0&-1\end{bsmallmatrix}$, $\det=(1)(1)(-1)=-1$: volume $|\!-\!1|=1$ (unchanged), and the negative sign means orientation was flipped (a reflection through the $xy$-plane).}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Unit 6: Eigenvalues and Eigenvectors.} Under a transformation, most vectors get
+\emph{rotated} into a new direction. But a few special directions are only \emph{stretched} --- the arrow
+comes out longer or shorter but pointing the same way. Those directions (\emph{eigenvectors}) and their
+stretch factors (\emph{eigenvalues}) are the key to understanding a transformation you apply over and over.
+\end{spiralbox}
+
+\begin{teachernote}
+Item~1 is the core skill: area factor $=|\det A|$ (including a shear, $\det=1$, that keeps area). Item~2
+separates motion from orientation --- the sign of $\det$ is the tell (reflection $-1$, scale $+9$,
+rotation $+1$). Item~3 is composition as multiplying area factors (the 5.2 product rule seen
+geometrically). Item~4 is the $\det=0\Leftrightarrow$ collapse $\Leftrightarrow$ not invertible
+justification. The extension shows a rotation must have $\det=1$ and lifts $|\det|$ to a \emph{volume}
+factor in 3-D, with a negative sign flagging a reflection (the 5.1 Tier~E callback). Most common slips:
+dropping the absolute value on an area, thinking a reflection or shear changes area, and missing that a
+collapse forbids an inverse. The spiral box seeds Unit~6 (eigenvectors $=$ directions only stretched).
+\end{teachernote}
 
 \end{document}

@@ -3,17 +3,76 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\T}{\mathsf{T}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 5, Lesson 5.3}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Moving Space with Matrices.} A matrix is a \emph{motion of the plane}: the columns tell
+you where $\ee_1$ and $\ee_2$ land, so the unit square maps to the parallelogram of the columns. Its
+area is $|\det A|$ --- the factor \emph{every} area is scaled by. The \emph{sign} of $\det A$ says
+whether orientation flipped, and $\det A=0$ means the plane was collapsed flat. Work with your partner,
+show each step, and \emph{justify} every claim.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Name the motion, find where $\ee_1,\ee_2$ land, and use $|\det A|$ as the area factor.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item $A=\begin{bsmallmatrix} 2 & 0 \\ 0 & 3 \end{bsmallmatrix}$. Name the motion. Where do $\ee_1$ and
+        $\ee_2$ land? Compute $\det A$, then give the area of the image of the unit square and of a
+        rectangle with area $5$. \writelines{3}
+  \item \textbf{A reflection.} $B=\begin{bsmallmatrix} 1 & 0 \\ 0 & -1 \end{bsmallmatrix}$ reflects across
+        the $x$-axis. Compute $\det B$. What is the \emph{area} factor $|\det B|$? Did the size of a shape
+        change, or only its orientation? \; \blank{3.0cm}
+  \item \textbf{A shear.} $C=\begin{bsmallmatrix} 1 & 2 \\ 0 & 1 \end{bsmallmatrix}$. Where do $\ee_1$ and
+        $\ee_2$ land? Compute $\det C$. Does a shear change area? \; \blank{3.0cm}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Use the \emph{sign} for orientation, watch a collapse, and compose two maps.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Orientation.} For each matrix give the area factor $|\det|$ and say whether orientation
+        is preserved or flipped: $\begin{bsmallmatrix} 3 & 0 \\ 0 & 2 \end{bsmallmatrix}$ and
+        $\begin{bsmallmatrix} 0 & 2 \\ 2 & 0 \end{bsmallmatrix}$. \writelines{3}
+  \item \textbf{A collapse.} $A=\begin{bsmallmatrix} 2 & 1 \\ 4 & 2 \end{bsmallmatrix}$. Find where $\ee_1$
+        and $\ee_2$ land, and compute $\det A$. The two columns are parallel --- what shape is the image of
+        the unit square, and can this transformation be undone (is $A$ invertible)? \writelines{3}
+  \item \textbf{Composition multiplies factors.} Let $A=\begin{bsmallmatrix} 2 & 0 \\ 0 & 1 \end{bsmallmatrix}$
+        and $B=\begin{bsmallmatrix} 1 & 0 \\ 0 & 3 \end{bsmallmatrix}$. Compute $\det A$ and $\det B$. Then
+        form $AB$ (do $B$, then $A$) and compute $\det(AB)$. Is the combined area factor $\det A\cdot\det B$? \writelines{3}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Rotations, composites, and volume.}
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{A rotation preserves everything but direction.} $R=\begin{bsmallmatrix} 0 & -1 \\ 1 & 0
+        \end{bsmallmatrix}$ turns the plane $90^\circ$. Find where $\ee_1,\ee_2$ land, and compute $\det R$.
+        Explain in one sentence why a rotation must have area factor $1$ \emph{and} keep orientation. \writelines{3}
+  \item \textbf{Rotate, then stretch.} Let $S=\begin{bsmallmatrix} 2 & 0 \\ 0 & 2 \end{bsmallmatrix}$
+        (scale by $2$). Form $SR$ (rotate by $R$, then scale by $S$) and compute $\det(SR)$. Confirm it
+        equals $\det S\cdot\det R$, and say what the combined area factor is. \writelines{3}
+  \item \textbf{Up to 3-D (volume).} In space, $|\det A|$ is the \emph{volume} factor. For
+        $A=\begin{bsmallmatrix} 2 & 0 & 0 \\ 0 & 3 & 0 \\ 0 & 0 & -1 \end{bsmallmatrix}$ (a diagonal
+        matrix), compute $\det A$. What volume does the unit cube map to, and what does the \emph{negative}
+        sign tell you? \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

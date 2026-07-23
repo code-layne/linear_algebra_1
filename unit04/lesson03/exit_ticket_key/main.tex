@@ -3,6 +3,11 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,9 +16,26 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=15pt]
+  \item \textbf{Fit a line.} Fit $y=C+Dt$ to the points $(0,4),(1,2),(2,6)$. The set-up is
+        $A=\begin{bmatrix} 1&0\\ 1&1\\ 1&2 \end{bmatrix}$, $\bb=\begin{bmatrix} 4\\2\\6 \end{bmatrix}$.
+        Set up and solve the normal equations $A^{\T}A\hat{\xx}=A^{\T}\bb$, and state the best-fit line.
+        \ansline{$A^{\T}A=\begin{bsmallmatrix} 3&3\\3&5 \end{bsmallmatrix}$, $A^{\T}\bb=\begin{bsmallmatrix} 12\\14 \end{bsmallmatrix}$. Solving $3C+3D=12$, $3C+5D=14$ gives $D=1$, $C=3$, so $\hat{\xx}=\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}$ and the best-fit line is $y=3+t$.}
+  \item \textbf{What does it mean?} For your line, what is the residual $\ee=\bb-\pp$, and what does least
+        squares make as small as possible? Answer in one or two sentences.
+        \ansline{$\pp=A\hat{\xx}=(3,4,5)$, so $\ee=\bb-\pp=(1,-2,1)$ --- the vertical misses at $t=0,1,2$. Least squares makes the total squared error $\|\ee\|^2=1+4+1=6$ as small as possible; no other line does better.}
+  \item \textbf{Why not just solve $A\xx=\bb$?} Explain in one sentence why we solve the normal equations
+        instead of solving $A\xx=\bb$ directly.
+        \ansline{Because $\bb$ is not in $C(A)$ --- three points do not lie on one line, so $A\xx=\bb$ has \emph{no} solution; the normal equations instead find the closest reachable $\pp=A\hat{\xx}$ (the projection).}
+\end{enumerate}
+
+\begin{teachernote}
+Full credit on \#1 needs the two matrices, the solve, and the line $y=3+t$. On \#2 look for ``squared''
+(or ``length of $\ee$''), not just ``the error.'' On \#3, the key idea is $\bb\notin C(A)$ / no exact
+solution. This mirrors the notes example (same $A^{\T}A$, new data), so a student who can reproduce it is
+ready for 4.4.
+\end{teachernote}
 
 \end{document}

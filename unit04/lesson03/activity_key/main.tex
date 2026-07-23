@@ -3,17 +3,78 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.3}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Best Fit by Least Squares.} When data will not sit on one line, the best fit projects the
+data $\bb$ onto the column space of $A$: solve the normal equations $A^{\T}A\hat{\xx}=A^{\T}\bb$, then
+read the line from $\hat{\xx}$. The residuals $\ee=\bb-\pp$ are the vertical misses --- least squares
+makes $\|\ee\|^2$ as small as possible. Show every dot product.
+\end{headlinebox}
+
+\vspace{0.08in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Best flat line $=$ the average.} Fit a \emph{horizontal} line $y=C$ (no slope) to the three
+readings $\bb=\begin{bsmallmatrix} 4\\6\\8 \end{bsmallmatrix}$. Here $A=\begin{bsmallmatrix} 1\\1\\1 \end{bsmallmatrix}$ (one column).
+\begin{enumerate}[leftmargin=1.7em, itemsep=7pt]
+  \item Compute $A^{\T}A=\ans{$3$}$ and $A^{\T}\bb=\ans{$18$}$, then
+        $\hat{C}=\dfrac{A^{\T}\bb}{A^{\T}A}=\ans{$6$}$.
+  \item Give the fitted values $\pp=\ans{$\begin{bsmallmatrix} 6\\6\\6 \end{bsmallmatrix}$}$ and the residuals $\ee=\bb-\pp=\ans{$\begin{bsmallmatrix} -2\\0\\2 \end{bsmallmatrix}$}$.
+  \item What everyday number did $\hat{C}$ turn out to be? \ans{the average (mean) of the three readings}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Fit a line to three points.} Data $(t,y)$: $(0,3),(1,1),(2,5)$, so
+$A=\begin{bsmallmatrix} 1&0\\ 1&1\\ 1&2 \end{bsmallmatrix}$, $\bb=\begin{bsmallmatrix} 3\\1\\5 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Compute $A^{\T}A$ and $A^{\T}\bb$, and write the normal equations.
+        \ansline{$A^{\T}A=\begin{bsmallmatrix} 3&3\\3&5 \end{bsmallmatrix}$, $A^{\T}\bb=\begin{bsmallmatrix} 9\\11 \end{bsmallmatrix}$; so $\begin{bsmallmatrix} 3&3\\3&5 \end{bsmallmatrix}\hat{\xx}=\begin{bsmallmatrix} 9\\11 \end{bsmallmatrix}$.}
+  \item Solve for $\hat{\xx}=\begin{bsmallmatrix} C\\ D \end{bsmallmatrix}$ and state the best-fit line
+        $y=C+Dt$.
+        \ansline{$\hat{\xx}=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$, so the line is $y=2+t$.}
+  \item Find $\pp=A\hat{\xx}$ and $\ee=\bb-\pp$, and check $\ee$ is perpendicular to both columns of $A$.
+        \ansline{$\pp=(2,3,4)$; $\ee=(3,1,5)-(2,3,4)=(1,-2,1)$; $(1,1,1)\!\cdot\!\ee=0$ and $(0,1,2)\!\cdot\!\ee=-2+2=0$. \checkmark}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Fit, predict, and interpret.} A shop's weekly sales (in \$100s) at weeks $t=0,1,2,3$ are
+$\bb=\begin{bsmallmatrix} 2\\1\\2\\5 \end{bsmallmatrix}$, so $A=\begin{bsmallmatrix} 1&0\\ 1&1\\ 1&2\\ 1&3 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Set up and solve the normal equations for $\hat{\xx}=(C,D)$; state the best-fit line.
+        \ansline{$A^{\T}A=\begin{bsmallmatrix} 4&6\\6&14 \end{bsmallmatrix}$, $A^{\T}\bb=\begin{bsmallmatrix} 10\\20 \end{bsmallmatrix}$; solving $2C+3D=5$, $3C+7D=10$ gives $\hat{\xx}=\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$, line $y=1+t$.}
+  \item Find $\pp=A\hat{\xx}$ and the residuals $\ee=\bb-\pp$. Use the line to \emph{predict} week $t=4$.
+        \ansline{$\pp=(1,2,3,4)$; $\ee=(1,-1,-1,1)$. Prediction at $t=4$: $y=1+4=5$, i.e.\ about \$500.}
+  \item \textbf{Interpret.} Which subspace does $\ee$ live in, and how does that show $\pp$ is the closest
+        point (Lessons~4.1--4.2)? Would you trust the week-4 prediction? Why or why not?
+        \ansline{$A^{\T}\ee=\zero$, so $\ee\in N(A^{\T})$, the orthogonal complement of $C(A)$: the miss is perpendicular to the plane of possible lines, which is exactly what makes $\pp$ the closest point. The week-4 value is an \emph{extrapolation} beyond the data, and the residuals ($\pm1$) show real scatter --- reasonable as an estimate but not exact; more weeks of data would make it more trustworthy.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~R quietly proves ``best constant $=$ mean'': one column of $1$s makes $A^{\T}A=n$ and
+$A^{\T}\bb=\sum y$, so $\hat{C}=\bar y$ --- least squares generalizes the average. Tier~A is the core
+$2\times2$ line fit; Tier~E adds prediction and the interpret/justify reach, tying the residual back to
+$N(A^{\T})$ (Lesson~4.1) and the projection picture (Lesson~4.2). Watch for groups that try to solve
+$A\xx=\bb$ directly (no solution) or drop the column of $1$s. If a group finishes early, ask them to
+compute $\|\ee\|^2$ and confirm nudging $C$ or $D$ makes it larger.
+\end{teachernote}
 
 \end{document}

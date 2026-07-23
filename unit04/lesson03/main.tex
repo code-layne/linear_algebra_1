@@ -5,6 +5,14 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 \newcommand{\UnitNumberName}{Unit 4: Orthogonality \quad}
 \newcommand{\LessonNumberName}{Lesson 4.3: Least Squares Approximations}
 
@@ -16,55 +24,137 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can fit a straight line $y=C+Dt$ to data that does \emph{not}
+    lie on a line by recognizing the fit as a \textbf{projection}: when $A\xx=\bb$ has no solution, the
+    \textbf{least-squares} answer $\hat{\xx}$ solves the \textbf{normal equations} $A^{\T}A\hat{\xx}=A^{\T}\bb$.
+    They can read the fitted values $\pp=A\hat{\xx}$ and residuals $\ee=\bb-\pp$, explain that least squares
+    minimizes the total squared error $\|\ee\|^2$, and justify \emph{why} the best line is the one whose
+    residual is perpendicular to the data columns --- the error lands in $N(A^{\T})$ (Lessons~4.1--4.2).
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Set up $A$, $\xx=(C,D)$, $\bb$ for fitting a line $y=C+Dt$ to data.
+  \item Recognize that $A\xx=\bb$ has \textbf{no solution} when the points miss a line.
+  \item Solve the \textbf{normal equations} $A^{\T}A\hat{\xx}=A^{\T}\bb$ for the best-fit line.
+  \item Compute fitted values $\pp=A\hat{\xx}$ and residuals $\ee=\bb-\pp$; interpret and predict.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Least squares \emph{is} the Lesson~4.2 projection, applied to data $\bb$.
+  \item ``Best'' $=$ smallest total \emph{squared} miss $\|\ee\|^2$ (squares can't cancel).
+  \item The residual is perpendicular to the columns: $A^{\T}\ee=\zero$, so $\ee\in N(A^{\T})$.
+  \item The column of $1$s is the intercept $C$; it forces $\sum e_i=0$.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Overdetermined system} & $A\xx=\bb$ with more equations (data points) than unknowns; usually \emph{no} exact solution. \\
+\textbf{Least-squares solution $\hat{\xx}$} & the $(C,D)$ making $A\hat{\xx}$ closest to $\bb$; it solves $A^{\T}A\hat{\xx}=A^{\T}\bb$. \\
+\textbf{Normal equations} & $A^{\T}A\hat{\xx}=A^{\T}\bb$ --- the same equations as projecting $\bb$ onto $C(A)$. \\
+\textbf{Best-fit line} & $y=C+Dt$ built from $\hat{\xx}$; nearest to the data, need not pass through any point. \\
+\textbf{Residual $\ee$} & $\ee=\bb-\pp$, the vertical misses; $A^{\T}\ee=\zero$, and least squares minimizes $\|\ee\|^2$. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three skills this lesson builds on:
+    \textbf{(1)} reading a value off a line $y=C+Dt$ and computing a \emph{miss} (residual);
+    \textbf{(2)} building $A^{\T}A$ and $A^{\T}\bb$ from column dot products (Lesson~4.2); and
+    \textbf{(3)} \emph{solving a $2\times2$ system} (the shape of the normal equations). Debrief item~3
+    aloud: stress that fitting a line ends in an ordinary linear system --- all the machinery is from
+    Units~1--2 plus last lesson's projection.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    You stretch a spring with $0,1,2,3$ kg and measure its length four times, but the ruler is a little off
+    each time --- the four points do \emph{not} land on one line. Ask: \textbf{``Can one straight line pass
+    through all four points? If not, what should the \emph{best} line even mean?''} Students see that four
+    points rarely lie on a line ($A\xx=\bb$ has no solution), so ``best'' must mean \emph{closest}. Name the
+    payoff: the best line's heights $\pp$ are the \textbf{projection} of the data $\bb$ onto the plane of
+    possible lines, and the leftover misses $\ee=\bb-\pp$ are the \textbf{residuals}. Then pose the lesson
+    question: \textbf{``If best means closest, and closest means error perpendicular, can we reuse last
+    lesson's normal equations to fit a line?''}
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. Too many equations.} Fitting $y=C+Dt$ to four points asks $C+Dt_i=y_i$ four times --- two
+unknowns, four equations. In matrix form $A\xx=\bb$ with $A$ a column of $1$s next to a column of the
+$t$-values. \textbf{Ask:} why is there usually no solution? Because $\bb$ (the data) rarely lands in the
+plane $C(A)$.
+
+\textbf{2. Best $=$ closest $=$ projection.} We cannot solve $A\xx=\bb$, so we find the point $\pp=A\hat{\xx}$
+\emph{in} $C(A)$ closest to $\bb$ --- the projection from Lesson~4.2. The best $\hat{\xx}$ is the
+\textbf{least-squares solution}.
+
+\textbf{3. The normal equations, again.} Closest means the residual $\ee=\bb-A\hat{\xx}$ is perpendicular
+to every column: $A^{\T}\ee=\zero$, i.e. $A^{\T}A\hat{\xx}=A^{\T}\bb$. \emph{Same equation as last lesson,
+now fitting a line.} Solve the $2\times2$ system for $(C,D)$.
+
+\columnbreak
+
+\textbf{4. Worked numbers.} Spring data $t=(0,1,2,3)$, $\bb=(3,3,5,9)$: $A^{\T}A=\begin{bsmallmatrix} 4&6\\6&14 \end{bsmallmatrix}$,
+$A^{\T}\bb=(20,40)$, so $\hat{\xx}=(2,2)$ and the line is $y=2+2t$. Then $\pp=(2,4,6,8)$ and
+$\ee=(1,-1,-1,1)$. \textbf{Ask:} what are the entries of $A^{\T}A$? Sums of $1$, of $t$, of $t^2$ --- built
+mechanically from the columns.
+
+\textbf{5. Why squared, and where the error goes.} Least squares minimizes $\|\ee\|^2=\sum e_i^2$: squares
+cannot cancel and punish big misses. \textbf{Punchline:} $A^{\T}\ee=\zero$ puts $\ee$ in $N(A^{\T})$, the
+orthogonal complement of $C(A)$ (Lesson~4.1) --- and because the first column is all $1$s, $\sum e_i=0$.
+The data splits into a part \emph{on} the line ($\pp$) plus a perpendicular \emph{miss} ($\ee$).
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item dropping the column of $1$s --- that column \emph{is} the intercept $C$; without it there is no $C$;
+  \item trying to solve $A\xx=\bb$ directly --- it has \emph{no} solution, which is the whole reason we project;
+  \item adding raw residuals (they cancel to $0$) instead of \emph{squaring} them when talking about ``smallest error.''
+\end{itemize}
+Cold-call prompts: ``Why does $A\xx=\bb$ have no solution here?'' ``What does a residual measure?'' ``Which
+subspace does the error live in, and why does that make $\pp$ closest?'' ``What is $A^{\T}A$ counting?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Best Fit by Least Squares} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Fit a \emph{horizontal} line $y=C$ to three readings (one column of $1$s):
+discover that the best constant is the average.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Fit a line $y=C+Dt$ to three points: build $A^{\T}A$, $A^{\T}\bb$, solve,
+and check $\ee\perp$ both columns.
+
+\columnbreak
+\textbf{Tier E --- Extension.} Fit a line to four points, \emph{predict} a future value, and interpret ---
+which subspace holds $\ee$, and how far should you trust an extrapolation?
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): fit a line to three points via the normal equations and state
+$y=C+Dt$; a \textbf{conceptual/justification check} --- say what the residual measures and what least
+squares minimizes; and explain \emph{why} we solve the normal equations instead of $A\xx=\bb$. Sort
+responses into ``sets up $A^{\T}A\hat{\xx}=A^{\T}\bb$ / tries to solve $A\xx=\bb$ / drops the $1$s column''
+to decide whether 4.4 opens with a quick re-anchor on projection.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} fit a best constant (mean), a line through three points, and a line through four points
+with a prediction; explain why a line usually cannot pass through every point. \textbf{Extension:} verify
+$A^{\T}\ee=\zero$ (so $\ee\in N(A^{\T})$, Lesson~4.1) and show the column of $1$s forces $\sum e_i=0$.
+\textbf{Preview:} Lesson~4.4, \emph{Orthogonal Matrices \& Gram--Schmidt} --- when the columns of $A$ are
+perpendicular unit vectors, $A^{\T}A=I$ and the normal equations become trivial.
 \end{skillbox}
 \end{document}

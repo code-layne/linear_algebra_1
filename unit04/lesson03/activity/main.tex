@@ -3,17 +3,65 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.3}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Best Fit by Least Squares.} When data will not sit on one line, the best fit projects the
+data $\bb$ onto the column space of $A$: solve the normal equations $A^{\T}A\hat{\xx}=A^{\T}\bb$, then
+read the line from $\hat{\xx}$. The residuals $\ee=\bb-\pp$ are the vertical misses --- least squares
+makes $\|\ee\|^2$ as small as possible. Show every dot product.
+\end{headlinebox}
+
+\vspace{0.08in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Best flat line $=$ the average.} Fit a \emph{horizontal} line $y=C$ (no slope) to the three
+readings $\bb=\begin{bsmallmatrix} 4\\6\\8 \end{bsmallmatrix}$. Here $A=\begin{bsmallmatrix} 1\\1\\1 \end{bsmallmatrix}$ (one column).
+\begin{enumerate}[leftmargin=1.7em, itemsep=7pt]
+  \item Compute $A^{\T}A=\blank{1.4cm}$ and $A^{\T}\bb=\blank{1.4cm}$, then
+        $\hat{C}=\dfrac{A^{\T}\bb}{A^{\T}A}=\blank{1.2cm}$.
+  \item Give the fitted values $\pp=\blank{2.4cm}$ and the residuals $\ee=\bb-\pp=\blank{2.4cm}$.
+  \item What everyday number did $\hat{C}$ turn out to be? \blank{3.2cm}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Fit a line to three points.} Data $(t,y)$: $(0,3),(1,1),(2,5)$, so
+$A=\begin{bsmallmatrix} 1&0\\ 1&1\\ 1&2 \end{bsmallmatrix}$, $\bb=\begin{bsmallmatrix} 3\\1\\5 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Compute $A^{\T}A$ and $A^{\T}\bb$, and write the normal equations. \writelines{2}
+  \item Solve for $\hat{\xx}=\begin{bsmallmatrix} C\\ D \end{bsmallmatrix}$ and state the best-fit line
+        $y=C+Dt$. \writelines{2}
+  \item Find $\pp=A\hat{\xx}$ and $\ee=\bb-\pp$, and check $\ee$ is perpendicular to both columns of $A$.
+        \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Fit, predict, and interpret.} A shop's weekly sales (in \$100s) at weeks $t=0,1,2,3$ are
+$\bb=\begin{bsmallmatrix} 2\\1\\2\\5 \end{bsmallmatrix}$, so $A=\begin{bsmallmatrix} 1&0\\ 1&1\\ 1&2\\ 1&3 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Set up and solve the normal equations for $\hat{\xx}=(C,D)$; state the best-fit line. \writelines{2}
+  \item Find $\pp=A\hat{\xx}$ and the residuals $\ee=\bb-\pp$. Use the line to \emph{predict} week $t=4$.
+        \writelines{2}
+  \item \textbf{Interpret.} Which subspace does $\ee$ live in, and how does that show $\pp$ is the closest
+        point (Lessons~4.1--4.2)? Would you trust the week-4 prediction? Why or why not? \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

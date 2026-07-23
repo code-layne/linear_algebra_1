@@ -3,17 +3,154 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.3}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item explain why $A\xx=\bb$ can have \emph{no} solution, and what the ``best'' answer $\hat{\xx}$ means;
+  \item fit a straight line $y=C+Dt$ to data by solving the normal equations $A^{\T}A\hat{\xx}=A^{\T}\bb$;
+  \item read the fitted values $\pp=A\hat{\xx}$ and the residuals $\ee=\bb-\pp$, and say what least squares makes small.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.04in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{Least-squares solution $\hat{\xx}$}{the weights $(C,D)$ that make $A\hat{\xx}$ closest to $\bb$; they solve the normal equations $A^{\T}A\hat{\xx}=A^{\T}\bb$}
+\vocabans{Best-fit line $y=C+Dt$}{the line built from $\hat{\xx}$; it comes nearest to the data, though it need not pass through any point}
+\vocabans{Residual $\ee=\bb-\pp$}{the vertical miss between each data value and the line; perpendicular to the columns of $A$ ($A^{\T}\ee=\zero$)}
+\end{vocabbox}
+
+\begin{hookbox}
+A spring is stretched by hanging weights on it. You measure its length four times, but your ruler is a
+little off each time, so the four points do \emph{not} lie on one straight line.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item Can a single straight line pass \emph{exactly} through all four measurements? \ansline{Almost never --- four points rarely land on one line, so the system $A\xx=\bb$ has no exact solution.}
+  \item If no line hits every point, what should we mean by the \emph{best} line? \ansline{The line whose total (squared) vertical miss is smallest --- the projection of the data onto the plane of possible lines.}
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. When $A\xx=\bb$ Has No Solution}
+Line up four measurements as four equations $C+Dt_i=y_i$ --- two unknowns $C,D$ but \emph{four}
+equations. That is the system $A\xx=\bb$ with
+\[
+  A=\begin{bsmallmatrix} 1 & t_1\\ 1 & t_2\\ 1 & t_3\\ 1 & t_4 \end{bsmallmatrix},\qquad
+  \xx=\begin{bsmallmatrix} C\\ D \end{bsmallmatrix},\qquad
+  \bb=\begin{bsmallmatrix} y_1\\ y_2\\ y_3\\ y_4 \end{bsmallmatrix}.
+\]
+Usually $\bb$ is \emph{not} in the column space $C(A)$ (the plane of all $A\xx$), so there is
+\ans{no} exact solution. Instead of giving up, we ask for the point $\pp=A\hat{\xx}$ \emph{in} the
+plane that is \textbf{closest} to $\bb$ --- exactly the \textbf{projection} from Lesson~4.2. The best
+$\hat{\xx}$ is called the \textbf{least-squares solution}.
 \end{notesbox}
+
+\begin{notesbox}{2. ``Closest'' Means the Normal Equations Again}
+Closest means the leftover $\ee=\bb-A\hat{\xx}$ is \emph{perpendicular} to every column of $A$, i.e.
+$A^{\T}\ee=\zero$. That is the same rearrangement as last lesson:
+\[
+  A^{\T}(\bb-A\hat{\xx})=\zero \quad\Longrightarrow\quad
+  \boxed{\,A^{\T}A\,\hat{\xx}=A^{\T}\bb\,}\quad\text{(the \textbf{normal equations}).}
+\]
+Solve this ordinary $2\times2$ system for $\hat{\xx}=(C,D)$; then the best-fit line is $y=C+Dt$.
+\emph{Least squares $=$ projection onto $C(A)$, written for data.} The name comes from what it makes
+small: the total \emph{squared} error $\|\ee\|^2=e_1^2+e_2^2+\cdots$ --- no line makes it smaller.
+\end{notesbox}
+
+\begin{notesbox}{3. Worked Example --- Fit a Line to the Spring Data}
+A spring's length $y$ (cm) is measured at weights $t=0,1,2,3$ kg: $\bb=(3,3,5,9)$. Fit $y=C+Dt$.
+\[
+  A=\begin{bsmallmatrix} 1 & 0\\ 1 & 1\\ 1 & 2\\ 1 & 3 \end{bsmallmatrix},\qquad
+  A^{\T}A=\begin{bsmallmatrix} 4 & 6\\ 6 & 14 \end{bsmallmatrix},\qquad
+  A^{\T}\bb=\begin{bsmallmatrix} 20\\ 40 \end{bsmallmatrix}.
+\]
+(The top-left $4$ counts the four rows; $6=0{+}1{+}2{+}3$; $14=0{+}1{+}4{+}9$; $20=\sum y$;
+$40=\sum t_i y_i$.) Solve the normal equations:
+\[
+  \begin{bsmallmatrix} 4 & 6\\ 6 & 14 \end{bsmallmatrix}\begin{bsmallmatrix} C\\ D \end{bsmallmatrix}
+  =\begin{bsmallmatrix} 20\\ 40 \end{bsmallmatrix}
+  \quad\Longrightarrow\quad
+  C={\color{keyred}\mathbf{2}},\quad D={\color{keyred}\mathbf{2}}
+  \quad\Longrightarrow\quad \hat{\xx}=\begin{bsmallmatrix} 2\\ 2 \end{bsmallmatrix}.
+\]
+\textbf{Best-fit line:} $y={\color{keyred}\mathbf{2}}+{\color{keyred}\mathbf{2}}\,t$, i.e. $y=2+2t$.
+\vspace{-4pt}
+\ansline{Reduce $4C+6D=20$, $6C+14D=40$ to $2C+3D=10$, $3C+7D=20$; eliminate $C$: $5D=10$, so $D=2$ and $C=2$.}
+\end{notesbox}
+
+\begin{notesbox}{4. Fitted Values, Residuals, and the Picture}
+The line's height at each weight is $\pp=A\hat{\xx}=(2,4,6,8)$ --- the \textbf{fitted values}. The
+\textbf{residuals} are the vertical misses
+\[
+  \ee=\bb-\pp=\begin{bsmallmatrix} 3\\3\\5\\9 \end{bsmallmatrix}-\begin{bsmallmatrix} 2\\4\\6\\8 \end{bsmallmatrix}
+  =\begin{bsmallmatrix} 1\\-1\\-1\\1 \end{bsmallmatrix}.
+\]
+They are perpendicular to both columns: $(1,1,1,1)\cdot\ee={\color{keyred}\mathbf{0}}$ and
+$(0,1,2,3)\cdot\ee={\color{keyred}\mathbf{0}}$. So $\ee$ lands in the left nullspace $N(A^{\T})$, the orthogonal
+complement of $C(A)$ (Lesson~4.1) --- least squares splits the data into a part \emph{on} the line
+($\pp$) plus a perpendicular \emph{miss} ($\ee$).
+
+\begin{center}
+% Display coords: x = 1.2*t, y = 0.4*(value). Data (t,y): (0,3)(1,3)(2,5)(3,9); line y=2+2t.
+\begin{tikzpicture}[scale=1.0, >=stealth]
+  \draw[->, charcoal] (-0.3,0)--(4.7,0) node[right, font=\footnotesize]{$t$ (kg)};
+  \draw[->, charcoal] (0,-0.3)--(0,4.2) node[above, font=\footnotesize]{$y$ (cm)};
+  % best-fit line y=2+2t: t=0 -> (0,0.8), t=3.5 -> (4.2,3.6)
+  \draw[burgundy, thick] (0,0.8)--(4.2,3.6) node[right, font=\footnotesize]{$y=2+2t$};
+  % residual segments (data point -- line), then data points on top
+  \draw[charcoal, dashed] (0,1.2)--(0,0.8);
+  \draw[charcoal, dashed] (1.2,1.2)--(1.2,1.6);
+  \draw[charcoal, dashed] (2.4,2.0)--(2.4,2.4);
+  \draw[charcoal, dashed] (3.6,3.6)--(3.6,3.2);
+  \foreach \x/\y in {0/1.2, 1.2/1.2, 2.4/2.0, 3.6/3.6}{
+    \fill[royalblue] (\x,\y) circle (2.6pt);
+  }
+  \node[royalblue, font=\scriptsize] at (3.05,3.55) {data};
+\end{tikzpicture}
+\end{center}
+\end{notesbox}
+
+\begin{practicebox}
+Show your work.
+\begin{enumerate}[leftmargin=1.6em, itemsep=6pt]
+  \item The three points $(0,3),(1,4),(2,5)$ happen to lie \emph{exactly} on one line. What line is it,
+        and what are the residuals? (This is the special case where $A\xx=\bb$ \emph{does} have a
+        solution.)
+        \ansline{$y=3+t$: at $t=0,1,2$ it gives $3,4,5$, matching the data exactly. Every residual is $0$ ($\ee=\zero$), so $A\hat{\xx}=\bb$ has an exact solution and no projection is needed.}
+  \item In a least-squares fit, what does a residual $e_i$ measure, and why do we make the sum of their
+        \emph{squares} small rather than just their sum?
+        \ansline{$e_i=y_i-(C+Dt_i)$ is how far the data point sits above ($+$) or below ($-$) the line. Plain residuals cancel (positives and negatives sum to $0$), so we square first: squares are all $\ge 0$, cannot cancel, and penalize big misses more --- minimizing $\sum e_i^2$ is the same as making the error vector $\ee$ as short as possible.}
+\end{enumerate}
+\end{practicebox}
+
+\begin{teachernote}
+The one idea: least squares \emph{is} the Lesson~4.2 projection, now applied to data. Row $i$ of
+$A\xx=\bb$ is the wish ``$C+Dt_i=y_i$''; with more points than unknowns those wishes conflict, so we
+project $\bb$ onto $C(A)$ and read off $\hat{\xx}=(C,D)$. Emphasize the two columns of $A$: the constant
+column $(1,1,1,1)$ and the time column $(t_i)$ --- their dot products build $A^{\T}A$ and $A^{\T}\bb$
+mechanically (sums of $1$, of $t$, of $t^2$, of $y$, of $ty$). Common slips: forgetting the column of
+$1$s (that column \emph{is} the intercept $C$); trying to solve $A\xx=\bb$ directly (no solution --- that
+is the whole point); adding raw residuals instead of squares. The residual $\ee=(1,-1,-1,1)$ landing in
+$N(A^{\T})$ is the Lesson~4.1 payoff. Next lesson (4.4) makes $A^{\T}A$ trivial when the columns are
+orthonormal.
+\end{teachernote}
 
 \end{document}

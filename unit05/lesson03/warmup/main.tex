@@ -3,17 +3,47 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\ee}{\mathbf{e}}
 
 \begin{document}
 
 \pageheader{Unit 5, Lesson 5.3}{Warm-Up}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Warm-Up. See references/components.md for the expected structure.
-\begin{notesbox}{Warm-Up}
-\writelines{4}
+\begin{notesbox}{Getting Ready: Where Does a Matrix Send the Unit Square?}
+\small We will run all three steps on the \emph{same} matrix
+$A=\begin{bsmallmatrix} 3 & 1 \\ 0 & 2 \end{bsmallmatrix}$.
+
+\vspace{4pt}
+\textbf{1. Where do the corners go? (Lesson 1.3).} Recall $A\mathbf{x}$ is a combination of the columns,
+so $A\ee_1$ and $A\ee_2$ are just the columns of $A$. Fill them in:
+\[
+  A\ee_1=A\begin{bmatrix} 1 \\ 0 \end{bmatrix}=\begin{bmatrix} \blank{0.7cm} \\ \blank{0.7cm} \end{bmatrix},
+  \qquad
+  A\ee_2=A\begin{bmatrix} 0 \\ 1 \end{bmatrix}=\begin{bmatrix} \blank{0.7cm} \\ \blank{0.7cm} \end{bmatrix}.
+\]
+
+\vspace{4pt}
+\textbf{2. A $2\times2$ determinant (Lesson 5.0).} Recall
+$\det\begin{bsmallmatrix} a & b\\ c & d \end{bsmallmatrix}=ad-bc$. Compute
+\[
+  \det A = \det\begin{bmatrix} 3 & 1 \\ 0 & 2 \end{bmatrix} = \blank{2.2cm}.
+\]
+
+\vspace{4pt}
+\textbf{3. From square to parallelogram.} The unit square (area $1$) has corners at $\mathbf{0}$,
+$\ee_1$, $\ee_2$, and $\ee_1+\ee_2$. After applying $A$, those corners land on $\mathbf{0}$ and the two
+columns you found in step~1 --- so the square becomes the \emph{parallelogram} with edges $(3,0)$ and
+$(1,2)$. Its area turns out to equal $|\det A|$:
+\[
+  \text{area of the image} = \blank{2.2cm}.
+\]
+
+\vspace{4pt}
+\textbf{One-sentence prediction.} If applying $A$ turns a square of area $1$ into a shape of area
+$|\det A|$, what does it do to \emph{every} area? \writeline
 \end{notesbox}
 
 \end{document}

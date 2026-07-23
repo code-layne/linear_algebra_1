@@ -3,17 +3,146 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\T}{\mathsf{T}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 5, Lesson 5.3}{Guided Notes}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Guided Notes. See references/components.md for the expected structure.
-\begin{notesbox}{Guided Notes}
-\writelines{4}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item read a matrix as a \emph{motion of the plane} $\xx\mapsto A\xx$, and find where the unit square lands (the parallelogram of the columns);
+  \item name the motion --- \emph{stretch, rotation, reflection, shear} --- from the matrix;
+  \item use $|\det A|$ as the factor \emph{every} area is multiplied by, and read the \emph{sign} of $\det A$ (orientation) and $\det A=0$ (collapse $\Rightarrow$ no inverse).
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.06in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\termblanklong{Linear transformation ($\xx\mapsto A\xx$)}
+\termblanklong{Images of the basis ($A\ee_1,A\ee_2=$ columns)}
+\termblanklong{Area (volume) factor $=|\det A|$}
+\termblanklong{Orientation (sign of $\det A$)}
+\end{vocabbox}
+
+\begin{hookbox}
+Photo and animation software rotates, stretches, and mirror-flips images by multiplying every pixel's
+position vector by a $2\times2$ \textbf{matrix} --- the matrix moves the whole plane at once.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item If I know the matrix, what one number tells me how much bigger the image gets? \writeline
+  \item And what tells me whether the picture came out mirror-flipped? \writeline
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. A Matrix Moves Space}
+Reading $\xx\mapsto A\xx$ as a \textbf{transformation}: every point of the plane is sent to a new point.
+Because $A(\xx+\yy)=A\xx+A\yy$ and $A(c\xx)=cA\xx$, the origin stays fixed and straight, evenly spaced
+grid lines stay straight and evenly spaced --- so the unit square maps to a \textbf{parallelogram}. And
+$A\ee_1$, $A\ee_2$ are exactly the \emph{columns} of $A$ (Lesson~1.3), so watching the square tells you
+the whole map. Here is $A=\begin{bsmallmatrix} 3 & 1 \\ 0 & 2 \end{bsmallmatrix}$:
+
+\begin{center}
+\begin{tikzpicture}[scale=0.62]
+  % left: unit square
+  \draw[linegray, thin, ->] (-0.3,0)--(1.8,0);
+  \draw[linegray, thin, ->] (0,-0.3)--(0,2.0);
+  \fill[burgundy!10] (0,0)--(1,0)--(1,1)--(0,1)--cycle;
+  \draw[charcoal, thin] (0,0)--(1,0)--(1,1)--(0,1)--cycle;
+  \draw[->, very thick, burgundy] (0,0)--(1,0);
+  \draw[->, very thick, royalblue] (0,0)--(0,1);
+  \node[charcoal, font=\scriptsize] at (0.5,0.5){area $1$};
+  \node[burgundy, font=\scriptsize, below right] at (0.7,0){$\ee_1$};
+  \node[royalblue, font=\scriptsize, left] at (0,0.7){$\ee_2$};
+  % arrow
+  \draw[->, very thick, charcoal] (2.2,0.9)--(3.2,0.9) node[midway,above,font=\scriptsize]{$A$};
+  % right: image parallelogram, shifted
+  \begin{scope}[shift={(3.7,0)}]
+    \draw[linegray, thin, ->] (-0.3,0)--(4.6,0);
+    \draw[linegray, thin, ->] (0,-0.3)--(0,2.4);
+    \fill[royalblue!9] (0,0)--(3,0)--(4,2)--(1,2)--cycle;
+    \draw[charcoal, thin] (0,0)--(3,0)--(4,2)--(1,2)--cycle;
+    \draw[->, very thick, burgundy] (0,0)--(3,0);
+    \draw[->, very thick, royalblue] (0,0)--(1,2);
+    \node[charcoal, font=\scriptsize] at (2.05,0.95){area $|\det A|=6$};
+    \node[burgundy, font=\scriptsize, below] at (3,0){$(3,0)$};
+    \node[royalblue, font=\scriptsize, above left] at (1,2){$(1,2)$};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+
+\vspace{-2pt}
+\textbf{Check the columns.} $A\ee_1=A\begin{bsmallmatrix} 1\\ 0\end{bsmallmatrix}=\begin{bsmallmatrix}
+\blank{0.5cm}\\ \blank{0.5cm}\end{bsmallmatrix}$ and $A\ee_2=A\begin{bsmallmatrix} 0\\ 1\end{bsmallmatrix}
+=\begin{bsmallmatrix} \blank{0.5cm}\\ \blank{0.5cm}\end{bsmallmatrix}$ --- the columns of $A$. A square
+becomes a \blank{2.6cm}.
 \end{notesbox}
+
+\begin{notesbox}{2. A Gallery of Motions}
+Read each matrix as a motion of the plane. (Recall a $2\times2$ determinant is $ad-bc$.)
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}c l c@{}}
+\textbf{Matrix} & \textbf{Motion} & $\det$ \\
+\hline
+$\begin{bsmallmatrix} 2 & 0 \\ 0 & 3 \end{bsmallmatrix}$ & stretch: $\times2$ across, $\times3$ up & $6$ \\
+$\begin{bsmallmatrix} 0 & -1 \\ 1 & 0 \end{bsmallmatrix}$ & rotate $90^\circ$ (counterclockwise) & \blank{1.0cm} \\
+$\begin{bsmallmatrix} 1 & 0 \\ 0 & -1 \end{bsmallmatrix}$ & reflect across the $x$-axis & \blank{1.0cm} \\
+$\begin{bsmallmatrix} 1 & 1 \\ 0 & 1 \end{bsmallmatrix}$ & shear (slide the top sideways) & $1$ \\
+\end{tabular}
+\end{center}
+Notice the rotation, reflection, and shear all have $|\det|=1$ --- they \emph{move} the square without
+changing its \emph{area}.
+\end{notesbox}
+
+\begin{notesbox}{3. The Determinant Is the Area Factor}
+The unit square has area $1$, and it lands on the parallelogram spanned by the columns --- whose area is
+$|\det A|$. So applying $A$ multiplies \textbf{every} area by the same factor:
+\[
+  \boxed{\;\text{(new area)} = |\det A|\cdot(\text{old area})\;}
+\]
+\textbf{Worked example.} For $A=\begin{bsmallmatrix} 3 & 1 \\ 0 & 2 \end{bsmallmatrix}$ we have
+$\det A=6$, so the unit square (area $1$) becomes a parallelogram of area \blank{1.0cm}. A triangle of
+area $4$ becomes a shape of area $|\det A|\cdot 4=\blank{1.2cm}$. Every region is scaled by the same $6$.
+\end{notesbox}
+
+\begin{notesbox}{4. Sign, Collapse, and the Road Ahead}
+The \emph{size} of $\det A$ is the area factor; its \emph{sign} carries one more piece of information.
+\begin{itemize}\setlength{\itemsep}{3pt}
+  \item \textbf{Orientation.} $\det A>0$ keeps orientation; $\det A<0$ \textbf{flips} it (a reflection is
+        in the mix). A reflection has $\det=$ \blank{1.0cm}: it keeps area (factor $1$) but reverses the picture.
+  \item \textbf{Collapse.} If the columns are parallel, the image is \emph{flat} --- a line, area $0$. For
+        $\begin{bsmallmatrix} 1 & 2 \\ 2 & 4 \end{bsmallmatrix}$, $\det=$ \blank{1.0cm}, so the unit square
+        is squashed onto a line. A flattened plane cannot be un-flattened, so $\det A=0\Leftrightarrow A$ has no \blank{1.6cm}.
+  \item \textbf{Composition.} Doing $B$ then $A$ is the matrix $AB$, and the area factors \emph{multiply}:
+        $|\det(AB)|=|\det A|\,|\det B|$ --- the product rule from Lesson~5.2, now seen as area.
+\end{itemize}
+\vspace{2pt}
+\textbf{The road ahead.} \textbf{Unit~6:} under a transformation most vectors get rotated, but a few
+special directions are only \emph{stretched} (never turned). Those directions --- \emph{eigenvectors} ---
+are the key to how a transformation behaves when you apply it again and \blank{1.4cm}.
+\end{notesbox}
+
+\begin{practicebox}
+Show your work. Use ``the columns are where $\ee_1,\ee_2$ land'' and ``area factor $=|\det A|$.''
+\begin{enumerate}[leftmargin=1.6em, itemsep=6pt]
+  \item For $A=\begin{bsmallmatrix} 2 & 0 \\ 0 & 3 \end{bsmallmatrix}$: where do $\ee_1$ and $\ee_2$ land, what is $\det A$, and what is the area of the image of a rectangle with area $5$? \writeline
+  \item Which flips orientation --- a reflection $\begin{bsmallmatrix} 1 & 0 \\ 0 & -1 \end{bsmallmatrix}$ or a stretch $\begin{bsmallmatrix} 2 & 0 \\ 0 & 2 \end{bsmallmatrix}$? How do you know from the determinant? \writeline
+  \item A matrix $A$ has $\det A=0$. What does its transformation do to the unit square, and is $A$ invertible? \writeline
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

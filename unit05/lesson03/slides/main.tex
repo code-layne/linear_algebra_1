@@ -1,6 +1,10 @@
 %! Linear Transformations — Unit 5, Lesson 5.3 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,16 +15,121 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 5.3}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Linear Transformations}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 5}
+    {\color{white}\bfseries\LARGE Linear Transformations}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 5: Determinants and Linear Transformations}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{A matrix moves the whole plane}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.58\textwidth}
+      When software rotates, stretches, or mirror-flips an image, it multiplies every pixel's position
+      vector by a $2\times2$ \textbf{matrix}.\\[8pt]
+      Two questions we can now answer:
+      \begin{itemize}
+        \item How much \emph{bigger} does the image get? $\Rightarrow |\det A|$.
+        \item Did it come out \emph{mirror-flipped}? $\Rightarrow$ the \emph{sign} of $\det A$.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.5]
+        \fill[burgundy!12] (0,0)--(1,0)--(1,1)--(0,1)--cycle;
+        \draw[charcoal, thin] (0,0)--(1,0)--(1,1)--(0,1)--cycle;
+        \draw[->, very thick, charcoal] (1.5,0.5)--(2.4,0.5) node[midway,above,font=\scriptsize]{$A$};
+        \fill[royalblue!10] (2.9,0)--(5.9,0)--(6.9,2)--(3.9,2)--cycle;
+        \draw[charcoal, thin] (2.9,0)--(5.9,0)--(6.9,2)--(3.9,2)--cycle;
+      \end{tikzpicture}\\[4pt]
+      {\scriptsize The unit square $\to$ a parallelogram.}
+    \end{column}
+  \end{columns}
+  \vspace{2pt}
+  \begin{block}{Warm-Up punchline}
+    For $A=\begin{bsmallmatrix} 3 & 1\\ 0 & 2 \end{bsmallmatrix}$, the square lands on the parallelogram
+    with edges $(3,0),(1,2)$ --- area $|\det A|=6$. \textbf{The determinant is an area.}
+  \end{block}
+\end{frame}
+
+% MATRIX MOVES SPACE
+\begin{frame}[t, plain]
+  \burgundyheader{The columns are where the corners go}
+  \sectionlabel[goldacc]{Idea}
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item Read $\xx\mapsto A\xx$ as a \textbf{transformation}: every point moves to a new point.
+    \item Linearity ($A(\xx+\yy)=A\xx+A\yy$) keeps the origin fixed and grid lines straight and evenly
+          spaced --- so a square maps to a \textbf{parallelogram}.
+    \item $A\ee_1=$ column~1 and $A\ee_2=$ column~2, so watching the unit square tells you the whole map.
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{Check on $A=\begin{bsmallmatrix} 3 & 1\\ 0 & 2 \end{bsmallmatrix}$}
+    $A\ee_1=\begin{bsmallmatrix} 3\\ 0\end{bsmallmatrix}$, \quad $A\ee_2=\begin{bsmallmatrix} 1\\ 2\end{bsmallmatrix}$
+    --- exactly the columns.
+  \end{block}
+\end{frame}
+
+% GALLERY OF MOTIONS
+\begin{frame}[t, plain]
+  \burgundyheader{A gallery of motions}
+  \sectionlabel{Read the matrix}
+  \begin{center}
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{@{}c l c@{}}
+  \textbf{Matrix} & \textbf{Motion} & $\det$ \\
+  \hline
+  $\begin{bsmallmatrix} 2 & 0 \\ 0 & 3 \end{bsmallmatrix}$ & stretch ($\times2$, $\times3$) & $6$ \\
+  $\begin{bsmallmatrix} 0 & -1 \\ 1 & 0 \end{bsmallmatrix}$ & rotate $90^\circ$ & $1$ \\
+  $\begin{bsmallmatrix} 1 & 0 \\ 0 & -1 \end{bsmallmatrix}$ & reflect across $x$-axis & $-1$ \\
+  $\begin{bsmallmatrix} 1 & 1 \\ 0 & 1 \end{bsmallmatrix}$ & shear & $1$ \\
+  \end{tabular}
+  \end{center}
+  \begin{block}{Notice}
+    Rotation, reflection, and shear all have $|\det|=1$: they \emph{move} the square without changing its
+    \emph{area}.
+  \end{block}
+\end{frame}
+
+% DETERMINANT IS THE AREA FACTOR
+\begin{frame}[t, plain]
+  \burgundyheader{The determinant is the area factor}
+  \sectionlabel[goldacc]{Payoff}
+  \begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+      The unit square (area $1$) lands on the column parallelogram, whose area is $|\det A|$. So applying
+      $A$ multiplies \textbf{every} area by the same factor:
+      \[ \text{(new area)} = |\det A|\cdot(\text{old area}). \]
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \centering
+      For $A=\begin{bsmallmatrix} 3 & 1\\ 0 & 2 \end{bsmallmatrix}$, $\det A=6$:\\[6pt]
+      unit square $\to$ area $6$,\\[2pt]
+      a triangle of area $4 \to$ area $24$.\\[6pt]
+      {\scriptsize Every region scaled by the same $6$.}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% SIGN, COLLAPSE, ROAD AHEAD
+\begin{frame}[t, plain]
+  \burgundyheader{Sign, collapse, and what's next}
+  \sectionlabel{Synthesis}
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item \textbf{Orientation:} $\det A>0$ keeps it, $\det A<0$ \textbf{flips} it (a reflection, $\det=-1$,
+          keeps area but mirrors).
+    \item \textbf{Collapse:} $\det A=0$ squashes the square onto a line (area $0$) --- so $A$ has \textbf{no
+          inverse} (the Unit~2 ``singular'').
+    \item \textbf{Composition:} $|\det(AB)|=|\det A|\,|\det B|$ --- area factors multiply (the 5.2 product rule).
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{The road ahead --- Unit 6}
+    Most vectors get rotated by $A$; a few special directions are only \emph{stretched}. Those
+    \textbf{eigenvectors} are the key to a transformation applied over and over.
+  \end{block}
 \end{frame}
 
 \end{document}

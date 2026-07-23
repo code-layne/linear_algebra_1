@@ -5,6 +5,12 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\T}{\mathsf{T}}
 \newcommand{\UnitNumberName}{Unit 5: Determinants and Linear Transformations \quad}
 \newcommand{\LessonNumberName}{Lesson 5.3: Linear Transformations}
 
@@ -16,55 +22,143 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can read a matrix as a \emph{motion of the plane} --- a
+    \emph{linear transformation} $\xx\mapsto A\xx$ that keeps the origin fixed and sends grid lines to
+    straight, evenly spaced lines, so the unit square lands on the parallelogram spanned by the columns
+    of $A$. They can name the basic motions (stretch, rotation, reflection, shear) from their matrices,
+    and --- the payoff Unit~5 has been building toward --- they can use $|\det A|$ as the \textbf{factor
+    every area (and volume) is multiplied by}, with the \emph{sign} of $\det A$ reporting whether
+    orientation was preserved ($+$) or flipped ($-$), and $\det A=0$ meaning the map \emph{collapses}
+    space flat (so it is not invertible). They can connect this to the product rule from 5.2 (composing
+    maps multiplies area factors) and name where the course goes next: Unit~6, the special directions a
+    transformation only stretches (\emph{eigenvectors}).
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Read $\xx\mapsto A\xx$ as a transformation; the columns of $A$ are where $\ee_1,\ee_2$ land.
+  \item Name the motion from the matrix: stretch, rotation, reflection, shear.
+  \item Use $|\det A|$ as the factor \emph{every} area/volume is scaled by (unit square $\to$ area $|\det A|$).
+  \item Read the \emph{sign} of $\det A$ (orientation) and $\det A=0$ (collapse $\Rightarrow$ no inverse).
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item A matrix does not just store numbers --- it \emph{moves space}, and linearity keeps grids straight.
+  \item Since $A\ee_1,A\ee_2$ are the columns, watching the unit square tells you the whole map.
+  \item The image of the unit square is the column parallelogram, whose area \emph{is} $|\det A|$.
+  \item Sign $=$ orientation (flip or not); $\det=0$ $=$ flat image $=$ the Unit~2 ``singular.''
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Linear transformation} & The rule $\xx\mapsto A\xx$; it fixes the origin and keeps grid lines straight and evenly spaced ($A(\xx+\yy)=A\xx+A\yy$, $A(c\xx)=cA\xx$). \\
+\textbf{Images of the basis} & $A\ee_1=$ column~1, $A\ee_2=$ column~2 --- so the unit square maps to the parallelogram spanned by the columns. \\
+\textbf{Area (volume) factor} & Applying $A$ multiplies every area by $|\det A|$ (every volume in 3-D too). \\
+\textbf{Orientation} & $\det A>0$ preserves orientation; $\det A<0$ flips it (a reflection); $\det A=0$ collapses space flat (not invertible). \\
+\textbf{Composition} & Doing $B$ then $A$ is the matrix $AB$; area factors multiply: $|\det(AB)|=|\det A|\,|\det B|$ (the 5.2 product rule, seen geometrically). \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the two ideas this lesson fuses, both on the same matrix
+    $A=\begin{bsmallmatrix} 3 & 1\\ 0 & 2 \end{bsmallmatrix}$:
+    \textbf{(1)} $A\xx$ is a \emph{combination of the columns} (Lesson~1.3), so $A\ee_1,A\ee_2$ are just
+    the columns $(3,0)$ and $(1,2)$; and \textbf{(2)} the $2\times2$ \emph{determinant} $\det A=6$
+    (Lesson~5.0). Debrief the punchline aloud: the unit square (area $1$) lands on the parallelogram with
+    edges $(3,0)$ and $(1,2)$, whose area is exactly $|\det A|=6$ --- \emph{the determinant is the area
+    the transformation makes.}
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    When photo or animation software rotates, stretches, or mirror-flips an image, it is multiplying
+    every pixel's position vector by a $2\times2$ \textbf{matrix} --- the matrix \emph{moves the whole
+    plane at once}. Ask: \textbf{``If I know the matrix, can I predict exactly how much bigger the image
+    gets, and whether it comes out mirror-flipped?''} The answer is the number they have been computing
+    all unit: the \textbf{determinant}. $|\det A|$ is the factor every area grows or shrinks by, and its
+    \emph{sign} tells you whether the picture was flipped. This is the payoff the 5.0 and 5.1 Tier~E
+    problems have been previewing --- the determinant was an \emph{area} all along.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. A matrix moves space.} Read $\xx\mapsto A\xx$ as a \emph{transformation}: every point of the
+plane is sent somewhere new. Because $A(\xx+\yy)=A\xx+A\yy$ and $A(c\xx)=cA\xx$, the origin stays put
+and straight, evenly spaced grid lines stay straight and evenly spaced --- so a square maps to a
+\textbf{parallelogram}. And since $A\ee_1$ and $A\ee_2$ are just the \emph{columns} of $A$ (Lesson~1.3),
+watching where the unit square goes tells you the whole map.
+
+\textbf{2. A gallery of motions.} Read each $2\times2$ as a motion: $\begin{bsmallmatrix} 2 & 0\\ 0 & 3
+\end{bsmallmatrix}$ stretches ($\times2$ across, $\times3$ up); $\begin{bsmallmatrix} 0 & -1\\ 1 & 0
+\end{bsmallmatrix}$ rotates $90^\circ$; $\begin{bsmallmatrix} 1 & 0\\ 0 & -1 \end{bsmallmatrix}$ reflects
+across the $x$-axis; $\begin{bsmallmatrix} 1 & 1\\ 0 & 1 \end{bsmallmatrix}$ shears.
+
+\columnbreak
+
+\textbf{3. The determinant is the area factor.} The unit square has area $1$ and lands on the column
+parallelogram, whose area is $|\det A|$. So applying $A$ multiplies \emph{every} area by $|\det A|$: a
+region of area $4$ under $A=\begin{bsmallmatrix} 3 & 1\\ 0 & 2 \end{bsmallmatrix}$ ($\det=6$) becomes
+area $24$.
+
+\textbf{4. Sign, collapse, and the road ahead.} $\det A>0$ keeps orientation; $\det A<0$ \emph{flips} it
+(a reflection, e.g.\ $\det=-1$); $\det A=0$ \emph{collapses} the square onto a line (area $0$) --- the
+Unit~2 ``singular, no inverse.'' Composition multiplies factors ($|\det AB|=|\det A||\det B|$, the 5.2
+product rule seen as area). \textbf{Road ahead: Unit~6} --- the special directions a transformation only
+\emph{stretches} (eigenvectors).
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item forgetting the \emph{absolute value} --- the \emph{area} factor is $|\det A|$, while the \emph{sign} is a separate piece of information (orientation);
+  \item thinking a reflection ($\det=-1$) changes the area --- it does not (factor $1$); only the orientation flips;
+  \item missing that $\det A=0$ means the image is \emph{flat} (a line/point), so the map cannot be undone.
+\end{itemize}
+Cold-call prompts: ``Where does the unit square land under this $A$?'' ``$\det A=6$ --- what is the area
+of the image of a triangle with area $2$?'' ``This $A$ has $\det=-1$; what changed, the size or the
+orientation?'' ``Why can a $\det=0$ map never be reversed?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Moving Space with Matrices} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Name the motion of each matrix, find where $\ee_1,\ee_2$ land, compute
+$\det$, and give the area of the image of the unit square (and of a given region).
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Use the \emph{sign} of $\det$ for orientation; see a $\det=0$ matrix
+\emph{collapse} the square to a segment; and check that composing two maps multiplies area factors.
+
+\columnbreak
+\textbf{Tier E --- Extension.} A \emph{rotation} preserves area and orientation ($\det=1$); a composite
+of a rotation and a stretch; and a $3\times3$ \emph{volume} factor (with a reflection, $\det<0$).
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): given a matrix, compute $\det A$ and the \emph{area} of
+the image of the unit square and of a stated region; decide which of two matrices \emph{flips
+orientation} (sign of $\det$) and give each area factor; and a \textbf{justification check} --- what
+does $\det A=0$ do to the unit square, and why can the map not be undone? Sort into ``got it / forgot
+$|\cdot|$ / sign slip'' to plan the Unit~5 review before the test.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} compute image areas from determinants; name each motion and whether it flips
+orientation; use composition and the product rule ($|\det AB|=|\det A||\det B|$); and a short
+justification about a $\det=0$ collapse. \textbf{Extension:} show a rotation matrix has $\det=1$ (area
+and orientation preserved), a rotation-then-stretch composite, and a $3\times3$ \emph{volume} factor
+including a reflection. \textbf{Preview:} Unit~6, \emph{Eigenvalues and Eigenvectors} --- most vectors
+get rotated by $A$, but a few special directions are only \emph{stretched}; those directions unlock how
+a transformation behaves when repeated.
 \end{skillbox}
 \end{document}

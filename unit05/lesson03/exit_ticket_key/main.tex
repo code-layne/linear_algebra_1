@@ -3,6 +3,7 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\ee}{\mathbf{e}}
 
 \begin{document}
 
@@ -11,9 +12,27 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Area factor.} For $A=\begin{bmatrix} 4 & 1 \\ 0 & 2 \end{bmatrix}$, compute $\det A$.
+        What is the area of the image of the unit square? Of a triangle with area $3$?
+        \ansline{$\det A=(4)(2)-(1)(0)=8$. Unit square $\to$ area $|\det A|=8$; a triangle of area $3\to 8\cdot3=24$.}
+  \item \textbf{Orientation.} Which of these flips orientation, $\begin{bmatrix} 3 & 0 \\ 0 & 2
+        \end{bmatrix}$ or $\begin{bmatrix} 0 & 2 \\ 2 & 0 \end{bmatrix}$? Give the area factor $|\det|$ of
+        each and explain how the determinant tells you.
+        \ansline{$\det\begin{bsmallmatrix} 3 & 0\\ 0 & 2\end{bsmallmatrix}=6>0$ (area factor $6$, orientation preserved). $\det\begin{bsmallmatrix} 0 & 2\\ 2 & 0\end{bsmallmatrix}=0-4=-4<0$ (area factor $4$, orientation \emph{flipped}). The \emph{second} flips orientation --- a negative determinant signals a reflection.}
+  \item \textbf{Explain.} A matrix $A$ has $\det A=0$. What does its transformation do to the unit
+        square, and why can the transformation \emph{not} be undone? \ansline{It collapses the unit square flat --- onto a line or a point (area $0$). Once the plane is squashed to a line, many different points land on the same image point, so there is no way to send each image back to a unique original --- $A$ has no inverse.}
+\end{enumerate}
+
+\begin{teachernote}
+Sort into ``got it / forgot $|\cdot|$ / sign slip.'' Item~1 is the core payoff: area factor $=|\det A|$
+applied to two regions. Item~2 separates \emph{size} (the area factor $|\det|$) from \emph{sign}
+(orientation) --- the negative determinant is the tell. Item~3 is the target justification: $\det=0$
+collapses the plane flat, so the map is not invertible (the Unit~2 ``singular'' seen geometrically). If
+many miss item~1, open the Unit~5 review with a 60-second ``unit square $\to$ column parallelogram, area
+$=|\det|$'' re-warm before the test.
+\end{teachernote}
 
 \end{document}

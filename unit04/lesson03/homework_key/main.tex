@@ -3,17 +3,64 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.3}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+To fit $y=C+Dt$ to data: build $A$ (a column of $1$s and a column of the $t$-values) and $\bb$ (the
+$y$-values), then solve the normal equations $A^{\T}A\hat{\xx}=A^{\T}\bb$. The fitted values are
+$\pp=A\hat{\xx}$ and the residuals are $\ee=\bb-\pp$. Show your dot products.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Best flat line.} Fit a horizontal line $y=C$ to $\bb=\begin{bmatrix} 2\\5\\8 \end{bmatrix}$
+        (so $A=\begin{bmatrix} 1\\1\\1 \end{bmatrix}$). Find $\hat{C}$, the fitted values $\pp$, and the
+        residuals $\ee$. What familiar quantity is $\hat{C}$?
+        \ansline{$A^{\T}A=3$, $A^{\T}\bb=2+5+8=15$, so $\hat{C}=15/3=5$; $\pp=(5,5,5)$, $\ee=(-3,0,3)$. $\hat{C}=5$ is the \emph{average} of the data --- the best constant fit is always the mean.}
+  \item \textbf{Line through three points.} Fit $y=C+Dt$ to $(0,1),(1,0),(2,5)$. Find $A^{\T}A$,
+        $A^{\T}\bb$, then $\hat{\xx}$, the line, $\pp$, and $\ee$; check $\ee$ is perpendicular to both
+        columns.
+        \ansline{$A=\begin{bsmallmatrix} 1&0\\1&1\\1&2 \end{bsmallmatrix}$, $\bb=(1,0,5)$. $A^{\T}A=\begin{bsmallmatrix} 3&3\\3&5 \end{bsmallmatrix}$, $A^{\T}\bb=\begin{bsmallmatrix} 6\\10 \end{bsmallmatrix}$; solving gives $\hat{\xx}=\begin{bsmallmatrix} 0\\2 \end{bsmallmatrix}$, line $y=2t$. $\pp=(0,2,4)$, $\ee=(1,-2,1)$; $(1,1,1)\!\cdot\!\ee=0$ and $(0,1,2)\!\cdot\!\ee=0$. \checkmark}
+  \item \textbf{Line through four points, then predict.} A plant's height (cm) at weeks $t=0,1,2,3$ is
+        $\bb=\begin{bmatrix} 4\\4\\6\\10 \end{bmatrix}$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+      \item Solve the normal equations for $\hat{\xx}=(C,D)$ and state the best-fit line.
+            \ansline{$A^{\T}A=\begin{bsmallmatrix} 4&6\\6&14 \end{bsmallmatrix}$, $A^{\T}\bb=\begin{bsmallmatrix} 24\\46 \end{bsmallmatrix}$; solving $2C+3D=12$, $3C+7D=23$ gives $\hat{\xx}=\begin{bsmallmatrix} 3\\2 \end{bsmallmatrix}$, line $y=3+2t$.}
+      \item Give $\pp$ and $\ee$, then predict the height at week $t=4$.
+            \ansline{$\pp=(3,5,7,9)$, $\ee=(1,-1,-1,1)$. Prediction at $t=4$: $y=3+2(4)=11$ cm.}
+    \end{enumerate}
+  \item \textbf{Explain.} A classmate says ``the best line should pass through all the points.'' In two or
+        three sentences, explain why that is usually impossible and what least squares does instead.
+        \ansline{With more points than the two unknowns $C,D$, the equations $C+Dt_i=y_i$ usually conflict, so $\bb$ is not in $C(A)$ and no line hits every point. Least squares instead finds the line whose fitted values $\pp$ are as close to $\bb$ as possible --- it minimizes the total squared vertical miss $\|\ee\|^2$, i.e.\ it projects $\bb$ onto $C(A)$.}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Where the residual lives.} Use your answers from Problem~3
+($A=\begin{bsmallmatrix} 1&0\\1&1\\1&2\\1&3 \end{bsmallmatrix}$ and $\ee$).
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item Check $A^{\T}\ee=\zero$. Which of the four subspaces holds $\ee$, and which space is it the
+        orthogonal complement of (Lesson~4.1)?
+  \item Because the first column of $A$ is all $1$s, one entry of $A^{\T}\ee=\zero$ says $\sum e_i=0$. Show
+        this for your $\ee$, and explain why the residuals of a best-fit line always add to zero.
+\end{enumerate}
+\ansline{(a) $A^{\T}\ee$: $(1,1,1,1)\!\cdot\!\ee=1-1-1+1=0$ and $(0,1,2,3)\!\cdot\!\ee=0-1-2+3=0$, so $A^{\T}\ee=\zero$: $\ee$ is in the left nullspace $N(A^{\T})$, the orthogonal complement of the column space $C(A)$. (b) $\sum e_i=1-1-1+1=0$. The all-ones column being perpendicular to $\ee$ \emph{is} the statement $\sum e_i=0$; since any best-fit line's $A$ has that column of $1$s, its residuals must always sum to zero (positive and negative misses balance).}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 4.4: Orthogonal Matrices \& Gram--Schmidt.} Solving $A^{\T}A\hat{\xx}=A^{\T}\bb$
+is easy when the columns of $A$ are \emph{perpendicular unit vectors} --- then $A^{\T}A=I$ and the
+projection is immediate. Next lesson builds such orthonormal columns and the matrix $Q$ that carries them.
+\end{spiralbox}
 
 \end{document}

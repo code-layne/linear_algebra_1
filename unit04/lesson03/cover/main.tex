@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 4}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 4 \quad Orthogonality}}\\[6pt]
   {\color{white}\textbf{\large Lesson 4.3 \quad Least Squares Approximations}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} explain why $A\mathbf{x}=\mathbf{b}$ can have \textbf{no} solution, and what a \textbf{least-squares} best answer means.
+  \item \ldots{} fit a \textbf{best-fit line} $y=C+Dt$ to data by solving the \textbf{normal equations} $A^{\mathsf{T}}A\hat{\mathbf{x}}=A^{\mathsf{T}}\mathbf{b}$.
+  \item \ldots{} find the fitted values and \textbf{residuals}, and explain \emph{why} least squares makes the total squared error smallest.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,25 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: reading a line \& residual, building $A^{\mathsf{T}}A$, solving a $2\times2$ system & \blank{1.2cm} \\
+2 & Guided Notes   & No-solution systems, best-fit line, normal equations, fitted values \& residuals & \blank{1.2cm} \\
+3 & Group Activity & Best Fit by Least Squares --- a flat line, a line through 3 points, and a prediction & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check: fit a line, read the residual, and why not solve $A\mathbf{x}=\mathbf{b}$ & \blank{1.2cm} \\
+5 & Homework       & Best constant, line fits, prediction, and where the residual lives & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small One idea drives the lesson: when data will not sit on a line, $A\mathbf{x}=\mathbf{b}$ has
+\emph{no} solution, so we take the \textbf{closest} reachable point $\mathbf{p}=A\hat{\mathbf{x}}$ --- the
+\textbf{projection} of the data (Lesson~4.2). Solving the \textbf{normal equations}
+$A^{\mathsf{T}}A\hat{\mathbf{x}}=A^{\mathsf{T}}\mathbf{b}$ gives the best-fit line, and the leftover
+\textbf{residual} $\mathbf{e}=\mathbf{b}-\mathbf{p}$ --- the part least squares makes small --- lands in
+the orthogonal complement $N(A^{\mathsf{T}})$ (Lesson~4.1).
+\end{remindbox}
 
 \end{document}

@@ -7,7 +7,35 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-20 — **Authored & built Unit 4 Lesson 4.2 — "Projections onto Subspaces"
+**Last updated:** 2026-07-23 — **Authored & built Unit 4 Lesson 4.3 — "Least Squares Approximations"
+(§4.3).** Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the
+five keys) and the slides deck, mirroring Lesson 4.2's preamble/boxes/tone. **Content — turns 4.2's
+projection into a data method:** (1) **overdetermined $A\xx=\bb$** — fitting $y=C+Dt$ to $m$ points gives $m$
+equations, 2 unknowns; $\bb\notin C(A)$, so \emph{no} exact solution; (2) **best $=$ closest $=$ projection**
+(Lesson 4.2) — the least-squares $\hat\xx$ makes $\pp=A\hat\xx$ nearest $\bb$; (3) **normal equations**
+$A^{\T}A\hat\xx=A^{\T}\bb$ (same as 4.2, now for data) — the $2\times2$ solve gives $(C,D)$; (4) **fitted
+values $\pp=A\hat\xx$, residuals $\ee=\bb-\pp$** — least squares minimizes $\|\ee\|^2$ (squares can't cancel);
+(5) **where the error goes** — $A^{\T}\ee=\zero\Rightarrow\ee\in N(A^{\T})$ (4.1 payoff), and the all-ones
+column forces $\sum e_i=0$. **Hook:** stretch a spring, ruler slightly off, 4 points miss any line → what is
+"best"? **Worked spine (all hand-verified):** spring data $t=(0,1,2,3)$, $\bb=(3,3,5,9)$,
+$A=[[1,0],[1,1],[1,2],[1,3]]$ → $A^{\T}A=[[4,6],[6,14]]$, $A^{\T}\bb=(20,40)$, $\hat\xx=(2,2)$, line $y=2+2t$,
+$\pp=(2,4,6,8)$, $\ee=(1,-1,-1,1)\in N(A^{\T})$ (±1 residuals — looks like real scatter). Activity: Tier R
+**best constant $=$ mean** (single $1$s column, $\bb=(4,6,8)\to\hat C=6$), Tier A 3-pt fit
+$(0,3)(1,1)(2,5)\to y=2+t$, Tier E 4-pt sales fit $(2,1,2,5)\to y=1+t$ + predict $t=4$ + interpret. Exit:
+3-pt fit $(0,4)(1,2)(2,6)\to y=3+t$ (same $A^{\T}A$ as notes, new data). HW: best constant $(2,5,8)\to5$;
+3-pt $(0,1)(1,0)(2,5)\to y=2t$; 4-pt plant $(4,4,6,10)\to y=3+2t$, predict $t=4=11$; extension checks
+$A^{\T}\ee=\zero$ and $\sum e_i=0$. **Custom scatter+residual TikZ** (blue data points, burgundy best-fit
+line, dashed vertical residuals, "data" label) on notes §4 + slides hook. **Built `make -C unit04/lesson03
+all` → clean** (0 `^!` errors across all 13 logs; no `\ans`-in-math; only overfull is the shared 10.77pt
+`\namedateperiod` header + ≤6pt cosmetic). Page counts: cover/warmup/exit 1pp (blank & key ✓ 1-page
+constraint), notes 2pp blank / 3pp key, activity/homework 2pp, slides 6pp, lesson plan 2pp; **student 9pp,
+full 18pp** (matches 4.1/4.2). Visually spot-checked notes_key p2 (scatter+residual figure — clean, dashes
+crisp, best-fit line through the points) and slides hook — all clean. **Gotchas avoided:** simplified the
+notes figure to explicit display coords (no nested `xscale/yscale` gymnastics); chose 4 equally-spaced
+points so the min integer residual $(1,-1,-1,1)$ is small (3 points force a $\pm2$ middle residual). **Next
+run: author Lesson 4.4** ("Orthogonal Matrices & Gram--Schmidt"). Lesson 4.0 remains the Unit 4 model.
+
+**Prior run:** **Authored & built Unit 4 Lesson 4.2 — "Projections onto Subspaces"
 (§4.2).** Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the
 five keys) and the slides deck, mirroring Lesson 4.1's preamble/boxes/tone. **Content — turns 4.1's
 "error lands in the complement" into a method:** (1) **closest $=$ perpendicular error** — the closest
@@ -289,7 +317,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
 | 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ☑ all lessons + tests authored & built ✅ |
 | 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ☑ all lessons + tests authored & built ✅ |
-| 4 | Orthogonality | 4.0 intro + 4.1–4.4 | ◐ 4.0, 4.1, 4.2 authored & built ✅; 4.3–4.4 + tests still skeletons |
+| 4 | Orthogonality | 4.0 intro + 4.1–4.4 | ◐ 4.0, 4.1, 4.2, 4.3 authored & built ✅; 4.4 + tests still skeletons |
 | 5 | Determinants and Linear Transformations | 5.1–5.3 | ☐ |
 | 6 | Eigenvalues and Eigenvectors | 6.1–6.4 (§6.4 optional) | ☐ |
 | 7 | The Singular Value Decomposition *(optional/advanced)* | 7.1–7.4 | ☐ |
@@ -297,7 +325,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author Unit 4 lesson-by-lesson, next up 4.3** (4.0, 4.1, 4.2 authored & built — 4.0 is the Unit 4 model).
+1. **Author Unit 4 lesson-by-lesson, next up 4.4** (4.0, 4.1, 4.2, 4.3 authored & built — 4.0 is the Unit 4 model).
    Read each `unit04/lessonYY/**/main.tex` skeleton with the Read tool before writing it, then fill it
    following `references/components.md`. Planned content per lesson (down-level from LAfE Ch. 4):
    - **4.0** intro/spiral — ✅ authored & built (dot product, length/unit vectors, perpendicular $\Leftrightarrow$
@@ -309,8 +337,10 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
      $\hat{x}=\frac{\avec\cdot\bb}{\avec\cdot\avec}$; projection matrix $P=\frac{\avec\avec^{\T}}{\avec^{\T}\avec}$;
      onto a subspace via the normal equations $A^{\mathsf T}A\hat\xx=A^{\mathsf T}\bb$; error $\bb-\pp\in N(A^{\mathsf T})$,
      the complement of $C(A)$).
-   - **4.3** Least squares — best-fit line on real data; the **normal equations** $A^{\mathsf T}A\hat\xx=A^{\mathsf T}\bb$;
-     minimize the error; the U4 guided application (fit a line, then interpret).
+   - **4.3** Least squares — ✅ authored & built (overdetermined $A\xx=\bb$ has no solution → project onto
+     $C(A)$; the **normal equations** $A^{\mathsf T}A\hat\xx=A^{\mathsf T}\bb$ fit a best line $y=C+Dt$;
+     fitted values $\pp$, residuals $\ee=\bb-\pp$ minimizing $\|\ee\|^2$, $\ee\in N(A^{\mathsf T})$; best
+     constant $=$ mean; spring/data-fit application + prediction).
    - **4.4** Orthogonal matrices & Gram–Schmidt — orthonormal vectors, $Q^{\mathsf T}Q=I$, why $Q$ makes
      projection/least-squares trivial; Gram–Schmidt to build $Q$; the factorization $A=QR$.
    Build each with `make -C unit04/lessonYY all`; verify warmup/exit are 1pp (blank & key).

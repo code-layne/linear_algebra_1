@@ -3,17 +3,60 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.3}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+To fit $y=C+Dt$ to data: build $A$ (a column of $1$s and a column of the $t$-values) and $\bb$ (the
+$y$-values), then solve the normal equations $A^{\T}A\hat{\xx}=A^{\T}\bb$. The fitted values are
+$\pp=A\hat{\xx}$ and the residuals are $\ee=\bb-\pp$. Show your dot products.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Best flat line.} Fit a horizontal line $y=C$ to $\bb=\begin{bmatrix} 2\\5\\8 \end{bmatrix}$
+        (so $A=\begin{bmatrix} 1\\1\\1 \end{bmatrix}$). Find $\hat{C}$, the fitted values $\pp$, and the
+        residuals $\ee$. What familiar quantity is $\hat{C}$? \writelines{2}
+  \item \textbf{Line through three points.} Fit $y=C+Dt$ to $(0,1),(1,0),(2,5)$. Find $A^{\T}A$,
+        $A^{\T}\bb$, then $\hat{\xx}$, the line, $\pp$, and $\ee$; check $\ee$ is perpendicular to both
+        columns. \writelines{3}
+  \item \textbf{Line through four points, then predict.} A plant's height (cm) at weeks $t=0,1,2,3$ is
+        $\bb=\begin{bmatrix} 4\\4\\6\\10 \end{bmatrix}$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+      \item Solve the normal equations for $\hat{\xx}=(C,D)$ and state the best-fit line. \vspace{1.2cm}
+      \item Give $\pp$ and $\ee$, then predict the height at week $t=4$. \vspace{1.0cm}
+    \end{enumerate}
+  \item \textbf{Explain.} A classmate says ``the best line should pass through all the points.'' In two or
+        three sentences, explain why that is usually impossible and what least squares does instead.
+        \writelines{2}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Where the residual lives.} Use your answers from Problem~3
+($A=\begin{bsmallmatrix} 1&0\\1&1\\1&2\\1&3 \end{bsmallmatrix}$ and $\ee$).
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item Check $A^{\T}\ee=\zero$. Which of the four subspaces holds $\ee$, and which space is it the
+        orthogonal complement of (Lesson~4.1)?
+  \item Because the first column of $A$ is all $1$s, one entry of $A^{\T}\ee=\zero$ says $\sum e_i=0$. Show
+        this for your $\ee$, and explain why the residuals of a best-fit line always add to zero.
+\end{enumerate}
+\writelines{3}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 4.4: Orthogonal Matrices \& Gram--Schmidt.} Solving $A^{\T}A\hat{\xx}=A^{\T}\bb$
+is easy when the columns of $A$ are \emph{perpendicular unit vectors} --- then $A^{\T}A=I$ and the
+projection is immediate. Next lesson builds such orthonormal columns and the matrix $Q$ that carries them.
+\end{spiralbox}
 
 \end{document}

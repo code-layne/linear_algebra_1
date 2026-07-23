@@ -1,6 +1,14 @@
 %! Least Squares Approximations — Unit 4, Lesson 4.3 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,16 +19,118 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 4.3}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Least Squares Approximations}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 4}
+    {\color{white}\bfseries\LARGE Least Squares Approximations}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 4: Orthogonality}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{Four measurements, but no line fits them all}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+      A spring is stretched by $0,1,2,3$ kg; you measure its length four times. The ruler is a little off,
+      so the points \textbf{miss} any single line.\\[6pt]
+      Four equations $C+Dt_i=y_i$, only two unknowns $C,D$: usually \textbf{no exact solution}.\\[8pt]
+      So ``best'' must mean \emph{closest} --- the line whose heights come nearest the data.
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \centering
+      % Display coords: x=1.1*t, y=0.36*(value). Data (0,3)(1,3)(2,5)(3,9); line y=2+2t.
+      \begin{tikzpicture}[scale=0.95, >=stealth]
+        \draw[->, charcoal] (-0.3,0)--(4.2,0) node[right, font=\scriptsize]{$t$};
+        \draw[->, charcoal] (0,-0.3)--(0,3.6) node[above, font=\scriptsize]{$y$};
+        \draw[burgundy, thick] (0,0.72)--(3.85,3.24) node[right, font=\scriptsize]{$y=2+2t$};
+        \draw[charcoal, dashed] (0,1.08)--(0,0.72);
+        \draw[charcoal, dashed] (1.1,1.08)--(1.1,1.44);
+        \draw[charcoal, dashed] (2.2,1.8)--(2.2,2.16);
+        \draw[charcoal, dashed] (3.3,3.24)--(3.3,2.88);
+        \foreach \x/\y in {0/1.08, 1.1/1.08, 2.2/1.8, 3.3/3.24}{
+          \fill[royalblue] (\x,\y) circle (2.4pt);
+        }
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{4pt}
+  \begin{block}{The question of Lesson 4.3}
+    If ``best'' means ``closest,'' and closest means ``error perpendicular,'' can we reuse last lesson's
+    \textbf{normal equations} to fit a line?
+  \end{block}
+\end{frame}
+
+% LEAST SQUARES = PROJECTION
+\begin{frame}[t, plain]
+  \burgundyheader{Best fit $=$ projection onto $C(A)$}
+  \sectionlabel{Same equation as 4.2}
+  Fitting $y=C+Dt$ to data is $A\xx=\bb$ with a column of $1$s and a column of $t$-values:
+  \[
+    A=\begin{bsmallmatrix} 1 & t_1\\ \vdots & \vdots\\ 1 & t_m \end{bsmallmatrix},\quad
+    \xx=\begin{bsmallmatrix} C\\ D \end{bsmallmatrix},\quad \bb=\begin{bsmallmatrix} y_1\\ \vdots\\ y_m \end{bsmallmatrix}.
+  \]
+  $\bb$ is not in $C(A)$, so we project: force $\ee=\bb-A\hat{\xx}\perp$ every column, i.e. $A^{\T}\ee=\zero$:
+  \[
+    \boxed{\,A^{\T}A\,\hat{\xx}=A^{\T}\bb\,}\qquad\text{(the normal equations)},\qquad \pp=A\hat{\xx}.
+  \]
+\end{frame}
+
+% WORKED EXAMPLE
+\begin{frame}[t, plain]
+  \burgundyheader{Worked example: fit a line to the spring data}
+  \sectionlabel[goldacc]{$t=0,1,2,3$, \; $\bb=(3,3,5,9)$}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Build and solve}
+        $A^{\T}A=\begin{bsmallmatrix} 4 & 6\\ 6 & 14 \end{bsmallmatrix}$,\;
+        $A^{\T}\bb=\begin{bsmallmatrix} 20\\ 40 \end{bsmallmatrix}$.\\[3pt]
+        $\hat{\xx}=\begin{bsmallmatrix} C\\ D \end{bsmallmatrix}=\begin{bsmallmatrix} 2\\ 2 \end{bsmallmatrix}$
+        $\Rightarrow$ line $y=2+2t$.
+      \end{block}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{block}{Fitted values \& residuals}
+        $\pp=A\hat{\xx}=(2,4,6,8)$.\\[3pt]
+        $\ee=\bb-\pp=(1,-1,-1,1)$.\\[3pt]
+        $A^{\T}\ee=\zero$: the miss is $\perp$ both columns.
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{4pt}
+  \begin{itemize}
+    \item Entries of $A^{\T}A$ are just sums: of $1$ ($=4$), of $t$ ($=6$), of $t^2$ ($=14$).
+  \end{itemize}
+\end{frame}
+
+% WHY SQUARED / WHERE ERROR GOES
+\begin{frame}[t, plain]
+  \burgundyheader{What least squares makes small}
+  \sectionlabel{Squares can't cancel}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item Minimize the total \textbf{squared} error $\|\ee\|^2=e_1^2+e_2^2+\cdots$ --- no line does better.
+    \item Why squared? Raw residuals cancel ($\sum e_i=0$); squares are $\ge 0$ and punish big misses.
+    \item $A^{\T}\ee=\zero$ puts $\ee$ in $N(A^{\T})$ --- the orthogonal complement of $C(A)$ (Lesson 4.1).
+    \item Data splits: $\bb=\pp$ (on the line) $+\;\ee$ (perpendicular miss). Fit $=$ projection.
+  \end{itemize}
+\end{frame}
+
+% SUMMARY + NEXT
+\begin{frame}[t, plain]
+  \burgundyheader{One method, many data sets}
+  \sectionlabel[goldacc]{Big picture}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item \textbf{No exact solution?} Project: take the closest $\pp=A\hat{\xx}$ in $C(A)$.
+    \item \textbf{Fit a line:} $A=[\,\mathbf{1}\ \ \mathbf{t}\,]$, solve $A^{\T}A\hat{\xx}=A^{\T}\bb$, read $y=C+Dt$.
+    \item \textbf{Best constant} (one column of $1$s) $=$ the average.
+    \item Residuals $\ee\perp$ the columns; least squares minimizes $\|\ee\|^2$.
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{Next --- Lesson 4.4: Orthogonal Matrices \& Gram--Schmidt}
+    When the columns are \emph{perpendicular unit vectors}, $A^{\T}A=I$ --- the normal equations become
+    trivial and projection is immediate.
+  \end{block}
 \end{frame}
 
 \end{document}

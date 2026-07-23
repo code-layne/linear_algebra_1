@@ -3,17 +3,46 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.3}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small These three ideas (Lessons 2.0, 4.2) set up today's lesson. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Read a line, find a miss.} A line is $y=1+2t$.
+\[
+  \text{At } t=2:\ y={\color{keyred}\mathbf{5}}\,. \qquad
+  \text{If the data at } t=2 \text{ is } 4,\ \text{the miss is } 4-y={\color{keyred}\mathbf{-1}}\,.
+\]
+\vspace{-8pt}
+\ansline{$y=1+2(2)=5$; the residual is $4-5=-1$ (the data point sits one unit \emph{below} the line).}
+
+\vspace{4pt}
+\textbf{2. Build $A^{\T}A$ and $A^{\T}\bb$.} For $A=\begin{bmatrix} 1 & 1\\ 1 & 2\\ 1 & 3 \end{bmatrix}$ and
+$\bb=\begin{bmatrix} 1\\ 2\\ 2 \end{bmatrix}$, compute:
+\[
+  A^{\T}A = {\color{keyred}\begin{bmatrix} \mathbf{3} & \mathbf{6}\\ \mathbf{6} & \mathbf{14} \end{bmatrix}} \qquad\qquad A^{\T}\bb = {\color{keyred}\begin{bmatrix} \mathbf{5}\\ \mathbf{11} \end{bmatrix}}
+\]
+\vspace{-8pt}
+\ansline{Dot the columns: $(1,1,1)\!\cdot\!(1,1,1)=3$, $(1,1,1)\!\cdot\!(1,2,3)=6$, $(1,2,3)\!\cdot\!(1,2,3)=14$; and $(1,1,1)\!\cdot\!\bb=5$, $(1,2,3)\!\cdot\!\bb=11$.}
+
+\vspace{4pt}
+\textbf{3. Solve a $2\times2$ system.} Find $C$ and $D$:
+\[
+  \begin{cases} 2C + \phantom{1}D = 5 \\ \phantom{2}C + 3D = 5 \end{cases}
+  \qquad C = {\color{keyred}\mathbf{2}},\quad D = {\color{keyred}\mathbf{1}}
+\]
+\vspace{-8pt}
+\ansline{From row 1, $D=5-2C$; substitute: $C+3(5-2C)=5\Rightarrow -5C=-10\Rightarrow C=2$, $D=1$. This is the shape of the normal equations we solve today.}
 \end{notesbox}
 
 \end{document}

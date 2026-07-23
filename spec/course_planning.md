@@ -7,7 +7,21 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-23 — **Authored & built the Unit 5 summative tests — Unit 5 is now complete.**
+**Last updated:** 2026-07-23 — **Scaffolded all of Unit 6 (Eigenvalues and Eigenvectors) — skeletons only.**
+Ran `new_lesson.py` for lessons 6.0–6.4 (component set: cover, warmup, notes, activity, exit_ticket, homework, slides
++ keys for the keyed components). The 6.0 run created the unit, so `unit06/tests/` (practice + actual),
+`unit06/test_keys/` (both keys), `unit06/sample_test/`, `unit06/sample_test_key/`, `unit06/Makefile`, and the
+thin-include test Makefiles were all auto-scaffolded too. **Confirmed lesson map (5 lessons; user chose to include the
+optional §6.4):** 6.0 "Special Directions --- Setting Up Eigenvalues" (intro/spiral) · 6.1 "Introduction to Eigenvalues"
+(§6.1) · 6.2 "Diagonalizing a Matrix" (§6.2) · 6.3 "Symmetric Positive Definite Matrices" (§6.3) · 6.4 "Systems of
+Differential Equations" (§6.4, advanced/optional) — matches `spec/linear_algebra_v2.md` §6.1–6.4 plus the customary
+`lesson00` intro. Verified all five lessons carry the full component set + 5 keys + Makefile + main.tex + images/, and
+the unit carries tests/test_keys/sample_test/sample_test_key + Makefile. **Nothing authored yet — every `main.tex` is a
+skeleton; no builds run.** `sample_test`/`sample_test_key` PDFs are NOT yet populated (they come from `drop` after the
+tests are authored). **Next run: author Unit 6 Lesson 6.0** ("Special Directions --- Setting Up Eigenvalues", intro/spiral)
+following the 5.0/4.0 intro-lesson model; then 6.1–6.4, then the Unit 6 summative tests.
+
+**Prior run:** **Authored & built the Unit 5 summative tests — Unit 5 is now complete.**
 Filled all four skeletons (`tests/practice_test`, `tests/actual_test`, `test_keys/practice_test_key`, `test_keys/actual_test_key`),
 mirroring the Unit 1–4 test format (`shared/tests.mk` + `test_keys.mk`; `\parthead` burgundy strips; Part A vocab matching / B
 multiple choice / C computation / D extended response; 8/12/35/10 pts). **Blueprint spans the whole unit §5.0–5.3:** A (8 terms —
@@ -494,11 +508,12 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Begin Unit 6 (Eigenvalues and Eigenvectors)** — chapters §6.1–6.4 (§6.4 optional). First run **scaffolds all of Unit 6**
-   (`new_lesson.py` for `lesson00` intro + 6.1–6.4; the `lesson00` run creates the unit, auto-scaffolding `unit06/tests/`,
-   `test_keys/`, `sample_test*/` and Makefiles), then **confirm the Unit 6 lesson map with the user** before authoring
-   (decompose from `spec/linear_algebra_v2.md` / Strang ch. 6 TOC). Then author lessons in order (5.0–5.3 are the lesson model;
-   Lesson 4.0 the cross-unit style model), and finally the Unit 6 summative tests (Unit 4 + Unit 5 tests are the format model).
+1. **Author Unit 6 (Eigenvalues and Eigenvectors)** — all of Unit 6 is now **scaffolded (skeletons only)**; lesson map is
+   **confirmed** (5 lessons, incl. the optional §6.4 — user chose to include it): 6.0 "Special Directions --- Setting Up
+   Eigenvalues" (intro) · 6.1 "Introduction to Eigenvalues" · 6.2 "Diagonalizing a Matrix" · 6.3 "Symmetric Positive Definite
+   Matrices" · 6.4 "Systems of Differential Equations". **Next: author Lesson 6.0** (intro/spiral, following the 5.0/4.0
+   intro-lesson model), then 6.1–6.4 in order (5.0–5.3 are the lesson model; Lesson 4.0 the cross-unit style model), and
+   finally the Unit 6 summative tests (Unit 4 + Unit 5 tests are the format model). Content comes from Strang §6.1–6.4.
 2. *(optional)* Rebuild the whole Unit 1–5 packets (`make -C unitXX student|full`, or `make student|full`
    at the root) to confirm the `sample_test`/`sample_test_key` drop-ins merge in as expected.
 

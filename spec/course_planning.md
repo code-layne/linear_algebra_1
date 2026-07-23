@@ -7,7 +7,30 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-23 — **Authored & built the Unit 4 summative tests — Unit 4 is now complete.**
+**Last updated:** 2026-07-23 — **Scaffolded all of Unit 5 (Determinants and Linear Transformations) — skeletons only, not yet authored.**
+Confirmed the Unit 5 lesson map with the user and ran `new_lesson.py` for four lessons, each with the full component set
+(`cover, warmup, notes, activity, exit_ticket, homework, slides` + the five keys). The first run created the unit and
+auto-scaffolded its summative tests (`tests/practice_test`, `tests/actual_test`, `test_keys/practice_test_key`,
+`test_keys/actual_test_key`, `sample_test/`, `sample_test_key/` + thin-include Makefiles). **Confirmed Unit 5 lesson map:**
+
+| Lesson | Section (topic) |
+| --- | --- |
+| 5.0 (lesson00) | Setting Up Determinants --- the 2 by 2 Determinant, Area, and Orientation (on-ramp, mirrors 4.0/2.0) |
+| 5.1 (lesson01) | 3 by 3 Determinants (Strang §5.1) |
+| 5.2 (lesson02) | Properties and Applications of Determinants (Strang §5.2) |
+| 5.3 (lesson03) | Linear Transformations (Strang §5.3) |
+
+Strang's §5.1 opens directly on 3×3 determinants assuming 2×2; **Lesson 5.0 supplies the geometric on-ramp** (signed area,
+$ad-bc$, orientation) so 5.1 has a concrete base — the same pattern as prior units' `lesson00`. **Sanity-built the skeletons:**
+`make -C unit05/lesson00 all` → clean (lesson plan 1pp; merged `lesson00_student.pdf` 6pp, `lesson00_full.pdf` 9pp; warmup &
+exit_ticket 1pp blank & key ✓); `make -C unit05/tests all` and `make -C unit05/test_keys all` → clean (practice/actual test +
+both keys compile). **Nothing is authored yet — every `main.tex` is still the scaffolder skeleton.** **Next run: author Unit 5
+Lesson 5.0** (all components + keys + slides), sourcing the math from Strang §5.1's 2×2 preliminaries; make 5.0 the Unit 5 model,
+proofread it, then scale out to 5.1–5.3 and finally the Unit 5 summative tests. Lesson 4.0 remains the cross-unit style model.
+
+---
+
+**Prior run:** **Authored & built the Unit 4 summative tests — Unit 4 is now complete.**
 Filled all four skeletons (`tests/practice_test`, `tests/actual_test`, `test_keys/practice_test_key`,
 `test_keys/actual_test_key`), mirroring the Unit 1–3 test format (`shared/tests.mk` + `test_keys.mk`;
 `\parthead` burgundy strips; Part A vocab matching / B multiple choice / C computation / D extended

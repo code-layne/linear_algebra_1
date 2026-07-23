@@ -3,17 +3,40 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.4}{Warm-Up}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Warm-Up. See references/components.md for the expected structure.
-\begin{notesbox}{Warm-Up}
-\writelines{4}
+\begin{notesbox}{Getting Ready: Skills We'll Use Today}
+\small These three ideas (Lessons 1.2, 4.0, 4.3) set up today's lesson. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Length and unit vectors.} For $\vv=(3,4)$:
+\[
+  \|\vv\|=\sqrt{\vv\cdot\vv}=\blank{1.6cm}\,. \qquad
+  \text{A unit vector in the same direction is } \frac{\vv}{\|\vv\|}=\blank{2.4cm}\,.
+\]
+
+\vspace{4pt}
+\textbf{2. The perpendicular test.} Are $\vv=(3,4)$ and $\ww=(4,-3)$ perpendicular? Compute the dot
+product and decide.
+\[
+  \vv\cdot\ww=\blank{2.0cm} \qquad\Longrightarrow\qquad \text{perpendicular?}\ \blank{2.0cm}
+\]
+
+\vspace{4pt}
+\textbf{3. Last lesson's normal equations.} To fit data we solved $A^{\T}A\hat{\xx}=A^{\T}\bb$. Fill in: if
+$A^{\T}A$ turned out to be the identity $I$, then $\hat{\xx}=\blank{2.4cm}$ --- and there is
+\blank{2.4cm} system left to solve.
 \end{notesbox}
 
 \end{document}

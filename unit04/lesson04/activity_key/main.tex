@@ -3,17 +3,86 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\qq}{\mathbf{q}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.4}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Perfect Axes: Orthonormal Vectors \& Gram--Schmidt.} Orthonormal vectors are perpendicular
+\emph{and} unit length. Stacked into $Q$ they give $Q^{\T}Q=I$, so coordinates and projections are just dot
+products --- $\hat{\xx}=Q^{\T}\bb$, nothing to solve. When vectors are not yet perpendicular,
+\textbf{Gram--Schmidt} subtracts off the overlap and normalizes. Show every dot product.
+\end{headlinebox}
+
+\vspace{0.08in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Test and normalize.} Consider $\vv=(1,2,2)$ and $\ww=(2,-2,1)$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=7pt]
+  \item Find the lengths $\|\vv\|=\ans{$3$}$ and $\|\ww\|=\ans{$3$}$. Are $\vv,\ww$ unit vectors?
+        \ans{no --- each has length $3$, not $1$}
+  \item Compute $\vv\cdot\ww=\ans{$0$}$. Are they perpendicular? \ans{yes ($2-4+2=0$)}
+  \item \textbf{Normalize} each to unit length: $q_1=\dfrac{\vv}{\|\vv\|}=\ans{$\tfrac13(1,2,2)$}$,\;
+        $q_2=\dfrac{\ww}{\|\ww\|}=\ans{$\tfrac13(2,-2,1)$}$. Is $\{q_1,q_2\}$ orthonormal now? \ans{yes}
+\end{enumerate}
+\vspace{-2pt}
+\ansline{$\|\vv\|=\sqrt{1+4+4}=3$, $\|\ww\|=\sqrt{4+4+1}=3$; $\vv\cdot\ww=0$ so they are already perpendicular; dividing each by $3$ makes them unit length, so $\{q_1,q_2\}$ is orthonormal.}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Coordinates for free.} Let $Q=\tfrac15\begin{bsmallmatrix} 3 & 4\\ 4 & -3 \end{bsmallmatrix}$, with
+columns $q_1=\tfrac15(3,4)$ and $q_2=\tfrac15(4,-3)$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Verify $Q^{\T}Q=I$ by computing the three dot products $q_1\!\cdot\!q_1$, $q_2\!\cdot\!q_2$,
+        $q_1\!\cdot\!q_2$.
+        \ansline{$q_1\!\cdot\!q_1=\tfrac{1}{25}(9{+}16)=1$; $q_2\!\cdot\!q_2=\tfrac{1}{25}(16{+}9)=1$; $q_1\!\cdot\!q_2=\tfrac{1}{25}(12{-}12)=0$. So $Q^{\T}Q=\begin{bsmallmatrix} 1&0\\0&1 \end{bsmallmatrix}=I$.}
+  \item Write $\bb=\begin{bsmallmatrix} 10\\ 5 \end{bsmallmatrix}$ in the orthonormal basis: find the weights
+        $q_1\!\cdot\!\bb$ and $q_2\!\cdot\!\bb$, then state $\bb=\underline{\ \ }\,q_1+\underline{\ \ }\,q_2$.
+        \ansline{$q_1\!\cdot\!\bb=\tfrac15(30{+}20)=10$, $q_2\!\cdot\!\bb=\tfrac15(40{-}15)=5$; so $\bb=10\,q_1+5\,q_2$. (Check: $(6,8)+(4,-3)=(10,5)$. \checkmark)}
+  \item Using $\hat{\xx}=Q^{\T}\bb$, what is $\hat{\xx}$? Explain in one sentence why no equation had to be
+        \emph{solved} (compare to last lesson's $A^{\T}A\hat{\xx}=A^{\T}\bb$).
+        \ansline{$\hat{\xx}=Q^{\T}\bb=(10,5)$ --- the same two weights. Because $Q^{\T}Q=I$, the normal equations read $I\hat{\xx}=Q^{\T}\bb$, i.e.\ $\hat{\xx}=Q^{\T}\bb$ directly; there is no matrix to invert and no system to solve.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Gram--Schmidt from scratch.} Start with the independent vectors $\avec_1=(4,3)$ and $\avec_2=(1,0)$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Normalize the first: $q_1=\avec_1/\|\avec_1\|=\ans{$\tfrac15(4,3)$}$.
+        \ansline{$\|\avec_1\|=\sqrt{16+9}=5$, so $q_1=\tfrac15(4,3)$.}
+  \item Subtract the overlap: compute $q_1\!\cdot\!\avec_2$, then $B=\avec_2-(q_1\!\cdot\!\avec_2)q_1$, and
+        normalize to get $q_2=B/\|B\|$.
+        \ansline{$q_1\!\cdot\!\avec_2=\tfrac45$; $B=(1,0)-\tfrac45\!\cdot\!\tfrac15(4,3)=(1,0)-\tfrac{4}{25}(4,3)=\left(\tfrac{9}{25},-\tfrac{12}{25}\right)$, with $\|B\|=\tfrac{15}{25}=\tfrac35$. So $q_2=B/\tfrac35=\tfrac15(3,-4)$.}
+  \item \textbf{Justify.} Show $q_1\!\cdot\!B=0$ using $q_1\!\cdot\!\avec_2-(q_1\!\cdot\!\avec_2)(q_1\!\cdot\!q_1)$,
+        and explain why this guarantees $q_2\perp q_1$ no matter what $\avec_2$ was.
+        \ansline{$q_1\!\cdot\!B=q_1\!\cdot\!\avec_2-(q_1\!\cdot\!\avec_2)(q_1\!\cdot\!q_1)=\tfrac45-\tfrac45(1)=0$. The subtraction removes exactly the part of $\avec_2$ pointing along $q_1$ (its projection), so the leftover $B$ has no $q_1$-component; since $q_2$ is just $B$ scaled to length $1$, $q_2\perp q_1$ automatically --- for \emph{any} starting $\avec_2$.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~R is pure Lesson~1.2 (lengths, the perpendicular test, normalizing) --- the vocabulary bricks of
+``orthonormal.'' Watch for groups who stop at ``perpendicular'' and forget to divide by the length. Tier~A
+is the payoff: $Q^{\T}Q=I$ makes coordinates and $\hat{\xx}$ pure dot products --- push them to \emph{name}
+the contrast with solving $A^{\T}A\hat{\xx}=A^{\T}\bb$. Tier~E is the full Gram--Schmidt loop with the
+justification that the subtraction forces perpendicularity; the numbers mirror the notes ($(4,3)$ instead of
+$(3,4)$) so you can compare. If a group finishes early, ask them to assemble $Q=\tfrac15\begin{bsmallmatrix}
+4&3\\3&-4 \end{bsmallmatrix}$ and confirm $Q^{\T}Q=I$.
+\end{teachernote}
 
 \end{document}

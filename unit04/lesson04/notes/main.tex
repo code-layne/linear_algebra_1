@@ -3,17 +3,136 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\qq}{\mathbf{q}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.4}{Guided Notes}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Guided Notes. See references/components.md for the expected structure.
-\begin{notesbox}{Guided Notes}
-\writelines{4}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item test whether vectors are \emph{orthonormal} (perpendicular and unit length) and form the matrix $Q$ with $Q^{\T}Q=I$;
+  \item find coordinates and projections with no solving --- each weight is a dot product, so $\hat{\xx}=Q^{\T}\bb$;
+  \item run \emph{Gram--Schmidt} to turn independent vectors into an orthonormal set, and say why it works.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.04in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\termblanklong{Orthonormal vectors}
+\termblanklong{Orthogonal matrix $Q$ ($Q^{\T}Q=I$)}
+\termblanklong{Gram--Schmidt process}
+\end{vocabbox}
+
+\begin{hookbox}
+Compare two coordinate grids: ordinary graph paper (square, perpendicular lines, unit spacing) and a
+skewed, stretched grid.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item On \emph{graph paper}, how do you find a point's coordinates? \writeline
+  \item On the \emph{skewed} grid, why is it more work? \writeline
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. Orthonormal Vectors}
+``Ortho'' means \emph{perpendicular}; ``normal'' means \emph{length one}. A set $q_1,q_2,\dots$ is
+\textbf{orthonormal} when
+\[
+  q_i\cdot q_j=\blank{1.0cm}\ \ (\text{for } i\ne j)\qquad\text{and}\qquad q_i\cdot q_i=\blank{1.0cm}.
+\]
+Take the perpendicular pair from Lesson~4.0: $(3,4)$ and $(4,-3)$. They \emph{are} perpendicular, but each
+has length $5$, so they are not yet orthonormal. \textbf{Normalize} --- divide each by its length:
+\[
+  q_1=\tfrac15\begin{bsmallmatrix} 3\\ 4 \end{bsmallmatrix},\qquad
+  q_2=\tfrac15\begin{bsmallmatrix} 4\\ -3 \end{bsmallmatrix}.
+\]
+Now $q_1\cdot q_1=\tfrac{1}{25}(9{+}16)=1$, $q_2\cdot q_2=1$, and $q_1\cdot q_2=\tfrac{1}{25}(12{-}12)=0$.
+Perpendicular \emph{and} unit length --- perfect ``graph-paper'' axes.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0, >=stealth]
+  \draw[->, charcoal] (-0.4,0)--(2.6,0) node[right, font=\scriptsize]{};
+  \draw[->, charcoal] (0,-1.9)--(0,2.4) node[above, font=\scriptsize]{};
+  % q1 direction (0.6,0.8) scaled 2.4 -> (1.44,1.92); q2 dir (0.8,-0.6) scaled 2.4 -> (1.92,-1.44)
+  \draw[burgundy, very thick, ->] (0,0)--(1.44,1.92) node[above right, font=\scriptsize]{$q_1=\tfrac15(3,4)$};
+  \draw[royalblue, very thick, ->] (0,0)--(1.92,-1.44) node[below right, font=\scriptsize]{$q_2=\tfrac15(4,-3)$};
+  % right-angle square: A=0.35*q1dir=(0.21,0.28), B=0.35*q2dir=(0.28,-0.21), corner=A+B=(0.49,0.07)
+  \draw[charcoal, thin] (0.21,0.28)--(0.49,0.07)--(0.28,-0.21);
+  \node[charcoal, font=\scriptsize] at (2.15,0.55) {both length $1$};
+\end{tikzpicture}
+\end{center}
 \end{notesbox}
+
+\begin{notesbox}{2. The Matrix $Q$, and Coordinates for Free}
+Stack the orthonormal vectors as the columns of a matrix $Q=\begin{bsmallmatrix} q_1 & q_2 \end{bsmallmatrix}
+=\tfrac15\begin{bsmallmatrix} 3 & 4\\ 4 & -3 \end{bsmallmatrix}$. Row $i$ of $Q^{\T}$ dotted with column $j$
+of $Q$ is exactly $q_i\cdot q_j$, so
+\[
+  Q^{\T}Q=\begin{bsmallmatrix} q_1\cdot q_1 & q_1\cdot q_2\\ q_2\cdot q_1 & q_2\cdot q_2 \end{bsmallmatrix}
+  =\begin{bsmallmatrix} \blank{0.5cm} & \blank{0.5cm}\\ \blank{0.5cm} & \blank{0.5cm} \end{bsmallmatrix}=I.
+\]
+When $Q$ is square, $Q^{\T}Q=I$ says $Q^{\T}=Q^{-1}$: \emph{the inverse is free.} And because the axes are
+orthonormal, the coordinates of any $\bb$ are just dot products:
+\[
+  \bb=(q_1\cdot\bb)\,q_1+(q_2\cdot\bb)\,q_2.
+\]
+\textbf{Try $\bb=(5,0)$:} $q_1\cdot\bb=\tfrac15(15)=\blank{0.8cm}$ and $q_2\cdot\bb=\tfrac15(20)=\blank{0.8cm}$,
+so $\bb=3\,q_1+4\,q_2$. No system to solve --- read the coordinates straight off the dot products.
+\end{notesbox}
+
+\begin{notesbox}{3. Least Squares Becomes Trivial}
+Last lesson we projected by solving the normal equations $A^{\T}A\hat{\xx}=A^{\T}\bb$. If the columns of $A$
+are orthonormal --- call the matrix $Q$ --- then $A^{\T}A=Q^{\T}Q=I$, and the normal equations collapse:
+\[
+  \boxed{\,\hat{\xx}=Q^{\T}\bb\,}\qquad\text{and}\qquad \pp=Q\hat{\xx}=QQ^{\T}\bb.
+\]
+Each entry of $\hat{\xx}$ is one dot product $q_i\cdot\bb$ --- \emph{there is nothing to invert.} This is why
+orthonormal columns are so valuable: projection, least squares, and finding coordinates all become a handful
+of dot products.
+\end{notesbox}
+
+\begin{notesbox}{4. Gram--Schmidt --- Building Orthonormal Columns}
+What if our vectors are independent but \emph{not} perpendicular? \textbf{Gram--Schmidt} fixes that. Start
+with independent $\avec_1=(3,4)$ and $\avec_2=(1,0)$.
+\begin{itemize}\setlength{\itemsep}{3pt}
+  \item \textbf{Step 1 --- normalize the first:} $q_1=\dfrac{\avec_1}{\|\avec_1\|}=\tfrac15(3,4)$.
+  \item \textbf{Step 2 --- subtract the overlap of $\avec_2$ with $q_1$:}
+  \[
+    B=\avec_2-(q_1\cdot\avec_2)\,q_1
+     =\begin{bsmallmatrix} 1\\ 0 \end{bsmallmatrix}-\tfrac35\!\cdot\!\tfrac15\begin{bsmallmatrix} 3\\ 4 \end{bsmallmatrix}
+     =\begin{bsmallmatrix} 16/25\\ -12/25 \end{bsmallmatrix},\qquad \|B\|=\tfrac{4}{5}.
+  \]
+  \item \textbf{Step 3 --- normalize the remainder:} $q_2=\dfrac{B}{\|B\|}=\tfrac15(4,-3)$.
+\end{itemize}
+\textbf{Why does the subtraction work?} Check $q_1\cdot B=q_1\cdot\avec_2-(q_1\cdot\avec_2)(q_1\cdot q_1)
+=\tfrac35-\tfrac35\cdot 1=\blank{0.8cm}$. We removed \emph{exactly} the part of $\avec_2$ pointing along
+$q_1$ (a projection!), so what is left is perpendicular. The result: $Q=\tfrac15\begin{bsmallmatrix} 3&4\\4&-3 \end{bsmallmatrix}$
+--- orthonormal columns, ready to use.
+\end{notesbox}
+
+\begin{practicebox}
+Show your work.
+\begin{enumerate}[leftmargin=1.6em, itemsep=6pt]
+  \item Is the pair $q_1=\tfrac13(2,2,1)$, $q_2=\tfrac13(2,-1,-2)$ orthonormal? Compute the three dot
+        products $q_1\cdot q_1$, $q_2\cdot q_2$, $q_1\cdot q_2$ and decide. \writeline
+  \item With $Q=\tfrac15\begin{bsmallmatrix} 3&4\\4&-3 \end{bsmallmatrix}$, write $\bb=(10,5)$ in the
+        orthonormal basis using dot products (find the two weights). \writeline
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

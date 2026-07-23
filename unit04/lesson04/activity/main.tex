@@ -3,17 +3,69 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\qq}{\mathbf{q}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 4, Lesson 4.4}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Perfect Axes: Orthonormal Vectors \& Gram--Schmidt.} Orthonormal vectors are perpendicular
+\emph{and} unit length. Stacked into $Q$ they give $Q^{\T}Q=I$, so coordinates and projections are just dot
+products --- $\hat{\xx}=Q^{\T}\bb$, nothing to solve. When vectors are not yet perpendicular,
+\textbf{Gram--Schmidt} subtracts off the overlap and normalizes. Show every dot product.
+\end{headlinebox}
+
+\vspace{0.08in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Test and normalize.} Consider $\vv=(1,2,2)$ and $\ww=(2,-2,1)$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=7pt]
+  \item Find the lengths $\|\vv\|=\blank{1.4cm}$ and $\|\ww\|=\blank{1.4cm}$. Are $\vv,\ww$ unit vectors?
+        \blank{2.2cm}
+  \item Compute $\vv\cdot\ww=\blank{1.4cm}$. Are they perpendicular? \blank{2.2cm}
+  \item \textbf{Normalize} each to unit length: $q_1=\dfrac{\vv}{\|\vv\|}=\blank{2.2cm}$,\;
+        $q_2=\dfrac{\ww}{\|\ww\|}=\blank{2.2cm}$. Is $\{q_1,q_2\}$ orthonormal now? \blank{2.0cm}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Coordinates for free.} Let $Q=\tfrac15\begin{bsmallmatrix} 3 & 4\\ 4 & -3 \end{bsmallmatrix}$, with
+columns $q_1=\tfrac15(3,4)$ and $q_2=\tfrac15(4,-3)$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Verify $Q^{\T}Q=I$ by computing the three dot products $q_1\!\cdot\!q_1$, $q_2\!\cdot\!q_2$,
+        $q_1\!\cdot\!q_2$. \writelines{2}
+  \item Write $\bb=\begin{bsmallmatrix} 10\\ 5 \end{bsmallmatrix}$ in the orthonormal basis: find the weights
+        $q_1\!\cdot\!\bb$ and $q_2\!\cdot\!\bb$, then state $\bb=\underline{\ \ }\,q_1+\underline{\ \ }\,q_2$.
+        \writelines{2}
+  \item Using $\hat{\xx}=Q^{\T}\bb$, what is $\hat{\xx}$? Explain in one sentence why no equation had to be
+        \emph{solved} (compare to last lesson's $A^{\T}A\hat{\xx}=A^{\T}\bb$). \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Gram--Schmidt from scratch.} Start with the independent vectors $\avec_1=(4,3)$ and $\avec_2=(1,0)$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Normalize the first: $q_1=\avec_1/\|\avec_1\|=\blank{2.2cm}$. \writeline
+  \item Subtract the overlap: compute $q_1\!\cdot\!\avec_2$, then $B=\avec_2-(q_1\!\cdot\!\avec_2)q_1$, and
+        normalize to get $q_2=B/\|B\|$. \writelines{2}
+  \item \textbf{Justify.} Show $q_1\!\cdot\!B=0$ using $q_1\!\cdot\!\avec_2-(q_1\!\cdot\!\avec_2)(q_1\!\cdot\!q_1)$,
+        and explain why this guarantees $q_2\perp q_1$ no matter what $\avec_2$ was. \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

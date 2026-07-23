@@ -5,6 +5,15 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\qq}{\mathbf{q}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 \newcommand{\UnitNumberName}{Unit 4: Orthogonality \quad}
 \newcommand{\LessonNumberName}{Lesson 4.4: Orthogonal Matrices and Gram--Schmidt}
 
@@ -16,55 +25,142 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can recognize \textbf{orthonormal} vectors (perpendicular
+    \emph{and} unit length) and the \textbf{orthogonal matrix} $Q$ whose columns they are, and explain
+    why $Q^{\T}Q=I$. They can use that to find coordinates and projections with \emph{no} solving --- each
+    weight is a single dot product $q_i\cdot\bb$, so the normal equations collapse to $\hat{\xx}=Q^{\T}\bb$.
+    They can run \textbf{Gram--Schmidt} to turn independent vectors into an orthonormal set, and justify
+    \emph{why} the subtraction step makes each new vector perpendicular to the ones before it.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Test whether vectors are \textbf{orthonormal}: mutually perpendicular and unit length.
+  \item Build $Q$ from orthonormal columns and check $Q^{\T}Q=I$ (so $Q^{-1}=Q^{\T}$ when square).
+  \item Find coordinates/projections by dot products: $\hat{\xx}=Q^{\T}\bb$, no matrix to invert.
+  \item Run \textbf{Gram--Schmidt} to make an orthonormal set from independent vectors.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Orthonormal $=$ perfect ``graph-paper'' axes: perpendicular \emph{and} scaled to length $1$.
+  \item $Q^{\T}Q=I$ because column $i\cdot$ column $j$ is $1$ if $i=j$ and $0$ otherwise.
+  \item With $A^{\T}A=I$, the Lesson~4.3 normal equations become trivial --- projection is free.
+  \item Gram--Schmidt \emph{subtracts off} the overlap, leaving a perpendicular remainder to normalize.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Orthonormal vectors} & vectors that are mutually perpendicular ($q_i\cdot q_j=0$, $i\ne j$) and each of unit length ($q_i\cdot q_i=1$). \\
+\textbf{Orthogonal matrix $Q$} & a matrix with orthonormal columns; then $Q^{\T}Q=I$, and if $Q$ is square, $Q^{\T}=Q^{-1}$. \\
+\textbf{Coordinates by dot product} & in an orthonormal basis, $\bb=\sum(q_i\cdot\bb)\,q_i$ --- each weight is just $q_i\cdot\bb$. \\
+\textbf{Gram--Schmidt} & a process turning independent $\avec_1,\avec_2,\dots$ into orthonormal $q_1,q_2,\dots$ by subtracting overlaps, then normalizing. \\
+\textbf{$A=QR$} & factor a matrix into orthonormal columns $Q$ times an upper-triangular $R=Q^{\T}A$. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three skills this lesson rests on:
+    \textbf{(1)} the \emph{length} of a vector $\|\vv\|=\sqrt{\vv\cdot\vv}$ and how to \emph{normalize} to a
+    unit vector (Lesson~1.2); \textbf{(2)} the perpendicular test $\vv\cdot\ww=0$ (Lessons~1.2, 4.0); and
+    \textbf{(3)} last lesson's normal equations $A^{\T}A\hat{\xx}=A^{\T}\bb$. Debrief item~3 aloud, then
+    pose the question that opens today: \emph{what if $A^{\T}A$ were just $I$?}
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Put two coordinate grids side by side: ordinary graph paper (square, perpendicular, unit spacing) and a
+    \emph{skewed, stretched} grid. Ask: \textbf{``On graph paper, how do you find a point's coordinates?''}
+    You just read across and up --- no work. On the skewed grid you would have to \emph{solve} for the
+    weights. Name the payoff: \textbf{orthonormal} vectors are ``perfect graph paper'' --- perpendicular
+    \emph{and} length~$1$ --- so coordinates come from a single dot product each. Then connect to Lesson~4.3:
+    \textbf{``Fitting a line, we had to solve $A^{\T}A\hat{\xx}=A^{\T}\bb$. If the columns of $A$ were
+    perpendicular unit vectors, $A^{\T}A=I$ and there is nothing to solve --- can we always build such
+    columns?''} That is Gram--Schmidt.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. Orthonormal vectors.} ``Ortho'' $=$ perpendicular, ``normal'' $=$ length $1$. Vectors
+$q_1,q_2,\dots$ are \textbf{orthonormal} when $q_i\cdot q_j=0$ for $i\ne j$ and $q_i\cdot q_i=1$.
+\textbf{Ask:} take the Lesson~4.0 pair $(3,4)\perp(4,-3)$ --- are they orthonormal? Perpendicular yes, but
+each has length $5$. \emph{Normalize:} divide by $5$ to get $q_1=\tfrac15(3,4)$, $q_2=\tfrac15(4,-3)$.
+
+\textbf{2. The matrix $Q$ and $Q^{\T}Q=I$.} Stack orthonormal columns into $Q$. Then row $i$ of $Q^{\T}$
+dotted with column $j$ of $Q$ is exactly $q_i\cdot q_j$ --- so $Q^{\T}Q=I$. \textbf{Ask:} what is $Q^{\T}Q$
+for our $Q=\tfrac15\begin{bsmallmatrix}3&4\\4&-3\end{bsmallmatrix}$? The identity. If $Q$ is square, this
+says $Q^{\T}=Q^{-1}$: the inverse is free.
+
+\textbf{3. Coordinates for free.} To write $\bb$ in an orthonormal basis, each weight is a dot product:
+$\bb=(q_1\cdot\bb)q_1+(q_2\cdot\bb)q_2$. \textbf{Ask:} write $\bb=(5,0)$ in our basis --- $q_1\cdot\bb=3$,
+$q_2\cdot\bb=4$, so $\bb=3q_1+4q_2$. \emph{No system to solve.}
+
+\columnbreak
+
+\textbf{4. Least squares becomes trivial.} Last lesson we solved $A^{\T}A\hat{\xx}=A^{\T}\bb$. If $A=Q$ has
+orthonormal columns, $A^{\T}A=Q^{\T}Q=I$, so
+\[
+  \hat{\xx}=Q^{\T}\bb,\qquad \pp=Q\hat{\xx}=QQ^{\T}\bb.
+\]
+Each coordinate of $\hat{\xx}$ is one dot product --- the projection is immediate.
+
+\textbf{5. Gram--Schmidt: build orthonormal columns.} Given independent $\avec_1,\avec_2$: normalize the
+first, $q_1=\avec_1/\|\avec_1\|$. Then \emph{subtract off the overlap} of $\avec_2$ with $q_1$:
+$B=\avec_2-(q_1\cdot\avec_2)q_1$; what is left is perpendicular to $q_1$, so normalize it,
+$q_2=B/\|B\|$. \textbf{Ask why the subtraction works:} $q_1\cdot B=q_1\cdot\avec_2-(q_1\cdot\avec_2)(1)=0$
+--- we removed exactly the parallel part (a projection!). \textbf{Punchline:} $A=QR$, where $R=Q^{\T}A$ is
+upper triangular --- Gram--Schmidt is elimination for orthogonality.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item forgetting to \emph{normalize} --- perpendicular is only half of orthonormal; length must be $1$;
+  \item confusing $q_i\cdot q_j=0$ (different vectors) with $q_i\cdot q_i=1$ (same vector);
+  \item in Gram--Schmidt, forgetting to subtract the overlap (leaving $q_2$ not perpendicular), or normalizing $B$ with the wrong length.
+\end{itemize}
+Cold-call prompts: ``What two things make a set orthonormal?'' ``Why is $Q^{\T}Q=I$?'' ``How do you find a
+coordinate without solving?'' ``What does the Gram--Schmidt subtraction remove, and why is the leftover
+perpendicular?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Perfect Axes: Orthonormal Vectors \& Gram--Schmidt} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Test a given pair for orthonormality (three dot products) and normalize a
+single vector to length $1$.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Verify $Q^{\T}Q=I$, then use dot products to write a target $\bb$ in the
+orthonormal basis (coordinates for free).
+
+\columnbreak
+\textbf{Tier E --- Extension.} Run full Gram--Schmidt on two independent vectors, form $Q$, and
+\emph{justify} why the subtraction step forces perpendicularity.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): test a $3$D pair for orthonormality; normalize a vector as
+the first Gram--Schmidt step; and a \textbf{conceptual/justification check} --- state $Q^{\T}Q$ and explain
+why that makes the least-squares answer $\hat{\xx}=Q^{\T}\bb$ with no solving. Sort responses into
+``checks both perpendicular \emph{and} unit / only checks perpendicular / cannot connect $Q^{\T}Q=I$ to the
+free projection'' to gauge readiness for the Unit~4 test.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} normalize and test orthonormality; write a vector in an orthonormal basis by dot
+products; run Gram--Schmidt on two vectors and form $Q$; explain why $Q^{\T}Q=I$ makes projection free.
+\textbf{Extension:} build $R=Q^{\T}A$ and verify $A=QR$ with $R$ upper triangular. \textbf{Preview:} this
+closes Unit~4 (Orthogonality) --- next comes the \emph{Unit~4 test}, then Unit~5, \emph{Determinants and
+Linear Transformations}.
 \end{skillbox}
 \end{document}

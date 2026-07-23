@@ -2,6 +2,9 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\T}{^{\mathsf T}}
 
 % Part-divider strip
 \newcommand{\parthead}[1]{%
@@ -12,20 +15,140 @@
 \begin{document}
 
 \pageheader{Unit 5: Determinants and Linear Transformations}{Unit Test --- Answer Key}
+\namedateperiod
 
-% Mirror the blank test EXACTLY, filling each answer with \ans{...} (inline) or
-% \ansline{...} (on a write-line). Use teachernote for scoring/teacher guidance.
+\vspace{0.06in}
+\noindent\textbf{Instructions:} Show all work. No notes unless your teacher says so.
+
 % ======================================================================
-\parthead{Part A --- Vocabulary}
-% TODO: answers via \ans{...}
+\parthead{Part A --- Vocabulary (8 pts)}
+Write the letter of the best description next to each term.
 
-\parthead{Part B --- Multiple Choice}
-% TODO: mark correct options, e.g. \textcolor{keyred}{\textbf{$\leftarrow$ correct}}
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=7pt, label=\arabic*.]
+  \item Cofactor expansion \ans{A}
+  \item Singular matrix \ans{B}
+  \item Determinant \ans{C}
+  \item Product rule \ans{D}
+  \item Minor \ans{E}
+  \item Area/volume factor \ans{F}
+  \item Linear transformation \ans{G}
+  \item Orientation \ans{H}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.57\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=3pt]
+  \item[(A)] Computing a determinant along one row: each entry times its signed minor, with the pattern $+\,-\,+\,\dots$
+  \item[(B)] A matrix with $\det=0$: its columns are dependent, it collapses space, and it has no inverse.
+  \item[(C)] A number computed from a square matrix; its absolute value is the area (or volume) of the box built from the columns.
+  \item[(D)] The rule $\det(AB)=\det A\,\det B$: composing transformations multiplies their scaling factors.
+  \item[(E)] The smaller determinant left after crossing out one entry's row and column.
+  \item[(F)] The quantity $|\det A|$, the number every area (or volume) is multiplied by under the transformation $A$.
+  \item[(G)] A map $\xx\mapsto A\xx$ that fixes the origin and sends grid lines to straight, evenly spaced lines.
+  \item[(H)] Whether a transformation keeps or flips the handedness of space --- kept when $\det>0$, flipped when $\det<0$.
+\end{description}
+\end{minipage}
 
-\parthead{Part C --- Short Answer \& Computation}
-% TODO: worked answers via \ans{...}
+% ======================================================================
+\parthead{Part B --- Multiple Choice (12 pts)}
+Circle the best answer.
 
-\parthead{Part D --- Extended Response}
-% TODO: sample response + scoring notes in a teachernote.
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item If $\det A<0$, the transformation $\xx\mapsto A\xx$
+    \hfill (A) collapses space \quad \textbf{(B) reverses orientation (flips)} \ans{$\leftarrow$} \quad (C) preserves orientation \quad (D) is the identity
+  \item Scaling one row of a matrix by $5$ multiplies the determinant by
+    \hfill (A) $1$ \quad \textbf{(B) $5$} \ans{$\leftarrow$} \quad (C) $25$ \quad (D) $0$
+  \item Compared with $\det A$, the determinant $\det(A\T)$ is
+    \hfill \textbf{(A) equal} \ans{$\leftarrow$} \quad (B) the opposite sign \quad (C) the reciprocal \quad (D) zero
+  \item The columns of a square matrix $A$ are linearly dependent exactly when
+    \hfill (A) $\det A=1$ \quad \textbf{(B) $\det A=0$} \ans{$\leftarrow$} \quad (C) $\det A>0$ \quad (D) $\det A<0$
+  \item For an invertible matrix $A$, the determinant $\det(A^{-1})$ equals
+    \hfill (A) $\det A$ \quad (B) $-\det A$ \quad \textbf{(C) $1/\det A$} \ans{$\leftarrow$} \quad (D) $0$
+  \item A shear such as $\begin{bsmallmatrix}1&1\\0&1\end{bsmallmatrix}$ has determinant
+    \hfill (A) $0$ \quad \textbf{(B) $1$} \ans{$\leftarrow$} \quad (C) $2$ \quad (D) $-1$
+\end{enumerate}
+
+\begin{teachernote}
+Item 1: $\det<0$ flips orientation (a reflection is hidden inside $A$). Item 2: scaling one row by $t$
+scales $\det$ by $t$ (here $5$); scaling \emph{all} $n$ rows would give $t^n$. Item 3: $\det(A\T)=\det A$.
+Item 4: dependent columns $\Leftrightarrow$ flat box $\Leftrightarrow\det=0$. Item 5:
+$\det(A^{-1})=1/\det A$ (from $\det A\cdot\det A^{-1}=\det I=1$). Item 6: a shear has $\det=1$ --- it moves
+space without changing area.
+\end{teachernote}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (35 pts)}
+Show your work.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
+  \item Determinant of $A=\begin{bsmallmatrix}2&4\\1&1\end{bsmallmatrix}$; area and orientation.
+        \ans{$\det A=(2)(1)-(4)(1)=2-4=-2$. The parallelogram area is $|\det A|=2$. Since $\det A<0$, $A$
+        \textbf{reverses} orientation (it flips the plane).}
+  \item Determinant of $B=\begin{bsmallmatrix}2&1&0\\1&2&1\\0&1&2\end{bsmallmatrix}$ by cofactor expansion.
+        \ans{Across the top row (signs $+\,-\,+$):
+        $\det B=2\cdot\det\begin{bsmallmatrix}2&1\\1&2\end{bsmallmatrix}-1\cdot\det\begin{bsmallmatrix}1&1\\0&2\end{bsmallmatrix}+0
+        =2(4-1)-1(2-0)+0=6-2=4.$}
+  \item Determinant of $C=\begin{bsmallmatrix}1&2&0\\2&5&1\\0&3&5\end{bsmallmatrix}$ by elimination, then pivots.
+        \ans{$R_2-2R_1$: $\begin{bsmallmatrix}1&2&0\\0&1&1\\0&3&5\end{bsmallmatrix}$; then $R_3-3R_2$:
+        $\begin{bsmallmatrix}1&2&0\\0&1&1\\0&0&2\end{bsmallmatrix}$. Shears don't change $\det$, so
+        $\det C=$ product of pivots $=1\cdot1\cdot2=2$.}
+  \item $\det A=8$ ($3\times3$): effect of each row operation.
+        \ans{\textbf{(a)} Swap two rows $\Rightarrow$ sign flips: $\det=-8$. \textbf{(b)} Scale a row by $2$
+        $\Rightarrow$ $\det$ scales by $2$: $\det=16$. \textbf{(c)} Add $3R_2$ to $R_1$ (a shear) $\Rightarrow$
+        \emph{unchanged}: $\det=8$. \textbf{(d)} $\det(2A)=2^{3}\det A=8\cdot8=64$ (every one of the $3$ rows is
+        scaled by $2$).}
+  \item $\det A=6$, $\det B=2$ ($3\times3$).
+        \ans{\textbf{(a)} $\det(AB)=\det A\,\det B=6\cdot2=12$. \textbf{(b)} $\det(A^{-1})=\dfrac{1}{\det A}=\dfrac16$.
+        \textbf{(c)} $\det(A\T)=\det A=6$. \textbf{(d)} $\det(A^2)=(\det A)^2=36$.}
+  \item Transformation $A=\begin{bsmallmatrix}4&1\\0&2\end{bsmallmatrix}$.
+        \ans{$\det A=(4)(2)-(1)(0)=8$. \textbf{(a)} Unit square $\to$ parallelogram of area $|\det A|=8$.
+        \textbf{(b)} Every area is multiplied by $8$, so the triangle's image has area $3\cdot8=24$.
+        \textbf{(c)} $\det A=8>0$, so orientation is \textbf{preserved} (no flip).}
+  \item $M=\begin{bsmallmatrix}3&1\\6&2\end{bsmallmatrix}$.
+        \ans{\textbf{(a)} $\det M=(3)(2)-(1)(6)=6-6=0$. \textbf{(b)} No --- $\det M=0$ means $M$ is
+        \textbf{singular}, so it has no inverse. \textbf{(c)} The columns $\begin{bsmallmatrix}3\\6\end{bsmallmatrix}$
+        and $\begin{bsmallmatrix}1\\2\end{bsmallmatrix}$ are parallel (the first is three times the second), so the
+        unit square \textbf{collapses onto a single line} through the origin --- a flat region of area $0$. That is
+        why the area factor is $0$ and the map can't be undone.}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (10 pts)}
+Explain your reasoning in full sentences.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item Elimination step on $M=\begin{bsmallmatrix}1&2\\2&5\end{bsmallmatrix}$.
+        \ans{\textbf{(a)} The step $R_2\to R_2-2R_1$ turns $M$ into $\begin{bsmallmatrix}1&2\\0&1\end{bsmallmatrix}$,
+        whose determinant is $1\cdot1-2\cdot0=1$ --- the same as $\det M=1\cdot5-2\cdot2=1$. This is guaranteed:
+        adding a multiple of one row to another is a \emph{shear}, and a founding rule of determinants is that a
+        shear leaves $\det$ unchanged. (It is the same elimination step from Unit~2, which is why reducing to
+        triangular form and reading the pivots gives the right determinant.) \textbf{(b)} The two rows build a
+        parallelogram. Sliding one row by a multiple of the other moves the far side parallel to the base: the
+        \emph{base} keeps the same length and the \emph{height} above it is unchanged, so the area
+        $=\text{base}\times\text{height}$ is the same. Same area means the same $|\det|$, so $\det$ does not
+        change.}
+  \item Area factor and $\det=0$.
+        \ans{\textbf{(a)} The transformation sends $\ee_1,\ee_2$ to the columns $A\ee_1,A\ee_2$, and the unit
+        square (spanned by $\ee_1,\ee_2$) therefore maps to the parallelogram spanned by those two columns.
+        By the meaning of the determinant, that parallelogram has area $|\det A|$. Any region can be built
+        from many tiny squares, and each one is scaled by the same factor $|\det A|$, so \emph{every} area is
+        multiplied by $|\det A|$ --- that is why it is called the area factor. \textbf{(b)} If $\det A=0$, the
+        image parallelogram has area $0$: the two columns are parallel, so the unit square is squashed flat
+        onto a single line. The transformation collapses the whole plane onto a line, throwing away a
+        dimension, and there is no way to un-squash a line back into a plane. So $A$ has no inverse --- it is
+        singular.}
+\end{enumerate}
+
+\begin{teachernote}
+\textbf{Scoring Part D (5 pts each).} D1: 3 pts (a) the step is a shear $\Rightarrow$ $\det$ unchanged
+(verify $\det=1$ before and after); 2 pts (b) parallelogram picture --- same base, same height $\Rightarrow$
+same area. D2: 3 pts (a) unit square $\to$ column parallelogram of area $|\det A|$, and tiling makes it the
+factor for every area; 2 pts (b) $\det=0\Rightarrow$ columns parallel $\Rightarrow$ square collapses to a line
+(area $0$) $\Rightarrow$ dimension lost $\Rightarrow$ not invertible. Accept equivalent wording throughout.
+\end{teachernote}
 
 \end{document}

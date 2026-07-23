@@ -7,7 +7,30 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-23 — **Authored & built Unit 5 Lesson 5.1 — "3 by 3 Determinants" (Strang §5.1).**
+**Last updated:** 2026-07-23 — **Authored & built Unit 5 Lesson 5.2 — "Properties and Applications of Determinants" (Strang §5.2).**
+Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides deck,
+mirroring Lesson 5.1's preamble/boxes/tone. **Content — the rules determinants obey, read as facts about volume, so you stop
+expanding:** (1) **three founding rules** — $\det I=1$ (unit cube, vol 1); a **swap** of two rows/cols **negates** $\det$ (reflection);
+**scaling** a row by $t$ scales $\det$ by $t$ (stretch an edge); equal rows ⇒ flat ⇒ $\det=0$; (2) **the key property — shear
+invariance:** adding a multiple of one row to another leaves $\det$ **unchanged** (a shear slides the box, same base & height ⇒ same
+volume) = exactly the Unit 2 elimination step; 2×2 check $[2,1;1,3]=5$ stays 5 after a column shear; (3) **the fast way —
+$\det=\pm$(product of pivots):** reduce to triangular $U$ (shears free, one sign flip per swap) and multiply the pivots; worked
+$A=[1,2,0;2,5,1;0,1,3]\xrightarrow{R_2-2R_1,\,R_3-R_2}$ pivots $1,1,2\to\det 2$ (no cofactors); (4) **product rule**
+$\det(AB)=\det A\det B$ (compose maps ⇒ multiply volume factors; worked $5\cdot6=30$), consequences $\det A^{-1}=1/\det A$,
+$\det A=0\Leftrightarrow$ singular, $\det A^{\T}=\det A$. **Applications:** Cramer's rule (Tier E/HW ext — solve $2x-y=3,x+3y=5\to(2,1)$
+and $x+2y=4,3x+y=7\to(2,1)$ via determinant ratios) + transpose-rule checks. **Hook:** cofactors are real work — is there a faster
+way? You already own elimination; does it change $\det$? **Warmup is the lesson in miniature:** one matrix $M=[1,2;2,5]$ walked through
+compute-$\det$ (=1) → one elimination step → triangular $\det U$ (=1) → punchline $\det M=\det U$ (elimination didn't change it).
+**Custom before/after shear TikZ** (burgundy upright box → green sheared box, "same base, same height, area $=bh$") on notes §2 + slides
+hook. **Built `make -C unit05/lesson02 all` → clean** (0 `^!` errors across all 13 logs; no `\ans`-in-math; no overfull >15pt). Page
+counts: cover/warmup/exit 1pp (blank & key ✓ 1-page constraint), notes 3pp/3pp, activity 2pp/2pp, homework 2pp/2pp, slides 5pp,
+lesson plan 2pp; **student 10pp, full 17pp** (matches 5.1). Visually spot-checked notes_key p1/p2 (shear figure + pivot-product worked
+example — clean) and activity_key p1 (swap sign → $-8$, product rule → 24, inverses → 1/6, Cramer — all correct). All arithmetic
+hand-verified in pure Python (exact fractions; no numpy/sympy). **Gotcha (unchanged):** `\T`/`\xx`/`\avec`/`\bb` are per-file macros,
+not in shared styles — define every math macro the body uses (incl. the lesson-plan preamble). `\checkmark` is available (amssymb via
+`linalg-article`); BSD `awk` on macOS lacks GNU `match(...,arr)` — use `grep`/`perl` for the overfull scan.
+
+**Prior run:** **Authored & built Unit 5 Lesson 5.1 — "3 by 3 Determinants" (Strang §5.1).**
 Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides deck,
 mirroring Lesson 5.0's preamble/boxes/tone. **Content — the 5.0 idea one dimension up (area → volume):**
 (1) **from area to volume** — three columns span a *box* (parallelepiped) and $|\det A|$ is its **volume**; (2) **cofactor
@@ -36,13 +59,13 @@ overfull-hbox scan.
 | --- | --- | --- |
 | 5.0 (lesson00) | Setting Up Determinants --- the 2 by 2 Determinant, Area, and Orientation (on-ramp, mirrors 4.0/2.0) | **authored & built** |
 | 5.1 (lesson01) | 3 by 3 Determinants (Strang §5.1) | **authored & built** |
-| 5.2 (lesson02) | Properties and Applications of Determinants (Strang §5.2) | scaffold only |
+| 5.2 (lesson02) | Properties and Applications of Determinants (Strang §5.2) | **authored & built** |
 | 5.3 (lesson03) | Linear Transformations (Strang §5.3) | scaffold only |
 
 Unit 5 summative tests (`tests/`, `test_keys/`, `sample_test*/`) are scaffold-only (skeletons compile clean). **Next run: author
-Unit 5 Lesson 5.2** ("Properties and Applications of Determinants" — the rules determinants obey: row ops, swaps negate, product
-rule $\det AB=\det A\det B$, $\det A^{\T}=\det A$, and applications like Cramer/inverse-via-cofactors; source Strang §5.2), then 5.3,
-and finally the Unit 5 summative tests. Lessons 5.0/5.1 are now the Unit 5 models; Lesson 4.0 remains the cross-unit style model.
+Unit 5 Lesson 5.3** ("Linear Transformations" — the last Unit 5 lesson: a matrix *moves space*; $|\det A|$ is the factor every
+area/volume is scaled by and its sign reports orientation; source Strang §5.3), then author the **Unit 5 summative tests** (practice +
+actual + keys) to complete the unit. Lessons 5.0/5.1/5.2 are now the Unit 5 models; Lesson 4.0 remains the cross-unit style model.
 
 ---
 

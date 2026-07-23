@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 5}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 5 \quad Determinants and Linear Transformations}}\\[6pt]
   {\color{white}\textbf{\large Lesson 5.2 \quad Properties and Applications of Determinants}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} use the \textbf{rules} of determinants --- $\det I=1$, a \textbf{swap} negates, scaling a row by $t$ scales $\det$ by $t$, and \textbf{adding a multiple of one row to another changes nothing}.
+  \item \ldots{} compute a determinant the \textbf{fast} way: reduce to triangular and take $\det=\pm(\text{product of the pivots})$.
+  \item \ldots{} use the \textbf{product rule} $\det(AB)=\det A\,\det B$, so $\det A^{-1}=1/\det A$ and $\det A=0$ means \textbf{no inverse}.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,25 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral: a $2\times2$ determinant, one elimination step, a triangular determinant & \blank{1.2cm} \\
+2 & Guided Notes   & The founding rules; shear invariance; $\det=$ product of pivots; the product rule & \blank{1.2cm} \\
+3 & Group Activity & Rules, Pivots, and Products --- computing by elimination and using $\det(AB)$      & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check on determinant by pivots, the product rule, and a justification        & \blank{1.2cm} \\
+5 & Homework       & Determinants by elimination, the row rules, products, inverses, and Cramer's rule   & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small Expanding a $3\times3$ by hand is real work --- so instead we use the \textbf{rules}
+determinants obey. Each rule is really a fact about \emph{volume}: a \textbf{swap} reflects the box
+(sign flips), a \textbf{scale} stretches it, and a \textbf{shear} (adding a multiple of one row to
+another) slides it without changing base or height, so the volume --- and the determinant --- stay the
+same. Because a shear is just an elimination step, you can reduce any matrix to triangular and read
+$\det=\pm(\text{product of the pivots})$. And determinants \emph{multiply}: $\det(AB)=\det A\,\det B$.
+\end{remindbox}
 
 \end{document}

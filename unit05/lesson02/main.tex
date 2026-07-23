@@ -5,6 +5,10 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\T}{\mathsf{T}}
 \newcommand{\UnitNumberName}{Unit 5: Determinants and Linear Transformations \quad}
 \newcommand{\LessonNumberName}{Lesson 5.2: Properties and Applications of Determinants}
 
@@ -16,55 +20,141 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can use the \emph{properties} of determinants --- read
+    \emph{geometrically} as facts about volume --- instead of always expanding: (1) the three founding
+    rules ($\det I=1$; a \emph{swap} of two rows/columns \emph{negates} the determinant; scaling one
+    row/column by $t$ scales $\det$ by $t$); (2) the key property that \emph{adding a multiple of one
+    row to another} (a \emph{shear}) leaves $\det$ \emph{unchanged} --- so elimination barely touches
+    it. They can therefore compute a determinant the \emph{fast} way --- reduce to triangular $U$ and
+    take $\det A=\pm(\text{product of the pivots})$ --- and use the \emph{product rule}
+    $\det(AB)=\det A\,\det B$ and its consequences ($\det A^{-1}=1/\det A$, $\det A^{\T}=\det A$,
+    and $\det A=0\Leftrightarrow$ singular). They can say where Unit~5 goes next: \emph{linear
+    transformations} (5.3), where $|\det A|$ is the volume-scaling factor.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Know the founding rules: $\det I=1$; \textbf{swap} negates; scaling a row by $t$ scales $\det$ by $t$.
+  \item Use the key property: \textbf{adding a multiple of one row to another leaves $\det$ unchanged}.
+  \item Compute $\det$ the fast way: reduce to triangular, $\det=\pm(\text{product of the pivots})$.
+  \item Use $\det(AB)=\det A\,\det B$, so $\det A^{-1}=1/\det A$ and $\det A=0\Leftrightarrow$ singular.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Every rule is a fact about \emph{volume}: swap $=$ reflect, scale $=$ stretch, shear $=$ slide.
+  \item A \emph{shear} keeps base and height, so it keeps volume --- that is why elimination preserves $\det$.
+  \item Elimination already makes matrices triangular; the pivots hand you the determinant for free.
+  \item Composing maps multiplies volume factors --- so determinants multiply too.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Founding rules} & $\det I=1$; swapping two rows (or columns) reverses the sign; scaling a row by $t$ scales $\det$ by $t$. \\
+\textbf{Shear invariance} & Adding a multiple of one row to another does \emph{not} change $\det$ (the elimination step). \\
+\textbf{Product of pivots} & Reduce $A$ to triangular $U$ by elimination; $\det A=\pm(\text{product of the pivots})$, one sign flip per row swap. \\
+\textbf{Product rule} & $\det(AB)=\det A\,\det B$; hence $\det A^{-1}=1/\det A$ and $\det A^{\T}=\det A$. \\
+\textbf{Cramer's rule} (application) & Solve $A\xx=\bb$ with ratios of determinants: $x_i=\det(A_i)/\det A$. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three moves this lesson fuses into one shortcut, all on the same tiny
+    matrix $M=\begin{bsmallmatrix} 1 & 2\\ 2 & 5 \end{bsmallmatrix}$:
+    \textbf{(1)} compute a \emph{$2\times2$ determinant} ($\det M=1$, Lesson~5.0);
+    \textbf{(2)} take \emph{one elimination step} (Unit~2) to reach triangular $U=\begin{bsmallmatrix} 1 & 2\\ 0 & 1 \end{bsmallmatrix}$;
+    and \textbf{(3)} use the \emph{triangular shortcut} (Lesson~5.1) to get $\det U=1\cdot1=1$. Debrief the
+    punchline aloud: $\det M=\det U$ --- \emph{elimination did not change the determinant.} That single
+    observation is the engine of the whole lesson.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Open on the pain point students just felt: expanding a $3\times3$ by cofactors is \emph{three}
+    $2\times2$ determinants and a lot of bookkeeping. Ask: \textbf{``Is there a faster way?''} Point out
+    that they \emph{already} own a machine that turns any matrix triangular --- \textbf{elimination}
+    from Unit~2 --- and a triangular determinant is free (just multiply the diagonal, Lesson~5.1). The
+    only missing link: \textbf{does elimination change the determinant?} Send them to the Warm-Up to
+    find out on a $2\times2$; the answer (\emph{no}) is the key that unlocks ``$\det=$ product of the
+    pivots.'' Geometric punchline to hold up: an elimination step is a \textbf{shear} --- it slides the
+    box sideways but keeps its base and height, so the \emph{volume never changes}.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. The rules determinants live by.} Three founding facts, each a statement about the box's
+volume: $\det I=1$ (the unit cube has volume $1$); \emph{swapping} two rows/columns \textbf{negates}
+$\det$ (a mirror reflection --- same size, flipped orientation); scaling one row by $t$ scales $\det$
+by $t$ (stretch one edge, stretch the volume). A quick consequence: two \emph{equal} rows $\Rightarrow$
+$\det=0$ (a squashed, flat box).
+
+\textbf{2. The key property: shear invariance.} \emph{Adding a multiple of one row to another does not
+change $\det$.} Geometrically it is a \textbf{shear} --- slide the top of the box sideways; base and
+height are untouched, so volume is unchanged. This is \emph{exactly} the elimination step from Unit~2.
+Show it on $\begin{bsmallmatrix} 2 & 1\\ 1 & 3 \end{bsmallmatrix}$ (still $\det=5$ after a shear).
+
+\columnbreak
+
+\textbf{3. The fast way: $\det=\pm$(product of pivots).} Since shears don't change $\det$ and swaps
+only flip its sign, run elimination to triangular $U$ and \emph{multiply the pivots}. Worked:
+$\begin{bsmallmatrix} 1 & 2 & 0\\ 2 & 5 & 1\\ 0 & 1 & 3 \end{bsmallmatrix}\to$ pivots $1,1,2\to\det=2$
+--- no cofactors. (Count row swaps: each one flips the sign.)
+
+\textbf{4. The product rule \& applications.} $\det(AB)=\det A\,\det B$ (compose two maps $\Rightarrow$
+multiply the volume factors). Worked: $\det A=5$, $\det B=6\Rightarrow\det(AB)=30$. Consequences:
+$\det A^{-1}=1/\det A$, $\det A^{\T}=\det A$, and $\det A=0\Leftrightarrow$ \emph{singular}. \textbf{Road
+ahead:} \textbf{5.3} linear transformations, where $|\det A|$ is the volume-scaling factor.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item confusing the row rules --- a \emph{swap} negates and a \emph{scale} multiplies, but ``add a multiple of one row to another'' changes \emph{nothing};
+  \item forgetting the \emph{sign flip} per row swap when reading $\det$ off the pivots;
+  \item thinking $\det(A+B)=\det A+\det B$ (false) --- the product rule is about $AB$, not $A+B$.
+\end{itemize}
+Cold-call prompts: ``You added $2\times$row~1 to row~2 --- what happened to the determinant?'' ``How
+many swaps did you make, and what does that do to the sign?'' ``$\det A=5$ --- what is $\det A^{-1}$?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Rules, Pivots, and Products} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Compute a determinant by reducing to triangular (product of pivots);
+check that a shear leaves $\det$ unchanged; see that a repeated column forces $\det=0$.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Reduce with a \emph{swap} and track the sign; verify the product rule
+$\det(AB)=\det A\det B$; use $\det A^{-1}=1/\det A$ and $\det A=0\Rightarrow$ no inverse.
+
+\columnbreak
+\textbf{Tier E --- Extension.} \emph{An application:} \textbf{Cramer's rule} --- solve a $2\times2$
+system with ratios of determinants --- and confirm $\det A^{\T}=\det A$.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): compute a $3\times3$ determinant \emph{by elimination}
+(product of the pivots); use the \emph{product rule} to get $\det(AB)$ and $\det A^{-1}$ from
+$\det A,\det B$; and a \textbf{justification check} --- why does adding a multiple of one row to
+another leave the determinant unchanged? Collect and sort into ``got it / rule slip / sign slip'' to
+decide whether 5.3 opens with a quick properties re-warm.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} compute determinants by elimination (including one triangular and one with a
+dependent row $\Rightarrow0$); apply the row rules (swap, scale, shear); use the product rule and
+$\det A^{-1}=1/\det A$; and a short justification item. \textbf{Extension:} \emph{Cramer's rule} for a
+$2\times2$ system, plus a check that $\det A^{\T}=\det A$. \textbf{Preview:} Lesson~5.3, \emph{Linear
+Transformations} --- where $|\det A|$ is the factor every area/volume is multiplied by, and the sign
+tells you whether orientation was preserved or flipped.
 \end{skillbox}
 \end{document}

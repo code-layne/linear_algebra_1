@@ -2,6 +2,9 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\T}{^{\mathsf T}}
 
 % Part-divider strip
 \newcommand{\parthead}[1]{%
@@ -18,16 +21,105 @@
 \noindent\textbf{Instructions:} Show all work. No notes unless your teacher says so.
 
 % ======================================================================
-\parthead{Part A --- Vocabulary}
-% TODO: matching / fill-in vocabulary items for this unit.
+\parthead{Part A --- Vocabulary (8 pts)}
+Write the letter of the best description next to each term.
 
-\parthead{Part B --- Multiple Choice}
-% TODO: multiple-choice items (concept checks).
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=7pt, label=\arabic*.]
+  \item Cofactor expansion \blank{1.2cm}
+  \item Singular matrix \blank{1.2cm}
+  \item Determinant \blank{1.2cm}
+  \item Product rule \blank{1.2cm}
+  \item Minor \blank{1.2cm}
+  \item Area/volume factor \blank{1.2cm}
+  \item Linear transformation \blank{1.2cm}
+  \item Orientation \blank{1.2cm}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.57\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=3pt]
+  \item[(A)] Computing a determinant along one row: each entry times its signed minor, with the pattern $+\,-\,+\,\dots$
+  \item[(B)] A matrix with $\det=0$: its columns are dependent, it collapses space, and it has no inverse.
+  \item[(C)] A number computed from a square matrix; its absolute value is the area (or volume) of the box built from the columns.
+  \item[(D)] The rule $\det(AB)=\det A\,\det B$: composing transformations multiplies their scaling factors.
+  \item[(E)] The smaller determinant left after crossing out one entry's row and column.
+  \item[(F)] The quantity $|\det A|$, the number every area (or volume) is multiplied by under the transformation $A$.
+  \item[(G)] A map $\xx\mapsto A\xx$ that fixes the origin and sends grid lines to straight, evenly spaced lines.
+  \item[(H)] Whether a transformation keeps or flips the handedness of space --- kept when $\det>0$, flipped when $\det<0$.
+\end{description}
+\end{minipage}
 
-\parthead{Part C --- Short Answer \& Computation}
-% TODO: computation items; leave \vspace work room after each.
+% ======================================================================
+\parthead{Part B --- Multiple Choice (12 pts)}
+Circle the best answer.
 
-\parthead{Part D --- Extended Response}
-% TODO: one or two interpret/justify items ("what does this mean, and how do you know?").
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item If $\det A<0$, the transformation $\xx\mapsto A\xx$
+    \hfill (A) collapses space \quad (B) reverses orientation (flips) \quad (C) preserves orientation \quad (D) is the identity
+  \item Scaling one row of a matrix by $5$ multiplies the determinant by
+    \hfill (A) $1$ \quad (B) $5$ \quad (C) $25$ \quad (D) $0$
+  \item Compared with $\det A$, the determinant $\det(A\T)$ is
+    \hfill (A) equal \quad (B) the opposite sign \quad (C) the reciprocal \quad (D) zero
+  \item The columns of a square matrix $A$ are linearly dependent exactly when
+    \hfill (A) $\det A=1$ \quad (B) $\det A=0$ \quad (C) $\det A>0$ \quad (D) $\det A<0$
+  \item For an invertible matrix $A$, the determinant $\det(A^{-1})$ equals
+    \hfill (A) $\det A$ \quad (B) $-\det A$ \quad (C) $1/\det A$ \quad (D) $0$
+  \item A shear such as $\begin{bsmallmatrix}1&1\\0&1\end{bsmallmatrix}$ has determinant
+    \hfill (A) $0$ \quad (B) $1$ \quad (C) $2$ \quad (D) $-1$
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (35 pts)}
+Show your work.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item Compute the determinant of $A=\begin{bsmallmatrix}2&4\\1&1\end{bsmallmatrix}$. Then give the
+        \textbf{area} of the parallelogram built from its columns, and say whether $A$
+        \textbf{preserves or reverses orientation}.
+        \vspace{1.8cm}
+  \item Compute the determinant of $B=\begin{bsmallmatrix}2&1&0\\1&2&1\\0&1&2\end{bsmallmatrix}$ by
+        \textbf{cofactor expansion} across the top row (show the three $2\times2$ minors).
+        \vspace{2.6cm}
+  \item Compute the determinant of $C=\begin{bsmallmatrix}1&2&0\\2&5&1\\0&3&5\end{bsmallmatrix}$ by
+        \textbf{reducing to triangular form} (elimination), then multiplying the pivots.
+        \vspace{2.8cm}
+  \item A $3\times3$ matrix $A$ has $\det A=8$. Find each new determinant and name the row rule you used:
+        \textbf{(a)} two rows of $A$ are swapped; \textbf{(b)} one row of $A$ is multiplied by $2$;
+        \textbf{(c)} $3\times(\text{row }2)$ is added to row $1$; \textbf{(d)} $\det(2A)$.
+        \vspace{2.6cm}
+  \item Two $3\times3$ matrices have $\det A=6$ and $\det B=2$. Use the product rule to find
+        \textbf{(a)} $\det(AB)$, \textbf{(b)} $\det(A^{-1})$, \textbf{(c)} $\det(A\T)$, \textbf{(d)} $\det(A^2)$.
+        \vspace{2.4cm}
+  \item Photo software applies the transformation $\xx\mapsto A\xx$ with $A=\begin{bsmallmatrix}4&1\\0&2\end{bsmallmatrix}$.
+        \textbf{(a)} What is the area of the image of the unit square? \textbf{(b)} A triangle has area $3$;
+        what is the area of its image? \textbf{(c)} Does the image keep its orientation?
+        \vspace{2.4cm}
+  \item Let $M=\begin{bsmallmatrix}3&1\\6&2\end{bsmallmatrix}$. \textbf{(a)} Compute $\det M$.
+        \textbf{(b)} Is $M$ invertible? \textbf{(c)} Describe what the transformation $\xx\mapsto M\xx$ does
+        to the unit square (what does it collapse to, and why).
+        \vspace{2.4cm}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (10 pts)}
+Explain your reasoning in full sentences.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=16pt]
+  \item Start with $M=\begin{bsmallmatrix}1&2\\2&5\end{bsmallmatrix}$, which has $\det M=1$. Do one
+        elimination step, replacing row $2$ by $(\text{row }2)-2(\text{row }1)$, and look at the new matrix.
+        \textbf{(a)} Explain why the determinant is still $1$ after this step. \textbf{(b)} Using the picture
+        of the box (parallelogram) built from the rows, explain why sliding it sideways this way keeps its
+        area the same.
+        \vspace{3.0cm}
+  \item A transformation $\xx\mapsto A\xx$ sends the unit square to a parallelogram whose sides are the
+        columns $A\ee_1$ and $A\ee_2$. \textbf{(a)} Explain why the area of that parallelogram is $|\det A|$,
+        and why this makes $|\det A|$ the factor by which \emph{every} area is scaled. \textbf{(b)} Explain
+        why $\det A=0$ forces $A$ to have no inverse, using what happens to the unit square.
+        \vspace{2.8cm}
+\end{enumerate}
 
 \end{document}

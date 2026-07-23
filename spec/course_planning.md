@@ -7,7 +7,30 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-23 — **Authored & built Unit 5 Lesson 5.3 — "Linear Transformations" (Strang §5.3) — the final Unit 5 lesson.**
+**Last updated:** 2026-07-23 — **Authored & built the Unit 5 summative tests — Unit 5 is now complete.**
+Filled all four skeletons (`tests/practice_test`, `tests/actual_test`, `test_keys/practice_test_key`, `test_keys/actual_test_key`),
+mirroring the Unit 1–4 test format (`shared/tests.mk` + `test_keys.mk`; `\parthead` burgundy strips; Part A vocab matching / B
+multiple choice / C computation / D extended response; 8/12/35/10 pts). **Blueprint spans the whole unit §5.0–5.3:** A (8 terms —
+determinant, minor, cofactor expansion, linear transformation, orientation, singular matrix, area/volume factor, product rule),
+B (6 MC concept checks — $\det I=1$, swap negates, shear leaves unchanged, $\det=0\Rightarrow$ singular, $|\det|=$ area factor,
+product rule; actual variant: $\det<0$ flips, scale-a-row, $\det A^{\T}=\det A$, dependent cols $\Leftrightarrow\det=0$,
+$\det A^{-1}=1/\det A$, shear $\det=1$), C (7 items — 2×2 det + area + orientation sign; 3×3 by cofactor expansion; 3×3 by
+elimination-to-triangular + product of pivots; row-rule effects swap/scale/shear/$\det(kA)=k^n\det$; product rule
+$\det(AB)$/$\det A^{-1}$/$\det A^{\T}$/$\det A^2$; image area under a transformation $|\det A|$ + orientation; $\det=0$ collapse ⇒
+singular ⇒ unit square onto a line), D (2 items — why a shear/elimination step preserves $\det$ (same base & height ⇒ same volume);
+why $|\det A|$ is the area factor and $\det=0\Rightarrow$ no inverse (square collapses to a line)). **Practice vs. actual use
+parallel-but-distinct numbers** (practice: C1 $[1,3;2,1]\to-5$; C2 cofactor $[1,2,0;0,3,1;1,0,2]\to8$; C3 pivots
+$[1,2,1;2,5,3;0,2,5]\to3$; C4 $\det=6$; C5 $\det A=4,\det B=2$; C6 $[3,1;0,2]\to6$, tri area $4\to24$; C7 $[2,1;4,2]\to0$. actual:
+C1 $[2,4;1,1]\to-2$; C2 $[2,1,0;1,2,1;0,1,2]\to4$; C3 $[1,2,0;2,5,1;0,3,5]\to2$; C4 $\det=8$; C5 $\det A=6,\det B=2$; C6
+$[4,1;0,2]\to8$, tri area $3\to24$; C7 $[3,1;6,2]\to0$; D1 concrete $[1,2;2,5]\to1$ before/after $R_2-2R_1$). **All arithmetic
+hand-verified in pure Python** (2×2/3×3 determinants by cofactor, elimination-to-pivots, row-rule effects, product-rule
+consequences). Built `make -C unit05/tests all` and `make -C unit05/test_keys all` → **clean** (0 `^!`/file-line errors across all 4
+logs; no `\ans`-in-math; no overfull >15pt). Page counts: all four PDFs **3pp**; `drop` published `sample_test/main.pdf` (practice,
+3pp) and `sample_test_key/main.pdf` (practice key, 3pp). Visually spot-checked the practice key Part C/D page (all matrices, red
+answers, teachernote) and the actual key p1 (vocab matching + MC arrows + teachernote) — clean, no tofu. **Unit 5 is now fully
+complete (lessons 5.0–5.3 + tests); next run begins Unit 6 (Eigenvalues and Eigenvectors).**
+
+**Prior run:** **Authored & built Unit 5 Lesson 5.3 — "Linear Transformations" (Strang §5.3) — the final Unit 5 lesson.**
 Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides deck,
 mirroring Lesson 5.2's preamble/boxes/tone. **Content — the payoff the 5.0/5.1/5.2 Tier E/previews built toward: a matrix *moves
 space*.** (1) **A matrix is a linear transformation** $\xx\mapsto A\xx$ — origin fixed, grid lines stay straight & evenly spaced, so
@@ -89,9 +112,10 @@ overfull-hbox scan.
 | 5.2 (lesson02) | Properties and Applications of Determinants (Strang §5.2) | **authored & built** |
 | 5.3 (lesson03) | Linear Transformations (Strang §5.3) | **authored & built** |
 
-Unit 5 summative tests (`tests/`, `test_keys/`, `sample_test*/`) are scaffold-only (skeletons compile clean). **Next run: author the
-Unit 5 summative tests** (practice + actual + keys, then `drop` to populate `sample_test*`) to complete the unit — all four lessons
-(5.0–5.3) are now authored & built. Lessons 5.0/5.1/5.2/5.3 are the Unit 5 models; Lesson 4.0 remains the cross-unit style model.
+Unit 5 summative tests (`tests/practice_test` + `actual_test`, `test_keys/practice_test_key` + `actual_test_key`) are **authored &
+built**; `sample_test`/`sample_test_key` populated by `drop` (practice test + key, 3pp each). **Unit 5 is now fully complete — nothing
+left.** Lessons 5.0/5.1/5.2/5.3 are the Unit 5 models; Unit 4 tests + these Unit 5 tests are the assessment-format model; Lesson 4.0
+remains the cross-unit style model.
 
 ---
 
@@ -463,24 +487,19 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ☑ all lessons + tests authored & built ✅ |
 | 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ☑ all lessons + tests authored & built ✅ |
 | 4 | Orthogonality | 4.0 intro + 4.1–4.4 | ☑ all lessons + tests authored & built ✅ |
-| 5 | Determinants and Linear Transformations | 5.0 intro + 5.1–5.3 | ◐ all lessons (5.0–5.3) authored & built; summative tests remain |
+| 5 | Determinants and Linear Transformations | 5.0 intro + 5.1–5.3 | ☑ all lessons + tests authored & built ✅ |
 | 6 | Eigenvalues and Eigenvectors | 6.1–6.4 (§6.4 optional) | ☐ |
 | 7 | The Singular Value Decomposition *(optional/advanced)* | 7.1–7.4 | ☐ |
 | 8 | Learning from Data *(optional enrichment)* | 8.1–8.4 | ☐ |
 
 ## Next steps
 
-1. **Complete Unit 5 — author the summative tests** (`unit05/tests/` practice + actual, `unit05/test_keys/` both keys,
-   then `make -C unit05/tests all` + `make -C unit05/test_keys all`, then `drop` to publish `sample_test/main.pdf` and
-   `sample_test_key/main.pdf`). All four lessons (5.0–5.3) are authored & built; the test skeletons are already scaffolded and
-   compile clean. **Blueprint spans §5.0–5.3:** Part A vocab (determinant, cofactor expansion, minor, $\det I=1$/swap/scale/shear
-   rules, product of pivots, product rule, linear transformation, area/volume factor, orientation, singular); Part B MC concept
-   checks; Part C computation (2×2 & 3×3 determinants by cofactor and by pivots, row-rule effects, $\det(AB)$/$\det A^{-1}$, image
-   area under a transformation, orientation sign, $\det=0$ collapse); Part D extended response (why a shear preserves $\det$; why
-   $|\det A|$ is the area factor / $\det=0\Rightarrow$ not invertible). Use parallel-but-distinct numbers on practice vs. actual;
-   hand-verify all arithmetic in pure Python (no numpy/sympy on this host). Mirror the Unit 1–4 test format (`shared/tests.mk` +
-   `test_keys.mk`; `\parthead` strips). Lessons 5.0–5.3 are the Unit 5 models; Unit 4 tests are the format model.
-2. *(optional)* Rebuild the whole Unit 1–4 packets (`make -C unitXX student|full`, or `make student|full`
+1. **Begin Unit 6 (Eigenvalues and Eigenvectors)** — chapters §6.1–6.4 (§6.4 optional). First run **scaffolds all of Unit 6**
+   (`new_lesson.py` for `lesson00` intro + 6.1–6.4; the `lesson00` run creates the unit, auto-scaffolding `unit06/tests/`,
+   `test_keys/`, `sample_test*/` and Makefiles), then **confirm the Unit 6 lesson map with the user** before authoring
+   (decompose from `spec/linear_algebra_v2.md` / Strang ch. 6 TOC). Then author lessons in order (5.0–5.3 are the lesson model;
+   Lesson 4.0 the cross-unit style model), and finally the Unit 6 summative tests (Unit 4 + Unit 5 tests are the format model).
+2. *(optional)* Rebuild the whole Unit 1–5 packets (`make -C unitXX student|full`, or `make student|full`
    at the root) to confirm the `sample_test`/`sample_test_key` drop-ins merge in as expected.
 
 ## Notes for the next run

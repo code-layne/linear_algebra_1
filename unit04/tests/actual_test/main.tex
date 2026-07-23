@@ -2,6 +2,15 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\T}{^{\mathsf T}}
 
 % Part-divider strip
 \newcommand{\parthead}[1]{%
@@ -18,16 +27,110 @@
 \noindent\textbf{Instructions:} Show all work. No notes unless your teacher says so.
 
 % ======================================================================
-\parthead{Part A --- Vocabulary}
-% TODO: matching / fill-in vocabulary items for this unit.
+\parthead{Part A --- Vocabulary (8 pts)}
+Write the letter of the best description next to each term.
 
-\parthead{Part B --- Multiple Choice}
-% TODO: multiple-choice items (concept checks).
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=7pt, label=\arabic*.]
+  \item Least squares \blank{1.2cm}
+  \item Gram--Schmidt \blank{1.2cm}
+  \item Orthonormal vectors \blank{1.2cm}
+  \item Normal equations \blank{1.2cm}
+  \item Residual (error) \blank{1.2cm}
+  \item Orthogonal matrix $Q$ \blank{1.2cm}
+  \item Projection matrix $P$ \blank{1.2cm}
+  \item Orthogonal complement \blank{1.2cm}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.57\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=3pt]
+  \item[(A)] Choosing $\hat\xx$ to make the error $\|\bb-A\xx\|^2$ as small as possible.
+  \item[(B)] The matrix $P=\dfrac{\avec\avec\T}{\avec\T\avec}$ that sends $\bb$ to its projection $\pp=P\bb$.
+  \item[(C)] All vectors perpendicular to a subspace $V$; together with $V$ it fills the whole space.
+  \item[(D)] Perpendicular \emph{unit} vectors: $q_i\cdot q_j=0$ and each $q_i\cdot q_i=1$.
+  \item[(E)] A square matrix with orthonormal columns, so $Q\T Q=I$ and $Q\T=Q^{-1}$.
+  \item[(F)] The process that turns independent vectors into an orthonormal set (and builds $A=QR$).
+  \item[(G)] The error vector $\ee=\bb-\pp$; it lies in $N(A\T)$, perpendicular to $C(A)$.
+  \item[(H)] The system $A\T A\,\hat\xx=A\T\bb$ whose solution is the best $\hat\xx$.
+\end{description}
+\end{minipage}
 
-\parthead{Part C --- Short Answer \& Computation}
-% TODO: computation items; leave \vspace work room after each.
+% ======================================================================
+\parthead{Part B --- Multiple Choice (12 pts)}
+Circle the best answer.
 
-\parthead{Part D --- Extended Response}
-% TODO: one or two interpret/justify items ("what does this mean, and how do you know?").
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item The closest point of a subspace to $\bb$ is the point where the error is
+    \hfill (A) parallel to it \quad (B) equal to $\bb$ \quad (C) perpendicular to it \quad (D) the longest
+  \item When $Q$ is square with orthonormal columns, its inverse $Q^{-1}$ equals
+    \hfill (A) $Q$ \quad (B) $Q\T$ \quad (C) $-Q$ \quad (D) $I-Q$
+  \item Fitting a line $y=C+Dt$ to five points that are \emph{not} collinear gives a system $A\xx=\bb$ that is
+    \hfill (A) exactly solvable \quad (B) overdetermined, no exact solution \quad (C) square \quad (D) homogeneous
+  \item Least squares chooses $\hat\xx$ to minimize
+    \hfill (A) $\|\hat\xx\|$ \quad (B) $\|\bb\|$ \quad (C) $\|\bb-A\xx\|^2$ \quad (D) $\|A\|$
+  \item Gram--Schmidt turns independent vectors into
+    \hfill (A) eigenvectors \quad (B) an orthonormal set \quad (C) pivots \quad (D) a diagonal matrix
+  \item If $A$ has an all-ones column, the least-squares residuals satisfy
+    \hfill (A) $\sum e_i=0$ \quad (B) all $e_i>0$ \quad (C) $\sum e_i=1$ \quad (D) $\ee=\bb$
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (35 pts)}
+Show your work.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item Let $V$ be the line through $\avec=\begin{bsmallmatrix}2\\1\\2\end{bsmallmatrix}$ in $\mathbb{R}^3$.
+        Decide whether each vector is in the orthogonal complement $V^{\perp}$ (show the dot product):
+        \textbf{(a)} $\ww=\begin{bsmallmatrix}1\\0\\-1\end{bsmallmatrix}$ \quad
+        \textbf{(b)} $\uu=\begin{bsmallmatrix}1\\-2\\0\end{bsmallmatrix}$.
+        \vspace{2.2cm}
+  \item Project $\bb=\begin{bsmallmatrix}4\\3\end{bsmallmatrix}$ onto the line through $\avec=\begin{bsmallmatrix}1\\2\end{bsmallmatrix}$.
+        Find $\hat{x}=\dfrac{\avec\cdot\bb}{\avec\cdot\avec}$, the projection $\pp=\hat{x}\avec$, and the error
+        $\ee=\bb-\pp$. Verify that $\ee\perp\avec$.
+        \vspace{2.4cm}
+  \item Use the \textbf{normal equations} $A\T A\,\hat\xx=A\T\bb$ to project
+        $\bb=\begin{bsmallmatrix}1\\1\\3\end{bsmallmatrix}$ onto $C(A)$, where
+        $A=\begin{bsmallmatrix}1&1\\0&1\\1&1\end{bsmallmatrix}$. Find $\hat\xx$, $\pp=A\hat\xx$, and
+        $\ee=\bb-\pp$; check that $A\T\ee=\zero$.
+        \vspace{2.8cm}
+  \item Fit the best line $y=C+Dt$ to the data $(t,y)=(0,4),(1,2),(2,6)$ by least squares.
+        Set up $A$ and $\bb$, solve the normal equations for $(C,D)$, and list the residuals
+        $\ee=\bb-\pp$. What is $\sum e_i$?
+        \vspace{2.8cm}
+  \item Let $q_1=\tfrac13\begin{bsmallmatrix}1\\2\\2\end{bsmallmatrix}$ and
+        $q_2=\tfrac13\begin{bsmallmatrix}2\\1\\-2\end{bsmallmatrix}$. Show they are \textbf{orthonormal}
+        (check $q_1\cdot q_1$, $q_2\cdot q_2$, and $q_1\cdot q_2$), then explain why the matrix
+        $Q=\big[\,q_1\ \ q_2\,\big]$ satisfies $Q\T Q=I$.
+        \vspace{2.4cm}
+  \item Let $q_1=\tfrac15\begin{bsmallmatrix}3\\4\end{bsmallmatrix}$ and $q_2=\tfrac15\begin{bsmallmatrix}4\\-3\end{bsmallmatrix}$.
+        Write $\bb=\begin{bsmallmatrix}10\\5\end{bsmallmatrix}$ in this orthonormal basis --- i.e.\ find
+        $c_1,c_2$ with $\bb=c_1q_1+c_2q_2$ --- \emph{without} solving a system. (Hint: $c_i=q_i\cdot\bb$.)
+        \vspace{2.2cm}
+  \item Run \textbf{Gram--Schmidt} on $\avec_1=\begin{bsmallmatrix}4\\3\end{bsmallmatrix}$,
+        $\avec_2=\begin{bsmallmatrix}1\\0\end{bsmallmatrix}$ to produce an orthonormal pair $q_1,q_2$.
+        (Normalize $\avec_1$; subtract its part from $\avec_2$; normalize the remainder.)
+        \vspace{2.6cm}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (10 pts)}
+Explain your reasoning in full sentences.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=16pt]
+  \item A least-squares line fit produces fitted values $\pp=A\hat\xx$ and residuals $\ee=\bb-\pp$.
+        \textbf{(a)} Explain why ``best fit'' forces the error $\ee$ to be perpendicular to the column
+        space $C(A)$, so that $A\T\ee=\zero$. \textbf{(b)} When $A$ has an all-ones column, explain why
+        this makes $\sum e_i=0$ --- the positive and negative residuals must cancel.
+        \vspace{3.0cm}
+  \item Let $Q$ be a square matrix with orthonormal columns.
+        \textbf{(a)} Explain why the coordinates of any $\bb$ are just the dot products $q_i\cdot\bb$,
+        so $\bb=\sum(q_i\cdot\bb)\,q_i$ with no system to solve. \textbf{(b)} Explain why least squares
+        collapses to $\hat\xx=Q\T\bb$ when $A=Q$. Use the fact that $Q\T Q=I$.
+        \vspace{2.8cm}
+\end{enumerate}
 
 \end{document}

@@ -2,6 +2,15 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\T}{^{\mathsf T}}
 
 % Part-divider strip
 \newcommand{\parthead}[1]{%
@@ -12,20 +21,107 @@
 \begin{document}
 
 \pageheader{Unit 4: Orthogonality}{Unit Test --- Answer Key}
+\namedateperiod
 
-% Mirror the blank test EXACTLY, filling each answer with \ans{...} (inline) or
-% \ansline{...} (on a write-line). Use teachernote for scoring/teacher guidance.
+\vspace{0.06in}
+\noindent\textbf{Instructions:} Show all work. No notes unless your teacher says so.
+
 % ======================================================================
-\parthead{Part A --- Vocabulary}
-% TODO: answers via \ans{...}
+\parthead{Part A --- Vocabulary (8 pts)}
+Write the letter of the best description next to each term.
 
-\parthead{Part B --- Multiple Choice}
-% TODO: mark correct options, e.g. \textcolor{keyred}{\textbf{$\leftarrow$ correct}}
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=7pt, label=\arabic*.]
+  \item Least squares \ans{A}
+  \item Gram--Schmidt \ans{F}
+  \item Orthonormal vectors \ans{D}
+  \item Normal equations \ans{H}
+  \item Residual (error) \ans{G}
+  \item Orthogonal matrix $Q$ \ans{E}
+  \item Projection matrix $P$ \ans{B}
+  \item Orthogonal complement \ans{C}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.57\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=3pt]
+  \item[(A)] Choosing $\hat\xx$ to make the error $\|\bb-A\xx\|^2$ as small as possible.
+  \item[(B)] The matrix $P=\dfrac{\avec\avec\T}{\avec\T\avec}$ that sends $\bb$ to its projection $\pp=P\bb$.
+  \item[(C)] All vectors perpendicular to a subspace $V$; together with $V$ it fills the whole space.
+  \item[(D)] Perpendicular \emph{unit} vectors: $q_i\cdot q_j=0$ and each $q_i\cdot q_i=1$.
+  \item[(E)] A square matrix with orthonormal columns, so $Q\T Q=I$ and $Q\T=Q^{-1}$.
+  \item[(F)] The process that turns independent vectors into an orthonormal set (and builds $A=QR$).
+  \item[(G)] The error vector $\ee=\bb-\pp$; it lies in $N(A\T)$, perpendicular to $C(A)$.
+  \item[(H)] The system $A\T A\,\hat\xx=A\T\bb$ whose solution is the best $\hat\xx$.
+\end{description}
+\end{minipage}
 
-\parthead{Part C --- Short Answer \& Computation}
-% TODO: worked answers via \ans{...}
+% ======================================================================
+\parthead{Part B --- Multiple Choice (12 pts)}
+Circle the best answer.
 
-\parthead{Part D --- Extended Response}
-% TODO: sample response + scoring notes in a teachernote.
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item The closest point of a subspace to $\bb$ is the point where the error is
+    \hfill (A) parallel to it \quad (B) equal to $\bb$ \quad \textbf{(C) perpendicular to it} \ans{$\leftarrow$} \quad (D) the longest
+  \item When $Q$ is square with orthonormal columns, its inverse $Q^{-1}$ equals
+    \hfill (A) $Q$ \quad \textbf{(B) $Q\T$} \ans{$\leftarrow$} \quad (C) $-Q$ \quad (D) $I-Q$
+  \item Fitting a line $y=C+Dt$ to five points that are \emph{not} collinear gives a system $A\xx=\bb$ that is
+    \hfill (A) exactly solvable \quad \textbf{(B) overdetermined, no exact solution} \ans{$\leftarrow$} \quad (C) square \quad (D) homogeneous
+  \item Least squares chooses $\hat\xx$ to minimize
+    \hfill (A) $\|\hat\xx\|$ \quad (B) $\|\bb\|$ \quad \textbf{(C) $\|\bb-A\xx\|^2$} \ans{$\leftarrow$} \quad (D) $\|A\|$
+  \item Gram--Schmidt turns independent vectors into
+    \hfill (A) eigenvectors \quad \textbf{(B) an orthonormal set} \ans{$\leftarrow$} \quad (C) pivots \quad (D) a diagonal matrix
+  \item If $A$ has an all-ones column, the least-squares residuals satisfy
+    \hfill \textbf{(A) $\sum e_i=0$} \ans{$\leftarrow$} \quad (B) all $e_i>0$ \quad (C) $\sum e_i=1$ \quad (D) $\ee=\bb$
+\end{enumerate}
+
+\begin{teachernote}
+Item 1: closest point $=$ foot of the perpendicular, so the error is $\perp$ the subspace. Item 2: orthonormal
+columns give $Q\T Q=I$, and for a square $Q$ that makes $Q\T=Q^{-1}$. Item 3: more equations ($5$) than unknowns
+($C,D$) with $\bb\notin C(A)$ --- overdetermined, solved by least squares. Item 6: the all-ones row of
+$A\T\ee=\zero$ reads $\sum e_i=0$.
+\end{teachernote}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (35 pts)}
+Show your work.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
+  \item Line $V$ through $\avec=(2,1,2)$; test $\ww,\uu$ for $V^{\perp}$.
+        \ans{\textbf{(a) Yes.} $\avec\cdot\ww=(2)(1)+(1)(0)+(2)(-1)=2+0-2=0$, so $\ww\perp\avec$ and $\ww\in V^{\perp}$. \textbf{(b) Yes.} $\avec\cdot\uu=(2)(1)+(1)(-2)+(2)(0)=2-2+0=0$, so $\uu\in V^{\perp}$ as well. ($V^{\perp}$ is the whole plane $2x+y+2z=0$.)}
+  \item Project $\bb=(4,3)$ onto the line through $\avec=(1,2)$.
+        \ans{$\hat{x}=\dfrac{\avec\cdot\bb}{\avec\cdot\avec}=\dfrac{4+6}{1+4}=\dfrac{10}{5}=2$. Then $\pp=2\avec=\begin{bsmallmatrix}2\\4\end{bsmallmatrix}$ and $\ee=\bb-\pp=\begin{bsmallmatrix}2\\-1\end{bsmallmatrix}$. Check: $\avec\cdot\ee=(1)(2)+(2)(-1)=0$, so $\ee\perp\avec$. \checkmark}
+  \item Normal equations to project $\bb=(1,1,3)$ onto $C(A)$, $A=\begin{bsmallmatrix}1&1\\0&1\\1&1\end{bsmallmatrix}$.
+        \ans{$A\T A=\begin{bsmallmatrix}2&2\\2&3\end{bsmallmatrix}$, $A\T\bb=\begin{bsmallmatrix}4\\5\end{bsmallmatrix}$. Solving $\begin{bsmallmatrix}2&2\\2&3\end{bsmallmatrix}\hat\xx=\begin{bsmallmatrix}4\\5\end{bsmallmatrix}$ gives $\hat\xx=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$. Then $\pp=A\hat\xx=\begin{bsmallmatrix}2\\1\\2\end{bsmallmatrix}$ and $\ee=\bb-\pp=\begin{bsmallmatrix}-1\\0\\1\end{bsmallmatrix}$. Check: $A\T\ee=\begin{bsmallmatrix}-1+0+1\\-1+0+1\end{bsmallmatrix}=\begin{bsmallmatrix}0\\0\end{bsmallmatrix}=\zero$. \checkmark}
+  \item Best line $y=C+Dt$ for $(0,4),(1,2),(2,6)$.
+        \ans{$A=\begin{bsmallmatrix}1&0\\1&1\\1&2\end{bsmallmatrix}$, $\bb=\begin{bsmallmatrix}4\\2\\6\end{bsmallmatrix}$. Then $A\T A=\begin{bsmallmatrix}3&3\\3&5\end{bsmallmatrix}$, $A\T\bb=\begin{bsmallmatrix}12\\14\end{bsmallmatrix}$, giving $(C,D)=(3,1)$: the line $y=3+t$. Fitted $\pp=(3,4,5)$, residuals $\ee=\bb-\pp=(1,-2,1)$, and $\sum e_i=1-2+1=0$.}
+  \item Show $q_1=\tfrac13(1,2,2)$, $q_2=\tfrac13(2,1,-2)$ are orthonormal; why $Q\T Q=I$.
+        \ans{$q_1\cdot q_1=\tfrac19(1+4+4)=\tfrac{9}{9}=1$; $q_2\cdot q_2=\tfrac19(4+1+4)=1$ (both unit length). $q_1\cdot q_2=\tfrac19(2+2-4)=0$ (perpendicular). Entry $(i,j)$ of $Q\T Q$ is exactly $q_i\cdot q_j$, so $Q\T Q=\begin{bsmallmatrix}1&0\\0&1\end{bsmallmatrix}=I$.}
+  \item Write $\bb=(10,5)$ as $c_1q_1+c_2q_2$ without solving a system.
+        \ans{$c_1=q_1\cdot\bb=\tfrac15(3\cdot10+4\cdot5)=\tfrac{50}{5}=10$; $c_2=q_2\cdot\bb=\tfrac15(4\cdot10+(-3)\cdot5)=\tfrac{25}{5}=5$. So $\bb=10q_1+5q_2$. (Dot products give the coordinates directly because the basis is orthonormal.)}
+  \item Gram--Schmidt on $\avec_1=(4,3)$, $\avec_2=(1,0)$.
+        \ans{\emph{Normalize $\avec_1$:} $\|\avec_1\|=\sqrt{16+9}=5$, so $q_1=\tfrac15\begin{bsmallmatrix}4\\3\end{bsmallmatrix}$. \emph{Remove the $q_1$-part of $\avec_2$:} $q_1\cdot\avec_2=\tfrac45$, so $B=\avec_2-\tfrac45 q_1=\begin{bsmallmatrix}1\\0\end{bsmallmatrix}-\tfrac{4}{25}\begin{bsmallmatrix}4\\3\end{bsmallmatrix}=\begin{bsmallmatrix}9/25\\-12/25\end{bsmallmatrix}$. \emph{Normalize:} $\|B\|=\tfrac{3}{5}$, so $q_2=\tfrac53 B=\tfrac15\begin{bsmallmatrix}3\\-4\end{bsmallmatrix}$. Thus $Q=\tfrac15\begin{bsmallmatrix}4&3\\3&-4\end{bsmallmatrix}$.}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (10 pts)}
+Explain your reasoning in full sentences.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item Fitted values $\pp=A\hat\xx$, residuals $\ee=\bb-\pp$.
+        \ans{\textbf{(a)} The best $\pp$ is the point of $C(A)$ closest to $\bb$, and the closest point is the foot of the perpendicular: the error $\ee=\bb-\pp$ must be perpendicular to the whole subspace $C(A)$. Perpendicular to $C(A)$ means perpendicular to every column of $A$, i.e.\ $(\text{column})\cdot\ee=0$ for each column --- and stacking those dot products is exactly $A\T\ee=\zero$. (If $\ee$ had any component along $C(A)$ we could move $\pp$ and shrink the error, so it would not be best.) \textbf{(b)} An all-ones column means one of the equations in $A\T\ee=\zero$ is $(1,1,\dots,1)\cdot\ee=0$, i.e.\ $\sum e_i=0$. So the residuals must sum to zero: the amounts the line overshoots exactly balance the amounts it undershoots.}
+  \item $Q$ square with orthonormal columns.
+        \ans{\textbf{(a)} Write $\bb=\sum c_i q_i$ and dot both sides with $q_j$: $q_j\cdot\bb=\sum_i c_i\,(q_j\cdot q_i)$. Because the columns are orthonormal, $q_j\cdot q_i=0$ except $q_j\cdot q_j=1$, so the whole sum collapses to $c_j$. Hence $c_j=q_j\cdot\bb$ and $\bb=\sum(q_i\cdot\bb)q_i$ --- the dot products \emph{are} the coordinates, with no system to solve. \textbf{(b)} The normal equations are $Q\T Q\,\hat\xx=Q\T\bb$. Since $Q\T Q=I$, the left side is just $\hat\xx$, so $\hat\xx=Q\T\bb$: the expensive $A\T A$ solve disappears when the columns are orthonormal.}
+\end{enumerate}
+
+\begin{teachernote}
+\textbf{Scoring Part D (5 pts each).} D1: 3 pts (a) closest point $\Rightarrow$ error $\perp C(A)$ $\Rightarrow$
+$\perp$ every column $\Rightarrow A\T\ee=\zero$; 2 pts (b) the all-ones row of $A\T\ee=\zero$ is $\sum e_i=0$
+(over/undershoots cancel). D2: 3 pts (a) dot with $q_j$ and use orthonormality to isolate $c_j=q_j\cdot\bb$;
+2 pts (b) $Q\T Q=I$ collapses the normal equations to $\hat\xx=Q\T\bb$. Accept equivalent wording throughout.
+\end{teachernote}
 
 \end{document}

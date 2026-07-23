@@ -2,6 +2,15 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\T}{^{\mathsf T}}
 
 % Part-divider strip
 \newcommand{\parthead}[1]{%
@@ -12,20 +21,112 @@
 \begin{document}
 
 \pageheader{Unit 4: Orthogonality}{Practice Test --- Study Copy --- Answer Key}
+\namedateperiod
 
-% Mirror the blank test EXACTLY, filling each answer with \ans{...} (inline) or
-% \ansline{...} (on a write-line). Use teachernote for scoring/teacher guidance.
+\vspace{0.10in}
+\begin{remindbox}
+\small
+\textbf{This is a practice test.} It mirrors the real Unit 4 test in length, format,
+and the ideas it covers, but the numbers and contexts differ. Work every problem
+with no notes, then check your answers against the key.
+\end{remindbox}
+
 % ======================================================================
-\parthead{Part A --- Vocabulary}
-% TODO: answers via \ans{...}
+\parthead{Part A --- Vocabulary (8 pts)}
+Write the letter of the best description next to each term.
 
-\parthead{Part B --- Multiple Choice}
-% TODO: mark correct options, e.g. \textcolor{keyred}{\textbf{$\leftarrow$ correct}}
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=7pt, label=\arabic*.]
+  \item Orthonormal vectors \ans{C}
+  \item Orthogonal matrix $Q$ \ans{E}
+  \item Projection matrix $P$ \ans{H}
+  \item Normal equations \ans{A}
+  \item Least squares \ans{G}
+  \item Residual (error) \ans{D}
+  \item Orthogonal complement \ans{F}
+  \item Gram--Schmidt \ans{B}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.57\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=3pt]
+  \item[(A)] The system $A\T A\,\hat\xx=A\T\bb$ whose solution is the best $\hat\xx$.
+  \item[(B)] The process that turns independent vectors into an orthonormal set (and builds $A=QR$).
+  \item[(C)] Perpendicular \emph{unit} vectors: $q_i\cdot q_j=0$ and each $q_i\cdot q_i=1$.
+  \item[(D)] The error vector $\ee=\bb-\pp$; it lies in $N(A\T)$, perpendicular to $C(A)$.
+  \item[(E)] A square matrix with orthonormal columns, so $Q\T Q=I$ and $Q\T=Q^{-1}$.
+  \item[(F)] All vectors perpendicular to a subspace $V$; together with $V$ it fills the whole space.
+  \item[(G)] Choosing $\hat\xx$ to make the error $\|\bb-A\xx\|^2$ as small as possible.
+  \item[(H)] The matrix $P=\dfrac{\avec\avec\T}{\avec\T\avec}$ that sends $\bb$ to its projection $\pp=P\bb$.
+\end{description}
+\end{minipage}
 
-\parthead{Part C --- Short Answer \& Computation}
-% TODO: worked answers via \ans{...}
+% ======================================================================
+\parthead{Part B --- Multiple Choice (12 pts)}
+Circle the best answer.
 
-\parthead{Part D --- Extended Response}
-% TODO: sample response + scoring notes in a teachernote.
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item The least-squares solution makes $A\hat\xx$ the point of $C(A)$ that is
+    \hfill (A) farthest from $\bb$ \quad \textbf{(B) closest to $\bb$} \ans{$\leftarrow$} \quad (C) equal to $\bb$ \quad (D) zero
+  \item For an orthogonal matrix $Q$, the product $Q\T Q$ equals
+    \hfill (A) $0$ \quad (B) $Q$ \quad \textbf{(C) $I$} \ans{$\leftarrow$} \quad (D) $Q^2$
+  \item The least-squares error $\ee=\bb-\pp$ is perpendicular to
+    \hfill \textbf{(A) every column of $A$} \ans{$\leftarrow$} \quad (B) $\hat\xx$ \quad (C) nothing \quad (D) $\bb$
+  \item The normal equations for the best solution of $A\xx=\bb$ are
+    \hfill (A) $A\xx=\bb$ \quad \textbf{(B) $A\T A\,\hat\xx=A\T\bb$} \ans{$\leftarrow$} \quad (C) $AA\T\xx=\bb$ \quad (D) $\hat\xx=\bb$
+  \item If $Q$ has orthonormal columns, the coordinates of $\bb$ in that basis are found by
+    \hfill (A) solving a big system \quad \textbf{(B) the dot products $q_i\cdot\bb$} \ans{$\leftarrow$} \quad (C) inverting $A\T A$ \quad (D) guessing
+  \item A projection matrix $P$ always satisfies
+    \hfill \textbf{(A) $P^2=P$} \ans{$\leftarrow$} \quad (B) $P^2=I$ \quad (C) $P=0$ \quad (D) $P\T=-P$
+\end{enumerate}
+
+\begin{teachernote}
+Item 1: the best $A\hat\xx=\pp$ is the projection, the closest point of $C(A)$ to $\bb$. Item 3: ``best''
+$=$ error perpendicular to the subspace, i.e.\ to every column, which is exactly $A\T\ee=\zero$. Item 5:
+orthonormal columns make $\hat\xx=Q\T\bb$, coordinate $i$ $=q_i\cdot\bb$. Item 6: projecting an already-projected
+vector changes nothing, so $P\pp=\pp$ and $P^2=P$.
+\end{teachernote}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (35 pts)}
+Show your work.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
+  \item Line $V$ through $\avec=(1,2,2)$; test $\ww,\uu$ for $V^{\perp}$.
+        \ans{\textbf{(a) Yes.} $\avec\cdot\ww=(1)(2)+(2)(-1)+(2)(0)=2-2+0=0$, so $\ww\perp\avec$ and $\ww\in V^{\perp}$. \textbf{(b) Yes.} $\avec\cdot\uu=(1)(0)+(2)(2)+(2)(-2)=0+4-4=0$, so $\uu\in V^{\perp}$ as well. ($V^{\perp}$ is the whole plane $x+2y+2z=0$.)}
+  \item Project $\bb=(3,1)$ onto the line through $\avec=(1,1)$.
+        \ans{$\hat{x}=\dfrac{\avec\cdot\bb}{\avec\cdot\avec}=\dfrac{3+1}{1+1}=\dfrac{4}{2}=2$. Then $\pp=2\avec=\begin{bsmallmatrix}2\\2\end{bsmallmatrix}$ and $\ee=\bb-\pp=\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$. Check: $\avec\cdot\ee=(1)(1)+(1)(-1)=0$, so $\ee\perp\avec$. \checkmark}
+  \item Normal equations to project $\bb=(6,0,0)$ onto $C(A)$, $A=\begin{bsmallmatrix}1&0\\1&1\\1&2\end{bsmallmatrix}$.
+        \ans{$A\T A=\begin{bsmallmatrix}3&3\\3&5\end{bsmallmatrix}$, $A\T\bb=\begin{bsmallmatrix}6\\0\end{bsmallmatrix}$. Solving $\begin{bsmallmatrix}3&3\\3&5\end{bsmallmatrix}\hat\xx=\begin{bsmallmatrix}6\\0\end{bsmallmatrix}$ gives $\hat\xx=\begin{bsmallmatrix}5\\-3\end{bsmallmatrix}$. Then $\pp=A\hat\xx=\begin{bsmallmatrix}5\\2\\-1\end{bsmallmatrix}$ and $\ee=\bb-\pp=\begin{bsmallmatrix}1\\-2\\1\end{bsmallmatrix}$. Check: $A\T\ee=\begin{bsmallmatrix}1-2+1\\0-2+2\end{bsmallmatrix}=\begin{bsmallmatrix}0\\0\end{bsmallmatrix}=\zero$. \checkmark}
+  \item Best line $y=C+Dt$ for $(0,3),(1,3),(2,5),(3,9)$.
+        \ans{$A=\begin{bsmallmatrix}1&0\\1&1\\1&2\\1&3\end{bsmallmatrix}$, $\bb=\begin{bsmallmatrix}3\\3\\5\\9\end{bsmallmatrix}$. Then $A\T A=\begin{bsmallmatrix}4&6\\6&14\end{bsmallmatrix}$, $A\T\bb=\begin{bsmallmatrix}20\\40\end{bsmallmatrix}$, giving $(C,D)=(2,2)$: the line $y=2+2t$. Fitted $\pp=(2,4,6,8)$, residuals $\ee=\bb-\pp=(1,-1,-1,1)$, and $\sum e_i=1-1-1+1=0$.}
+  \item Show $q_1=\tfrac15(3,4)$, $q_2=\tfrac15(4,-3)$ are orthonormal; why $Q\T Q=I$.
+        \ans{$q_1\cdot q_1=\tfrac1{25}(9+16)=\tfrac{25}{25}=1$; $q_2\cdot q_2=\tfrac1{25}(16+9)=1$ (both unit length). $q_1\cdot q_2=\tfrac1{25}(12-12)=0$ (perpendicular). Entry $(i,j)$ of $Q\T Q$ is exactly $q_i\cdot q_j$, so $Q\T Q=\begin{bsmallmatrix}1&0\\0&1\end{bsmallmatrix}=I$.}
+  \item Write $\bb=(5,0)$ as $c_1q_1+c_2q_2$ without solving a system.
+        \ans{$c_1=q_1\cdot\bb=\tfrac15(3\cdot5+4\cdot0)=\tfrac{15}{5}=3$; $c_2=q_2\cdot\bb=\tfrac15(4\cdot5+(-3)\cdot0)=\tfrac{20}{5}=4$. So $\bb=3q_1+4q_2$. (Dot products give the coordinates directly because the basis is orthonormal.)}
+  \item Gram--Schmidt on $\avec_1=(3,4)$, $\avec_2=(1,0)$.
+        \ans{\emph{Normalize $\avec_1$:} $\|\avec_1\|=\sqrt{9+16}=5$, so $q_1=\tfrac15\begin{bsmallmatrix}3\\4\end{bsmallmatrix}$. \emph{Remove the $q_1$-part of $\avec_2$:} $q_1\cdot\avec_2=\tfrac35$, so $B=\avec_2-\tfrac35 q_1=\begin{bsmallmatrix}1\\0\end{bsmallmatrix}-\tfrac{3}{25}\begin{bsmallmatrix}3\\4\end{bsmallmatrix}=\begin{bsmallmatrix}16/25\\-12/25\end{bsmallmatrix}$. \emph{Normalize:} $\|B\|=\tfrac{4}{5}$, so $q_2=\tfrac54 B=\tfrac15\begin{bsmallmatrix}4\\-3\end{bsmallmatrix}$. Thus $Q=\tfrac15\begin{bsmallmatrix}3&4\\4&-3\end{bsmallmatrix}$.}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (10 pts)}
+Explain your reasoning in full sentences.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item Fitted values $\pp=A\hat\xx$, residuals $\ee=\bb-\pp$.
+        \ans{\textbf{(a)} The best $\pp$ is the point of $C(A)$ closest to $\bb$, and the closest point is the foot of the perpendicular: the error $\ee=\bb-\pp$ must be perpendicular to the whole subspace $C(A)$. Perpendicular to $C(A)$ means perpendicular to every column of $A$, i.e.\ $(\text{column})\cdot\ee=0$ for each column --- and stacking those dot products is exactly $A\T\ee=\zero$. (If $\ee$ had any component along $C(A)$ we could move $\pp$ and shrink the error, so it would not be best.) \textbf{(b)} An all-ones column means one of the equations in $A\T\ee=\zero$ is $(1,1,\dots,1)\cdot\ee=0$, i.e.\ $\sum e_i=0$. So the residuals must sum to zero: the amounts the line overshoots exactly balance the amounts it undershoots.}
+  \item $Q$ square with orthonormal columns.
+        \ans{\textbf{(a)} Write $\bb=\sum c_i q_i$ and dot both sides with $q_j$: $q_j\cdot\bb=\sum_i c_i\,(q_j\cdot q_i)$. Because the columns are orthonormal, $q_j\cdot q_i=0$ except $q_j\cdot q_j=1$, so the whole sum collapses to $c_j$. Hence $c_j=q_j\cdot\bb$ and $\bb=\sum(q_i\cdot\bb)q_i$ --- the dot products \emph{are} the coordinates, with no system to solve. \textbf{(b)} The normal equations are $Q\T Q\,\hat\xx=Q\T\bb$. Since $Q\T Q=I$, the left side is just $\hat\xx$, so $\hat\xx=Q\T\bb$: the expensive $A\T A$ solve disappears when the columns are orthonormal.}
+\end{enumerate}
+
+\begin{teachernote}
+\textbf{Scoring Part D (5 pts each).} D1: 3 pts (a) closest point $\Rightarrow$ error $\perp C(A)$ $\Rightarrow$
+$\perp$ every column $\Rightarrow A\T\ee=\zero$; 2 pts (b) the all-ones row of $A\T\ee=\zero$ is $\sum e_i=0$
+(over/undershoots cancel). D2: 3 pts (a) dot with $q_j$ and use orthonormality to isolate $c_j=q_j\cdot\bb$;
+2 pts (b) $Q\T Q=I$ collapses the normal equations to $\hat\xx=Q\T\bb$. Accept equivalent wording throughout.
+\end{teachernote}
 
 \end{document}

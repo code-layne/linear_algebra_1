@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 5}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 5 \quad Determinants and Linear Transformations}}\\[6pt]
   {\color{white}\textbf{\large Lesson 5.0 \quad Setting Up Determinants --- the 2 by 2 Determinant, Area, and Orientation}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} compute the \textbf{determinant} $\det\begin{bsmallmatrix} a & b\\ c & d \end{bsmallmatrix}=ad-bc$ of a $2\times2$ matrix.
+  \item \ldots{} read $|ad-bc|$ as the \textbf{area} of the parallelogram the columns span, and the \textbf{sign} as \textbf{orientation} (kept or flipped).
+  \item \ldots{} explain why $\det=0$ means the columns are \textbf{parallel} and the matrix is \textbf{not invertible}, and where Unit~5 is going.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,24 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: columns as vectors, area of a box, the inverse's $ad-bc$ & \blank{1.2cm} \\
+2 & Guided Notes   & The $2\times2$ determinant $=$ signed area; orientation; $\det=0$ & \blank{1.2cm} \\
+3 & Group Activity & Area, Orientation, and the Vanishing Box --- reading $ad-bc$          & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check on determinants, area, orientation, and $\det=0$          & \blank{1.2cm} \\
+5 & Homework       & Determinants, areas, orientation, invertibility, and a transformation preview & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small A $2\times2$ matrix carries \emph{one} number, the \textbf{determinant} $ad-bc$, that reads
+off two things at once: its \textbf{size} is the \emph{area} of the parallelogram the columns span,
+and its \textbf{sign} tells you whether the matrix keeps or \emph{flips} orientation. When $ad-bc=0$
+the columns are \emph{parallel}, the box goes flat, and the matrix has \emph{no inverse} (recall
+Unit~2, where the inverse divides by $ad-bc$). That single number runs all of Unit~5.
+\end{remindbox}
 
 \end{document}

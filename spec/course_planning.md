@@ -7,26 +7,36 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-23 — **Scaffolded all of Unit 5 (Determinants and Linear Transformations) — skeletons only, not yet authored.**
-Confirmed the Unit 5 lesson map with the user and ran `new_lesson.py` for four lessons, each with the full component set
-(`cover, warmup, notes, activity, exit_ticket, homework, slides` + the five keys). The first run created the unit and
-auto-scaffolded its summative tests (`tests/practice_test`, `tests/actual_test`, `test_keys/practice_test_key`,
-`test_keys/actual_test_key`, `sample_test/`, `sample_test_key/` + thin-include Makefiles). **Confirmed Unit 5 lesson map:**
+**Last updated:** 2026-07-23 — **Authored & built Unit 5 Lesson 5.0 — "Setting Up Determinants: the 2×2 Determinant, Area, and Orientation" — the Unit 5 on-ramp and model.**
+Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides deck,
+mirroring Lesson 4.0's preamble/boxes/tone. **Content — the geometric on-ramp to determinants (before Strang §5.1's 3×3):**
+(1) **the 2×2 determinant** $\det\begin{bsmallmatrix} a & b\\ c & d\end{bsmallmatrix}=ad-bc$, framed as the *denominator* of the
+Unit 2 inverse students already know; (2) **determinant = area** — $|\det A|$ is the area of the parallelogram the columns span
+(axis box $(3,0),(0,2)$ → 6, then sheared $(3,0),(1,2)$ still 6 — shearing preserves area); (3) **orientation = the sign** — $+$
+keeps the plane's turning direction, $-$ is a mirror flip; *swapping columns negates* $\det$ ($\det[3,1;0,2]=6$ vs $\det[1,3;2,0]=-6$);
+(4) **$\det=0$ = collapse** — parallel columns → flat box → **not invertible** (the §2 callback: the inverse divides by $ad-bc$), landing
+the chain $\det\ne0\Leftrightarrow$ independent $\Leftrightarrow$ invertible. **Hook:** stretch a logo in the unit square — one number
+$ad-bc$ gives both the new area and whether it flipped. **Tier E / extension previews 5.3:** apply a matrix to the unit square →
+image area $=|\det A|$ (the area-scaling factor), incl. a reflection ($\det[1,2;2,1]=-3$) and $\det=0$ collapse (no inverse). **Custom
+parallelogram TikZ** (burgundy col1, blue col2, shaded, "area = 6") on notes §2 + slides. **Numbers thread through** ($[2,1;1,3]\to\det 5$
+recurs in warmup/notes; the flat-box $[2,6;3,x]\to x=9$ recurs in activity/homework). **Built `make -C unit05/lesson00 all` → clean**
+(0 `^!` errors across all 13 logs; no `\ans`-in-math). Page counts: cover/warmup/exit 1pp (blank & key ✓ 1-page constraint), notes 2pp/2pp,
+activity 2pp/2pp, homework 2pp/2pp, slides 5pp, lesson plan 2pp; **student 9pp, full 16pp**. Visually spot-checked notes_key p1 (vocab/hook
+answers + the area parallelogram figure) — clean. **Gotcha fixed at build:** removed a `\newcommand{\det}` from the lesson-plan preamble —
+`\det` is already a LaTeX operator (would error "command already defined"); use the built-in.
 
-| Lesson | Section (topic) |
-| --- | --- |
-| 5.0 (lesson00) | Setting Up Determinants --- the 2 by 2 Determinant, Area, and Orientation (on-ramp, mirrors 4.0/2.0) |
-| 5.1 (lesson01) | 3 by 3 Determinants (Strang §5.1) |
-| 5.2 (lesson02) | Properties and Applications of Determinants (Strang §5.2) |
-| 5.3 (lesson03) | Linear Transformations (Strang §5.3) |
+**Confirmed Unit 5 lesson map** (unchanged):
 
-Strang's §5.1 opens directly on 3×3 determinants assuming 2×2; **Lesson 5.0 supplies the geometric on-ramp** (signed area,
-$ad-bc$, orientation) so 5.1 has a concrete base — the same pattern as prior units' `lesson00`. **Sanity-built the skeletons:**
-`make -C unit05/lesson00 all` → clean (lesson plan 1pp; merged `lesson00_student.pdf` 6pp, `lesson00_full.pdf` 9pp; warmup &
-exit_ticket 1pp blank & key ✓); `make -C unit05/tests all` and `make -C unit05/test_keys all` → clean (practice/actual test +
-both keys compile). **Nothing is authored yet — every `main.tex` is still the scaffolder skeleton.** **Next run: author Unit 5
-Lesson 5.0** (all components + keys + slides), sourcing the math from Strang §5.1's 2×2 preliminaries; make 5.0 the Unit 5 model,
-proofread it, then scale out to 5.1–5.3 and finally the Unit 5 summative tests. Lesson 4.0 remains the cross-unit style model.
+| Lesson | Section (topic) | Status |
+| --- | --- | --- |
+| 5.0 (lesson00) | Setting Up Determinants --- the 2 by 2 Determinant, Area, and Orientation (on-ramp, mirrors 4.0/2.0) | **authored & built** |
+| 5.1 (lesson01) | 3 by 3 Determinants (Strang §5.1) | scaffold only |
+| 5.2 (lesson02) | Properties and Applications of Determinants (Strang §5.2) | scaffold only |
+| 5.3 (lesson03) | Linear Transformations (Strang §5.3) | scaffold only |
+
+Unit 5 summative tests (`tests/`, `test_keys/`, `sample_test*/`) are scaffold-only (skeletons compile clean). **Next run: author
+Unit 5 Lesson 5.1** ("3×3 Determinants" — cofactor/big-formula, volume of a box, sourcing Strang §5.1), then 5.2, 5.3, and finally the
+Unit 5 summative tests. Lesson 5.0 is now the Unit 5 model; Lesson 4.0 remains the cross-unit style model.
 
 ---
 

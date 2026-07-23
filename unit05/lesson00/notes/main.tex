@@ -3,17 +3,131 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 5, Lesson 5.0}{Guided Notes}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Guided Notes. See references/components.md for the expected structure.
-\begin{notesbox}{Guided Notes}
-\writelines{4}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item compute the \emph{determinant} $ad-bc$ of a $2\times2$ matrix;
+  \item read $|ad-bc|$ as the \emph{area} of the parallelogram the columns span, and the \emph{sign} as orientation;
+  \item explain why $\det=0$ means the columns are \emph{parallel} and the matrix has \emph{no inverse}.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.08in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\termblanklong{Determinant $\det A=ad-bc$}
+\termblanklong{Signed area (parallelogram)}
+\termblanklong{Orientation (the sign)}
+\termblanklong{Singular / invertible (recall §2)}
+\end{vocabbox}
+
+\begin{hookbox}
+Drop a logo inside the unit square and stretch it with a matrix --- the square becomes a
+parallelogram.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item What \emph{one} measurement tells you how much \emph{bigger} the logo got? \writeline
+  \item What would tell you the image was \emph{mirror-flipped}? \writeline
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. The 2$\times$2 Determinant}
+For a $2\times2$ matrix, the \textbf{determinant} is one number built from the four entries:
+\[
+  \det\begin{bmatrix} a & b \\ c & d \end{bmatrix} = ad - bc
+  \qquad(\text{down-diagonal } ad \;\text{ minus up-diagonal } bc).
+\]
+You have seen it before: it is the \blank{3.4cm} of the Unit~2 inverse
+$A^{-1}=\frac{1}{ad-bc}\begin{bsmallmatrix} d & -b\\ -c & a \end{bsmallmatrix}$. \textbf{Compute one:}
+\[
+  \det\begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}
+  = (2)(3) - (1)(1) = \blank{1.4cm}.
+\]
 \end{notesbox}
+
+\begin{notesbox}{2. The Determinant Is an Area}
+The two \textbf{columns} of $A$ span a \textbf{parallelogram}. Its \textbf{area} is $|\det A|$ ---
+the determinant turns the picture into a number. The columns
+$\begin{bsmallmatrix} 3\\0 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$
+below have base $3$ and height $2$, so area $=\blank{1.2cm}$, and indeed
+$\det\begin{bsmallmatrix} 3 & 1\\ 0 & 2 \end{bsmallmatrix}=(3)(2)-(1)(0)=\blank{1.2cm}$.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+  \draw[step=1, linegray!45, thin] (-0.4,-0.4) grid (4.6,2.6);
+  \draw[->, thick, charcoal] (-0.5,0)--(4.8,0);
+  \draw[->, thick, charcoal] (0,-0.5)--(0,2.8);
+  % parallelogram O, a=(3,0), a+b=(4,2), b=(1,2)
+  \fill[burgundy!16] (0,0)--(3,0)--(4,2)--(1,2)--cycle;
+  \draw[->, very thick, burgundy] (0,0)--(3,0) node[below right]{\scriptsize $\begin{bsmallmatrix} 3\\0 \end{bsmallmatrix}$};
+  \draw[->, very thick, royalblue] (0,0)--(1,2) node[above left]{\scriptsize $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$};
+  \draw[charcoal, thin] (3,0)--(4,2);
+  \draw[charcoal, thin] (1,2)--(4,2);
+  \node[charcoal] at (2.2,1.0){\scriptsize area $=6$};
+\end{tikzpicture}
+\end{center}
+Shearing the box (sliding the top) does not change base or height, so the area --- and the
+determinant --- \blank{2.6cm} the same.
+\end{notesbox}
+
+\begin{notesbox}{3. Orientation: What the Sign Means}
+The \emph{size} $|\det A|$ is the area. The \textbf{sign} reports \textbf{orientation}. A
+\textbf{positive} determinant keeps the plane's turning direction --- the second column is
+\emph{counterclockwise} from the first, like the $x$- and $y$-axes. A \textbf{negative} determinant
+means the pair is \blank{2.6cm} --- a mirror \emph{flip}.
+
+\vspace{2pt}
+\textbf{Swapping the two columns negates the determinant.} Same box, opposite orientation:
+\[
+  \det\begin{bmatrix} 3 & 1 \\ 0 & 2 \end{bmatrix} = 6,
+  \qquad
+  \det\begin{bmatrix} 1 & 3 \\ 2 & 0 \end{bmatrix} = (1)(0)-(3)(2) = \blank{1.4cm}.
+\]
+Both parallelograms have area $6$; only the sign --- the orientation --- changed.
+\end{notesbox}
+
+\begin{notesbox}{4. When the Determinant Is Zero}
+If the two columns point the \textbf{same way} (one is a multiple of the other), the parallelogram is
+squashed \textbf{flat}: zero area, so $\det=0$. Check the parallel columns
+$\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}$:
+\[
+  \det\begin{bmatrix} 2 & 4 \\ 1 & 2 \end{bmatrix} = (2)(2)-(4)(1) = \blank{1.2cm}.
+\]
+This is exactly when $A$ is \textbf{not invertible} --- the Unit~2 inverse divides by $ad-bc$, and
+you cannot divide by \blank{1.2cm}. So one number decides everything:
+\[
+  \det A \ne 0 \;\Leftrightarrow\; \text{columns independent} \;\Leftrightarrow\; A \text{ is }\blank{2.4cm}.
+\]
+
+\vspace{2pt}
+\textbf{The road ahead.} \textbf{5.1} $3\times3$ determinants --- the same idea in $3$D, where
+$|\det|$ is a \emph{volume}\; $\bullet$\; \textbf{5.2} the \emph{rules} determinants obey and what
+they are good for\; $\bullet$\; \textbf{5.3} \emph{linear transformations}, where $|\det A|$ is the
+factor every area is \blank{2.4cm} by.
+\end{notesbox}
+
+\begin{practicebox}
+Show your work. Remember: $\det\begin{bsmallmatrix} a & b\\ c & d \end{bsmallmatrix}=ad-bc$; area is $|\det|$.
+\begin{enumerate}[leftmargin=1.6em, itemsep=4pt]
+  \item Compute $\det\begin{bsmallmatrix} 4 & 2\\ 1 & 3 \end{bsmallmatrix}$. \writeline
+  \item Find the area of the parallelogram with columns $\begin{bsmallmatrix} 5\\0 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 2\\3 \end{bsmallmatrix}$. \writeline
+  \item Find $x$ so that $\begin{bsmallmatrix} 3 & x\\ 2 & 4 \end{bsmallmatrix}$ has $\det=0$. Is the matrix invertible then? \writeline
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

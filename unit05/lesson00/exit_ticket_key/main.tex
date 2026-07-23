@@ -11,9 +11,27 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Compute a determinant.} Find
+        $\det\begin{bmatrix} 4 & 2 \\ 3 & 5 \end{bmatrix}$.
+        \ansline{$(4)(5)-(2)(3)=20-6=14$.}
+  \item \textbf{Area \& orientation.} The columns of $\begin{bmatrix} 1 & 4 \\ 2 & 3 \end{bmatrix}$ span
+        a parallelogram. Find its \emph{area}, and state whether the orientation is \emph{kept} or
+        \emph{flipped}. How do you know?
+        \ansline{$\det=(1)(3)-(4)(2)=3-8=-5$. Area $=|-5|=5$; orientation is \emph{flipped} because the determinant is negative.}
+  \item \textbf{Solve \& justify.} Find the value of $x$ that makes
+        $\begin{bmatrix} 3 & x \\ 2 & 4 \end{bmatrix}$ have $\det=0$. Then explain in one sentence what
+        $\det=0$ tells you about the two columns and about whether the matrix has an \emph{inverse}.
+        \ansline{$(3)(4)-(x)(2)=12-2x=0\Rightarrow x=6$. When $\det=0$ the columns are parallel (the box is flat), so the matrix is \emph{not} invertible.}
+\end{enumerate}
+
+\begin{teachernote}
+Sort responses into ``got it / sign slip / concept slip.'' Item~1 is a clean $ad-bc$; item~2 tests
+the absolute value (area) \emph{and} reading the sign as orientation --- watch for students who give
+$-5$ as an area. Item~3 is the payoff sentence: $\det=0\Rightarrow$ parallel columns $\Rightarrow$ no
+inverse. If many stumble, open 5.1 with a 60-second determinant re-warm.
+\end{teachernote}
 
 \end{document}

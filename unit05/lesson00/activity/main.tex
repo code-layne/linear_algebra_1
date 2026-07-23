@@ -3,17 +3,70 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 5, Lesson 5.0}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Area, Orientation, and the Vanishing Box.} One number, $\det\begin{bsmallmatrix} a & b\\ c & d \end{bsmallmatrix}=ad-bc$,
+reads off the \textbf{area} the columns span ($|\det|$), the \textbf{orientation} (its sign), and
+whether the matrix is \textbf{invertible} ($\det\ne0$). Work with your partner, show each
+determinant, and \emph{justify} every claim.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Compute and read off area. Show your work.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item Compute the determinant
+        $\det\begin{bsmallmatrix} 4 & 1\\ 2 & 3 \end{bsmallmatrix} = \blank{2.4cm}$.
+  \item Find the \textbf{area} of the parallelogram with columns
+        $\begin{bsmallmatrix} 4\\0 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$:
+        \quad area $=|\det| = \blank{2.4cm}$.
+  \item Is the box \emph{flat}? Compute $\det\begin{bsmallmatrix} 2 & 3\\ 4 & 6 \end{bsmallmatrix}$ and
+        say whether the columns are parallel. \; \blank{3.0cm}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Now use the \emph{sign} and connect to \emph{invertibility}.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Orientation.} Compute $\det\begin{bsmallmatrix} 1 & 4\\ 2 & 3 \end{bsmallmatrix}$. Is the
+        orientation \emph{kept} or \emph{flipped}? What is the area? \writelines{2}
+  \item \textbf{The swap rule.} Swap the two columns to get $\begin{bsmallmatrix} 4 & 1\\ 3 & 2 \end{bsmallmatrix}$
+        and compute its determinant. How does it compare to item~1, and what changed about the box? \writelines{2}
+  \item \textbf{Solve for a flat box.} Find $x$ so that $A=\begin{bsmallmatrix} 2 & 6\\ 3 & x \end{bsmallmatrix}$
+        has $\det=0$. Is $A$ invertible for that $x$? Explain using the columns. \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{A first look at transformations.} Applying a matrix $A$ to the \textbf{unit square} (corners
+$(0,0),(1,0),(1,1),(0,1)$, area $1$) sends it to the parallelogram spanned by $A$'s columns. Its area
+is $|\det A|$ --- so $|\det A|$ is the factor \emph{every} area gets multiplied by (Lesson~5.3).
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Let $A=\begin{bsmallmatrix} 2 & 1\\ 0 & 3 \end{bsmallmatrix}$. The image of the unit square is
+        spanned by its columns $\begin{bsmallmatrix} 2\\0 \end{bsmallmatrix}$ and
+        $\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$. Find the image's area. By what factor did the
+        area grow? \writelines{2}
+  \item Now let $B=\begin{bsmallmatrix} 1 & 2\\ 2 & 1 \end{bsmallmatrix}$. Compute $\det B$. What is the
+        area factor, and what does the \emph{sign} say happened to the square? \writelines{2}
+  \item A matrix has $\det=0$. What happens to the unit square when you apply it? Why does that mean
+        the transformation cannot be \emph{undone}? \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

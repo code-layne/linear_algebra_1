@@ -5,6 +5,10 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
 \newcommand{\UnitNumberName}{Unit 5: Determinants and Linear Transformations \quad}
 \newcommand{\LessonNumberName}{Lesson 5.0: Setting Up Determinants --- the 2 by 2 Determinant, Area, and Orientation}
 
@@ -16,55 +20,145 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can compute the \emph{determinant}
+    $\det\begin{bsmallmatrix} a & b\\ c & d \end{bsmallmatrix}=ad-bc$ of a $2\times2$ matrix and
+    read it \emph{geometrically}: its \emph{absolute value} is the \emph{area} of the parallelogram
+    the columns span, and its \emph{sign} reports \emph{orientation} (a positive value keeps the
+    plane's turning direction, a negative value \emph{flips} it). They can explain why
+    $\det=0$ means the columns are \emph{parallel} --- the parallelogram collapses to a line, and the
+    matrix is \emph{not invertible} (recall the Unit~2 inverse divides by $ad-bc$). They can describe
+    where Unit~5 is going: $3\times3$ determinants and volume (5.1), properties and applications
+    (5.2), and linear transformations, where $|\det|$ is the \emph{area-scaling factor} (5.3).
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Compute a $2\times2$ determinant $ad-bc$.
+  \item Read $|ad-bc|$ as the \textbf{area} of the parallelogram spanned by the columns.
+  \item Read the \textbf{sign} as orientation: $+$ keeps, $-$ flips (a reflection); swapping columns negates it.
+  \item Use $\det=0$: columns parallel $\Leftrightarrow$ zero area $\Leftrightarrow$ \emph{not invertible}.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Four numbers collapse to \emph{one} that measures how the columns fill the plane.
+  \item Determinant $=$ signed area: it turns a \emph{picture} (a parallelogram) into a \emph{number}.
+  \item A negative sign is a \emph{mirror flip} --- the plane's turning direction reverses.
+  \item $\det=0$ is the fingerprint of dependence: the box goes flat, the inverse dies.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Determinant $\det A$ (2$\times$2)} & For $A=\begin{bsmallmatrix} a & b\\ c & d \end{bsmallmatrix}$, the number $\det A=ad-bc$. \\
+\textbf{Signed area} & $|\det A|$ is the area of the parallelogram spanned by $A$'s two columns; the \emph{sign} adds orientation. \\
+\textbf{Orientation} & Positive $=$ same turning direction as the axes (counterclockwise); negative $=$ \emph{flipped} (a reflection). \\
+\textbf{Singular / invertible} (recall §2) & $A$ is invertible exactly when $\det A\ne0$; the inverse $\frac{1}{ad-bc}\begin{bsmallmatrix} d & -b\\ -c & a \end{bsmallmatrix}$ divides by the determinant. \\
+\textbf{Area-scaling factor} (preview 5.3) & Applying $A$ to a region multiplies every area by $|\det A|$. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three ideas this lesson builds on:
+    \textbf{(1)} reading the two \emph{columns} of a $2\times2$ matrix as \emph{vectors} (Unit~1),
+    \textbf{(2)} the \emph{area} of a rectangle (base $\times$ height), and
+    \textbf{(3)} the \emph{denominator} $ad-bc$ of the $2\times2$ inverse from Unit~2 --- the very
+    number that decides whether the inverse exists. Debrief item~3 aloud: that denominator
+    \emph{is} today's determinant, and ``the inverse blows up when $ad-bc=0$'' is the fact the
+    whole lesson turns on.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Put a company logo inside the unit square and \emph{stretch and shear} it with a matrix --- the
+    square becomes a parallelogram. Ask: \textbf{``How much bigger did the logo get, and did it get
+    mirror-flipped?''} Both answers are hiding in \emph{one} number built from the matrix's four
+    entries: $ad-bc$. Its \emph{size} is the new area (the stretch factor); its \emph{sign} says
+    whether the image was flipped. Name the payoff: a single number reads off both the area and the
+    orientation of what a matrix does. Pose the unit question: \textbf{``How can four numbers collapse
+    into one that measures area and detects a flip?''} That number --- the determinant --- runs the
+    whole unit: volume in 5.1, its rules and uses in 5.2, and transformations in 5.3.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. The 2$\times$2 determinant.} For $A=\begin{bsmallmatrix} a & b\\ c & d \end{bsmallmatrix}$,
+define $\det A=ad-bc$: down-diagonal product minus up-diagonal product. Students have already met
+it --- it is the denominator of the Unit~2 inverse. Worked:
+$\det\begin{bsmallmatrix} 2 & 1\\ 1 & 3 \end{bsmallmatrix}=6-1=5$.
+
+\textbf{2. Determinant $=$ area.} The two columns span a parallelogram; $|\det A|$ is its
+\textbf{area}. Axis-aligned first: columns $\begin{bsmallmatrix} 3\\0 \end{bsmallmatrix},
+\begin{bsmallmatrix} 0\\2 \end{bsmallmatrix}$ make a $3\times2$ box, area $6=\det$. Shear it to
+$\begin{bsmallmatrix} 3\\0 \end{bsmallmatrix},\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$: base~$3$,
+height~$2$, still area $6=3\cdot2-0\cdot1$. A picture becomes a number.
+
+\columnbreak
+
+\textbf{3. Orientation: the sign.} A \emph{positive} determinant keeps the plane's turning direction
+(second column counterclockwise from the first, like the axes); a \emph{negative} one \textbf{flips}
+it --- a mirror reflection. \emph{Swapping the two columns negates the determinant}:
+$\det\begin{bsmallmatrix} 1 & 3\\ 2 & 0 \end{bsmallmatrix}=-6$ has the same area as
+$\begin{bsmallmatrix} 3 & 1\\ 0 & 2 \end{bsmallmatrix}$ but the opposite orientation.
+
+\textbf{4. When $\det=0$: collapse \& invertibility.} If the columns are \emph{parallel}, the
+parallelogram is flat --- zero area --- and $\det=0$. E.g.\ $\begin{bsmallmatrix} 2 & 4\\ 1 & 2
+\end{bsmallmatrix}$: $4-4=0$. That is exactly when $A$ is \textbf{not invertible} (the Unit~2
+inverse divides by $ad-bc$). \textbf{Road ahead:} \textbf{5.1} $3\times3$ determinants and volume;
+\textbf{5.2} properties and applications; \textbf{5.3} linear transformations, where $|\det A|$ is
+the factor every area is multiplied by.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item sign slips in $ad-bc$ --- computing $ad+bc$, or subtracting in the wrong order ($bc-ad$);
+  \item forgetting \emph{absolute value} for area (a negative determinant still means positive area);
+  \item reading $\det=0$ as ``no answer'' rather than ``columns parallel / flat box / no inverse.''
+\end{itemize}
+Cold-call prompts: ``Which diagonal is positive?'' ``A determinant of $-6$ --- what is the area, and
+what does the minus sign mean?'' ``If $\det=0$, what do the two columns look like?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Area, Orientation, and the Vanishing Box} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Compute $2\times2$ determinants; find the area of a parallelogram from
+its columns; read whether a box is flat ($\det=0$) or not.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Use the \emph{sign} for orientation and confirm that swapping
+columns flips it; solve for a missing entry that makes $\det=0$, and connect it to
+\emph{invertibility} (recall §2).
+
+\columnbreak
+\textbf{Tier E --- Extension.} \emph{First look at transformations:} apply a matrix to the unit
+square, find the area of the image, and see that it equals $|\det A|$ --- the area-scaling factor of
+Lesson~5.3 (including a reflection with $\det<0$).
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): compute a $2\times2$ determinant; find the area of a
+parallelogram and state whether its orientation is kept or flipped; and a
+\textbf{conceptual/justification check} --- solve for the entry that makes $\det=0$ and explain what
+that says about the columns and about invertibility. Collect and sort into ``got it / sign slip /
+concept slip'' to decide whether 5.1 opens with a quick determinant re-warm.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} compute determinants; areas of parallelograms from columns; orientation and the
+swap rule; solve-for-the-entry to force $\det=0$ and tie it to invertibility (§2); and a short
+justification item. \textbf{Extension:} apply a matrix to the unit square and show the image area is
+$|\det A|$ --- a first taste of Lesson~5.3, including a reflection. \textbf{Preview:} Lesson~5.1,
+\emph{$3\times3$ Determinants} --- the same idea one dimension up, where $|\det|$ becomes the
+\emph{volume} of a box.
 \end{skillbox}
 \end{document}

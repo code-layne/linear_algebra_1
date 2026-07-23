@@ -5,6 +5,8 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
 \newcommand{\UnitNumberName}{Unit 5: Determinants and Linear Transformations \quad}
 \newcommand{\LessonNumberName}{Lesson 5.1: 3 by 3 Determinants}
 
@@ -16,55 +18,137 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can compute a $3\times3$ determinant by \emph{cofactor
+    expansion} --- expanding along a row into three $2\times2$ determinants (which they own from
+    Lesson~5.0) with the sign pattern $+\,-\,+$ --- and read it \emph{geometrically}: $|\det A|$ is the
+    \emph{volume} of the box (parallelepiped) the three columns span, and the \emph{sign} reports
+    orientation. They can use the \emph{triangular shortcut} (determinant $=$ product of the diagonal)
+    and explain why $\det=0$ means the three columns lie in \emph{one plane} --- the box collapses flat,
+    and the matrix is \emph{not invertible} (the Unit~2 callback). They can say where Unit~5 goes next:
+    properties of determinants (5.2) and transformations, where $|\det A|$ is the \emph{volume-scaling
+    factor} (5.3).
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Compute a $3\times3$ determinant by \textbf{cofactor expansion} ($+\,-\,+$).
+  \item Use \textbf{minors}: cross out a row \& column to get each $2\times2$.
+  \item Read $|\det A|$ as the \textbf{volume} of the box the columns span; use the \textbf{triangular} shortcut.
+  \item Use $\det=0$: columns coplanar $\Leftrightarrow$ flat box $\Leftrightarrow$ \emph{not invertible}.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item A hard $3\times3$ reduces to three easy $2\times2$s you already know.
+  \item Determinant $=$ signed volume: it turns a \emph{box} into a \emph{number}.
+  \item Same story as 5.0, one dimension up: area $\to$ volume.
+  \item $\det=0$ is the fingerprint of dependence: the box goes flat, the inverse dies.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Minor} & The $2\times2$ determinant left after crossing out an entry's row and column. \\
+\textbf{Cofactor expansion} & $\det A$ across a row: each entry $\times$ its minor, with signs $+\,-\,+$. \\
+\textbf{Signed volume} & $|\det A|$ is the volume of the box (parallelepiped) the three columns span; the \emph{sign} is orientation. \\
+\textbf{Triangular shortcut} & If all entries below (or above) the diagonal are $0$, $\det A$ is the \emph{product of the diagonal}. \\
+\textbf{Singular / invertible} (recall §2) & $A$ is invertible exactly when $\det A\ne0$; coplanar columns $\Rightarrow\det=0\Rightarrow$ no inverse. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three pieces of cofactor expansion:
+    \textbf{(1)} a \emph{$2\times2$ determinant} $ad-bc$ (Lesson~5.0) --- the minor students will
+    compute three of; \textbf{(2)} the \emph{volume} of a rectangular box (length $\times$ width
+    $\times$ height) --- the geometric meaning of the answer; and \textbf{(3)} the \emph{crossing-out
+    motion} --- delete a row and column of a $3\times3$ and read off the $2\times2$ that stays. Debrief
+    item~3 aloud: its answer is exactly the \emph{first} term of the notes' worked example.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    In Lesson~5.0 two columns spanned a parallelogram and $|ad-bc|$ was its \emph{area}. Now put a
+    \emph{third} column into space: the three columns span a slanted \textbf{box}. Ask:
+    \textbf{``What one number measures how much space that box fills --- and how would you even compute
+    it for a $3\times3$?''} Reveal the two answers together: geometrically it is the \emph{volume}
+    ($|\det A|$); mechanically you don't need anything new --- a $3\times3$ determinant is just
+    \emph{three $2\times2$ determinants you already know}, combined with the signs $+\,-\,+$. Name the
+    payoff: the same ``one number reads off the geometry'' idea as 5.0, lifted one dimension. Pose the
+    thread: \textbf{``When is that volume zero --- and what does a flat box say about the matrix?''}
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. From area to volume.} Two columns $\to$ parallelogram (area); \emph{three} columns $\to$ a
+box in space (a parallelepiped). $|\det A|$ is its \textbf{volume} --- the 5.0 idea, one dimension up.
+Show the box figure (three column-edges from a corner).
+
+\textbf{2. Cofactor expansion.} Go across the top row. For each entry, cross out its row and column
+(the \textbf{minor}, a $2\times2$) and attach signs $+\,-\,+$. Worked:
+$A=\begin{bsmallmatrix} 2 & 1 & 0\\ 1 & 3 & 1\\ 0 & 1 & 2 \end{bsmallmatrix}$,
+$\det A=2\!\cdot\!5-1\!\cdot\!2+0=8$. Stress: each piece is a Lesson~5.0 determinant, and the top-row
+$0$ kills a term (expand where the zeros are).
+
+\columnbreak
+
+\textbf{3. Volume \& the triangular shortcut.} Axis box
+$\mathrm{diag}(2,3,4)\to\det=24=2\!\cdot\!3\!\cdot\!4$. For a triangular matrix (like Unit~2's $U$),
+$\det$ is the \textbf{product of the diagonal}: $\det\begin{bsmallmatrix} 2&5&1\\0&3&4\\0&0&2 \end{bsmallmatrix}=12$.
+
+\textbf{4. When $\det=0$: collapse \& invertibility.} If the three columns lie in \emph{one plane}
+(one is a combination of the others), the box is \emph{flat} --- zero volume --- so $\det=0$. E.g.\
+$Z=\begin{bsmallmatrix} 1&0&1\\0&1&1\\1&1&2 \end{bsmallmatrix}$ (col$_3=$col$_1+$col$_2$): $\det=0$.
+That is exactly when $A$ is \textbf{not invertible} (§2). \textbf{Road ahead:} \textbf{5.2} properties
+of determinants; \textbf{5.3} transformations, where $|\det A|$ scales every volume.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item the \emph{middle sign} --- the second term is $\mathbf{-}\,a_2\times(\text{its minor})$, not $+$;
+  \item wrong \emph{minors} --- crossing out the wrong row/column, or an arithmetic slip inside the $2\times2$;
+  \item forgetting \emph{absolute value} for volume, and reading $\det=0$ as ``no answer'' instead of ``coplanar / flat / no inverse.''
+\end{itemize}
+Cold-call prompts: ``Which entry did you cross out to get that $2\times2$?'' ``Why is the middle term
+negative?'' ``A determinant of $0$ --- what do the three columns look like in space?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Building Volume in 3D} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Expand a $3\times3$ (exploit a zero); find the volume of an axis box;
+see that a zero row flattens the box ($\det=0$).
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Confirm the triangular shortcut two ways; solve for the entry that
+makes $\det=0$ and connect it to \emph{invertibility}; use the \emph{swap rule} for orientation.
+
+\columnbreak
+\textbf{Tier E --- Extension.} \emph{First look at 3D transformations:} apply a matrix to the unit
+cube, find the image volume $=|\det A|$ (including a reflection with $\det<0$ and a $\det=0$ collapse).
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): compute a $3\times3$ determinant by expansion; find the
+\emph{volume} of a box (choosing a zero-rich row); and a \textbf{justification check} --- three
+coplanar columns give $\det=0$ and no inverse, explained in one sentence. Collect and sort into ``got
+it / expansion slip / concept slip'' to decide whether 5.2 opens with a quick expansion re-warm.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} compute $3\times3$ determinants (including a triangular one and a $\det=0$); volume
+from three columns; solve-for-the-entry to force $\det=0$ and tie it to invertibility (§2); and a short
+justification item. \textbf{Extension:} apply a matrix to the unit cube and show the image volume is
+$|\det A|$ --- a first taste of Lesson~5.3, including a reflection. \textbf{Preview:} Lesson~5.2,
+\emph{Properties and Applications of Determinants} --- the rules that let you find a determinant
+\emph{without} always expanding.
 \end{skillbox}
 \end{document}

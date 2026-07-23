@@ -3,17 +3,61 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 5, Lesson 5.1}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+Expand along a row (pick one with a zero when you can). Recall: $|\det|$ is the \textbf{volume} of the
+box the columns span, and a triangular matrix's determinant is the \emph{product of its diagonal}.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Compute determinants.}
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+      \item $\det\begin{bmatrix} 1 & 2 & 0 \\ 0 & 3 & 1 \\ 1 & 0 & 2 \end{bmatrix}$ \hfill
+      \item $\det\begin{bmatrix} 2 & 0 & 0 \\ 1 & 3 & 0 \\ 4 & 5 & 1 \end{bmatrix}$ \; {\footnotesize(triangular)} \hfill
+      \item $\det\begin{bmatrix} 1 & 2 & 3 \\ 2 & 4 & 6 \\ 0 & 1 & 1 \end{bmatrix}$
+    \end{enumerate}
+    \vspace{1.3cm}
+  \item \textbf{Volume from three columns.} Find the volume of the box spanned by the columns.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+      \item $\begin{bmatrix} 4 \\ 0 \\ 0 \end{bmatrix}, \begin{bmatrix} 0 \\ 3 \\ 0 \end{bmatrix}, \begin{bmatrix} 0 \\ 0 \\ 2 \end{bmatrix}$ \hfill
+      \item $\begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, \begin{bmatrix} 2 \\ 3 \\ 0 \end{bmatrix}, \begin{bmatrix} 1 \\ 4 \\ 2 \end{bmatrix}$
+    \end{enumerate}
+    \vspace{1.1cm}
+  \item \textbf{Zero determinant \& invertibility (§2).} Find $x$ so that
+        $A=\begin{bmatrix} 2 & 1 & 0 \\ 1 & x & 1 \\ 0 & 1 & 2 \end{bmatrix}$ has $\det=0$.
+        Is $A$ invertible for that $x$? What does $\det=0$ say about the three columns? \writelines{2}
+  \item \textbf{Explain.} For a $3\times3$ matrix, what does $|\det A|$ measure geometrically? What does
+        $\det A=0$ tell you about the three columns and about the inverse? \writelines{2}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Volume-scaling factor (a first look at transformations).} Applying a matrix $A$ to the
+\textbf{unit cube} (volume $1$) produces the box spanned by $A$'s columns, whose volume is $|\det A|$.
+So $|\det A|$ is the factor every volume is multiplied by (Lesson~5.3).
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item For $A=\begin{bmatrix} 3 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 2 \end{bmatrix}$, find the volume of the image of the unit cube. By what factor did volume grow?
+  \item For $B=\begin{bmatrix} 2 & 0 & 0 \\ 0 & 3 & 0 \\ 0 & 0 & -1 \end{bmatrix}$, find $\det B$. What is the volume factor, and what does the sign say happened to the cube?
+\end{enumerate}
+\writelines{3}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 5.2: Properties and Applications of Determinants.} Expanding a
+$3\times3$ by hand is real work. Next we collect the \emph{rules} determinants obey --- how row
+operations, swaps, and products change them --- so you can find a determinant \emph{without} always
+expanding, and see what determinants are good for.
+\end{spiralbox}
 
 \end{document}

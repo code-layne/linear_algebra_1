@@ -1,6 +1,8 @@
 %! 3 by 3 Determinants — Unit 5, Lesson 5.1 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
 
 \begin{document}
 
@@ -11,16 +13,105 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 5.1}\\[0.5cm]
-    {\color{white}\bfseries\LARGE 3 by 3 Determinants}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 5}
+    {\color{white}\bfseries\LARGE 3 by 3 Determinants}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 5: Determinants and Linear Transformations}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{From a parallelogram to a box}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.56\textwidth}
+      In 5.0, \emph{two} columns spanned a parallelogram and $|ad-bc|$ was its \textbf{area}.\\[8pt]
+      Now add a \emph{third} column --- three columns span a slanted \textbf{box} in space.\\[8pt]
+      \emph{One} number will measure its \textbf{volume} --- and computing it needs nothing new.
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.8]
+        \coordinate (O) at (0,0);
+        \coordinate (U) at (2.8,0);
+        \coordinate (V) at (1.0,0.75);
+        \coordinate (W) at (0.35,2.0);
+        \coordinate (UV) at (3.8,0.75);
+        \coordinate (UW) at (3.15,2.0);
+        \coordinate (VW) at (1.35,2.75);
+        \coordinate (UVW) at (4.15,2.75);
+        \draw[linegray, dashed] (O)--(V); \draw[linegray, dashed] (V)--(UV); \draw[linegray, dashed] (V)--(VW);
+        \fill[burgundy!12] (O)--(U)--(UW)--(W)--cycle;
+        \fill[royalblue!16] (U)--(UV)--(UVW)--(UW)--cycle;
+        \fill[greenacc!16] (W)--(UW)--(UVW)--(VW)--cycle;
+        \draw[charcoal, thin] (O)--(U)--(UW)--(W)--cycle;
+        \draw[charcoal, thin] (U)--(UV)--(UVW)--(UW); \draw[charcoal, thin] (W)--(VW)--(UVW);
+        \draw[->, very thick, burgundy]  (O)--(U);
+        \draw[->, very thick, greenacc]  (O)--(V);
+        \draw[->, very thick, royalblue] (O)--(W);
+        \node[charcoal] at (2.15,1.35){\scriptsize volume $=|\det A|$};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{2pt}
+  \begin{block}{The question}
+    What one number is the box's volume --- and when is that volume \textbf{zero}?
+  \end{block}
+\end{frame}
+
+% COFACTOR EXPANSION
+\begin{frame}[t, plain]
+  \burgundyheader{Cofactor expansion: three 2$\times$2s you know}
+  \sectionlabel[goldacc]{Method}
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item Go across the top row. Cross out each entry's row \& column (its \textbf{minor}); attach signs $+\,-\,+$:
+      \[ \det\begin{bsmallmatrix} a_1 & a_2 & a_3\\ b_1 & b_2 & b_3\\ c_1 & c_2 & c_3 \end{bsmallmatrix}
+        = a_1\det\begin{bsmallmatrix} b_2 & b_3\\ c_2 & c_3 \end{bsmallmatrix}
+        - a_2\det\begin{bsmallmatrix} b_1 & b_3\\ c_1 & c_3 \end{bsmallmatrix}
+        + a_3\det\begin{bsmallmatrix} b_1 & b_2\\ c_1 & c_2 \end{bsmallmatrix}. \]
+    \item \textbf{Worked:} $\det\begin{bsmallmatrix} 2 & 1 & 0\\ 1 & 3 & 1\\ 0 & 1 & 2 \end{bsmallmatrix}
+          = 2(5) - 1(2) + 0 = 8.$ \; (Top-row $0$ kills a term --- expand where the zeros are.)
+  \end{itemize}
+\end{frame}
+
+% VOLUME + TRIANGULAR
+\begin{frame}[t, plain]
+  \burgundyheader{Volume, and a triangular shortcut}
+  \sectionlabel{Geometry}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      $|\det A|$ is the \textbf{volume} of the box.\\[6pt]
+      \textbf{Axis box:} $\det\,\mathrm{diag}(2,3,4)=24=2\!\cdot\!3\!\cdot\!4.$\\[6pt]
+      \textbf{Triangular} (all zeros below the diagonal): $\det$ is the \emph{product of the diagonal}.
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \centering
+      \[ \det\begin{bsmallmatrix} 2 & 5 & 1\\ 0 & 3 & 4\\ 0 & 0 & 2 \end{bsmallmatrix} = 2\cdot3\cdot2 = 12. \]
+      \vspace{4pt}
+      No expansion needed --- just multiply the diagonal.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ZERO + ROAD AHEAD
+\begin{frame}[t, plain]
+  \burgundyheader{Zero volume means flat --- and no inverse}
+  \sectionlabel[goldacc]{Collapse}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item \textbf{Coplanar columns $\Rightarrow$ flat box $\Rightarrow$ zero volume.}
+          $\det\begin{bsmallmatrix} 1 & 0 & 1\\ 0 & 1 & 1\\ 1 & 1 & 2 \end{bsmallmatrix}=0$
+          (column~3 $=$ column~1 $+$ column~2).
+    \item \textbf{The whole story:} \; $\det A\ne0 \;\Leftrightarrow\;$ columns independent
+          $\;\Leftrightarrow\; A$ is \textbf{invertible}.
+    \item \textbf{Sign $=$ orientation:} swapping two columns negates $\det$ (a mirror flip).
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{The road ahead}
+    \textbf{5.2} properties \& applications of determinants \;$\bullet$\; \textbf{5.3} transformations,
+    where $|\det A|$ is the \emph{volume-scaling factor}.
+  \end{block}
 \end{frame}
 
 \end{document}

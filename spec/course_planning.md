@@ -7,36 +7,42 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-23 — **Authored & built Unit 5 Lesson 5.0 — "Setting Up Determinants: the 2×2 Determinant, Area, and Orientation" — the Unit 5 on-ramp and model.**
+**Last updated:** 2026-07-23 — **Authored & built Unit 5 Lesson 5.1 — "3 by 3 Determinants" (Strang §5.1).**
 Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides deck,
-mirroring Lesson 4.0's preamble/boxes/tone. **Content — the geometric on-ramp to determinants (before Strang §5.1's 3×3):**
-(1) **the 2×2 determinant** $\det\begin{bsmallmatrix} a & b\\ c & d\end{bsmallmatrix}=ad-bc$, framed as the *denominator* of the
-Unit 2 inverse students already know; (2) **determinant = area** — $|\det A|$ is the area of the parallelogram the columns span
-(axis box $(3,0),(0,2)$ → 6, then sheared $(3,0),(1,2)$ still 6 — shearing preserves area); (3) **orientation = the sign** — $+$
-keeps the plane's turning direction, $-$ is a mirror flip; *swapping columns negates* $\det$ ($\det[3,1;0,2]=6$ vs $\det[1,3;2,0]=-6$);
-(4) **$\det=0$ = collapse** — parallel columns → flat box → **not invertible** (the §2 callback: the inverse divides by $ad-bc$), landing
-the chain $\det\ne0\Leftrightarrow$ independent $\Leftrightarrow$ invertible. **Hook:** stretch a logo in the unit square — one number
-$ad-bc$ gives both the new area and whether it flipped. **Tier E / extension previews 5.3:** apply a matrix to the unit square →
-image area $=|\det A|$ (the area-scaling factor), incl. a reflection ($\det[1,2;2,1]=-3$) and $\det=0$ collapse (no inverse). **Custom
-parallelogram TikZ** (burgundy col1, blue col2, shaded, "area = 6") on notes §2 + slides. **Numbers thread through** ($[2,1;1,3]\to\det 5$
-recurs in warmup/notes; the flat-box $[2,6;3,x]\to x=9$ recurs in activity/homework). **Built `make -C unit05/lesson00 all` → clean**
-(0 `^!` errors across all 13 logs; no `\ans`-in-math). Page counts: cover/warmup/exit 1pp (blank & key ✓ 1-page constraint), notes 2pp/2pp,
-activity 2pp/2pp, homework 2pp/2pp, slides 5pp, lesson plan 2pp; **student 9pp, full 16pp**. Visually spot-checked notes_key p1 (vocab/hook
-answers + the area parallelogram figure) — clean. **Gotcha fixed at build:** removed a `\newcommand{\det}` from the lesson-plan preamble —
-`\det` is already a LaTeX operator (would error "command already defined"); use the built-in.
+mirroring Lesson 5.0's preamble/boxes/tone. **Content — the 5.0 idea one dimension up (area → volume):**
+(1) **from area to volume** — three columns span a *box* (parallelepiped) and $|\det A|$ is its **volume**; (2) **cofactor
+expansion** as the method — expand across the top row into three $2\times2$ minors (cross out the entry's row & column) with the
+sign pattern $+\,-\,+$, so a hard $3\times3$ reduces to three easy $2\times2$s they own from 5.0; worked spine
+$A=[2,1,0;1,3,1;0,1,2]\to 2(5)-1(2)+0=\det 8$ (the two minors $[3,1;1,2]=5$, $[1,1;0,2]=2$); (3) **volume + triangular
+shortcut** — axis box $\mathrm{diag}(2,3,4)\to 24$, triangular $[2,5,1;0,3,4;0,0,2]\to 2\cdot3\cdot2=12$ (product of the diagonal,
+the Unit 2 $U$ callback); (4) **$\det=0$ = flat** — coplanar columns → flat box → zero volume → **not invertible**
+($Z=[1,0,1;0,1,1;1,1,2]$, col3=col1+col2, $\det 0$), landing the same chain $\det\ne0\Leftrightarrow$ independent
+$\Leftrightarrow$ invertible. **Hook:** a parallelogram → a box; one number is its volume, and computing it needs nothing new.
+**Tier E / extension previews 5.3:** apply a matrix to the unit **cube** → image volume $=|\det A|$ (the volume-scaling factor),
+incl. a reflection ($\det\,\mathrm{diag}(2,3,-1)=-6$) and a $\det=0$ collapse. **Numbers thread through:** the $2\times2$ minor
+$[3,1;1,2]=5$ appears in the warmup (all three warmup items are literally the pieces of cofactor expansion) and is the first term
+of the notes' $\det 8$; the notes spine $[2,1,0;1,3,1;0,1,2]$ echoes 5.0's $[2,1;1,3]\to 5$. **Custom parallelepiped TikZ** (burgundy
+$a_1$, green $a_2$, blue $a_3$ column-edges, shaded visible faces, dashed hidden edges, "volume = |det A|") on notes §1 + slides hook.
+**Built `make -C unit05/lesson01 all` → clean** (0 `^!` errors across all 13 logs; no `\ans`-in-math; no overfull >15pt). Page
+counts: cover/warmup/exit 1pp (blank & key ✓ 1-page constraint), notes 3pp/3pp, activity 2pp/2pp, homework 2pp/2pp, slides 5pp,
+lesson plan 2pp; **student 10pp, full 17pp**. Visually spot-checked notes_key p1 (parallelepiped figure — clean, three colored edges,
+dashed hidden edges) and p2 (cofactor expansion, triangular shortcut, $\det Z=0$ — all correct). All arithmetic hand-verified in
+pure Python (no numpy/sympy on this host). **Gotcha:** BSD `awk` on macOS lacks GNU `match(...,arr)` — use `grep`/`perl` for the
+overfull-hbox scan.
 
 **Confirmed Unit 5 lesson map** (unchanged):
 
 | Lesson | Section (topic) | Status |
 | --- | --- | --- |
 | 5.0 (lesson00) | Setting Up Determinants --- the 2 by 2 Determinant, Area, and Orientation (on-ramp, mirrors 4.0/2.0) | **authored & built** |
-| 5.1 (lesson01) | 3 by 3 Determinants (Strang §5.1) | scaffold only |
+| 5.1 (lesson01) | 3 by 3 Determinants (Strang §5.1) | **authored & built** |
 | 5.2 (lesson02) | Properties and Applications of Determinants (Strang §5.2) | scaffold only |
 | 5.3 (lesson03) | Linear Transformations (Strang §5.3) | scaffold only |
 
 Unit 5 summative tests (`tests/`, `test_keys/`, `sample_test*/`) are scaffold-only (skeletons compile clean). **Next run: author
-Unit 5 Lesson 5.1** ("3×3 Determinants" — cofactor/big-formula, volume of a box, sourcing Strang §5.1), then 5.2, 5.3, and finally the
-Unit 5 summative tests. Lesson 5.0 is now the Unit 5 model; Lesson 4.0 remains the cross-unit style model.
+Unit 5 Lesson 5.2** ("Properties and Applications of Determinants" — the rules determinants obey: row ops, swaps negate, product
+rule $\det AB=\det A\det B$, $\det A^{\T}=\det A$, and applications like Cramer/inverse-via-cofactors; source Strang §5.2), then 5.3,
+and finally the Unit 5 summative tests. Lessons 5.0/5.1 are now the Unit 5 models; Lesson 4.0 remains the cross-unit style model.
 
 ---
 
@@ -408,19 +414,21 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ☑ all lessons + tests authored & built ✅ |
 | 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ☑ all lessons + tests authored & built ✅ |
 | 4 | Orthogonality | 4.0 intro + 4.1–4.4 | ☑ all lessons + tests authored & built ✅ |
-| 5 | Determinants and Linear Transformations | 5.1–5.3 | ☐ |
+| 5 | Determinants and Linear Transformations | 5.0 intro + 5.1–5.3 | ◐ 5.0, 5.1 authored & built; 5.2, 5.3 + tests remain |
 | 6 | Eigenvalues and Eigenvectors | 6.1–6.4 (§6.4 optional) | ☐ |
 | 7 | The Singular Value Decomposition *(optional/advanced)* | 7.1–7.4 | ☐ |
 | 8 | Learning from Data *(optional enrichment)* | 8.1–8.4 | ☐ |
 
 ## Next steps
 
-1. **Begin Unit 5 — Determinants and Linear Transformations** (Strang Ch. 5, sections 5.1–5.3, plus the
-   customary `lesson00` intro/spiral). **First confirm the lesson map** from `spec/linear_algebra_v2.md`
-   with the user before authoring (topics occasionally merge/split). Then scaffold with `new_lesson.py`
-   (the run that creates `unit05` auto-scaffolds its `tests/`/`test_keys/`/`sample_test*` dirs) and author
-   lesson 5.0 first as the Unit 5 model, mirroring a recent lesson's preamble/boxes/tone. Down-level LAfE
-   Ch. 5 for secondary students (concrete numbers + geometry first).
+1. **Continue Unit 5 — author Lesson 5.2** ("Properties and Applications of Determinants," Strang §5.2):
+   the rules that let you find a determinant *without* always expanding — row operations, swapping rows/cols
+   negates, a repeated row ⇒ $\det=0$, $\det(AB)=\det A\det B$, $\det A^{\T}=\det A$, triangular = product of
+   pivots — plus applications (e.g. Cramer's rule / inverse via cofactors, kept light and geometric). Then
+   Lesson 5.3 ("Linear Transformations," §5.3, where $|\det A|$ is the area/volume-scaling factor — the payoff
+   the 5.0/5.1 Tier E's have been previewing), and finally the Unit 5 summative tests (`tests/`, `test_keys/`,
+   then `drop` to populate `sample_test*`). Lessons 5.0/5.1 are the Unit 5 models; scaffold is already in place
+   for 5.2/5.3. Down-level LAfE Ch. 5 for secondary students (concrete numbers + geometry first).
 2. *(optional)* Rebuild the whole Unit 1–4 packets (`make -C unitXX student|full`, or `make student|full`
    at the root) to confirm the `sample_test`/`sample_test_key` drop-ins merge in as expected.
 

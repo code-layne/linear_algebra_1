@@ -3,17 +3,86 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 5, Lesson 5.1}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Building Volume in 3D.} A $3\times3$ determinant is three $2\times2$ determinants glued
+together with the signs $\;{+}\;{-}\;{+}$. Its \emph{size} $|\det A|$ is the \textbf{volume} of the box
+the three columns span; $\det=0$ means the box is \textbf{flat} (columns in one plane) and $A$ is
+\textbf{not invertible}. Work with your partner, show each expansion, and \emph{justify} every claim.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Expand along the top row and read off volume. Show your work.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Compute $\det\begin{bsmallmatrix} 1 & 2 & 0 \\ 0 & 3 & 1 \\ 2 & 1 & 4 \end{bsmallmatrix}$ by
+        cofactor expansion. \; (The top-right entry is $0$ --- one term drops out.)
+        \ansline{$1\det\begin{bsmallmatrix} 3 & 1\\ 1 & 4\end{bsmallmatrix} - 2\det\begin{bsmallmatrix} 0 & 1\\ 2 & 4\end{bsmallmatrix} + 0 = 1(11) - 2(-2) = 11+4 = 15$.}
+  \item Find the \textbf{volume} of the box with columns
+        $\begin{bsmallmatrix} 3\\0\\0 \end{bsmallmatrix}$, $\begin{bsmallmatrix} 0\\2\\0 \end{bsmallmatrix}$, and $\begin{bsmallmatrix} 0\\0\\5 \end{bsmallmatrix}$:
+        \quad volume $=|\det| = \ans{$30$}$ \quad{\footnotesize(axis box: $3\cdot2\cdot5$)}.
+  \item Is the box \emph{flat}? Compute $\det\begin{bsmallmatrix} 1 & 2 & 3 \\ 0 & 0 & 0 \\ 4 & 5 & 6 \end{bsmallmatrix}$
+        and say what a whole row of zeros does to the volume. \; \ans{$\det=0$ --- a zero row means the box is flat (zero volume).}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Use the shortcut, the sign, and the tie to \emph{invertibility}.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Triangular shortcut.} Compute $\det\begin{bsmallmatrix} 3 & 0 & 0 \\ 2 & 1 & 0 \\ 5 & 4 & 2 \end{bsmallmatrix}$
+        two ways: by cofactor expansion, and as the \emph{product of the diagonal entries}. Do they agree?
+        \ansline{Expansion (top row): $3\det\begin{bsmallmatrix} 1 & 0\\ 4 & 2\end{bsmallmatrix} - 0 + 0 = 3(2)=6$. Diagonal product: $3\cdot1\cdot2=6$. Yes --- they agree.}
+  \item \textbf{Solve for a flat box.} Find $x$ so that $A=\begin{bsmallmatrix} 1 & 0 & 2 \\ 2 & 1 & x \\ 0 & 1 & 1 \end{bsmallmatrix}$
+        has $\det=0$. Is $A$ invertible for that $x$? Explain.
+        \ansline{Expand: $1\det\begin{bsmallmatrix} 1 & x\\ 1 & 1\end{bsmallmatrix} - 0 + 2\det\begin{bsmallmatrix} 2 & 1\\ 0 & 1\end{bsmallmatrix} = (1-x)+2(2)=5-x$. Set $5-x=0\Rightarrow x=5$. \emph{Not} invertible at $x=5$: the box is flat (zero volume).}
+  \item \textbf{Orientation \& the swap rule.} The identity has $\det I=1$. Swap its first two columns to get
+        $\begin{bsmallmatrix} 0 & 1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 1 \end{bsmallmatrix}$ and compute its determinant.
+        What did swapping do to the sign, and what does a \emph{negative} determinant say about orientation?
+        \ansline{$\det=-1$. Swapping two columns \emph{negated} the determinant (from $+1$ to $-1$). The negative sign means orientation was \emph{flipped} --- a mirror reflection (right-handed became left-handed). Same volume, $|-1|=1$.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{A first look at transformations in 3D.} Applying a matrix $A$ to the \textbf{unit cube}
+(volume $1$) sends it to the box spanned by $A$'s columns. Its volume is $|\det A|$ --- so $|\det A|$
+is the factor \emph{every} volume gets multiplied by (Lesson~5.3).
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Let $A=\begin{bsmallmatrix} 2 & 0 & 0 \\ 0 & 1 & 0 \\ 1 & 0 & 3 \end{bsmallmatrix}$. Find the volume of the image
+        of the unit cube. By what factor did the volume grow?
+        \ansline{$\det A = 2\det\begin{bsmallmatrix} 1 & 0\\ 0 & 3\end{bsmallmatrix} - 0 + 0 = 2(3)=6$. Image volume $=6$; the unit cube (volume $1$) grew by a factor of $6=|\det A|$.}
+  \item Let $B=\begin{bsmallmatrix} 2 & 0 & 0 \\ 0 & 3 & 0 \\ 0 & 0 & -1 \end{bsmallmatrix}$. Compute $\det B$.
+        What is the volume factor, and what does the \emph{sign} say happened to the cube?
+        \ansline{$\det B = 2\cdot3\cdot(-1)=-6$ (diagonal product). Volume factor $|-6|=6$; the negative sign means the cube was \emph{flipped} (mirror-reflected).}
+  \item A matrix has $\det=0$ (for instance $\begin{bsmallmatrix} 1 & 1 & 2 \\ 2 & 1 & 3 \\ 1 & 0 & 1 \end{bsmallmatrix}$,
+        where column~3 $=$ column~1 $+$ column~2). What happens to the unit cube, and why can the
+        transformation not be \emph{undone}?
+        \ansline{The cube is squashed onto a plane (volume $0$). Everything collapses into that plane, so different points land on top of each other --- there is no way to reverse it, i.e.\ no inverse.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~R is pure computation: expand along a row (exploit the zero), read $|\det|$ as volume, and see
+that a zero row flattens the box. Tier~A adds the triangular shortcut (product of the diagonal), the
+solve-for-flat $\Rightarrow$ no-inverse callback, and orientation via the swap rule. Tier~E is the
+Lesson~5.3 preview --- $|\det A|$ is the volume-scaling factor, a negative determinant is a reflection,
+and $\det=0$ collapses space (no inverse). If time is short, Tier~E item~1 is the must-do. Watch for the
+middle sign ($-a_2$) and for dropped absolute values on ``volume.''
+\end{teachernote}
 
 \end{document}

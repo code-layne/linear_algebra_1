@@ -11,9 +11,28 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Compute a determinant.} Expand along a row to find
+        $\det\begin{bmatrix} 3 & 1 & 0 \\ 1 & 2 & 1 \\ 0 & 1 & 2 \end{bmatrix}$.
+        \ansline{$3\det\begin{bsmallmatrix} 2 & 1\\ 1 & 2\end{bsmallmatrix} - 1\det\begin{bsmallmatrix} 1 & 1\\ 0 & 2\end{bsmallmatrix} + 0 = 3(3) - 1(2) = 9-2 = 7$.}
+  \item \textbf{Volume.} Find the \emph{volume} of the box whose columns are
+        $\begin{bmatrix} 2 \\ 1 \\ 0 \end{bmatrix}$, $\begin{bmatrix} 0 \\ 3 \\ 0 \end{bmatrix}$,
+        $\begin{bmatrix} 1 \\ 2 \\ 4 \end{bmatrix}$.
+        \emph{Hint:} expand along the row or column with the most zeros.
+        \ansline{The matrix is $\begin{bsmallmatrix} 2 & 0 & 1\\ 1 & 3 & 2\\ 0 & 0 & 4\end{bsmallmatrix}$. Expand along the bottom row: $\det = 4\det\begin{bsmallmatrix} 2 & 0\\ 1 & 3\end{bsmallmatrix} = 4(6)=24$. Volume $=|24|=24$.}
+  \item \textbf{Explain.} The three columns of a $3\times3$ matrix all lie in one plane. What is its
+        determinant, and is the matrix invertible? Explain in one sentence \emph{why}.
+        \ansline{$\det=0$ and the matrix is \emph{not} invertible: three coplanar columns span a flat box with zero volume, so the transformation collapses space and cannot be undone.}
+\end{enumerate}
+
+\begin{teachernote}
+Sort into ``got it / expansion slip / concept slip.'' Item~1 is a clean cofactor expansion --- watch
+the middle sign ($-1\times$ its minor). Item~2 rewards choosing the zero-rich bottom row and reading
+$|\det|$ as volume (watch for a dropped absolute value). Item~3 is the target justification: coplanar
+columns $\Rightarrow$ flat box $\Rightarrow\det=0\Rightarrow$ no inverse. If many stumble on item~1,
+open 5.2 with a 60-second expansion re-warm.
+\end{teachernote}
 
 \end{document}

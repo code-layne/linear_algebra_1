@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 5}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 5 \quad Determinants and Linear Transformations}}\\[6pt]
   {\color{white}\textbf{\large Lesson 5.1 \quad 3 by 3 Determinants}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} compute a $3\times3$ determinant by \textbf{cofactor expansion} --- three $2\times2$ determinants with the $+\,-\,+$ sign pattern.
+  \item \ldots{} read $|\det A|$ as the \textbf{volume} of the box the three columns span (and use the triangular shortcut).
+  \item \ldots{} explain why $\det=0$ means the three columns lie in one \textbf{plane} (a flat box) and the matrix is \textbf{not invertible}.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,24 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral: a $2\times2$ determinant, volume of a box, crossing out a row \& column & \blank{1.2cm} \\
+2 & Guided Notes   & Cofactor expansion; determinant $=$ volume; the triangular shortcut; $\det=0$ & \blank{1.2cm} \\
+3 & Group Activity & Building Volume in 3D --- expanding, reading volume, and the flat box          & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check on a $3\times3$ determinant, volume, and $\det=0$                   & \blank{1.2cm} \\
+5 & Homework       & Determinants, volumes, invertibility, and a unit-cube transformation preview    & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small A $3\times3$ matrix carries \emph{one} number, its \textbf{determinant}, just as a $2\times2$
+did. Compute it by \textbf{cofactor expansion} --- break it into three $2\times2$ determinants you
+already know, with signs $+\,-\,+$. Geometrically, $|\det A|$ is the \emph{volume} of the box the
+three columns span. When $\det A=0$ the three columns lie in one \emph{plane}, the box goes flat, and
+the matrix has \emph{no inverse} --- the same story as Lesson 5.0, one dimension higher.
+\end{remindbox}
 
 \end{document}

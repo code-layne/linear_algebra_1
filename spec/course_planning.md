@@ -7,7 +7,33 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-23 — **Authored & built Unit 4 Lesson 4.4 — "Orthogonal Matrices and
+**Last updated:** 2026-07-23 — **Authored & built the Unit 4 summative tests — Unit 4 is now complete.**
+Filled all four skeletons (`tests/practice_test`, `tests/actual_test`, `test_keys/practice_test_key`,
+`test_keys/actual_test_key`), mirroring the Unit 1–3 test format (`shared/tests.mk` + `test_keys.mk`;
+`\parthead` burgundy strips; Part A vocab matching / B multiple choice / C computation / D extended
+response). **Blueprint spans the whole unit §4.0–4.4:** A (8 terms — orthonormal vectors, orthogonal
+matrix $Q$, projection matrix, normal equations, least squares, residual, orthogonal complement,
+Gram--Schmidt), B (6 MC concept checks across 4.1–4.4), C (7 items — orthogonal complement $V^\perp$
+dot-product test 4.1; projection onto a line $\hat x=\avec\cdot\bb/\avec\cdot\avec$ 4.2; projection onto a
+subspace via normal equations $A^{\T}A\hat\xx=A^{\T}\bb$ + $A^{\T}\ee=\zero$ 4.2; least-squares line fit
+$y=C+Dt$ + residuals + $\sum e_i=0$ 4.3; orthonormal test + $Q^{\T}Q=I$ 4.4; coordinates by dot product
+$c_i=q_i\cdot\bb$ 4.4; Gram--Schmidt building $Q$ 4.4), D (2 items — why best fit ⇒ $\ee\perp C(A)$ ⇒
+$A^{\T}\ee=\zero$ + all-ones ⇒ $\sum e_i=0$; why orthonormal $Q$ ⇒ coords are dot products and least
+squares collapses to $\hat\xx=Q^{\T}\bb$). **Practice vs. actual use parallel-but-distinct numbers**
+(practice: $\avec=(1,1),\bb=(3,1)$; $A=[[1,0],[1,1],[1,2]],\bb=(6,0,0)\to\hat\xx=(5,-3)$; fit
+$(0,3)(1,3)(2,5)(3,9)\to y=2+2t$; $q=\tfrac15(3,4),\tfrac15(4,-3)$; GS $(3,4),(1,0)$. actual:
+$\avec=(1,2),\bb=(4,3)$; $A=[[1,1],[0,1],[1,1]],\bb=(1,1,3)\to\hat\xx=(1,1)$; fit $(0,4)(1,2)(2,6)\to
+y=3+t$; $q=\tfrac13(1,2,2),\tfrac13(2,1,-2)$; GS $(4,3),(1,0)\to Q=\tfrac15[[4,3],[3,-4]]$). **All arithmetic
+hand-verified in Python (exact fractions):** every projection, normal-equation solve, residual, $A^{\T}\ee$,
+orthonormality check, coordinate dot product, and Gram--Schmidt remainder. Built `make -C unit04/tests all`
+and `make -C unit04/test_keys all` → **clean** (0 `^!`/file-line errors across all 4 logs; no `\ans`-in-math).
+Page counts: practice test 3pp, actual test 3pp, practice key 3pp, actual key 2pp; `drop` published
+`sample_test/main.pdf` (practice, 3pp) and `sample_test_key/main.pdf` (practice key, 3pp). Visually
+spot-checked both keys' Part C/D pages (matrices, dot products, checkmarks, teacher-note box) — clean.
+**Unit 4 is now fully complete (lessons 4.0–4.4 + tests); next run begins Unit 5 (Determinants and Linear
+Transformations).**
+
+**Prior run:** **Authored & built Unit 4 Lesson 4.4 — "Orthogonal Matrices and
 Gram--Schmidt" (§4.4) — the final lesson of Unit 4.** Filled every skeleton: lesson plan, cover, warmup,
 notes, activity, exit_ticket, homework (+ the five keys) and the slides deck, mirroring Lesson 4.3's
 preamble/boxes/tone. **Content — turns the whole unit's machinery ``free'' when columns are orthonormal:**
@@ -348,7 +374,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
 | 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ☑ all lessons + tests authored & built ✅ |
 | 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ☑ all lessons + tests authored & built ✅ |
-| 4 | Orthogonality | 4.0 intro + 4.1–4.4 | ◐ all lessons 4.0–4.4 authored & built ✅; tests still skeletons |
+| 4 | Orthogonality | 4.0 intro + 4.1–4.4 | ☑ all lessons + tests authored & built ✅ |
 | 5 | Determinants and Linear Transformations | 5.1–5.3 | ☐ |
 | 6 | Eigenvalues and Eigenvectors | 6.1–6.4 (§6.4 optional) | ☐ |
 | 7 | The Singular Value Decomposition *(optional/advanced)* | 7.1–7.4 | ☐ |
@@ -356,36 +382,14 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 ## Next steps
 
-1. **Author the Unit 4 summative tests** (`unit04/tests/{practice,actual}_test`, `unit04/test_keys/…`),
-   mirroring the Unit 1–3 format (`shared/tests.mk` + `test_keys.mk`; `\parthead` strips; Part A vocab /
-   B multiple choice / C computation / D extended response). Blueprint spans §4.0–4.4: orthogonal
-   complements & the four subspaces (4.1); projection onto a line/subspace + normal equations (4.2);
-   least-squares line fit + residuals in $N(A^{\T})$ (4.3); orthonormal vectors, $Q^{\T}Q=I$,
-   coordinates by dot product, Gram--Schmidt + $A=QR$ (4.4). Keep an interpret/justify extended-response
-   item. Then `make -C unit04/tests all` and `make -C unit04/test_keys all`, and `drop` to populate
-   `sample_test`/`sample_test_key`. **Unit 4 lessons 4.0–4.4 are all authored & built — 4.0 is the model.**
-   For reference, the authored per-lesson content (down-leveled from LAfE Ch. 4):
-   - **4.0** intro/spiral — ✅ authored & built (dot product, length/unit vectors, perpendicular $\Leftrightarrow$
-     dot $=0$, the §3.6 perpendicular-pairs spiral, roadmap projection → least squares → $Q$).
-   - **4.1** Orthogonality of the four subspaces — ✅ authored & built ($C(A^{\mathsf T})\perp N(A)$ and
-     $C(A)\perp N(A^{\mathsf T})$ as *orthogonal complements* — perpendicular AND dims fill the room;
-     "why" via $A\xx=\zero$ row by row; $V^{\perp}=$ nullspace of the row matrix).
-   - **4.2** Projections onto subspaces — ✅ authored & built (projection onto a line
-     $\hat{x}=\frac{\avec\cdot\bb}{\avec\cdot\avec}$; projection matrix $P=\frac{\avec\avec^{\T}}{\avec^{\T}\avec}$;
-     onto a subspace via the normal equations $A^{\mathsf T}A\hat\xx=A^{\mathsf T}\bb$; error $\bb-\pp\in N(A^{\mathsf T})$,
-     the complement of $C(A)$).
-   - **4.3** Least squares — ✅ authored & built (overdetermined $A\xx=\bb$ has no solution → project onto
-     $C(A)$; the **normal equations** $A^{\mathsf T}A\hat\xx=A^{\mathsf T}\bb$ fit a best line $y=C+Dt$;
-     fitted values $\pp$, residuals $\ee=\bb-\pp$ minimizing $\|\ee\|^2$, $\ee\in N(A^{\mathsf T})$; best
-     constant $=$ mean; spring/data-fit application + prediction).
-   - **4.4** Orthogonal matrices & Gram–Schmidt — ✅ authored & built (orthonormal vectors, $Q^{\mathsf T}Q=I$,
-     coordinates by dot product $\bb=\sum(q_i\cdot\bb)q_i$, least squares $\hat\xx=Q^{\mathsf T}\bb$;
-     Gram–Schmidt to build $Q$; the factorization $A=QR$).
-2. **After the tests**, `drop` to publish `sample_test`/`sample_test_key`, then Unit 4 is complete and the
-   next run begins **Unit 5 — Determinants and Linear Transformations** (5.1–5.3): confirm the lesson map
-   from `spec/linear_algebra_v2.md` (plus the customary `lesson00` intro) with the user before authoring.
-3. *(optional)* Rebuild the whole Unit 1/Unit 2/Unit 3 packets (`make -C unitXX student|full`) to confirm the
-   `sample_test`/`sample_test_key` merge in as expected before moving on.
+1. **Begin Unit 5 — Determinants and Linear Transformations** (Strang Ch. 5, sections 5.1–5.3, plus the
+   customary `lesson00` intro/spiral). **First confirm the lesson map** from `spec/linear_algebra_v2.md`
+   with the user before authoring (topics occasionally merge/split). Then scaffold with `new_lesson.py`
+   (the run that creates `unit05` auto-scaffolds its `tests/`/`test_keys/`/`sample_test*` dirs) and author
+   lesson 5.0 first as the Unit 5 model, mirroring a recent lesson's preamble/boxes/tone. Down-level LAfE
+   Ch. 5 for secondary students (concrete numbers + geometry first).
+2. *(optional)* Rebuild the whole Unit 1–4 packets (`make -C unitXX student|full`, or `make student|full`
+   at the root) to confirm the `sample_test`/`sample_test_key` drop-ins merge in as expected.
 
 ## Notes for the next run
 

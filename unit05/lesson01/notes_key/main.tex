@@ -3,17 +3,167 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 5, Lesson 5.1}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item compute a $3\times3$ determinant by \emph{cofactor expansion} --- breaking it into three $2\times2$ determinants I already know;
+  \item read $|\det A|$ as the \emph{volume} of the box (parallelepiped) the three columns span;
+  \item explain why $\det=0$ means the three columns lie in one \emph{plane} (a flat box) and the matrix has \emph{no inverse}.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.06in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{Minor (cross out a row \& column)}{the $2\times2$ determinant left after deleting an entry's row and column}
+\vocabans{Cofactor expansion ($+\;-\;+$ signs)}{$\det A$ across the top row: entry $\times$ its minor, with signs $+,-,+$}
+\vocabans{Signed volume (parallelepiped)}{$|\det A|$ is the volume of the box the three columns span; the sign gives orientation}
+\vocabans{Singular / invertible (recall §2)}{$A$ is invertible exactly when $\det A\ne0$; $\det A=0$ means no inverse}
+\end{vocabbox}
+
+\begin{hookbox}
+In Lesson 5.0, two columns spanned a \emph{parallelogram} and $|ad-bc|$ was its \emph{area}. Now put
+\emph{three} columns in space --- they span a slanted \emph{box}.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item What \emph{one} number should measure how much space that box fills? \ansline{Its volume --- which is $|\det A|$.}
+  \item If the three columns all lie flat in one plane, what is the box's volume? \ansline{Zero --- a flat box has no volume, so $\det A=0$.}
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. From Area to Volume}
+Three columns of a $3\times3$ matrix are vectors in space. Together they span a \textbf{box}
+(a slanted box called a \emph{parallelepiped}). The \textbf{determinant} does in $3$D exactly what it
+did in $2$D: $|\det A|$ is the \textbf{volume} of that box, and its \emph{sign} records orientation.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.92]
+  \coordinate (O) at (0,0);
+  \coordinate (U) at (2.8,0);
+  \coordinate (V) at (1.0,0.75);
+  \coordinate (W) at (0.35,2.0);
+  \coordinate (UV) at (3.8,0.75);
+  \coordinate (UW) at (3.15,2.0);
+  \coordinate (VW) at (1.35,2.75);
+  \coordinate (UVW) at (4.15,2.75);
+  % hidden edges (meeting at the back corner V)
+  \draw[linegray, dashed] (O)--(V);
+  \draw[linegray, dashed] (V)--(UV);
+  \draw[linegray, dashed] (V)--(VW);
+  % visible faces
+  \fill[burgundy!10] (O)--(U)--(UW)--(W)--cycle;      % front
+  \fill[royalblue!14] (U)--(UV)--(UVW)--(UW)--cycle;   % right
+  \fill[greenacc!14] (W)--(UW)--(UVW)--(VW)--cycle;     % top
+  % visible edges
+  \draw[charcoal, thin] (O)--(U)--(UW)--(W)--cycle;
+  \draw[charcoal, thin] (U)--(UV)--(UVW)--(UW);
+  \draw[charcoal, thin] (W)--(VW)--(UVW);
+  % the three column vectors from the origin
+  \draw[->, very thick, burgundy]  (O)--(U) node[below right]{\scriptsize $\avec_1$};
+  \draw[->, very thick, greenacc]  (O)--(V) node[above right=-1pt]{\scriptsize $\avec_2$};
+  \draw[->, very thick, royalblue] (O)--(W) node[left]{\scriptsize $\avec_3$};
+  \node[charcoal] at (2.15,1.35){\scriptsize volume $=|\det A|$};
+\end{tikzpicture}
+\end{center}
+The three edges from the corner are the three \ans{columns} of $A$; the determinant packs the
+box's whole volume into one number.
 \end{notesbox}
+
+\begin{notesbox}{2. Computing It: Cofactor Expansion}
+A $3\times3$ determinant is built from $2\times2$ determinants you \emph{already know}. Go across the
+\textbf{top row}. For each entry, cross out its row and column --- the $2\times2$ left over is its
+\textbf{minor} --- and attach the sign pattern $\;{+}\;{-}\;{+}$:
+\[
+  \det\begin{bmatrix} a_1 & a_2 & a_3 \\ b_1 & b_2 & b_3 \\ c_1 & c_2 & c_3 \end{bmatrix}
+  = a_1\det\begin{bmatrix} b_2 & b_3 \\ c_2 & c_3 \end{bmatrix}
+  - a_2\det\begin{bmatrix} b_1 & b_3 \\ c_1 & c_3 \end{bmatrix}
+  + a_3\det\begin{bmatrix} b_1 & b_2 \\ c_1 & c_2 \end{bmatrix}.
+\]
+\textbf{Worked example.} Expand $A=\begin{bsmallmatrix} 2 & 1 & 0 \\ 1 & 3 & 1 \\ 0 & 1 & 2 \end{bsmallmatrix}$
+along the top row. (The top-right entry is $0$, so its whole term drops out --- expanding along a row
+with a zero saves work.)
+\[
+  \det A = 2\det\begin{bmatrix} 3 & 1 \\ 1 & 2 \end{bmatrix}
+         - 1\det\begin{bmatrix} 1 & 1 \\ 0 & 2 \end{bmatrix}
+         + 0
+         = 2({\color{keyred}\mathbf{5}}) - 1({\color{keyred}\mathbf{2}}) = {\color{keyred}\mathbf{8}}.
+\]
+Each piece is a Lesson 5.0 determinant: $\det\begin{bsmallmatrix} 3 & 1 \\ 1 & 2 \end{bsmallmatrix}=5$
+and $\det\begin{bsmallmatrix} 1 & 1 \\ 0 & 2 \end{bsmallmatrix}=2$.
+\end{notesbox}
+
+\begin{notesbox}{3. Reading the Volume (and a Shortcut)}
+\textbf{Axis box.} If the columns point along the three axes, the box is an ordinary rectangular
+prism and the volume is just length $\times$ width $\times$ height:
+\[
+  \det\begin{bmatrix} 2 & 0 & 0 \\ 0 & 3 & 0 \\ 0 & 0 & 4 \end{bmatrix} = {\color{keyred}\mathbf{24}}
+  \qquad(\text{a } 2\times3\times4 \text{ box}).
+\]
+\textbf{Triangular shortcut.} If every entry below the diagonal is $0$ (a triangular matrix, like the
+$U$ from Unit~2 elimination), the determinant is simply the \textbf{product of the diagonal entries}:
+\[
+  \det\begin{bmatrix} 2 & 5 & 1 \\ 0 & 3 & 4 \\ 0 & 0 & 2 \end{bmatrix}
+  = 2\cdot 3\cdot 2 = {\color{keyred}\mathbf{12}}.
+\]
+For a box that is \emph{not} axis-aligned (like the worked $A$ above, volume $|8|=8$), cofactor
+expansion is how you get the number.
+\end{notesbox}
+
+\begin{notesbox}{4. When the Determinant Is Zero}
+If the three columns all lie in \textbf{one plane} (one is a combination of the other two), the box is
+squashed \textbf{flat}: zero volume, so $\det=0$. Check the columns of
+$Z=\begin{bsmallmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \\ 1 & 1 & 2 \end{bsmallmatrix}$ --- notice column~3
+$=$ column~1 $+$ column~2:
+\[
+  \det Z = 1\det\begin{bmatrix} 1 & 1 \\ 1 & 2 \end{bmatrix}
+         - 0
+         + 1\det\begin{bmatrix} 0 & 1 \\ 1 & 1 \end{bmatrix}
+         = 1(1) + 1(-1) = {\color{keyred}\mathbf{0}}.
+\]
+This is exactly when $A$ is \textbf{not invertible} --- with no volume, the box (and everything in it)
+collapses onto a plane, and a collapse cannot be \ans{undone (reversed)}. So one number decides everything:
+\[
+  \det A \ne 0 \;\Leftrightarrow\; \text{columns independent} \;\Leftrightarrow\; A \text{ is }\ans{invertible}.
+\]
+
+\vspace{2pt}
+\textbf{The road ahead.} \textbf{5.2} the \emph{rules} $3\times3$ determinants obey (so you don't
+always expand) and what they compute\; $\bullet$\; \textbf{5.3} \emph{linear transformations}, where
+$|\det A|$ is the factor every \emph{volume} is \ans{multiplied} by.
+\end{notesbox}
+
+\begin{practicebox}
+Show your work. Expand along a row (pick one with a zero if you can); volume is $|\det|$.
+\begin{enumerate}[leftmargin=1.6em, itemsep=6pt]
+  \item Compute $\det\begin{bsmallmatrix} 1 & 2 & 0 \\ 0 & 3 & 1 \\ 1 & 0 & 2 \end{bsmallmatrix}$. \ansline{$1\det\begin{bsmallmatrix} 3 & 1\\ 0 & 2\end{bsmallmatrix} - 2\det\begin{bsmallmatrix} 0 & 1\\ 1 & 2\end{bsmallmatrix} + 0 = 1(6) - 2(-1) = 6+2 = 8$.}
+  \item Find the volume of the box with columns $\begin{bsmallmatrix} 4\\0\\0 \end{bsmallmatrix}$, $\begin{bsmallmatrix} 0\\3\\0 \end{bsmallmatrix}$, $\begin{bsmallmatrix} 0\\0\\2 \end{bsmallmatrix}$. \ansline{Axis box: $\det=4\cdot3\cdot2=24$, so volume $=|24|=24$.}
+  \item The three columns of a $3\times3$ matrix lie in one plane. What is $\det$? Is the matrix invertible? \ansline{$\det=0$ (the box is flat, zero volume), so the matrix is \emph{not} invertible.}
+\end{enumerate}
+\end{practicebox}
+
+\begin{teachernote}
+The spine is Section~2: a $3\times3$ determinant is \emph{three $2\times2$ determinants} (which they
+already own from 5.0) glued together with the $+\,-\,+$ pattern. Push the ``cross out the row and
+column'' motion and the ``expand along the row with a zero'' shortcut --- both cut errors. Section~3's
+triangular rule (product of the diagonal) ties back to Unit~2's $U$. Section~4 is the payoff, identical
+in spirit to 5.0 one dimension up: coplanar columns $\Rightarrow$ flat box $\Rightarrow\det=0\Rightarrow$
+no inverse. Most common slips: the middle sign (it is $\mathbf{-}a_2$), arithmetic inside a minor, and
+dropping the absolute value when asked for \emph{volume}.
+\end{teachernote}
 
 \end{document}

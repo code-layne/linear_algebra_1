@@ -7,7 +7,41 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-24 — **Authored & built Unit 8 Lesson 8.3 — "Minimizing Loss by Gradient Descent" (§8.3 — now that
+**Last updated:** 2026-07-24 — **Authored & built Unit 8 Lesson 8.4 — "Mean, Variance, and Covariance" (§8.4 — the shape of
+the data itself, and the LAST lesson of the course).** Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket,
+homework (+ the five keys) and the slides deck, mirroring Lesson 8.3's preamble/boxes/tone. **Content — center → spread → lean →
+the matrix:** (1) **mean** $\mu=\frac1N\sum x_i$ = the center (balance point); subtracting it *centers* the data (the 7.3 move); light
+mention of the probability-weighted **expected value** $E[x]=\sum p_i x_i$. (2) **variance** $\sigma^2=\frac1N\sum(x_i-\mu)^2$ = average
+squared distance from the mean; square so $\pm$ gaps don't cancel (the Unit-4 least-squares echo); **standard deviation** $\sigma=\sqrt{\sigma^2}$;
+honest $N$-vs-$(N{-}1)$ footnote (divide by $N$ = literal average, same directions). (3) **covariance** $\sigma_{xy}=\frac1N\sum(x_i-\mu_x)(y_i-\mu_y)$
+= how two features move together; **sign is the whole story** ($+$ together / $-$ opposite / $0$ unrelated). (4) **covariance matrix**
+$V=[[\sigma_x^2,\sigma_{xy}],[\sigma_{xy},\sigma_y^2]]$ — **symmetric** (Unit 6 ⇒ real $\lambda$, ⊥ eigenvectors) whose eigenvectors are the
+**principal components** (Unit 7 PCA); total variance = **trace** = sum of eigenvalues; **finale punchline** data (U8) → symmetric matrix
+(U6) → eigen-directions/PCA (U7), all from means/distances/dot products (U1/U4). **Single spine** = 4 students' two quiz scores
+$(2,4),(4,2),(6,8),(8,6)$: means $(5,5)$, centered $x\,{:}\,{-}3,{-}1,1,3$ / $y\,{:}\,{-}1,{-}3,3,1$, $\sigma_x^2=\sigma_y^2=5$, $\sigma_{xy}=3$,
+$V=[[5,3],[3,5]]$, $\lambda=8,2$, eigenvectors $(1,1)/(1,-1)$, PC1 holds $8/10=80\%$; also $V=\frac1N A^\top A$ ($A^\top A=[[20,12],[12,20]]$,
+eig $32,8$ → /4 = the 7.3 spine). **Custom two-panel TikZ** (left: 1D number line of $2,4,6,8$ — royalblue dots, burgundy mean line, gold
+deviation bars, "spread = avg squared distance"; right: 2D cloud, dashed centered axes, long burgundy PC1 $\lambda{=}8$ + short royalblue PC2
+$\lambda{=}2$, "the cloud leans") on notes §3 + slides hook. **Warmup spirals the three moves** (mean of $2,4,6,8{=}5$ U1; sum of squared
+deviations ${=}20$ → $/4$ = spread U4; eigenvalues of symmetric $[[5,3],[3,5]]$ via $\det(V-\lambda I){=}0\to8,2$ U6 — warmup answers = the
+notes' covariance matrix + PCA punchline). **Activity/Exit/HW spines (all hand-verified pure Python):** Tier R single-var $[1,3,5,7]$ mean 4,
+var 5, sd $\sqrt5$; Tier A **negative** covariance $(2,7),(4,9),(6,3),(8,5)$ means $(5,6)$, $\sigma_{xy}{=}{-}3$, $V{=}[[5,-3],[-3,5]]$ (trade-off
+contrast); Tier E diagonalize notes' $V$ ($\lambda8,2$, PCs $(1,1)/(1,-1)$, PC1 80%, justify symmetric + trace=total var=sum eig). Exit:
+mean/var of $[3,5,7,9]$ (6, 5); read $V{=}[[5,3],[3,5]]$ (variances 5, +cov=together, trace 10); justify symmetric. HW: same-mean/different-spread
+$[4,6,8,10]$ var 5 vs $[1,5,9,13]$ var 20; covariance of $(1,2),(3,6),(5,4),(7,8)$ means $(4,5)$, $\sigma_{xy}{=}4$ (+); build $V{=}[[5,4],[4,5]]$;
+PCA eig $9,1$ PC1 $(1,1)$ 90%; justify (square/negative/symmetric); extension $V{=}\frac1N A^\top A$ + expected value (spinner $1@\frac23,4@\frac13\to E{=}2$)
++ whole-course synthesis; **spiral box = course-completion celebration** (Units 1→8 arc). **Built `make -C unit08/lesson04 all` → clean**
+(0 file-line/`^!` errors across all 13 logs; no `\ans`-in-math; 0 overfull >15pt — max 10.77pt is the standard pageheader banner). Page counts:
+cover/warmup/exit 1pp (blank & key ✓ 1-page constraint), notes 3pp/3pp, activity 2pp/2pp, homework 2pp/2pp, slides 5pp, lesson plan 3pp;
+**student 10pp, full 18pp** (matches the 8.0–8.3 profile). Visually spot-checked notes_key p2 (two-panel figure — clean 1D spread + 2D cloud with
+PC1/PC2 axes, no tofu; red answers $\mu{=}5$, $\sigma^2{=}5$, $\sigma_{xy}{=}3$, $V{=}[[5,3],[3,5]]$ correct) and the final slide (course-closer)
+— clean. **Macros per file:** none beyond builtins (`\top` for transpose, `bmatrix`/`smallmatrix` for $V$; no `\vv`/`\relu` needed this data lesson).
+**Unit 8 lessons 8.0–8.4 are now all authored & built — the course lesson content is COMPLETE.** The only remaining optional work is the Unit 8
+summative tests (`tests/practice_test` + `actual_test`, `test_keys/`), which the user chose to scaffold but which may stay skeletons (Unit 8 is
+"optional enrichment — not assessed" per the spec). **Next run (optional): author the Unit 8 tests** to fully close the unit, else the curriculum
+(core Units 1–6 + optional Units 7–8 lessons) is done. Lessons 8.0/8.1/8.2/8.3/8.4 are the Unit 8 models.
+
+**Prior run:** **Authored & built Unit 8 Lesson 8.3 — "Minimizing Loss by Gradient Descent" (§8.3 — now that
 we can *build* networks, *choose* the weights by rolling downhill on the Unit-4 loss).** Filled every skeleton: lesson plan, cover,
 warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides deck, mirroring Lesson 8.2's preamble/boxes/tone.
 **Content — loss landscape → the update rule → the gradient:** (1) **learning = minimizing loss** — the loss $L$ is the Unit-4

@@ -16,55 +16,151 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can measure the \textbf{shape} of a data set: the \textbf{mean} $\mu$
+    (its center), the \textbf{variance} $\sigma^2$ (its spread, the average squared distance from the mean), and
+    the \textbf{covariance} $\sigma_{xy}$ (how two features move together). They can pack the variances and
+    covariance into the symmetric \textbf{covariance matrix} $V$, read the sign of a covariance, and explain why
+    $V$'s eigenvectors are the \textbf{principal components} (Unit~7) --- tying the whole course together: raw
+    data becomes a symmetric matrix (Unit~6) whose special directions reveal the data's shape. \emph{(Unit~8 is
+    optional enrichment --- explored, not formally assessed. This is the last lesson of the course.)}
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Compute the \textbf{mean} $\mu=\frac1N\sum x_i$ --- the center (balance point) of the data.
+  \item Compute the \textbf{variance} $\sigma^2=\frac1N\sum(x_i-\mu)^2$ and standard deviation $\sigma$.
+  \item Compute the \textbf{covariance} $\sigma_{xy}=\frac1N\sum(x_i-\mu_x)(y_i-\mu_y)$; read its \emph{sign}.
+  \item Build the symmetric \textbf{covariance matrix} $V$ and link it to PCA (Unit~7).
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item The mean is where the data centers; subtracting it moves the cloud to the origin.
+  \item Squaring the distances (like Unit~4 least squares) keeps spread positive and penalizes outliers.
+  \item Covariance's \emph{sign} tells the story: $+$ move together, $-$ move oppositely, $0$ unrelated.
+  \item $V$ is symmetric $\Rightarrow$ perpendicular eigenvectors (Unit~6) $=$ principal components (Unit~7).
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Mean $\mu$} & The average $\frac1N\sum x_i$; the center or balance point of the data. \\
+\textbf{Variance $\sigma^2$} & The average squared distance from the mean; how spread out the data is. \\
+\textbf{Standard deviation $\sigma$} & $\sqrt{\text{variance}}$; spread measured back in the original units. \\
+\textbf{Covariance $\sigma_{xy}$} & Average of $(x_i-\mu_x)(y_i-\mu_y)$; how two features vary together. \\
+\textbf{Covariance matrix $V$} & Symmetric matrix with variances on the diagonal, covariances off it. \\
+\textbf{Principal component} & An eigenvector of $V$; a direction of greatest spread (Unit~7 PCA). \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three moves this lesson builds on: \textbf{(1)} an \textbf{average}
+    (Unit~1 arithmetic) --- the mean of $2,4,6,8$ is $5$; \textbf{(2)} a \textbf{sum of squared distances}
+    (Unit~4 least squares) --- the squared deviations from the mean add to $20$, which over $N=4$ gives the
+    spread; and \textbf{(3)} the \textbf{eigenvalues of a symmetric matrix} (Unit~6) --- $\det(V-\lambda I)=0$
+    gives $8$ and $2$ for $V=\left[\begin{smallmatrix}5&3\\3&5\end{smallmatrix}\right]$. Those are exactly the
+    numbers the notes build to: the covariance matrix and its principal directions.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Close the loop from 8.3: learning is minimizing loss over \emph{data}. But what \emph{is} the data? Put four
+    students' two quiz scores on a plane and you get a \textbf{cloud of points}. Ask, \textbf{``How would you
+    describe the shape of this cloud with just a few numbers?''} Draw out three needs: \emph{where} it sits (the
+    \textbf{mean}), \emph{how spread out} it is (the \textbf{variance}), and \emph{which way it leans}
+    (the \textbf{covariance} --- do the two scores rise together?). Name the payoff of the whole unit: those
+    three numbers, packed into the symmetric \textbf{covariance matrix}, are exactly what PCA (7.3) diagonalizes
+    --- so \emph{understanding data is understanding a symmetric matrix.} This is the final idea of the course.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. The mean $=$ the center.} $\mu=\frac1N\sum x_i$ is the balance point. For $x$-scores $2,4,6,8$,
+$\mu_x=5$. Subtracting the mean \emph{centers} the data at the origin (the 7.3 move) so we can talk about spread,
+not location.
+
+\textbf{2. Variance $=$ spread.} Average the \emph{squared} distances from the mean:
+$\sigma^2=\frac1N\sum(x_i-\mu)^2$. For $2,4,6,8$: deviations $-3,-1,1,3$, squares $9,1,1,9$, so
+$\sigma^2=20/4=5$ and $\sigma=\sqrt5$. Squaring (like Unit-4 least squares) stops $+$ and $-$ cancelling.
+
+\columnbreak
+
+\textbf{3. Covariance $=$ moving together.} For paired data,
+$\sigma_{xy}=\frac1N\sum(x_i-\mu_x)(y_i-\mu_y)$. \emph{Sign} is the story: $+$ together, $-$ opposite, $0$
+unrelated. Spine points $(2,4),(4,2),(6,8),(8,6)$: $\sigma_{xy}=3>0$ --- the cloud leans up-and-right.
+
+\textbf{4. The covariance matrix $+$ the finale.} Pack it up: $V=\left[\begin{smallmatrix}5&3\\3&5\end{smallmatrix}\right]$,
+symmetric, variances on the diagonal. Its eigenvectors $(1,1),(1,-1)$ are the \textbf{principal components}
+($\lambda=8,2$; PC1 holds $8/10=80\%$ of the spread). \textbf{Punchline:} data $\to$ symmetric matrix (U6) $\to$
+eigen-directions (U7) --- the whole course, in one matrix.
+\end{multicols}
+\end{skillbox}
+
+\begin{skillbox}[Explicit Instruction: Building the Covariance Matrix]{blush}
+\begin{tabularx}{\linewidth}{@{}p{0.46\linewidth} X@{}}
+\textbf{Steps (center, spread, lean).}
+\begin{enumerate}[leftmargin=1.3em, nosep, after=\vspace{2pt}]
+  \item Find the means $\mu_x,\mu_y$; subtract to center each feature.
+  \item Variance of each: average the squared centered values.
+  \item Covariance: average the \emph{products} of the centered pairs.
+  \item Assemble $V=\left[\begin{smallmatrix}\sigma_x^2 & \sigma_{xy}\\ \sigma_{xy} & \sigma_y^2\end{smallmatrix}\right]$ (symmetric).
+\end{enumerate}
+&
+\textbf{Worked example} (spine $(2,4),(4,2),(6,8),(8,6)$). $\mu_x=\mu_y=5$; centered $x:-3,-1,1,3$ and
+$y:-1,-3,3,1$. $\sigma_x^2=\sigma_y^2=20/4=5$; $\sigma_{xy}=\frac14(3+3+3+3)=3$. So
+$V=\left[\begin{smallmatrix}5&3\\3&5\end{smallmatrix}\right]$. \textbf{Common slip:} forgetting to center before
+multiplying, or dividing the covariance by the wrong count.
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item multiplying raw values instead of \emph{centered} deviations for covariance;
+  \item forgetting to square (or squaring the sum instead of summing the squares) for variance;
+  \item misreading a \emph{negative} covariance --- it still means a real relationship (opposite directions);
+  \item writing a non-symmetric ``covariance matrix'' (the off-diagonals must match).
+\end{itemize}
+Cold-call prompts: ``Where does this cloud center?'' ``Is it more or less spread than that one?'' ``Do the two
+features rise together or trade off?'' ``Why must $V$ be symmetric?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{The Shape of Data} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} One feature: find the mean, then the variance and standard deviation of a small
+data set; say what ``more spread'' means.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Two features: compute both means, both variances, and the covariance; build the
+covariance matrix $V$ and read the sign (here \emph{negative} --- the features trade off).
+
+\columnbreak
+\textbf{Tier E --- Extension.} Diagonalize $V=\left[\begin{smallmatrix}5&3\\3&5\end{smallmatrix}\right]$: find
+$\lambda=8,2$ and the principal components; show total variance $=$ trace $=$ sum of eigenvalues; justify why
+$V$ is symmetric.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): compute a mean and variance; read a covariance matrix (variances,
+sign of the relationship, total variance $=$ trace); and a \textbf{conceptual/justification check} --- in one
+sentence, why a covariance matrix is always symmetric. Sort into ``got it / arithmetic slip / concept slip.''
+\emph{Enrichment unit --- use as formative feedback, not a graded assessment.}
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} mean, variance, and standard deviation (comparing two data sets with the same mean but
+different spread); covariance of paired data and the sign of the relationship; building the covariance matrix;
+the PCA connection (eigenvalues of $V$, PC1's share of the variance); and short justifications. \textbf{Extension:}
+the covariance matrix as $\frac1N A^{\top}\!A$ (the centered-data matrix of 7.3), the probability-weighted
+\emph{expected value}, and the \textbf{whole-course synthesis}. \textbf{This is the last lesson}: the
+spiral box celebrates the finished course --- eight units from ``what is a vector'' to ``the shape of data.''
 \end{skillbox}
 \end{document}

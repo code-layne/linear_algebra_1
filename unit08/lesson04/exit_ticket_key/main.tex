@@ -11,9 +11,28 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Center and spread.} For the data $3,5,7,9$, find the mean $\mu$ and the variance
+        $\sigma^2=\frac1N\sum(x_i-\mu)^2$.
+        \ansline{$\mu=\frac{3+5+7+9}{4}=6$. Deviations $-3,-1,1,3$, so $\sigma^2=\frac{9+1+1+9}{4}=5$ (and $\sigma=\sqrt5\approx2.2$).}
+  \item \textbf{Read a covariance matrix.} Two features have covariance matrix
+        $V=\left[\begin{smallmatrix}5&3\\3&5\end{smallmatrix}\right]$.
+        (a) What is the variance of each feature? \; (b) The off-diagonal entry is $+3$: in one sentence, how do
+        the two features move together? \; (c) What is the total variance (the trace)?
+        \ansline{(a) Each feature has variance $5$ (the diagonal entries). (b) The covariance is \emph{positive}, so the features rise and fall \emph{together} --- above-average in one tends to go with above-average in the other. (c) Total variance $=$ trace $=5+5=10$.}
+  \item \textbf{Explain.} In one sentence, why is a covariance matrix always \emph{symmetric}?
+        \ansline{Because the covariance of $x$ with $y$ equals the covariance of $y$ with $x$ --- the product $(x-\mu_x)(y-\mu_y)$ is the same either way --- so the off-diagonal entries match and $V=V^{\top}$.}
+\end{enumerate}
+
+\begin{teachernote}
+Sort responses into ``got it / arithmetic slip / concept slip.'' Item~1 checks the mean ($6$) and variance
+($5$) mechanics --- watch for squaring the sum instead of summing the squares. Item~2 checks reading a covariance
+matrix: variances on the diagonal, the \emph{sign} of the covariance (positive $=$ move together), and the trace
+as total variance. Item~3 is the target idea: symmetry from $\sigma_{xy}=\sigma_{yx}$. Since this is the last
+lesson, close by naming the arc --- data becomes a symmetric matrix whose eigenvectors (Unit~7 PCA) are the
+directions of greatest spread.
+\end{teachernote}
 
 \end{document}

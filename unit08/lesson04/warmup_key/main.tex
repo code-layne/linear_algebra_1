@@ -9,11 +9,44 @@
 \pageheader{Unit 8, Lesson 8.4}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: Center, Spread, and a Symmetric Matrix}
+\small Today we measure the \emph{shape} of data --- where it centers, how it spreads, and how features move
+together. That rests on three familiar moves: an average, a sum of squared distances, and the eigenvalues of a
+symmetric matrix. Warm up on each.
+
+\vspace{4pt}
+\textbf{1. An average (Unit 1).} Four students score $2,4,6,8$ on a quiz. Their \emph{mean} score is
+\[
+  \mu=\frac{2+4+6+8}{4}={\color{keyred}\mathbf{5}}.
+\]
+The mean is the center (balance point) of the data.
+
+\vspace{4pt}
+\textbf{2. A sum of squared distances (Unit 4).} Measure how far each score sits from the mean $\mu=5$, square
+each distance, and add:
+\[
+  (2-5)^2+(4-5)^2+(6-5)^2+(8-5)^2=9+1+1+9={\color{keyred}\mathbf{20}}.
+\]
+Dividing this by $N=4$ will be our measure of \emph{spread}.
+
+\vspace{4pt}
+\textbf{3. Eigenvalues of a symmetric matrix (Unit 6).} Find the eigenvalues of
+$V=\left[\begin{smallmatrix}5&3\\3&5\end{smallmatrix}\right]$ by solving $\det(V-\lambda I)=0$:
+\[
+  (5-\lambda)^2-9=0 \;\Rightarrow\; \lambda={\color{keyred}\mathbf{8}}\ \text{or}\ {\color{keyred}\mathbf{2}}.
+\]
 \end{notesbox}
+
+\begin{teachernote}
+Each item is a piece of today's lesson. Item~1 is the \textbf{mean} $\mu=5$ (the center). Item~2 is the
+numerator of the \textbf{variance}: the sum of squared distances from the mean is $20$, and $20/4=5$ will be the
+spread $\sigma^2$. Item~3 is the punchline in advance: $\left[\begin{smallmatrix}5&3\\3&5\end{smallmatrix}\right]$
+is the \textbf{covariance matrix} the notes build, and its eigenvalues $8,2$ are the variances along its
+principal directions (Unit~7 PCA). $(5-\lambda)^2=9\Rightarrow 5-\lambda=\pm3\Rightarrow\lambda=2,8$. Debrief:
+the whole lesson is ``center, spread, and the directions of spread'' --- an average, a squared distance, and a
+symmetric matrix, all tools we already have.
+\end{teachernote}
 
 \end{document}

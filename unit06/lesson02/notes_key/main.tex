@@ -3,17 +3,148 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 6, Lesson 6.2}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item line eigenvectors into the columns of $X$ and eigenvalues down the diagonal of $\Lambda$, and explain why $AX=X\Lambda$;
+  \item \emph{diagonalize} a matrix as $A=X\Lambda X^{-1}$ when it has enough independent eigenvectors;
+  \item use $A^k=X\Lambda^k X^{-1}$ to compute powers quickly, and say when a matrix \emph{cannot} be diagonalized.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.06in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{Eigenvector matrix $X$ (eigenvectors in the columns)}{put each eigenvector of $A$ into a column of $X$ (order matches $\Lambda$)}
+\vocabans{Eigenvalue matrix $\Lambda$ (eigenvalues down the diagonal)}{a diagonal matrix with the eigenvalues on the diagonal, in the same order as $X$'s columns}
+\vocabans{Diagonalization $A=X\Lambda X^{-1}$}{rebuild $A$ from its eigenvectors and eigenvalues; possible when $X$ is invertible}
+\vocabans{Power rule $A^k=X\Lambda^k X^{-1}$}{powers of $A$ reduce to powers of the eigenvalues (the inner $X^{-1}X$'s cancel)}
+\end{vocabbox}
+
+\begin{hookbox}
+Yesterday you found that $A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$ has eigenvalues
+$\lambda=3,1$ with eigenvectors $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ and $\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item Suppose you needed $A^{10}$. Would you really multiply $A$ by itself ten times? \ansline{No --- there is a shortcut: raise each eigenvalue to the 10th power ($3^{10}$ and $1^{10}$) and rebuild.}
+  \item Along an eigenvector, $A$ acts like a single \emph{number} $\lambda$. Could we make the whole matrix act that simply? \ansline{Yes --- in eigenvector coordinates $A$ becomes the diagonal matrix $\Lambda$.}
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. Line Up the Eigenvectors: $AX=X\Lambda$}
+Put the eigenvectors of $A$ into the \textbf{columns} of a matrix $X$, and the eigenvalues down the
+diagonal of $\Lambda$ (same order):
+\[
+  X=\begin{bmatrix} 1 & 1\\ 1 & -1 \end{bmatrix}\ \text{(eigenvectors)},\qquad
+  \Lambda=\begin{bmatrix} 3 & 0\\ 0 & 1 \end{bmatrix}\ \text{(eigenvalues)}.
+\]
+Now multiply $A$ by $X$ \emph{one column at a time}. Each column is an eigenvector, so $A$ just scales it:
+\[
+  AX=\big[\,A\xx_1\ \ A\xx_2\,\big]=\big[\,3\xx_1\ \ 1\xx_2\,\big]
+  =\begin{bmatrix} 1 & 1\\ 1 & -1 \end{bmatrix}\begin{bmatrix} 3 & 0\\ 0 & 1 \end{bmatrix}=X\Lambda.
+\]
+So lining the eigenvectors up gives the clean identity $AX={\color{keyred}\mathbf{X\Lambda}}$. (Scaling the columns of $X$
+by the eigenvalues is exactly what multiplying by $\Lambda$ on the \ans{right} does.)
 \end{notesbox}
+
+\begin{notesbox}{2. Solve for $A$: the Diagonalization $A=X\Lambda X^{-1}$}
+If the eigenvectors are \textbf{independent}, then $X$ is invertible. Multiply $AX=X\Lambda$ on the right
+by $X^{-1}$:
+\[
+  AX X^{-1}=X\Lambda X^{-1}\quad\Longrightarrow\quad A={\color{keyred}\mathbf{X\Lambda X^{-1}}}.
+\]
+This is the \textbf{diagonalization} of $A$. (Multiplying instead by $X^{-1}$ on the \emph{left} gives
+$\Lambda=X^{-1}AX$ --- the matrix is \emph{diagonal} in eigenvector coordinates.)
+
+\vspace{3pt}
+For our matrix, $X=\begin{bsmallmatrix}1&1\\1&-1\end{bsmallmatrix}$ has $\det X=-2$, so by the Unit~2
+formula $X^{-1}=\frac{1}{-2}\begin{bsmallmatrix}-1&-1\\-1&1\end{bsmallmatrix}=\begin{bsmallmatrix}\frac12&\frac12\\[2pt]\frac12&-\frac12\end{bsmallmatrix}$. Then
+\[
+  X\Lambda X^{-1}
+  =\begin{bmatrix} 3 & 1\\ 3 & -1 \end{bmatrix}\begin{bmatrix} \tfrac12 & \tfrac12\\[2pt] \tfrac12 & -\tfrac12 \end{bmatrix}
+  =\begin{bmatrix}{\color{keyred}\mathbf{2}} & {\color{keyred}\mathbf{1}}\\[3pt]{\color{keyred}\mathbf{1}} & {\color{keyred}\mathbf{2}}\end{bmatrix}=A.\quad\checkmark
+\]
+\end{notesbox}
+
+\begin{notesbox}{3. The Payoff: Powers Become Easy}
+Watch what happens to $A^2$ when we write $A=X\Lambda X^{-1}$:
+\[
+  A^2=(X\Lambda X^{-1})(X\Lambda X^{-1})=X\Lambda \underbrace{(X^{-1}X)}_{I}\Lambda X^{-1}
+  =X\Lambda^2 X^{-1}.
+\]
+The inside $X^{-1}X$ collapses to $I$. The same cancellation repeats, so for \emph{any} power
+\[
+  A^k=X\,\Lambda^k\,X^{-1},\qquad\text{and }\Lambda^k=\begin{bmatrix}\lambda_1^k & 0\\ 0 & \lambda_2^k\end{bmatrix}
+  \text{ is trivial (just powers of the }\lambda\text{'s).}
+\]
+Try $A^2$ for our matrix: $\Lambda^2=\begin{bsmallmatrix}9&0\\0&1\end{bsmallmatrix}$, so
+$A^2=X\Lambda^2 X^{-1}=\begin{bsmallmatrix}{\color{keyred}\mathbf{5}}&{\color{keyred}\mathbf{4}}\\[2pt]{\color{keyred}\mathbf{4}}&{\color{keyred}\mathbf{5}}\end{bsmallmatrix}$.
+(Check by squaring $A$ directly!)
+
+\begin{center}
+\begin{tikzpicture}[scale=1, font=\scriptsize,
+    box/.style={draw=charcoal, rounded corners=1pt, fill=blush, minimum height=8mm, inner sep=3pt, align=center},
+    ar/.style={->, thick, burgundy}]
+  \node[box] (v)  at (0,0)   {any vector\\ $\mathbf{v}$};
+  \node[box] (c)  at (3.3,0) {eigenvector\\ coordinates};
+  \node[box] (sc) at (7.1,0) {scaled\\ coordinates};
+  \node[box] (av) at (10.4,0){result\\ $A\mathbf{v}$};
+  \draw[ar] (v)  -- node[above]{$X^{-1}$} node[below]{\itshape rewrite} (c);
+  \draw[ar] (c)  -- node[above]{$\Lambda$} node[below]{\itshape scale by $\lambda$'s} (sc);
+  \draw[ar] (sc) -- node[above]{$X$} node[below]{\itshape rebuild} (av);
+\end{tikzpicture}
+\end{center}
+$A=X\Lambda X^{-1}$ reads right to left: \textbf{rewrite} $\mathbf v$ in eigenvector coordinates, \textbf{scale}
+each by its $\lambda$, then \textbf{rebuild}. All of $A$'s work is the easy middle step.
+\end{notesbox}
+
+\begin{notesbox}{4. When Can We Diagonalize? + The Road Ahead}
+The one requirement: $A$ needs enough \textbf{independent eigenvectors} to fill the columns of an
+invertible $X$ (for a $2\times2$, two independent eigenvectors).
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item \textbf{Different eigenvalues $\Rightarrow$ always works.} Distinct eigenvalues have independent eigenvectors.
+  \item \textbf{A repeat can fail.} The shear $\begin{bsmallmatrix}2&1\\0&2\end{bsmallmatrix}$ has only $\lambda=2$
+        and \emph{one} eigenvector direction $\begin{bsmallmatrix}1\\0\end{bsmallmatrix}$ --- not enough to build $X$, so it \ans{cannot} be diagonalized.
+\end{itemize}
+
+\vspace{3pt}
+\textbf{The road ahead.} \textbf{6.3} shows \emph{symmetric} matrices always diagonalize --- and with
+\emph{perpendicular} eigenvectors --- and \textbf{6.4} uses $A^k=X\Lambda^k X^{-1}$ to run a real system
+forward in time.
+\end{notesbox}
+
+\begin{practicebox}
+Show each step.
+\begin{enumerate}[leftmargin=1.6em, itemsep=6pt]
+  \item $A=\begin{bsmallmatrix} 3 & 1\\ 0 & 2 \end{bsmallmatrix}$ has $\lambda=3,2$ with eigenvectors $\begin{bsmallmatrix}1\\0\end{bsmallmatrix}$ and $\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$. Write $X$, $\Lambda$, and $X^{-1}$. \ansline{$X=\begin{bsmallmatrix}1&1\\0&-1\end{bsmallmatrix}$, $\Lambda=\begin{bsmallmatrix}3&0\\0&2\end{bsmallmatrix}$; $\det X=-1$, so $X^{-1}=\begin{bsmallmatrix}1&1\\0&-1\end{bsmallmatrix}$.}
+  \item Using part 1, write $A^2$ as $X\Lambda^2 X^{-1}$ and multiply it out. \ansline{$\Lambda^2=\begin{bsmallmatrix}9&0\\0&4\end{bsmallmatrix}$, so $A^2=X\Lambda^2 X^{-1}=\begin{bsmallmatrix}9&4\\0&-4\end{bsmallmatrix}\begin{bsmallmatrix}1&1\\0&-1\end{bsmallmatrix}=\begin{bsmallmatrix}9&5\\0&4\end{bsmallmatrix}$. (Check: $A^2=\begin{bsmallmatrix}3&1\\0&2\end{bsmallmatrix}^2=\begin{bsmallmatrix}9&5\\0&4\end{bsmallmatrix}$.)}
+  \item Why does the shear $\begin{bsmallmatrix}2&1\\0&2\end{bsmallmatrix}$ fail to diagonalize? \ansline{It has a repeated eigenvalue $\lambda=2$ with only one eigenvector direction $\begin{bsmallmatrix}1\\0\end{bsmallmatrix}$, so $X$ would have dependent columns and no inverse.}
+\end{enumerate}
+\end{practicebox}
+
+\begin{teachernote}
+The spine is a four-step build on \emph{yesterday's} matrix $\begin{bsmallmatrix}2&1\\1&2\end{bsmallmatrix}$
+($\lambda=3,1$; eigenvectors $\begin{bsmallmatrix}1\\1\end{bsmallmatrix},\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$),
+so nothing new has to be computed --- we \emph{reuse} their answer. §1: line the eigenvectors into $X$ and
+watch $AX=X\Lambda$ column by column. §2: right-multiply by $X^{-1}$ to get $A=X\Lambda X^{-1}$ (the Unit~2
+inverse formula gives the halves). §3: the payoff --- $X^{-1}X$ cancels, so $A^k=X\Lambda^k X^{-1}$; the
+pipeline figure reads $A$ right-to-left as rewrite $\to$ scale $\to$ rebuild. §4: diagonalizable iff enough
+independent eigenvectors; the shear is the standard counterexample. Common errors: putting eigenvalues in an
+order that doesn't match the columns of $X$; forgetting $\Lambda$ multiplies \emph{columns} (on the right);
+and fraction slips in $X^{-1}$. Emphasize that the practice matrix (triangular, $\det X=-1$) is the
+\emph{fraction-free} version to build confidence.
+\end{teachernote}
 
 \end{document}

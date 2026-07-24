@@ -3,17 +3,78 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 6, Lesson 6.2}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Diagonalizing a Matrix.} Line the eigenvectors into the columns of $X$ and the eigenvalues
+down the diagonal of $\Lambda$. Then $AX=X\Lambda$, and (when $X$ is invertible)
+$A=X\Lambda X^{-1}$. The payoff: $A^k=X\Lambda^k X^{-1}$ --- powers become powers of the $\lambda$'s. Show
+every step with your partner.
+\end{headlinebox}
+
+\vspace{0.08in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Build the pieces, then assemble. A matrix $A$ has eigenvector $\begin{bsmallmatrix}1\\0\end{bsmallmatrix}$
+with $\lambda=6$ and eigenvector $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ with $\lambda=2$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Line them up.} Write $X$ (eigenvectors in the columns) and $\Lambda$ (eigenvalues on the diagonal).
+        \[ X=\begin{bmatrix}{\color{keyred}\mathbf{1}}&{\color{keyred}\mathbf{1}}\\[3pt]{\color{keyred}\mathbf{0}}&{\color{keyred}\mathbf{1}}\end{bmatrix},\qquad
+           \Lambda=\begin{bmatrix}{\color{keyred}\mathbf{6}}&{\color{keyred}\mathbf{0}}\\[3pt]{\color{keyred}\mathbf{0}}&{\color{keyred}\mathbf{2}}\end{bmatrix}. \]
+  \item \textbf{Invert $X$} (Unit~2 formula). $X^{-1}={\color{keyred}\mathbf{\begin{bmatrix}1&-1\\0&1\end{bmatrix}}}$ \ans{($\det X=1$).}
+  \item \textbf{Assemble $A=X\Lambda X^{-1}$.} Multiply $X\Lambda$ first (scales the columns), then times $X^{-1}$.
+        \ansline{$X\Lambda=\begin{bsmallmatrix}6&2\\0&2\end{bsmallmatrix}$, then $A=\begin{bsmallmatrix}6&2\\0&2\end{bsmallmatrix}\begin{bsmallmatrix}1&-1\\0&1\end{bsmallmatrix}=\begin{bsmallmatrix}6&-4\\0&2\end{bsmallmatrix}$. (Triangular: eigenvalues $6,2$ sit on the diagonal, as expected.)}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Run the full method, then use it for a power. Let $A=\begin{bsmallmatrix} 4 & -2\\ 1 & 1 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Diagonalize.}
+        \begin{enumerate}[label=(\alph*), leftmargin=1.7em, itemsep=3pt]
+          \item Find both eigenvalues from $\det(A-\lambda I)=0$, then an eigenvector for each.
+          \item Write $X$, $\Lambda$, and $X^{-1}$, and confirm $A=X\Lambda X^{-1}$.
+        \end{enumerate}
+        \ansline{(a) $\det(A-\lambda I)=(4-\lambda)(1-\lambda)+2=\lambda^2-5\lambda+6=(\lambda-2)(\lambda-3)\Rightarrow\lambda=2,3$. $\lambda=2$: $\begin{bsmallmatrix}2&-2\\1&-1\end{bsmallmatrix}\Rightarrow x_1=x_2\Rightarrow\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$; $\lambda=3$: $\begin{bsmallmatrix}1&-2\\1&-2\end{bsmallmatrix}\Rightarrow x_1=2x_2\Rightarrow\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$.}
+        \ansline{(b) $X=\begin{bsmallmatrix}1&2\\1&1\end{bsmallmatrix}$, $\Lambda=\begin{bsmallmatrix}2&0\\0&3\end{bsmallmatrix}$; $\det X=-1$, so $X^{-1}=\begin{bsmallmatrix}-1&2\\1&-1\end{bsmallmatrix}$. Then $X\Lambda X^{-1}=\begin{bsmallmatrix}2&6\\2&3\end{bsmallmatrix}\begin{bsmallmatrix}-1&2\\1&-1\end{bsmallmatrix}=\begin{bsmallmatrix}4&-2\\1&1\end{bsmallmatrix}=A.\ \checkmark$}
+  \item \textbf{Use it for a power.} Write $A^2=X\Lambda^2 X^{-1}$ and multiply it out. Check by squaring
+        $A$ directly. \ansline{$\Lambda^2=\begin{bsmallmatrix}4&0\\0&9\end{bsmallmatrix}$, so $A^2=X\Lambda^2X^{-1}=\begin{bsmallmatrix}4&18\\4&9\end{bsmallmatrix}\begin{bsmallmatrix}-1&2\\1&-1\end{bsmallmatrix}=\begin{bsmallmatrix}14&-10\\5&-1\end{bsmallmatrix}$. Direct: $A^2=\begin{bsmallmatrix}4&-2\\1&1\end{bsmallmatrix}^2=\begin{bsmallmatrix}14&-10\\5&-1\end{bsmallmatrix}.\ \checkmark$}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{When diagonalization \emph{fails}.} Consider the shear $A=\begin{bsmallmatrix} 2 & 1\\ 0 & 2 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Find its eigenvalues from $\det(A-\lambda I)=0$. What do you notice?
+        \ansline{$\det(A-\lambda I)=(2-\lambda)^2=0\Rightarrow\lambda=2$ (a \emph{repeated} eigenvalue).}
+  \item Solve $(A-2I)\xx=\zero$. How many \emph{independent} eigenvector directions are there?
+        \ansline{$A-2I=\begin{bsmallmatrix}0&1\\0&0\end{bsmallmatrix}\Rightarrow x_2=0\Rightarrow\xx=\begin{bsmallmatrix}1\\0\end{bsmallmatrix}$ --- only \emph{one} independent direction.}
+  \item Explain why you \emph{cannot} build an invertible $X$ here --- so $A$ is \emph{not diagonalizable}.
+        (Contrast: a matrix with two \emph{different} eigenvalues always can be.)
+        \ansline{With only one eigenvector direction, both columns of $X$ would be multiples of $\begin{bsmallmatrix}1\\0\end{bsmallmatrix}$, so $X$ is singular ($\det X=0$) and has no inverse --- there is no $A=X\Lambda X^{-1}$. Two \emph{different} eigenvalues give two independent eigenvectors, so $X$ is invertible and diagonalization always works.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~R gives the eigen-data and walks the assembly $A=X\Lambda X^{-1}$ with a \emph{fraction-free} $X$
+($\det X=1$) --- the goal is fluency lining vectors into columns and scaling by $\Lambda$. Tier~A is the
+full job (find the eigen-data, diagonalize, then use $A^2=X\Lambda^2X^{-1}$); its $X$ also has
+$\det X=-1$, so $X^{-1}$ is integer. Tier~E is the conceptual capstone: a repeated eigenvalue with a single
+eigenvector direction cannot fill an invertible $X$, so the shear is \emph{not} diagonalizable --- the
+standard counterexample. Common errors: column/eigenvalue order in $X$ vs.\ $\Lambda$ not matching;
+multiplying $\Lambda$ on the wrong side; and, in Tier~A2, squaring $A$ before realizing $\Lambda^2$ is
+faster. If time is short, Tier~A item~1 is the must-do.
+\end{teachernote}
 
 \end{document}

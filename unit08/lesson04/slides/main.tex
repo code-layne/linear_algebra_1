@@ -11,16 +11,101 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 8.4}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Mean, Variance, and Covariance}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 8}
+    {\color{white}\bfseries\LARGE Mean, Variance, and Covariance}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 8: Learning from Data}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{What is the shape of a data set?}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+      Four students, two quiz scores each: $(2,4),(4,2),(6,8),(8,6)$ --- a \textbf{cloud of points}.\\[6pt]
+      Describe its shape with a few numbers:
+      \begin{itemize}
+        \item \textbf{where} it centers --- the \emph{mean};
+        \item \textbf{how spread} it is --- the \emph{variance};
+        \item \textbf{which way it leans} --- the \emph{covariance}.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.62]
+        \draw[linegray, dashed] (0.2,2)--(3.8,2);
+        \draw[linegray, dashed] (2,0.2)--(2,3.8);
+        \node[charcoal] at (3.6,2.0) {\scriptsize $x$};
+        \node[charcoal] at (2.0,3.75) {\scriptsize $y$};
+        \fill[royalblue] (0.8,1.6) circle (2.6pt);
+        \fill[royalblue] (1.6,0.8) circle (2.6pt);
+        \fill[royalblue] (2.4,3.2) circle (2.6pt);
+        \fill[royalblue] (3.2,2.4) circle (2.6pt);
+        \draw[->, very thick, burgundy] (2,2)--(3.2,3.2);
+        \node[burgundy] at (3.0,3.45) {\scriptsize leans up-right};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{2pt}
+  \begin{block}{The question of Lesson 8.4}
+    Which few numbers capture where data sits, how it spreads, and how its features move together?
+  \end{block}
+\end{frame}
+
+% MEAN + VARIANCE
+\begin{frame}[t, plain]
+  \burgundyheader{Mean $=$ center, \; Variance $=$ spread}
+  \sectionlabel[goldacc]{Idea}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \textbf{Mean} (the center):
+      \[ \mu=\tfrac1N\textstyle\sum x_i. \]
+      For $2,4,6,8$: $\mu=5$.\\[8pt]
+      \textbf{Variance} (the spread) $=$ average squared distance from the mean:
+      \[ \sigma^2=\tfrac1N\textstyle\sum (x_i-\mu)^2. \]
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      For $2,4,6,8$: deviations $-3,-1,1,3$,
+      \[ \sigma^2=\frac{9+1+1+9}{4}=5,\quad \sigma=\sqrt5. \]
+      \vspace{2pt}
+      We \emph{square} the distances so $+$ and $-$ gaps don't cancel --- the same move as Unit-4 least squares.\\[6pt]
+      Same mean, bigger variance $=$ more scattered.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% COVARIANCE + THE MATRIX
+\begin{frame}[t, plain]
+  \burgundyheader{Covariance: do two features move together?}
+  \sectionlabel{Skill}
+  \[ \sigma_{xy}=\tfrac1N\textstyle\sum (x_i-\mu_x)(y_i-\mu_y)
+     \qquad \begin{cases}>0 & \text{together}\\ <0 & \text{opposite}\\ =0 & \text{unrelated}\end{cases} \]
+  Spine $(2,4),(4,2),(6,8),(8,6)$: centered $x:-3,-1,1,3$, $y:-1,-3,3,1$, so
+  $\sigma_{xy}=\tfrac{3+3+3+3}{4}=\mathbf{3}>0$. Pack it into the symmetric \textbf{covariance matrix}:
+  \[ V=\begin{bmatrix}\sigma_x^2 & \sigma_{xy}\\ \sigma_{xy} & \sigma_y^2\end{bmatrix}
+      =\begin{bmatrix}5 & 3\\ 3 & 5\end{bmatrix}. \]
+  \vspace{-2pt}
+  Variances on the diagonal, covariance off it --- and $V$ is \textbf{symmetric} ($\sigma_{xy}=\sigma_{yx}$).
+\end{frame}
+
+% THE FINALE
+\begin{frame}[t, plain]
+  \burgundyheader{The covariance matrix $=$ the whole course}
+  \sectionlabel[goldacc]{Payoff}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item $V=\left[\begin{smallmatrix}5&3\\3&5\end{smallmatrix}\right]$ is \textbf{symmetric} (Unit~6):
+          real eigenvalues $\lambda=8,2$; perpendicular eigenvectors $(1,1),(1,-1)$.
+    \item Those eigenvectors are the \textbf{principal components} (Unit~7): PC1 $=(1,1)$ holds
+          $\tfrac{8}{10}=80\%$ of the spread. Total variance $=$ trace $=5+5=10=8+2$.
+    \item \textbf{The finish line:} raw \emph{data} (U8) $\to$ symmetric \emph{covariance matrix} (U6) $\to$
+          \emph{eigen-directions} $=$ PCA (U7), all from means, distances, and dot products (U1, U4).
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{End of the course}
+    Linear algebra is the language for the \textbf{shape of data}. \emph{Well done.}
+  \end{block}
 \end{frame}
 
 \end{document}

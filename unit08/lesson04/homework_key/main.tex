@@ -9,11 +9,71 @@
 \pageheader{Unit 8, Lesson 8.4}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+The \textbf{shape} of a data set is captured by its \textbf{mean} $\mu=\frac1N\sum x_i$ (center), its
+\textbf{variance} $\sigma^2=\frac1N\sum(x_i-\mu)^2$ (spread), and, for two features, the \textbf{covariance}
+$\sigma_{xy}=\frac1N\sum(x_i-\mu_x)(y_i-\mu_y)$ (how they move together). These pack into the symmetric
+\textbf{covariance matrix} $V=\left[\begin{smallmatrix}\sigma_x^2 & \sigma_{xy}\\ \sigma_{xy} & \sigma_y^2\end{smallmatrix}\right]$.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Spread, same center.} Two classes both average $7$ on a quiz.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item Class A: $4,6,8,10$. \hfill \ans{$\mu=7$, $\sigma^2=\frac{9+1+1+9}{4}=5$}
+      \item Class B: $1,5,9,13$. \hfill \ans{$\mu=7$, $\sigma^2=\frac{36+4+4+36}{4}=20$}
+    \end{enumerate}
+    Same mean --- which class is more spread out, and how does the variance show it? \ansline{Class B is far more spread out: its scores sit farther from the mean, so its variance ($20$) is four times Class A's ($5$). Same center, different spread.}
+  \item \textbf{Covariance of two features.} Four data points $(x,y)$: $(1,2),(3,6),(5,4),(7,8)$.
+        Find $\mu_x,\mu_y$, then the centered deviations, then the covariance $\sigma_{xy}$. Is it $+$, $-$, or $0$,
+        and what does that mean? \ansline{$\mu_x=\frac{1+3+5+7}{4}=4$, $\mu_y=\frac{2+6+4+8}{4}=5$. Centered $x:-3,-1,1,3$ and $y:-3,1,-1,3$. $\sigma_{xy}=\frac{(-3)(-3)+(-1)(1)+(1)(-1)+(3)(3)}{4}=\frac{9-1-1+9}{4}=4$. It is \emph{positive}: the two features tend to rise and fall together.}
+  \item \textbf{Build $V$.} The two features in \#2 each have variance $5$. Write the covariance matrix $V$.
+        Check that it is symmetric. \ansline{$V=\left[\begin{smallmatrix}5&4\\4&5\end{smallmatrix}\right]$ --- variances $5$ on the diagonal, covariance $4$ off it. It is symmetric because both off-diagonal entries are the same covariance, $\sigma_{xy}=\sigma_{yx}=4$.}
+  \item \textbf{The PCA connection.} Your $V$ from \#3 is $\left[\begin{smallmatrix}5&4\\4&5\end{smallmatrix}\right]$.
+        Find its eigenvalues (solve $(5-\lambda)^2-16=0$) and eigenvectors. Which eigenvector is PC1, and what
+        fraction of the total variance does it capture? \ansline{$(5-\lambda)^2=16\Rightarrow 5-\lambda=\pm4\Rightarrow\lambda=9$ or $1$. Eigenvectors: $\lambda=9\to(1,1)$, $\lambda=1\to(1,-1)$. PC1 is $(1,1)$ (largest eigenvalue), capturing $\frac{9}{9+1}=90\%$ of the total variance.}
+  \item \textbf{Explain.} (a) Why do we \emph{square} the distances from the mean for variance? (b) What does a
+        \emph{negative} covariance say about two features? (c) In one phrase, why must the covariance matrix be
+        symmetric? \ansline{(a) Squaring keeps every distance positive so below- and above-mean gaps do not cancel (and it weights big deviations more) --- the same reason Unit~4 squared its errors. (b) A negative covariance means the features move \emph{oppositely}: when one is above its mean, the other tends to be below. (c) Because $\sigma_{xy}=\sigma_{yx}$ --- covariance does not care about order.}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Tying it all together.}
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item \textbf{The matrix behind it.} For the notes' data (centered pairs $(-3,-1),(-1,-3),(1,3),(3,1)$), form
+        the $2\times2$ matrix $A^{\top}\!A$ of dot products of the centered columns, then divide by $N=4$. What
+        do you get, and why is ``the covariance matrix is $\frac1N A^{\top}\!A$'' the same PCA setup as Lesson~7.3?
+  \item \textbf{Expected value.} A spinner lands on $1$ with probability $\tfrac23$ and on $4$ with probability
+        $\tfrac13$. The \emph{expected value} is $E[x]=\sum p_i x_i$. Compute it. Why is it \emph{not} the
+        midpoint $2.5$?
+  \item \textbf{The whole course.} In two or three sentences, trace the arc: how does raw \emph{data} become a
+        \emph{symmetric matrix} (Unit~6) whose \emph{eigen-directions} (Unit~7) reveal its shape --- and where do
+        the mean, variance, and covariance enter?
+\end{enumerate}
+\ansline{(a) The centered columns are $x=(-3,-1,1,3)$ and $y=(-1,-3,3,1)$. Their dot products give $A^{\top}\!A=\left[\begin{smallmatrix}20&12\\12&20\end{smallmatrix}\right]$ (e.g.\ $x\cdot x=20$, $x\cdot y=12$). Dividing by $N=4$ gives $\left[\begin{smallmatrix}5&3\\3&5\end{smallmatrix}\right]$ --- exactly the covariance matrix $V$. Lesson~7.3 took the eigenvectors of $A^{\top}\!A$ from centered data as the principal components; those are the same as the eigenvectors of $\frac1N A^{\top}\!A=V$ (dividing by a constant does not change eigenvectors), so covariance and PCA are the same computation.}
+\ansline{(b) $E[x]=\tfrac23(1)+\tfrac13(4)=\tfrac23+\tfrac43=2$. It is below the midpoint $2.5$ because the outcome $1$ is \emph{twice as likely} as $4$, so the average is pulled toward $1$ --- probabilities weight the mean.}
+\ansline{(c) Collect the data as a matrix and center it by subtracting each feature's \textbf{mean}. The \textbf{variances} and \textbf{covariances} of the centered features form the symmetric \textbf{covariance matrix} $V$ (Unit~6), and its \textbf{eigenvectors} --- perpendicular because $V$ is symmetric --- are the \textbf{principal components} (Unit~7), the directions of greatest spread. So mean/variance/covariance are the bridge that carries raw data into all the linear algebra of the course.}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{You've reached the end of the course.} From ``what is a vector'' (Unit~1) through solving systems,
+subspaces, orthogonality and least squares (Unit~4), determinants, eigenvalues (Unit~6), the SVD and PCA
+(Unit~7), and learning from data (Unit~8), one idea recurs: a matrix is a \emph{transformation}, and its special
+directions tell you what it does. Mean, variance, and covariance are how real data walks in the door --- and the
+covariance matrix hands it straight to everything you have learned. \emph{Well done.}
+\end{spiralbox}
+
+\begin{teachernote}
+Item~1 is the ``same mean, different spread'' contrast (variance $5$ vs.\ $20$) --- the point of variance.
+Item~2 is the covariance mechanic on $(1,2),(3,6),(5,4),(7,8)$: means $(4,5)$, covariance $+4$ (positive).
+Item~3 assembles $V=\left[\begin{smallmatrix}5&4\\4&5\end{smallmatrix}\right]$; item~4 diagonalizes it
+($\lambda=9,1$; PC1 $=(1,1)$ holds $90\%$). Item~5 collects the three justifications (square to avoid
+cancellation; negative $=$ opposite; symmetric from $\sigma_{xy}=\sigma_{yx}$). Extension (a) reveals
+$V=\frac1N A^{\top}\!A$ --- the exact 7.3 PCA setup --- and (b) is expected value ($E=2$, pulled toward the more
+likely outcome). Extension (c) is the whole-course synthesis; the spiral box closes the course. Most common
+slips: multiplying raw values instead of centered ones, squaring the sum instead of summing squares, and
+mislabeling the sign of a covariance.
+\end{teachernote}
 
 \end{document}

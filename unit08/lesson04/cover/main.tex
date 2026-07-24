@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 8}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 8 \quad Learning from Data}}\\[6pt]
   {\color{white}\textbf{\large Lesson 8.4 \quad Mean, Variance, and Covariance}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} find the \textbf{mean} (center) and \textbf{variance} (spread, the average squared distance from the mean) of a data set.
+  \item \ldots{} compute the \textbf{covariance} of two features and read its \textbf{sign} --- do they move together, oppositely, or not at all?
+  \item \ldots{} build the symmetric \textbf{covariance matrix} $V$ and explain why its eigenvectors are the \textbf{principal components} (Unit~7).
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,26 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: an average, a sum of squared distances, and eigenvalues of a symmetric matrix & \blank{1.2cm} \\
+2 & Guided Notes   & Mean $=$ center; variance $=$ spread; covariance $=$ moving together; the covariance matrix $V$ & \blank{1.2cm} \\
+3 & Group Activity & Spread of one feature, the covariance matrix of two features, and its principal components & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check: a mean \& variance, reading a covariance matrix, and why $V$ is symmetric & \blank{1.2cm} \\
+5 & Homework       & Variance \& spread, covariance \& its sign, building $V$, the PCA link, and justifications & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small A data set is a \textbf{cloud of points}. Three numbers describe its shape: the \textbf{mean} $\mu$
+(where it centers), the \textbf{variance} $\sigma^2=\frac1N\sum(x_i-\mu)^2$ (how spread out it is), and the
+\textbf{covariance} $\sigma_{xy}=\frac1N\sum(x_i-\mu_x)(y_i-\mu_y)$ (how two features move together --- $+$
+together, $-$ oppositely, $0$ unrelated). Packed into the symmetric \textbf{covariance matrix}
+$V=\left[\begin{smallmatrix}\sigma_x^2 & \sigma_{xy}\\ \sigma_{xy} & \sigma_y^2\end{smallmatrix}\right]$, these
+are exactly what PCA (7.3) works with: $V$'s eigenvectors are the \textbf{principal components}, the directions
+of greatest spread. Understanding data is understanding a symmetric matrix --- the last idea of the course.
+\end{remindbox}
 
 \end{document}

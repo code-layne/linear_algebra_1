@@ -9,11 +9,70 @@
 \pageheader{Unit 8, Lesson 8.4}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{The Shape of Data.} A data set is a cloud of points. Three numbers describe its shape: the
+\textbf{mean} (center), the \textbf{variance} (spread $=$ average squared distance from the mean), and the
+\textbf{covariance} (how two features move together --- $+$ together, $-$ oppositely, $0$ unrelated). Pack the
+variances and covariance into the symmetric \textbf{covariance matrix} $V$. Work with your partner, show every
+step, and \emph{explain} what you find.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+A group of four students scored $1,3,5,7$ on a quiz.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item \textbf{Mean.} Find the mean $\mu=\dfrac{1+3+5+7}{4}={\color{keyred}\mathbf{4}}$.
+  \item \textbf{Variance.} Subtract the mean, square, and average:
+        \[ \sigma^2=\frac{(1-\mu)^2+(3-\mu)^2+(5-\mu)^2+(7-\mu)^2}{4}=\frac{9+1+1+9}{4}={\color{keyred}\mathbf{5}}. \]
+  \item \textbf{Standard deviation.} $\sigma=\sqrt{\sigma^2}={\color{keyred}\mathbf{\sqrt5\approx2.2}}$ (leave as a square root).
+  \item In one sentence, what would it mean for \emph{another} class to have a \emph{larger} variance? \ansline{Its scores would be \emph{more spread out} --- sitting farther from their mean on average (more variety in the class).}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Four students have two scores each (hours slept, then test score), giving points
+$(2,7),(4,9),(6,3),(8,5)$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Means.} $\mu_x={\color{keyred}\mathbf{5}}$, \quad $\mu_y={\color{keyred}\mathbf{6}}$. Then center: list the deviations
+        \[ x-\mu_x:\ {\color{keyred}\mathbf{-3,-1,1,3}}, \qquad y-\mu_y:\ {\color{keyred}\mathbf{1,3,-3,-1}}. \]
+  \item \textbf{Variances.} $\sigma_x^2={\color{keyred}\mathbf{5}}$, \quad $\sigma_y^2={\color{keyred}\mathbf{5}}$.
+        \quad {\small(both $\tfrac{9+1+1+9}{4}$ and $\tfrac{1+9+9+1}{4}$)}
+  \item \textbf{Covariance.} $\sigma_{xy}=\dfrac{1}{4}\displaystyle\sum (x_i-\mu_x)(y_i-\mu_y)
+        =\dfrac{-3-3-3-3}{4}={\color{keyred}\mathbf{-3}}$.
+  \item \textbf{Build $V$.} Fill in the covariance matrix, and say what its \emph{sign} tells you about sleep and scores:
+        \[ V=\begin{bmatrix}\ {\color{keyred}\mathbf{5}}\ &\ {\color{keyred}\mathbf{-3}}\ \\[2pt] {\color{keyred}\mathbf{-3}}\ &\ {\color{keyred}\mathbf{5}}\ \end{bmatrix}. \]
+        \ansline{The covariance is \emph{negative}, so in this (made-up) data more sleep goes with a \emph{lower} test score --- the two features move oppositely (they trade off).}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Principal components of the covariance matrix.} Use the notes' matrix
+$V=\left[\begin{smallmatrix}5&3\\3&5\end{smallmatrix}\right]$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Eigenvalues.} Solve $\det(V-\lambda I)=(5-\lambda)^2-9=0$: \quad $\lambda={\color{keyred}\mathbf{8}}$ or ${\color{keyred}\mathbf{2}}$.
+  \item \textbf{Eigenvectors (principal components).} For each $\lambda$, find a direction:
+        \[ \lambda=8:\ {\color{keyred}\mathbf{(1,1)}}, \qquad \lambda=2:\ {\color{keyred}\mathbf{(1,-1)}}. \]
+        Which one is PC1 (the direction of greatest spread), and what fraction of the total variance does it hold? \ansline{PC1 is $(1,1)$ with the \emph{larger} eigenvalue $\lambda=8$; it holds $\frac{8}{8+2}=80\%$ of the total variance. (PC2 $=(1,-1)$ holds the remaining $20\%$.)}
+  \item \textbf{Justify.} In one or two sentences each: (a) why is every covariance matrix \emph{symmetric}?
+        (b) Why does the \emph{trace} of $V$ equal the total variance \emph{and} the sum of the eigenvalues? \ansline{(a) The off-diagonal entries are $\sigma_{xy}$ and $\sigma_{yx}$, but $(x-\mu_x)(y-\mu_y)=(y-\mu_y)(x-\mu_x)$, so those covariances are equal --- $V=V^{\top}$. (b) The diagonal of $V$ is the two feature variances, so the trace $5+5=10$ is the total variance; and by Unit~6 the trace of any matrix equals the sum of its eigenvalues, $8+2=10$.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~R is the core: mean $4$, variance $5$, standard deviation $\sqrt5$, and the meaning of ``more spread.''
+Tier~A is the full build on $(2,7),(4,9),(6,3),(8,5)$: means $(5,6)$, both variances $5$, covariance $-3$, so
+$V=\left[\begin{smallmatrix}5&-3\\-3&5\end{smallmatrix}\right]$ --- a \emph{negative} covariance (a good contrast
+with the notes' positive spine). Tier~E diagonalizes the notes' $V$: eigenvalues $8,2$, principal components
+$(1,1),(1,-1)$, PC1 holds $80\%$, and the two justifications (symmetry from $\sigma_{xy}=\sigma_{yx}$; trace $=$
+total variance $=$ sum of eigenvalues). If time is short, Tier~R plus Tier~A items~1--3 are the must-dos. Watch
+for: multiplying raw values instead of centered deviations, squaring the sum instead of summing squares, and a
+non-symmetric $V$.
+\end{teachernote}
 
 \end{document}

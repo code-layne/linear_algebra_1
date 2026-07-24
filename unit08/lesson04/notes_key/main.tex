@@ -9,11 +9,162 @@
 \pageheader{Unit 8, Lesson 8.4}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item find the \emph{mean} (center) and \emph{variance} (spread) of a data set, and take the standard deviation;
+  \item compute the \emph{covariance} of two features and read its sign --- do they move together or apart?
+  \item pack the variances and covariance into the symmetric \emph{covariance matrix} $V$ and connect it to the principal components (Unit~7).
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.06in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\termblanklong{Mean $\mu$ --- the average; the center of the data}
+\termblanklong{Variance $\sigma^2$ --- average squared distance from the mean (spread)}
+\termblanklong{Standard deviation $\sigma$ --- the square root of the variance}
+\termblanklong{Covariance $\sigma_{xy}$ --- how two features move together (sign matters)}
+\termblanklong{Covariance matrix $V$ --- variances on the diagonal, covariances off it}
+\end{vocabbox}
+
+\begin{hookbox}
+In 8.3 we \emph{learned} from data by minimizing loss. But what \emph{is} the data? Put four students' two quiz
+scores on a plane --- $(2,4),(4,2),(6,8),(8,6)$ --- and you get a \textbf{cloud of points}.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item If you could use only a few numbers, how would you describe \emph{where} this cloud sits and \emph{how spread out} it is? \ans{Its \textbf{center} (the mean of each feature) says where it sits; a measure of \textbf{spread} (variance) says how scattered it is.}
+  \item Do students who score high on the first quiz tend to score high on the second? How might you \emph{measure} that? \ans{Yes --- look at whether the two scores rise together; the \textbf{covariance} measures exactly that.}
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. The Mean: Where the Data Centers}
+The \textbf{mean} $\mu$ is the average --- the balance point of the data:
+\[
+  \mu=\frac1N\sum_{i} x_i.
+\]
+For the first-quiz scores $2,4,6,8$, the mean is $\mu_x=\dfrac{2+4+6+8}{4}={\color{keyred}\mathbf{5}}$. (For the
+second quiz $4,2,8,6$ it is also $\mu_y=5$.) The mean tells us \emph{where} the data sits. If we \textbf{subtract
+the mean} from every value --- \emph{centering} the data --- the cloud slides to the origin, and we can talk
+about its \emph{shape} instead of its location. This is exactly the first move of PCA (7.3).
+
+\smallskip
+\textit{(If some outcomes are more likely than others, weight by their probabilities: the \textbf{expected value}
+$E[x]=\sum p_i\,x_i$. With equal weights this is just the average.)}
 \end{notesbox}
+
+\begin{notesbox}{2. Variance: How Spread Out the Data Is}
+Two data sets can share a mean yet look completely different --- one tightly clustered, one widely scattered.
+\textbf{Variance} measures that spread as the \emph{average squared distance from the mean}:
+\[
+  \sigma^2=\frac1N\sum_i (x_i-\mu)^2.
+\]
+For $2,4,6,8$ (mean $5$): the deviations are $-3,-1,1,3$, so
+\[
+  \sigma_x^2=\frac{(-3)^2+(-1)^2+(1)^2+(3)^2}{4}=\frac{9+1+1+9}{4}={\color{keyred}\mathbf{5}}.
+\]
+Why \emph{square} the distances? So that below-mean ($-$) and above-mean ($+$) gaps do not cancel --- the same
+reason Unit~4 squared its errors. The \textbf{standard deviation} $\sigma=\sqrt{\sigma^2}=\sqrt5\approx2.2$ puts
+the spread back in the original units (points). \emph{(Statisticians divide by $N-1$ for a sample; dividing by
+$N$ is the literal average, and the directions of spread come out the same.)}
+\end{notesbox}
+
+\begin{notesbox}{3. Covariance: Do Two Features Move Together?}
+With \emph{two} features we can ask whether they rise and fall together. \textbf{Covariance} averages the
+\emph{product} of the two centered values:
+\[
+  \sigma_{xy}=\frac1N\sum_i (x_i-\mu_x)(y_i-\mu_y).
+\]
+The \textbf{sign} is the whole story: $\sigma_{xy}>0$ means the features move \emph{together} (both above their
+means, or both below); $\sigma_{xy}<0$ means they move \emph{oppositely}; $\sigma_{xy}=0$ means no linear
+relationship. For our spine $(2,4),(4,2),(6,8),(8,6)$, centered $x:-3,-1,1,3$ and $y:-1,-3,3,1$:
+\[
+  \sigma_{xy}=\frac{(-3)(-1)+(-1)(-3)+(1)(3)+(3)(1)}{4}=\frac{3+3+3+3}{4}={\color{keyred}\mathbf{3}}.
+\]
+It is \emph{positive}, so the cloud leans up-and-to-the-right: high on one quiz tends to go with high on the other.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+  % LEFT: one feature — spread (variance)
+  \begin{scope}[shift={(0,0)}]
+    \draw[->, charcoal, thin] (-0.2,0)--(5.2,0) node[right]{\scriptsize score};
+    \foreach \d in {2,4,6,8}{\fill[royalblue] ({0.5*\d},0) circle (2.6pt);}
+    \draw[burgundy, very thick] (2.5,-0.35)--(2.5,0.9);
+    \node[burgundy] at (2.5,1.15) {\scriptsize mean $\mu=5$};
+    \foreach \d in {2,4,6,8}{\draw[goldacc, thick] (2.5,0.28)--({0.5*\d},0.28);}
+    \node[charcoal] at (2.5,-0.62) {\scriptsize spread $=$ avg.\ squared distance};
+    \node[charcoal] at (1.9,1.7) {\scriptsize \textbf{one feature}};
+  \end{scope}
+  % RIGHT: two features — covariance (the tilt) + principal axes
+  \begin{scope}[shift={(7.2,-0.3)}]
+    \draw[linegray, dashed] (0.2,2)--(3.8,2);
+    \draw[linegray, dashed] (2,0.2)--(2,3.8);
+    \node[charcoal] at (3.55,2.0) {\scriptsize $x$};
+    \node[charcoal] at (2.0,3.75) {\scriptsize $y$};
+    \node[charcoal] at (2.0,1.72) {\scriptsize $\mu$};
+    \fill[royalblue] (0.8,1.6) circle (2.6pt);
+    \fill[royalblue] (1.6,0.8) circle (2.6pt);
+    \fill[royalblue] (2.4,3.2) circle (2.6pt);
+    \fill[royalblue] (3.2,2.4) circle (2.6pt);
+    \draw[->, very thick, burgundy] (2,2)--(3.3,3.3);
+    \draw[burgundy, thick, dashed] (2,2)--(0.7,0.7);
+    \node[burgundy] at (3.35,3.02) {\scriptsize PC1 ($\lambda{=}8$)};
+    \draw[->, very thick, royalblue] (2,2)--(2.7,1.3);
+    \draw[royalblue, thick, dashed] (2,2)--(1.3,2.7);
+    \node[royalblue] at (2.95,1.12) {\scriptsize PC2 ($\lambda{=}2$)};
+    \node[charcoal] at (2.0,0.0) {\scriptsize \textbf{two features} --- the cloud leans};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+\end{notesbox}
+
+\begin{notesbox}{4. The Covariance Matrix --- and the Whole Course in One Matrix}
+Pack the two variances and the covariance into one \textbf{covariance matrix}:
+\[
+  V=\begin{bmatrix} \sigma_x^2 & \sigma_{xy}\\[2pt] \sigma_{xy} & \sigma_y^2 \end{bmatrix}
+   =\begin{bmatrix} 5 & 3\\ 3 & 5 \end{bmatrix}.
+\]
+Notice it is \textbf{symmetric} --- the off-diagonal entries match, because the covariance of $x$ with $y$ is
+the same as $y$ with $x$. By Unit~6, a symmetric matrix has \emph{real} eigenvalues and \emph{perpendicular}
+eigenvectors. Here $\lambda={\color{keyred}\mathbf{8}}$ and $\lambda={\color{keyred}\mathbf{2}}$ (from the
+warm-up), with eigenvectors $(1,1)$ and $(1,-1)$.
+
+\smallskip
+Those eigenvectors are the \textbf{principal components} of Unit~7: $(1,1)$ is the direction of \emph{greatest}
+spread (PC1, $\lambda=8$), and it holds $\dfrac{8}{8+2}={\color{keyred}\mathbf{80\%}}$ of the total variance. The
+total variance is the \textbf{trace} $5+5=10$, which equals the sum of the eigenvalues $8+2$ (Unit~6).
+
+\smallskip
+\textbf{The whole course in one matrix.} Raw \emph{data} (Unit~8) becomes a \emph{symmetric matrix} $V$
+(Unit~6), whose \emph{eigen-directions} (Unit~7) reveal the shape of the cloud --- all built from means,
+distances, and dot products (Units~1 \& 4). That is the finish line: linear algebra is the language for the
+shape of data.
+\end{notesbox}
+
+\begin{practicebox}
+Show your work. Data set: the second-quiz scores $y=4,2,8,6$ (mean $\mu_y=5$).
+\begin{enumerate}[leftmargin=1.6em, itemsep=4pt]
+  \item Find the variance $\sigma_y^2$ and standard deviation $\sigma_y$ of $4,2,8,6$. \ansline{Deviations $-1,-3,3,1$; $\sigma_y^2=\frac{1+9+9+1}{4}=5$, so $\sigma_y=\sqrt5\approx2.2$ (same spread as the first quiz).}
+  \item A different class has quiz scores $3,5,5,7$. Without a full computation, is its spread \emph{more} or \emph{less} than $4,2,8,6$? Explain in one sentence, then check by computing its variance. \ansline{\emph{Less} --- the values sit closer to the mean $5$. Check: deviations $-2,0,0,2$, $\sigma^2=\frac{4+0+0+4}{4}=2<5$.}
+  \item The covariance matrix $\left[\begin{smallmatrix}5&3\\3&5\end{smallmatrix}\right]$ has trace $10$. What does the trace tell you about the data, and what are the two eigenvalues' roles? \ansline{The trace $10$ is the \textbf{total variance} (the two feature variances added, $=$ the sum of eigenvalues). The eigenvalues split it into spread along the principal directions: $8$ along PC1 and $2$ along PC2.}
+\end{enumerate}
+\end{practicebox}
+
+\begin{teachernote}
+One data cloud runs through the lesson: $(2,4),(4,2),(6,8),(8,6)$, means $(5,5)$, both variances $5$, covariance
+$3$, covariance matrix $\left[\begin{smallmatrix}5&3\\3&5\end{smallmatrix}\right]$. Keep three ideas front and
+center: (1) the mean \emph{centers}, (2) variance is the \emph{average squared distance} (square so signs do not
+cancel --- the Unit-4 echo), and (3) covariance's \emph{sign} is the relationship. $\S4$ is the finale: $V$ is
+symmetric, so Unit~6 gives real eigenvalues $8,2$ and perpendicular eigenvectors $(1,1),(1,-1)$, which are the
+Unit~7 principal components (PC1 holds $80\%$ of the spread; total variance $=$ trace $=$ sum of eigenvalues).
+The figure shows spread in 1D (left) and the covariance ``lean'' with principal axes in 2D (right). Common slips:
+multiplying raw values instead of centered ones for covariance; squaring the sum rather than summing the squares;
+and forgetting a covariance matrix must be symmetric. This is the last lesson --- take a minute to trace the
+whole arc: data $\to$ symmetric matrix $\to$ eigen-directions.
+\end{teachernote}
 
 \end{document}

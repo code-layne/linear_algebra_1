@@ -3,6 +3,11 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
@@ -11,9 +16,26 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning. Consider the matrix
+\[
+  Q=\tfrac15\begin{bmatrix} 4 & -3\\ 3 & 4 \end{bmatrix}.
+\]
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=15pt]
+  \item \textbf{Is it orthogonal?} Compute $Q\T Q$. If $Q$ is orthogonal, write its inverse $Q^{-1}$ (no computation needed).
+        \ansline{$Q\T Q=\tfrac1{25}\begin{bsmallmatrix} 4 & 3\\ -3 & 4 \end{bsmallmatrix}\begin{bsmallmatrix} 4 & -3\\ 3 & 4 \end{bsmallmatrix}=\tfrac1{25}\begin{bsmallmatrix} 25 & 0\\ 0 & 25 \end{bsmallmatrix}=I$, so $Q$ is orthogonal. Then $Q^{-1}=Q\T=\tfrac15\begin{bsmallmatrix} 4 & 3\\ -3 & 4 \end{bsmallmatrix}$.}
+  \item \textbf{Length.} A vector $\xx$ has $|\xx|=6$. Without finding $\xx$, what is $|Q\xx|$? Explain in one line why.
+        \ansline{$|Q\xx|=6$. Orthogonal matrices preserve length: $|Q\xx|^2=\xx\T Q\T Q\,\xx=\xx\T\xx=|\xx|^2$.}
+  \item \textbf{Explain.} The SVD writes any matrix as $A=U\Sigma V\T$. (a) Why is this called ``rotate--stretch--rotate''? (b) Why does that make orthogonal matrices the ``victory'' of this unit?
+        \ansline{(a) $V\T$ and $U$ are orthogonal, so they \emph{rotate} (or reflect) without distortion; the diagonal $\Sigma$ \emph{stretches} by the singular values --- turn, stretch, turn. (b) The two rotations are perfect, reversible, and length-preserving, so every matrix reduces to one simple stretch between two rigid turns --- orthogonality is what makes the SVD (and compression and PCA) work.}
+\end{enumerate}
+
+\begin{teachernote}
+Sort into ``got it / arithmetic slip / concept slip.'' Q1 is the one test $Q\T Q=I$ on the $3$--$4$--$5$
+rotation, plus the free inverse $Q^{-1}=Q\T$ (watch for students recomputing an inverse). Q2 checks the length
+property: $|Q\xx|=|\xx|=6$, justified by $Q\T Q=I$ (watch for anyone trying to find $\xx$). Q3 is the target
+justification --- rotate--stretch--rotate, and why orthogonality is the unit's big idea. If many miss Q3, open
+the unit review with a 30-second recap: $A=U\Sigma V\T$, orthogonal turns with a diagonal stretch in between.
+\end{teachernote}
 
 \end{document}

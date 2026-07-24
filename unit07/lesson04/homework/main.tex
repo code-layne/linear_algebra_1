@@ -3,17 +3,63 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\qq}{\mathbf{q}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.4}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+\textbf{Orthogonal matrices.} A square matrix $Q$ is \textbf{orthogonal} when its columns are perpendicular unit
+vectors --- the one test is $Q\T Q=I$. Then $Q^{-1}=Q\T$ (free inverse) and $|Q\xx|=|\xx|$ (length preserved).
+The SVD $A=U\Sigma V\T$ writes any matrix as \emph{rotate--stretch--rotate}: the orthogonal $U,V$ turn, the
+diagonal $\Sigma$ stretches by the singular values.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item \textbf{Orthogonal or not?} For each matrix, compute $Q\T Q$ and decide whether it is orthogonal.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=3pt]
+      \item $\tfrac1{\sqrt2}\begin{bsmallmatrix} 1 & -1\\ 1 & 1 \end{bsmallmatrix}$
+      \item $\begin{bsmallmatrix} 2 & 0\\ 0 & 1 \end{bsmallmatrix}$
+      \item $\tfrac1{13}\begin{bsmallmatrix} 5 & -12\\ 12 & 5 \end{bsmallmatrix}$
+    \end{enumerate}
+    \vspace{2.2cm}
+  \item \textbf{Length \& free inverse.} Let $Q=\tfrac1{13}\begin{bsmallmatrix} 5 & -12\\ 12 & 5 \end{bsmallmatrix}$ (orthogonal) and $\xx=(13,0)$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=3pt]
+      \item Compute $Q\xx$ and its length. Compare to $|\xx|$.
+      \item Write $Q^{-1}$ without any computation.
+    \end{enumerate}
+    \vspace{2.0cm}
+  \item \textbf{Rotate--stretch--rotate.} A matrix $A=U\Sigma V\T$ has orthogonal $U,V$ and singular values $\sigma_1=5,\ \sigma_2=2$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=3pt]
+      \item Which factor does the stretching? Which factors only rotate?
+      \item As $\xx$ ranges over unit vectors, what is the largest possible $|A\xx|$? The smallest?
+    \end{enumerate}
+    \vspace{1.7cm}
+  \item \textbf{Justify.} Explain (i) why $Q^{-1}=Q\T$ for an orthogonal matrix, and (ii) why orthogonal matrices preserve length --- and why that makes them safe to compute with. \writelines{2}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{The determinant of an orthogonal matrix.} Suppose $Q$ is orthogonal, so $Q\T Q=I$.
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+  \item Using $\det(Q\T Q)=\det I$ and the product/transpose rules for determinants (Unit~5), show that $(\det Q)^2=1$, so $\det Q=\pm1$.
+  \item A rotation has $\det Q=+1$; a reflection has $\det Q=-1$. Classify $Q=\tfrac15\begin{bsmallmatrix} 3 & -4\\ 4 & 3 \end{bsmallmatrix}$ and $Q=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1 & 1\\ 1 & -1 \end{bsmallmatrix}$.
+\end{enumerate}
+\writelines{3}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Unit 7 in one line.} The SVD $A=U\Sigma V\T$ writes \emph{every} matrix --- any shape --- as
+rotate--stretch--rotate, with perpendicular singular vectors in $U$ and $V$. Singular values (7.1), image
+compression (7.2), and PCA (7.3) are all this one idea: orthogonality's victory.
+\end{spiralbox}
 
 \end{document}

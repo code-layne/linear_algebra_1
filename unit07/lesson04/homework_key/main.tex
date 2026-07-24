@@ -3,17 +3,81 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\qq}{\mathbf{q}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.4}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+\textbf{Orthogonal matrices.} A square matrix $Q$ is \textbf{orthogonal} when its columns are perpendicular unit
+vectors --- the one test is $Q\T Q=I$. Then $Q^{-1}=Q\T$ (free inverse) and $|Q\xx|=|\xx|$ (length preserved).
+The SVD $A=U\Sigma V\T$ writes any matrix as \emph{rotate--stretch--rotate}: the orthogonal $U,V$ turn, the
+diagonal $\Sigma$ stretches by the singular values.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item \textbf{Orthogonal or not?} For each matrix, compute $Q\T Q$ and decide whether it is orthogonal.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=3pt]
+      \item $\tfrac1{\sqrt2}\begin{bsmallmatrix} 1 & -1\\ 1 & 1 \end{bsmallmatrix}$
+      \item $\begin{bsmallmatrix} 2 & 0\\ 0 & 1 \end{bsmallmatrix}$
+      \item $\tfrac1{13}\begin{bsmallmatrix} 5 & -12\\ 12 & 5 \end{bsmallmatrix}$
+    \end{enumerate}
+    \ansline{(a) $Q\T Q=I$ --- \textbf{orthogonal} (perpendicular unit columns; a rotation).}
+    \ansline{(b) $Q\T Q=\begin{bsmallmatrix} 4 & 0\\ 0 & 1 \end{bsmallmatrix}\ne I$ --- \textbf{not} orthogonal (the first column has length $2$; this is a stretch).}
+    \ansline{(c) $Q\T Q=\tfrac1{169}\begin{bsmallmatrix} 169 & 0\\ 0 & 169 \end{bsmallmatrix}=I$ --- \textbf{orthogonal} ($5$--$12$--$13$ columns; a rotation).}
+  \item \textbf{Length \& free inverse.} Let $Q=\tfrac1{13}\begin{bsmallmatrix} 5 & -12\\ 12 & 5 \end{bsmallmatrix}$ (orthogonal) and $\xx=(13,0)$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=3pt]
+      \item Compute $Q\xx$ and its length. Compare to $|\xx|$.
+      \item Write $Q^{-1}$ without any computation.
+    \end{enumerate}
+    \ansline{(a) $Q\xx=\tfrac1{13}(5\cdot13,\ 12\cdot13)=(5,12)$, length $\sqrt{25+144}=13=|\xx|$: same length.}
+    \ansline{(b) $Q^{-1}=Q\T=\tfrac1{13}\begin{bsmallmatrix} 5 & 12\\ -12 & 5 \end{bsmallmatrix}$.}
+  \item \textbf{Rotate--stretch--rotate.} A matrix $A=U\Sigma V\T$ has orthogonal $U,V$ and singular values $\sigma_1=5,\ \sigma_2=2$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=3pt]
+      \item Which factor does the stretching? Which factors only rotate?
+      \item As $\xx$ ranges over unit vectors, what is the largest possible $|A\xx|$? The smallest?
+    \end{enumerate}
+    \ansline{(a) The diagonal $\Sigma$ does the stretching (by $\sigma_1,\sigma_2$); the orthogonal $U$ and $V\T$ only rotate/reflect.}
+    \ansline{(b) Largest $|A\xx|=\sigma_1=5$ (along $\vv_1$); smallest $=\sigma_2=2$ (along $\vv_2$).}
+  \item \textbf{Justify.} Explain (i) why $Q^{-1}=Q\T$ for an orthogonal matrix, and (ii) why orthogonal matrices preserve length --- and why that makes them safe to compute with.
+        \ansline{(i) By definition $Q\T Q=I$, so $Q\T$ undoes $Q$; for a square matrix that makes $Q\T$ the inverse, $Q^{-1}=Q\T$. (ii) $|Q\xx|^2=(Q\xx)\T(Q\xx)=\xx\T Q\T Q\,\xx=\xx\T\xx=|\xx|^2$, so length never changes. Because they never stretch, orthogonal matrices never \emph{amplify} rounding errors --- small mistakes stay small, which is why algorithms compute with them.}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{The determinant of an orthogonal matrix.} Suppose $Q$ is orthogonal, so $Q\T Q=I$.
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+  \item Using $\det(Q\T Q)=\det I$ and the product/transpose rules for determinants (Unit~5), show that $(\det Q)^2=1$, so $\det Q=\pm1$.
+  \item A rotation has $\det Q=+1$; a reflection has $\det Q=-1$. Classify $Q=\tfrac15\begin{bsmallmatrix} 3 & -4\\ 4 & 3 \end{bsmallmatrix}$ and $Q=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1 & 1\\ 1 & -1 \end{bsmallmatrix}$.
+\end{enumerate}
+\ansline{(a) $\det(Q\T Q)=\det(Q\T)\det(Q)=(\det Q)(\det Q)=(\det Q)^2$, and $\det I=1$, so $(\det Q)^2=1$ and $\det Q=\pm1$.}
+\ansline{(b) $\det\tfrac15\begin{bsmallmatrix} 3 & -4\\ 4 & 3 \end{bsmallmatrix}=\tfrac1{25}(9+16)=1$ --- a \textbf{rotation}. $\det\tfrac1{\sqrt2}\begin{bsmallmatrix} 1 & 1\\ 1 & -1 \end{bsmallmatrix}=\tfrac12(-1-1)=-1$ --- a \textbf{reflection}.}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Unit 7 in one line.} The SVD $A=U\Sigma V\T$ writes \emph{every} matrix --- any shape --- as
+rotate--stretch--rotate, with perpendicular singular vectors in $U$ and $V$. Singular values (7.1), image
+compression (7.2), and PCA (7.3) are all this one idea: orthogonality's victory.
+\end{spiralbox}
+
+\begin{teachernote}
+Item~1 is the orthogonal-or-not screen: (a) and (c) pass ($Q\T Q=I$), (b) fails because its first column has
+length $2$ (a stretch, not a rigid motion) --- the key discriminator is the \emph{unit-length} check, not just
+perpendicularity. Item~2 is the two payoffs on the $5$--$12$--$13$ rotation: length preserved ($(13,0)\to(5,12)$,
+still length $13$) and the free inverse $Q^{-1}=Q\T$. Item~3 reads the SVD factors: only $\Sigma$ stretches, so
+$|A\xx|$ runs from $\sigma_2=2$ to $\sigma_1=5$. Item~4 is the target justification (free inverse; length
+preservation and numerical stability). The extension proves $\det Q=\pm1$ from $\det(Q\T Q)=1$ and classifies a
+rotation ($+1$) vs.\ a reflection ($-1$) --- a clean Unit~5 callback. Common slips: checking only
+perpendicularity and missing the unit-length requirement; recomputing $Q^{-1}$ instead of transposing;
+forgetting $\det Q\T=\det Q$.
+\end{teachernote}
 
 \end{document}

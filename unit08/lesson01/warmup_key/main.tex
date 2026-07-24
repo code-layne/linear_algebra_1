@@ -3,17 +3,48 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.1}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: The Fold We Built Last Lesson}
+\small Last lesson the \textbf{ReLU} $=\max(0,x)$ gave us one \emph{fold}. Today we shift and add folds to
+build functions that bend. Warm up on the three pieces of that idea.
+
+\vspace{4pt}
+\textbf{1. The ReLU makes one fold (Lesson 8.0).} Evaluate:
+\[
+  \relu(3)={\color{keyred}\mathbf{3}},\qquad \relu(-2)={\color{keyred}\mathbf{0}},\qquad \relu(0)={\color{keyred}\mathbf{0}}.
+\]
+As a graph, one ReLU has exactly \ans{$1$} fold (corner), at $x=0$.
+
+\vspace{4pt}
+\textbf{2. Shifting the input moves the fold.} Consider $\relu(x-2)$. Evaluate it at two inputs:
+\[
+  \relu(1-2)=\relu(-1)={\color{keyred}\mathbf{0}},\qquad \relu(4-2)=\relu(2)={\color{keyred}\mathbf{2}}.
+\]
+This function is flat until $x=\ans{$2$}$, then rises --- its fold has \emph{slid} to the right.
+
+\vspace{4pt}
+\textbf{3. Adding ReLUs changes the slope.} Compute $\relu(x)+\relu(x)$ at $x=3$ and at $x=-1$:
+\[
+  \relu(3)+\relu(3)={\color{keyred}\mathbf{6}},\qquad \relu(-1)+\relu(-1)={\color{keyred}\mathbf{0}}.
+\]
+For $x>0$ this equals $2x$: adding two copies \emph{doubled} the slope.
 \end{notesbox}
+
+\begin{teachernote}
+Each item is a piece of today's build. Item~1 recalls the one fold of a single ReLU. Item~2 is the new
+move: replacing $x$ with $x-s$ \emph{slides the fold to $x=s$} --- this is exactly what a \textbf{bias}
+does inside a layer. Item~3 shows that a \emph{coefficient} on a ReLU scales the slope it adds. Put
+together --- shift to place each fold, weight to set each slope --- and sums of ReLUs become the
+\textbf{piecewise-linear} functions of today's lesson. Debrief item~2 aloud: the bias is the fold's
+location knob.
+\end{teachernote}
 
 \end{document}

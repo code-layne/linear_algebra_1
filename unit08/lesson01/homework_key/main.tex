@@ -3,17 +3,73 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.1}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+A \textbf{piecewise-linear} function is a sum of shifted ReLUs. Each $\relu(x-s)$ adds a \textbf{fold} at
+$x=s$; its coefficient sets how much the slope changes there. On any piece the slope is the sum of the
+weights of the ReLUs already switched on, and $N$ folds give $N+1$ straight pieces.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Shifted ReLUs.} Evaluate each, and give its fold location.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\relu(x-2)$ at $x=0$, $x=2$, $x=4$ \hfill \ans{$0,\ 0,\ 2$; fold at $x=2$}
+      \item $\relu(x-3)$ at $x=1$, $x=5$ \hfill \ans{$0,\ 2$; fold at $x=3$}
+    \end{enumerate}
+  \item \textbf{Read a piecewise-linear function.} Let $F(x)=\relu(x)-\relu(x-2)+\relu(x-4)$. Compute
+        $F(0)$, $F(2)$, $F(4)$, and $F(6)$. Where are the folds, what is the slope on each piece, and
+        describe the shape.
+        \ansline{$F(0)=0$, $F(2)=2$, $F(4)=2$, $F(6)=6-4+2=4$. Folds at $x=0,2,4$. Slopes $0,\,1,\,0,\,1$ (running sum of switched-on weights). Shape: flat, then up with slope $1$ to height $2$ at $x=2$, flat over $2\le x\le4$, then up again with slope $1$ --- a step up, a plateau, then another climb.}
+  \item \textbf{Build a tent.} Let $F(x)=\relu(x)-2\,\relu(x-3)+\relu(x-6)$. Compute $F(3)$, $F(6)$, and
+        $F(9)$. Name the peak and describe the shape (what happens after $x=6$?).
+        \ansline{$F(3)=3$, $F(6)=6-2(3)+0=0$, $F(9)=9-2(6)+3=0$. Peak at $(3,3)$: the graph rises with slope $1$ to $(3,3)$, falls with slope $-1$ back to $0$ at $x=6$, then stays \emph{flat} at $0$ --- a tent.}
+  \item \textbf{Fit data, then score it.} Use $F(x)=\relu(x)-\relu(x-2)$ as a model. Compute the
+        predictions $F(1)$, $F(3)$, $F(5)$. The true targets are $1,2,3$. Compute the \textbf{loss} (sum of
+        squared errors). Does $F$ fit the first two points exactly?
+        \ansline{$F(1)=1$, $F(3)=2$, $F(5)=2$. Loss $=(1-1)^2+(2-2)^2+(2-3)^2=0+0+1=1$. Yes --- $F$ hits the first two targets exactly ($1$ and $2$); it misses the third by $1$ because the ramp has leveled off at $2$ while the target keeps rising.}
+  \item \textbf{Explain.} (a) Inside a layer, how does the \emph{bias} control where a fold sits?
+        (b) Why does adding more ReLUs (a \emph{wider} weight matrix) let a network fit more complicated
+        data? \ansline{(a) The bias adds a constant inside the ReLU, $\relu(ax+b)$, which shifts the fold to where $ax+b=0$ (i.e.\ $x=-b/a$) --- changing $b$ slides the fold left or right. (b) Each ReLU is one more fold, and more folds give more straight pieces, so the graph can change direction more often and bend to match wigglier data.}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{How many folds does a wiggle need?}
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item A hidden layer has $6$ ReLUs. What is the greatest number of straight pieces its function can have?
+  \item A data pattern changes direction $3$ times (up, down, up, down). What is the fewest number of folds
+        a piecewise-linear function needs to trace it? Explain the ``one fold per turn'' idea in a sentence.
+\end{enumerate}
+\ansline{(a) $6$ ReLUs $\Rightarrow$ up to $6$ folds $\Rightarrow 6+1=7$ straight pieces.}
+\ansline{(b) $3$ folds --- one at each change of direction. A straight piece has a single slope, so the graph can only turn where a fold sits; making $3$ turns therefore needs at least $3$ folds.}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 8.2: Convolutional Neural Nets.} We keep the layer $\relu(A\vv+\bb)$, but for
+images we \emph{reuse} the same small set of weights across the whole picture --- a special weight matrix
+that scans for the same pattern everywhere.
+\end{spiralbox}
+
+\begin{teachernote}
+Item~1 drills the \emph{shift $\to$ fold} link (and the $\relu(0)=0$ edge). Item~2 reads a three-fold
+function whose slopes are $0,1,0,1$ (a plateau in the middle) --- watch for students who think every fold
+must change direction; a fold can also make the graph flatten or resume. Item~3 is a clean symmetric tent
+(peak $(3,3)$, flat after $x=6$). Item~4 ties piecewise-linear \emph{fitting} back to the Unit~4 loss: the
+ramp fits two points exactly and misses the third, motivating ``add another fold to fit better'' (i.e.\
+learning). Item~5 collects the two target ideas: bias places the fold, width supplies more folds. The
+extension is the counting rule plus ``one fold per turn.'' Most common slips: summing a ReLU's value instead
+of its weight into the slope; forgetting a ReLU switches on only past its fold; miscounting pieces (it is
+folds $+1$).
+\end{teachernote}
 
 \end{document}

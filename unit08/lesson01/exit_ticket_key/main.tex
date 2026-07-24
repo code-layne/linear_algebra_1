@@ -3,6 +3,7 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
@@ -11,9 +12,27 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Build the shape.} Let $F(x)=\relu(x)-2\,\relu(x-2)+\relu(x-4)$. Compute
+        $F(0)$, $F(2)$, $F(4)$, and $F(6)$, and describe the shape the graph makes.
+        \ansline{$F(0)=0$; $F(2)=2$; $F(4)=4-2(2)=0$; $F(6)=6-2(4)+2=0$. The graph rises with slope $1$ to the peak $(2,2)$, falls with slope $-1$ back to $0$ at $x=4$, then stays flat --- a \textbf{tent} (triangle).}
+  \item \textbf{Folds and pieces.} A piecewise-linear function is built from $4$ ReLUs. How many folds does
+        it have, and how many straight pieces?
+        \ansline{$4$ folds and $4+1=5$ straight pieces.}
+  \item \textbf{Explain.} In one sentence, why can a sum of ReLUs bend to fit rising-and-falling data when a
+        single straight line cannot?
+        \ansline{Each ReLU adds a fold where the slope can change, so a sum of them can turn up and then down; a single line has no folds and one fixed slope, so it can only go straight.}
+\end{enumerate}
+
+\begin{teachernote}
+Sort responses into ``got it / arithmetic slip / concept slip.'' Item~1 checks building a piecewise-linear
+function: turn on only the ReLUs whose fold is left of $x$ (peak $(2,2)$, back to $0$ at $x=4$, then flat).
+Watch for students who forget a ReLU only switches on past its fold, or who miscompute $-2\,\relu(x-2)$.
+Item~2 is the counting rule $N\to N+1$. Item~3 is the target idea: \emph{folds are what let a graph change
+direction}. If many stumble on item~1's shape or item~3, reopen next lesson with a 30-second ``each ReLU $=$
+one fold; folds let the graph turn'' recap.
+\end{teachernote}
 
 \end{document}

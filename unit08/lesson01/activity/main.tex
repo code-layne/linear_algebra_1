@@ -3,17 +3,66 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.1}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Folding Lines into a Fit.} A \textbf{piecewise-linear} function is a sum of shifted ReLUs:
+each $\relu(x-s)$ adds a \emph{fold} at $x=s$, and its coefficient sets how much the slope changes there. On
+any piece, the slope is the sum of the weights of the ReLUs already switched on, and $N$ folds give $N+1$
+straight pieces. Work with your partner, show each step, and \emph{explain} the shape you get.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Warm up the two moves: shift a fold, then add ReLUs.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item \textbf{The shift moves the fold.} Evaluate $\relu(x-2)$:
+        \[ \relu(0-2)=\blank{0.9cm},\ \ \relu(2-2)=\blank{0.9cm},\ \ \relu(5-2)=\blank{0.9cm}. \]
+        This function is flat until $x=\blank{0.8cm}$ (its fold), then rises.
+  \item \textbf{A ramp from two ReLUs.} Let $G(x)=\relu(x)-\relu(x-3)$. Fill the table, then answer.
+        \[ G(-1)=\blank{0.8cm},\ \ G(0)=\blank{0.8cm},\ \ G(1)=\blank{0.8cm},\ \ G(3)=\blank{0.8cm},\ \ G(5)=\blank{0.8cm}. \]
+        Where are the two folds, and what does the graph do after $x=3$? \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Now build a tent, place a fold from a bias, and count pieces.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Build a tent.} Let $F(x)=\relu(x)-2\,\relu(x-3)+\relu(x-6)$. Compute $F(3)$, $F(4)$, and
+        $F(6)$. Give the slope on each of the four pieces, and name the peak. \writelines{2}
+  \item \textbf{The bias sets the fold.} A hidden unit computes $\relu(2x-6)$. Its fold is where
+        $2x-6=0$. Solve for that $x$, then evaluate the unit at $x=1$ and $x=5$. \writeline
+  \item \textbf{Count the pieces.} A network's hidden layer has $5$ ReLUs. How many folds, and how many
+        straight pieces, can its function have? \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Why a wider layer fits more.} More ReLUs mean more folds --- and more folds mean the graph can
+change direction more often.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Fill in the counting rule:
+        \[ \begin{array}{c|c} \text{ReLUs } (N) & \text{straight pieces} \\ \hline
+           1 & \blank{0.8cm} \\ 2 & \blank{0.8cm} \\ 3 & \blank{0.8cm} \\ 4 & \blank{0.8cm} \end{array} \]
+  \item A data pattern goes \emph{up}, then \emph{down}, then \emph{up} again (two changes of direction).
+        What is the fewest number of folds a piecewise-linear function needs to make those two turns? \writeline
+  \item In one sentence: why does a \emph{wider} weight matrix $A$ (more rows, so more ReLUs) let a network
+        fit more complicated, wigglier data? \writeline
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

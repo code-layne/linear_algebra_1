@@ -5,6 +5,10 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\zero}{\mathbf{0}}
 \newcommand{\UnitNumberName}{Unit 6: Eigenvalues and Eigenvectors \quad}
 \newcommand{\LessonNumberName}{Lesson 6.0: Special Directions --- Setting Up Eigenvalues}
 
@@ -16,55 +20,151 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can identify the \emph{special directions} of a matrix:
+    a nonzero vector $\xx$ is an \emph{eigenvector} of $A$ when $A\xx$ lands on the same line as
+    $\xx$ --- that is, $A\xx=\lambda\xx$ for a number $\lambda$ (the \emph{eigenvalue}), the factor
+    by which that direction is stretched. Given a matrix and a candidate vector they can compute
+    $A\xx$, decide whether it is a scalar multiple of $\xx$, and read off $\lambda$; and given an
+    eigenvector they can find $\lambda$. They can explain \emph{why} these directions matter --- along
+    them a matrix does nothing but \emph{scale}, so it acts as simply as a number --- and connect
+    $\lambda=0$ to the Unit~5 fact $\det A=0$. They can describe where Unit~6 is going: \emph{finding}
+    eigenvalues from $\det(A-\lambda I)=0$ (6.1), \emph{diagonalizing} $A$ (6.2), symmetric matrices
+    (6.3), and an application (6.4).
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Compute $A\xx$ and decide whether it is a \textbf{multiple} of $\xx$.
+  \item State the eigen-relation $A\xx=\lambda\xx$; read $\lambda$ as the \textbf{stretch factor}.
+  \item Given an eigenvector, \textbf{find} its eigenvalue $\lambda$.
+  \item Connect $\lambda=0$ to $\det A=0$ (a squashed, non-invertible matrix --- Unit~5).
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item A matrix usually \emph{turns} a vector; a few directions are only \emph{stretched}.
+  \item Along an eigenvector a matrix behaves like a single number $\lambda$ --- no turning.
+  \item The eigenvector is the \emph{direction}; the eigenvalue is \emph{how much} it scales.
+  \item $\lambda=0$ means some direction is crushed to $\zero$ --- exactly the Unit~5 collapse.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Eigenvector} & A \emph{nonzero} vector $\xx$ whose image $A\xx$ lies on the same line as $\xx$ (direction unchanged, up to a flip). \\
+\textbf{Eigenvalue $\lambda$} & The number with $A\xx=\lambda\xx$: the factor the eigenvector is stretched ($|\lambda|$) and flipped ($\lambda<0$) by. \\
+\textbf{The eigen-relation} & $A\xx=\lambda\xx$ with $\xx\ne\zero$ --- ``matrix times vector $=$ number times the same vector.'' \\
+\textbf{Test for an eigenvector} & Compute $A\xx$; if $A\xx=\lambda\xx$ for some $\lambda$, $\xx$ is an eigenvector and $\lambda$ is its eigenvalue. \\
+\textbf{$\lambda=0$ \& singular} (recall §5) & $\lambda=0$ means $A\xx=\zero$ for a nonzero $\xx$ --- the matrix is \emph{not invertible} ($\det A=0$). \\
+\textbf{Characteristic equation} (preview 6.1) & $\det(A-\lambda I)=0$ --- the equation whose solutions are the eigenvalues. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three ideas this lesson builds on:
+    \textbf{(1)} computing a \emph{matrix times a vector} $A\xx$ (Unit~1),
+    \textbf{(2)} recognizing when one vector is a \emph{scalar multiple} of another (parallel /
+    same line, Unit~1), and
+    \textbf{(3)} the $2\times2$ \emph{determinant} $ad-bc$ from Unit~5 --- the tool that will later
+    find the eigenvalues. Debrief items~1--2 together: $A\begin{bsmallmatrix}1\\1\end{bsmallmatrix}
+    =\begin{bsmallmatrix}3\\3\end{bsmallmatrix}=3\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$, so the
+    matrix did nothing to that direction but \emph{multiply it by $3$}. That is today's whole idea.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Show a matrix acting on the plane (Lesson~5.3): most arrows get \emph{turned} to a new direction.
+    Then ask: \textbf{``Are there any arrows the matrix does \emph{not} turn --- ones it only
+    stretches?''} Test $\xx=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ under
+    $A=\begin{bsmallmatrix}2&1\\1&2\end{bsmallmatrix}$: $A\xx=\begin{bsmallmatrix}3\\3\end{bsmallmatrix}$
+    --- same line, just three times as long. Name the payoff: for a few \emph{special directions} a
+    matrix acts like a single \emph{number}. Pose the unit question: \textbf{``Which directions does a
+    matrix only stretch, and by how much?''} Those directions are the \emph{eigenvectors}; the stretch
+    factors are the \emph{eigenvalues}, and they run all of Unit~6 --- finding them (6.1), diagonalizing
+    (6.2), symmetric matrices (6.3), and an application (6.4).
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. A matrix usually changes direction.} Recall $A\xx$ moves a vector (Lesson~5.3). For
+$A=\begin{bsmallmatrix}2&1\\1&2\end{bsmallmatrix}$, the vector
+$\begin{bsmallmatrix}1\\0\end{bsmallmatrix}$ maps to $\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$ ---
+a \emph{new} direction. Most vectors get turned.
+
+\textbf{2. Special directions: $A\xx=\lambda\xx$.} A nonzero $\xx$ is an \textbf{eigenvector} when
+$A\xx$ stays on the \emph{same line} --- $A\xx=\lambda\xx$. The number $\lambda$ is the
+\textbf{eigenvalue}. Test $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$: $A\xx=
+\begin{bsmallmatrix}3\\3\end{bsmallmatrix}=3\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$, so
+$\lambda=3$. Test $\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$: $A\xx=
+\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}=1\!\cdot\!\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$,
+so $\lambda=1$.
+
+\columnbreak
+
+\textbf{3. How to test a candidate.} Compute $A\xx$; ask ``is it a \emph{multiple} of $\xx$?'' If yes,
+that multiple is $\lambda$; if no, $\xx$ is not an eigenvector. Non-example: $A
+\begin{bsmallmatrix}2\\1\end{bsmallmatrix}=\begin{bsmallmatrix}5\\4\end{bsmallmatrix}$ --- not a
+multiple of $\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$, so it is turned.
+
+\textbf{4. Why it matters + road ahead.} Along an eigenvector a matrix does nothing but \emph{scale},
+so it acts like the single number $\lambda$ --- that is what makes eigenvectors powerful. Special
+case: $\lambda=0$ means $A\xx=\zero$ for a nonzero $\xx$, so $A$ is \emph{not invertible} ($\det A=0$,
+Unit~5). \textbf{Finding} the $\lambda$'s comes next: they solve $\det(A-\lambda I)=0$ (a Unit~5
+determinant $\Rightarrow$ a quadratic). \textbf{Road ahead:} \textbf{6.1} finding eigenvalues;
+\textbf{6.2} diagonalizing; \textbf{6.3} symmetric matrices; \textbf{6.4} an application.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item arithmetic slips in $A\xx$ (row $\cdot$ vector) --- the eigen-test is only as good as the product;
+  \item declaring ``eigenvector'' without checking that $A\xx$ is \emph{the same multiple} in \emph{both} entries;
+  \item forgetting the \emph{nonzero} requirement (the zero vector is never an eigenvector);
+  \item thinking $\lambda$ must be positive --- $\lambda$ can be $0$ or negative (a flip).
+\end{itemize}
+Cold-call prompts: ``Compute $A\xx$ --- is it a multiple of $\xx$?'' ``What is $\lambda$ here?''
+``If $A\xx=\zero$ for a nonzero $\xx$, what does that say about $\det A$?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Finding the Special Directions} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Compute $A\xx$ for diagonal and given matrices; decide whether $A\xx$
+is a multiple of $\xx$; read off $\lambda$ when it is.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Given eigenvectors, find each $\lambda$; identify which of several
+vectors is the eigenvector; and meet a $\lambda=0$ eigenvector, connecting it to $\det A=0$ and
+non-invertibility (recall §5).
+
+\columnbreak
+\textbf{Tier E --- Extension.} \emph{First look at finding eigenvalues:} form $A-\lambda I$, compute
+the $2\times2$ determinant $\det(A-\lambda I)$, set it to $0$, and solve the quadratic --- recovering
+the $\lambda$'s from the notes. This is the Lesson~6.1 method.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): compute $A\xx$ and decide whether $\xx$ is an
+eigenvector, giving $\lambda$; test a second vector that is \emph{not} an eigenvector; and a
+\textbf{conceptual/justification check} --- state in one sentence what $A\xx=\lambda\xx$ means
+geometrically. Collect and sort into ``got it / arithmetic slip / concept slip'' to decide whether
+6.1 opens with a quick $A\xx$ re-warm.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} compute $A\xx$ and test candidates; find $\lambda$ from given eigenvectors
+(diagonal, triangular, symmetric); a $\lambda=0$ item tied to $\det A=0$ and invertibility (§5); and a
+short justification of ``special direction $=$ only stretched.'' \textbf{Extension:} form $A-\lambda I$
+and solve $\det(A-\lambda I)=0$ --- a first taste of Lesson~6.1. \textbf{Preview:} Lesson~6.1,
+\emph{Introduction to Eigenvalues} --- how to \emph{find} the special directions (and their $\lambda$'s)
+without guessing, from $\det(A-\lambda I)=0$.
 \end{skillbox}
 \end{document}

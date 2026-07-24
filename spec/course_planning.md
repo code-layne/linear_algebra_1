@@ -7,7 +7,32 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-23 — **Scaffolded all of Unit 6 (Eigenvalues and Eigenvectors) — skeletons only.**
+**Last updated:** 2026-07-23 — **Authored & built Unit 6 Lesson 6.0 — "Special Directions --- Setting Up Eigenvalues" (the intro/spiral lesson).**
+Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides
+deck, mirroring Lesson 5.0's preamble/boxes/tone. **Content — spiral + roadmap for Eigenvalues:** (1) a matrix usually
+\emph{turns} a vector (Lesson 5.3 callback: $A[1,0]^{\T}=[2,1]^{\T}$ under the spine $A=[[2,1],[1,2]]$); (2) the one big
+idea — \textbf{special directions} where $A\xx$ stays on the same line: $A\xx=\lambda\xx$ ($\xx\ne\zero$), $\xx$ the
+\emph{eigenvector}, $\lambda$ the \emph{eigenvalue}/stretch factor; verified $[1,1]^{\T}\to\lambda3$, $[1,-1]^{\T}\to\lambda1$,
+non-example $[2,1]^{\T}\to[5,4]^{\T}$ (turned); (3) the reusable \textbf{test} — compute $A\xx$, is it a multiple of $\xx$?;
+(4) why it matters (a matrix acts like the single number $\lambda$ along an eigenvector) + the §5 callback
+$\lambda=0\Leftrightarrow\det A=0\Leftrightarrow$ not invertible, and the 6.1 preview $\det(A-\lambda I)=0$. **Warmup is the
+lesson in miniature** ($A[1,1]^{\T}=[3,3]^{\T}=3[1,1]^{\T}$ + scalar-multiple + $2\times2$ determinant recall). **Custom
+eigenvector TikZ** (burgundy $\xx$ + $A\xx=3\xx$ on a dashed eigen-line; royalblue $\yy$ turned to $A\yy$) on notes §2 +
+slides hook. **Activity/Exit/HW spine (all hand-verified in pure Python, exact ints):** Tier R diagonal $\mathrm{diag}(2,5)$
+axes + test $[1,1]^{\T}/[1,0]^{\T}$ on the spine; Tier A find $\lambda$ from eigenvectors ($B=[[4,2],[1,3]]$: $[2,1]^{\T}\to5$,
+$[1,-1]^{\T}\to2$), screen candidates, $\lambda=0$ on $C=[[2,4],[1,2]]$ ($[2,-1]^{\T}\to\zero$, $\det=0$); Tier E the 6.1
+method $\det(A-\lambda I)=(2-\lambda)^2-1=\lambda^2-4\lambda+3=(\lambda-1)(\lambda-3)$ recovering $\lambda=1,3$. Exit uses
+$E=[[3,1],[1,3]]$ ($[1,1]^{\T}\to4$, $[1,0]^{\T}$ turned). HW adds a negative eigenvalue ($[[1,2],[2,1]]$, $[1,-1]^{\T}\to-1$,
+a flip), diagonal/triangular $\lambda$-on-the-diagonal, $\lambda=0$ vs $\det=0$, and the $\det(A-\lambda I)=0$ extension
+($E$: $\lambda^2-6\lambda+8\to\lambda=2,4$). **Built `make -C unit06/lesson00 all` → clean** (0 `^!`/file-line errors across
+all 13 logs; no `\ans`-in-math; no overfull >15pt). Page counts: cover/warmup/exit 1pp (blank & key ✓ 1-page constraint),
+notes 2pp, activity 2pp, homework 2pp, slides 5pp, lesson plan 2pp; **student 9pp, full 16pp.** Visually spot-checked
+notes_key p2 (eigenvector figure — clean, dashed eigen-line, colored arrows, no tofu) and the slides hook — clean.
+**Gotcha (unchanged):** `\xx`/`\yy`/`\vv`/`\zero` are per-file macros — define every math macro the body uses (incl. the
+lesson-plan and beamer preambles). **Next run: author Unit 6 Lesson 6.1** ("Introduction to Eigenvalues", §6.1). Lesson 6.0
+is the Unit 6 model (mirrors 5.0/4.0).
+
+**Prior run:** **Scaffolded all of Unit 6 (Eigenvalues and Eigenvectors) — skeletons only.**
 Ran `new_lesson.py` for lessons 6.0–6.4 (component set: cover, warmup, notes, activity, exit_ticket, homework, slides
 + keys for the keyed components). The 6.0 run created the unit, so `unit06/tests/` (practice + actual),
 `unit06/test_keys/` (both keys), `unit06/sample_test/`, `unit06/sample_test_key/`, `unit06/Makefile`, and the
@@ -15,11 +40,8 @@ thin-include test Makefiles were all auto-scaffolded too. **Confirmed lesson map
 optional §6.4):** 6.0 "Special Directions --- Setting Up Eigenvalues" (intro/spiral) · 6.1 "Introduction to Eigenvalues"
 (§6.1) · 6.2 "Diagonalizing a Matrix" (§6.2) · 6.3 "Symmetric Positive Definite Matrices" (§6.3) · 6.4 "Systems of
 Differential Equations" (§6.4, advanced/optional) — matches `spec/linear_algebra_v2.md` §6.1–6.4 plus the customary
-`lesson00` intro. Verified all five lessons carry the full component set + 5 keys + Makefile + main.tex + images/, and
-the unit carries tests/test_keys/sample_test/sample_test_key + Makefile. **Nothing authored yet — every `main.tex` is a
-skeleton; no builds run.** `sample_test`/`sample_test_key` PDFs are NOT yet populated (they come from `drop` after the
-tests are authored). **Next run: author Unit 6 Lesson 6.0** ("Special Directions --- Setting Up Eigenvalues", intro/spiral)
-following the 5.0/4.0 intro-lesson model; then 6.1–6.4, then the Unit 6 summative tests.
+`lesson00` intro. `sample_test`/`sample_test_key` PDFs are NOT yet populated (they come from `drop` after the
+tests are authored).
 
 **Prior run:** **Authored & built the Unit 5 summative tests — Unit 5 is now complete.**
 Filled all four skeletons (`tests/practice_test`, `tests/actual_test`, `test_keys/practice_test_key`, `test_keys/actual_test_key`),
@@ -502,18 +524,19 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ☑ all lessons + tests authored & built ✅ |
 | 4 | Orthogonality | 4.0 intro + 4.1–4.4 | ☑ all lessons + tests authored & built ✅ |
 | 5 | Determinants and Linear Transformations | 5.0 intro + 5.1–5.3 | ☑ all lessons + tests authored & built ✅ |
-| 6 | Eigenvalues and Eigenvectors | 6.1–6.4 (§6.4 optional) | ☐ |
+| 6 | Eigenvalues and Eigenvectors | 6.0 intro + 6.1–6.4 (§6.4 optional) | ◧ scaffolded; **6.0 authored & built ✅**; 6.1–6.4 + tests skeleton |
 | 7 | The Singular Value Decomposition *(optional/advanced)* | 7.1–7.4 | ☐ |
 | 8 | Learning from Data *(optional enrichment)* | 8.1–8.4 | ☐ |
 
 ## Next steps
 
-1. **Author Unit 6 (Eigenvalues and Eigenvectors)** — all of Unit 6 is now **scaffolded (skeletons only)**; lesson map is
-   **confirmed** (5 lessons, incl. the optional §6.4 — user chose to include it): 6.0 "Special Directions --- Setting Up
-   Eigenvalues" (intro) · 6.1 "Introduction to Eigenvalues" · 6.2 "Diagonalizing a Matrix" · 6.3 "Symmetric Positive Definite
-   Matrices" · 6.4 "Systems of Differential Equations". **Next: author Lesson 6.0** (intro/spiral, following the 5.0/4.0
-   intro-lesson model), then 6.1–6.4 in order (5.0–5.3 are the lesson model; Lesson 4.0 the cross-unit style model), and
-   finally the Unit 6 summative tests (Unit 4 + Unit 5 tests are the format model). Content comes from Strang §6.1–6.4.
+1. **Author Unit 6 (Eigenvalues and Eigenvectors)** — Unit 6 is **scaffolded**; lesson map is **confirmed** (5 lessons,
+   incl. the optional §6.4 — user chose to include it): 6.0 "Special Directions --- Setting Up Eigenvalues" (intro,
+   **authored & built ✅**) · 6.1 "Introduction to Eigenvalues" · 6.2 "Diagonalizing a Matrix" · 6.3 "Symmetric Positive
+   Definite Matrices" · 6.4 "Systems of Differential Equations". **Next: author Lesson 6.1** ("Introduction to Eigenvalues",
+   §6.1 — find eigenvalues via $\det(A-\lambda I)=0$, then eigenvectors via $(A-\lambda I)\xx=\zero$), then 6.2–6.4 in order
+   (6.0 is the Unit 6 model; 5.0–5.3 the lesson model; Lesson 4.0 the cross-unit style model), and finally the Unit 6
+   summative tests (Unit 4 + Unit 5 tests are the format model). Content comes from Strang §6.1–6.4.
 2. *(optional)* Rebuild the whole Unit 1–5 packets (`make -C unitXX student|full`, or `make student|full`
    at the root) to confirm the `sample_test`/`sample_test_key` drop-ins merge in as expected.
 

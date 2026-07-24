@@ -3,17 +3,89 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 6, Lesson 6.0}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Finding the Special Directions.} A nonzero $\xx$ is an \textbf{eigenvector} of $A$ when
+$A\xx=\lambda\xx$ --- the matrix only \emph{stretches} it by the \textbf{eigenvalue} $\lambda$. The
+test is always the same: compute $A\xx$ and ask ``\emph{is it a multiple of $\xx$?}'' Work with your
+partner, show every $A\xx$, and \emph{justify} each answer.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Compute $A\xx$ and read off $\lambda$. Show your work.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item \textbf{Diagonal scales the axes.} For $A=\begin{bsmallmatrix} 2 & 0\\ 0 & 5 \end{bsmallmatrix}$,
+        compute $A\begin{bsmallmatrix} 1\\ 0 \end{bsmallmatrix}=\ans{$\begin{bsmallmatrix} 2\\ 0 \end{bsmallmatrix}$}$ and
+        $A\begin{bsmallmatrix} 0\\ 1 \end{bsmallmatrix}=\ans{$\begin{bsmallmatrix} 0\\ 5 \end{bsmallmatrix}$}$. Each is a multiple of the
+        input: the eigenvalues are $\lambda=\ans{$2$}$ and $\lambda=\ans{$5$}$.
+  \item For $A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$ and $\xx=\begin{bsmallmatrix} 1\\ 1 \end{bsmallmatrix}$,
+        compute $A\xx$. Is $\xx$ an eigenvector? What is $\lambda$?
+        \ansline{$A\xx=\begin{bsmallmatrix} 3\\3 \end{bsmallmatrix}=3\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$. Yes --- eigenvector, $\lambda=3$.}
+  \item Is $\begin{bsmallmatrix} 1\\ 0 \end{bsmallmatrix}$ an eigenvector of
+        $\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$? Compute $A\begin{bsmallmatrix} 1\\ 0 \end{bsmallmatrix}$
+        and say why or why not. \; \ans{$A\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$, not a multiple of $\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}$ --- so no.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Now find $\lambda$ from eigenvectors, and meet $\lambda=0$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Find the eigenvalues.} Let $A=\begin{bsmallmatrix} 4 & 2\\ 1 & 3 \end{bsmallmatrix}$.
+        Compute $A\begin{bsmallmatrix} 2\\ 1 \end{bsmallmatrix}$ and $A\begin{bsmallmatrix} 1\\ -1 \end{bsmallmatrix}$.
+        Both inputs are eigenvectors --- find each $\lambda$.
+        \ansline{$A\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}=\begin{bsmallmatrix} 10\\5 \end{bsmallmatrix}=5\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}\Rightarrow\lambda=5$; \quad $A\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}=\begin{bsmallmatrix} 2\\-2 \end{bsmallmatrix}=2\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}\Rightarrow\lambda=2$.}
+  \item \textbf{Which one is the eigenvector?} For the same $A$, exactly one of
+        $\begin{bsmallmatrix} 2\\ 1 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 1\\ 0 \end{bsmallmatrix}$
+        is an eigenvector. Test both by computing $A\xx$, and say which.
+        \ansline{$A\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}=\begin{bsmallmatrix} 10\\5 \end{bsmallmatrix}=5\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$ (eigenvector); $A\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}=\begin{bsmallmatrix} 4\\1 \end{bsmallmatrix}$, not a multiple (turned). So $\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$ is the eigenvector.}
+  \item \textbf{The $\lambda=0$ direction (recall §5).} Let $A=\begin{bsmallmatrix} 2 & 4\\ 1 & 2 \end{bsmallmatrix}$
+        and $\xx=\begin{bsmallmatrix} 2\\ -1 \end{bsmallmatrix}$. Compute $A\xx$. What is $\lambda$?
+        Compute $\det A$. What do $\lambda=0$ and $\det A=0$ together tell you about $A$?
+        \ansline{$A\xx=\begin{bsmallmatrix} 0\\0 \end{bsmallmatrix}=0\cdot\xx\Rightarrow\lambda=0$. $\det A=(2)(2)-(4)(1)=0$. A nonzero vector is crushed to $\zero$, so $A$ is \emph{not invertible} --- $\lambda=0$ and $\det A=0$ are the same fact.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{A first look at \emph{finding} eigenvalues (Lesson~6.1).} So far you were \emph{handed} the
+eigenvectors. Here is how the $\lambda$'s are found from the matrix alone: an eigenvector makes
+$A\xx=\lambda\xx$, i.e.\ $(A-\lambda I)\xx=\zero$ with $\xx\ne\zero$, which forces the matrix
+$A-\lambda I$ to be singular --- so $\det(A-\lambda I)=0$. Use $A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Write down the matrix $A-\lambda I=\begin{bsmallmatrix} 2-\lambda & 1\\ 1 & 2-\lambda \end{bsmallmatrix}$
+        and compute its determinant $\det(A-\lambda I)$ as an expression in $\lambda$.
+        \ansline{$\det(A-\lambda I)=(2-\lambda)(2-\lambda)-(1)(1)=(2-\lambda)^2-1=\lambda^2-4\lambda+3$.}
+  \item Set $\det(A-\lambda I)=0$ and solve the quadratic for $\lambda$.
+        \ansline{$\lambda^2-4\lambda+3=(\lambda-1)(\lambda-3)=0\Rightarrow\lambda=1$ or $\lambda=3$.}
+  \item Compare your two $\lambda$'s to the stretch factors from the notes
+        ($\begin{bsmallmatrix} 1\\ 1 \end{bsmallmatrix}\!\to\!\lambda=3$,
+        $\begin{bsmallmatrix} 1\\ -1 \end{bsmallmatrix}\!\to\!\lambda=1$). Do they match?
+        \ansline{Yes --- exactly the same $\lambda=3$ and $\lambda=1$. This is the Lesson~6.1 method.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~R keeps it computational (compute $A\xx$, is it a multiple of $\xx$, read $\lambda$); the diagonal
+in item~1 shows why $\lambda$'s ``scale the axes.'' Tier~A adds finding $\lambda$ from a given
+eigenvector, screening candidates, and the §5 callback: $\lambda=0\Leftrightarrow\det A=0\Leftrightarrow$
+not invertible. Tier~E is the Lesson~6.1 preview --- $\det(A-\lambda I)=0$ recovers the same $\lambda=1,3$
+found by hand in the notes; if time is short, Tier~E item~1--2 is the must-do. Watch for $A\xx$
+arithmetic slips and for students who match only one entry's ratio before declaring ``eigenvector.''
+\end{teachernote}
 
 \end{document}

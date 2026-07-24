@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 6}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 6 \quad Eigenvalues and Eigenvectors}}\\[6pt]
   {\color{white}\textbf{\large Lesson 6.0 \quad Special Directions --- Setting Up Eigenvalues}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} compute $A\mathbf{x}$ and decide whether $\mathbf{x}$ is an \textbf{eigenvector} --- whether $A\mathbf{x}$ lands on the same line as $\mathbf{x}$.
+  \item \ldots{} state the relation $A\mathbf{x}=\lambda\mathbf{x}$ and read the \textbf{eigenvalue} $\lambda$ as the stretch factor of that direction.
+  \item \ldots{} explain why $\lambda=0$ means $\det A=0$ (not invertible), and where Unit~6 is going.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,25 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: matrix $\times$ vector, scalar multiples, the $2\times2$ determinant & \blank{1.2cm} \\
+2 & Guided Notes   & Special directions: $A\mathbf{x}=\lambda\mathbf{x}$; testing candidates; $\lambda=0$ & \blank{1.2cm} \\
+3 & Group Activity & Finding the Special Directions --- testing vectors and reading $\lambda$          & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check: test an eigenvector, find $\lambda$, and justify the idea             & \blank{1.2cm} \\
+5 & Homework       & Testing candidates, finding $\lambda$, $\lambda=0$ vs.\ $\det A=0$, and a preview      & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small A matrix usually \emph{turns} the vectors it multiplies. But a few \textbf{special directions}
+are only \emph{stretched}: a nonzero $\mathbf{x}$ with $A\mathbf{x}=\lambda\mathbf{x}$ is an
+\textbf{eigenvector}, and the number $\lambda$ --- the \textbf{eigenvalue} --- is how much that
+direction is scaled (and flipped, if $\lambda<0$). Along such a direction the matrix acts like a
+single number. When $\lambda=0$, the direction is crushed to $\mathbf{0}$: the matrix is \emph{not
+invertible} ($\det A=0$, Unit~5). These special directions run all of Unit~6.
+\end{remindbox}
 
 \end{document}

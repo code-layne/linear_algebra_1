@@ -3,6 +3,7 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
 
 \begin{document}
 
@@ -11,9 +12,27 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning. Use $A=\begin{bmatrix} 3 & 1 \\ 1 & 3 \end{bmatrix}$ for items 1--2.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Test an eigenvector.} Compute $A\begin{bmatrix} 1 \\ 1 \end{bmatrix}$. Is
+        $\begin{bmatrix} 1 \\ 1 \end{bmatrix}$ an eigenvector of $A$? If so, what is the eigenvalue
+        $\lambda$?
+        \ansline{$A\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}=\begin{bsmallmatrix} 4\\4 \end{bsmallmatrix}=4\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$. Yes --- an eigenvector with $\lambda=4$.}
+  \item \textbf{A vector that is \emph{not} special.} Compute $A\begin{bmatrix} 1 \\ 0 \end{bmatrix}$.
+        Is $\begin{bmatrix} 1 \\ 0 \end{bmatrix}$ an eigenvector? How do you know?
+        \ansline{$A\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}=\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}$, which is \emph{not} a multiple of $\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}$ --- so no, it is turned to a new direction.}
+  \item \textbf{Explain.} In one sentence, what does it mean --- \emph{geometrically} --- for a nonzero
+        vector $\xx$ to satisfy $A\xx=\lambda\xx$?
+        \ansline{$A$ leaves $\xx$'s direction (its line) unchanged and only stretches it by the factor $\lambda$ (flipping it if $\lambda<0$) --- the matrix acts like the single number $\lambda$ along that direction.}
+\end{enumerate}
+
+\begin{teachernote}
+Sort responses into ``got it / arithmetic slip / concept slip.'' Item~1 is a clean eigen-test
+($\lambda=4$); item~2 checks that students actually verify ``multiple of $\xx$'' rather than assuming
+every vector is special. Item~3 is the target sentence: an eigenvector is a direction the matrix only
+\emph{stretches} (by $\lambda$). If many stumble on item~3, open Lesson~6.1 with a 60-second
+``compute $A\xx$, is it a multiple of $\xx$?'' re-warm.
+\end{teachernote}
 
 \end{document}

@@ -7,7 +7,36 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-23 — **Authored & built Unit 6 Lesson 6.2 — "Diagonalizing a Matrix" (Strang §6.2).**
+**Last updated:** 2026-07-23 — **Authored & built Unit 6 Lesson 6.3 — "Symmetric Positive Definite Matrices" (Strang §6.3).**
+Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides
+deck, mirroring Lesson 6.2's preamble/boxes/tone. **Content — the family Lesson 6.2 promised: the matrices that \emph{always}
+diagonalize.** (1) **Symmetric $\Rightarrow\perp$ eigenvectors:** $S=S^{\T}$ (numbers mirror across the diagonal); the
+\textbf{spectral theorem} guarantees real eigenvalues \emph{and} perpendicular eigenvectors, verified on the unit spine
+$S=[[2,1],[1,2]]$ ($\lambda3,1$; eigvecs $[1,1]\cdot[1,-1]=0$). (2) **Cleanest diagonalization $S=Q\Lambda Q^{\T}$:** normalize
+the eigenvectors (÷$\sqrt2$) into orthonormal $Q=\tfrac1{\sqrt2}[[1,1],[1,-1]]$; since $Q^{\T}Q=I$ (Unit 4), $Q^{-1}=Q^{\T}$, so
+6.2's $X^{-1}$ becomes a free transpose — verified $Q\Lambda Q^{\T}=\tfrac12[[4,2],[2,4]]=S$. (3) **Positive definite = all
+$\lambda>0$:** the quick $2\times2$ test $a>0$ \& $ac-b^2>0$ ($=\det>0\Rightarrow$ invertible); spine $2>0$, $\det3>0$. (4)
+**Energy $\xx^{\T}S\xx$:** $=2x^2+2xy+2y^2=x^2+y^2+(x+y)^2>0$ (sum of squares) — a bowl that curves up; a negative eigenvalue
+makes a saddle. **Custom perpendicular-eigenvector TikZ** (burgundy $\xx_1$ $\lambda3$ + royalblue $\xx_2$ $\lambda1$ on dashed
+$y=\pm x$ eigen-lines, hand-drawn right-angle mark at origin, caption "symmetric $\Rightarrow$ perpendicular") on notes §1 +
+slides §1. **Warmup = the three checks in miniature** (transpose/symmetry $S=S^{\T}$; dot-product $\perp$ test $[1,1]\cdot[1,-1]$;
+normalize $[1,1]\to\tfrac1{\sqrt2}[1,1]$). **Activity/Exit/HW spine (all hand-verified in pure Python):** Tier R three checks on
+$[[3,1],[1,3]]$ ($\lambda4,2$; posdef); Tier A full $S=Q\Lambda Q^{\T}$ on $[[5,2],[2,5]]$ ($\lambda7,3$; $Q=\tfrac1{\sqrt2}[[1,1],
+[1,-1]]$; $\tfrac12[[10,4],[4,10]]$✓); Tier E the contrast $[[1,2],[2,1]]$ ($\lambda3,-1$ — symmetric so still $\perp$, but energy
+at $[1,-1]=-2<0$ ⇒ \emph{not} posdef, a saddle). Exit uses $[[4,1],[1,4]]$ ($\lambda5,3$; posdef; justify $\perp$ from symmetry
+alone). HW: spectral factorization on the spine; a posdef \emph{screen} ($[[2,1],[1,2]]$ yes, $[[1,3],[3,1]]$ no $\det{-}8$,
+$[[1,2],[2,4]]$ no $\det0$/semidef $\lambda5,0$); energy at $[1,0]{\to}2,[1,1]{\to}6$; posdef-vs-invertible ($\lambda6,-2$: not
+posdef but invertible); justify $Q^{\T}Q=I$ \& posdef$\Rightarrow$invertible; extension = ellipse geometry (axis $1/\sqrt\lambda$,
+smallest $\lambda\Rightarrow$ longest axis, along $[1,-1]$). **Built `make -C unit06/lesson03 all` → clean** (0 `^!`/file-line
+errors across all 13 logs; no `\ans`-in-math; no overfull >15pt). Page counts: cover/warmup/exit 1pp (blank & key ✓ 1-page
+constraint), notes 3pp/3pp, activity 1pp/2pp, homework 2pp, slides 6pp, lesson plan 2pp; **student 9pp, full 18pp** (matches
+6.0/6.1/6.2). Visually spot-checked notes_key p2 (perpendicular-eigenvector figure — clean arrows, dashed eigen-lines, crisp
+right-angle mark, no tofu) — clean. **Gotcha (unchanged):** `\xx`/`\vv`/`\qq`/`\zero`/`\T` are per-file macros — define every
+math macro the body uses (incl. the lesson-plan and beamer preambles); `royalblue`/`linegray`/`charcoal` confirmed defined in
+`linalg-colors`. **Next run: author Unit 6 Lesson 6.4** ("Systems of Differential Equations", §6.4, advanced/optional). Lessons
+6.0/6.1/6.2/6.3 are the Unit 6 models.
+
+**Prior run:** **Authored & built Unit 6 Lesson 6.2 — "Diagonalizing a Matrix" (Strang §6.2).**
 Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides
 deck, mirroring Lesson 6.1's preamble/boxes/tone. **Content — the payoff of 6.1's eigen-finding: put the eigenvectors to
 work.** (1) **Line them up:** eigenvectors into the columns of $X$, eigenvalues down the diagonal of $\Lambda$; multiplying

@@ -3,17 +3,72 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 6, Lesson 6.3}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+A \emph{symmetric} matrix ($S=S^{\T}$) has perpendicular eigenvectors, so normalizing them gives an
+orthonormal $Q$ and $S=Q\Lambda Q^{\T}$. It is \emph{positive definite} when every eigenvalue is
+positive --- equivalently $a>0$ and $ac-b^2>0$.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item \textbf{Spectral factorization.} For $S=\begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$ (eigenvalues
+        $\lambda=3,1$ with eigenvectors $\begin{bsmallmatrix}1\\1\end{bsmallmatrix},\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$),
+        normalize the eigenvectors into an orthonormal $Q$, write $\Lambda$, and state $S=Q\Lambda Q^{\T}$.
+        \ansline{Each eigenvector has length $\sqrt2$, so $Q=\frac{1}{\sqrt2}\begin{bsmallmatrix}1&1\\1&-1\end{bsmallmatrix}$, $\Lambda=\begin{bsmallmatrix}3&0\\0&1\end{bsmallmatrix}$, and $S=Q\Lambda Q^{\T}$. (Check: $\frac12\begin{bsmallmatrix}3&1\\3&-1\end{bsmallmatrix}\begin{bsmallmatrix}1&1\\1&-1\end{bsmallmatrix}=\frac12\begin{bsmallmatrix}4&2\\2&4\end{bsmallmatrix}=\begin{bsmallmatrix}2&1\\1&2\end{bsmallmatrix}$.$\ \checkmark$)}
+  \item \textbf{Positive-definite screen.} Each matrix is symmetric. Use the quick test ($a>0$ and $ac-b^2>0$)
+        to decide whether it is positive definite.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$ \hfill \ans{Yes.}
+      \item $\begin{bmatrix} 1 & 3 \\ 3 & 1 \end{bmatrix}$ \hfill \ans{No.}
+      \item $\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$ \hfill \ans{No.}
+    \end{enumerate}
+    \ansline{(a) $a=2>0$, $ac-b^2=4-1=3>0$ --- positive definite ($\lambda=3,1$). (b) $ac-b^2=1-9=-8<0$ --- not positive definite ($\lambda=4,-2$). (c) $a=1>0$ but $ac-b^2=4-4=0$ (not $>0$) --- not positive definite ($\lambda=5,0$; the zero eigenvalue makes it only \emph{semi}definite).}
+  \item \textbf{Energy.} For $S=\begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$, compute the energy $\xx^{\T}S\xx$
+        at $\xx=\begin{bsmallmatrix}1\\0\end{bsmallmatrix}$ and at $\xx=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$.
+        How do the results fit with $S$ being positive definite?
+        \ansline{At $\begin{bsmallmatrix}1\\0\end{bsmallmatrix}$: $S\begin{bsmallmatrix}1\\0\end{bsmallmatrix}=\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$, energy $=(1)(2)+(0)(1)=2$. At $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$: $S\begin{bsmallmatrix}1\\1\end{bsmallmatrix}=\begin{bsmallmatrix}3\\3\end{bsmallmatrix}$, energy $=3+3=6$. Both positive --- consistent with positive definite, which means $\xx^{\T}S\xx>0$ for \emph{every} nonzero $\xx$.}
+  \item \textbf{Positive definite vs.\ invertible.} A symmetric matrix has eigenvalues $\lambda=6$ and
+        $\lambda=-2$. Is it positive definite? Is it invertible? Explain how these two questions differ.
+        \ansline{Not positive definite --- positive definite needs \emph{all} eigenvalues positive, and $\lambda=-2<0$. But it \emph{is} invertible: $\det=(6)(-2)=-12\ne0$ (no zero eigenvalue). Invertibility only forbids $\lambda=0$; positive definiteness demands every $\lambda>0$ --- a stronger condition.}
+  \item \textbf{Explain.} (a) Why does normalizing perpendicular eigenvectors make $Q^{-1}=Q^{\T}$?
+        (b) Why must a positive-definite matrix be invertible?
+        \ansline{(a) After normalizing, each column of $Q$ has length $1$ and is perpendicular to the others, so $Q^{\T}Q=I$ (diagonal entries $=$ each column dotted with itself $=1$; off-diagonal $=0$). That is exactly the statement $Q^{\T}=Q^{-1}$. (b) All eigenvalues are positive, so none is $0$; then $\det=\lambda_1\lambda_2>0\ne0$, so $S$ is invertible.}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{The geometry.} For a positive-definite $S$, the set of vectors with energy $\xx^{\T}S\xx=1$ traces an
+\emph{ellipse}, and its axes point along the eigenvectors with lengths $1/\sqrt{\lambda}$. For
+$S=\begin{bsmallmatrix}2&1\\1&2\end{bsmallmatrix}$ ($\lambda=3,1$), along which eigenvector direction is the
+ellipse \emph{longest}, and why?
+\ansline{Longest along $\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$ (the $\lambda=1$ direction). The axis length is $1/\sqrt{\lambda}$, which is largest when $\lambda$ is smallest: $1/\sqrt1=1$ versus $1/\sqrt3\approx0.58$. Small eigenvalue $\Rightarrow$ long axis (the energy grows slowly there).}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 6.4: Systems of Differential Equations.} You have now met eigenvalues,
+diagonalization ($A=X\Lambda X^{-1}$), and the symmetric case ($S=Q\Lambda Q^{\T}$). Next you'll put them to
+work on a system that \emph{changes over time} --- the eigenvalues tell you how each piece grows or decays.
+\end{spiralbox}
+
+\begin{teachernote}
+Item~1 is the clean spectral factorization on the unit spine ($Q=\frac{1}{\sqrt2}\begin{bsmallmatrix}1&1\\1&-1\end{bsmallmatrix}$;
+the $\frac1{\sqrt2}$'s combine to $\frac12$). Item~2 is a positive-definite \emph{screen} --- (b) fails on a
+negative determinant, (c) is the boundary case $\det=0$ (semidefinite, $\lambda=5,0$), a good discussion
+point. Item~3 grounds the energy definition (both values positive). Item~4 separates \emph{positive
+definite} (all $\lambda>0$) from \emph{invertible} (no $\lambda=0$) --- a common conflation. Item~5 is the
+two target justifications ($Q^{\T}Q=I$; all $\lambda>0\Rightarrow\det\ne0$). The extension previews the
+ellipse geometry: axis length $1/\sqrt\lambda$, so the smallest eigenvalue gives the longest axis. Most
+common slips: judging positive definiteness from the diagonal alone; forgetting to normalize before calling
+$Q$ orthonormal; and treating ``not positive definite'' as ``not invertible.''
+\end{teachernote}
 
 \end{document}

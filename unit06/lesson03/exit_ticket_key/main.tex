@@ -3,6 +3,7 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,9 +12,28 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning. Use $S=\begin{bmatrix} 4 & 1 \\ 1 & 4 \end{bmatrix}$, whose eigenvalues are
+$5$ and $3$ with eigenvectors $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ and $\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=14pt]
+  \item \textbf{Symmetric \& perpendicular.} Explain why $S$ is symmetric, then use a dot product to check
+        that its two eigenvectors are perpendicular.
+        \ansline{$S=S^{\T}$: flipping across the diagonal keeps the off-diagonal $1$'s in place, so $S$ is symmetric. Dot product: $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}\cdot\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}=1-1=0$, so the eigenvectors are perpendicular.}
+  \item \textbf{Positive definite?} Decide whether $S$ is positive definite \emph{two} ways: from the
+        eigenvalues, and from the quick test ($a>0$ and $ac-b^2>0$).
+        \ansline{Eigenvalues $5$ and $3$ are both positive $\Rightarrow$ positive definite. Quick test: $a=4>0$ and $ac-b^2=(4)(4)-1^2=15>0$ $\Rightarrow$ positive definite. Both agree.}
+  \item \textbf{Explain.} How could you have known --- \emph{without} computing them --- that this matrix's
+        eigenvectors would be perpendicular? (One or two sentences.)
+        \ansline{Because $S$ is symmetric. The spectral theorem guarantees that every symmetric matrix has real eigenvalues and perpendicular eigenvectors --- no computation needed.}
+\end{enumerate}
+
+\begin{teachernote}
+Sort into ``got it / arithmetic slip / concept slip.'' Item~1 checks recognizing symmetry and the
+dot-product perpendicularity test; item~2 checks \emph{both} positive-definite tests (all $\lambda>0$; and
+$a>0$ \& $ac-b^2=15>0$); item~3 is the target idea --- symmetry \emph{alone} forces perpendicular
+eigenvectors (the spectral theorem). Watch for students who test positive definiteness from the diagonal
+only, or who think perpendicular eigenvectors need to be computed to be known. If many miss item~3,
+re-anchor on the §1 spectral-theorem statement before Lesson~6.4.
+\end{teachernote}
 
 \end{document}

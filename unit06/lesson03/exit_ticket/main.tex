@@ -3,6 +3,7 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,9 +12,19 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+No notes. Show your reasoning. Use $S=\begin{bmatrix} 4 & 1 \\ 1 & 4 \end{bmatrix}$, whose eigenvalues are
+$5$ and $3$ with eigenvectors $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ and $\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=14pt]
+  \item \textbf{Symmetric \& perpendicular.} Explain why $S$ is symmetric, then use a dot product to check
+        that its two eigenvectors are perpendicular.
+        \vspace{1.6cm}
+  \item \textbf{Positive definite?} Decide whether $S$ is positive definite \emph{two} ways: from the
+        eigenvalues, and from the quick test ($a>0$ and $ac-b^2>0$).
+        \vspace{1.6cm}
+  \item \textbf{Explain.} How could you have known --- \emph{without} computing them --- that this matrix's
+        eigenvectors would be perpendicular? (One or two sentences.)
+        \writelines{2}
+\end{enumerate}
 
 \end{document}

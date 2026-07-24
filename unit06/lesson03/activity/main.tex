@@ -3,17 +3,59 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 6, Lesson 6.3}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Symmetric Positive Definite Matrices.} A \emph{symmetric} matrix ($S=S^{\T}$) always has
+\emph{perpendicular} eigenvectors, so normalizing them gives an orthonormal $Q$ and the clean
+diagonalization $S=Q\Lambda Q^{\T}$ (with $Q^{-1}=Q^{\T}$). It is \emph{positive definite} when every
+eigenvalue is positive --- equivalently $a>0$ and $ac-b^2>0$. Show every step with your partner.
+\end{headlinebox}
+
+\vspace{0.08in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Warm up the three checks. Let $S=\begin{bsmallmatrix} 3 & 1\\ 1 & 3 \end{bsmallmatrix}$, with eigenvalues
+$\lambda=4,2$ and eigenvectors $\begin{bsmallmatrix}1\\1\end{bsmallmatrix},\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Symmetric?} Check that $S=S^{\T}$. \writeline
+  \item \textbf{Perpendicular?} Compute $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}\cdot\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$. Are the eigenvectors perpendicular? \writeline
+  \item \textbf{Positive definite?} Apply the quick test: is $a>0$ and is $ac-b^2>0$? \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Run the full method. Let $S=\begin{bsmallmatrix} 5 & 2\\ 2 & 5 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Eigen-data.} Find both eigenvalues from $\det(S-\lambda I)=0$, then an eigenvector for each,
+        and check that the two eigenvectors are perpendicular. \writelines{3}
+  \item \textbf{Build $Q$ and factor.} Normalize the eigenvectors into an orthonormal $Q$, write $\Lambda$,
+        and state the factorization $S=Q\Lambda Q^{\T}$. \writelines{2}
+  \item \textbf{Positive definite?} Confirm it two ways: the eigenvalues, and the quick $a>0$ \& $ac-b^2>0$ test. \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Symmetric, but \emph{not} positive definite.} Let $S=\begin{bsmallmatrix} 1 & 2\\ 2 & 1 \end{bsmallmatrix}$
+(eigenvalues $\lambda=3,-1$; eigenvectors $\begin{bsmallmatrix}1\\1\end{bsmallmatrix},\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$).
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Since $S$ is symmetric, are its eigenvectors still perpendicular? Check with a dot product. \writeline
+  \item Compute the energy $\xx^{\T}S\xx$ at $\xx=\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$. What do you get? \writeline
+  \item Explain why $S$ is \emph{not} positive definite --- using the eigenvalues, the quick test, \emph{and}
+        what the energy told you. \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

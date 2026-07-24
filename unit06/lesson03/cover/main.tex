@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 6}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 6 \quad Eigenvalues and Eigenvectors}}\\[6pt]
   {\color{white}\textbf{\large Lesson 6.3 \quad Symmetric Positive Definite Matrices}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} recognize a \textbf{symmetric} matrix ($S=S^{\mathsf T}$) and explain why its eigenvectors are \emph{perpendicular}, so it diagonalizes as $S=Q\Lambda Q^{\mathsf T}$ with an orthonormal $Q$.
+  \item \ldots{} test whether a symmetric matrix is \textbf{positive definite} --- all eigenvalues positive, or $a>0$ and $ac-b^2>0$.
+  \item \ldots{} connect positive definiteness to positive \textbf{energy} $\mathbf{x}^{\mathsf T}S\mathbf{x}>0$, and explain why such a matrix is always invertible.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,25 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: the transpose \& $S=S^{\mathsf T}$, the dot-product $\perp$ test, normalizing to unit length & \blank{1.2cm} \\
+2 & Guided Notes   & Symmetric $\Rightarrow\perp$ eigenvectors; $S=Q\Lambda Q^{\mathsf T}$; positive definite \& energy & \blank{1.2cm} \\
+3 & Group Activity & Confirm symmetry \& $\perp$; a full $S=Q\Lambda Q^{\mathsf T}$; a symmetric matrix that is \emph{not} positive definite & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check: symmetry, perpendicular eigenvectors, and the positive-definite test & \blank{1.2cm} \\
+5 & Homework       & Spectral factorization, a positive-definite screen, energy, and justification & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small In Lesson~6.2 a matrix diagonalized only when it had enough independent eigenvectors, and computing
+$X^{-1}$ could be messy. \textbf{Symmetric} matrices ($S=S^{\mathsf T}$) fix both problems at once: their
+eigenvectors always come out \emph{perpendicular}, so after normalizing them into an orthonormal $Q$ the
+inverse is just the transpose --- $S=Q\Lambda Q^{\mathsf T}$. When every eigenvalue is also \emph{positive},
+$S$ is \textbf{positive definite}: it stores positive energy $\mathbf{x}^{\mathsf T}S\mathbf{x}>0$ and is
+guaranteed invertible.
+\end{remindbox}
 
 \end{document}

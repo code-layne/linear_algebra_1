@@ -3,17 +3,55 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 6, Lesson 6.3}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+A \emph{symmetric} matrix ($S=S^{\T}$) has perpendicular eigenvectors, so normalizing them gives an
+orthonormal $Q$ and $S=Q\Lambda Q^{\T}$. It is \emph{positive definite} when every eigenvalue is
+positive --- equivalently $a>0$ and $ac-b^2>0$.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item \textbf{Spectral factorization.} For $S=\begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$ (eigenvalues
+        $\lambda=3,1$ with eigenvectors $\begin{bsmallmatrix}1\\1\end{bsmallmatrix},\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$),
+        normalize the eigenvectors into an orthonormal $Q$, write $\Lambda$, and state $S=Q\Lambda Q^{\T}$. \writelines{3}
+  \item \textbf{Positive-definite screen.} Each matrix is symmetric. Use the quick test ($a>0$ and $ac-b^2>0$)
+        to decide whether it is positive definite.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$ \hfill
+      \item $\begin{bmatrix} 1 & 3 \\ 3 & 1 \end{bmatrix}$ \hfill
+      \item $\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$
+    \end{enumerate}
+    \vspace{1.3cm}
+  \item \textbf{Energy.} For $S=\begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$, compute the energy $\xx^{\T}S\xx$
+        at $\xx=\begin{bsmallmatrix}1\\0\end{bsmallmatrix}$ and at $\xx=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$.
+        How do the results fit with $S$ being positive definite? \writelines{2}
+  \item \textbf{Positive definite vs.\ invertible.} A symmetric matrix has eigenvalues $\lambda=6$ and
+        $\lambda=-2$. Is it positive definite? Is it invertible? Explain how these two questions differ. \writelines{2}
+  \item \textbf{Explain.} (a) Why does normalizing perpendicular eigenvectors make $Q^{-1}=Q^{\T}$?
+        (b) Why must a positive-definite matrix be invertible? \writelines{2}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{The geometry.} For a positive-definite $S$, the set of vectors with energy $\xx^{\T}S\xx=1$ traces an
+\emph{ellipse}, and its axes point along the eigenvectors with lengths $1/\sqrt{\lambda}$. For
+$S=\begin{bsmallmatrix}2&1\\1&2\end{bsmallmatrix}$ ($\lambda=3,1$), along which eigenvector direction is the
+ellipse \emph{longest}, and why? \writelines{2}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 6.4: Systems of Differential Equations.} You have now met eigenvalues,
+diagonalization ($A=X\Lambda X^{-1}$), and the symmetric case ($S=Q\Lambda Q^{\T}$). Next you'll put them to
+work on a system that \emph{changes over time} --- the eigenvalues tell you how each piece grows or decays.
+\end{spiralbox}
 
 \end{document}

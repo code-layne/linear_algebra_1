@@ -5,6 +5,10 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\qq}{\mathbf{q}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 \newcommand{\UnitNumberName}{Unit 6: Eigenvalues and Eigenvectors \quad}
 \newcommand{\LessonNumberName}{Lesson 6.3: Symmetric Positive Definite Matrices}
 
@@ -16,55 +20,141 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students recognize a \emph{symmetric} matrix ($S=S^{\T}$) and know its two
+    special properties: the eigenvalues are real and the eigenvectors are \emph{perpendicular}, so every
+    symmetric matrix diagonalizes as $S=Q\Lambda Q^{\T}$ with an orthonormal $Q$ (no inverse to compute ---
+    just a transpose). They test whether a symmetric matrix is \emph{positive definite} using either the
+    eigenvalues (all $\lambda>0$) or the quick $2\times2$ test ($a>0$ and $ac-b^2>0$), connect positive
+    definiteness to positive \emph{energy} $\xx^{\T}S\xx>0$ (a bowl that curves up), and justify why such a
+    matrix is always invertible.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Recognize a symmetric matrix and check $S=S^{\T}$.
+  \item Show a symmetric matrix's eigenvectors are perpendicular.
+  \item Diagonalize with orthonormal $Q$: $S=Q\Lambda Q^{\T}$.
+  \item Test positive definiteness ($\lambda>0$, or $a>0$ \& $ac-b^2>0$).
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Symmetric $\Rightarrow$ real eigenvalues \emph{and} perpendicular eigenvectors --- always.
+  \item Orthonormal eigenvectors mean $Q^{-1}=Q^{\T}$, so no inverse to compute.
+  \item Positive definite $\Leftrightarrow$ energy $\xx^{\T}S\xx>0$ for every $\xx\ne\zero$ (a bowl).
+  \item All $\lambda>0\Rightarrow\det>0\Rightarrow$ invertible (no zero eigenvalue).
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Symmetric matrix} & $S=S^{\T}$: the entry in row $i$, column $j$ equals the entry in row $j$, column $i$ (mirror across the diagonal). \\
+\textbf{Spectral theorem} & Every symmetric matrix has real eigenvalues and perpendicular eigenvectors, so $S=Q\Lambda Q^{\T}$. \\
+\textbf{Orthonormal matrix $Q$} & Columns are perpendicular unit vectors; then $Q^{\T}Q=I$, so $Q^{-1}=Q^{\T}$ (Unit~4). \\
+\textbf{Positive definite} & Symmetric with \emph{all} eigenvalues positive; equivalently $\xx^{\T}S\xx>0$ for every $\xx\ne\zero$. \\
+\textbf{Energy $\xx^{\T}S\xx$} & The number a matrix assigns to a vector; positive definite means this is always positive (a bowl). \\
+\textbf{Quick $2\times2$ test} & $S=\begin{bsmallmatrix}a&b\\b&c\end{bsmallmatrix}$ is positive definite iff $a>0$ and $ac-b^2>0$. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three checks this lesson leans on: \textbf{(1)} the \emph{transpose} and what
+    ``$S=S^{\T}$'' means (symmetry); \textbf{(2)} the \emph{dot-product} perpendicularity test
+    $\mathbf{u}\cdot\mathbf{w}=0$ (Unit~4); and \textbf{(3)} \emph{normalizing} a vector to unit length
+    (dividing by $\|\mathbf{v}\|$), the move that turns perpendicular eigenvectors into the orthonormal
+    columns of $Q$. Debrief by naming the plan: ``symmetric matrices have perpendicular eigenvectors, so we
+    can normalize them into an orthonormal $Q$ and get the cleanest diagonalization of all.''
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Recall Lesson~6.2: a matrix diagonalizes as $A=X\Lambda X^{-1}$ \emph{only} when it has enough
+    independent eigenvectors --- and computing $X^{-1}$ can be messy. Pose the question: \textbf{``Is there a
+    family of matrices that \emph{always} diagonalizes --- and where the inverse is free?''} The answer is
+    \textbf{symmetric} matrices ($S=S^{\T}$, the numbers mirror across the diagonal). Their eigenvectors come
+    out \emph{perpendicular}, so after normalizing them into an orthonormal $Q$ the inverse is just the
+    transpose: $S=Q\Lambda Q^{\T}$. Reuse the unit spine $S=\begin{bsmallmatrix}2&1\\1&2\end{bsmallmatrix}$
+    ($\lambda=3,1$; eigenvectors $\begin{bsmallmatrix}1\\1\end{bsmallmatrix},\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$,
+    which \emph{are} perpendicular). And because both eigenvalues are positive, $S$ is \emph{positive
+    definite} --- it stores positive ``energy.''
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. Symmetric $\Rightarrow$ perpendicular eigenvectors.} $S=S^{\T}$. On the spine, eigenvectors
+$\begin{bsmallmatrix}1\\1\end{bsmallmatrix},\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$ satisfy
+$\begin{bsmallmatrix}1\\1\end{bsmallmatrix}\cdot\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}=0$ --- a right
+angle. This is the \textbf{spectral theorem}: real eigenvalues, perpendicular eigenvectors, always.
+
+\textbf{2. The cleanest diagonalization $S=Q\Lambda Q^{\T}$.} Normalize each eigenvector (divide by $\sqrt2$)
+to build orthonormal $Q=\frac{1}{\sqrt2}\begin{bsmallmatrix}1&1\\1&-1\end{bsmallmatrix}$. Since $Q^{\T}Q=I$
+(Unit~4), $Q^{-1}=Q^{\T}$, so $A=X\Lambda X^{-1}$ becomes $S=Q\Lambda Q^{\T}$ --- no inverse to compute.
+
+\columnbreak
+
+\textbf{3. Positive definite = all $\lambda>0$.} A symmetric matrix is positive definite when every
+eigenvalue is positive. The fast $2\times2$ test: $a>0$ and $ac-b^2>0$ (spine: $2>0$, $\det=3>0$
+\checkmark). All $\lambda>0\Rightarrow\det>0\Rightarrow$ invertible.
+
+\textbf{4. Energy + road ahead.} The ``energy'' $\xx^{\T}S\xx$ is positive for every $\xx\ne\zero$ exactly
+when $S$ is positive definite; for the spine it equals $x^2+y^2+(x+y)^2$ (a sum of squares --- a bowl that
+curves up). A negative eigenvalue would make a \emph{saddle}. \textbf{Road ahead:} 6.4 runs a real system
+forward in time with $A^k=X\Lambda^k X^{-1}$.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item confusing \emph{symmetric} ($S=S^{\T}$) with \emph{diagonal} --- a symmetric matrix can have nonzero off-diagonal entries;
+  \item forgetting to \emph{normalize} the eigenvectors before calling $Q$ orthonormal (perpendicular is not enough --- they must be unit length);
+  \item testing positive definiteness from the diagonal alone (must use $a>0$ \emph{and} $ac-b^2>0$, or all $\lambda>0$);
+  \item treating any matrix with positive entries as positive definite (e.g.\ $\begin{bsmallmatrix}1&3\\3&1\end{bsmallmatrix}$ has $\det=-8<0$).
+\end{itemize}
+Cold-call prompts: ``Why are the eigenvectors perpendicular?'' ``What is $Q^{-1}$ here, and why?'' ``Which
+test tells you positive definite, and what does energy have to do with it?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Symmetric Positive Definite Matrices} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} On $S=\begin{bsmallmatrix}3&1\\1&3\end{bsmallmatrix}$ ($\lambda=4,2$, eigenvectors
+$\begin{bsmallmatrix}1\\1\end{bsmallmatrix},\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$): confirm $S=S^{\T}$,
+check the eigenvectors are perpendicular, and apply the $a>0$ \& $ac-b^2>0$ test.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Full job on $S=\begin{bsmallmatrix}5&2\\2&5\end{bsmallmatrix}$: find
+$\lambda=3,7$, show the eigenvectors are perpendicular, normalize into $Q$, write $S=Q\Lambda Q^{\T}$, and
+confirm positive definite.
+
+\columnbreak
+\textbf{Tier E --- Extension.} The contrast $S=\begin{bsmallmatrix}1&2\\2&1\end{bsmallmatrix}$ ($\lambda=3,-1$):
+still symmetric (so still perpendicular eigenvectors), but a \emph{negative} eigenvalue --- show the energy
+$\xx^{\T}S\xx$ goes negative, so it is \emph{not} positive definite.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes) on $S=\begin{bsmallmatrix}4&1\\1&4\end{bsmallmatrix}$
+(eigenvalues $5,3$; eigenvectors $\begin{bsmallmatrix}1\\1\end{bsmallmatrix},\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$):
+confirm it is symmetric, check that its eigenvectors are perpendicular, decide whether it is positive definite
+(both tests), and a \textbf{justification check} --- how do we know a symmetric matrix's eigenvectors are
+perpendicular \emph{without} computing them? Sort into ``got it / arithmetic slip / concept slip'' to decide
+whether 6.4 opens with a quick re-warm.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} the full spectral factorization $S=Q\Lambda Q^{\T}$ on the spine; a positive-definite
+\emph{screen} (apply the quick test to several $2\times2$ matrices); an \emph{energy} computation tying
+$\xx^{\T}S\xx>0$ to positive definiteness; and a justification (why perpendicular eigenvectors give
+$Q^{-1}=Q^{\T}$; why positive definite $\Rightarrow$ invertible). \textbf{Extension:} the geometry --- the
+energy $\xx^{\T}S\xx=1$ traces an \emph{ellipse} whose axes point along the eigenvectors. \textbf{Preview:}
+Lesson~6.4, \emph{Systems of Differential Equations} --- eigenvalues run a real system forward in time.
 \end{skillbox}
 \end{document}

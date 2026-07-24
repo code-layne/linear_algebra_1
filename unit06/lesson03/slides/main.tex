@@ -1,6 +1,11 @@
 %! Symmetric Positive Definite Matrices — Unit 6, Lesson 6.3 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\qq}{\mathbf{q}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,16 +16,103 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 6.3}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Symmetric Positive Definite Matrices}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 6}
+    {\color{white}\bfseries\LARGE Symmetric Positive Definite Matrices}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 6: Eigenvalues and Eigenvectors}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{A family that \emph{always} diagonalizes}
+  \sectionlabel{Hook}
+  \begin{itemize}
+    \setlength{\itemsep}{7pt}
+    \item Lesson~6.2: $A=X\Lambda X^{-1}$ works only with enough independent eigenvectors --- and $X^{-1}$ can be messy.
+    \item \emph{Symmetric} matrices ($S=S^{\T}$) fix both: their eigenvectors come out \textbf{perpendicular}.
+    \item Normalize them into an orthonormal $Q$, and the inverse is free: $Q^{-1}=Q^{\T}$.
+  \end{itemize}
+  \begin{block}{The payoff}
+    $S=Q\Lambda Q^{\T}$ --- the cleanest diagonalization of all. And when every $\lambda>0$, $S$ is
+    \emph{positive definite}.
+  \end{block}
+\end{frame}
+
+% 1. SYMMETRIC => PERPENDICULAR
+\begin{frame}[t, plain]
+  \burgundyheader{Symmetric $\Rightarrow$ perpendicular eigenvectors}
+  \sectionlabel[goldacc]{Big idea}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      Spine $S=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$ ($S=S^{\T}$): eigenvectors
+      \[ \xx_1=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}\ (\lambda=3),\quad
+         \xx_2=\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}\ (\lambda=1). \]
+      Dot product: $\xx_1\cdot\xx_2=1-1=0$ --- a right angle.
+      \begin{block}{Spectral theorem}
+        Every symmetric matrix has \emph{real} eigenvalues and \emph{perpendicular} eigenvectors --- always.
+      \end{block}
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.82, font=\scriptsize, >=stealth]
+        \draw[linegray, ->] (-2.1,0) -- (2.1,0);
+        \draw[linegray, ->] (0,-2.1) -- (0,2.1);
+        \draw[charcoal, dashed] (-1.8,-1.8) -- (1.8,1.8);
+        \draw[charcoal, dashed] (-1.8,1.8) -- (1.8,-1.8);
+        \draw[charcoal, thick] (0.32,0.32) -- (0.64,0) -- (0.32,-0.32);
+        \draw[burgundy, ultra thick, ->] (0,0) -- (1.5,1.5) node[above right]{$\xx_1$};
+        \draw[royalblue, ultra thick, ->] (0,0) -- (1.5,-1.5) node[below right]{$\xx_2$};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% 2. S = Q Lambda Q^T
+\begin{frame}[t, plain]
+  \burgundyheader{The cleanest diagonalization: $S=Q\Lambda Q^{\T}$}
+  \sectionlabel[goldacc]{Skill}
+  Normalize each eigenvector (divide by $\sqrt2$) into the columns of $Q$:
+  \[ Q=\frac{1}{\sqrt2}\begin{bsmallmatrix} 1 & 1\\ 1 & -1 \end{bsmallmatrix},\qquad
+     \Lambda=\begin{bsmallmatrix} 3 & 0\\ 0 & 1 \end{bsmallmatrix}. \]
+  \begin{block}{Why the inverse is free}
+    Perpendicular \emph{unit} columns give $Q^{\T}Q=I$ (Unit~4), so $Q^{-1}=Q^{\T}$. Then
+    $A=X\Lambda X^{-1}$ becomes $S=Q\Lambda Q^{\T}$ --- just \emph{flip} $Q$, no inverse to compute.
+  \end{block}
+  \[ \tfrac12\begin{bsmallmatrix}3&1\\3&-1\end{bsmallmatrix}\begin{bsmallmatrix}1&1\\1&-1\end{bsmallmatrix}
+     =\tfrac12\begin{bsmallmatrix}4&2\\2&4\end{bsmallmatrix}=\begin{bsmallmatrix}2&1\\1&2\end{bsmallmatrix}=S.\quad\checkmark \]
+\end{frame}
+
+% 3. POSITIVE DEFINITE
+\begin{frame}[t, plain]
+  \burgundyheader{Positive definite: all eigenvalues positive}
+  \sectionlabel{Skill}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item \textbf{Definition.} Symmetric \emph{and} every eigenvalue $>0$. Spine: $\lambda=3,1$ --- positive definite.
+    \item \textbf{Quick $2\times2$ test.} $S=\begin{bsmallmatrix}a&b\\b&c\end{bsmallmatrix}$ is positive definite
+          $\iff a>0$ and $ac-b^2>0$. Spine: $2>0$, $\det=3>0$. \checkmark
+    \item \textbf{Careful:} positive entries are \emph{not} enough --- $\begin{bsmallmatrix}1&3\\3&1\end{bsmallmatrix}$
+          has $ac-b^2=-8<0$.
+  \end{itemize}
+  \begin{block}{Consequence}
+    $ac-b^2=\det S>0$, so a positive-definite matrix is always \emph{invertible} (no zero eigenvalue).
+  \end{block}
+\end{frame}
+
+% 4. ENERGY + ROAD AHEAD
+\begin{frame}[t, plain]
+  \burgundyheader{Energy --- a bowl that curves up}
+  \sectionlabel[goldacc]{Payoff}
+  The \emph{energy} of $\xx$ is $\xx^{\T}S\xx$. For the spine,
+  \[ \xx^{\T}S\xx = 2x^2+2xy+2y^2 = x^2+y^2+(x+y)^2 > 0 \quad\text{for every }\xx\ne\zero. \]
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item Positive definite $\iff \xx^{\T}S\xx>0$ always $\iff$ the surface $z=\xx^{\T}S\xx$ is a \textbf{bowl}.
+    \item A negative eigenvalue would bend one direction \emph{down} --- a saddle, not a bowl.
+  \end{itemize}
+  \begin{block}{The road ahead}
+    \textbf{6.4} Systems of Differential Equations --- eigenvalues run a changing system forward in time.
+  \end{block}
 \end{frame}
 
 \end{document}

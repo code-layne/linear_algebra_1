@@ -3,17 +3,141 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\qq}{\mathbf{q}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 6, Lesson 6.3}{Guided Notes}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Guided Notes. See references/components.md for the expected structure.
-\begin{notesbox}{Guided Notes}
-\writelines{4}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item recognize a \emph{symmetric} matrix ($S=S^{\T}$) and explain why its eigenvectors are perpendicular;
+  \item diagonalize a symmetric matrix as $S=Q\Lambda Q^{\T}$ with an orthonormal $Q$ (so $Q^{-1}=Q^{\T}$);
+  \item test whether a symmetric matrix is \emph{positive definite}, and connect that to positive energy $\xx^{\T}S\xx>0$.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.06in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\termblanklong{Symmetric matrix ($S=S^{\T}$)}
+\termblanklong{Orthonormal matrix $Q$ (perpendicular unit columns, $Q^{\T}Q=I$)}
+\termblanklong{Positive definite (symmetric, all $\lambda>0$)}
+\termblanklong{Energy $\xx^{\T}S\xx$}
+\end{vocabbox}
+
+\begin{hookbox}
+In Lesson~6.2 a matrix diagonalized \emph{only} when it had enough independent eigenvectors --- and finding
+$X^{-1}$ could be messy.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item Is there a family of matrices that \emph{always} diagonalizes? \writeline
+  \item Could the inverse $X^{-1}$ ever be \emph{free} to write down? \writeline
+\end{itemize}
+Today's answer to both: \textbf{symmetric} matrices, where $S=S^{\T}$.
+\end{hookbox}
+
+\begin{notesbox}{1. Symmetric Matrices Have Perpendicular Eigenvectors}
+A matrix is \textbf{symmetric} when it equals its own transpose, $S=S^{\T}$ --- the numbers mirror across
+the diagonal. Our unit matrix $S=\begin{bsmallmatrix}2&1\\1&2\end{bsmallmatrix}$ is symmetric (the two
+off-diagonal $1$'s match). From Lesson~6.1 its eigen-data is
+\[
+  \lambda=3,\ \xx_1=\begin{bmatrix}1\\1\end{bmatrix};\qquad \lambda=1,\ \xx_2=\begin{bmatrix}1\\-1\end{bmatrix}.
+\]
+Check the angle between the eigenvectors with a dot product:
+$\ \xx_1\cdot\xx_2=(1)(1)+(1)(-1)=\blank{1.0cm}$, so they are \blank{2.4cm}.
+
+\vspace{2pt}
+This is no accident. The \textbf{spectral theorem} says: \emph{every} symmetric matrix has all \textbf{real}
+eigenvalues and \textbf{perpendicular} eigenvectors --- guaranteed, with no exceptions.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.05, font=\scriptsize, >=stealth]
+  % axes
+  \draw[linegray, ->] (-2.2,0) -- (2.2,0) node[right]{$x$};
+  \draw[linegray, ->] (0,-2.2) -- (0,2.2) node[above]{$y$};
+  % eigen-lines (dashed)
+  \draw[charcoal, dashed] (-1.9,-1.9) -- (1.9,1.9);
+  \draw[charcoal, dashed] (-1.9,1.9) -- (1.9,-1.9);
+  % right-angle mark at origin
+  \draw[charcoal, thick] (0.34,0.34) -- (0.68,0) -- (0.34,-0.34);
+  % eigenvectors
+  \draw[burgundy, ultra thick, ->] (0,0) -- (1.6,1.6)
+      node[above right, burgundy]{$\xx_1=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ \ ($\lambda=3$)};
+  \draw[royalblue, ultra thick, ->] (0,0) -- (1.6,-1.6)
+      node[below right, royalblue]{$\xx_2=\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$ \ ($\lambda=1$)};
+  \node[charcoal] at (0,-2.6) {\itshape symmetric $\Rightarrow$ eigenvectors are perpendicular};
+\end{tikzpicture}
+\end{center}
 \end{notesbox}
+
+\begin{notesbox}{2. The Cleanest Diagonalization: $S=Q\Lambda Q^{\T}$}
+Perpendicular is good; \textbf{perpendicular and unit length} is even better. Normalize each eigenvector by
+dividing by its length $\sqrt2$, and put the results in the columns of $Q$:
+\[
+  Q=\frac{1}{\sqrt2}\begin{bmatrix}1&1\\1&-1\end{bmatrix},\qquad
+  \Lambda=\begin{bmatrix}3&0\\0&1\end{bmatrix}.
+\]
+Because the columns of $Q$ are perpendicular unit vectors, $Q^{\T}Q=I$ (Unit~4) --- so the inverse is just
+the \textbf{transpose}: $Q^{-1}=\blank{1.2cm}$. The Lesson~6.2 formula $A=X\Lambda X^{-1}$ then becomes
+\[
+  S=Q\Lambda Q^{\T}\qquad(\text{no inverse to compute --- just flip }Q).
+\]
+Multiply it out to confirm (the $\frac1{\sqrt2}$'s combine to $\frac12$):
+\[
+  Q\Lambda Q^{\T}=\frac12\begin{bmatrix}3&1\\3&-1\end{bmatrix}\begin{bmatrix}1&1\\1&-1\end{bmatrix}
+  =\frac12\begin{bmatrix}\rule{0pt}{1.1em}\blank{0.7cm}&\blank{0.7cm}\\[3pt]\blank{0.7cm}&\blank{0.7cm}\end{bmatrix}
+  =\begin{bmatrix}2&1\\1&2\end{bmatrix}=S.\quad\checkmark
+\]
+\end{notesbox}
+
+\begin{notesbox}{3. Positive Definite: All Eigenvalues Positive}
+A symmetric matrix is \textbf{positive definite} when \emph{every} eigenvalue is positive. Our spine has
+$\lambda=3$ and $\lambda=1$ --- both positive, so $S$ is positive \blank{1.8cm}.
+
+\vspace{2pt}
+For a $2\times2$ symmetric $S=\begin{bsmallmatrix}a&b\\b&c\end{bsmallmatrix}$ you don't even need the
+eigenvalues --- there is a \textbf{quick test}:
+\[
+  S\text{ is positive definite}\iff a>0 \ \text{ and }\ ac-b^2>0.
+\]
+For the spine, $a=2>0$ and $ac-b^2=(2)(2)-1^2=\blank{1.0cm}>0$, so it passes. Notice $ac-b^2=\det S$, so a
+positive-definite matrix always has $\det>0$ --- and therefore is \blank{2.2cm} (no zero eigenvalue).
+\end{notesbox}
+
+\begin{notesbox}{4. Energy $\xx^{\T}S\xx$: a Bowl That Curves Up}
+There is one more way to see ``positive definite,'' and it is the most useful. The \textbf{energy} of a
+vector $\xx=\begin{bsmallmatrix}x\\y\end{bsmallmatrix}$ is the number $\xx^{\T}S\xx$. For the spine,
+\[
+  \xx^{\T}S\xx = 2x^2+2xy+2y^2 = x^2+y^2+(x+y)^2.
+\]
+Written as a sum of squares, this is $>0$ for every $\xx\ne\zero$. That is exactly what positive definite
+means: \textbf{$\xx^{\T}S\xx>0$ for all $\xx\ne\zero$}. Picture the surface $z=\xx^{\T}S\xx$ as a
+\emph{bowl} sitting at the origin and curving up in every direction --- lowest point at $\zero$. A negative
+eigenvalue would bend one direction \emph{down}, making a saddle instead of a bowl.
+
+\vspace{3pt}
+\textbf{The road ahead.} \textbf{6.4} puts eigenvalues to work one more time --- using
+$A^k=X\Lambda^k X^{-1}$ to run a real changing system forward in time.
+\end{notesbox}
+
+\begin{practicebox}
+Show each step.
+\begin{enumerate}[leftmargin=1.6em, itemsep=6pt]
+  \item $S=\begin{bsmallmatrix}3&1\\1&3\end{bsmallmatrix}$ has eigenvalues $\lambda=4,2$ with eigenvectors $\begin{bsmallmatrix}1\\1\end{bsmallmatrix},\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$. Confirm the eigenvectors are perpendicular, and use the quick test to show $S$ is positive definite. \writelines{2}
+  \item Which of these symmetric matrices is positive definite? Use $a>0$ and $ac-b^2>0$. \quad $\begin{bsmallmatrix}2&1\\1&2\end{bsmallmatrix}$ \quad and \quad $\begin{bsmallmatrix}1&3\\3&1\end{bsmallmatrix}$. \writeline
+  \item Why is the inverse of the orthonormal matrix $Q$ so easy to write down --- what makes $Q^{-1}=Q^{\T}$? \writeline
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

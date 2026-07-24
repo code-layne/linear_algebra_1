@@ -9,11 +9,46 @@
 \pageheader{Unit 6, Lesson 6.3}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: Three Checks We'll Use Today}
+\small Today's matrices are \emph{symmetric}, and their eigenvectors turn out perpendicular. These three
+quick checks are the whole toolkit. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Transpose \& symmetry.} The \emph{transpose} $S^{\mathsf T}$ flips $S$ across its diagonal (rows
+become columns). A matrix is \textbf{symmetric} when $S=S^{\mathsf T}$. Which of these is symmetric?
+\[
+  A=\begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}, \qquad
+  B=\begin{bmatrix} 2 & 3 \\ 1 & 2 \end{bmatrix}.
+  \qquad\text{Symmetric: }\ans{$A$ (its mirror entries match: $1=1$)}
+\]
+
+\vspace{4pt}
+\textbf{2. Perpendicular?} Two vectors are perpendicular exactly when their dot product is $0$ (Unit~4).
+Is $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ perpendicular to $\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$?
+\[
+  \begin{bmatrix}1\\1\end{bmatrix}\cdot\begin{bmatrix}1\\-1\end{bmatrix}=\ans{$1-1=0$}
+  \qquad\text{Perpendicular? }\ans{yes}
+\]
+
+\vspace{4pt}
+\textbf{3. Make it a unit vector.} To \emph{normalize} a vector, divide by its length
+$\|\mathbf{v}\|=\sqrt{\mathbf{v}\cdot\mathbf{v}}$. Find the length of $\mathbf{v}=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$
+and write the unit vector in its direction:
+\[
+  \|\mathbf{v}\|=\ans{$\sqrt{2}$}, \qquad \frac{\mathbf{v}}{\|\mathbf{v}\|}=\ans{$\frac{1}{\sqrt2}\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$}.
+\]
 \end{notesbox}
+
+\begin{teachernote}
+These three checks \emph{are} today's method, in order: \textbf{(1)} spotting a symmetric matrix
+($S=S^{\mathsf T}$ --- note $A$ is symmetric though \emph{not} diagonal); \textbf{(2)} the dot-product
+perpendicularity test, which will confirm that a symmetric matrix's eigenvectors sit at right angles; and
+\textbf{(3)} normalizing, the move that turns those perpendicular eigenvectors
+$\begin{bsmallmatrix}1\\1\end{bsmallmatrix},\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$ into the orthonormal
+columns of $Q=\frac{1}{\sqrt2}\begin{bsmallmatrix}1&1\\1&-1\end{bsmallmatrix}$. Debrief quickly, then name the
+plan: ``perpendicular eigenvectors normalize into an orthonormal $Q$, giving $S=Q\Lambda Q^{\mathsf T}$.''
+\end{teachernote}
 
 \end{document}

@@ -3,17 +3,73 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 6, Lesson 6.3}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Symmetric Positive Definite Matrices.} A \emph{symmetric} matrix ($S=S^{\T}$) always has
+\emph{perpendicular} eigenvectors, so normalizing them gives an orthonormal $Q$ and the clean
+diagonalization $S=Q\Lambda Q^{\T}$ (with $Q^{-1}=Q^{\T}$). It is \emph{positive definite} when every
+eigenvalue is positive --- equivalently $a>0$ and $ac-b^2>0$. Show every step with your partner.
+\end{headlinebox}
+
+\vspace{0.08in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Warm up the three checks. Let $S=\begin{bsmallmatrix} 3 & 1\\ 1 & 3 \end{bsmallmatrix}$, with eigenvalues
+$\lambda=4,2$ and eigenvectors $\begin{bsmallmatrix}1\\1\end{bsmallmatrix},\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Symmetric?} Check that $S=S^{\T}$. \ansline{Yes: flipping across the diagonal leaves the off-diagonal $1$'s in place, so $S^{\T}=S$.}
+  \item \textbf{Perpendicular?} Compute $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}\cdot\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$. Are the eigenvectors perpendicular? \ansline{$1-1=0$, so yes --- perpendicular (as the spectral theorem guarantees for a symmetric matrix).}
+  \item \textbf{Positive definite?} Apply the quick test: is $a>0$ and is $ac-b^2>0$? \ansline{$a=3>0$ and $ac-b^2=(3)(3)-1^2=8>0$, so \emph{yes}, $S$ is positive definite ($\lambda=4,2$ are both positive too).}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Run the full method. Let $S=\begin{bsmallmatrix} 5 & 2\\ 2 & 5 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Eigen-data.} Find both eigenvalues from $\det(S-\lambda I)=0$, then an eigenvector for each,
+        and check that the two eigenvectors are perpendicular.
+        \ansline{$\det(S-\lambda I)=(5-\lambda)^2-4=\lambda^2-10\lambda+21=(\lambda-3)(\lambda-7)\Rightarrow\lambda=7,3$. $\lambda=7$: $\begin{bsmallmatrix}-2&2\\2&-2\end{bsmallmatrix}\Rightarrow x_1=x_2\Rightarrow\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$; $\lambda=3$: $\begin{bsmallmatrix}2&2\\2&2\end{bsmallmatrix}\Rightarrow x_1=-x_2\Rightarrow\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$. Dot: $1-1=0$ --- perpendicular.}
+  \item \textbf{Build $Q$ and factor.} Normalize the eigenvectors into an orthonormal $Q$, write $\Lambda$,
+        and state the factorization $S=Q\Lambda Q^{\T}$.
+        \ansline{Each eigenvector has length $\sqrt2$, so $Q=\frac{1}{\sqrt2}\begin{bsmallmatrix}1&1\\1&-1\end{bsmallmatrix}$, $\Lambda=\begin{bsmallmatrix}7&0\\0&3\end{bsmallmatrix}$, and $S=Q\Lambda Q^{\T}$. (Check: $\frac12\begin{bsmallmatrix}7&3\\7&-3\end{bsmallmatrix}\begin{bsmallmatrix}1&1\\1&-1\end{bsmallmatrix}=\frac12\begin{bsmallmatrix}10&4\\4&10\end{bsmallmatrix}=\begin{bsmallmatrix}5&2\\2&5\end{bsmallmatrix}$.$\ \checkmark$)}
+  \item \textbf{Positive definite?} Confirm it two ways: the eigenvalues, and the quick $a>0$ \& $ac-b^2>0$ test. \ansline{Eigenvalues $7$ and $3$ are both positive; and $a=5>0$ with $ac-b^2=25-4=21>0$. Positive definite by either test.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Symmetric, but \emph{not} positive definite.} Let $S=\begin{bsmallmatrix} 1 & 2\\ 2 & 1 \end{bsmallmatrix}$
+(eigenvalues $\lambda=3,-1$; eigenvectors $\begin{bsmallmatrix}1\\1\end{bsmallmatrix},\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$).
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Since $S$ is symmetric, are its eigenvectors still perpendicular? Check with a dot product. \ansline{$\begin{bsmallmatrix}1\\1\end{bsmallmatrix}\cdot\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}=1-1=0$ --- yes. Symmetry guarantees perpendicular eigenvectors even when the matrix is \emph{not} positive definite.}
+  \item Compute the energy $\xx^{\T}S\xx$ at $\xx=\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$. What do you get? \ansline{$S\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}=\begin{bsmallmatrix}-1\\1\end{bsmallmatrix}$, so $\xx^{\T}S\xx=(1)(-1)+(-1)(1)=-2<0$. (In general $\xx^{\T}S\xx=x^2+4xy+y^2$, which is $-2$ here.)}
+  \item Explain why $S$ is \emph{not} positive definite --- using the eigenvalues, the quick test, \emph{and}
+        what the energy told you. \ansline{One eigenvalue is $\lambda=-1<0$; the quick test fails since $ac-b^2=1-4=-3<0$; and the energy is negative at $\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$. Any one of these rules out positive definite --- the energy surface is a saddle, not a bowl.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~R walks the three checks (symmetry, perpendicular eigenvectors, quick positive-definite test) on a
+tidy symmetric matrix. Tier~A is the full job: find the eigen-data of $\begin{bsmallmatrix}5&2\\2&5\end{bsmallmatrix}$
+($\lambda=7,3$), confirm perpendicular, normalize into $Q=\frac{1}{\sqrt2}\begin{bsmallmatrix}1&1\\1&-1\end{bsmallmatrix}$,
+and write $S=Q\Lambda Q^{\T}$ --- reinforce that the $\frac1{\sqrt2}$'s combine to $\frac12$ on multiplying
+out. Tier~E is the conceptual capstone: $\begin{bsmallmatrix}1&2\\2&1\end{bsmallmatrix}$ is symmetric (so
+still perpendicular eigenvectors) but has $\lambda=-1$, so it is \emph{not} positive definite --- the energy
+goes negative in the $\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$ direction (a saddle). Common errors:
+calling $Q$ orthonormal before normalizing; reading positive definiteness off the diagonal alone; and sign
+slips in the energy. If time is short, Tier~A items~1--2 are the must-do.
+\end{teachernote}
 
 \end{document}

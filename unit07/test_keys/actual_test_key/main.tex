@@ -2,6 +2,10 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\T}{^{\mathsf T}}
 
 % Part-divider strip
 \newcommand{\parthead}[1]{%
@@ -12,20 +16,141 @@
 \begin{document}
 
 \pageheader{Unit 7: The Singular Value Decomposition}{Unit Test --- Answer Key}
+\namedateperiod
 
-% Mirror the blank test EXACTLY, filling each answer with \ans{...} (inline) or
-% \ansline{...} (on a write-line). Use teachernote for scoring/teacher guidance.
+\vspace{0.06in}
+\noindent\textbf{Instructions:} Show all work. No notes unless your teacher says so.
+
 % ======================================================================
-\parthead{Part A --- Vocabulary}
-% TODO: answers via \ans{...}
+\parthead{Part A --- Vocabulary (8 pts)}
+Write the letter of the best description next to each term.
 
-\parthead{Part B --- Multiple Choice}
-% TODO: mark correct options, e.g. \textcolor{keyred}{\textbf{$\leftarrow$ correct}}
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=7pt, label=\arabic*.]
+  \item Singular Value Decomposition \ans{A}
+  \item Orthogonal matrix \ans{B}
+  \item Singular value \ans{C}
+  \item Energy of a matrix \ans{D}
+  \item Outer product \ans{E}
+  \item Principal component \ans{F}
+  \item Singular vectors \ans{G}
+  \item Rank-one matrix \ans{H}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.57\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=3pt]
+  \item[(A)] The factorization $A=U\Sigma V\T$ (rotate--stretch--rotate) that \emph{every} matrix has.
+  \item[(B)] A square matrix with perpendicular unit columns, so $Q\T Q=I$ and $Q^{-1}=Q\T$.
+  \item[(C)] A number $\sigma\ge0$: how far $A$ stretches along a singular direction (a half-width of the ellipse).
+  \item[(D)] The total $\sigma_1^2+\sigma_2^2+\cdots$, equal to the sum of the squares of all entries of $A$.
+  \item[(E)] A column times a row, $\uu\vv\T$ --- a whole matrix built from two vectors.
+  \item[(F)] A top singular direction of centered data --- the direction of greatest spread.
+  \item[(G)] The perpendicular unit inputs $\vv_i$ and outputs $\uu_i$ with $A\vv_i=\sigma_i\uu_i$.
+  \item[(H)] A matrix whose every column is a multiple of one vector (like $\uu\vv\T$).
+\end{description}
+\end{minipage}
 
-\parthead{Part C --- Short Answer \& Computation}
-% TODO: worked answers via \ans{...}
+% ======================================================================
+\parthead{Part B --- Multiple Choice (12 pts)}
+Circle the best answer.
 
-\parthead{Part D --- Extended Response}
-% TODO: sample response + scoring notes in a teachernote.
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item Which matrices have a Singular Value Decomposition?
+    \hfill \textbf{(A) every matrix (any shape)} \ans{$\leftarrow$} \quad (B) only symmetric ones \quad (C) only square ones \quad (D) only invertible ones
+  \item The input singular vectors $\vv_i$ are eigenvectors of
+    \hfill (A) $A$ \quad (B) $AA\T$ \quad \textbf{(C) $A\T A$} \ans{$\leftarrow$} \quad (D) $A^{-1}$
+  \item Once you have $\sigma_i$ and $\vv_i$, the output vector is
+    \hfill \textbf{(A) $\uu_i=A\vv_i/\sigma_i$} \ans{$\leftarrow$} \quad (B) $\uu_i=\sigma_i A\vv_i$ \quad (C) $\uu_i=A\T\vv_i$ \quad (D) $\uu_i=\vv_i/\sigma_i$
+  \item The outer product $\uu\vv\T$ is a
+    \hfill (A) scalar \quad \textbf{(B) rank-one matrix} \ans{$\leftarrow$} \quad (C) diagonal matrix \quad (D) inverse
+  \item An orthogonal matrix preserves
+    \hfill \textbf{(A) length: $|Q\xx|=|\xx|$} \ans{$\leftarrow$} \quad (B) always $\det=+1$ \quad (C) nothing \quad (D) only direction
+  \item In PCA, the first principal component is the direction of
+    \hfill (A) least spread \quad \textbf{(B) greatest spread} \ans{$\leftarrow$} \quad (C) zero spread \quad (D) the mean
+\end{enumerate}
+
+\begin{teachernote}
+Item 1: every matrix (any shape) has an SVD --- that is its headline advantage over eigenvectors. Item 2: the $\vv_i$
+are eigenvectors of the symmetric $A\T A$. Item 3: $\uu_i=A\vv_i/\sigma_i$ (perpendicular and unit automatically).
+Item 4: an outer product is a rank-one matrix. Item 5: orthogonal matrices preserve length (rigid motions); $\det=\pm1$,
+not always $+1$. Item 6: $\mathrm{PC}_1$ is the direction of greatest spread.
+\end{teachernote}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (35 pts)}
+Show your work.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
+  \item Singular values from geometry.
+        \ans{\textbf{(a)} A diagonal matrix stretches by its diagonal entries, so the singular values are
+        $\sigma_1=5,\ \sigma_2=2$ (largest first). The unit circle becomes an ellipse with half-widths $5$ and $2$.
+        \textbf{(b)} The columns of $S=\begin{bsmallmatrix}0&3\\2&0\end{bsmallmatrix}$ are $\begin{bsmallmatrix}0\\2\end{bsmallmatrix}$
+        (length $2$) and $\begin{bsmallmatrix}3\\0\end{bsmallmatrix}$ (length $3$), and they are perpendicular, so
+        $\sigma_1=3,\ \sigma_2=2$.}
+  \item Singular values of $A=\begin{bsmallmatrix}3&1\\-1&-3\end{bsmallmatrix}$ via $A\T A$.
+        \ans{$A\T A=\begin{bsmallmatrix}10&6\\6&10\end{bsmallmatrix}$ (entries are the column dot products).
+        $\det(A\T A-\lambda I)=(10-\lambda)^2-36=\lambda^2-20\lambda+64=(\lambda-16)(\lambda-4)=0$, so
+        $\lambda=16,4$. Therefore $\sigma_1=\sqrt{16}=4$ and $\sigma_2=\sqrt4=2$.}
+  \item Output vector $\uu_1=\dfrac{A\vv_1}{\sigma_1}$.
+        \ans{$A\vv_1=\dfrac{1}{\sqrt2}\begin{bsmallmatrix}3&1\\-1&-3\end{bsmallmatrix}\begin{bsmallmatrix}1\\1\end{bsmallmatrix}
+        =\dfrac{1}{\sqrt2}\begin{bsmallmatrix}4\\-4\end{bsmallmatrix}$. Divide by $\sigma_1=4$:
+        $\uu_1=\dfrac{1}{4\sqrt2}\begin{bsmallmatrix}4\\-4\end{bsmallmatrix}=\dfrac{1}{\sqrt2}\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$.
+        \textbf{Unit check:} $|\uu_1|^2=\tfrac12(1^2+(-1)^2)=\tfrac22=1$. \checkmark}
+  \item Outer product and rank one.
+        \ans{\textbf{(a)} $\uu\vv\T=\begin{bsmallmatrix}2\\1\end{bsmallmatrix}\begin{bsmallmatrix}1&3\end{bsmallmatrix}
+        =\begin{bsmallmatrix}2&6\\1&3\end{bsmallmatrix}$. \textbf{(b)} Both columns are multiples of
+        $\uu=\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$ (namely $1\uu$ and $3\uu$), so every column points along one
+        line --- the matrix has \textbf{rank one}.}
+  \item Rank-one approximation and energy of $A=\begin{bsmallmatrix}6&4\\4&6\end{bsmallmatrix}$.
+        \ans{\textbf{(a)} $A_1=\sigma_1\uu_1\vv_1\T=10\cdot\tfrac12\begin{bsmallmatrix}1\\1\end{bsmallmatrix}\begin{bsmallmatrix}1&1\end{bsmallmatrix}
+        =\begin{bsmallmatrix}5&5\\5&5\end{bsmallmatrix}$. \textbf{(b)} Total energy $=\sigma_1^2+\sigma_2^2=100+4=104$
+        (equal to $6^2+4^2+4^2+6^2=104$). $A_1$ keeps $\dfrac{100}{104}\approx96\%$ of the energy.}
+  \item Orthogonal matrix $Q=\dfrac15\begin{bsmallmatrix}4&-3\\3&4\end{bsmallmatrix}$.
+        \ans{\textbf{(a)} The columns are $\tfrac15\begin{bsmallmatrix}4\\3\end{bsmallmatrix}$ and
+        $\tfrac15\begin{bsmallmatrix}-3\\4\end{bsmallmatrix}$: each has length $\tfrac15\sqrt{16+9}=1$, and their dot
+        product is $\tfrac{1}{25}(-12+12)=0$. So $Q\T Q=I$ ($1$'s on the diagonal, $0$'s off). \textbf{(b)}
+        $Q^{-1}=Q\T=\dfrac15\begin{bsmallmatrix}4&3\\-3&4\end{bsmallmatrix}$ (the inverse is free). \textbf{(c)}
+        $Q\xx=\tfrac15\begin{bsmallmatrix}4&-3\\3&4\end{bsmallmatrix}\begin{bsmallmatrix}0\\5\end{bsmallmatrix}
+        =\begin{bsmallmatrix}-3\\4\end{bsmallmatrix}$, which has length $\sqrt{9+16}=5$ --- \textbf{the same length as
+        $\xx$}, because an orthogonal matrix is a rigid motion (rotation/reflection) that preserves length.}
+  \item PCA of $(6,5),(5,6),(2,3),(3,2)$.
+        \ans{\textbf{(a)} Mean $=(4,4)$; centered points $(2,1),(1,2),(-2,-1),(-1,-2)$. \textbf{(b)}
+        $A\T A=\begin{bsmallmatrix}10&8\\8&10\end{bsmallmatrix}$ (column dot products of the centered data).
+        \textbf{(c)} $\lambda=10\pm8=18,2$; the top eigenvector is $\mathrm{PC}_1=\tfrac{1}{\sqrt2}\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$.
+        \textbf{(d)} $\mathrm{PC}_1$ captures $\dfrac{18}{18+2}=\dfrac{18}{20}=90\%$ of the spread.}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (10 pts)}
+Explain your reasoning in full sentences.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item Why every matrix has singular values.
+        \ans{\textbf{(a)} $A\T A$ is symmetric because $(A\T A)\T=A\T(A\T)\T=A\T A$ --- it equals its own transpose no
+        matter what shape $A$ is. By the spectral theorem a symmetric matrix has \emph{real} eigenvalues and
+        \emph{perpendicular} eigenvectors; and each eigenvalue satisfies $\lambda=\dfrac{|A\vv|^2}{|\vv|^2}\ge0$
+        (a length squared over a length squared), so $\lambda\ge0$. \textbf{(b)} Since every $\lambda\ge0$, its square
+        root $\sigma=\sqrt{\lambda}$ is a real number $\ge0$. These $\sigma$'s are the singular values --- and because
+        $A\T A$ exists and is symmetric for \emph{any} matrix, every matrix has them (unlike eigenvectors, which can be
+        complex or too few).}
+  \item Rotate--stretch--rotate and orthogonal matrices.
+        \ans{\textbf{(a)} Reading $A=U\Sigma V\T$ right to left: $V\T$ \emph{rotates} the input frame onto the axes,
+        $\Sigma$ \emph{stretches} along those axes by the singular values $\sigma_1,\sigma_2,\dots$, and $U$
+        \emph{rotates} the result to the output frame. $U$ and $V\T$ are orthogonal, so they only turn (no resizing);
+        all the stretching is packed into the diagonal $\Sigma$. \textbf{(b)} $Q\T Q=I$ says $Q\T$ times $Q$ gives the
+        identity, which is exactly what it means for $Q\T$ to be the inverse: $Q^{-1}=Q\T$, free of any computation.
+        Length is preserved because $|Q\xx|^2=(Q\xx)\T(Q\xx)=\xx\T Q\T Q\xx=\xx\T\xx=|\xx|^2$, so $|Q\xx|=|\xx|$.}
+\end{enumerate}
+
+\begin{teachernote}
+\textbf{Scoring Part D (5 pts each).} D1: 3 pts (a) $A\T A$ symmetric for any $A$ $\Rightarrow$ real, perpendicular
+eigenvectors and $\lambda\ge0$ (via $\lambda=|A\vv|^2/|\vv|^2$); 2 pts (b) $\sigma=\sqrt\lambda\ge0$ real, so every
+matrix has singular values. D2: 3 pts (a) $V\T$/$U$ rotate, $\Sigma$ stretches, all stretching in $\Sigma$; 2 pts (b)
+$Q\T Q=I\Rightarrow Q^{-1}=Q\T$, and $|Q\xx|^2=\xx\T Q\T Q\xx=|\xx|^2$. Accept equivalent wording throughout.
+\end{teachernote}
 
 \end{document}

@@ -7,7 +7,34 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-24 — **Authored & built Unit 7 Lesson 7.4 — "The Victory of Orthogonality" (§7.4 — the
+**Last updated:** 2026-07-24 — **Authored & built the Unit 7 summative tests — Unit 7 is now complete.**
+Filled all four skeletons (`tests/practice_test`, `tests/actual_test`, `test_keys/practice_test_key`, `test_keys/actual_test_key`),
+mirroring the Unit 4/5/6 test format (`shared/tests.mk` + `test_keys.mk`; `\parthead` burgundy strips; Part A vocab matching /
+B multiple choice / C computation / D extended response; 8/12/35/10 pts = 65). **Blueprint spans the whole unit §7.0–7.4:** A
+(8 terms — singular value, singular vectors, SVD, outer product, rank-one matrix, orthogonal matrix, principal component, energy),
+B (6 MC — σ always ≥0 / use eigenvalues of $A\T A$ / σ=√λ / all stretching in Σ / orthogonal $Q\T Q=I\Rightarrow Q^{-1}=Q\T$ /
+compress keeps biggest σ; actual variant: every matrix has an SVD / $\vv_i$ eigenvectors of $A\T A$ / $\uu_i=A\vv_i/\sigma_i$ /
+outer product = rank-one / orthogonal preserves length / PC1 = greatest spread), C (7 items — read σ off diagonal + swap (7.0);
+σ via $A\T A$ recipe (7.1); output $\uu_1=A\vv_1/\sigma_1$ + unit check (7.1); outer product + why rank-one (7.2); rank-1
+approximation $A_1$ + energy fraction (7.2); orthogonal $Q\T Q=I$ + free inverse + length preserved (7.4); PCA center→$A\T A$→
+eigenvalues→PC1 fraction (7.3)), D (2 items — why $A\T A$ symmetric ⇒ real λ≥0 + ⊥ eigenvectors ⇒ every matrix has σ=√λ (7.1);
+rotate–stretch–rotate geometry + all stretch in Σ + $Q^{-1}=Q\T$ & length preservation (7.4)). **Practice vs. actual use
+parallel-but-distinct numbers, all hand-verified in pure Python (no numpy):** practice C1 diag(3,4)→σ4,3 + swap $[[0,2],[1,0]]$→σ2,1;
+C2 $A=[[2,2],[1,-2]]$→$A\T A=[[5,2],[2,8]]$→λ9,4→σ3,2; C3 $\vv_1=\tfrac1{\sqrt5}(1,2)$→$\uu_1=\tfrac1{\sqrt5}(2,-1)$; C4 outer
+$(1,3)(2,1)\T=[[2,1],[6,3]]$; C5 $[[4,2],[2,4]]$ σ6,2 → $A_1=[[3,3],[3,3]]$ keeps 36/40=90%; C6 $Q=\tfrac15[[3,-4],[4,3]]$ (3-4-5),
+$(5,0)\to(3,4)$ len5; C7 $(5,7),(7,5),(3,1),(1,3)$→mean(4,4)→$A\T A=[[20,12],[12,20]]$ λ32,8 PC1 80%. actual C1 diag(5,2)→σ5,2 +
+swap $[[0,3],[2,0]]$→σ3,2; C2 $A=[[3,1],[-1,-3]]$→$A\T A=[[10,6],[6,10]]$→λ16,4→σ4,2; C3 $\vv_1=\tfrac1{\sqrt2}(1,1)$→$\uu_1=
+\tfrac1{\sqrt2}(1,-1)$; C4 outer $(2,1)(1,3)\T=[[2,6],[1,3]]$; C5 $[[6,4],[4,6]]$ σ10,2 → $A_1=[[5,5],[5,5]]$ keeps 100/104≈96%;
+C6 $Q=\tfrac15[[4,-3],[3,4]]$ (4-3-5), $(0,5)\to(-3,4)$ len5; C7 $(6,5),(5,6),(2,3),(3,2)$→mean(4,4)→$A\T A=[[10,8],[8,10]]$ λ18,2
+PC1 90%. Built `make -C unit07/tests all` and `make -C unit07/test_keys all` → **clean** (0 `^!`/file-line errors across all 4
+logs; no `\ans`-in-math; 0 overfull >15pt). Page counts: all four PDFs **3pp**; `drop` published `sample_test/main.pdf` (practice,
+3pp) and `sample_test_key/main.pdf` (practice key, 3pp). Visually spot-checked the practice key Part C/D page (all matrices, red
+answers, unit check ✓, $A\T A$/σ/PCA/orthogonal work, teachernotes) — clean, no tofu. **Unit 7 is now fully complete (lessons
+7.0–7.4 + tests).** This completes the optional/advanced Unit 7. Next run: begin Unit 8 if desired (confirm the lesson map with the
+user), else the course (core Units 1–6 + optional Unit 7) is done. Lessons 7.0–7.4 are the Unit 7 models; Unit 4/5/6 tests are the
+assessment-format model.
+
+**Prior run:** **Authored & built Unit 7 Lesson 7.4 — "The Victory of Orthogonality" (§7.4 — the
 unit capstone: why perpendicular directions make the SVD, compression, and PCA all work).** Filled every skeleton: lesson plan,
 cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides deck, mirroring Lesson 7.3's preamble/boxes/tone.
 **Content — a celebration lesson (light on new machinery, heavy on tying threads):** (1) an **orthogonal matrix** $Q$ has
@@ -834,22 +861,20 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ☑ all lessons + tests authored & built ✅ |
 | 4 | Orthogonality | 4.0 intro + 4.1–4.4 | ☑ all lessons + tests authored & built ✅ |
 | 5 | Determinants and Linear Transformations | 5.0 intro + 5.1–5.3 | ☑ all lessons + tests authored & built ✅ |
-| 6 | Eigenvalues and Eigenvectors | 6.0 intro + 6.1–6.4 (§6.4 optional) | ◧ scaffolded; **6.0/6.1/6.2 authored & built ✅**; 6.3–6.4 + tests skeleton |
-| 7 | The Singular Value Decomposition *(optional/advanced)* | 7.1–7.4 | ☐ |
+| 6 | Eigenvalues and Eigenvectors | 6.0 intro + 6.1–6.4 (§6.4 optional) | ☑ all lessons + tests authored & built ✅ |
+| 7 | The Singular Value Decomposition *(optional/advanced)* | 7.0 intro + 7.1–7.4 | ☑ all lessons + tests authored & built ✅ |
 | 8 | Learning from Data *(optional enrichment)* | 8.1–8.4 | ☐ |
 
 ## Next steps
 
-1. **Author Unit 6 (Eigenvalues and Eigenvectors)** — Unit 6 is **scaffolded**; lesson map is **confirmed** (5 lessons,
-   incl. the optional §6.4 — user chose to include it): 6.0 "Special Directions --- Setting Up Eigenvalues" (intro,
-   **authored & built ✅**) · 6.1 "Introduction to Eigenvalues" (**authored & built ✅**) · 6.2 "Diagonalizing a Matrix"
-   (**authored & built ✅**) · 6.3 "Symmetric Positive Definite Matrices" · 6.4 "Systems of Differential Equations".
-   **Next: author Lesson 6.3** ("Symmetric Positive Definite Matrices", §6.3 — symmetric matrices always diagonalize, with
-   \emph{perpendicular} eigenvectors: $A=Q\Lambda Q^{\T}$; positive definite ⇔ all $\lambda>0$), then 6.4, and finally the
-   Unit 6 summative tests (Unit 4 + Unit 5 tests are the format model). 6.0/6.1/6.2 are the Unit 6 models; Lesson 4.0 the
-   cross-unit style model. Content comes from Strang §6.3–6.4.
-2. *(optional)* Rebuild the whole Unit 1–5 packets (`make -C unitXX student|full`, or `make student|full`
-   at the root) to confirm the `sample_test`/`sample_test_key` drop-ins merge in as expected.
+1. **Core Units 1–6 and optional Unit 7 are complete** (all lessons + summative tests authored & built). The course's
+   required sequence and the SVD extension are done. The only remaining unauthored unit is the optional enrichment
+   **Unit 8 (Learning from Data)** — begin it only if the user wants it: first **confirm the Unit 8 lesson map**
+   (decompose Strang Ch. 8 §8.1–8.4 into lessons via `spec/linear_algebra_v2.md`), then scaffold + author, mirroring the
+   Unit 7 model set. Lessons 7.0–7.4 are the newest models; Unit 4/5/6/7 tests are the assessment-format model; Lesson 4.0
+   the cross-unit style model.
+2. *(optional)* Rebuild the whole-course packets (`make -C unitXX student|full`, or `make student|full` at the root) to
+   confirm every unit's `sample_test`/`sample_test_key` drop-ins (now incl. Unit 7) merge in as expected.
 
 ## Notes for the next run
 

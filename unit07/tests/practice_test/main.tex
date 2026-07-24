@@ -2,6 +2,10 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\T}{^{\mathsf T}}
 
 % Part-divider strip
 \newcommand{\parthead}[1]{%
@@ -23,16 +27,107 @@ with no notes, then check your answers against the key.
 \end{remindbox}
 
 % ======================================================================
-\parthead{Part A --- Vocabulary}
-% TODO: matching / fill-in vocabulary items for this unit.
+\parthead{Part A --- Vocabulary (8 pts)}
+Write the letter of the best description next to each term.
 
-\parthead{Part B --- Multiple Choice}
-% TODO: multiple-choice items (concept checks).
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=7pt, label=\arabic*.]
+  \item Singular value \blank{1.2cm}
+  \item Singular vectors \blank{1.2cm}
+  \item Singular Value Decomposition \blank{1.2cm}
+  \item Outer product \blank{1.2cm}
+  \item Rank-one matrix \blank{1.2cm}
+  \item Orthogonal matrix \blank{1.2cm}
+  \item Principal component \blank{1.2cm}
+  \item Energy of a matrix \blank{1.2cm}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.57\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=3pt]
+  \item[(A)] A column times a row, $\uu\vv\T$ --- a whole matrix built from two vectors.
+  \item[(B)] The factorization $A=U\Sigma V\T$ (rotate--stretch--rotate) that \emph{every} matrix has.
+  \item[(C)] A number $\sigma\ge0$: how far $A$ stretches along a singular direction (a half-width of the ellipse).
+  \item[(D)] A square matrix with perpendicular unit columns, so $Q\T Q=I$ and $Q^{-1}=Q\T$.
+  \item[(E)] The perpendicular unit inputs $\vv_i$ and outputs $\uu_i$ with $A\vv_i=\sigma_i\uu_i$.
+  \item[(F)] A matrix whose every column is a multiple of one vector (like $\uu\vv\T$).
+  \item[(G)] The total $\sigma_1^2+\sigma_2^2+\cdots$, equal to the sum of the squares of all entries of $A$.
+  \item[(H)] A top singular direction of centered data --- the direction of greatest spread.
+\end{description}
+\end{minipage}
 
-\parthead{Part C --- Short Answer \& Computation}
-% TODO: computation items; leave \vspace work room after each.
+% ======================================================================
+\parthead{Part B --- Multiple Choice (12 pts)}
+Circle the best answer.
 
-\parthead{Part D --- Extended Response}
-% TODO: one or two interpret/justify items ("what does this mean, and how do you know?").
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item The singular values $\sigma$ of a matrix are
+    \hfill (A) always $\ge0$ \quad (B) sometimes negative \quad (C) the eigenvalues of $A$ \quad (D) always $1$
+  \item To find the singular values of $A$, use the eigenvalues of
+    \hfill (A) $A$ \quad (B) $A+A\T$ \quad (C) $A\T A$ \quad (D) $A^{-1}$
+  \item A singular value $\sigma_i$ and the eigenvalue $\lambda_i$ of $A\T A$ are related by
+    \hfill (A) $\sigma=\lambda$ \quad (B) $\sigma=\sqrt{\lambda}$ \quad (C) $\sigma=\lambda^2$ \quad (D) $\sigma=1/\lambda$
+  \item In $A=U\Sigma V\T$, all the stretching is carried by
+    \hfill (A) $U$ \quad (B) $V$ \quad (C) $\Sigma$ \quad (D) $V\T$
+  \item An orthogonal matrix $Q$ satisfies
+    \hfill (A) $Q^2=I$ \quad (B) $Q\T Q=I$, so $Q^{-1}=Q\T$ \quad (C) $\det Q=0$ \quad (D) $Q=Q\T$ always
+  \item To compress an image with the SVD, you keep the rank-one layers with the
+    \hfill (A) smallest $\sigma$ \quad (B) largest $\sigma$ \quad (C) largest $\uu$ \quad (D) negative $\sigma$
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (35 pts)}
+Show your work.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item \textbf{(a)} The diagonal matrix $D=\begin{bsmallmatrix}3&0\\0&4\end{bsmallmatrix}$ acts on the unit circle.
+        What are its singular values $\sigma_1\ge\sigma_2$, and what are the half-widths of the ellipse it makes?
+        \textbf{(b)} Find the singular values of the swap $S=\begin{bsmallmatrix}0&2\\1&0\end{bsmallmatrix}$.
+        \vspace{2.4cm}
+  \item Find the \textbf{singular values} of $A=\begin{bsmallmatrix}2&2\\1&-2\end{bsmallmatrix}$ by forming
+        $A\T A$, finding its eigenvalues, and taking $\sigma=\sqrt{\lambda}$.
+        \vspace{2.8cm}
+  \item For that same $A=\begin{bsmallmatrix}2&2\\1&-2\end{bsmallmatrix}$, the input vector for $\sigma_1=3$ is
+        $\vv_1=\tfrac{1}{\sqrt5}\begin{bsmallmatrix}1\\2\end{bsmallmatrix}$. Find the \textbf{output singular vector}
+        $\uu_1=\dfrac{A\vv_1}{\sigma_1}$, and check that it is a unit vector.
+        \vspace{2.8cm}
+  \item \textbf{(a)} Compute the outer product $\uu\vv\T$ where $\uu=\begin{bsmallmatrix}1\\3\end{bsmallmatrix}$ and
+        $\vv=\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$. \textbf{(b)} Explain why the result is a \textbf{rank-one} matrix.
+        \vspace{2.6cm}
+  \item The symmetric matrix $A=\begin{bsmallmatrix}4&2\\2&4\end{bsmallmatrix}$ has singular values $\sigma_1=6,\ \sigma_2=2$
+        with $\uu_1=\vv_1=\tfrac{1}{\sqrt2}\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$.
+        \textbf{(a)} Build the best rank-one approximation $A_1=\sigma_1\uu_1\vv_1\T$.
+        \textbf{(b)} What fraction of the \textbf{energy} does $A_1$ keep?
+        \vspace{2.8cm}
+  \item Let $Q=\dfrac15\begin{bsmallmatrix}3&-4\\4&3\end{bsmallmatrix}$.
+        \textbf{(a)} Show $Q$ is \textbf{orthogonal} by checking $Q\T Q=I$.
+        \textbf{(b)} Write down $Q^{-1}$.
+        \textbf{(c)} The vector $\xx=\begin{bsmallmatrix}5\\0\end{bsmallmatrix}$ has length $5$. Find $Q\xx$ and its length, and explain.
+        \vspace{2.8cm}
+  \item Four data points are $(5,7),\ (7,5),\ (3,1),\ (1,3)$.
+        \textbf{(a)} \textbf{Center} the data (subtract the mean). \textbf{(b)} Form $A\T A$.
+        \textbf{(c)} Find its eigenvalues and the first principal component $\mathrm{PC}_1$.
+        \textbf{(d)} What fraction of the spread does $\mathrm{PC}_1$ capture?
+        \vspace{3.0cm}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (10 pts)}
+Explain your reasoning in full sentences.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=16pt]
+  \item \emph{Every} matrix has an SVD, even though not every matrix has real eigenvectors.
+        \textbf{(a)} Explain why $A\T A$ is symmetric for \emph{any} matrix $A$, and why that guarantees its
+        eigenvalues are real with $\lambda\ge0$ and its eigenvectors are perpendicular.
+        \textbf{(b)} Explain why this makes $\sigma=\sqrt{\lambda}$ a real number $\ge0$, so every matrix has singular values.
+        \vspace{3.0cm}
+  \item The SVD $A=U\Sigma V\T$ is ``rotate--stretch--rotate.''
+        \textbf{(a)} Explain what each of the three factors does geometrically, and why \emph{all} the stretching lives in $\Sigma$.
+        \textbf{(b)} An orthogonal matrix $Q$ has $Q\T Q=I$. Explain why this makes $Q^{-1}=Q\T$ (a free inverse) and why $Q$ preserves length.
+        \vspace{2.8cm}
+\end{enumerate}
 
 \end{document}

@@ -1,6 +1,10 @@
 %! Systems of Differential Equations — Unit 6, Lesson 6.4 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,16 +15,100 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 6.4}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Systems of Differential Equations}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 6}
+    {\color{white}\bfseries\LARGE Systems of Differential Equations}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 6: Eigenvalues and Eigenvectors}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{Eigenvalues run a system forward in time}
+  \sectionlabel{Hook}
+  \begin{itemize}
+    \setlength{\itemsep}{7pt}
+    \item Money at $5\%$ grows at a rate \emph{proportional} to itself: $\frac{du}{dt}=0.05\,u$.
+    \item The function whose rate of change is a multiple of itself is the \textbf{exponential}: $u(t)=u(0)e^{\lambda t}$.
+    \item What if \emph{two} quantities feed into each other? Use a matrix: $\frac{d\uu}{dt}=A\uu$.
+  \end{itemize}
+  \begin{block}{The payoff}
+    The \emph{eigenvalues} say how fast each piece grows or decays; the \emph{eigenvectors} say in which
+    directions.
+  \end{block}
+\end{frame}
+
+% 1. ONE EQUATION
+\begin{frame}[t, plain]
+  \burgundyheader{One equation: $\frac{du}{dt}=\lambda u$}
+  \sectionlabel[goldacc]{Big idea}
+  Rate of change proportional to size $\Rightarrow$ exponential:
+  \[ \frac{du}{dt}=\lambda u \quad\Longrightarrow\quad u(t)=u(0)\,e^{\lambda t}. \]
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item $\lambda>0$: \textbf{grows} (e.g.\ $e^{3t}\to\infty$).
+    \item $\lambda<0$: \textbf{decays} toward $0$ (e.g.\ $e^{-2t}\to0$).
+  \end{itemize}
+  \begin{block}{The whole lesson}
+    Every system today is built from this one fact --- one $e^{\lambda t}$ per eigenvalue.
+  \end{block}
+\end{frame}
+
+% 2. EIGENVECTORS ARE PURE MODES
+\begin{frame}[t, plain]
+  \burgundyheader{Eigenvectors are ``pure modes''}
+  \sectionlabel[goldacc]{Skill}
+  \begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+      Spine $A=\begin{bsmallmatrix} 1 & 2\\ 2 & 1 \end{bsmallmatrix}$: $\lambda_1=3,\xx_1=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$; $\lambda_2=-1,\xx_2=\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$.
+      \\[4pt]
+      Start on an eigenvector $\Rightarrow$ stay on its line:
+      \[ \uu(t)=e^{\lambda t}\xx \ \text{ solves }\ \tfrac{d\uu}{dt}=A\uu. \]
+      \begin{block}{Why}
+        $\tfrac{d}{dt}(e^{\lambda t}\xx)=\lambda e^{\lambda t}\xx$ and $A(e^{\lambda t}\xx)=e^{\lambda t}(\lambda\xx)$ --- equal, since $A\xx=\lambda\xx$.
+      \end{block}
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.8, font=\scriptsize, >=stealth]
+        \draw[linegray, ->] (-2.2,0) -- (2.2,0);
+        \draw[linegray, ->] (0,-2.2) -- (0,2.2);
+        \draw[charcoal, dashed] (-1.9,-1.9) -- (1.9,1.9);
+        \draw[charcoal, dashed] (-1.9,1.9) -- (1.9,-1.9);
+        \draw[burgundy, ultra thick, ->] (0,0) -- (1.8,1.8) node[above right]{$\xx_1$ grows};
+        \draw[burgundy, ultra thick, ->] (0,0) -- (-1.8,-1.8);
+        \draw[royalblue, ultra thick, <-] (0.2,-0.2) -- (1.8,-1.8) node[below right]{$\xx_2$ decays};
+        \draw[royalblue, ultra thick, <-] (-0.2,0.2) -- (-1.8,1.8);
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% 3. GENERAL SOLUTION
+\begin{frame}[t, plain]
+  \burgundyheader{General solution: split the start into eigenvectors}
+  \sectionlabel{Skill}
+  Write $\uu(0)=c_1\xx_1+c_2\xx_2$, let each run at its own rate, and add:
+  \[ \uu(t)=c_1e^{\lambda_1 t}\xx_1+c_2e^{\lambda_2 t}\xx_2. \]
+  \begin{block}{Worked (spine, $\uu(0)=\begin{bsmallmatrix}3\\1\end{bsmallmatrix}$)}
+    $c_1+c_2=3,\ c_1-c_2=1\Rightarrow c_1=2,c_2=1$, so
+    \[ \uu(t)=2e^{3t}\begin{bsmallmatrix}1\\1\end{bsmallmatrix}+1e^{-t}\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}. \]
+  \end{block}
+  The $\xx_1$-part grows ($e^{3t}$); the $\xx_2$-part decays ($e^{-t}$).
+\end{frame}
+
+% 4. STABILITY + ROAD AHEAD
+\begin{frame}[t, plain]
+  \burgundyheader{Stability --- the eigenvalue signs decide}
+  \sectionlabel[goldacc]{Payoff}
+  \[ \lambda<0\Rightarrow e^{\lambda t}\to0\ (\text{decay}),\qquad \lambda>0\Rightarrow e^{\lambda t}\to\infty\ (\text{grow}). \]
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item \textbf{Stable:} \emph{every} $\lambda<0$ $\Rightarrow$ all modes decay $\Rightarrow\uu(t)\to\zero$.
+    \item \textbf{Where it comes from:} $\uu(t)=Xe^{\Lambda t}X^{-1}\uu(0)$ --- like $A^k=X\Lambda^k X^{-1}$, with $\lambda^k$ replaced by $e^{\lambda t}$.
+  \end{itemize}
+  \begin{block}{Closing Unit 6}
+    One set of eigenvalues answered it all: $A\xx=\lambda\xx$, $A=X\Lambda X^{-1}$, $S=Q\Lambda Q^{\T}$, and now $e^{\lambda t}$.
+  \end{block}
 \end{frame}
 
 \end{document}

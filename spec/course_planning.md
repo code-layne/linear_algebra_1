@@ -7,7 +7,37 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-23 — **Authored & built Unit 6 Lesson 6.3 — "Symmetric Positive Definite Matrices" (Strang §6.3).**
+**Last updated:** 2026-07-24 — **Authored & built Unit 6 Lesson 6.4 — "Systems of Differential Equations" (Strang §6.4, advanced/optional).**
+Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides deck,
+mirroring Lesson 6.3's preamble/boxes/tone. **Content — the unit capstone: put eigenvalues in charge of \emph{time}.** (1) **One
+equation:** $\frac{du}{dt}=\lambda u\Rightarrow u(t)=u(0)e^{\lambda t}$ (the exponential is the function whose rate of change is a
+multiple of itself); sign of $\lambda$ = grow ($\lambda>0$) vs. decay ($\lambda<0$). (2) **Eigenvectors are pure modes:** a start on
+an eigenvector stays on its eigen-line, $\uu(t)=e^{\lambda t}\xx$ — verified by differentiating ($\lambda e^{\lambda t}\xx$ matches
+$A(e^{\lambda t}\xx)=e^{\lambda t}\lambda\xx$ because $A\xx=\lambda\xx$), so the system collapses to the scalar equation along an
+eigenvector. (3) **General solution = split the start:** $\uu(0)=c_1\xx_1+c_2\xx_2\Rightarrow\uu(t)=c_1e^{\lambda_1 t}\xx_1+c_2e^{\lambda_2 t}\xx_2$;
+each mode runs independently. (4) **Stability from the signs:** all $\lambda<0\Rightarrow\uu\to\zero$ (stable), any $\lambda>0\Rightarrow$
+growth; ties to 6.2 via $\uu(t)=Xe^{\Lambda t}X^{-1}\uu(0)$ (replace $\lambda^k$ with $e^{\lambda t}$). **Spine = the symmetric
+$A=[[1,2],[2,1]]$ from 6.3 Tier E** ($\lambda=3,-1$; eigvecs $[1,1],[1,-1]$) — one growing mode, one decaying, no new eigen-finding.
+**Custom phase-portrait TikZ** (burgundy $\xx_1$ outward arrows $\lambda3$ "grows" on $y=x$; royalblue $\xx_2$ inward arrows
+$\lambda{-}1$ "decays" on $y=-x$; gold trajectory swinging toward $\xx_1$; caption "the growing mode wins") on notes §3 + slides §2.
+**Warmup = the three moves** (grow/decay from sign of $\lambda$; split $[5,3]=c_1[1,1]+c_2[1,-1]\to c_14,c_21$; eigenvector recall
+$A[1,1]=3[1,1]$). **Activity/Exit/HW spine (all hand-verified in pure Python):** Tier R single equations + pure modes on the spine;
+Tier A full solution from $\uu(0)=[5,1]$ ($c_13,c_22$; $\uu=3e^{3t}[1,1]+2e^{-t}[1,-1]$, growing mode wins); Tier E the \emph{stable}
+contrast $[[-2,1],[1,-2]]$ ($\lambda=-1,-3$; from $[4,2]$ get $3e^{-t}[1,1]+e^{-3t}[1,-1]\to\zero$, $e^{-3t}$ faster). Exit uses
+$[[0,1],[1,0]]$ ($\lambda=1,-1$; from $[3,1]$ get $c_12,c_21$; justify which mode wins). HW: single eqns; general solution on spine;
+fit $[4,2]$ ($c_13,c_21$); a stability screen ($\lambda{-2,-5}$ decay / $\lambda{3,1}$ grow / $\lambda{2,-4}$ mixed→saddle/grows);
+justify eigenvector-start-stays-on-line & signs-decide; extension = matrix exponential $e^{\Lambda t}=\mathrm{diag}(e^{3t},e^{-t})$.
+**Built `make -C unit06/lesson04 all` → clean** (0 `^!`/file-line errors across all 13 logs; no `\ans`-in-math; no overfull >15pt).
+Page counts: cover/warmup/exit 1pp (blank & key ✓ 1-page constraint), notes 3pp/3pp, activity 1pp/2pp, homework 2pp/2pp, slides 6pp,
+lesson plan 2pp; **student 9pp, full 18pp** (matches 6.0/6.1/6.2/6.3). Visually spot-checked notes_key p2 (phase-portrait figure —
+clean outward/inward arrows, dashed eigen-lines, gold trajectory, no tofu; red answers correct) — clean. **Gotcha (recurred once):**
+`\uu`/`\xx`/`\zero`/`\T` are per-file macros — the warmup_key teachernote used `\uu`/`\xx` but the blank warmup didn't, so the key
+preamble needed them added (define every math macro the body uses, keys included, even when the blank doesn't). **Unit 6 lessons
+6.0–6.4 are now all authored & built; next run authors the Unit 6 summative tests** (`tests/practice_test` + `actual_test`,
+`test_keys/`), then `drop` to populate `sample_test`/`sample_test_key`, to complete the unit. Lessons 6.0–6.4 are the Unit 6 models;
+Unit 4/5 tests are the assessment-format model.
+
+**Prior run:** **Authored & built Unit 6 Lesson 6.3 — "Symmetric Positive Definite Matrices" (Strang §6.3).**
 Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides
 deck, mirroring Lesson 6.2's preamble/boxes/tone. **Content — the family Lesson 6.2 promised: the matrices that \emph{always}
 diagonalize.** (1) **Symmetric $\Rightarrow\perp$ eigenvectors:** $S=S^{\T}$ (numbers mirror across the diagonal); the

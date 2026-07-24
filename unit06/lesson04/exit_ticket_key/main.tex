@@ -3,6 +3,9 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
@@ -11,9 +14,29 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning. Solve $\dfrac{d\uu}{dt}=A\uu$ for $A=\begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}$,
+whose eigenvalues are $\lambda=1$ (eigenvector $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$) and $\lambda=-1$
+(eigenvector $\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$).
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=14pt]
+  \item \textbf{General solution.} Using the eigen-data, write the general solution
+        $\uu(t)=c_1e^{\lambda_1 t}\xx_1+c_2e^{\lambda_2 t}\xx_2$.
+        \ansline{$\uu(t)=c_1e^{t}\begin{bsmallmatrix}1\\1\end{bsmallmatrix}+c_2e^{-t}\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$.}
+  \item \textbf{Fit the start.} The system starts at $\uu(0)=\begin{bsmallmatrix}3\\1\end{bsmallmatrix}$. Find
+        $c_1,c_2$ and write the full $\uu(t)$.
+        \ansline{$c_1+c_2=3$ and $c_1-c_2=1\Rightarrow c_1=2,c_2=1$, so $\uu(t)=2e^{t}\begin{bsmallmatrix}1\\1\end{bsmallmatrix}+1e^{-t}\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$.}
+  \item \textbf{Explain.} As $t\to\infty$, which eigen-direction does the solution follow, and why does the
+        other piece disappear? (One or two sentences.)
+        \ansline{It follows $\xx_1=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ (the $\lambda=1$ direction). Its $e^{t}$ factor grows while the $e^{-t}$ piece decays to $0$, so the growing mode takes over.}
+\end{enumerate}
+
+\begin{teachernote}
+Sort into ``got it / arithmetic slip / concept slip.'' Item~1 checks assembling the general solution from
+eigen-data (one $e^{\lambda t}$ per pair); item~2 checks the $2\times2$ split ($c_1=2,c_2=1$) and writing the
+full $\uu(t)$; item~3 is the target idea --- the sign of $\lambda$ decides which mode survives ($e^{t}$ grows,
+$e^{-t}\to0$), so the $\lambda=1$ eigen-direction wins. Watch for students who drop the coefficients or the
+$e^{\lambda t}$ factors, or who think the two modes ``cancel.'' If many miss item~3, re-anchor on the \S4
+stability statement before the Unit~6 review.
+\end{teachernote}
 
 \end{document}

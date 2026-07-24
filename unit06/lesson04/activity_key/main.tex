@@ -3,17 +3,69 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 6, Lesson 6.4}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Systems of Differential Equations.} To solve $\frac{d\uu}{dt}=A\uu$: split the start
+$\uu(0)=c_1\xx_1+c_2\xx_2$ into eigenvectors, let each run at its own rate, and add:
+$\uu(t)=c_1e^{\lambda_1 t}\xx_1+c_2e^{\lambda_2 t}\xx_2$. The \emph{signs} of the eigenvalues decide the long
+run: $\lambda>0$ grows, $\lambda<0$ decays. Show every step with your partner.
+\end{headlinebox}
+
+\vspace{0.08in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Warm up the pieces. Use $A=\begin{bsmallmatrix} 1 & 2\\ 2 & 1 \end{bsmallmatrix}$, with
+$\lambda_1=3,\xx_1=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ and $\lambda_2=-1,\xx_2=\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Single equations.} Solve $\frac{du}{dt}=3u$ with $u(0)=2$, and $\frac{dw}{dt}=-w$ with $w(0)=5$. Which grows, which decays? \ansline{$u(t)=2e^{3t}$ (grows, $\lambda=3>0$); $w(t)=5e^{-t}$ (decays, $\lambda=-1<0$).}
+  \item \textbf{Pure modes.} Write the solution that starts exactly at $\xx_1$, and the one that starts exactly at $\xx_2$. \ansline{Start at $\xx_1$: $\uu(t)=e^{3t}\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$. Start at $\xx_2$: $\uu(t)=e^{-t}\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$.}
+  \item \textbf{Read the signs.} Which eigen-direction grows over time, and which decays? Why? \ansline{$\xx_1$ grows ($\lambda=3>0\Rightarrow e^{3t}\to\infty$); $\xx_2$ decays ($\lambda=-1<0\Rightarrow e^{-t}\to0$).}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Run the full method on $A=\begin{bsmallmatrix} 1 & 2\\ 2 & 1 \end{bsmallmatrix}$ (same eigen-data), starting at
+$\uu(0)=\begin{bsmallmatrix}5\\1\end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Split the start.} Solve $c_1\begin{bsmallmatrix}1\\1\end{bsmallmatrix}+c_2\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}=\begin{bsmallmatrix}5\\1\end{bsmallmatrix}$ for $c_1,c_2$. \ansline{$c_1+c_2=5$ and $c_1-c_2=1\Rightarrow c_1=3,\ c_2=2$. (Check: $3\begin{bsmallmatrix}1\\1\end{bsmallmatrix}+2\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}=\begin{bsmallmatrix}5\\1\end{bsmallmatrix}$.$\ \checkmark$)}
+  \item \textbf{Write $\uu(t)$.} State the full solution $\uu(t)=c_1e^{\lambda_1 t}\xx_1+c_2e^{\lambda_2 t}\xx_2$. \ansline{$\uu(t)=3e^{3t}\begin{bsmallmatrix}1\\1\end{bsmallmatrix}+2e^{-t}\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$.}
+  \item \textbf{Long run.} As $t\to\infty$, which eigen-direction does $\uu(t)$ line up with, and why does the other piece disappear? \ansline{It lines up with $\xx_1=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$. The $2e^{-t}$ term $\to0$ while $3e^{3t}\to\infty$, so the growing $\xx_1$-mode dominates.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{A \emph{stable} system.} Let $A=\begin{bsmallmatrix} -2 & 1\\ 1 & -2 \end{bsmallmatrix}$, with
+$\lambda=-1,\xx_1=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ and $\lambda=-3,\xx_2=\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$, starting at $\uu(0)=\begin{bsmallmatrix}4\\2\end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Split $\uu(0)$ into eigenvectors and write $\uu(t)$. \ansline{$c_1+c_2=4,\ c_1-c_2=2\Rightarrow c_1=3,c_2=1$, so $\uu(t)=3e^{-t}\begin{bsmallmatrix}1\\1\end{bsmallmatrix}+1e^{-3t}\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$.}
+  \item Both eigenvalues are negative. What happens to $\uu(t)$ as $t\to\infty$? This system is called \emph{stable} --- explain why. \ansline{Both $e^{-t}$ and $e^{-3t}\to0$, so $\uu(t)\to\zero$. Every mode decays, so \emph{every} start heads to the steady state $\zero$ --- that is what stable means.}
+  \item Which mode fades \emph{faster}, $e^{-t}$ or $e^{-3t}$? So near the end, which eigen-direction does the decaying solution line up with? \ansline{$e^{-3t}$ fades faster (more negative $\lambda$). So the $\xx_2$-part vanishes first, and near the end the solution lines up with $\xx_1=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ (the slowest-decaying mode) on its way to $\zero$.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~R rehearses the pieces on the spine $\begin{bsmallmatrix}1&2\\2&1\end{bsmallmatrix}$ ($\lambda=3,-1$):
+scalar solutions, pure eigen-modes, and reading grow/decay from the signs. Tier~A is the full job --- split
+$\uu(0)=\begin{bsmallmatrix}5\\1\end{bsmallmatrix}$ ($c_1=3,c_2=2$), write $\uu(t)=3e^{3t}\begin{bsmallmatrix}1\\1\end{bsmallmatrix}+2e^{-t}\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$, and see the growing mode win. Tier~E is the
+conceptual contrast: $\begin{bsmallmatrix}-2&1\\1&-2\end{bsmallmatrix}$ has \emph{both} eigenvalues negative
+($\lambda=-1,-3$), so \emph{every} solution decays to $\zero$ (stable), and the faster $e^{-3t}$ mode dies
+first. Common errors: dropping the front $c_i$ or the $u(0)$; sign slips in the $2\times2$ solve; and thinking
+a negative and a positive eigenvalue balance out (the positive one always dominates). If time is short,
+Tier~A items~1--2 are the must-do.
+\end{teachernote}
 
 \end{document}

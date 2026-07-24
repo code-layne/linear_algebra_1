@@ -1,6 +1,8 @@
 %! Special Directions --- Setting Up Eigenvalues — Unit 6, Lesson 6.0 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
 
 \begin{document}
 
@@ -11,16 +13,100 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 6.0}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Special Directions --- Setting Up Eigenvalues}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 6}
+    {\color{white}\bfseries\LARGE Special Directions --- Setting Up Eigenvalues}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 6: Eigenvalues and Eigenvectors}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{Which directions does a matrix only stretch?}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+      A matrix multiplies each vector --- and usually \textbf{turns} it to a new direction.\\[8pt]
+      But a few \emph{special directions} are only \textbf{stretched}. Test
+      $\xx=\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$ under $A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$:
+      \[ A\xx=\begin{bsmallmatrix} 3\\3 \end{bsmallmatrix}=3\,\xx. \]
+      Same line --- just $3\times$ as long.
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.72]
+        \draw[step=1, linegray!45, thin] (-0.3,-0.3) grid (3.4,3.4);
+        \draw[->, thick, charcoal] (-0.4,0)--(3.6,0);
+        \draw[->, thick, charcoal] (0,-0.4)--(0,3.6);
+        \draw[burgundy!45, dashed, thin] (-0.3,-0.3)--(3.3,3.3);
+        \draw[->, ultra thick, burgundy] (0,0)--(1,1) node[below right=1pt]{\scriptsize $\xx$};
+        \draw[->, very thick, burgundy!60] (0,0)--(3,3) node[above left=1pt]{\scriptsize $A\xx=3\xx$};
+        \draw[->, ultra thick, royalblue] (0,0)--(1,0) node[below=2pt]{\scriptsize $\yy$};
+        \draw[->, very thick, royalblue!55, dashed] (0,0)--(2,1) node[right=1pt]{\scriptsize $A\yy$};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{2pt}
+  \begin{block}{The question of Unit 6}
+    Which directions does a matrix only \textbf{stretch}, and \textbf{by how much}?
+  \end{block}
+\end{frame}
+
+% DEFINITION
+\begin{frame}[t, plain]
+  \burgundyheader{Eigenvectors and eigenvalues}
+  \sectionlabel[goldacc]{Definition}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item A nonzero $\xx$ is an \textbf{eigenvector} of $A$ when $A\xx$ stays on the same line:
+          \[ A\xx = \lambda\xx \qquad (\xx\ne\mathbf{0}). \]
+    \item The number $\lambda$ is the \textbf{eigenvalue} --- the \emph{stretch factor} of that direction.
+    \item \textbf{Same $A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$:}
+          $A\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}=3\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$
+          ($\lambda=3$), \quad
+          $A\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}=1\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}$
+          ($\lambda=1$).
+    \item Along an eigenvector, the matrix acts like the single \textbf{number} $\lambda$.
+  \end{itemize}
+\end{frame}
+
+% THE TEST
+\begin{frame}[t, plain]
+  \burgundyheader{Testing a candidate}
+  \sectionlabel{Skill}
+  \begin{block}{The test (always the same)}
+    Compute $A\xx$. \; Is it a \textbf{multiple} of $\xx$? \; If $A\xx=\lambda\xx$, then $\xx$ is an
+    eigenvector and $\lambda$ is its eigenvalue. If not, $\xx$ is turned.
+  \end{block}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \textbf{Eigenvector:}
+      \[ A\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}=\begin{bsmallmatrix} 3\\3 \end{bsmallmatrix}=3\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}.\ \checkmark \]
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \textbf{Not an eigenvector:}
+      \[ A\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}=\begin{bsmallmatrix} 5\\4 \end{bsmallmatrix}\ \ (\text{not a multiple}). \]
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% WHY + ROAD AHEAD
+\begin{frame}[t, plain]
+  \burgundyheader{Why it matters --- and the road ahead}
+  \sectionlabel[goldacc]{Payoff}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item \textbf{Simple action:} along an eigenvector, $A$ only \emph{scales} --- a hard matrix
+          becomes an easy number $\lambda$.
+    \item \textbf{The $\lambda=0$ case (Unit 5):} $A\xx=\mathbf{0}$ for a nonzero $\xx$ $\Rightarrow$
+          $A$ is \textbf{not invertible} ($\det A=0$).
+    \item \textbf{Finding them next:} the $\lambda$'s solve
+          \[ \det(A-\lambda I)=0 \quad\text{(a Unit 5 determinant $\Rightarrow$ a quadratic).} \]
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{The road ahead}
+    \textbf{6.1} finding eigenvalues \;$\bullet$\; \textbf{6.2} diagonalizing \;$\bullet$\;
+    \textbf{6.3} symmetric matrices \;$\bullet$\; \textbf{6.4} an application.
+  \end{block}
 \end{frame}
 
 \end{document}

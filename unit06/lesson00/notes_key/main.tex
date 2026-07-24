@@ -3,17 +3,149 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 6, Lesson 6.0}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item compute $A\xx$ and decide whether $\xx$ is an \emph{eigenvector} (does $A\xx$ stay on the same line?);
+  \item state $A\xx=\lambda\xx$ and read the \emph{eigenvalue} $\lambda$ as the stretch factor;
+  \item explain why $\lambda=0$ means the matrix is \emph{not invertible} ($\det A=0$).
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.08in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{Eigenvector (a special direction)}{a nonzero $\xx$ with $A\xx$ on the same line as $\xx$ --- only stretched, not turned}
+\vocabans{Eigenvalue $\lambda$ (the stretch factor)}{the number in $A\xx=\lambda\xx$: how much the eigenvector is scaled (and flipped if $\lambda<0$)}
+\vocabans{The eigen-relation $A\xx=\lambda\xx$}{``matrix times vector $=$ number times the same vector,'' with $\xx\ne\zero$}
+\vocabans{$\lambda=0$ and ``not invertible'' (recall §5)}{$A\xx=\zero$ for a nonzero $\xx$ $\Rightarrow$ columns dependent $\Rightarrow$ $\det A=0$, no inverse}
+\end{vocabbox}
+
+\begin{hookbox}
+A matrix multiplies each vector in the plane --- and usually \emph{turns} it to a new direction.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item Are there directions a matrix does \emph{not} turn --- ones it only \emph{stretches}? \ansline{Yes --- for special matrices/directions. Those directions are the \emph{eigenvectors}.}
+  \item If $A\xx$ points the same way as $\xx$ but is $3$ times as long, how would you write that with a symbol? \ansline{$A\xx=3\xx$ --- a number ($3$) times the same vector.}
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. A Matrix Usually Changes Direction}
+Multiplying by a matrix moves a vector (Lesson~5.3). Take
+$A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$ and the vector
+$\begin{bsmallmatrix} 1\\ 0 \end{bsmallmatrix}$:
+\[
+  A\begin{bmatrix} 1\\ 0 \end{bmatrix}
+  = \begin{bmatrix} 2 & 1\\ 1 & 2 \end{bmatrix}\begin{bmatrix} 1\\ 0 \end{bmatrix}
+  = \begin{bmatrix}{\color{keyred}\mathbf{2}}\\[2pt]{\color{keyred}\mathbf{1}}\end{bmatrix}.
+\]
+The output points in a \ans{different} direction than the input --- most vectors get turned. Today we
+hunt for the exceptions.
 \end{notesbox}
+
+\begin{notesbox}{2. Special Directions: $A\xx=\lambda\xx$}
+A nonzero vector $\xx$ is an \textbf{eigenvector} of $A$ when $A\xx$ lands on the \textbf{same line}
+as $\xx$: it is only \emph{stretched}, not turned. In symbols,
+\[
+  A\xx = \lambda\xx \qquad (\xx\ne\zero),
+\]
+where the number $\lambda$ (``lambda'') is the \textbf{eigenvalue} --- the \emph{stretch factor}.
+Test $\xx=\begin{bsmallmatrix} 1\\ 1 \end{bsmallmatrix}$ with the same $A$:
+\[
+  A\begin{bmatrix} 1\\ 1 \end{bmatrix}
+  = \begin{bmatrix} 3\\ 3 \end{bmatrix}
+  = {\color{keyred}\mathbf{3}}\cdot\begin{bmatrix} 1\\ 1 \end{bmatrix},
+  \quad\text{so } \lambda = {\color{keyred}\mathbf{3}}.
+\]
+
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+  \draw[step=1, linegray!45, thin] (-0.4,-0.4) grid (3.5,3.5);
+  \draw[->, thick, charcoal] (-0.5,0)--(3.7,0);
+  \draw[->, thick, charcoal] (0,-0.5)--(0,3.7);
+  % the eigen-line (same direction, only stretched)
+  \draw[burgundy!45, dashed, thin] (-0.3,-0.3)--(3.4,3.4);
+  \draw[->, ultra thick, burgundy] (0,0)--(1,1) node[below right=1pt]{\scriptsize $\xx=\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$};
+  \draw[->, very thick, burgundy!60] (0,0)--(3,3) node[above left=1pt]{\scriptsize $A\xx=3\xx$};
+  % a non-eigenvector: turned
+  \draw[->, ultra thick, royalblue] (0,0)--(1,0) node[below=2pt]{\scriptsize $\yy$};
+  \draw[->, very thick, royalblue!55, dashed] (0,0)--(2,1) node[right=1pt]{\scriptsize $A\yy$ (turned)};
+\end{tikzpicture}
+\end{center}
+Along the dashed line, $A$ only \emph{scales} $\xx$ (here $\times3$); the blue vector $\yy$ is
+\ans{turned} to a new direction. Now test $\xx=\begin{bsmallmatrix} 1\\ -1 \end{bsmallmatrix}$:
+\[
+  A\begin{bmatrix} 1\\ -1 \end{bmatrix}
+  = \begin{bmatrix}{\color{keyred}\mathbf{1}}\\[2pt]{\color{keyred}\mathbf{-1}}\end{bmatrix}
+  = {\color{keyred}\mathbf{1}}\cdot\begin{bmatrix} 1\\ -1 \end{bmatrix},
+  \quad\text{so } \lambda = {\color{keyred}\mathbf{1}}.
+\]
+\end{notesbox}
+
+\begin{notesbox}{3. How to Test a Candidate}
+Given $A$ and a vector $\xx$: \textbf{compute $A\xx$}, then ask ``\emph{is it a multiple of $\xx$?}''
+If $A\xx=\lambda\xx$ for some number $\lambda$, then $\xx$ is an eigenvector and $\lambda$ is its
+eigenvalue. If $A\xx$ is \emph{not} a multiple of $\xx$, it is not an eigenvector. Check
+$\xx=\begin{bsmallmatrix} 2\\ 1 \end{bsmallmatrix}$:
+\[
+  A\begin{bmatrix} 2\\ 1 \end{bmatrix}
+  = \begin{bmatrix} 5\\ 4 \end{bmatrix}.
+\]
+Is $\begin{bsmallmatrix} 5\\ 4 \end{bsmallmatrix}$ a multiple of $\begin{bsmallmatrix} 2\\ 1
+\end{bsmallmatrix}$? \ans{No} \; So $\begin{bsmallmatrix} 2\\ 1 \end{bsmallmatrix}$ is
+\ans{not} an eigenvector.
+\end{notesbox}
+
+\begin{notesbox}{4. Why It Matters --- and the Road Ahead}
+Along an eigenvector, a matrix does nothing but \emph{scale} --- it acts like the single number
+$\lambda$. That is what makes these directions so useful (they turn hard matrix problems into easy
+number problems). One special case ties back to Unit~5:
+\[
+  \text{if } A\xx=\zero=0\cdot\xx \text{ for a nonzero }\xx,\ \text{then }\lambda={\color{keyred}\mathbf{0}}
+  \text{ and } A \text{ is }\ans{not invertible}\ (\det A=0).
+\]
+
+\vspace{2pt}
+\textbf{How do we \emph{find} the $\lambda$'s} without guessing? We solve $\det(A-\lambda I)=0$ ---
+a Unit~5 determinant that becomes a quadratic in $\lambda$. That is Lesson~6.1.
+
+\vspace{2pt}
+\textbf{The road ahead.} \textbf{6.1} \emph{finding} eigenvalues from $\det(A-\lambda I)=0$\; $\bullet$\;
+\textbf{6.2} \emph{diagonalizing} a matrix using its eigenvectors\; $\bullet$\; \textbf{6.3} symmetric
+matrices\; $\bullet$\; \textbf{6.4} an application.
+\end{notesbox}
+
+\begin{practicebox}
+Show your work. To test $\xx$: compute $A\xx$ and check whether it equals $\lambda\xx$ for some number $\lambda$.
+\begin{enumerate}[leftmargin=1.6em, itemsep=4pt]
+  \item For $A=\begin{bsmallmatrix} 3 & 0\\ 0 & 5 \end{bsmallmatrix}$, compute $A\begin{bsmallmatrix} 1\\ 0 \end{bsmallmatrix}$. Is $\begin{bsmallmatrix} 1\\ 0 \end{bsmallmatrix}$ an eigenvector? What is $\lambda$? \ansline{$A\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}=\begin{bsmallmatrix} 3\\0 \end{bsmallmatrix}=3\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}$. Yes --- eigenvector with $\lambda=3$.}
+  \item For $A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$ and $\xx=\begin{bsmallmatrix} 1\\ 1 \end{bsmallmatrix}$, find $\lambda$. \ansline{$A\xx=\begin{bsmallmatrix} 3\\3 \end{bsmallmatrix}=3\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$, so $\lambda=3$.}
+  \item Is $\begin{bsmallmatrix} 1\\ 0 \end{bsmallmatrix}$ an eigenvector of $\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$? Compute $A\begin{bsmallmatrix} 1\\ 0 \end{bsmallmatrix}$ and explain. \ansline{$A\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$, which is \emph{not} a multiple of $\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}$ --- so no, it is turned.}
+\end{enumerate}
+\end{practicebox}
+
+\begin{teachernote}
+The spine is Section~2 (the relation $A\xx=\lambda\xx$) built from Section~1 (a matrix usually turns
+a vector). Section~3 is the reusable \emph{skill} (compute $A\xx$, is it a multiple of $\xx$?);
+Section~4 is the payoff and the §5 callback ($\lambda=0\Leftrightarrow\det A=0$, not invertible) plus
+the 6.1 preview $\det(A-\lambda I)=0$. Most common errors: an $A\xx$ arithmetic slip; calling $\xx$ an
+eigenvector when only \emph{one} entry matches the ratio; forgetting $\xx\ne\zero$; assuming $\lambda>0$
+(here $\lambda=1$ and later $0$ or negative are fine). The sentence to land: an eigenvector is a
+direction the matrix \emph{only stretches}, and $\lambda$ is by how much.
+\end{teachernote}
 
 \end{document}

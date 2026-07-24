@@ -3,17 +3,64 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 6, Lesson 6.0}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+The test is always the same: compute $A\xx$ and ask whether $A\xx=\lambda\xx$ for some number
+$\lambda$. If yes, $\xx$ is an \textbf{eigenvector} and $\lambda$ is its \textbf{eigenvalue}.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item \textbf{Test each candidate.} For $A=\begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$, compute
+        $A\xx$ and state whether $\xx$ is an eigenvector; if so, give $\lambda$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\xx=\begin{bmatrix} 1 \\ 1 \end{bmatrix}$ \hfill
+      \item $\xx=\begin{bmatrix} 1 \\ -1 \end{bmatrix}$ \hfill
+      \item $\xx=\begin{bmatrix} 2 \\ 0 \end{bmatrix}$
+    \end{enumerate}
+    \vspace{1.2cm}
+  \item \textbf{Find $\lambda$ from a given eigenvector.} Each $\xx$ below \emph{is} an eigenvector of
+        the matrix beside it. Compute $A\xx$ and read off $\lambda$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $A=\begin{bmatrix} 5 & 0 \\ 0 & 3 \end{bmatrix}$, $\xx=\begin{bmatrix} 0 \\ 1 \end{bmatrix}$ \hfill
+      \item $A=\begin{bmatrix} 6 & 2 \\ 0 & 4 \end{bmatrix}$, $\xx=\begin{bmatrix} 1 \\ -1 \end{bmatrix}$
+    \end{enumerate}
+    \vspace{1.1cm}
+  \item \textbf{A flip: negative $\lambda$.} For $A=\begin{bmatrix} 1 & 2 \\ 2 & 1 \end{bmatrix}$,
+        compute $A\begin{bmatrix} 1 \\ -1 \end{bmatrix}$. Find $\lambda$. What does the \emph{sign} of
+        $\lambda$ say happened to the direction? \writelines{2}
+  \item \textbf{The $\lambda=0$ direction (§5).} For $A=\begin{bmatrix} 3 & 6 \\ 1 & 2 \end{bmatrix}$,
+        compute $A\begin{bmatrix} 2 \\ -1 \end{bmatrix}$. What is $\lambda$? Compute $\det A$. Is $A$
+        invertible? Connect your two answers. \writelines{2}
+  \item \textbf{Explain.} What does it mean for $\xx$ to be an eigenvector of $A$ with eigenvalue
+        $\lambda$? Why is the \emph{zero} vector never counted as an eigenvector? \writelines{2}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Finding eigenvalues with a determinant (a first look at Lesson~6.1).} An eigenvector satisfies
+$(A-\lambda I)\xx=\zero$ for a nonzero $\xx$, so $A-\lambda I$ must be singular: $\det(A-\lambda I)=0$.
+Use $A=\begin{bmatrix} 3 & 1 \\ 1 & 3 \end{bmatrix}$.
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item Write $A-\lambda I$ and compute $\det(A-\lambda I)$ as an expression in $\lambda$.
+  \item Set it to $0$ and solve for $\lambda$. (You should get two values.)
+\end{enumerate}
+\writelines{3}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 6.1: Introduction to Eigenvalues.} Today you \emph{tested} vectors you
+were handed. Next we \emph{find} the special directions from scratch: solve $\det(A-\lambda I)=0$ for
+the eigenvalues $\lambda$, then solve $(A-\lambda I)\xx=\zero$ for each eigenvector --- no guessing.
+\end{spiralbox}
 
 \end{document}

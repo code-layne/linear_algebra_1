@@ -1,6 +1,11 @@
 %! Principal Component Analysis — Unit 7, Lesson 7.3 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\usetikzlibrary{arrows.meta}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
@@ -11,16 +16,111 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 7.3}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Principal Component Analysis}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 7}
+    {\color{white}\bfseries\LARGE Principal Component Analysis}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 7: The Singular Value Decomposition}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{One number instead of two?}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      Four students, two quiz scores each: $(5,6),(6,5),(3,2),(2,3)$. The scatter leans along a
+      diagonal --- do well on one, do well on the other.\\[6pt]
+      Lesson~7.2 compressed an image by keeping the biggest singular values. \textbf{PCA does the same to
+      data.}
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \begin{block}{The question}
+        Describe each student with a \textbf{single} number instead of two --- along what direction, and how
+        much do you lose?
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{2pt}
+  \begin{block}{Today}
+    Center the data, form $A\T A$, and read its top eigenvector: the \textbf{first principal component}.
+  \end{block}
+\end{frame}
+
+% CENTER
+\begin{frame}[t, plain]
+  \burgundyheader{Step 0: center the data}
+  \sectionlabel[goldacc]{Idea}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item Write the data as a matrix $A$: one \emph{row} per point, one \emph{column} per feature.
+    \item \textbf{Center} it --- subtract each column's mean --- so the cloud sits at the origin:
+          \[ (5,6),(6,5),(3,2),(2,3)\ \xrightarrow{\ -\,(4,4)\ }\ (1,2),(2,1),(-1,-2),(-2,-1). \]
+    \item Now a direction describes how the data \emph{spreads}, not where it sits.
+  \end{itemize}
+\end{frame}
+
+% PRINCIPAL COMPONENTS
+\begin{frame}[t, plain]
+  \burgundyheader{The principal components are eigenvectors of $A\T A$}
+  \sectionlabel{Skill}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      Same recipe as Lesson~7.1: form the symmetric $A\T A$, take its eigenvectors.
+      \[ A\T A=\begin{bsmallmatrix} 10 & 8\\ 8 & 10 \end{bsmallmatrix},\quad \lambda=18,2. \]
+      Symmetric $\Rightarrow$ the components are \textbf{perpendicular}:
+      \[ \vv_1=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}\ (\text{PC1}),\quad
+         \vv_2=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}\ (\text{PC2}). \]
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.72, font=\scriptsize]
+        \draw[linegray, -{Latex[length=1.4mm]}] (-2.3,0)--(2.3,0);
+        \draw[linegray, -{Latex[length=1.4mm]}] (0,-2.3)--(0,2.3);
+        \foreach \x/\y in {0.8/1.6, 1.6/0.8, -0.8/-1.6, -1.6/-0.8}
+          \fill[charcoal] (\x,\y) circle (2pt);
+        \draw[burgundy, -{Latex[length=2.2mm]}, very thick] (0,0)--(1.8,1.8);
+        \node[burgundy] at (1.35,2.05) {\textbf{PC1}};
+        \draw[royalblue, -{Latex[length=2.2mm]}, very thick] (0,0)--(0.8,-0.8);
+        \node[royalblue] at (1.45,-0.95) {\textbf{PC2}};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% READ + INTERPRET
+\begin{frame}[t, plain]
+  \burgundyheader{How much spread --- and what it means}
+  \sectionlabel{Skill}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item The eigenvalue \emph{is} the spread along a direction: $\sigma_1^2=18$, $\sigma_2^2=2$.
+    \item \textbf{PC1's share:} $\dfrac{\sigma_1^2}{\sigma_1^2+\sigma_2^2}=\dfrac{18}{20}=\mathbf{90\%}$.
+    \item \textbf{Meaning:} PC1 $=\tfrac1{\sqrt2}(1,1)$ is the ``overall score'' axis; PC2 $=\tfrac1{\sqrt2}(1,-1)$
+          is ``which quiz was better.'' Overall score is what really separates these students.
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{Dimension reduction}
+    Summarize each student by their PC1 coordinate alone --- one number instead of two --- and keep $90\%$ of
+    the information.
+  \end{block}
+\end{frame}
+
+% BIG PICTURE + ROAD AHEAD
+\begin{frame}[t, plain]
+  \burgundyheader{Same SVD, now on data --- and the road ahead}
+  \sectionlabel[goldacc]{Payoff}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item Image compression kept the biggest-$\sigma$ \emph{layers}; PCA keeps the biggest-$\sigma$
+          \emph{directions}. One rule: \textbf{keep the biggest $\sigma$}.
+    \item With $100$ features, the top $2$--$3$ components often carry almost all the spread --- replace $100$
+          numbers per point with a handful.
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{The road ahead}
+    \textbf{7.4} the victory of orthogonality --- why perpendicular directions make the SVD, compression, and
+    PCA all work.
+  \end{block}
 \end{frame}
 
 \end{document}

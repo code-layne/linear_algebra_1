@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 7}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 7 \quad The Singular Value Decomposition}}\\[6pt]
   {\color{white}\textbf{\large Lesson 7.3 \quad Principal Component Analysis}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} \textbf{center} a data table and form $A^{\top}A$, then read its eigenvectors as the \textbf{principal components} $\mathbf{v}_1\perp\mathbf{v}_2$ (the directions the data spreads along, biggest first).
+  \item \ldots{} measure the fraction of the spread the first component captures ($\sigma_1^2/(\sigma_1^2+\sigma_2^2)$) and interpret what PC1 \emph{means} for the data.
+  \item \ldots{} explain why keeping the top few components summarizes data in far fewer numbers --- the SVD's ``keep the biggest $\sigma$'' idea applied to data.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,26 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: center a data table, form $A^{\top}A$, and find its eigenvalues       & \blank{1.2cm} \\
+2 & Guided Notes   & Centering, principal components as eigenvectors of $A^{\top}A$, and reading the spread & \blank{1.2cm} \\
+3 & Group Activity & Full PCA on a data table, the spread fraction, and choosing how many components to keep & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check: find PC1, the spread fraction, and justify                              & \blank{1.2cm} \\
+5 & Homework       & PCA end to end, spread percentages, a line-shaped data set, and a spread spectrum      & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small \textbf{Principal Component Analysis} finds the directions data spreads along the most. Write the data
+as a matrix, \textbf{center} it (subtract each column's mean), and form the symmetric matrix $A^{\top}A$. Its
+eigenvectors are the \textbf{principal components} $\mathbf{v}_1\perp\mathbf{v}_2$ --- perpendicular
+directions ordered by how much the data spreads, biggest first --- and its eigenvalues are $\sigma^2$, the
+spread along each. The first component PC1 is the best single direction through the data cloud; keeping the
+top few components summarizes the data in far fewer numbers, just as keeping the biggest singular values
+compressed an image in Lesson~7.2.
+\end{remindbox}
 
 \end{document}

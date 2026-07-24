@@ -7,7 +7,43 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-24 — **Authored & built Unit 7 Lesson 7.2 — "Compressing Images by the SVD" (§7.2 — write $A$ as a
+**Last updated:** 2026-07-24 — **Authored & built Unit 7 Lesson 7.3 — "Principal Component Analysis" (§7.3 — the
+"keep the biggest $\sigma$" idea on *data* instead of pixels).** Filled every skeleton: lesson plan, cover, warmup, notes,
+activity, exit_ticket, homework (+ the five keys) and the slides deck, mirroring Lesson 7.2's preamble/boxes/tone. **Content —
+the three-move PCA pipeline:** (1) **center** the data matrix $A$ (rows = data points, cols = features; subtract each column's
+mean so the cloud sits at the origin — directions now describe *spread*, not location — the one new setup move); (2) form the
+symmetric $A\T A$ (column dot products = spreads/overlaps of features) and take its **eigenvectors = the principal components**
+$\vv_1\perp\vv_2$ (the Lesson 7.1 recipe; symmetric ⇒ perpendicular, ordered biggest $\sigma$ first); (3) each **eigenvalue *is*
+the spread** along its direction ($\sum$ squared projections $=\vv\T A\T A\vv=\lambda=\sigma^2$), so **PC1** (largest $\lambda$) is
+the best single direction and its share is $\sigma_1^2/(\sigma_1^2+\sigma_2^2)$; keep the top few → **dimension reduction**. Framed
+honestly ("statisticians divide by $n-1$ to get variance, but the *fraction* is the same") to avoid the covariance-normalization
+tangent. **Spine = 4 students, two quiz scores** raw $(5,6),(6,5),(3,2),(2,3)$ → means $(4,4)$ → centered
+$(1,2),(2,1),(-1,-2),(-2,-1)$ → $A\T A=[[10,8],[8,10]]$, $\lambda=18,2$, $\vv_1=\tfrac1{\sqrt2}(1,1)$ (PC1, 90%),
+$\vv_2=\tfrac1{\sqrt2}(1,-1)$ (PC2, 10%); **rich interpretation**: PC1 = "overall score" (both quizzes rise together), PC2 = "which
+quiz you did better on." **Warmup literally does the 3 setup moves on the spine data** (center → means $(4,4)$ Unit 1; form $A\T A$
+Unit 1/7.1; eigenvalues of symmetric $[[10,8],[8,10]]$ via $\det(A\T A-\lambda I)=0\to18,2$ Unit 6/7.1 + fraction 90%) — so warmup
+answers = notes opening. **Custom data-cloud + principal-axes TikZ** (4 charcoal dots leaning along the diagonal, long burgundy PC1
+arrow on $(1,1)$, short royalblue PC2 arrow on $(1,-1)$, `arrows.meta`) on notes §3 + slides. **Activity/Exit/HW spines (all
+hand-verified pure Python, all $[[a,b],[b,a]]$-form ⇒ $\pm45^\circ$ components, integer $\lambda$):** Tier R center+$A\T A$ on
+$(5,7),(7,5),(3,1),(1,3)$→$[[20,12],[12,20]]$; Tier A full PCA of that ($\lambda32,8$, PC1 keeps 80%) + interpret; Tier E
+$4$-feature spread spectrum $\sigma^2=60,25,10,5$ → cumulative $60/85/95\%$ ⇒ keep 3 for 95% + justify center/keep-biggest. Exit:
+centered $(2,3),(3,2),(-2,-3),(-3,-2)$→$[[26,24],[24,26]]$ ($\lambda50,2$, PC1 96%) + justify center + dimension reduction. HW:
+center $(6,5),(5,6),(2,3),(3,2)$→$[[10,8],[8,10]]$; full PCA of $[[34,16],[16,34]]$ (centered $(1,4),(4,1),(-1,-4),(-4,-1)$;
+$\lambda50,18$, PC1 only **74%** — a deliberate "one component is *not* enough, keep both" contrast); **line case** $\sigma_2=0$
+(centered $(3,3),(1,1),(-1,-1),(-3,-3)$→$[[20,20],[20,20]]$, $\lambda40,0$ — one PC exact, PCA analogue of a rank-1 image); justify;
+extension spread spectrum $\sigma^2=90,6,3,1$ → cumulative $90/96/99/100\%$ ⇒ keep 2 for 95%, 3 for 99%. **Built
+`make -C unit07/lesson03 all` → clean** (0 `^!`/file-line errors across all 13 logs; no `\ans`-in-math; 0 overfull >15pt after
+fixing 2: a wide warmup centered-points display line → split into two `\[...\]`, and a lesson-plan multicols line → inserted
+breakpoints in the inline point lists). Page counts: cover/warmup/exit 1pp (blank & key ✓ 1-page constraint), notes 2pp/3pp,
+activity 1pp/2pp, homework 2pp/2pp, slides 6pp, lesson plan 3pp; **student 8pp, full 19pp.** Visually spot-checked notes_key p2
+(data-cloud figure — clean charcoal dots on the diagonal, long burgundy PC1 / short royalblue perpendicular PC2, correct labels, no
+tofu; red eigenvectors $(1,1)/(1,-1)$, $90\%$, and all practice answers correct) — clean. **Gotchas (none new):** long inline
+point-sequences `$(a,b),(c,d),(e,f),(g,h)$` are a single unbreakable math box → in narrow columns/display lines split into two
+`\[...\]` or insert `$...$ $...$` breakpoints; `\usetikzlibrary{arrows.meta}` + `royalblue`/`charcoal`/`linegray` all fine after
+`-boxes`/`-key`/`-beamer`. **Next run: author Unit 7 Lesson 7.4** ("The Victory of Orthogonality", §7.4 — why perpendicular
+directions make the SVD, compression, and PCA all work). Lessons 7.0/7.1/7.2/7.3 are the Unit 7 models.
+
+**Prior run:** **Authored & built Unit 7 Lesson 7.2 — "Compressing Images by the SVD" (§7.2 — write $A$ as a
 sum of rank-1 layers and keep the biggest).** Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket,
 homework (+ the five keys) and the slides deck, mirroring Lesson 7.1's preamble/boxes/tone. **Content — the one new mechanic + the
 compression idea:** (1) the **outer product** $\uu\vv\T$ (a column times a row) is a *matrix* whose every column is a multiple of

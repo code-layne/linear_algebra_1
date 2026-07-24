@@ -2,18 +2,145 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
+\usetikzlibrary{arrows.meta}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.3}{Guided Notes}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Guided Notes. See references/components.md for the expected structure.
-\begin{notesbox}{Guided Notes}
-\writelines{4}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item center a data table and form $A\T A$, then read its eigenvectors as the principal components $\vv_1\perp\vv_2$;
+  \item measure the fraction of the spread the first component captures, and interpret what PC1 means for the data;
+  \item explain why keeping the top few components summarizes data in far fewer numbers.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.06in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\termblanklong{Centered data (subtract each column's mean --- the cloud sits at the origin)}
+\termblanklong{Principal component (an eigenvector of $A\T A$ --- a direction the data spreads along)}
+\termblanklong{PC1 (the direction of \emph{greatest} spread --- the best single direction through the cloud)}
+\end{vocabbox}
+
+\begin{hookbox}
+Four students each took two quizzes; the scatter of their $(\text{quiz 1},\text{quiz 2})$ points leans along a
+diagonal --- do well on one, do well on the other.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item If you had to describe each student with a \emph{single} number instead of two, along what direction would you measure? \writeline
+  \item Roughly how much of the story would that one direction capture --- and what would you lose? \writeline
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. Data is a Matrix --- First, Center It}
+Write the data as a matrix $A$: \textbf{one row per data point}, \textbf{one column per feature}. Our four
+students, scores $(\text{quiz 1},\text{quiz 2})$, are $(5,6),(6,5),(3,2),(2,3)$.
+
+Before we look for directions, we \textbf{center} the data: subtract each column's mean so the cloud sits at
+the origin. Then a direction describes how the data \emph{spreads}, not where it happens to sit.
+\[
+  \text{mean of each column}=(\,\blank{0.8cm},\blank{0.8cm}\,)\ \Rightarrow\
+  \text{centered rows: } (\blank{0.7cm},\blank{0.7cm}),\ (\blank{0.7cm},\blank{0.7cm}),\
+  (\blank{0.7cm},\blank{0.7cm}),\ (\blank{0.7cm},\blank{0.7cm}).
+\]
+From now on $A$ is the \emph{centered} matrix
+$A=\begin{bsmallmatrix} 1 & 2\\ 2 & 1\\ -1 & -2\\ -2 & -1 \end{bsmallmatrix}$.
 \end{notesbox}
+
+\begin{notesbox}{2. The Principal Components are the Eigenvectors of $A\T A$}
+This is exactly the Lesson~7.1 recipe. Form the symmetric matrix $A\T A$ (each entry is a dot product of two
+columns of $A$ --- the spreads and overlaps of the features):
+\[
+  A\T A=\begin{bmatrix}\rule{0pt}{1.1em}\blank{0.8cm} & \blank{0.8cm}\\[2pt]\blank{0.8cm} & \blank{0.8cm}\end{bmatrix}
+  =\begin{bmatrix} 10 & 8\\ 8 & 10 \end{bmatrix}\quad(\text{from the Warm-Up}).
+\]
+Because $A\T A$ is \emph{symmetric}, its eigenvectors are \textbf{perpendicular} (Lesson~7.1) --- they are the
+natural axes of the data cloud, called the \textbf{principal components}. From the Warm-Up, $\lambda=18,2$, so
+$\sigma_1=\sqrt{18},\ \sigma_2=\sqrt2$. Solve $(A\T A-\lambda I)\vv=\zero$ for each:
+\[
+  \lambda=18:\ \vv_1=\tfrac1{\sqrt2}\begin{bmatrix}\rule{0pt}{1.1em}\blank{0.6cm}\\[2pt]\blank{0.6cm}\end{bmatrix}
+  \ (\textbf{PC1}),\qquad
+  \lambda=2:\ \vv_2=\tfrac1{\sqrt2}\begin{bmatrix}\rule{0pt}{1.1em}\blank{0.6cm}\\[2pt]\blank{0.6cm}\end{bmatrix}
+  \ (\textbf{PC2}).
+\]
+The bigger eigenvalue $\lambda_1=18$ belongs to \textbf{PC1} --- the direction the data spreads the most.
+\end{notesbox}
+
+\begin{notesbox}{3. Reading the Components: How Much Spread?}
+\begin{minipage}[t]{0.56\linewidth}\vspace{0pt}
+Each eigenvalue \emph{is} the spread along its direction. If you drop every centered point straight onto the
+line through $\vv$ and add up the squared distances, you get exactly $\lambda=\sigma^2$. So
+$\sigma_1^2=18$ is the spread along PC1 and $\sigma_2^2=2$ is the spread along PC2.
+
+\vspace{3pt}
+The \textbf{fraction of the total spread} carried by PC1 is
+\[
+  \frac{\sigma_1^2}{\sigma_1^2+\sigma_2^2}=\frac{18}{18+2}=\frac{18}{20}=\blank{1.2cm}\%.
+\]
+PC1 alone captures most of the cloud; PC2 holds the little that is left. (Statisticians divide these by
+$n-1$ to call them \emph{variances} --- but the \emph{fraction} is the same either way.)
+\end{minipage}\hfill
+\begin{minipage}[t]{0.40\linewidth}\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=0.92, font=\footnotesize]
+  % axes
+  \draw[linegray, -{Latex[length=1.6mm]}] (-2.4,0)--(2.4,0);
+  \draw[linegray, -{Latex[length=1.6mm]}] (0,-2.4)--(0,2.4);
+  % centered data points (scaled 0.8)
+  \foreach \x/\y in {0.8/1.6, 1.6/0.8, -0.8/-1.6, -1.6/-0.8}
+    \fill[charcoal] (\x,\y) circle (2.1pt);
+  % PC1 along (1,1): long burgundy
+  \draw[burgundy, -{Latex[length=2.4mm]}, very thick] (0,0)--(1.9,1.9);
+  \node[burgundy] at (1.5,2.15) {\textbf{PC1} ($\sigma_1$)};
+  % PC2 along (1,-1): short royalblue
+  \draw[royalblue, -{Latex[length=2.4mm]}, very thick] (0,0)--(0.8,-0.8);
+  \node[royalblue] at (1.55,-0.95) {\textbf{PC2} ($\sigma_2$)};
+\end{tikzpicture}\\[-1pt]
+{\scriptsize The centered cloud spreads far along PC1, little along the perpendicular PC2.}
+\end{minipage}
+\end{notesbox}
+
+\begin{notesbox}{4. What the Components \emph{Mean} --- and Dimension Reduction}
+\textbf{Interpret the directions.} $\vv_1=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$ points
+where \emph{both} quizzes rise together --- an ``overall score'' axis. $\vv_2=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}$
+is the ``which quiz did you do better on'' axis. PC1 carries $90\%$ of the spread, so \emph{overall score} is
+what really separates these students.
+
+\vspace{2pt}
+\textbf{Dimension reduction.} Summarize each student by their \emph{coordinate along PC1} alone --- one number
+instead of two --- and you keep $90\%$ of the information. That is PCA's payoff: with $100$ features, keeping
+the top $2$ or $3$ components replaces $100$ numbers per point with a handful, losing very little.
+
+\vspace{2pt}
+\textbf{This is Lesson 7.2, on data.} Compressing an image kept the biggest-$\sigma$ \emph{layers}; PCA keeps
+the biggest-$\sigma$ \emph{directions}. Same SVD, same ``keep the biggest'' rule --- pixels became data.
+
+\vspace{2pt}
+\textbf{The road ahead.} \textbf{7.4} the victory of orthogonality --- why perpendicular directions are what
+make the SVD, compression, and PCA all work.
+\end{notesbox}
+
+\begin{practicebox}
+Show your work.
+\begin{enumerate}[leftmargin=1.6em, itemsep=4pt]
+  \item A data set has centered rows $(2,2),(1,1),(-1,-1),(-2,-2)$ --- all on the line $y=x$. Form $A\T A$ and find its eigenvalues. What is $\sigma_2$, and what does that say about the cloud? \writeline
+  \item For the notes data, PC1 $=\tfrac1{\sqrt2}(1,1)$ carries $90\%$ of the spread. In one sentence, what does ``moving along PC1'' mean for a student? \writeline
+  \item Why must we \emph{center} the data before finding principal components? \writeline
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

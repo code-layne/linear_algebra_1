@@ -3,17 +3,55 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.3}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: the Set-Up Moves of Today's Idea}
+\small These three quick skills --- centering data, forming $A\T A$, and finding its eigenvalues --- \emph{are}
+the opening moves of today's lesson. We use today's data: four students, each with a \textbf{quiz~1} and a
+\textbf{quiz~2} score: $(5,6),\ (6,5),\ (3,2),\ (2,3)$.
+
+\vspace{4pt}
+\textbf{1. Center the data (Unit 1).} Find the mean of each column (each quiz), then subtract it from every
+entry so the data is centered at $(0,0)$.
+\[
+  \text{mean of quiz 1}={\color{keyred}\mathbf{4}},\qquad \text{mean of quiz 2}={\color{keyred}\mathbf{4}}.
+\]
+\[
+  \text{centered points: } {\color{keyred}\mathbf{(1,2),\ (2,1),\ (-1,-2),\ (-2,-1)}}.
+\]
+
+\textbf{2. Form $A\T A$ (Unit 1 \& Lesson 7.1).} Stack the centered points as the rows of $A$. Each entry of
+$A\T A$ is a dot product of two columns of $A$:
+\[
+  A=\begin{bmatrix} 1 & 2\\ 2 & 1\\ -1 & -2\\ -2 & -1 \end{bmatrix},\qquad
+  A\T A=\begin{bmatrix}{\color{keyred}\mathbf{10}} & {\color{keyred}\mathbf{8}}\\[2pt]{\color{keyred}\mathbf{8}} & {\color{keyred}\mathbf{10}}\end{bmatrix}.
+\]
+
+\textbf{3. Eigenvalues of the symmetric $A\T A$ (Unit 6 \& Lesson 7.1).} Solve $\det(A\T A-\lambda I)=0$:
+\[
+  (10-\lambda)^2-64=\lambda^2-20\lambda+36=0 \ \Rightarrow\ \lambda={\color{keyred}\mathbf{18}}\ \text{or}\ {\color{keyred}\mathbf{2}}.
+\]
+The larger eigenvalue is the spread along the top direction. What fraction of the total spread is it?
+$\dfrac{\text{larger}}{\text{larger}+\text{smaller}}=$ \ans{$\tfrac{18}{20}=90\%$}
 \end{notesbox}
+
+\begin{teachernote}
+Every item is a set-up move of today's lesson, run on the very data used in the notes. Item~1 is
+\emph{centering} --- each column (quiz) has mean $4$; subtracting gives the centered cloud
+$(1,2),(2,1),(-1,-2),(-2,-1)$, which sits at the origin so directions describe \emph{spread}, not location.
+Item~2 forms $A\T A$: the diagonal entries $10,10$ are the squared spread of each quiz, the off-diagonal $8$
+is how the two quizzes move together (both are the column dot products). Item~3 is exactly the Lesson~7.1
+eigenvalue move on this symmetric matrix: $\lambda=18,2$, so $\sigma^2=18,2$, and the top direction already
+holds $18/20=90\%$ of the spread --- which is why one principal component will summarize these students well.
+\end{teachernote}
 
 \end{document}

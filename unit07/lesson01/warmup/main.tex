@@ -3,17 +3,40 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.1}{Warm-Up}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Warm-Up. See references/components.md for the expected structure.
-\begin{notesbox}{Warm-Up}
-\writelines{4}
+\begin{notesbox}{Getting Ready: the Three Moves of Today's Recipe}
+\small These three skills from Units~1, 4, and~6 \emph{are} the first three steps of today's method ---
+and we use today's matrix. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Transpose and $A\T A$ (Units 1 \& 6).} For $A=\begin{bmatrix} 1 & 2 \\ -2 & 2 \end{bmatrix}$,
+the \emph{transpose} $A\T$ turns rows into columns: $A\T=\begin{bmatrix}\rule{0pt}{1.1em}\blank{0.8cm} & \blank{0.8cm}\\[2pt]\blank{0.8cm} & \blank{0.8cm}\end{bmatrix}$.
+Now multiply:
+\[
+  A\T A=\begin{bmatrix} 1 & -2 \\ 2 & 2 \end{bmatrix}\begin{bmatrix} 1 & 2 \\ -2 & 2 \end{bmatrix}
+  = \begin{bmatrix}\rule{0pt}{1.1em}\blank{0.9cm} & \blank{0.9cm}\\[2pt]\blank{0.9cm} & \blank{0.9cm}\end{bmatrix}.
+\]
+
+\vspace{4pt}
+\textbf{2. Eigenvalues of a symmetric matrix (Unit 6).} Find the eigenvalues of
+$S=\begin{bmatrix} 5 & -2 \\ -2 & 8 \end{bmatrix}$ by solving $\det(S-\lambda I)=0$:
+\[
+  (5-\lambda)(8-\lambda)-(-2)(-2)=\lambda^2-13\lambda+36=0 \quad\Rightarrow\quad
+  \lambda=\blank{1.2cm}\ \text{or}\ \blank{1.2cm}.
+\]
+
+\vspace{4pt}
+\textbf{3. Length and unit vectors (Unit 4).} The length of $\begin{bmatrix} 1 \\ -2 \end{bmatrix}$ is
+$\sqrt{1^2+(-2)^2}=\blank{1.4cm}$. To make it a \emph{unit} vector, divide by its length:
+$\dfrac{1}{\blank{0.9cm}}\begin{bmatrix} 1 \\ -2 \end{bmatrix}$.
 \end{notesbox}
 
 \end{document}

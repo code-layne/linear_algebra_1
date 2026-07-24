@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 7}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 7 \quad The Singular Value Decomposition}}\\[6pt]
   {\color{white}\textbf{\large Lesson 7.1 \quad Singular Values and Singular Vectors}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} build the symmetric matrix $A^{\top}A$ and find its eigenvalues $\lambda$ and perpendicular unit eigenvectors $\mathbf{v}_i$.
+  \item \ldots{} find the \textbf{singular values} $\sigma_i=\sqrt{\lambda_i}$ and the output singular vectors $\mathbf{u}_i=A\mathbf{v}_i/\sigma_i$ for \emph{any} matrix.
+  \item \ldots{} assemble $A=U\Sigma V^{\top}$ and explain why the recipe always works ($A^{\top}A$ is symmetric).
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,26 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: the transpose \& $A^{\top}A$, eigenvalues of a symmetric $2\times2$, normalizing a vector & \blank{1.2cm} \\
+2 & Guided Notes   & The $A^{\top}A$ recipe: $\lambda\to\sigma=\sqrt{\lambda}\to\mathbf{v}\to\mathbf{u}=A\mathbf{v}/\sigma\to A=U\Sigma V^{\top}$ & \blank{1.2cm} \\
+3 & Group Activity & Running the recipe on diagonal, tilted, and non-square matrices                          & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check: find $\sigma$'s from $A^{\top}A$, one $\mathbf{u}=A\mathbf{v}/\sigma$, and justify        & \blank{1.2cm} \\
+5 & Homework       & The recipe end to end, an isolated $\mathbf{u}$ step, justifications, and a non-square matrix & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small To \textbf{find} the singular values and vectors of \emph{any} matrix $A$, build the symmetric
+matrix $A^{\top}A$. Because it is symmetric, it has real, nonnegative eigenvalues $\lambda_1\ge\lambda_2\ge0$
+and perpendicular eigenvectors (Unit~6). The \textbf{singular values} are $\sigma_i=\sqrt{\lambda_i}$, the
+\textbf{input singular vectors} $\mathbf{v}_i$ are those eigenvectors, and the \textbf{output singular
+vectors} are $\mathbf{u}_i=A\mathbf{v}_i/\sigma_i$ --- automatically perpendicular unit vectors. Collect
+them into $A=U\Sigma V^{\top}$. The recipe needs nothing but $A^{\top}A$, so it works for a matrix of
+\emph{any} shape.
+\end{remindbox}
 
 \end{document}

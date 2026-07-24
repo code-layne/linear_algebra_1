@@ -3,17 +3,61 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.1}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+\textbf{The $A\T A$ recipe.} (1) Build $A\T A$; (2) find its eigenvalues $\lambda_1\ge\lambda_2\ge0$ and
+perpendicular unit eigenvectors $\vv_i$; (3) $\sigma_i=\sqrt{\lambda_i}$; (4) $\uu_i=A\vv_i/\sigma_i$;
+(5) assemble $A=U\Sigma V\T$.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item \textbf{Diagonal $A\T A$ (watch the order).} For $A=\begin{bmatrix} 0 & 3 \\ 2 & 0 \end{bmatrix}$,
+        compute $A\T A$ and its eigenvalues. Which axis is the eigenvector for the \emph{larger}
+        eigenvalue? Give $\sigma_1,\sigma_2$, then $\vv_1$ and $\uu_1=A\vv_1/\sigma_1$. \writelines{2}
+  \item \textbf{The full recipe.} For $A=\begin{bmatrix} 2 & 1 \\ -2 & 2 \end{bmatrix}$:
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=3pt]
+      \item Compute $A\T A$ and find its eigenvalues; give $\sigma_1,\sigma_2$.
+      \item The eigenvector directions are $\begin{bmatrix} 2 \\ -1 \end{bmatrix}$ (for $\lambda_1$) and
+            $\begin{bmatrix} 1 \\ 2 \end{bmatrix}$ (for $\lambda_2$). Normalize each to a unit $\vv_i$.
+      \item Compute $\uu_1=A\vv_1/\sigma_1$ and $\uu_2=A\vv_2/\sigma_2$, and check $\uu_1\cdot\uu_2=0$.
+    \end{enumerate}
+    \vspace{2.4cm}
+  \item \textbf{Just the output step.} For $A=\begin{bmatrix} 1 & 2 \\ -2 & 2 \end{bmatrix}$ you are given
+        $\vv_2=\frac{1}{\sqrt5}\begin{bmatrix} 2 \\ 1 \end{bmatrix}$ and $\sigma_2=2$. Compute
+        $\uu_2=A\vv_2/\sigma_2$, and verify it is a unit vector. \writelines{2}
+  \item \textbf{Why $\ge0$ and real?} Explain why the eigenvalues of $A\T A$ are never negative, and why
+        that matters for the singular values $\sigma=\sqrt{\lambda}$. \writelines{2}
+  \item \textbf{Why this beats eigenvectors.} Give one reason the $A\T A$ recipe finds singular values
+        for matrices where the Unit~6 eigenvalue method cannot be used at all. \writelines{2}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Any shape has an SVD.} The recipe only needs $A\T A$, so $A$ need not be square. Take the tall
+matrix $A=\begin{bmatrix} 3 & 0 \\ 0 & 3 \\ 0 & 4 \end{bmatrix}$.
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item Compute $A\T A$ (a $2\times2$: each entry is a dot product of two columns of $A$).
+  \item Find its eigenvalues and take $\sigma_1,\sigma_2$. (This matrix has no eigenvalues of its own ---
+        it isn't square --- yet it has a perfectly good pair of singular values.)
+\end{enumerate}
+\writelines{3}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 7.2: Compressing Images by the SVD.} A grayscale image is a big matrix of
+pixel values. Its SVD writes it as $\sigma_1\uu_1\vv_1\T+\sigma_2\uu_2\vv_2\T+\cdots$; keeping only the
+few largest singular values stores a close copy in a fraction of the space.
+\end{spiralbox}
 
 \end{document}

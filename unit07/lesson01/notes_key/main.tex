@@ -2,18 +2,167 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
+\usetikzlibrary{arrows.meta, positioning}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.1}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item build the symmetric matrix $A\T A$ and find its eigenvalues $\lambda$ and perpendicular unit eigenvectors $\vv_i$;
+  \item find the singular values $\sigma_i=\sqrt{\lambda_i}$ and the output singular vectors $\uu_i=A\vv_i/\sigma_i$ for \emph{any} matrix;
+  \item assemble $A=U\Sigma V\T$ and explain why the recipe always works.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.08in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{The matrix $A\T A$ (symmetric; its eigenvalues are $\sigma^2$)}{the symmetric matrix built from $A$; its entries are the dot products of the columns of $A$}
+\vocabans{Singular value $\sigma_i=\sqrt{\lambda_i}$}{the nonnegative square root of an eigenvalue $\lambda_i$ of $A\T A$ --- the stretch factor / ellipse half-width}
+\vocabans{Input singular vector $\vv_i$ (eigenvector of $A\T A$)}{a perpendicular unit eigenvector of $A\T A$ --- the input direction (right singular vector)}
+\vocabans{Output singular vector $\uu_i=A\vv_i/\sigma_i$}{the output direction, computed from $\vv_i$; automatically a perpendicular unit vector (left singular vector)}
+\end{vocabbox}
+
+\begin{hookbox}
+Lesson~7.0 promised that a matrix stretches the unit circle into an ellipse with singular values
+$\sigma_1\ge\sigma_2\ge0$ --- but it \emph{handed} us the perpendicular directions.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item Eigenvectors (Unit~6) keep a direction fixed, but a general matrix \emph{turns} every direction. So can $A$'s own eigenvectors give us the singular directions? \ansline{No --- a general matrix turns directions (and may not even have real eigenvectors), so $A$'s eigenvectors are the wrong tool.}
+  \item Here is the trick: what kind of matrix is $A\T A$, and what did Unit~6 promise about \emph{symmetric} matrices? \ansline{$A\T A$ is \emph{symmetric}; Unit~6 promises real eigenvalues and \emph{perpendicular} eigenvectors.}
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. The Trick: Turn $A$ into a Symmetric Problem}
+We want $\vv,\sigma,\uu$ with $A\vv=\sigma\uu$ (Lesson~7.0). The pair also satisfies $A\T\uu=\sigma\vv$.
+Multiply the first relation by $A\T$ on the left:
+\[
+  A\T A\,\vv = A\T(\sigma\uu) = \sigma(A\T\uu) = \sigma(\sigma\vv) = \sigma^2\,\vv.
+\]
+Read that last line: $\vv$ is an \textbf{eigenvector of $A\T A$} with eigenvalue
+$\lambda={\color{keyred}\mathbf{\sigma^2}}$. So the singular directions of $A$ are the \emph{eigenvectors} of $A\T A$, and
+the singular values are $\sigma=\sqrt{\lambda}$.
+
+\vspace{2pt}
+Why is $A\T A$ the perfect matrix to hand this to? It is \textbf{symmetric} --- taking its transpose
+gives $(A\T A)\T=A\T (A\T)\T=A\T A$. By the spectral theorem (Unit~6), a symmetric matrix always has
+real eigenvalues, they are $\ge0$ here (they equal $\sigma^2$), \emph{and} its eigenvectors are
+\ans{perpendicular}. That is exactly the perpendicular input frame $\vv_1\perp\vv_2$ we need.
 \end{notesbox}
+
+\begin{notesbox}{2. The Recipe, Steps 1--3: Find $\sigma$ and the Input Vectors $\vv$}
+Run the method on $A=\begin{bsmallmatrix} 1 & 2\\ -2 & 2 \end{bsmallmatrix}$.
+
+\vspace{2pt}
+\textbf{Step 1 --- build $A\T A$.} (The entries are dot products of the columns of $A$.)
+\[
+  A\T A=\begin{bmatrix} 1 & -2\\ 2 & 2 \end{bmatrix}\begin{bmatrix} 1 & 2\\ -2 & 2 \end{bmatrix}
+  =\begin{bmatrix}{\color{keyred}\mathbf{5}} & {\color{keyred}\mathbf{-2}}\\[2pt]{\color{keyred}\mathbf{-2}} & {\color{keyred}\mathbf{8}}\end{bmatrix}
+  \quad(\text{symmetric? }\ans{yes}).
+\]
+
+\textbf{Step 2 --- eigenvalues and eigenvectors of $A\T A$ (Unit~6).} From
+$\det(A\T A-\lambda I)=\lambda^2-13\lambda+36=(\lambda-9)(\lambda-4)=0$:
+\[
+  \lambda_1={\color{keyred}\mathbf{9}},\quad \lambda_2={\color{keyred}\mathbf{4}};\qquad
+  \vv_1=\tfrac{1}{\sqrt5}\begin{bmatrix}{\color{keyred}\mathbf{1}}\\[2pt]{\color{keyred}\mathbf{-2}}\end{bmatrix},\quad
+  \vv_2=\tfrac{1}{\sqrt5}\begin{bmatrix}{\color{keyred}\mathbf{2}}\\[2pt]{\color{keyred}\mathbf{1}}\end{bmatrix}.
+\]
+(These are the perpendicular eigenvector directions $\begin{bsmallmatrix} 1\\ -2 \end{bsmallmatrix}$ and
+$\begin{bsmallmatrix} 2\\ 1 \end{bsmallmatrix}$, each divided by its length $\sqrt5$ to become unit vectors.)
+
+\textbf{Step 3 --- singular values.} Take the (nonnegative) square roots:
+$\sigma_1=\sqrt{\lambda_1}={\color{keyred}\mathbf{3}}$ and $\sigma_2=\sqrt{\lambda_2}={\color{keyred}\mathbf{2}}$.
+
+\begin{center}
+\begin{tikzpicture}[scale=1, font=\footnotesize,
+    box/.style={draw=burgundy, fill=blush, rounded corners=1.5pt, inner sep=3pt, align=center, minimum height=8mm},
+    ar/.style={-{Latex[length=2mm]}, burgundy, thick}]
+  \node[box] (a)  at (0,0)    {$A$};
+  \node[box] (ata) at (2.55,0) {$A\T A=\begin{bsmallmatrix} 5 & -2\\ -2 & 8 \end{bsmallmatrix}$};
+  \node[box] (lv) at (6.2,0)  {$\lambda=9,4$\\[1pt]$\vv_1,\vv_2$};
+  \node[box] (su) at (9.6,0)  {$\sigma=3,2$\\[1pt]$\uu_i=A\vv_i/\sigma_i$};
+  \node[box] (svd) at (12.9,0){$A=U\Sigma V\T$};
+  \draw[ar] (a)--(ata)   node[midway, above=1pt]{\scriptsize transpose$\cdot A$};
+  \draw[ar] (ata)--(lv)  node[midway, above=1pt]{\scriptsize eigen (U6)};
+  \draw[ar] (lv)--(su)   node[midway, above=1pt]{\scriptsize $\sqrt{\lambda}$};
+  \draw[ar] (su)--(svd)  node[midway, above=1pt]{\scriptsize assemble};
+\end{tikzpicture}\\[-2pt]
+{\scriptsize The five-step recipe: everything flows out of the symmetric matrix $A\T A$.}
+\end{center}
+\end{notesbox}
+
+\begin{notesbox}{3. The Recipe, Steps 4--5: Find the Output Vectors $\uu$ and Assemble}
+\textbf{Step 4 --- output singular vectors $\uu_i=A\vv_i/\sigma_i$.} Push each input vector through $A$
+and divide by its singular value:
+\[
+  A\begin{bmatrix} 1\\ -2 \end{bmatrix}=\begin{bmatrix}{\color{keyred}\mathbf{-3}}\\[2pt]{\color{keyred}\mathbf{-6}}\end{bmatrix},\quad
+  \uu_1=\tfrac{1}{\sigma_1}\cdot\tfrac{1}{\sqrt5}\begin{bmatrix} -3\\ -6 \end{bmatrix}
+  =\tfrac{1}{\sqrt5}\begin{bmatrix}{\color{keyred}\mathbf{-1}}\\[2pt]{\color{keyred}\mathbf{-2}}\end{bmatrix},\qquad
+  \uu_2=\tfrac{1}{\sqrt5}\begin{bmatrix}{\color{keyred}\mathbf{2}}\\[2pt]{\color{keyred}\mathbf{-1}}\end{bmatrix}.
+\]
+The outputs come out \emph{perpendicular and unit-length automatically}:
+$\uu_1\cdot\uu_2=\tfrac15\big((-1)(2)+(-2)(-1)\big)={\color{keyred}\mathbf{0}}$. No extra work needed.
+
+\textbf{Step 5 --- assemble $A=U\Sigma V\T$.} Columns of $V$ are the $\vv$'s, columns of $U$ are the
+$\uu$'s, and $\Sigma$ holds the $\sigma$'s:
+\[
+  U=\tfrac{1}{\sqrt5}\begin{bmatrix} -1 & 2\\ -2 & -1 \end{bmatrix},\quad
+  \Sigma=\begin{bmatrix} 3 & 0\\ 0 & 2 \end{bmatrix},\quad
+  V=\tfrac{1}{\sqrt5}\begin{bmatrix} 1 & 2\\ -2 & 1 \end{bmatrix}.
+\]
+Multiplying $U\Sigma V\T$ rebuilds $A$ --- rotate ($V\T$), stretch ($\Sigma$), rotate ($U$).
+\end{notesbox}
+
+\begin{notesbox}{4. Why the Recipe Always Works --- and the Road Ahead}
+The engine is a single fact: $A\T A$ is \textbf{symmetric} for \emph{any} matrix $A$. So it always has
+real eigenvalues, they are always \ans{nonnegative ($\ge0$)} (they are $\sigma^2$), and its eigenvectors are always
+perpendicular. That is why we can always take a real $\sigma=\sqrt{\lambda}$ and always get a
+perpendicular input frame.
+
+\vspace{2pt}
+And $A$ need not even be square: if $A$ is $m\times n$, then $A\T A$ is a tidy $n\times n$ symmetric
+matrix, so the recipe still runs. \emph{Every} matrix, of \emph{any} shape, has a singular value
+decomposition --- something eigenvectors (which need a square matrix and may not exist) cannot promise.
+
+\vspace{2pt}
+\textbf{The road ahead.} \textbf{7.2} compressing images (keep only the biggest $\sigma$'s)\; $\bullet$\;
+\textbf{7.3} principal component analysis\; $\bullet$\; \textbf{7.4} the victory of orthogonality.
+\end{notesbox}
+
+\begin{practicebox}
+Show your work.
+\begin{enumerate}[leftmargin=1.6em, itemsep=4pt]
+  \item For $A=\begin{bsmallmatrix} 0 & 2\\ 3 & 0 \end{bsmallmatrix}$, compute $A\T A$, find its eigenvalues, and give the singular values $\sigma_1,\sigma_2$. \ansline{$A\T A=\begin{bsmallmatrix} 9 & 0\\ 0 & 4 \end{bsmallmatrix}$ (diagonal), so $\lambda=9,4$ and $\sigma_1=3$, $\sigma_2=2$.}
+  \item For that same $A$, the input vectors are $\vv_1=\ee_1$ (for $\lambda=9$) and $\vv_2=\ee_2$. Find $\uu_1=A\vv_1/\sigma_1$. \ansline{$A\ee_1=\begin{bsmallmatrix} 0\\3 \end{bsmallmatrix}$, so $\uu_1=\tfrac13\begin{bsmallmatrix} 0\\3 \end{bsmallmatrix}=\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}$ --- a unit vector, and a \emph{different} direction from $\vv_1=\ee_1$.}
+  \item Why are the eigenvalues of $A\T A$ never negative, so that $\sigma=\sqrt{\lambda}$ always makes sense? \ansline{They equal $\sigma^2$ (a squared length), so they are $\ge0$; hence the real square root $\sigma=\sqrt{\lambda}$ always exists.}
+\end{enumerate}
+\end{practicebox}
+
+\begin{teachernote}
+The spine is the five-step recipe on $A=\begin{bsmallmatrix} 1 & 2\\ -2 & 2 \end{bsmallmatrix}$, and the
+Warm-Up already did Steps~1--3 for this exact matrix, so the notes should move fast to Step~4
+($\uu=A\vv/\sigma$) and Step~5 (assemble). Section~1 is the ``why'': $A\T A\vv=\sigma^2\vv$ makes $\vv$
+an eigenvector of a \emph{symmetric} matrix, so Unit~6 hands us real $\lambda\ge0$ and perpendicular
+eigenvectors. Emphasize the two guardrails: order $\lambda_1\ge\lambda_2$ (so $\sigma$'s and $\vv$'s
+stay paired), and pair each $\uu_i$ with \emph{its own} $\sigma_i$ when dividing. Section~4's payoff ---
+$A\T A$ is symmetric for \emph{any} shape --- is the reason the SVD beats eigenvectors, and it sets up
+7.2. Most common slips: computing $AA\T$ instead of $A\T A$; forgetting to normalize the $\vv$'s;
+dividing by the wrong $\sigma$.
+\end{teachernote}
 
 \end{document}

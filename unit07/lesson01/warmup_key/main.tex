@@ -3,17 +3,49 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.1}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: the Three Moves of Today's Recipe}
+\small These three skills from Units~1, 4, and~6 \emph{are} the first three steps of today's method ---
+and we use today's matrix. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Transpose and $A\T A$ (Units 1 \& 6).} For $A=\begin{bmatrix} 1 & 2 \\ -2 & 2 \end{bmatrix}$,
+the \emph{transpose} $A\T$ turns rows into columns: $A\T=\begin{bmatrix}{\color{keyred}\mathbf{1}} & {\color{keyred}\mathbf{-2}}\\[2pt]{\color{keyred}\mathbf{2}} & {\color{keyred}\mathbf{2}}\end{bmatrix}$.
+Now multiply:
+\[
+  A\T A=\begin{bmatrix} 1 & -2 \\ 2 & 2 \end{bmatrix}\begin{bmatrix} 1 & 2 \\ -2 & 2 \end{bmatrix}
+  = \begin{bmatrix}{\color{keyred}\mathbf{5}} & {\color{keyred}\mathbf{-2}}\\[2pt]{\color{keyred}\mathbf{-2}} & {\color{keyred}\mathbf{8}}\end{bmatrix}.
+\]
+
+\vspace{4pt}
+\textbf{2. Eigenvalues of a symmetric matrix (Unit 6).} Find the eigenvalues of
+$S=\begin{bmatrix} 5 & -2 \\ -2 & 8 \end{bmatrix}$ by solving $\det(S-\lambda I)=0$:
+\[
+  (5-\lambda)(8-\lambda)-(-2)(-2)=\lambda^2-13\lambda+36=0 \quad\Rightarrow\quad
+  \lambda={\color{keyred}\mathbf{9}}\ \text{or}\ {\color{keyred}\mathbf{4}}.
+\]
+
+\vspace{4pt}
+\textbf{3. Length and unit vectors (Unit 4).} The length of $\begin{bmatrix} 1 \\ -2 \end{bmatrix}$ is
+$\sqrt{1^2+(-2)^2}={\color{keyred}\mathbf{\sqrt{5}}}$. To make it a \emph{unit} vector, divide by its length:
+$\dfrac{1}{{\color{keyred}\mathbf{\sqrt{5}}}}\begin{bmatrix} 1 \\ -2 \end{bmatrix}$.
 \end{notesbox}
+
+\begin{teachernote}
+All three moves are the opening of today's recipe on the very matrix $A=\begin{bsmallmatrix} 1 & 2\\ -2 & 2 \end{bsmallmatrix}$
+we use in the notes. Item~1 builds $A\T A=\begin{bsmallmatrix} 5 & -2\\ -2 & 8 \end{bsmallmatrix}$ (Step~1);
+item~2 finds its eigenvalues $\lambda=9,4$ (Step~2), which become $\sigma=\sqrt9=3$ and $\sqrt4=2$;
+item~3 normalizes an eigenvector direction to a unit \emph{input} singular vector. Land the punchline
+aloud: because $A\T A$ is \emph{symmetric}, its eigenvalues are real and $\ge0$, so $\sigma=\sqrt{\lambda}$
+always makes sense.
+\end{teachernote}
 
 \end{document}

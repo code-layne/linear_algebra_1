@@ -11,9 +11,26 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning. Use $L(w)=(w-4)^2$ with slope $L'(w)=2w-8$.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Take one step.} From $w=1$ with learning rate $s=0.25$, compute $w\leftarrow w-s\,L'(w)$.
+        Give the new $w$, and check whether the loss went down by comparing $L(1)$ and $L(\text{new }w)$.
+        \ansline{$L'(1)=2(1)-8=-6$, so $w=1-0.25(-6)=2.5$. The loss dropped: $L(1)=(1-4)^2=9$ down to $L(2.5)=(2.5-4)^2=2.25$.}
+  \item \textbf{When do we stop?} At the bottom $w=4$, what is the slope $L'(4)$, and why does that make
+        gradient descent stop there? Also, in one phrase, what is the number $s$ called?
+        \ansline{$L'(4)=0$. With zero slope the update $w-s(0)=w$ leaves $w$ unchanged --- flat ground at the bottom of the bowl, so the descent stops. The number $s$ is the \textbf{learning rate} (step size).}
+  \item \textbf{Explain.} In one sentence, why do we \emph{subtract} $s\,L'(w)$ (step \emph{against} the
+        slope) instead of adding it?
+        \ansline{The slope points \emph{uphill} (where the loss increases), so subtracting it moves us the opposite way --- downhill, toward smaller loss.}
+\end{enumerate}
+
+\begin{teachernote}
+Sort responses into ``got it / arithmetic slip / concept slip.'' Item~1 checks the update mechanic
+($w=2.5$) and that the loss actually falls ($9\to2.25$) --- watch for a dropped minus sign in $-s\,L'(w)$.
+Item~2 checks the stopping rule (slope $0$ at the minimum) and the vocabulary (learning rate). Item~3 is the
+target idea: step \emph{against} the slope because it points uphill. If many stumble on item~1 or item~3,
+reopen next lesson with a 30-second ``feel the slope, step downhill, stop when it's flat'' recap.
+\end{teachernote}
 
 \end{document}

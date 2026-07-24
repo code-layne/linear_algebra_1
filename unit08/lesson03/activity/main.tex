@@ -3,17 +3,69 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.3}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Rolling Downhill.} \emph{Gradient descent} chooses a network's weights by rolling downhill on the
+loss: at each step, feel the slope and step the \emph{opposite} way, $w\leftarrow w-s\,L'(w)$. The learning
+rate $s$ is the step size; the bottom of the bowl (slope $=0$) is the best weight. Work with your partner, show
+every step, and \emph{explain} what you find.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Use the bowl $L(w)=(w-4)^2$ with slope $L'(w)=2w-8$ and learning rate $s=0.25$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item \textbf{Two steps from $w=0$.} Fill the table (slope, then $w-s\,L'(w)$):
+        \[ \begin{array}{c|c|c} w & L'(w)=2w-8 & \text{new } w=w-0.25\,L'(w)\\ \hline
+            0 & \blank{1.0cm} & \blank{1.2cm}\\[2pt]
+            2 & \blank{1.0cm} & \blank{1.2cm}\\ \end{array} \]
+  \item \textbf{Watch the loss fall.} Compute the loss $L(w)=(w-4)^2$ at your three weights:
+        \[ L(0)=\blank{0.9cm},\qquad L(2)=\blank{0.9cm},\qquad L(3)=\blank{0.9cm}. \]
+        In one sentence, what is happening to the loss as $w$ moves? \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Same bowl $L(w)=(w-4)^2$, slope $L'(w)=2w-8$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Descend from the other side.} Start at $w=6$ with $s=0.25$ and take two steps.
+        \[ w:\ 6\ \to\ \blank{1.0cm}\ \to\ \blank{1.0cm}. \]
+        Which direction did $w$ move this time, and toward what? \writeline
+  \item \textbf{Know when to stop.} Compute the slope at the minimum, $L'(4)$. What does the update
+        $w\leftarrow w-s\,L'(w)$ do when the slope is this value, and why is that the signal that you have
+        arrived? \writeline
+  \item \textbf{The learning rate.} Take \emph{one} step from $w=0$ with each rate and compare:
+        \[ s=0.5:\ w=0-0.5(-8)=\blank{1.0cm},\qquad s=1:\ w=0-1(-8)=\blank{1.0cm}. \]
+        One lands exactly at the minimum; the other overshoots. In a sentence, what does too big a learning
+        rate do? \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Two weights at once --- the gradient.} For $L(w_1,w_2)=(w_1-1)^2+(w_2-3)^2$ the gradient is
+$\nabla L=[\,2(w_1-1),\,2(w_2-3)\,]$; the rule is $\ww\leftarrow\ww-s\,\nabla L$ with $s=0.25$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Two steps from $(0,0)$.}
+        \[ \nabla L(0,0)=[\ \blank{0.6cm},\ \blank{0.6cm}\ ],\quad (0,0)-0.25\,\nabla L=(\ \blank{0.6cm},\ \blank{0.6cm}\ ); \]
+        \[ \text{then from }(0.5,1.5):\ \nabla L=[\ \blank{0.6cm},\ \blank{0.6cm}\ ],\quad \text{new }\ww=(\ \blank{0.6cm},\ \blank{0.6cm}\ ). \]
+        Toward which point is $\ww$ heading? \writeline
+  \item \textbf{Justify.} In one or two sentences each: (a) why do we \emph{subtract} $s\,\nabla L$ (step
+        \emph{against} the gradient) instead of adding it? (b) Why does slope $=0$ (a flat gradient) mean we
+        have found the best weights? \writeline
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

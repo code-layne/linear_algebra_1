@@ -3,17 +3,40 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.3}{Warm-Up}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Warm-Up. See references/components.md for the expected structure.
-\begin{notesbox}{Warm-Up}
-\writelines{4}
+\begin{notesbox}{Getting Ready: Loss, Slope, and One Step}
+\small Today we \emph{minimize the loss} --- roll a weight downhill until the error is smallest. That rests on
+three moves: measuring a loss, reading a slope to find downhill, and updating with a step. Warm up on each.
+
+\vspace{4pt}
+\textbf{1. Squared-error loss (Unit 1 \& Lesson 8.0).} A network predicts $[3,5]$ but the targets are $[2,6]$.
+The loss is the sum of squared errors:
+\[
+  L=(3-2)^2+(5-6)^2=\blank{1.4cm}.
+\]
+Smaller loss $=$ better fit. \emph{Learning} means making this number as small as possible.
+
+\vspace{4pt}
+\textbf{2. Which way is downhill? (slope).} A loss bowl has slope $L'(w)=2w-8$. Evaluate:
+\[
+  L'(2)=2(2)-8=\blank{1.0cm},\qquad L'(6)=2(6)-8=\blank{1.0cm}.
+\]
+A \emph{negative} slope means the loss still falls as $w$ grows (go right); a \emph{positive} slope means go left.
+
+\vspace{4pt}
+\textbf{3. Take one step (Unit 1 arithmetic).} The update rule is $w\leftarrow w-s\,L'(w)$. With current
+$w=2$, learning rate $s=0.25$, and slope $L'(2)=-4$:
+\[
+  w = 2-0.25(-4)=\blank{1.2cm}.
+\]
 \end{notesbox}
 
 \end{document}

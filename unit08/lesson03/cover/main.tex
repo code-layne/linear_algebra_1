@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 8}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 8 \quad Learning from Data}}\\[6pt]
   {\color{white}\textbf{\large Lesson 8.3 \quad Minimizing Loss by Gradient Descent}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} read a \textbf{loss} $L(w)$ as a bowl and see that learning means finding its \textbf{lowest point} (the smallest error).
+  \item \ldots{} use the \textbf{slope} to find downhill and take a gradient-descent step $w\leftarrow w-s\,L'(w)$, with $s$ the \textbf{learning rate}.
+  \item \ldots{} extend the same rule to many weights with the \textbf{gradient} $\nabla L$, and explain how the learning rate controls the descent.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,26 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: squared-error loss, reading a slope for downhill, and one update step & \blank{1.2cm} \\
+2 & Guided Notes   & The loss bowl; slope $=$ downhill; the update $w\leftarrow w-s\,L'(w)$; the gradient $\nabla L$ & \blank{1.2cm} \\
+3 & Group Activity & Rolling downhill, descending from both sides, the learning rate, and the gradient of two weights & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check: one step, when to stop (slope $=0$), and why we step against the slope & \blank{1.2cm} \\
+5 & Homework       & Steps from both sides, the loss falling, learning-rate tuning, the gradient, and justifications & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small We can \emph{build} networks --- layers, folds, filters --- but which \textbf{weights}? Every choice
+gives a \textbf{loss}: the Unit-4 sum of squared errors between predictions and targets. Picture that loss as a
+\textbf{bowl} over the weights; the best weights sit at the bottom. \textbf{Gradient descent} walks there: feel
+the \textbf{slope} (it points uphill), step the opposite way $w\leftarrow w-s\,L'(w)$, and repeat until the
+slope is $0$. The step size $s$ is the \textbf{learning rate}. With many weights the slope becomes the
+\textbf{gradient} $\nabla L$, and the identical rule $\mathbf{w}\leftarrow\mathbf{w}-s\,\nabla L$ trains the
+whole network.
+\end{remindbox}
 
 \end{document}

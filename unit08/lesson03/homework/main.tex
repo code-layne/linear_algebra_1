@@ -3,17 +3,61 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.3}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+\textbf{Gradient descent} chooses weights by rolling downhill on the loss: repeatedly step \emph{against} the
+slope, $w\leftarrow w-s\,L'(w)$, where $s$ is the \textbf{learning rate}. The bottom of the bowl (slope $=0$)
+is the best weight. Unless told otherwise, use $L(w)=(w-4)^2$ with slope $L'(w)=2w-8$ and $s=0.25$.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{One step, both sides.} Take one gradient-descent step and say which way $w$ moved.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item from $w=0$ \hfill new $w=\underline{\hspace{3.0cm}}$
+      \item from $w=8$ \hfill new $w=\underline{\hspace{3.0cm}}$
+    \end{enumerate}
+    \vspace{0.35cm}
+  \item \textbf{Watch the loss fall.} Starting at $w=0$, take two steps ($0\to\rule{0.9cm}{0.4pt}\to\rule{0.9cm}{0.4pt}$),
+        then compute the loss $L=(w-4)^2$ at all three weights. Is the loss decreasing? \writelines{2}
+  \item \textbf{The learning rate.} From $w=0$, take \emph{one} step with (a) $s=0.5$ and (b) $s=1$. One lands
+        exactly at the minimum $w=4$; the other overshoots. State both results and, in a sentence, what too big
+        a learning rate does. \writelines{2}
+  \item \textbf{The gradient (two weights).} For $L(w_1,w_2)=(w_1-2)^2+(w_2-5)^2$ the gradient is
+        $\nabla L=[\,2(w_1-2),\,2(w_2-5)\,]$. Starting at $(0,0)$ with $s=0.25$, take one step
+        $\ww\leftarrow\ww-s\,\nabla L$. Where is the minimum of this loss? \writelines{2}
+  \item \textbf{Explain.} (a) Why do we step \emph{against} the slope (subtract $s\,L'(w)$)? (b) Why is the
+        slope $0$ at the best weights? (c) In one phrase, why must a huge network \emph{roll downhill} instead
+        of solving for the minimum all at once? \writelines{3}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Tuning the descent.}
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item \textbf{Too small a step.} From $w=0$ with a tiny rate $s=0.05$, take one step ($L'(0)=-8$). How far did
+        $w$ move? If every step is this small, we still reach $w=4$ eventually --- what is the trade-off versus a
+        larger rate?
+  \item \textbf{The whole pipeline.} A real network's loss is a landscape over \emph{millions} of weights; the
+        gradient $\nabla L$ gives the downhill direction and $\ww\leftarrow\ww-s\,\nabla L$ is one training step,
+        repeated over and over. In two or three sentences, put the unit together: how do matrix layers (8.0),
+        the ReLU fold (8.1), shared filters (8.2), and gradient descent (8.3) combine into ``a network that
+        learns''?
+\end{enumerate}
+\writelines{4}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 8.4: Mean, Variance, and Covariance.} We finish the unit by looking at the
+\emph{data} itself --- how it centers, how it spreads, and how features move together --- the last piece of
+learning from data.
+\end{spiralbox}
 
 \end{document}

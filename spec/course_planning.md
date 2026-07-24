@@ -7,7 +7,38 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-24 — **Authored & built Unit 8 Lesson 8.2 — "Convolutional Neural Nets" (§8.2 — the same layer
+**Last updated:** 2026-07-24 — **Authored & built Unit 8 Lesson 8.3 — "Minimizing Loss by Gradient Descent" (§8.3 — now that
+we can *build* networks, *choose* the weights by rolling downhill on the Unit-4 loss).** Filled every skeleton: lesson plan, cover,
+warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides deck, mirroring Lesson 8.2's preamble/boxes/tone.
+**Content — loss landscape → the update rule → the gradient:** (1) **learning = minimizing loss** — the loss $L$ is the Unit-4
+sum of squared errors; for one weight it is a **bowl** (parabola), and the bottom is the best weight; can't eyeball it with millions
+of weights, must *walk*. (2) **which way is downhill = the slope** — $L'(w)$ points *uphill*, so step the opposite way; slope is
+**given** (no calculus); at the bottom slope $=0$. (3) **gradient descent** $w\leftarrow w-s\,L'(w)$ ($s$ = **learning rate**); the
+bottom (slope $0$) is the stop signal. (4) **many weights = the gradient** $\nabla L$ (slopes for all weights at once), same rule
+$\ww\leftarrow\ww-s\,\nabla L$; learning rate too small crawls / too big overshoots; **punchline** a net = Unit 1 (layers) + ReLU
+(folds) + Unit 4 (loss) + gradient descent, no new machinery. **Single spine bowl** $L(w)=(w-4)^2$, slope $L'(w)=2w-8$, rate
+$s=0.25$: iterates $0\to2\to3\to3.5\to\cdots\to4$ (gap halves), loss $16\to4\to1\to0.25$ — runs through *every* component.
+**Custom two-panel TikZ** (left: royalblue bowl + burgundy ball + gold "step downhill" arrow + tangent, "bottom = best $w$"; right:
+descent staircase $w_0,w_1,w_2$ dots marching to the minimum) via `plot coordinates` smooth (no pgfplots) on notes §2 + slides.
+**Warmup spirals the three moves** (squared-error loss $[3,5]$ vs $[2,6]{=}2$ U4/8.0; slope sign $L'(2){=}{-}4$, $L'(6){=}4$ → which
+way downhill; one update $2-0.25(-4){=}3$ U1) — warmup answers = notes opening. **Activity/Exit/HW spines (all hand-verified pure
+Python):** Tier R fill update table $0\to2\to3$ + loss $16\to4\to1$; Tier A descend from other side $6\to5\to4.5$, slope $0$ at min
+(stop), learning-rate Goldilocks ($s{=}0.5$ exact→4 vs $s{=}1$ overshoot→8); Tier E gradient of two weights $L{=}(w_1-1)^2+(w_2-3)^2$,
+$(0,0)\to(0.5,1.5)\to(0.75,2.25)$ toward $(1,3)$ + justify step-against-gradient / slope-0-is-min. Exit: one step from $w{=}1$
+($s{=}0.25$)→$2.5$, loss $9\to2.25$; slope $L'(4){=}0$ = stop + name "learning rate"; justify step-against-slope. HW: step both sides
+($0\to2$, $8\to6$); loss falls $16\to4\to1$; learning-rate ($s{=}0.5$ exact, $s{=}1$ overshoot to 8); gradient $L{=}(w_1-2)^2+(w_2-5)^2$
+$(0,0)\to(1,2.5)$ toward $(2,5)$; justify (against slope / slope-0-min / why iterate not solve); extension too-small rate ($s{=}0.05$→0.4,
+safe-but-slow) + **whole-unit synthesis** (layers+ReLU+filters+gradient descent = a net that learns). **Built `make -C unit08/lesson03
+all` → clean** (0 file-line/`^!` errors across all 13 logs; no `\ans`-in-math; 0 overfull >15pt — max 10.77pt is the standard
+pageheader banner). Page counts: cover/warmup/exit 1pp (blank & key ✓ 1-page constraint), notes 3pp/3pp, activity 2pp/2pp, homework
+2pp/2pp, slides 5pp, lesson plan 3pp; **student 10pp, full 18pp** (matches the 8.0/8.1/8.2 profile). Visually spot-checked notes_key p2
+(two-panel figure — clean royalblue bowl, burgundy ball, gold downhill arrow, descent staircase $w_0/w_1/w_2$, no tofu; red answers
+$L'(0){=}{-}8$, $L'(4){=}0$, table $2/3/3.5$, gradient step $(0.5,1.5)$ all correct) — clean. **Macros per file:** `\vv,\bb,\ww,\zero,\relu`
+(+ builtin `\nabla` for the gradient — no new package). Lessons 8.0/8.1/8.2/8.3 are now the Unit 8 models. **Next run: author Unit 8
+Lesson 8.4** ("Mean, Variance, and Covariance", §8.4 — the shape of the data itself: how it centers, spreads, and how features move
+together — the last lesson of the course), then the Unit 8 tests to complete the course.
+
+**Prior run:** **Authored & built Unit 8 Lesson 8.2 — "Convolutional Neural Nets" (§8.2 — the same layer
 $\relu(A\vv+\bb)$, but with weights *reused* across the input to scan for one pattern everywhere).** Filled every skeleton:
 lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides deck, mirroring Lesson 8.1's
 preamble/boxes/tone. **Content — from full layer to shared-weight filter:** (1) **too many weights** — a full layer gives every

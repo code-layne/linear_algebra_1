@@ -1,6 +1,10 @@
 %! Minimizing Loss by Gradient Descent — Unit 8, Lesson 8.3 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
@@ -11,16 +15,113 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 8.3}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Minimizing Loss by Gradient Descent}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 8}
+    {\color{white}\bfseries\LARGE Minimizing Loss by Gradient Descent}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 8: Learning from Data}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{We can build networks --- but which weights?}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+      We can \emph{build} networks: layers $\relu(A\vv+\bb)$ (8.0), folds (8.1), filters (8.2).\\[6pt]
+      Every choice of weights gives a \textbf{loss} --- the Unit-4 sum of squared errors. Picture it as a
+      \textbf{bowl} over the weights.\\[6pt]
+      \textbf{Learning} $=$ find the \emph{bottom} (smallest loss). But there are \emph{millions} of weights.
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.5]
+        \draw[->, charcoal, thin] (-0.3,0)--(5.2,0) node[right]{\scriptsize $w$};
+        \draw[->, charcoal, thin] (0,-0.3)--(0,3.0) node[above]{\scriptsize $L(w)$};
+        \draw[ultra thick, royalblue, smooth]
+          plot coordinates {(0,2.4)(0.6,1.35)(1.2,0.6)(1.8,0.15)(2.4,0)(3.0,0.15)(3.6,0.6)(4.2,1.35)(4.8,2.4)};
+        \fill[burgundy] (0.6,1.35) circle (2.4pt);
+        \draw[->, very thick, goldacc] (1.05,1.15)--(2.15,0.2);
+        \node[goldacc] at (2.55,0.9) {\scriptsize downhill};
+        \fill[charcoal] (2.4,0) circle (1.6pt);
+        \node[charcoal] at (2.4,-0.7) {\scriptsize best $w$};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{2pt}
+  \begin{block}{The question of Lesson 8.3}
+    How can a network tune millions of weights just by feeling which way is \textbf{downhill}?
+  \end{block}
+\end{frame}
+
+% SLOPE = DOWNHILL
+\begin{frame}[t, plain]
+  \burgundyheader{Which way is downhill? The slope}
+  \sectionlabel[goldacc]{Idea}
+  \begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+      The \textbf{slope} $L'(w)$ points \emph{uphill}. To lower the loss, step the \emph{opposite} way.\\[6pt]
+      Our bowl $L(w)=(w-4)^2$ has slope
+      \[ L'(w)=2w-8. \]
+      At $w=0$: $L'(0)=-8$ (negative $\Rightarrow$ go right, toward $4$).\\[4pt]
+      At the bottom $w=4$: $L'(4)=0$ --- flat ground, nowhere lower.
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.5]
+        \draw[->, charcoal, thin] (-0.3,0)--(5.2,0) node[right]{\scriptsize $w$};
+        \draw[->, charcoal, thin] (0,-0.3)--(0,3.0) node[above]{\scriptsize $L(w)$};
+        \draw[ultra thick, royalblue, smooth]
+          plot coordinates {(0,2.4)(0.6,1.35)(1.2,0.6)(1.8,0.15)(2.4,0)(3.0,0.15)(3.6,0.6)(4.2,1.35)(4.8,2.4)};
+        \fill[burgundy] (0,2.4) circle (2.2pt);   \node[burgundy] at (-0.3,2.6) {\scriptsize $w_0$};
+        \fill[burgundy] (1.2,0.6) circle (2.2pt); \node[burgundy] at (1.2,0.95) {\scriptsize $w_1$};
+        \fill[burgundy] (1.8,0.15) circle (2.2pt);\node[burgundy] at (1.9,0.5) {\scriptsize $w_2$};
+        \fill[burgundy] (2.1,0.04) circle (2.2pt);
+        \draw[->, goldacc, thick] (0.25,2.1)--(1.05,0.8);
+        \draw[->, goldacc, thick] (1.32,0.45)--(1.72,0.22);
+        \node[charcoal] at (3.2,1.2) {\scriptsize each step lower};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% THE UPDATE RULE
+\begin{frame}[t, plain]
+  \burgundyheader{Gradient descent: step against the slope}
+  \sectionlabel{Skill}
+  \[ \boxed{\,w \;\leftarrow\; w - s\,L'(w)\,}\qquad s=\text{\textbf{learning rate} (step size)} \]
+  Roll down $L(w)=(w-4)^2$ from $w=0$ with $s=0.25$:
+  \begin{center}
+  \renewcommand{\arraystretch}{1.25}
+  \begin{tabular}{c|c|c}
+  $w$ & slope $2w-8$ & new $w=w-0.25\,L'(w)$\\ \hline
+  $0$ & $-8$ & $0-0.25(-8)=\mathbf{2}$\\
+  $2$ & $-4$ & $2-0.25(-4)=\mathbf{3}$\\
+  $3$ & $-2$ & $3-0.25(-2)=\mathbf{3.5}$\\
+  \end{tabular}
+  \end{center}
+  \vspace{-2pt}
+  The weights march $0\to2\to3\to3.5\to\cdots\to\mathbf{4}$; the loss falls $16\to4\to1\to0.25$.
+  \textbf{Stop} when the slope is $0$ --- the step changes nothing.
+\end{frame}
+
+% MANY WEIGHTS + WHY IT MATTERS
+\begin{frame}[t, plain]
+  \burgundyheader{Many weights: the gradient --- and the whole picture}
+  \sectionlabel[goldacc]{Payoff}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item The \textbf{gradient} $\nabla L$ is the slopes for \emph{all} weights at once. Same rule, a whole
+          vector: $\ww \leftarrow \ww - s\,\nabla L$. \; E.g.\ $\nabla L=[2(w_1{-}1),2(w_2{-}3)]$ at $(0,0)$ is
+          $[-2,-6]$; one step $\to(0.5,1.5)$, toward $(1,3)$.
+    \item \textbf{Learning rate:} too small crawls; too big \emph{overshoots} the bottom (from $w=0$, $s=1$
+          jumps to $w=8$).
+    \item \textbf{The whole picture:} a network is Unit~1 (layers) $+$ one bend (ReLU) $+$ Unit~4 (loss) $+$
+          rolling downhill (gradient descent) --- \emph{no new machinery}, repeated millions of times.
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{The road ahead}
+    \textbf{8.4} mean, variance, and covariance --- the shape of the data itself.
+  \end{block}
 \end{frame}
 
 \end{document}

@@ -3,17 +3,165 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.0}{Guided Notes}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Guided Notes. See references/components.md for the expected structure.
-\begin{notesbox}{Guided Notes}
-\writelines{4}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item explain that a \emph{learning function} (a neural network) is built by alternating a \emph{linear step} (multiply by a weight matrix, add a bias) with a \emph{nonlinear step} (the ReLU);
+  \item evaluate $\relu(x)=\max(0,x)$ and compute one layer $\relu(A\vv+\bb)$;
+  \item explain how stacking ReLUs builds \emph{piecewise-linear} functions that bend to fit data, and that \emph{learning} means adjusting the weights to make a \emph{loss} smaller.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.08in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\termblanklong{Learning function $F(\vv)$ (a neural network)}
+\termblanklong{ReLU: $\relu(x)=\max(0,x)$ (the nonlinear step)}
+\termblanklong{Weights: a weight matrix $A$ and a bias $\bb$}
+\termblanklong{Piecewise-linear function (straight pieces joined at folds)}
+\termblanklong{Loss, and gradient descent}
+\end{vocabbox}
+
+\begin{hookbox}
+For seven units we used matrices to \emph{move}, \emph{project}, \emph{stretch}, and \emph{factor}
+the plane. The surprise of Unit~8: those same matrix tools are the engine inside modern
+\textbf{artificial intelligence}. A neural network is just a \emph{function} that turns an input into
+a prediction --- and it is built almost entirely from things you already know.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item In Unit~4 you found the \emph{best-fit line} through data. What were the two numbers you got to choose? \writeline
+  \item A straight line can only go straight. If the data \emph{bends}, what would a good fitting function need to be able to do? \writeline
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. Learning from Data = Finding a Function That Fits}
+\textbf{Learning from data} means: given input--output examples, find a \emph{function} that reproduces
+them and predicts new ones. The simplest learning function is the Unit~4 \textbf{best-fit line}
+$y=wx+b$ --- it has just two \emph{weights} to choose: the slope $w$ and the intercept $b$. Fitting the
+data means picking $w,b$ to pass as close as possible to the points.
+
+\vspace{2pt}
+But a line can only go \emph{straight}. Real data bends, so we need functions that can \textbf{bend} too
+--- while still being built from simple straight pieces. That one new ability is the whole idea of
+today's lesson: the ellipse of Unit~7 gave way to \emph{learning}, and the tool that lets a function
+bend is a single, very simple function.
 \end{notesbox}
+
+\begin{notesbox}{2. The One New Ingredient: ReLU $=\max(0,x)$}
+Here is the only new function in Unit~8. The \textbf{ReLU} (``rectified linear unit'') keeps a positive
+number and replaces a negative number with $0$:
+\[
+  \relu(x)=\max(0,x).
+\]
+Fill in:
+\[
+  \relu(3)=\blank{0.9cm},\qquad \relu(-2)=\blank{0.9cm},\qquad \relu(0)=\blank{0.9cm},\qquad \relu(5)=\blank{0.9cm}.
+\]
+As a graph it is flat at $0$ for negative inputs, then rises along the line $y=x$: a single \textbf{fold}
+at the origin. That one bend is the secret. Add and shift a few ReLUs and their folds combine into a
+\textbf{piecewise-linear} function --- straight pieces joined at corners --- that can bend to trace
+\emph{any} data. For example, $F(x)=\relu(x)-\relu(x-2)$:
+\[
+  F(-1)=\blank{0.9cm},\qquad F(1)=\blank{0.9cm},\qquad F(3)=\blank{0.9cm}.
+\]
+This $F$ rises from $0$ to $2$ over $0\le x\le 2$, then stays flat --- two folds, built from two ReLUs.
+That is Lesson~8.1.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.62]
+  % LEFT: one ReLU = one fold
+  \begin{scope}[shift={(-3.0,0)}]
+    \draw[->, charcoal, thin] (-2.2,0)--(2.5,0) node[right]{\scriptsize $x$};
+    \draw[->, charcoal, thin] (0,-0.5)--(0,2.6) node[above]{\scriptsize $\relu(x)$};
+    \draw[ultra thick, burgundy] (-2,0)--(0,0)--(2,2);
+    \fill[burgundy] (0,0) circle (1.6pt);
+    \node[charcoal] at (0.9,-0.9) {\scriptsize one fold};
+  \end{scope}
+  % ARROW
+  \draw[->, very thick, goldacc] (-0.2,1.0)--(1.7,1.0) node[midway, above]{\scriptsize combine};
+  % RIGHT: several ReLUs = a bent fit through data
+  \begin{scope}[shift={(4.0,0)}]
+    \draw[->, charcoal, thin] (-0.4,0)--(4.4,0) node[right]{\scriptsize $x$};
+    \draw[->, charcoal, thin] (0,-0.5)--(0,2.9) node[above]{\scriptsize $y$};
+    \fill[charcoal] (0.5,0.4) circle (1.6pt);
+    \fill[charcoal] (1.3,1.3) circle (1.6pt);
+    \fill[charcoal] (2.1,2.1) circle (1.6pt);
+    \fill[charcoal] (2.9,1.7) circle (1.6pt);
+    \fill[charcoal] (3.7,1.1) circle (1.6pt);
+    \draw[ultra thick, royalblue] (0.3,0.2)--(2.0,2.0)--(3.8,1.0);
+    \node[charcoal] at (2.0,-0.9) {\scriptsize a few ReLUs $\to$ a bent fit};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+\end{notesbox}
+
+\begin{notesbox}{3. A Learning Function Is a Chain of Matrix Steps}
+A neural network takes an input vector $\vv$ and pushes it through \textbf{layers}. Each layer does two
+things: a \emph{linear step} --- multiply by a \textbf{weight matrix} $A$ and add a \textbf{bias} vector
+$\bb$ (Unit~1) --- then the \emph{nonlinear step} --- apply ReLU to each entry:
+\[
+  \text{one layer:}\qquad \vv \;\longmapsto\; \relu(A\vv+\bb).
+\]
+Take $A=\begin{bsmallmatrix} 1 & -1\\ 1 & 1 \end{bsmallmatrix}$, $\bb=\begin{bsmallmatrix} 0\\ 0 \end{bsmallmatrix}$,
+and the input $\vv=\begin{bsmallmatrix} 1\\ 2 \end{bsmallmatrix}$. First the linear step:
+\[
+  A\vv+\bb=\begin{bmatrix} 1 & -1\\ 1 & 1 \end{bmatrix}\begin{bmatrix} 1\\ 2 \end{bmatrix}
+  =\begin{bmatrix}\rule{0pt}{1.1em}\blank{0.9cm}\\[2pt]\blank{0.9cm}\end{bmatrix}.
+\]
+Then ReLU on each entry (keep positives, zero out negatives):
+\[
+  \relu\!\begin{bmatrix}\rule{0pt}{1.1em}\blank{0.9cm}\\[2pt]\blank{0.9cm}\end{bmatrix}
+  =\begin{bmatrix}\rule{0pt}{1.1em}\blank{0.9cm}\\[2pt]\blank{0.9cm}\end{bmatrix}.
+\]
+The ReLU turned the negative entry into \blank{1.2cm}. \textbf{Matrix multiplication does all the heavy
+lifting} in every layer --- a neural network is mostly the Unit~1 operation $A\vv$, repeated, with a ReLU
+between the steps. The bias $\bb$ just \emph{shifts} where each fold sits.
+\end{notesbox}
+
+\begin{notesbox}{4. How It ``Learns'' --- and Why It Matters}
+The weights (the entries of every $A$ and $\bb$) start as guesses. To \textbf{learn}, we measure how wrong
+the predictions are with a \textbf{loss} --- the Unit~4 \emph{sum of squared errors} between the network's
+outputs and the true targets. If the network predicts $3,5,4$ and the targets are $2,5,6$:
+\[
+  \text{loss}=(3-2)^2+(5-5)^2+(4-6)^2=\blank{0.9cm}+\blank{0.9cm}+\blank{0.9cm}=\blank{1.0cm}.
+\]
+Learning means nudging the weights to make this loss \emph{smaller} --- rolling downhill on the loss until
+it bottoms out. That downhill method is \textbf{gradient descent} (Lesson~8.3). The shape of the data
+itself --- its \emph{mean}, \emph{variance}, and \emph{covariance} --- is described by the statistics of
+Lesson~8.4.
+
+\vspace{2pt}
+\textbf{Why it matters.} A neural network is not new mathematics --- it is \blank{3.2cm} multiplication
+(Unit~1) plus one simple bend (ReLU), trained by least squares (Unit~4). The linear algebra you already
+know is the engine of modern AI.
+
+\vspace{2pt}
+\textbf{The road ahead.} \textbf{8.1} piecewise-linear learning functions\; $\bullet$\;
+\textbf{8.2} convolutional neural nets\; $\bullet$\; \textbf{8.3} minimizing loss by gradient descent\;
+$\bullet$\; \textbf{8.4} mean, variance, and covariance.
+\end{notesbox}
+
+\begin{practicebox}
+Show your work.
+\begin{enumerate}[leftmargin=1.6em, itemsep=4pt]
+  \item Evaluate $\relu(7)$, $\relu(-4)$, and $\relu(0)$. \writeline
+  \item For $A=\begin{bsmallmatrix} 2 & -1\\ -1 & 2 \end{bsmallmatrix}$ and $\vv=\begin{bsmallmatrix} 1\\ 3 \end{bsmallmatrix}$, compute one layer $\relu(A\vv)$ (take $\bb=\zero$). \writeline
+  \item A network predicts $4,2$ while the targets are $3,4$. Compute the loss (sum of squared errors). \writeline
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

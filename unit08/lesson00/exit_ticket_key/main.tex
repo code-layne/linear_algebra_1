@@ -3,6 +3,8 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
@@ -11,9 +13,28 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{One layer.} For $A=\begin{bmatrix} 1 & -2 \\ 1 & 1 \end{bmatrix}$ and
+        $\vv=\begin{bmatrix} 3 \\ 2 \end{bmatrix}$, compute the linear step $A\vv$, then apply the ReLU to
+        each entry to get $\relu(A\vv)$.
+        \ansline{$A\vv=\begin{bsmallmatrix} 3-4\\ 3+2 \end{bsmallmatrix}=\begin{bsmallmatrix} -1\\ 5 \end{bsmallmatrix}$, so $\relu(A\vv)=\begin{bsmallmatrix} 0\\ 5 \end{bsmallmatrix}$ (the $-1$ becomes $0$; the $5$ stays).}
+  \item \textbf{Measure the error.} A network predicts $2,5,3$ while the true targets are $3,5,1$. Compute
+        the loss (the sum of squared errors).
+        \ansline{$(2-3)^2+(5-5)^2+(3-1)^2=1+0+4=5$.}
+  \item \textbf{Explain.} In one sentence, why does a neural network need the nonlinear ReLU step ---
+        what goes wrong if every step is just a matrix multiplication?
+        \ansline{Without the ReLU, stacking linear steps just multiplies the matrices into one matrix --- a single straight-line function --- so the network could never bend to fit curved data.}
+\end{enumerate}
+
+\begin{teachernote}
+Sort responses into ``got it / arithmetic slip / concept slip.'' Item~1 checks one layer: the linear
+step $A\vv=\begin{bsmallmatrix} -1\\5 \end{bsmallmatrix}$ then ReLU \emph{entry-by-entry} to
+$\begin{bsmallmatrix} 0\\5 \end{bsmallmatrix}$. Item~2 is the loss (sum of squared errors $=5$) --- watch
+for students who forget to square or who drop the sign before squaring. Item~3 is the target idea: the
+ReLU's nonlinearity is what keeps stacked layers from collapsing into a single matrix. If many stumble on
+item~3, open Lesson~8.1 with a 30-second ``one ReLU $=$ one fold; folds let a function bend'' recap.
+\end{teachernote}
 
 \end{document}

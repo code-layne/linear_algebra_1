@@ -7,7 +7,37 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-24 — **Scaffolded all of Unit 8 (Learning from Data), the final unit — skeletons only.**
+**Last updated:** 2026-07-24 — **Authored & built Unit 8 Lesson 8.0 — "Setting Up --- Learning from Data" (the intro/spiral on-ramp for the final unit).**
+Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides deck,
+mirroring Lesson 7.0's preamble/boxes/tone. **Content — spiral + roadmap for Learning from Data:** (1) **learning = fitting a
+function** to input–output examples; the simplest is the Unit-4 best-fit line $y=wx+b$ (two weights), but a line can't bend. (2)
+**The one new ingredient — ReLU $=\max(0,x)$:** keeps positives, zeroes negatives — a single **fold**; add/shift a few and the
+folds combine into a **piecewise-linear** function that bends to fit data (spine example $\relu(x)-\relu(x-2)$: ramps $0\to2$ over
+$[0,2]$ then flat; $F(-1){=}0,F(1){=}1,F(3){=}2$). (3) **A layer is a matrix step** $\vv\mapsto\relu(A\vv+\bb)$ — linear step
+(matrix×vector + bias, Unit 1) then ReLU per entry; spine $A=[[1,-1],[1,1]]$, $\vv=[1,2]\Rightarrow A\vv=[-1,3]\to\relu\to[0,3]$
+(ReLU zeroes the negative); matrix multiplication does the heavy lifting, bias shifts the folds. (4) **How it learns + why it
+matters** — score predictions with a **loss** = Unit-4 sum of squared errors (predict $3,5,4$ vs targets $2,5,6\Rightarrow$ loss
+$1{+}0{+}4=5$); **learn** by rolling downhill = **gradient descent** (8.3); data's mean/variance/covariance (8.4); punchline: a
+neural net is Unit 1 (matrix mult) + one bend (ReLU) + Unit 4 (least squares), no new machinery. **Custom two-panel ReLU TikZ**
+(left: burgundy hockey-stick "one fold"; right: royalblue bent piecewise-linear fit through charcoal data dots, gold "combine"
+arrow) on notes §2 + slides hook. **Warmup spirals the three pieces** (matrix×vector $[[1,-1],[1,1]][1,2]{=}[-1,3]$ Unit 1;
+squared error $(4-6)^2{=}4$ Unit 4; $\max(0,\cdot)$ = ReLU in disguise, arithmetic). **Activity/Exit/HW spines (all hand-verified
+pure Python):** Tier R ReLU eval + one layer $[[2,-1],[-1,2]][1,3]{=}[-1,5]\to[0,5]$; Tier A full layer w/ bias
+$\relu([[1,2],[1,-1]][2,1]+[-5,0]){=}[0,1]$, bending $\relu(x)+\relu(x-2)$ (folds at 0,2; slopes 0/1/2), loss compare $5$ vs $1$;
+Tier E **why ReLU is not optional** — two ReLU-less layers collapse to one matrix $A_2A_1=[[2,2],[1,2]]$ (verified $A_2(A_1\vv)=
+(A_2A_1)\vv=[4,3]$). Exit: one layer $[[1,-2],[1,1]][3,2]{=}[-1,5]\to[0,5]$, loss $(2,5,3)$ vs $(3,5,1)=5$, justify why ReLU
+needed. HW: ReLU eval (incl. decimal/0); layer w/ bias two inputs $[[1,-1],[2,1]]$,$\bb=[0,-3]$ ($[2,1]\to[1,2]$; $[1,3]\to[0,2]$);
+$\relu(x)-\relu(x-3)$ (folds 0,3; levels at 3); loss compare $2$ vs $5$; justify engine/ReLU; extension collapse
+$A_2A_1=[[3,2],[1,1]]$; preview 8.1. **Built `make -C unit08/lesson00 all` → clean** (0 `^!`/file-line errors across all 13 logs;
+no `\ans`-in-math; 0 overfull >15pt). Page counts: cover/warmup/exit 1pp (blank & key ✓ 1-page constraint), notes 3pp/3pp,
+activity 1pp/2pp, homework 2pp/2pp, slides 5pp, lesson plan 3pp; **student 9pp, full 18pp** (matches the 7.0/6.0 intro profile).
+Visually spot-checked notes_key p2 (two-panel ReLU figure — clean burgundy fold + royalblue bent fit through data dots + gold
+"combine" arrow, no tofu; red answers $\relu$ values, $F$ values, $A\vv{=}[-1,3]\to[0,3]$, loss $=5$, "matrix" fill all correct) —
+clean. **Macros per file:** `\vv,\bb,\zero,\relu` (with `\relu`=`\mathrm{ReLU}`); no transpose needed this lesson. Lesson 8.0 is
+now the Unit 8 model (mirrors 7.0/6.0/5.0/4.0). **Next run: author Unit 8 Lesson 8.1** ("Piecewise Linear Learning Functions",
+§8.1 — folding many lines with ReLUs into a continuous piecewise-linear function that fits any data).
+
+**Prior run:** **Scaffolded all of Unit 8 (Learning from Data), the final unit — skeletons only.**
 Ran `new_lesson.py` for lessons 8.0–8.4 (component set: cover, warmup, notes, activity, exit_ticket, homework, slides
 + keys for the keyed components). The 8.0 run created the unit, so `unit08/tests/` (practice + actual),
 `unit08/test_keys/` (both keys), `unit08/sample_test/`, `unit08/sample_test_key/`, `unit08/Makefile`, and the

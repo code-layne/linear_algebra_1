@@ -1,6 +1,9 @@
 %! Setting Up --- Learning from Data — Unit 8, Lesson 8.0 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
@@ -11,16 +14,96 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 8.0}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Setting Up --- Learning from Data}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 8}
+    {\color{white}\bfseries\LARGE Setting Up --- Learning from Data}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 8: Learning from Data}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{The linear algebra you know is the engine of AI}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      A \textbf{neural network} is just a \emph{function} that turns an input into a prediction. It is
+      built from things you already have:\\[6pt]
+      a \textbf{linear step} --- multiply by a matrix, add a bias (Unit~1) --- and \emph{one} new
+      nonlinear step, the \textbf{ReLU} $=\max(0,x)$.
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.5]
+        \draw[->, charcoal, thin] (-2.2,0)--(2.5,0) node[right]{\scriptsize $x$};
+        \draw[->, charcoal, thin] (0,-0.5)--(0,2.6) node[above]{\scriptsize $\relu(x)$};
+        \draw[ultra thick, burgundy] (-2,0)--(0,0)--(2,2);
+        \fill[burgundy] (0,0) circle (1.6pt);
+        \node[charcoal] at (1.0,-0.9) {\scriptsize one fold at $0$};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{2pt}
+  \begin{block}{The question of Unit 8}
+    How do a matrix and one simple bend combine into a machine that \textbf{learns from data}?
+  \end{block}
+\end{frame}
+
+% RELU
+\begin{frame}[t, plain]
+  \burgundyheader{The one new ingredient: ReLU $=\max(0,x)$}
+  \sectionlabel[goldacc]{Definition}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item The \textbf{ReLU} keeps positives and replaces negatives with $0$:
+          \[ \relu(3)=3,\quad \relu(-2)=0,\quad \relu(0)=0. \]
+    \item As a graph it is one \textbf{fold} --- flat, then a line. Add and shift a few and their folds
+          combine into a \textbf{piecewise-linear} function that can \emph{bend} to fit data.
+    \item Example: $F(x)=\relu(x)-\relu(x-2)$ rises from $0$ to $2$ over $0\le x\le2$, then stays flat ---
+          two folds from two ReLUs.
+  \end{itemize}
+\end{frame}
+
+% ONE LAYER
+\begin{frame}[t, plain]
+  \burgundyheader{A learning function is a chain of matrix steps}
+  \sectionlabel{Skill}
+  \begin{block}{One layer}
+    \[ \vv \;\longmapsto\; \relu(A\vv+\bb): \quad\text{linear step (Unit 1), then bend with ReLU.} \]
+  \end{block}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      With $A=\begin{bsmallmatrix} 1 & -1\\ 1 & 1 \end{bsmallmatrix}$, $\bb=\mathbf{0}$,
+      $\vv=\begin{bsmallmatrix} 1\\ 2 \end{bsmallmatrix}$:
+      \[ A\vv=\begin{bsmallmatrix} -1\\ 3 \end{bsmallmatrix},\qquad
+         \relu(A\vv)=\begin{bsmallmatrix} 0\\ 3 \end{bsmallmatrix}. \]
+      The ReLU zeroed the negative entry.
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \textbf{Matrix multiplication does the heavy lifting} in every layer. A network is mostly $A\vv$,
+      repeated, with a ReLU in between. The bias $\bb$ just shifts where each fold sits.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% HOW IT LEARNS + ROAD AHEAD
+\begin{frame}[t, plain]
+  \burgundyheader{How it learns --- and the road ahead}
+  \sectionlabel[goldacc]{Payoff}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item \textbf{Loss:} the Unit~4 sum of squared errors between predictions and targets. Predict
+          $3,5,4$ vs.\ targets $2,5,6$: loss $=1+0+4=5$.
+    \item \textbf{Learning $=$ gradient descent:} nudge the weights to roll the loss \emph{downhill}
+          (Lesson~8.3). The data's mean/variance/covariance describe its shape (Lesson~8.4).
+    \item \textbf{Why it matters:} a neural network is matrix multiplication (Unit~1) $+$ one bend (ReLU),
+          trained by least squares (Unit~4). \emph{No new machinery.}
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{The road ahead}
+    \textbf{8.1} piecewise-linear learning functions \;$\bullet$\; \textbf{8.2} convolutional neural nets
+    \;$\bullet$\; \textbf{8.3} minimizing loss by gradient descent \;$\bullet$\; \textbf{8.4} mean,
+    variance, covariance.
+  \end{block}
 \end{frame}
 
 \end{document}

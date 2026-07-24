@@ -2,6 +2,10 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\T}{^{\mathsf T}}
 
 % Part-divider strip
 \newcommand{\parthead}[1]{%
@@ -18,16 +22,106 @@
 \noindent\textbf{Instructions:} Show all work. No notes unless your teacher says so.
 
 % ======================================================================
-\parthead{Part A --- Vocabulary}
-% TODO: matching / fill-in vocabulary items for this unit.
+\parthead{Part A --- Vocabulary (8 pts)}
+Write the letter of the best description next to each term.
 
-\parthead{Part B --- Multiple Choice}
-% TODO: multiple-choice items (concept checks).
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=7pt, label=\arabic*.]
+  \item Characteristic equation \blank{1.2cm}
+  \item Positive definite matrix \blank{1.2cm}
+  \item Eigenvector \blank{1.2cm}
+  \item Spectral theorem \blank{1.2cm}
+  \item Eigenvalue \blank{1.2cm}
+  \item Diagonalizable matrix \blank{1.2cm}
+  \item Diagonalization \blank{1.2cm}
+  \item Symmetric matrix \blank{1.2cm}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.57\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=3pt]
+  \item[(A)] A nonzero vector $\xx$ whose direction is unchanged by $A$ --- $A\xx$ is just a multiple of $\xx$.
+  \item[(B)] The equation $\det(A-\lambda I)=0$, whose solutions are the eigenvalues.
+  \item[(C)] A matrix equal to its own transpose, $S=S\T$.
+  \item[(D)] Writing $A=X\Lambda X^{-1}$ with the eigenvectors in $X$ and the eigenvalues down $\Lambda$.
+  \item[(E)] The scalar $\lambda$ in $A\xx=\lambda\xx$: the factor by which its eigenvector is stretched.
+  \item[(F)] A symmetric matrix whose eigenvalues are all positive (its energy $\xx\T S\xx>0$).
+  \item[(G)] The guarantee that a symmetric matrix has real eigenvalues and perpendicular eigenvectors.
+  \item[(H)] A square matrix with enough ($n$) independent eigenvectors to fill the columns of $X$.
+\end{description}
+\end{minipage}
 
-\parthead{Part C --- Short Answer \& Computation}
-% TODO: computation items; leave \vspace work room after each.
+% ======================================================================
+\parthead{Part B --- Multiple Choice (12 pts)}
+Circle the best answer.
 
-\parthead{Part D --- Extended Response}
-% TODO: one or two interpret/justify items ("what does this mean, and how do you know?").
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item The number $\lambda$ in $A\xx=\lambda\xx$ is the
+    \hfill (A) eigenvalue \quad (B) eigenvector \quad (C) pivot \quad (D) trace
+  \item To find the eigenvalues of $A$ you solve
+    \hfill (A) $A=A\T$ \quad (B) $\det(A-\lambda I)=0$ \quad (C) $A\xx=\xx$ \quad (D) $\det A=1$
+  \item In $A=X\Lambda X^{-1}$, the diagonal of $\Lambda$ holds the
+    \hfill (A) pivots \quad (B) determinants \quad (C) eigenvalues \quad (D) traces
+  \item For a diagonalizable $A$, the power $A^k$ equals
+    \hfill (A) $X^k\Lambda X^{-1}$ \quad (B) $X\Lambda^k X^{-1}$ \quad (C) $X\Lambda X^{-k}$ \quad (D) $kX\Lambda X^{-1}$
+  \item If $A$ has a repeated eigenvalue but only one eigenvector direction, then $A$ is
+    \hfill (A) symmetric \quad (B) not diagonalizable \quad (C) orthogonal \quad (D) positive definite
+  \item For a symmetric matrix $S$, the diagonalization can be written
+    \hfill (A) $S=Q\Lambda Q\T$ with $Q$ orthogonal \quad (B) $S=Q^{-1}\Lambda Q$ \quad (C) it is impossible \quad (D) $S=\Lambda Q$
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (35 pts)}
+Show your work.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item Let $A=\begin{bsmallmatrix}4&1\\1&4\end{bsmallmatrix}$.
+        \textbf{(a)} Is $\xx=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ an eigenvector? If so, give its eigenvalue.
+        \textbf{(b)} Is $\yy=\begin{bsmallmatrix}1\\0\end{bsmallmatrix}$ an eigenvector? Explain how you can tell.
+        \vspace{2.2cm}
+  \item Find the eigenvalues of $B=\begin{bsmallmatrix}3&1\\2&2\end{bsmallmatrix}$ by writing and solving its
+        \textbf{characteristic equation} $\det(B-\lambda I)=0$.
+        \vspace{2.6cm}
+  \item For that same $B=\begin{bsmallmatrix}3&1\\2&2\end{bsmallmatrix}$, find an \textbf{eigenvector} for each
+        eigenvalue. Then check your eigenvalues with the \textbf{trace} and \textbf{determinant} of $B$.
+        \vspace{3.0cm}
+  \item Let $A=\begin{bsmallmatrix}3&1\\1&3\end{bsmallmatrix}$, whose eigenvalues are $\lambda=4,2$ with
+        eigenvectors $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ and $\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$.
+        Use $A^k=X\Lambda^k X^{-1}$ to compute $A^2$.
+        \vspace{3.0cm}
+  \item Decide whether each matrix is \textbf{diagonalizable}, and explain why:
+        \textbf{(a)} $P=\begin{bsmallmatrix}2&0\\1&2\end{bsmallmatrix}$; \quad
+        \textbf{(b)} $Q=\begin{bsmallmatrix}3&1\\1&3\end{bsmallmatrix}$.
+        \vspace{2.6cm}
+  \item Let $S=\begin{bsmallmatrix}4&1\\1&4\end{bsmallmatrix}$.
+        \textbf{(a)} Show $S$ is \textbf{positive definite} using the test $a>0$ and $ac-b^2>0$.
+        \textbf{(b)} Without computing them, explain why the eigenvectors of $S$ are perpendicular.
+        \vspace{2.4cm}
+  \item A system $\dfrac{d\uu}{dt}=A\uu$ has eigenvalues $\lambda_1=-1$, $\lambda_2=-3$ with eigenvectors
+        $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ and $\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$, and starting
+        vector $\uu(0)=\begin{bsmallmatrix}4\\2\end{bsmallmatrix}$.
+        \textbf{(a)} Write $\uu(0)=c_1\begin{bsmallmatrix}1\\1\end{bsmallmatrix}+c_2\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$.
+        \textbf{(b)} Write the general solution $\uu(t)$. \textbf{(c)} Does $\uu(t)\to\mathbf{0}$ (is it stable)? Explain.
+        \vspace{3.0cm}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (10 pts)}
+Explain your reasoning in full sentences.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=16pt]
+  \item To find eigenvalues we solve $\det(A-\lambda I)=0$.
+        \textbf{(a)} Starting from $A\xx=\lambda\xx$, explain why an eigenvalue makes the matrix $A-\lambda I$
+        \emph{singular}. \textbf{(b)} Explain why "singular" is exactly the same as "$\det(A-\lambda I)=0$", so
+        that solving that equation finds the eigenvalues.
+        \vspace{3.0cm}
+  \item \textbf{(a)} Once $A=X\Lambda X^{-1}$, explain why $A^k=X\Lambda^k X^{-1}$ --- and why that makes high
+        powers of $A$ easy to compute. \textbf{(b)} A matrix $S$ is symmetric. Explain why its eigenvectors are
+        automatically perpendicular, and why "all eigenvalues positive" guarantees $S$ is invertible.
+        \vspace{2.8cm}
+\end{enumerate}
 
 \end{document}

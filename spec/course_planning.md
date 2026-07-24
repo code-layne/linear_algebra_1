@@ -7,7 +7,34 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-24 — **Authored & built Unit 6 Lesson 6.4 — "Systems of Differential Equations" (Strang §6.4, advanced/optional).**
+**Last updated:** 2026-07-24 — **Authored & built the Unit 6 summative tests — Unit 6 is now complete.**
+Filled all four skeletons (`tests/practice_test`, `tests/actual_test`, `test_keys/practice_test_key`, `test_keys/actual_test_key`),
+mirroring the Unit 4/5 test format (`shared/tests.mk` + `test_keys.mk`; `\parthead` burgundy strips; Part A vocab matching / B
+multiple choice / C computation / D extended response; 8/12/35/10 pts). **Blueprint spans the whole unit §6.0–6.4:** A (8 terms —
+eigenvector, eigenvalue, characteristic equation, diagonalization, diagonalizable matrix, symmetric matrix, positive definite
+matrix, spectral theorem), B (6 MC concept checks — eigenvector def, $\det(A-\lambda I)=0$, triangular $\lambda$-on-diagonal,
+diagonalizable$\Leftrightarrow n$ indep eigenvectors, symmetric$\Rightarrow\perp$ eigenvectors, $2\times2$ posdef test
+$a>0$&$ac-b^2>0$; actual variant: $\lambda$ def, char eq, $\Lambda$ holds $\lambda$'s, $A^k=X\Lambda^kX^{-1}$, repeated-eigenvalue
+$\Rightarrow$ not diagonalizable, $S=Q\Lambda Q^{\T}$), C (7 items — eigenvector test + eigenvalue 6.0; char eq $\to$ eigenvalues
+6.1; eigenvectors + trace/det check 6.1; power $A^2=X\Lambda^2X^{-1}$ 6.2; diagonalizable-or-not repeated-vs-distinct 6.2; posdef
+test + $\perp$-from-symmetry 6.3; system $\frac{d\uu}{dt}=A\uu$ general solution + stability 6.4), D (2 items — why
+$\det(A-\lambda I)=0$ finds $\lambda$ via singular reasoning 6.1; why $A^k=X\Lambda^kX^{-1}$ (cancellation) + symmetric$\Rightarrow
+\perp$ & all-$\lambda>0\Rightarrow$ invertible 6.2/6.3). **Practice vs. actual use parallel-but-distinct numbers, all hand-verified
+in pure Python:** practice C1 $[[3,1],[1,3]]$ ($[1,1]\to\lambda4$); C2 $[[4,2],[1,3]]\to\lambda^2-7\lambda+10\to\lambda2,5$; C3
+eigvecs $[2,1],[1,-1]$, trace7/det10; C4 $[[2,1],[1,2]]\to A^2=[[5,4],[4,5]]$; C5 $[[3,0],[1,3]]$ no / $[[2,1],[1,2]]$ yes; C6
+$[[2,1],[1,2]]$ posdef $\det3$; C7 $\lambda3,-1$, $\uu(0)=[5,1]\to c_13,c_22$, $\uu=3e^{3t}[1,1]+2e^{-t}[1,-1]$, **not** stable
+(growing mode). actual C1 $[[4,1],[1,4]]$ ($\to\lambda5$); C2 $[[3,1],[2,2]]\to\lambda^2-5\lambda+4\to\lambda1,4$; C3 eigvecs
+$[1,1],[1,-2]$, trace5/det4; C4 $[[3,1],[1,3]]\to A^2=[[10,6],[6,10]]$; C5 $[[2,0],[1,2]]$ no / $[[3,1],[1,3]]$ yes; C6
+$[[4,1],[1,4]]$ posdef $\det15$; C7 $\lambda-1,-3$, $\uu(0)=[4,2]\to c_13,c_21$, $\uu=3e^{-t}[1,1]+e^{-3t}[1,-1]$, **stable**
+(both $\lambda<0$) — a deliberate stable/unstable contrast to the practice C7. Built `make -C unit06/tests all` and
+`make -C unit06/test_keys all` → **clean** (0 `^!`/file-line errors across all 4 logs; no `\ans`-in-math; no overfull >15pt). Page
+counts: practice test 3pp, actual test 3pp, practice key 3pp, actual key 2pp; `drop` published `sample_test/main.pdf` (practice, 3pp)
+and `sample_test_key/main.pdf` (practice key, 3pp). Visually spot-checked the practice key Part C/D page (all matrices, red answers,
+trace/det checkmark, differential-equation general solution, teachernote) — clean, no tofu. **Unit 6 is now fully complete (lessons
+6.0–6.4 + tests). This completes the core sequence Units 1–6.** Next run: begin the optional/advanced Units 7–8 if desired (confirm
+with the user), else the course core is done. Lessons 6.0–6.4 are the Unit 6 models; Unit 4/5/6 tests are the assessment-format model.
+
+**Prior run:** **Authored & built Unit 6 Lesson 6.4 — "Systems of Differential Equations" (Strang §6.4, advanced/optional).**
 Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides deck,
 mirroring Lesson 6.3's preamble/boxes/tone. **Content — the unit capstone: put eigenvalues in charge of \emph{time}.** (1) **One
 equation:** $\frac{du}{dt}=\lambda u\Rightarrow u(t)=u(0)e^{\lambda t}$ (the exponential is the function whose rate of change is a

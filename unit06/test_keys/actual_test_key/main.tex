@@ -2,6 +2,10 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\T}{^{\mathsf T}}
 
 % Part-divider strip
 \newcommand{\parthead}[1]{%
@@ -12,20 +16,144 @@
 \begin{document}
 
 \pageheader{Unit 6: Eigenvalues and Eigenvectors}{Unit Test --- Answer Key}
+\namedateperiod
 
-% Mirror the blank test EXACTLY, filling each answer with \ans{...} (inline) or
-% \ansline{...} (on a write-line). Use teachernote for scoring/teacher guidance.
+\vspace{0.06in}
+\noindent\textbf{Instructions:} Show all work. No notes unless your teacher says so.
+
 % ======================================================================
-\parthead{Part A --- Vocabulary}
-% TODO: answers via \ans{...}
+\parthead{Part A --- Vocabulary (8 pts)}
+Write the letter of the best description next to each term.
 
-\parthead{Part B --- Multiple Choice}
-% TODO: mark correct options, e.g. \textcolor{keyred}{\textbf{$\leftarrow$ correct}}
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=7pt, label=\arabic*.]
+  \item Characteristic equation \ans{B}
+  \item Positive definite matrix \ans{F}
+  \item Eigenvector \ans{A}
+  \item Spectral theorem \ans{G}
+  \item Eigenvalue \ans{E}
+  \item Diagonalizable matrix \ans{H}
+  \item Diagonalization \ans{D}
+  \item Symmetric matrix \ans{C}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.57\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=3pt]
+  \item[(A)] A nonzero vector $\xx$ whose direction is unchanged by $A$ --- $A\xx$ is just a multiple of $\xx$.
+  \item[(B)] The equation $\det(A-\lambda I)=0$, whose solutions are the eigenvalues.
+  \item[(C)] A matrix equal to its own transpose, $S=S\T$.
+  \item[(D)] Writing $A=X\Lambda X^{-1}$ with the eigenvectors in $X$ and the eigenvalues down $\Lambda$.
+  \item[(E)] The scalar $\lambda$ in $A\xx=\lambda\xx$: the factor by which its eigenvector is stretched.
+  \item[(F)] A symmetric matrix whose eigenvalues are all positive (its energy $\xx\T S\xx>0$).
+  \item[(G)] The guarantee that a symmetric matrix has real eigenvalues and perpendicular eigenvectors.
+  \item[(H)] A square matrix with enough ($n$) independent eigenvectors to fill the columns of $X$.
+\end{description}
+\end{minipage}
 
-\parthead{Part C --- Short Answer \& Computation}
-% TODO: worked answers via \ans{...}
+% ======================================================================
+\parthead{Part B --- Multiple Choice (12 pts)}
+Circle the best answer.
 
-\parthead{Part D --- Extended Response}
-% TODO: sample response + scoring notes in a teachernote.
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item The number $\lambda$ in $A\xx=\lambda\xx$ is the
+    \hfill \textbf{(A) eigenvalue} \ans{$\leftarrow$} \quad (B) eigenvector \quad (C) pivot \quad (D) trace
+  \item To find the eigenvalues of $A$ you solve
+    \hfill (A) $A=A\T$ \quad \textbf{(B) $\det(A-\lambda I)=0$} \ans{$\leftarrow$} \quad (C) $A\xx=\xx$ \quad (D) $\det A=1$
+  \item In $A=X\Lambda X^{-1}$, the diagonal of $\Lambda$ holds the
+    \hfill (A) pivots \quad (B) determinants \quad \textbf{(C) eigenvalues} \ans{$\leftarrow$} \quad (D) traces
+  \item For a diagonalizable $A$, the power $A^k$ equals
+    \hfill (A) $X^k\Lambda X^{-1}$ \quad \textbf{(B) $X\Lambda^k X^{-1}$} \ans{$\leftarrow$} \quad (C) $X\Lambda X^{-k}$ \quad (D) $kX\Lambda X^{-1}$
+  \item If $A$ has a repeated eigenvalue but only one eigenvector direction, then $A$ is
+    \hfill (A) symmetric \quad \textbf{(B) not diagonalizable} \ans{$\leftarrow$} \quad (C) orthogonal \quad (D) positive definite
+  \item For a symmetric matrix $S$, the diagonalization can be written
+    \hfill \textbf{(A) $S=Q\Lambda Q\T$ with $Q$ orthogonal} \ans{$\leftarrow$} \quad (B) $S=Q^{-1}\Lambda Q$ \quad (C) it is impossible \quad (D) $S=\Lambda Q$
+\end{enumerate}
+
+\begin{teachernote}
+Item 1: $\lambda$ is the eigenvalue (the stretch factor); the vector $\xx$ is the eigenvector. Item 2: solve the
+characteristic equation $\det(A-\lambda I)=0$. Item 3: $\Lambda$ carries the eigenvalues on its diagonal.
+Item 4: $A^k=X\Lambda^k X^{-1}$ (only the $\lambda$'s get the power). Item 5: a repeated eigenvalue short one
+eigenvector direction $\Rightarrow$ not diagonalizable. Item 6: symmetric $\Rightarrow S=Q\Lambda Q\T$ with
+$Q$ orthogonal, so $Q^{-1}=Q\T$ and the usual $X^{-1}$ becomes a free transpose (Lesson~6.3).
+\end{teachernote}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (35 pts)}
+Show your work.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
+  \item Eigenvector test for $A=\begin{bsmallmatrix}4&1\\1&4\end{bsmallmatrix}$.
+        \ans{\textbf{(a)} $A\begin{bsmallmatrix}1\\1\end{bsmallmatrix}=\begin{bsmallmatrix}5\\5\end{bsmallmatrix}
+        =5\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ --- yes, $\xx$ is an eigenvector with eigenvalue
+        $\lambda=5$. \textbf{(b)} $A\begin{bsmallmatrix}1\\0\end{bsmallmatrix}=\begin{bsmallmatrix}4\\1\end{bsmallmatrix}$,
+        which is \emph{not} a multiple of $\begin{bsmallmatrix}1\\0\end{bsmallmatrix}$ (the direction changed), so
+        $\yy$ is \textbf{not} an eigenvector.}
+  \item Eigenvalues of $B=\begin{bsmallmatrix}3&1\\2&2\end{bsmallmatrix}$ by the characteristic equation.
+        \ans{$\det(B-\lambda I)=\det\begin{bsmallmatrix}3-\lambda&1\\2&2-\lambda\end{bsmallmatrix}
+        =(3-\lambda)(2-\lambda)-2=\lambda^2-5\lambda+4=(\lambda-1)(\lambda-4)=0$, so
+        $\lambda=1$ and $\lambda=4$.}
+  \item Eigenvectors of $B=\begin{bsmallmatrix}3&1\\2&2\end{bsmallmatrix}$ + trace/det check.
+        \ans{$\lambda=4$: $B-4I=\begin{bsmallmatrix}-1&1\\2&-2\end{bsmallmatrix}$, so
+        $\xx=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$. \quad
+        $\lambda=1$: $B-I=\begin{bsmallmatrix}2&1\\2&1\end{bsmallmatrix}$, so
+        $\xx=\begin{bsmallmatrix}1\\-2\end{bsmallmatrix}$.
+        \textbf{Check:} trace $=3+2=5=4+1$ (sum of $\lambda$'s); $\det B=6-2=4=4\cdot1$ (product). \checkmark}
+  \item Compute $A^2$ for $A=\begin{bsmallmatrix}3&1\\1&3\end{bsmallmatrix}$ using $A^2=X\Lambda^2X^{-1}$.
+        \ans{$X=\begin{bsmallmatrix}1&1\\1&-1\end{bsmallmatrix}$, $\Lambda=\begin{bsmallmatrix}4&0\\0&2\end{bsmallmatrix}$,
+        $X^{-1}=\begin{bsmallmatrix}1/2&1/2\\1/2&-1/2\end{bsmallmatrix}$. Then $\Lambda^2=\begin{bsmallmatrix}16&0\\0&4\end{bsmallmatrix}$,
+        and $A^2=X\Lambda^2X^{-1}=\begin{bsmallmatrix}10&6\\6&10\end{bsmallmatrix}$
+        (matches squaring $A$ directly). Only the $\lambda$'s were raised to the power.}
+  \item Diagonalizable or not?
+        \ans{\textbf{(a)} $P=\begin{bsmallmatrix}2&0\\1&2\end{bsmallmatrix}$ is triangular, so $\lambda=2,2$
+        (repeated). $P-2I=\begin{bsmallmatrix}0&0\\1&0\end{bsmallmatrix}$ gives only \emph{one} eigenvector
+        direction $\begin{bsmallmatrix}0\\1\end{bsmallmatrix}$ --- not enough to fill $X$, so $P$ is
+        \textbf{not diagonalizable}. \textbf{(b)} $Q=\begin{bsmallmatrix}3&1\\1&3\end{bsmallmatrix}$ has
+        \emph{distinct} eigenvalues $\lambda=4,2$, so it has two independent eigenvectors and \textbf{is
+        diagonalizable}.}
+  \item Positive definiteness of $S=\begin{bsmallmatrix}4&1\\1&4\end{bsmallmatrix}$.
+        \ans{\textbf{(a)} $a=4>0$ and $ac-b^2=(4)(4)-1^2=15>0$, so $S$ is \textbf{positive definite}
+        (both eigenvalues $\lambda=5,3$ are positive). \textbf{(b)} $S$ is symmetric ($S=S\T$), and by the
+        spectral theorem a symmetric matrix always has \textbf{perpendicular} eigenvectors --- no computation
+        needed.}
+  \item System $\dfrac{d\uu}{dt}=A\uu$, $\lambda_1=-1,\lambda_2=-3$, $\uu(0)=\begin{bsmallmatrix}4\\2\end{bsmallmatrix}$.
+        \ans{\textbf{(a)} $c_1+c_2=4$ and $c_1-c_2=2\Rightarrow c_1=3,\ c_2=1$. \textbf{(b)}
+        $\uu(t)=3e^{-t}\begin{bsmallmatrix}1\\1\end{bsmallmatrix}+e^{-3t}\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$.
+        \textbf{(c)} \textbf{Stable}: both eigenvalues are negative, so $e^{-t}\to0$ and $e^{-3t}\to0$; therefore
+        $\uu(t)\to\mathbf{0}$ (the $e^{-3t}$ mode dies fastest).}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (10 pts)}
+Explain your reasoning in full sentences.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item Why $\det(A-\lambda I)=0$ finds the eigenvalues.
+        \ans{\textbf{(a)} Rewrite $A\xx=\lambda\xx$ as $A\xx-\lambda\xx=\mathbf{0}$, i.e.
+        $(A-\lambda I)\xx=\mathbf{0}$. For $\lambda$ to be an eigenvalue there must be a \emph{nonzero} $\xx$ that
+        $A-\lambda I$ sends to $\mathbf{0}$. A matrix that crushes a nonzero vector to $\mathbf{0}$ has a nontrivial
+        nullspace, so it is \textbf{singular} (not invertible). \textbf{(b)} A square matrix is singular exactly
+        when its determinant is $0$ (Unit~5). So the eigenvalues are precisely the numbers $\lambda$ making
+        $\det(A-\lambda I)=0$ --- solving that one equation hands us every eigenvalue.}
+  \item Powers by diagonalization; symmetric matrices.
+        \ans{\textbf{(a)} $A^2=(X\Lambda X^{-1})(X\Lambda X^{-1})=X\Lambda(X^{-1}X)\Lambda X^{-1}=X\Lambda^2X^{-1}$,
+        because the inner $X^{-1}X=I$ cancels; repeating gives $A^k=X\Lambda^k X^{-1}$. This is easy because
+        $\Lambda$ is diagonal, so $\Lambda^k$ just raises each eigenvalue to the $k$ --- no repeated matrix
+        multiplication. \textbf{(b)} By the spectral theorem, a symmetric matrix $S=S\T$ has real eigenvalues and
+        eigenvectors that are automatically \textbf{perpendicular}. If in addition every eigenvalue is positive,
+        then none is $0$; since $\det S$ is the product of the eigenvalues, $\det S\ne0$, so $S$ is
+        \textbf{invertible}.}
+\end{enumerate}
+
+\begin{teachernote}
+\textbf{Scoring Part D (5 pts each).} D1: 3 pts (a) $(A-\lambda I)\xx=\mathbf{0}$ with $\xx\ne\mathbf{0}$
+$\Rightarrow$ $A-\lambda I$ singular; 2 pts (b) singular $\Leftrightarrow\det=0$, so solve $\det(A-\lambda I)=0$.
+D2: 3 pts (a) the $X^{-1}X$ cancellation gives $A^k=X\Lambda^k X^{-1}$, easy since $\Lambda^k$ raises the
+$\lambda$'s; 2 pts (b) symmetric $\Rightarrow$ perpendicular eigenvectors (spectral theorem), all $\lambda>0
+\Rightarrow\det=\prod\lambda\ne0\Rightarrow$ invertible. Accept equivalent wording throughout.
+\end{teachernote}
 
 \end{document}

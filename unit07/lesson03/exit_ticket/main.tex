@@ -3,6 +3,10 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
@@ -11,9 +15,16 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+No notes. Show your reasoning. A data set of four points has already been \textbf{centered}:
+$(2,3),(3,2),(-2,-3),(-3,-2)$. Stacked as the rows of $A$, they give
+$A\T A=\begin{bmatrix} 26 & 24\\ 24 & 26 \end{bmatrix}$.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=15pt]
+  \item \textbf{Find the principal components.} Solve $\det(A\T A-\lambda I)=0$ for $\lambda_1,\lambda_2$, then find PC1 (the unit eigenvector for the larger $\lambda$).
+        \vspace{1.9cm}
+  \item \textbf{How much spread on PC1?} The spread along a component is $\sigma^2=\lambda$. What fraction of the total spread does PC1 capture? Is summarizing each point by its PC1 coordinate a good idea here?
+        \vspace{1.9cm}
+  \item \textbf{Explain.} (a) Why do we \emph{center} the data before finding principal components? (b) What does keeping only PC1 let us do with the data? \writelines{2}
+\end{enumerate}
 
 \end{document}

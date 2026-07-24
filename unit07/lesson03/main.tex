@@ -5,6 +5,9 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\T}{^{\top}}
 \newcommand{\UnitNumberName}{Unit 7: The Singular Value Decomposition \quad}
 \newcommand{\LessonNumberName}{Lesson 7.3: Principal Component Analysis}
 
@@ -16,55 +19,160 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can run the ``keep the biggest $\sigma$'' idea on \emph{data}
+    instead of pixels. Given a small table of data, they \textbf{center} it (subtract each column's mean),
+    form the symmetric matrix $A\T A$, and read its eigenvectors as the \textbf{principal components} ---
+    the perpendicular directions of greatest spread, biggest first. They can interpret the first principal
+    component as the best-fit direction through the data cloud, measure the fraction of the spread it
+    captures ($\sigma_1^2/(\sigma_1^2+\sigma_2^2)$), and justify why keeping the top few components
+    summarizes the data in far fewer numbers.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Center a data table: subtract each column's mean.
+  \item Form $A\T A$ from the centered data (entries are column dot products).
+  \item Read the eigenvectors of $A\T A$ as the principal components $\vv_1\perp\vv_2$.
+  \item Measure the spread captured, $\sigma_1^2/(\sigma_1^2+\sigma_2^2)$, and interpret PC1.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Centering moves the data cloud to the origin so directions are about spread, not location.
+  \item $A\T A$ is symmetric, so its eigenvectors are perpendicular --- the natural axes of the cloud.
+  \item The biggest $\sigma$ points along the direction the data spreads the most.
+  \item Keeping the top components is the SVD's ``keep the biggest'' idea applied to data.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Centered data} & A data table with each column's mean subtracted, so the cloud is centered at the origin. \\
+\textbf{Principal component} & A singular direction of the centered data --- an eigenvector of $A\T A$; the perpendicular directions the data spreads along, biggest first. \\
+\textbf{PC1 (first principal component)} & The direction of \emph{greatest} spread; the best-fit line through the data cloud. \\
+\textbf{Spread (variance) along a direction} & The total squared distance of the data along that direction; along a principal direction it equals $\sigma^2$ (the eigenvalue of $A\T A$). \\
+\textbf{Dimension reduction} & Summarizing each data point by its few top-component coordinates instead of all its features. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up performs the three set-up moves of today's lesson on \emph{today's} data table, so the
+    Warm-Up answers become the opening of the notes: \textbf{(1)} \emph{center} the data --- find each
+    column's mean $(4,4)$ and subtract (Unit~1); \textbf{(2)} form $A\T A$ from the centered data (column
+    dot products, Unit~1 / Lesson~7.1) to get the symmetric $\begin{bsmallmatrix} 10 & 8\\ 8 & 10 \end{bsmallmatrix}$;
+    and \textbf{(3)} find its eigenvalues by $\det(A\T A-\lambda I)=0$ (Unit~6 / Lesson~7.1) --- $\lambda=18,2$,
+    so $\sigma^2=18,2$ and the top direction captures $\tfrac{18}{20}=90\%$ of the spread.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Put up a tall, skinny scatter of dots: four students, each with a \emph{quiz~1} score and a \emph{quiz~2}
+    score. The cloud leans along a diagonal --- students who did well on one did well on the other. Ask:
+    \textbf{``If you had to describe each student with a \emph{single} number instead of two, what one
+    direction would you measure along --- and how much would you lose?''} That single best direction is the
+    \textbf{first principal component}, and it is found exactly the way Lesson~7.2 compressed an image: keep
+    the biggest singular value. PCA is ``keep the biggest $\sigma$'' applied to data --- it finds the few
+    directions that carry most of the information and throws the rest away.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{Step 0 --- center the data.} Write the data as a matrix $A$ (one row per data point, one column per
+feature). Subtract each column's mean so the cloud sits at the origin --- now directions describe how the
+data \emph{spreads}, not where it sits.
+
+\textbf{Step 1 --- form $A\T A$.} This symmetric matrix collects the spreads and overlaps of the columns.
+Because it is symmetric (Lesson~7.1), its eigenvectors are \emph{perpendicular} --- the natural axes of the
+cloud.
+
+\textbf{Step 2 --- the principal components.} The eigenvectors of $A\T A$ are the \textbf{principal
+components} $\vv_1\perp\vv_2$; the eigenvalues are $\sigma^2$, the spread along each. Order them biggest
+first: $\vv_1$ is the direction of greatest spread.
+
+\columnbreak
+
+\textbf{Worked spine} (quiz scores). Raw $(5,6),(6,5),$ $(3,2),(2,3)$; means $(4,4)$; centered
+$(1,2),(2,1),$ $(-1,-2),(-2,-1)$. Then $A\T A=\begin{bsmallmatrix} 10 & 8\\ 8 & 10 \end{bsmallmatrix}$,
+$\lambda=18,2$, so $\vv_1=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$ (PC1),
+$\vv_2=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}$ (PC2).
+
+\textbf{Read the result.} PC1 keeps $\tfrac{18}{20}=90\%$ of the spread; it is the ``overall score''
+axis (both quizzes rise together). PC2 --- ``which quiz you did better on'' --- holds only $10\%$. Summarize
+each student by their PC1 coordinate alone: two numbers become one, losing just $10\%$.
+\end{multicols}
+\end{skillbox}
+
+\begin{skillbox}[Explicit Instruction: Center, Form $A\T A$, Read the Components]{blush}
+\begin{tabularx}{\linewidth}{@{}p{0.46\linewidth} X@{}}
+\textbf{Steps.}
+\begin{enumerate}[leftmargin=1.3em, nosep, after=\vspace{2pt}]
+  \item Center: subtract each column's mean.
+  \item Form $A\T A$ (column dot products).
+  \item Eigenvalues $\lambda_1\ge\lambda_2$; $\sigma_i=\sqrt{\lambda_i}$.
+  \item Eigenvectors $=$ principal components $\vv_1,\vv_2$.
+  \item Fraction of spread on PC1 $=\dfrac{\sigma_1^2}{\sigma_1^2+\sigma_2^2}$.
+\end{enumerate}
+&
+\textbf{Worked} (centered $(1,2),(2,1),(-1,-2),(-2,-1)$).
+$A\T A=\begin{bsmallmatrix} 10 & 8\\ 8 & 10 \end{bsmallmatrix}$, $\lambda=18,2$.
+$\vv_1=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$,
+$\vv_2=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}$.
+PC1 spread fraction $=18/20=90\%$.
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item forgetting to \emph{center} first (using the raw data --- then PC1 just points at the mean, not the spread);
+  \item subtracting the wrong mean (each column has its own mean);
+  \item forgetting to \emph{square} the singular values when computing the spread fraction;
+  \item confusing a principal component (a \emph{direction}, a unit vector) with a data point.
+\end{itemize}
+Cold-call prompts: ``Why must we center before finding directions?'' ``Which eigenvector is PC1 --- how do
+you know?'' ``What does $\sigma_1^2$ measure about the cloud?'' ``What does PC1 \emph{mean} for these students?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Finding the principal components} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Center a small data table (subtract column means) and form $A\T A$ --- the two
+set-up moves, on the matrix Tier~A then analyzes.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Full PCA on a data table (centered $(1,3),(3,1),(-1,-3),(-3,-1)$): form
+$A\T A=\begin{bsmallmatrix} 20 & 12\\ 12 & 20 \end{bsmallmatrix}$, find $\lambda=32,8$, the components
+$\vv_1,\vv_2$, and the fraction on PC1 ($80\%$) --- then \emph{interpret} PC1.
+
+\columnbreak
+\textbf{Tier E --- Extension.} A $50\times4$ survey (four features): given the four eigenvalues
+$\sigma^2=60,25,10,5$, compute cumulative spread and choose the smallest number of components for $95\%$;
+\emph{justify} why centering and keeping the biggest $\sigma$ are the right moves.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): from the centered data $(2,3),(3,2),(-2,-3),(-3,-2)$, form
+$A\T A=\begin{bsmallmatrix} 26 & 24\\ 24 & 26 \end{bsmallmatrix}$, find the eigenvalues ($\lambda=50,2$) and
+PC1 ($\vv_1=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$), compute the fraction of spread PC1
+keeps ($50/52\approx96\%$), and answer a \textbf{conceptual/justification check} --- why center first, and
+why keeping PC1 is a good summary. Sort into ``got it / arithmetic slip / concept slip'' to decide whether
+7.4 opens with a re-cap.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} center a data table and form $A\T A$; a full PCA on
+$\begin{bsmallmatrix} 34 & 16\\ 16 & 34 \end{bsmallmatrix}$ (from centered $(1,4),(4,1),(-1,-4),(-4,-1)$;
+$\lambda=50,18$, PC1 keeps $\approx74\%$ --- a case that needs \emph{two} components); a data set already on a
+line ($\sigma_2=0$, one component is exact); justifications (why center, why biggest $\sigma$).
+\textbf{Extension:} a four-feature spread spectrum ($\sigma^2=60,25,10,5$) --- cumulative percentages and the
+smallest $k$ for $95\%$. \textbf{Preview:} Lesson~7.4, \emph{The Victory of Orthogonality} --- why
+perpendicular directions make all of this work.
 \end{skillbox}
 \end{document}

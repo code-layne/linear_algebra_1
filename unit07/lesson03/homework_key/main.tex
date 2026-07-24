@@ -3,17 +3,81 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.3}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+\textbf{Principal Component Analysis.} \textbf{Center} the data (subtract each column's mean), form the
+symmetric $A\T A$, and take its eigenvectors --- the \textbf{principal components} $\vv_1\perp\vv_2$, biggest
+$\sigma$ first. The eigenvalue $\sigma^2$ is the spread along each direction; the fraction
+$\sigma_1^2/(\sigma_1^2+\sigma_2^2)$ is PC1's share of the spread.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item \textbf{Center and set up.} Four data points are $(6,5),(5,6),(2,3),(3,2)$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=3pt]
+      \item Find each column's mean and write the centered points.
+      \item Stack them as the rows of $A$ and compute $A\T A$.
+    \end{enumerate}
+    \ansline{(a) Each column has mean $4$; centered points $(2,1),(1,2),(-2,-1),(-1,-2)$.}
+    \ansline{(b) Columns $(2,1,-2,-1)$ and $(1,2,-1,-2)$: $A\T A=\begin{bsmallmatrix} 10 & 8\\ 8 & 10 \end{bsmallmatrix}$.}
+  \item \textbf{Full PCA.} A data set has centered points $(1,4),(4,1),(-1,-4),(-4,-1)$, giving
+        $A\T A=\begin{bsmallmatrix} 34 & 16\\ 16 & 34 \end{bsmallmatrix}$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=3pt]
+      \item Find the eigenvalues $\lambda_1,\lambda_2$ and the principal components PC1, PC2 (unit vectors).
+      \item What fraction of the total spread does PC1 capture? Would \emph{one} component be enough to summarize this data well? Explain.
+    \end{enumerate}
+    \ansline{(a) $(34-\lambda)^2-256=\lambda^2-68\lambda+900=0\Rightarrow\lambda=50,18$. PC1 $=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$ ($\lambda=50$), PC2 $=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}$ ($\lambda=18$).}
+    \ansline{(b) $50/(50+18)=50/68\approx74\%$. \emph{Not really} --- PC1 keeps only about $74\%$, so a full $26\%$ of the spread lives on PC2; one component loses too much, and you would keep both here.}
+  \item \textbf{Data on a line.} A data set has centered points $(3,3),(1,1),(-1,-1),(-3,-3)$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=3pt]
+      \item Form $A\T A$ and find its eigenvalues. What is $\sigma_2$?
+      \item How many principal components describe this data \emph{exactly}? What does that mean geometrically?
+    \end{enumerate}
+    \ansline{(a) $A\T A=\begin{bsmallmatrix} 20 & 20\\ 20 & 20 \end{bsmallmatrix}$; $\lambda=40,0$, so $\sigma_2=0$.}
+    \ansline{(b) \emph{One} component is exact: all the spread is on PC1. Geometrically the points lie on a single line (here $y=x$), so one direction describes them perfectly.}
+  \item \textbf{Justify.} Explain (i) why we \emph{center} the data before finding principal components, and (ii) why we keep the components with the \emph{largest} singular values.
+        \ansline{(i) Centering moves the cloud to the origin so the eigenvectors of $A\T A$ describe how the data \emph{spreads}, not where its mean sits (un-centered, the top direction just points at the mean). (ii) Each component's spread is $\sigma^2$; the biggest $\sigma$'s carry the most spread, so keeping them loses the least while replacing many features with a few numbers.}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Choosing how many components to keep.} A data set with $4$ features, after centering, has spreads
+(the eigenvalues of $A\T A$) $\sigma^2=90,\ 6,\ 3,\ 1$ along its four principal components.
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+  \item Find the total spread $\sigma_1^2+\sigma_2^2+\sigma_3^2+\sigma_4^2$.
+  \item Find the running (cumulative) percentage captured by the first $1$, $2$, $3$, and $4$ components.
+  \item What is the smallest number of components that captures at least $95\%$? At least $99\%$?
+\end{enumerate}
+\ansline{(a) $90+6+3+1=100$.}
+\ansline{(b) $90/100=90\%$; $96/100=96\%$; $99/100=99\%$; $100/100=100\%$.}
+\ansline{(c) $2$ components for $\ge95\%$ ($96\%$); $3$ components for $\ge99\%$ ($99\%$). Two of four features already carry almost everything.}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 7.4: The Victory of Orthogonality.} Perpendicular directions have quietly made
+every SVD result work --- the singular vectors, image compression, and now PCA. Next we celebrate why
+orthogonality is the idea behind all of it.
+\end{spiralbox}
+
+\begin{teachernote}
+Item~1 drills the two set-up moves (center; form $A\T A$) --- the same clean spine as the notes. Item~2 is the
+core full PCA, and it is deliberately a $74\%$ case: PC1 alone is \emph{not} enough, so students should
+conclude you keep both components (a healthy contrast to the $90$--$96\%$ examples). Item~3 is the degenerate
+$\sigma_2=0$ case --- data on a line, one component exact --- the PCA analogue of a rank-1 image. Item~4 is the
+target justification (center first; keep the biggest $\sigma$). The extension is a $4$-feature ``cumulative
+spread'' calculation: $2$ components for $95\%$, $3$ for $99\%$, previewing how PCA reduces high-dimensional
+data. Common slips: skipping the centering step; taking the eigenvector of the \emph{smaller} $\lambda$ for
+PC1; forgetting to \emph{square} $\sigma$ for the spread fraction.
+\end{teachernote}
 
 \end{document}

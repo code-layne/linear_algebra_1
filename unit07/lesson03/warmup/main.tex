@@ -3,17 +3,46 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.3}{Warm-Up}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Warm-Up. See references/components.md for the expected structure.
-\begin{notesbox}{Warm-Up}
-\writelines{4}
+\begin{notesbox}{Getting Ready: the Set-Up Moves of Today's Idea}
+\small These three quick skills --- centering data, forming $A\T A$, and finding its eigenvalues --- \emph{are}
+the opening moves of today's lesson. We use today's data: four students, each with a \textbf{quiz~1} and a
+\textbf{quiz~2} score: $(5,6),\ (6,5),\ (3,2),\ (2,3)$.
+
+\vspace{4pt}
+\textbf{1. Center the data (Unit 1).} Find the mean of each column (each quiz), then subtract it from every
+entry so the data is centered at $(0,0)$.
+\[
+  \text{mean of quiz 1}=\blank{1.0cm},\qquad \text{mean of quiz 2}=\blank{1.0cm}.
+\]
+\[
+  \text{centered points: } (\blank{0.7cm},\blank{0.7cm}),\ (\blank{0.7cm},\blank{0.7cm}),\
+  (\blank{0.7cm},\blank{0.7cm}),\ (\blank{0.7cm},\blank{0.7cm}).
+\]
+
+\textbf{2. Form $A\T A$ (Unit 1 \& Lesson 7.1).} Stack the centered points as the rows of $A$. Each entry of
+$A\T A$ is a dot product of two columns of $A$:
+\[
+  A=\begin{bmatrix} 1 & 2\\ 2 & 1\\ -1 & -2\\ -2 & -1 \end{bmatrix},\qquad
+  A\T A=\begin{bmatrix}\rule{0pt}{1.1em}\blank{0.9cm} & \blank{0.9cm}\\[2pt]\blank{0.9cm} & \blank{0.9cm}\end{bmatrix}.
+\]
+
+\textbf{3. Eigenvalues of the symmetric $A\T A$ (Unit 6 \& Lesson 7.1).} Solve $\det(A\T A-\lambda I)=0$:
+\[
+  (10-\lambda)^2-64=\lambda^2-20\lambda+36=0 \ \Rightarrow\ \lambda=\blank{1.1cm}\ \text{or}\ \blank{1.1cm}.
+\]
+The larger eigenvalue is the spread along the top direction. What fraction of the total spread is it?
+$\dfrac{\text{larger}}{\text{larger}+\text{smaller}}=\blank{1.4cm}$
 \end{notesbox}
 
 \end{document}

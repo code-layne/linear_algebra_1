@@ -3,17 +3,75 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.3}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Finding the principal components.} PCA on a data table: \textbf{center} it (subtract each
+column's mean), form the symmetric $A\T A$, and take its eigenvectors --- the \textbf{principal components}
+$\vv_1\perp\vv_2$, biggest $\sigma$ first. The eigenvalue $\sigma^2$ is the spread along each direction. Work
+with your partner, show every step, and \emph{justify} each answer.
+\end{headlinebox}
+
+\vspace{0.08in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Warm up the two set-up moves: center a data table, then form $A\T A$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Center.} Four data points are $(5,7),(7,5),(3,1),(1,3)$. Find each column's mean, then subtract to get the centered points.
+        \ansline{Each column has mean $4$. Centered points: $(1,3),(3,1),(-1,-3),(-3,-1)$.}
+  \item \textbf{Form $A\T A$.} Stack the centered points as the rows of $A$ and compute $A\T A=\ans{$\begin{bsmallmatrix} 20 & 12\\ 12 & 20 \end{bsmallmatrix}$}$. (You will meet this matrix again in Tier~A.)
+        \ansline{Columns are $(1,3,-1,-3)$ and $(3,1,-3,-1)$: $\,20=1{+}9{+}1{+}9$, $\,12=3{+}3{+}3{+}3$.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Run PCA on the data whose centered points are $(1,3),(3,1),(-1,-3),(-3,-1)$, giving
+$A\T A=\begin{bsmallmatrix} 20 & 12\\ 12 & 20 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Eigenvalues.} Solve $\det(A\T A-\lambda I)=0$ to find $\lambda_1,\lambda_2$, then $\sigma_1,\sigma_2$.
+        \ansline{$(20-\lambda)^2-144=\lambda^2-40\lambda+256=0\Rightarrow\lambda=32,8$; so $\sigma_1=\sqrt{32},\ \sigma_2=\sqrt8$.}
+  \item \textbf{Principal components.} Solve $(A\T A-\lambda I)\vv=\zero$ for each $\lambda$ to find PC1 and PC2 (as unit vectors).
+        \ansline{$\lambda=32$: $\begin{bsmallmatrix} -12 & 12\\ 12 & -12 \end{bsmallmatrix}\vv=\zero\Rightarrow\vv_1=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$ (PC1). $\lambda=8$: $\vv_2=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}$ (PC2).}
+  \item \textbf{How much spread on PC1? (justify)} Compute the fraction $\sigma_1^2/(\sigma_1^2+\sigma_2^2)$. Would summarizing each point by its PC1 coordinate alone be a good idea here --- why or why not?
+        \ansline{$32/(32+8)=32/40=80\%$. Fairly good: PC1 captures $80\%$ of the spread, so one number per point keeps most of the story --- but $20\%$ lives on PC2, so more is lost here than in the $90\%$ notes example.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Choosing how many components to keep.} A survey of $50$ people records $4$ features per person. After
+centering and forming $A\T A$, the four eigenvalues (the spread along each principal component) are
+$\sigma^2=60,\ 25,\ 10,\ 5$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Total spread.} Add the four eigenvalues. \ans{$60+25+10+5=100$.}
+  \item \textbf{Cumulative.} What percent of the total spread do the first $1$, $2$, and $3$ components capture?
+        \ansline{$60/100=60\%$; $85/100=85\%$; $95/100=95\%$.}
+  \item \textbf{Choose \& justify.} What is the smallest number of components that captures at least $95\%$? Then explain, in one sentence each, why we \emph{center} first and why we keep the \emph{largest}-$\sigma$ components.
+        \ansline{\textbf{3} components reach $95\%$ (replacing $4$ features with $3$). \emph{Center:} so the directions describe spread, not the location of the mean. \emph{Largest $\sigma$:} those directions carry the most spread ($\sigma^2$), so keeping them loses the least information.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~R isolates the two set-up moves: centering (each column mean is $4$) and forming $A\T A$; item~2 builds
+exactly the Tier~A matrix. Tier~A is the heart --- the full Lesson~7.1 recipe used as PCA: eigenvalues
+$\lambda=32,8$, components $\tfrac1{\sqrt2}(1,\pm1)$, and the spread fraction $80\%$ (a notch below the notes'
+$90\%$, so PC2 matters a bit more here). Tier~E is the ``how many components'' decision on a $4$-feature data
+set: cumulative spread $60\%,85\%,95\%$, so $3$ components suffice for $95\%$ --- plus the two justifications
+(center first; keep the biggest $\sigma$). If time is short, Tier~A is the must-do. Watch for skipping the
+centering step, and for forgetting to \emph{square} $\sigma$ when computing the spread fraction.
+\end{teachernote}
 
 \end{document}

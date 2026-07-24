@@ -9,11 +9,41 @@
 \pageheader{Unit 6, Lesson 6.1}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: The Three Moves We'll Use Today}
+\small Yesterday you \emph{tested} vectors you were handed. Today we \emph{find} the special
+directions ourselves --- and these three moves are the whole method. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Subtract $\lambda$ down the diagonal.} For $A=\begin{bmatrix} 4 & 1 \\ 2 & 3 \end{bmatrix}$,
+write the matrix $A-\lambda I$ (subtract the unknown $\lambda$ from each diagonal entry):
+\[
+  A-\lambda I=\begin{bmatrix}{\color{keyred}\mathbf{4-\lambda}} & {\color{keyred}\mathbf{1}}\\[3pt]{\color{keyred}\mathbf{2}} & {\color{keyred}\mathbf{3-\lambda}}\end{bmatrix}.
+\]
+
+\vspace{4pt}
+\textbf{2. The $2\times2$ determinant (Unit 5).} Recall $\det\begin{bsmallmatrix} a & b \\ c & d
+\end{bsmallmatrix}=ad-bc$. Compute
+\[
+  \det\begin{bmatrix} 4 & 1 \\ 2 & 3 \end{bmatrix} = {\color{keyred}\mathbf{(4)(3)-(1)(2)=10}}.
+\]
+
+\vspace{4pt}
+\textbf{3. Solve a quadratic (factor).} Find both values of $\lambda$ that make this true:
+\[
+  \lambda^2-5\lambda+6=0 \qquad\Longrightarrow\qquad \lambda={\color{keyred}\mathbf{2}}\ \text{ or }\ \lambda={\color{keyred}\mathbf{3}}.
+\]
 \end{notesbox}
+
+\begin{teachernote}
+These three moves \emph{are} today's method for finding eigenvalues, in order:
+\textbf{(1)} form $A-\lambda I$ (subtract $\lambda$ from the diagonal), \textbf{(2)} take its
+$2\times2$ determinant, and \textbf{(3)} set that determinant to $0$ and solve the quadratic ---
+its roots are the eigenvalues. Item~1 uses the same $A=\begin{bsmallmatrix}4&1\\2&3\end{bsmallmatrix}$
+students will meet again in the homework; item~2 is that determinant with $\lambda=0$; item~3 rehearses
+factoring $\lambda^2-5\lambda+6=(\lambda-2)(\lambda-3)$. Debrief all three quickly, then name the plan:
+``today we do exactly these three moves \emph{with a $\lambda$ inside.}''
+\end{teachernote}
 
 \end{document}

@@ -3,17 +3,68 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 6, Lesson 6.1}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Finding the Special Directions --- No Guessing.} The method is always two steps.
+\textbf{Step 1:} solve the characteristic equation $\det(A-\lambda I)=0$ for the \textbf{eigenvalues}
+$\lambda$. \textbf{Step 2:} for each $\lambda$, solve $(A-\lambda I)\xx=\zero$ for an
+\textbf{eigenvector}. Check with trace ($=\lambda_1+\lambda_2$) and determinant ($=\lambda_1\lambda_2$).
+Show every step with your partner.
+\end{headlinebox}
+
+\vspace{0.08in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Warm up each half-skill.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Diagonal matrix.} For $A=\begin{bsmallmatrix} 6 & 0\\ 0 & 2 \end{bsmallmatrix}$,
+        $\det(A-\lambda I)=(6-\lambda)(2-\lambda)$. The eigenvalues are $\lambda=\blank{1.0cm}$ and
+        $\lambda=\blank{1.0cm}$. An eigenvector for each is $\begin{bsmallmatrix}\blank{0.5cm}\\[1pt]\blank{0.5cm}\end{bsmallmatrix}$
+        and $\begin{bsmallmatrix}\blank{0.5cm}\\[1pt]\blank{0.5cm}\end{bsmallmatrix}$. \emph{What do you notice about the diagonal?} \writeline
+  \item \textbf{Full method (symmetric).} Let $A=\begin{bsmallmatrix} 4 & 1\\ 1 & 4 \end{bsmallmatrix}$.
+        Write $A-\lambda I$, compute $\det(A-\lambda I)$, and solve for both eigenvalues. \writelines{2}
+  \item Using your $\lambda$'s from problem~2, find an eigenvector for the \emph{larger} $\lambda$ by
+        solving $(A-\lambda I)\xx=\zero$. \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Run the full method, including the check.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{The whole job.} Let $A=\begin{bsmallmatrix} 4 & 2\\ 1 & 3 \end{bsmallmatrix}$.
+        \begin{enumerate}[label=(\alph*), leftmargin=1.7em, itemsep=3pt]
+          \item Find both eigenvalues from $\det(A-\lambda I)=0$.
+          \item Find an eigenvector for each $\lambda$.
+          \item \emph{Check:} does the sum of your $\lambda$'s equal the trace, and the product equal $\det A$?
+        \end{enumerate}
+        \writelines{3}
+  \item \textbf{A $\lambda=0$ matrix (recall §5).} Let $A=\begin{bsmallmatrix} 2 & 4\\ 1 & 2 \end{bsmallmatrix}$.
+        Find its eigenvalues. One of them is $0$ --- find the eigenvector for $\lambda=0$ (that is the
+        direction $A$ crushes). What does $\lambda=0$ tell you about $\det A$ and invertibility? \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{When there are \emph{no} special directions.} A $90^\circ$ rotation is
+$A=\begin{bsmallmatrix} 0 & -1\\ 1 & 0 \end{bsmallmatrix}$ (Lesson~5.3). It turns \emph{every} vector.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Write the characteristic equation $\det(A-\lambda I)=0$ and simplify it. \writeline
+  \item Try to solve it for a real number $\lambda$. What goes wrong? \writeline
+  \item Explain \emph{geometrically} why this matrix has no real eigenvector --- and connect that to
+        what a $90^\circ$ rotation does to arrows in the plane. \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

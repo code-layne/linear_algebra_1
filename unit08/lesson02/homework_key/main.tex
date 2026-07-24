@@ -3,17 +3,76 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.2}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+A \textbf{convolution} slides a small \textbf{filter} across a signal, taking a dot product at each spot. Written
+as a matrix, the filter's weights \textbf{repeat down the diagonals} --- the same few weights reused everywhere
+(\textbf{weight sharing}). A convolutional layer is $\relu(A\vv+\bb)$ with $A$ a convolution matrix.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Slide the edge filter.} Use $\ww=[-1,1]$ (output $=-v_i+v_{i+1}$). Give the output and say
+        where it fires (if anywhere).
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\vv=[4,4,4,4]$ \hfill \ans{output $=[0,0,0]$; never fires (the signal is flat)}
+      \item $\vv=[1,1,6,6]$ \hfill \ans{output $=[0,5,0]$; fires at spot $2$ (the edge $1\to6$)}
+    \end{enumerate}
+  \item \textbf{Smoothing filter.} Slide the averaging filter $\ww=\tfrac12[1,1]$
+        (output $=\tfrac{v_i+v_{i+1}}{2}$) across $\vv=[2,6,6,2]$. Give the output. How is its effect
+        different from the edge filter's? \ansline{Output $[\,4,\,6,\,4\,]$. The averaging filter \emph{smooths} (blurs) the signal --- it replaces sharp changes with gentler ones --- whereas the edge filter \emph{sharpens}, firing only at jumps.}
+  \item \textbf{Write it as a matrix.} For the filter $\ww=[-1,1]$ and a length-$4$ signal, write the
+        $3\times4$ convolution matrix $A$ (the two numbers slide over one step each row). Then compute
+        $A\vv$ for $\vv=[1,1,6,6]$. What do you notice about the weights in $A$? \ansline{$A=\begin{bsmallmatrix} -1 & 1 & 0 & 0\\ 0 & -1 & 1 & 0\\ 0 & 0 & -1 & 1 \end{bsmallmatrix}$, and $A\vv=[0,5,0]$. The same two numbers $-1,1$ repeat down the diagonals (shifted one step per row) --- only $2$ distinct weights, shared across the whole matrix.}
+  \item \textbf{Count the weights.} (a) For the $3\times4$ matrix in problem~3, how many separate weights
+        would a \emph{full} layer have, and how many does the convolution use? (b) A small $28\times28$ image
+        has $784$ pixels; a full layer to $784$ outputs uses $784^2=614{,}656$ weights. A $3\times3$ filter
+        uses how many? \ansline{(a) Full: $3\times4=12$ weights; convolution: $2$. (b) A $3\times3$ filter uses $9$ weights --- versus $614{,}656$ for the full layer.}
+  \item \textbf{Explain.} (a) Why does reusing one filter let a network detect the same pattern \emph{wherever}
+        it appears in the image? (b) In the layer $\relu(A\vv+\bb)$, how does a negative bias act like a
+        \emph{threshold} on the detector? \ansline{(a) The identical filter weights are applied at every position, so a pattern produces the same response no matter where it sits --- one detector covers all locations (translation invariance). (b) The bias subtracts a constant before the ReLU, so only responses \emph{above} that amount stay positive and survive; weaker ones become negative and are zeroed --- the bias sets how strong the pattern must be to ``count.''}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{One filter finds one pattern.}
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item A $5\times5$ filter has how many weights? Does that number grow when the image gets bigger? Why does
+        that matter for scanning a huge photo?
+  \item Apply the full detector $\relu(A\vv+\bb)$ with the edge filter $\ww=[-1,1]$ and bias $\bb=-3$ to
+        $\vv=[2,2,2,7,7]$. (First convolve, then add the bias, then ReLU.) Which spot survives, and what does
+        the surviving value tell you?
+\end{enumerate}
+\ansline{(a) $5\times5=25$ weights. It does \emph{not} grow with image size --- the same $25$ weights are reused everywhere --- so one small filter can scan an image of any size cheaply.}
+\ansline{(b) Convolve: $[2,2,2,7,7]\to[0,0,5,0]$. Add bias $-3$: $[-3,-3,2,-3]$. ReLU: $[0,0,2,0]$. Only the third spot survives; the value $2$ says the edge there was strong enough to clear the threshold ($5>3$), so the detector reports the pattern at that location.}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 8.3: Minimizing Loss by Gradient Descent.} We have built the pieces (layers,
+folds, filters); next we \emph{choose} the weights --- rolling ``downhill'' on the loss to make the network
+fit the data.
+\end{spiralbox}
+
+\begin{teachernote}
+Item~1 drills the slide-and-fire mechanic (flat $\to$ all zeros; a jump $\to$ a spike at the edge). Item~2
+contrasts the smoothing filter (blurs) with the edge filter (sharpens) --- same slide, opposite jobs. Item~3
+is the linear-algebra core: the convolution \emph{is} a matrix, but a constant-diagonal one with only $2$
+shared weights. Item~4 is the parameter-count payoff ($12$ vs.\ $2$; $614{,}656$ vs.\ $9$). Item~5 collects
+the two big ideas: weight sharing $=$ detect-anywhere, and the bias $=$ a detection threshold under the ReLU.
+The extension reinforces that filter size is fixed regardless of image size, and walks the full
+$\relu(A\vv+\bb)$ pipeline once more. Most common slips: sign/order in $-v_i+v_{i+1}$ (``next minus
+current''); writing a full matrix instead of the repeated diagonal; applying the bias \emph{after} the ReLU
+instead of before.
+\end{teachernote}
 
 \end{document}

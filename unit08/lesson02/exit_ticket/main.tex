@@ -3,6 +3,9 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
@@ -11,9 +14,19 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Slide the filter.} Slide $\ww=[-1,1]$ (output $=-v_i+v_{i+1}$) across $\vv=[2,2,7,7]$.
+        Give the output, and say at which spot it fires and what that spot is.
+        \vspace{1.6cm}
+  \item \textbf{Count the weights.} A full layer for a length-$8$ signal (eight outputs) would use $64$
+        weights. How many weights does a length-$3$ filter, reused everywhere, need? In one phrase, what is
+        that idea called?
+        \vspace{1.1cm}
+  \item \textbf{Explain.} In one sentence, why can a single small filter detect the same pattern no matter
+        \emph{where} in the image it appears?
+        \writelines{2}
+\end{enumerate}
 
 \end{document}

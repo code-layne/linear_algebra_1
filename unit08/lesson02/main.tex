@@ -5,6 +5,11 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\relu}{\mathrm{ReLU}}
 \newcommand{\UnitNumberName}{Unit 8: Learning from Data \quad}
 \newcommand{\LessonNumberName}{Lesson 8.2: Convolutional Neural Nets}
 
@@ -16,55 +21,155 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can \emph{convolve} --- slide a small \textbf{filter} across a signal,
+    taking a dot product at each spot --- and read the \textbf{feature map} to see where the filter
+    \emph{fires}. They can write a convolution as a matrix whose weights \emph{repeat down the diagonals} (a
+    shared-weight matrix) and count how many weights \textbf{weight sharing} saves. They can explain that a
+    convolutional layer is still $\relu(A\vv+\bb)$ --- only now $A$ reuses one filter everywhere --- so it
+    detects the same pattern \emph{wherever} it appears (translation invariance) with almost no weights.
+    \emph{(Unit~8 is optional enrichment --- explored, not formally assessed.)}
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Slide a \textbf{filter} across a signal; compute the dot product at each spot (the \textbf{feature map}).
+  \item Write the convolution as a \textbf{constant-diagonal matrix} $A\vv$; the filter's weights repeat.
+  \item Count weights: a full layer vs.\ a shared-weight filter (\textbf{weight sharing}).
+  \item Read a conv layer as $\relu(A\vv+\bb)$; the bias acts as a detection threshold.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item A pattern (an edge) looks the same everywhere, so one detector should be \emph{reused}, not relearned.
+  \item Reusing weights ties the matrix's entries together --- the same few numbers do the whole job.
+  \item A full image layer needs $\sim\!10^{12}$ weights; a small filter needs a handful --- small enough to learn.
+  \item One reused filter detects its pattern \emph{wherever} it sits (translation invariance).
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Filter (kernel)} & The small set of weights we slide across the input; a pattern-detector (e.g.\ the edge filter $[-1,1]$). \\
+\textbf{Convolution} & Slide the filter and take a dot product at each position; produces the output signal. \\
+\textbf{Feature map} & The output of a convolution; large where the filter's pattern is present. \\
+\textbf{Weight sharing} & The same filter weights are reused at every position --- a few weights for the whole layer. \\
+\textbf{Convolution matrix} & The matrix form: the filter's numbers repeat down the diagonals (constant-diagonal). \\
+\textbf{Conv layer $\relu(A\vv+\bb)$} & Same layer as before, but $A$ is a convolution matrix; the bias is a detection threshold. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three moves a convolution rests on: \textbf{(1)} the \textbf{dot product}
+    $[-1,1]\cdot[v_i,v_{i+1}]$ that the filter computes at each spot (Units~1 \& 4) --- $0$ on a flat window,
+    nonzero at a jump; \textbf{(2)} a small \textbf{constant-diagonal matrix} times a vector (Unit~1), where the
+    same $-1,1$ slides one step per row; and \textbf{(3)} \textbf{ReLU} applied entry by entry (Lesson~8.0).
+    Debrief item~2 aloud: the repeated diagonal \emph{is} weight sharing --- the same filter, reused.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Open from Lesson~8.1's preview: a full layer gives \emph{every} connection its own weight, but an image has
+    millions of pixels --- and a ``bright edge'' looks the same in the corner or the center. Ask, \textbf{``Should
+    a network learn a separate weight to spot that edge at every location?''} No --- learn \emph{one}
+    edge-detector and reuse it. Show the move: a small \textbf{filter} $[-1,1]$ \emph{slid} across a signal fires
+    exactly at the edge. Name the payoff question of Lesson~8.2: \textbf{``How can one small filter, reused
+    everywhere, detect a pattern wherever it appears --- with almost no weights?''} Preview the answer: slide the
+    filter (a dot product at each spot), write it as a constant-diagonal matrix, and it is still a layer
+    $\relu(A\vv+\bb)$.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. Too many weights.} A full layer has one weight per connection --- $\sim\!10^{12}$ for a
+megapixel image, and it relearns the same edge at every spot. The fix: use a \textbf{small} set of weights (a
+\textbf{filter}) and \emph{reuse} it everywhere.
+
+\textbf{2. Slide the filter.} With $\ww=[-1,1]$ and $\vv=[2,2,2,6,6]$, slide and dot-product at each spot:
+output $[0,0,4,0]$ --- $0$ on the flat parts, a \emph{spike} at the edge $2\to6$. This output is the
+\textbf{feature map}; the filter is an edge detector. Use the two-panel figure (signal with sliding window
+$\to$ feature map spiking at the edge).
+
+\columnbreak
+
+\textbf{3. It is a matrix.} Sliding $=$ a matrix times a vector, with $-1,1$ repeated down the diagonals (a
+\textbf{convolution matrix}). Count: a full $4\times5$ block $=20$ weights; the convolution $=2$. A
+$1000\times1000$ image: $\sim\!10^{12}$ vs.\ a $3\times3$ filter's $9$.
+
+\textbf{4. It is a layer.} A conv layer is $\relu(A\vv+\bb)$ with $A$ shared and $\bb$ a threshold: on
+$[0,0,4,0]$ with bias $-1$, ReLU gives $[0,0,3,0]$ --- keep the strong response. \textbf{Payoff:} one reused
+filter detects its pattern \emph{anywhere} (translation invariance), with a handful of weights. \textbf{Road
+ahead:} 8.3 gradient descent; 8.4 mean/variance/covariance.
+\end{multicols}
+\end{skillbox}
+
+\begin{skillbox}[Explicit Instruction: Convolving a Filter Across a Signal]{blush}
+\begin{tabularx}{\linewidth}{@{}p{0.46\linewidth} X@{}}
+\textbf{Steps (slide \& read).}
+\begin{enumerate}[leftmargin=1.3em, nosep, after=\vspace{2pt}]
+  \item Write the filter's weights (e.g.\ $\ww=[-1,1]$).
+  \item Line the filter up with the first window of the signal; take the dot product $=$ first output.
+  \item \emph{Slide} one step right; repeat to the end. The list of results is the feature map.
+  \item Optionally add a bias and apply ReLU: $\relu(A\vv+\bb)$ keeps only the strong (above-threshold) spots.
+\end{enumerate}
+&
+\textbf{Worked example} ($\ww=[-1,1]$, $\vv=[2,2,2,6,6]$). Windows $[2,2],[2,2],[2,6],[6,6]$ give
+$0,0,4,0$: the filter fires at the edge. As a matrix, $-1,1$ repeats down the diagonals of a $4\times5$
+convolution matrix ($2$ shared weights, not $20$). With bias $-1$: $\relu([-1,-1,3,-1])=[0,0,3,0]$.
+\textbf{Common slip:} reversing the order in $-v_i+v_{i+1}$ (it is ``next minus current''), or writing a full
+matrix instead of the repeated diagonal.
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item sign/order errors in the window dot product $-v_i+v_{i+1}$ (say ``next minus current'');
+  \item writing a \emph{full} matrix instead of noticing the filter's numbers repeat down the diagonals;
+  \item thinking the filter must \emph{change} from spot to spot (the whole point is that it does not --- weight sharing);
+  \item applying the bias \emph{after} the ReLU instead of before (it is a threshold \emph{inside} $\relu(A\vv+\bb)$).
+\end{itemize}
+Cold-call prompts: ``What does the filter output on a flat window?'' ``Where does it fire?'' ``How many
+distinct weights are in this matrix?'' ``Why does one filter find the edge no matter where it moves?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Scanning for a Pattern} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Slide the edge filter $[-1,1]$ and the averaging filter $\tfrac12[1,1]$ across
+a signal; see one \emph{sharpen} (fire at the edge) and one \emph{smooth}.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Build the constant-diagonal convolution matrix from a filter, compute $A\vv$,
+count full vs.\ shared weights ($20$ vs.\ $2$), and finish the layer with a bias threshold.
+
+\columnbreak
+\textbf{Tier E --- Extension.} \emph{Translation invariance:} the same filter fires with the same strength on
+the same edge in two places; and the $10^{12}$-vs-$9$ parameter argument --- justify weight sharing.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): slide a filter across a signal and read where it fires; count
+the shared weights of a filter vs.\ a full layer (name ``weight sharing''); and a
+\textbf{conceptual/justification check} --- in one sentence, why one small filter detects the same pattern
+wherever it appears. Sort into ``got it / arithmetic slip / concept slip'' to decide whether 8.3 opens with a
+quick ``slide the filter, spike at the edge, same filter everywhere'' recap. \emph{Enrichment unit --- use as
+formative feedback, not a graded assessment.}
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} slide the edge filter (including a flat signal that never fires); slide a smoothing filter
+and contrast sharpen vs.\ blur; write the convolution matrix and note the repeated diagonal; count weights
+(full vs.\ filter, small and $28\times28$); and short justifications (weight sharing $=$ detect-anywhere; bias
+$=$ threshold). \textbf{Extension:} a $5\times5$ filter's fixed $25$ weights regardless of image size, and the
+full detector pipeline $\relu(A\vv+\bb)$ with a threshold. \textbf{Preview:} Lesson~8.3, \emph{Minimizing Loss
+by Gradient Descent} --- now that we can \emph{build} networks (layers, folds, filters), we \emph{choose} the
+weights by rolling downhill on the loss.
 \end{skillbox}
 \end{document}

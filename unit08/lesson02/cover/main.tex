@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 8}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 8 \quad Learning from Data}}\\[6pt]
   {\color{white}\textbf{\large Lesson 8.2 \quad Convolutional Neural Nets}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} slide a small \textbf{filter} across a signal --- a dot product at each spot --- and read where it \textbf{fires}.
+  \item \ldots{} write a convolution as a matrix whose weights \textbf{repeat down the diagonals}, and count how many weights \textbf{weight sharing} saves.
+  \item \ldots{} explain how a convolutional layer $\mathrm{ReLU}(A\mathbf{v}+\mathbf{b})$ reuses one filter everywhere --- so it detects the same pattern \emph{wherever} it appears, with almost no weights.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,25 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: window dot products, a constant-diagonal matrix $\times$ vector, and ReLU & \blank{1.2cm} \\
+2 & Guided Notes   & Sliding a filter; the feature map; the convolution matrix; weight sharing; a conv layer & \blank{1.2cm} \\
+3 & Group Activity & Edge vs.\ smoothing filters, building the matrix, counting weights, detecting a pattern anywhere & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check: slide a filter, count shared weights, and why one filter finds a pattern anywhere & \blank{1.2cm} \\
+5 & Homework       & Sliding filters, the convolution matrix, weight counts, and the bias as a threshold & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small A \textbf{full} layer gives every connection its own weight --- far too many for an image, and it
+relearns the same pattern at every spot. A \textbf{convolution} fixes both: take a small \textbf{filter} (a
+few weights) and \textbf{slide} it across the input, taking a dot product at each position. As a matrix, the
+filter's weights \textbf{repeat down the diagonals} --- the same weights \emph{reused everywhere}
+(\textbf{weight sharing}). So one small filter detects its pattern \emph{wherever} it appears, and a
+convolutional layer $\mathrm{ReLU}(A\mathbf{v}+\mathbf{b})$ needs a handful of weights instead of a trillion.
+\end{remindbox}
 
 \end{document}

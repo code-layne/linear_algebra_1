@@ -3,17 +3,50 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.2}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: Dot Products, Matrices, and ReLU}
+\small Today we slide a small \textbf{filter} across a signal --- which is just a dot product at each spot,
+packaged as a matrix times a vector, then a ReLU. Warm up on those three moves.
+
+\vspace{4pt}
+\textbf{1. Dot product (Units 1 \& 4).} The filter $\ww=[-1,1]$ meets two windows of a signal. Compute:
+\[
+  \ww\cdot[2,2]=(-1)(2)+(1)(2)={\color{keyred}\mathbf{0}},\qquad \ww\cdot[2,6]=(-1)(2)+(1)(6)={\color{keyred}\mathbf{4}}.
+\]
+The dot product is $0$ when the two values match, and nonzero when they \emph{jump}.
+
+\vspace{4pt}
+\textbf{2. Matrix $\times$ vector (Unit 1).} The same $-1,1$ repeats in each row. Multiply:
+\[
+  \begin{bmatrix} -1 & 1 & 0\\ 0 & -1 & 1 \end{bmatrix}\begin{bmatrix}2\\2\\6\end{bmatrix}
+  =\begin{bmatrix}{\color{keyred}\mathbf{0}}\\[-1pt] {\color{keyred}\mathbf{4}}\end{bmatrix}.
+\]
+Notice the two numbers just \emph{slide over} one step from the first row to the second.
+
+\vspace{4pt}
+\textbf{3. ReLU keeps the strong part (Lesson 8.0).} Recall $\relu(x)=\max(0,x)$. Apply it entry by entry:
+\[
+  \relu(-3)={\color{keyred}\mathbf{0}},\qquad \relu\big([\,0,\,0,\,4,\,0\,]\big)=\big[\ {\color{keyred}\mathbf{0}},\ {\color{keyred}\mathbf{0}},\ {\color{keyred}\mathbf{4}},\ {\color{keyred}\mathbf{0}}\ \big].
+\]
 \end{notesbox}
+
+\begin{teachernote}
+Each item is a piece of today's convolution. Item~1 is the window dot product the filter computes as it
+slides --- $0$ on a flat window, nonzero at a jump (the edge). Item~2 packages several of those slides as one
+matrix times a vector, and previews the key structure: the filter's numbers \emph{repeat}, sliding one step
+per row (a convolution matrix). Item~3 is the ReLU that finishes the layer $\relu(A\vv+\bb)$. Debrief item~2
+aloud: point out that the same $-1,1$ appears in both rows --- that is weight sharing.
+\end{teachernote}
 
 \end{document}

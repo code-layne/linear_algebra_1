@@ -3,17 +3,64 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.2}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+A \textbf{convolution} slides a small \textbf{filter} across a signal, taking a dot product at each spot. Written
+as a matrix, the filter's weights \textbf{repeat down the diagonals} --- the same few weights reused everywhere
+(\textbf{weight sharing}). A convolutional layer is $\relu(A\vv+\bb)$ with $A$ a convolution matrix.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Slide the edge filter.} Use $\ww=[-1,1]$ (output $=-v_i+v_{i+1}$). Give the output and say
+        where it fires (if anywhere).
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\vv=[4,4,4,4]$ \hfill output $=\underline{\hspace{3.2cm}}$
+      \item $\vv=[1,1,6,6]$ \hfill output $=\underline{\hspace{3.2cm}}$
+    \end{enumerate}
+    \vspace{0.5cm}
+  \item \textbf{Smoothing filter.} Slide the averaging filter $\ww=\tfrac12[1,1]$
+        (output $=\tfrac{v_i+v_{i+1}}{2}$) across $\vv=[2,6,6,2]$. Give the output. How is its effect
+        different from the edge filter's? \writelines{2}
+  \item \textbf{Write it as a matrix.} For the filter $\ww=[-1,1]$ and a length-$4$ signal, write the
+        $3\times4$ convolution matrix $A$ (the two numbers slide over one step each row). Then compute
+        $A\vv$ for $\vv=[1,1,6,6]$. What do you notice about the weights in $A$? \writelines{3}
+  \item \textbf{Count the weights.} (a) For the $3\times4$ matrix in problem~3, how many separate weights
+        would a \emph{full} layer have, and how many does the convolution use? (b) A small $28\times28$ image
+        has $784$ pixels; a full layer to $784$ outputs uses $784^2=614{,}656$ weights. A $3\times3$ filter
+        uses how many? \writelines{2}
+  \item \textbf{Explain.} (a) Why does reusing one filter let a network detect the same pattern \emph{wherever}
+        it appears in the image? (b) In the layer $\relu(A\vv+\bb)$, how does a negative bias act like a
+        \emph{threshold} on the detector? \writelines{2}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{One filter finds one pattern.}
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item A $5\times5$ filter has how many weights? Does that number grow when the image gets bigger? Why does
+        that matter for scanning a huge photo?
+  \item Apply the full detector $\relu(A\vv+\bb)$ with the edge filter $\ww=[-1,1]$ and bias $\bb=-3$ to
+        $\vv=[2,2,2,7,7]$. (First convolve, then add the bias, then ReLU.) Which spot survives, and what does
+        the surviving value tell you?
+\end{enumerate}
+\writelines{3}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 8.3: Minimizing Loss by Gradient Descent.} We have built the pieces (layers,
+folds, filters); next we \emph{choose} the weights --- rolling ``downhill'' on the loss to make the network
+fit the data.
+\end{spiralbox}
 
 \end{document}

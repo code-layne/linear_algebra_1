@@ -3,17 +3,50 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.2}{Warm-Up}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Warm-Up. See references/components.md for the expected structure.
-\begin{notesbox}{Warm-Up}
-\writelines{4}
+\begin{notesbox}{Getting Ready: the Pieces of Today's Idea}
+\small These three quick skills --- a column times a row, the singular values of a symmetric matrix,
+and a sum of squares --- \emph{are} the opening moves of today's lesson. We use today's matrix.
+
+\vspace{4pt}
+\textbf{1. A column times a row (Unit 1).} Multiplying a $2\times1$ column by a $1\times2$ row gives a
+$2\times2$ matrix. Fill it in:
+\[
+  \begin{bmatrix} 1 \\ 2 \end{bmatrix}\begin{bmatrix} 3 & 1 \end{bmatrix}
+  =\begin{bmatrix}\rule{0pt}{1.1em}\blank{0.9cm} & \blank{0.9cm}\\[2pt]\blank{0.9cm} & \blank{0.9cm}\end{bmatrix}.
+\]
+Look at your answer: every \emph{column} is a multiple of $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$
+--- yes or no? \blank{1.6cm}
+
+\vspace{4pt}
+\textbf{2. Singular values of a symmetric matrix (Unit 6 \& Lesson 7.1).} For the symmetric, positive
+matrix $A=\begin{bmatrix} 5 & 3\\ 3 & 5 \end{bmatrix}$ the singular values \emph{are} its eigenvalues.
+Solve $\det(A-\lambda I)=0$:
+\[
+  (5-\lambda)^2-9=\lambda^2-10\lambda+16=0 \ \Rightarrow\ \lambda=\blank{1.1cm}\ \text{or}\ \blank{1.1cm},
+  \quad\text{so}\quad \sigma_1=\blank{0.9cm},\ \sigma_2=\blank{0.9cm}.
+\]
+Its unit eigenvectors are $\vv_1=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$ and
+$\vv_2=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}$ (and since $A$ is symmetric, $\uu_i=\vv_i$).
+
+\vspace{4pt}
+\textbf{3. A sum of squares (arithmetic).} Add the squares of the singular values, then add the squares
+of \emph{all four entries} of $A$:
+\[
+  \sigma_1^2+\sigma_2^2=8^2+2^2=\blank{1.1cm},\qquad
+  5^2+3^2+3^2+5^2=\blank{1.1cm}.
+\]
+Are the two totals equal? \blank{1.6cm}
 \end{notesbox}
 
 \end{document}

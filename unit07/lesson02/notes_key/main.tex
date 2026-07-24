@@ -2,18 +2,173 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
+\usetikzlibrary{arrows.meta}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.2}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item build a rank-1 matrix as an outer product $\uu\vv\T$ (a column times a row);
+  \item write a matrix as a sum of rank-1 layers $A=\sigma_1\uu_1\vv_1\T+\sigma_2\uu_2\vv_2\T+\cdots$ and keep only the biggest;
+  \item explain why keeping the largest singular values gives the best low-storage approximation of an image.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.06in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{Outer product $\uu\vv\T$ (a column times a row --- a rank-1 matrix)}{a column times a row; the result is a matrix whose every column is a multiple of $\uu$ (rank 1)}
+\vocabans{The SVD as layers: $A=\sigma_1\uu_1\vv_1\T+\sigma_2\uu_2\vv_2\T+\cdots$}{the SVD written as a sum of rank-1 layers, one per singular value, ordered biggest $\sigma$ first}
+\vocabans{Rank-$k$ approximation $A_k$ (keep the $k$ biggest layers)}{$A_k=\sigma_1\uu_1\vv_1\T+\cdots+\sigma_k\uu_k\vv_k\T$; the closest rank-$k$ matrix to $A$ (Eckart--Young)}
+\end{vocabbox}
+
+\begin{hookbox}
+A grayscale photo is just a big matrix of pixel-brightness numbers --- a $1000\times1000$ photo holds a
+million of them. Storing every number is expensive.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item The SVD splits a matrix into ordered layers $\sigma_1\uu_1\vv_1\T,\ \sigma_2\uu_2\vv_2\T,\dots$ Which layers do you think matter most --- and why? \ansline{The first ones: they have the biggest $\sigma$, so they contribute the most to $A$.}
+  \item If you could keep only a \emph{few} layers and throw the rest away, which would you keep to lose the least? \ansline{Keep the layers with the largest singular values; drop the small-$\sigma$ tail.}
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. The Outer Product: a Column Times a Row}
+The SVD is built from the ingredients $\sigma,\uu,\vv$ of Lesson~7.1. To use them we need one new move:
+multiply a \emph{column} $\uu$ by a \emph{row} $\vv\T$. The result is a whole matrix, called an
+\textbf{outer product}:
+\[
+  \uu\vv\T=\begin{bmatrix} u_1\\ u_2 \end{bmatrix}\begin{bmatrix} v_1 & v_2 \end{bmatrix}
+  =\begin{bmatrix} u_1v_1 & u_1v_2\\ u_2v_1 & u_2v_2 \end{bmatrix}.
+\]
+Try it with $\uu=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ and $\vv\T=\begin{bsmallmatrix} 3 & 1 \end{bsmallmatrix}$:
+\[
+  \uu\vv\T=\begin{bmatrix}{\color{keyred}\mathbf{3}} & {\color{keyred}\mathbf{1}}\\[2pt]{\color{keyred}\mathbf{6}} & {\color{keyred}\mathbf{2}}\end{bmatrix}.
+\]
+Notice: \emph{every column} is a multiple of $\uu$ (and every row a multiple of $\vv\T$). A matrix this
+simple --- made from one column and one row --- is called a \textbf{rank-1} matrix. It stores in only
+${\color{keyred}\mathbf{2}}+{\color{keyred}\mathbf{2}}$ numbers (the entries of $\uu$ and $\vv$), not the full $2\times2=4$.
 \end{notesbox}
+
+\begin{notesbox}{2. The SVD is a Sum of Rank-1 Layers}
+From Lesson~7.1, $A=U\Sigma V\T$. Multiplying that out groups $A$ into one rank-1 outer product for each
+singular value:
+\[
+  A=\sigma_1\,\uu_1\vv_1\T+\sigma_2\,\uu_2\vv_2\T+\cdots+\sigma_r\,\uu_r\vv_r\T .
+\]
+Each \textbf{layer} $\sigma_i\uu_i\vv_i\T$ is a rank-1 matrix scaled by its singular value, and the layers
+are ordered from the biggest $\sigma$ to the smallest.
+
+\vspace{2pt}
+\textbf{Worked on today's matrix} $A=\begin{bsmallmatrix} 5 & 3\\ 3 & 5 \end{bsmallmatrix}$. From the
+Warm-Up: $\sigma_1=8,\ \sigma_2=2$, with $\uu_1=\vv_1=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$
+and $\uu_2=\vv_2=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}$ (this $A$ is symmetric, so
+$\uu_i=\vv_i$). Build the two layers --- the two $\tfrac1{\sqrt2}$'s multiply to $\tfrac12$:
+\[
+  \sigma_1\uu_1\vv_1\T=8\cdot\tfrac12\begin{bmatrix} 1 & 1\\ 1 & 1 \end{bmatrix}
+  =\begin{bmatrix}{\color{keyred}\mathbf{4}} & {\color{keyred}\mathbf{4}}\\[2pt]{\color{keyred}\mathbf{4}} & {\color{keyred}\mathbf{4}}\end{bmatrix},\qquad
+  \sigma_2\uu_2\vv_2\T=2\cdot\tfrac12\begin{bmatrix} 1 & -1\\ -1 & 1 \end{bmatrix}
+  =\begin{bmatrix}{\color{keyred}\mathbf{1}} & {\color{keyred}\mathbf{-1}}\\[2pt]{\color{keyred}\mathbf{-1}} & {\color{keyred}\mathbf{1}}\end{bmatrix}.
+\]
+Add the layers and you get $A$ back:
+$\begin{bsmallmatrix} 4 & 4\\ 4 & 4 \end{bsmallmatrix}+\begin{bsmallmatrix} 1 & -1\\ -1 & 1 \end{bsmallmatrix}
+=\begin{bsmallmatrix}{\color{keyred}\mathbf{5}} & {\color{keyred}\mathbf{3}}\\[1pt]{\color{keyred}\mathbf{3}} & {\color{keyred}\mathbf{5}}\end{bsmallmatrix}=A.$
+\end{notesbox}
+
+\begin{notesbox}{3. Compression: Keep the Biggest Layers}
+Because the layers are ordered $\sigma_1\ge\sigma_2\ge\cdots$, the \emph{first} layer carries the most and
+the last carries the least. Throwing away the small-$\sigma$ layers barely changes $A$. Keeping just the
+first $k$ layers gives the \textbf{rank-$k$ approximation}:
+\[
+  A_k=\sigma_1\uu_1\vv_1\T+\cdots+\sigma_k\uu_k\vv_k\T .
+\]
+\textbf{Eckart--Young fact:} $A_k$ is the \emph{closest} rank-$k$ matrix to $A$ --- no simpler matrix
+approximates $A$ better. So the best way to store $A$ cheaply is to keep its biggest singular values.
+
+\vspace{2pt}
+For our matrix, the rank-1 approximation is just layer~1:
+$A_1=\begin{bsmallmatrix}{\color{keyred}\mathbf{4}} & {\color{keyred}\mathbf{4}}\\[1pt]{\color{keyred}\mathbf{4}} & {\color{keyred}\mathbf{4}}\end{bsmallmatrix}$
+--- it differs from $A$ by only the small dropped layer $\begin{bsmallmatrix} 1 & -1\\ -1 & 1 \end{bsmallmatrix}$.
+
+\begin{center}
+\begin{tikzpicture}[scale=1, font=\footnotesize]
+  \def\bw{0.62}
+  % bar centers and heights (a decaying singular-value spectrum)
+  \foreach \x/\h/\c/\lab in {0.7/2.9/burgundy/$\sigma_1$, 1.6/1.85/burgundy/$\sigma_2$,
+        2.5/1.05/blushmid/$\sigma_3$, 3.4/0.62/blushmid/$\sigma_4$, 4.3/0.38/blushmid/$\sigma_5$,
+        5.2/0.22/blushmid/$\sigma_6$} {
+    \fill[\c] (\x-\bw/2,0) rectangle (\x+\bw/2,\h);
+    \draw[charcoal] (\x-\bw/2,0) rectangle (\x+\bw/2,\h);
+    \node[below] at (\x,-0.02) {\lab};
+  }
+  \draw[-{Latex[length=2mm]}, thick] (0.1,0)--(5.9,0);
+  % keep/drop divider
+  \draw[dashed, burgundy, thick] (2.05,-0.35) -- (2.05,3.2);
+  \node[burgundy] at (1.15,3.05) {\scriptsize\textbf{keep}};
+  \node[charcoal] at (3.8,3.05) {\scriptsize drop};
+\end{tikzpicture}\\[-1pt]
+{\scriptsize A real image has many singular values that fall off fast. Keep the few big ones (burgundy),
+drop the small tail --- a close copy in a fraction of the space.}
+\end{center}
+
+\vspace{2pt}
+\textbf{How much did we keep?} The total ``size'' of $A$ (the sum of the squares of all its entries) splits
+across the singular values: $\sigma_1^2+\sigma_2^2=64+4=68$ (Warm-Up~3). Layer~1 alone holds $\sigma_1^2=64$,
+which is $\dfrac{64}{68}\approx{\color{keyred}\mathbf{94}}\%$ of the total --- \emph{one} rank-1 layer already captures
+about $94\%$ of the matrix.
+\end{notesbox}
+
+\begin{notesbox}{4. Why It Saves So Much --- and the Road Ahead}
+\textbf{The storage win (a real image).} A $1000\times1000$ grayscale photo is $1{,}000{,}000$ numbers. Each
+rank-1 layer needs only $\sigma$ plus $\uu$ plus $\vv$, i.e. $1+1000+1000=2001$ numbers. Keeping the
+$20$ biggest layers stores about $20\times2001\approx{\color{keyred}\mathbf{40{,}000}}$ numbers --- roughly
+\ans{4\%} of the original --- and for real photos the singular values drop off so fast that the
+picture looks nearly identical.
+
+\vspace{2pt}
+\textbf{Why the biggest $\sigma$'s?} Ordering by $\sigma$ means the first layers carry the most ``energy''
+($\sigma^2$), so dropping the tail loses the least. And \emph{every} matrix has this layered SVD
+(Lesson~7.1), so \emph{every} image compresses this way.
+
+\vspace{2pt}
+\textbf{The road ahead.} \textbf{7.3} principal component analysis --- the same ``keep the biggest
+$\sigma$'' idea applied to \emph{data} instead of pixels\; $\bullet$\; \textbf{7.4} the victory of orthogonality.
+\end{notesbox}
+
+\begin{practicebox}
+Show your work.
+\begin{enumerate}[leftmargin=1.6em, itemsep=4pt]
+  \item Compute the outer product $\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}\begin{bsmallmatrix} 2 & 2 \end{bsmallmatrix}$, and explain why it is a rank-1 matrix. \ansline{$\begin{bsmallmatrix} 2 & 2\\ 6 & 6 \end{bsmallmatrix}$; every column is a multiple of $\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$ (and every row a multiple of $\begin{bsmallmatrix} 2 & 2 \end{bsmallmatrix}$), so it is rank~1.}
+  \item The notes' rank-1 approximation is $A_1=\begin{bsmallmatrix} 4 & 4\\ 4 & 4 \end{bsmallmatrix}$. Compare it to $A=\begin{bsmallmatrix} 5 & 3\\ 3 & 5 \end{bsmallmatrix}$: by how much is each entry off, and what fraction of the ``energy'' $\sigma_1^2+\sigma_2^2$ does $A_1$ keep? \ansline{Each entry is off by exactly $1$ (the dropped layer $\pm1$). $A_1$ keeps $\sigma_1^2/(\sigma_1^2+\sigma_2^2)=64/68\approx94\%$ of the energy.}
+  \item In one sentence: why does keeping the \emph{largest} singular values give the best low-storage copy of an image? \ansline{The largest $\sigma$'s carry the most of the matrix (most energy $\sigma^2$), so keeping them and dropping the small tail loses the least while storing far fewer numbers.}
+\end{enumerate}
+\end{practicebox}
+
+\begin{teachernote}
+The one new mechanic is the \emph{outer product} $\uu\vv\T$ (Section~1) --- a column times a row makes a
+rank-1 matrix, and ``every column is a multiple of $\uu$'' is what rank~1 \emph{means}. Section~2 is the
+headline: $A=U\Sigma V\T$ regroups into a sum of rank-1 layers $\sigma_i\uu_i\vv_i\T$. The spine
+$A=\begin{bsmallmatrix} 5 & 3\\ 3 & 5 \end{bsmallmatrix}$ is symmetric and positive on purpose, so
+$\sigma$'s equal the eigenvalues ($8,2$) and $\uu_i=\vv_i$ --- the arithmetic stays integer and the focus
+stays on compression. Section~3 lands the payoff: keep the biggest layers ($A_k$ is the best rank-$k$
+approximation, Eckart--Young), and the ``energy'' identity $\sigma_1^2+\sigma_2^2=$ (sum of squared
+entries) $=68$ from the Warm-Up shows layer~1 already holds $94\%$. Section~4's storage count is the
+motivation --- $20$ layers $\approx4\%$ of a million pixels. Common slips: multiplying row-times-column
+(inner product, a number) instead of column-times-row (outer product, a matrix); forgetting the
+$\tfrac1{\sqrt2}\cdot\tfrac1{\sqrt2}=\tfrac12$ when scaling a layer.
+\end{teachernote}
 
 \end{document}

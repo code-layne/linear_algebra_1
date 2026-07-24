@@ -3,17 +3,71 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.3}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+\textbf{Gradient descent} chooses weights by rolling downhill on the loss: repeatedly step \emph{against} the
+slope, $w\leftarrow w-s\,L'(w)$, where $s$ is the \textbf{learning rate}. The bottom of the bowl (slope $=0$)
+is the best weight. Unless told otherwise, use $L(w)=(w-4)^2$ with slope $L'(w)=2w-8$ and $s=0.25$.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{One step, both sides.} Take one gradient-descent step and say which way $w$ moved.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item from $w=0$ \hfill \ans{$L'(0)=-8$, so $w=0-0.25(-8)=2$; moved \emph{right} toward $4$}
+      \item from $w=8$ \hfill \ans{$L'(8)=8$, so $w=8-0.25(8)=6$; moved \emph{left} toward $4$}
+    \end{enumerate}
+  \item \textbf{Watch the loss fall.} Starting at $w=0$, take two steps ($0\to\rule{0.9cm}{0.4pt}\to\rule{0.9cm}{0.4pt}$),
+        then compute the loss $L=(w-4)^2$ at all three weights. Is the loss decreasing? \ansline{Steps $0\to2\to3$. Losses $L(0)=16$, $L(2)=4$, $L(3)=1$ --- yes, decreasing at every step as $w$ climbs toward the minimum $w=4$.}
+  \item \textbf{The learning rate.} From $w=0$, take \emph{one} step with (a) $s=0.5$ and (b) $s=1$. One lands
+        exactly at the minimum $w=4$; the other overshoots. State both results and, in a sentence, what too big
+        a learning rate does. \ansline{(a) $s=0.5$: $w=0-0.5(-8)=4$ --- exactly the minimum. (b) $s=1$: $w=0-1(-8)=8$ --- overshoots the bottom to the far wall ($L(8)=16$, no progress). Too big a learning rate steps past the minimum and can bounce back and forth or diverge.}
+  \item \textbf{The gradient (two weights).} For $L(w_1,w_2)=(w_1-2)^2+(w_2-5)^2$ the gradient is
+        $\nabla L=[\,2(w_1-2),\,2(w_2-5)\,]$. Starting at $(0,0)$ with $s=0.25$, take one step
+        $\ww\leftarrow\ww-s\,\nabla L$. Where is the minimum of this loss? \ansline{$\nabla L(0,0)=[\,2(-2),\,2(-5)\,]=[-4,-10]$, so $(0,0)-0.25[-4,-10]=(1,\,2.5)$. The minimum is at $(2,5)$ --- where both slopes are $0$; the step moved toward it.}
+  \item \textbf{Explain.} (a) Why do we step \emph{against} the slope (subtract $s\,L'(w)$)? (b) Why is the
+        slope $0$ at the best weights? (c) In one phrase, why must a huge network \emph{roll downhill} instead
+        of solving for the minimum all at once? \ansline{(a) The slope points \emph{uphill} (loss increasing), so the opposite direction is downhill --- subtracting lowers the loss. (b) At the bottom of the bowl the loss is flat, so no direction decreases it and the slope is $0$; that is exactly the best (least-error) weights. (c) With millions of weights there is no clean formula to solve, so we take small downhill steps instead.}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Tuning the descent.}
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item \textbf{Too small a step.} From $w=0$ with a tiny rate $s=0.05$, take one step ($L'(0)=-8$). How far did
+        $w$ move? If every step is this small, we still reach $w=4$ eventually --- what is the trade-off versus a
+        larger rate?
+  \item \textbf{The whole pipeline.} A real network's loss is a landscape over \emph{millions} of weights; the
+        gradient $\nabla L$ gives the downhill direction and $\ww\leftarrow\ww-s\,\nabla L$ is one training step,
+        repeated over and over. In two or three sentences, put the unit together: how do matrix layers (8.0),
+        the ReLU fold (8.1), shared filters (8.2), and gradient descent (8.3) combine into ``a network that
+        learns''?
+\end{enumerate}
+\ansline{(a) $w=0-0.05(-8)=0.4$ --- a small move. Tiny steps are \emph{safe} (they never overshoot the bottom) but \emph{slow}: it takes many more steps to reach $w=4$. The learning rate trades speed against the risk of overshooting.}
+\ansline{(b) The matrix layers (8.0) do the linear work $A\ww+\mathbf{b}$; the ReLU (8.1) bends them so the network can fit curved data; shared filters (8.2) cut the weight count so an image-sized network is trainable; and gradient descent (8.3) \emph{chooses} all those weights by rolling downhill on the Unit-4 squared-error loss. Building the network gives the machine; gradient descent tunes it --- together they are ``a network that learns from data.''}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 8.4: Mean, Variance, and Covariance.} We finish the unit by looking at the
+\emph{data} itself --- how it centers, how it spreads, and how features move together --- the last piece of
+learning from data.
+\end{spiralbox}
+
+\begin{teachernote}
+Item~1 drills the update from both sides (right from $w=0$, left from $w=8$) --- both head to $w=4$. Item~2
+confirms the loss falls ($16\to4\to1$). Item~3 is the learning-rate Goldilocks case ($s=0.5$ exact vs.\ $s=1$
+overshoot to $8$). Item~4 lifts the rule to a gradient vector heading to $(2,5)$. Item~5 collects the three
+justifications: step against the slope, zero slope $=$ minimum, and why huge nets must iterate. The extension's
+part~(b) is the unit synthesis --- layers $+$ ReLU $+$ filters $+$ gradient descent $=$ a network that learns.
+Most common slips: dropped minus sign in $-s\,L'(w)$; wrong slope sign; and multiplying $s\,L'(w)$ before
+subtracting.
+\end{teachernote}
 
 \end{document}

@@ -11,9 +11,18 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+No notes. Show your reasoning. Use $L(w)=(w-4)^2$ with slope $L'(w)=2w-8$.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Take one step.} From $w=1$ with learning rate $s=0.25$, compute $w\leftarrow w-s\,L'(w)$.
+        Give the new $w$, and check whether the loss went down by comparing $L(1)$ and $L(\text{new }w)$.
+        \vspace{1.7cm}
+  \item \textbf{When do we stop?} At the bottom $w=4$, what is the slope $L'(4)$, and why does that make
+        gradient descent stop there? Also, in one phrase, what is the number $s$ called?
+        \vspace{1.2cm}
+  \item \textbf{Explain.} In one sentence, why do we \emph{subtract} $s\,L'(w)$ (step \emph{against} the
+        slope) instead of adding it?
+        \writelines{2}
+\end{enumerate}
 
 \end{document}

@@ -3,17 +3,79 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.3}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Rolling Downhill.} \emph{Gradient descent} chooses a network's weights by rolling downhill on the
+loss: at each step, feel the slope and step the \emph{opposite} way, $w\leftarrow w-s\,L'(w)$. The learning
+rate $s$ is the step size; the bottom of the bowl (slope $=0$) is the best weight. Work with your partner, show
+every step, and \emph{explain} what you find.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Use the bowl $L(w)=(w-4)^2$ with slope $L'(w)=2w-8$ and learning rate $s=0.25$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item \textbf{Two steps from $w=0$.} Fill the table (slope, then $w-s\,L'(w)$):
+        \[ \begin{array}{c|c|c} w & L'(w)=2w-8 & \text{new } w=w-0.25\,L'(w)\\ \hline
+            0 & {\color{keyred}\mathbf{-8}} & {\color{keyred}\mathbf{2}}\\[2pt]
+            2 & {\color{keyred}\mathbf{-4}} & {\color{keyred}\mathbf{3}}\\ \end{array} \]
+  \item \textbf{Watch the loss fall.} Compute the loss $L(w)=(w-4)^2$ at your three weights:
+        \[ L(0)={\color{keyred}\mathbf{16}},\qquad L(2)={\color{keyred}\mathbf{4}},\qquad L(3)={\color{keyred}\mathbf{1}}. \]
+        In one sentence, what is happening to the loss as $w$ moves? \ansline{The loss \emph{drops} with every step ($16\to4\to1$) as $w$ climbs toward the minimum $w=4$ --- each downhill step lands on a lower point of the bowl.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Same bowl $L(w)=(w-4)^2$, slope $L'(w)=2w-8$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Descend from the other side.} Start at $w=6$ with $s=0.25$ and take two steps.
+        \[ w:\ 6\ \to\ {\color{keyred}\mathbf{5}}\ \to\ {\color{keyred}\mathbf{4.5}}. \]
+        Which direction did $w$ move this time, and toward what? \ansline{$L'(6)=4\Rightarrow w=6-0.25(4)=5$; $L'(5)=2\Rightarrow w=5-0.25(2)=4.5$. It moved \emph{left}, again toward the minimum $w=4$ --- gradient descent heads to the bottom from whichever side you start.}
+  \item \textbf{Know when to stop.} Compute the slope at the minimum, $L'(4)$. What does the update
+        $w\leftarrow w-s\,L'(w)$ do when the slope is this value, and why is that the signal that you have
+        arrived? \ansline{$L'(4)=2(4)-8=0$. The update becomes $w\leftarrow w-s(0)=w$: the step changes nothing, so $w$ stays at $4$. A zero slope means flat ground --- the bottom of the bowl --- so there is nowhere lower to go and the descent has converged.}
+  \item \textbf{The learning rate.} Take \emph{one} step from $w=0$ with each rate and compare:
+        \[ s=0.5:\ w=0-0.5(-8)={\color{keyred}\mathbf{4}},\qquad s=1:\ w=0-1(-8)={\color{keyred}\mathbf{8}}. \]
+        One lands exactly at the minimum; the other overshoots. In a sentence, what does too big a learning
+        rate do? \ansline{$s=0.5$ lands exactly at $w=4$; $s=1$ overshoots to $w=8$ (past the bottom, back up the other wall, $L=16$ again). Too big a learning rate steps over the minimum and can bounce back and forth or even diverge.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Two weights at once --- the gradient.} For $L(w_1,w_2)=(w_1-1)^2+(w_2-3)^2$ the gradient is
+$\nabla L=[\,2(w_1-1),\,2(w_2-3)\,]$; the rule is $\ww\leftarrow\ww-s\,\nabla L$ with $s=0.25$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Two steps from $(0,0)$.}
+        \[ \nabla L(0,0)=[\ {\color{keyred}\mathbf{-2}},\ {\color{keyred}\mathbf{-6}}\ ],\quad (0,0)-0.25\,\nabla L=(\ {\color{keyred}\mathbf{0.5}},\ {\color{keyred}\mathbf{1.5}}\ ); \]
+        \[ \text{then from }(0.5,1.5):\ \nabla L=[\ {\color{keyred}\mathbf{-1}},\ {\color{keyred}\mathbf{-3}}\ ],\quad \text{new }\ww=(\ {\color{keyred}\mathbf{0.75}},\ {\color{keyred}\mathbf{2.25}}\ ). \]
+        Toward which point is $\ww$ heading? \ansline{Toward the minimum $(1,3)$ --- where both slopes are $0$. The gradient rule steers all the weights downhill at once.}
+  \item \textbf{Justify.} In one or two sentences each: (a) why do we \emph{subtract} $s\,\nabla L$ (step
+        \emph{against} the gradient) instead of adding it? (b) Why does slope $=0$ (a flat gradient) mean we
+        have found the best weights? \ansline{(a) The gradient points in the steepest-\emph{uphill} direction (loss increasing), so the opposite direction, $-\nabla L$, is steepest downhill --- subtracting moves us toward smaller loss. (b) A zero gradient means the loss is flat in every weight direction: no step lowers it further, so we sit at the bottom of the bowl --- the weights with the least error.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~R is the core loop: fill the update table ($0\to2\to3$) and watch the loss fall ($16\to4\to1$). Tier~A
+adds the three things that make gradient descent \emph{work}: it descends from either side ($6\to5\to4.5$), it
+\emph{stops} where the slope is $0$ ($w=4$), and the learning rate is a Goldilocks choice ($s=0.5$ exact vs.\
+$s=1$ overshoot to $w=8$). Tier~E lifts the identical rule to a gradient vector heading to $(1,3)$ and asks for
+the two key justifications (step against the gradient; zero slope $=$ minimum). If time is short, Tier~R plus
+Tier~A items~1--2 are the must-dos. Watch for: the sign of the slope, forgetting the minus in
+$w-s\,L'(w)$, and multiplying $s\,L'(w)$ before subtracting.
+\end{teachernote}
 
 \end{document}

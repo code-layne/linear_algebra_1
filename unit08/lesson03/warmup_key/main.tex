@@ -3,17 +3,48 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.3}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: Loss, Slope, and One Step}
+\small Today we \emph{minimize the loss} --- roll a weight downhill until the error is smallest. That rests on
+three moves: measuring a loss, reading a slope to find downhill, and updating with a step. Warm up on each.
+
+\vspace{4pt}
+\textbf{1. Squared-error loss (Unit 1 \& Lesson 8.0).} A network predicts $[3,5]$ but the targets are $[2,6]$.
+The loss is the sum of squared errors:
+\[
+  L=(3-2)^2+(5-6)^2={\color{keyred}\mathbf{2}}.
+\]
+Smaller loss $=$ better fit. \emph{Learning} means making this number as small as possible.
+
+\vspace{4pt}
+\textbf{2. Which way is downhill? (slope).} A loss bowl has slope $L'(w)=2w-8$. Evaluate:
+\[
+  L'(2)=2(2)-8={\color{keyred}\mathbf{-4}},\qquad L'(6)=2(6)-8={\color{keyred}\mathbf{4}}.
+\]
+A \emph{negative} slope means the loss still falls as $w$ grows (go right); a \emph{positive} slope means go left.
+
+\vspace{4pt}
+\textbf{3. Take one step (Unit 1 arithmetic).} The update rule is $w\leftarrow w-s\,L'(w)$. With current
+$w=2$, learning rate $s=0.25$, and slope $L'(2)=-4$:
+\[
+  w = 2-0.25(-4)={\color{keyred}\mathbf{3}}.
+\]
 \end{notesbox}
+
+\begin{teachernote}
+Each item is a piece of today's gradient descent. Item~1 is the Unit-4 squared-error \textbf{loss} the whole
+lesson tries to shrink ($L=1+1=2$). Item~2 reads a \textbf{slope} to find downhill --- negative at $w=2$
+(go right), positive at $w=6$ (go left), both pointing toward the minimum $w=4$. Item~3 is the exact
+\textbf{update} $w\leftarrow w-s\,L'(w)$ students will iterate in the notes: from $w=2$ it lands at $w=3$.
+Debrief item~2 aloud: the slope points \emph{uphill}, so we subtract it to go down.
+\end{teachernote}
 
 \end{document}

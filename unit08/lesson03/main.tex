@@ -5,6 +5,11 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\relu}{\mathrm{ReLU}}
 \newcommand{\UnitNumberName}{Unit 8: Learning from Data \quad}
 \newcommand{\LessonNumberName}{Lesson 8.3: Minimizing Loss by Gradient Descent}
 
@@ -16,55 +21,154 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can read a \textbf{loss} $L(w)$ as a bowl whose lowest point is the
+    best weight, and use the \textbf{slope} to tell which way is downhill. They can run \textbf{gradient
+    descent} --- repeatedly stepping against the slope with the update $w\leftarrow w-s\,L'(w)$ --- to roll a
+    weight to the minimum, and explain the role of the \textbf{learning rate} $s$ (too small crawls, too big
+    overshoots). They can lift the same rule to many weights with the \textbf{gradient} $\nabla L$
+    ($\ww\leftarrow\ww-s\,\nabla L$) and explain why stepping \emph{against} the gradient, and stopping where it
+    is $0$, finds the least-error weights. \emph{(Unit~8 is optional enrichment --- explored, not formally
+    assessed.)}
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Read a loss $L(w)$ as a \textbf{bowl}; the bottom (slope $=0$) is the best weight.
+  \item Use the \textbf{slope} $L'(w)$ to find downhill; step \emph{against} it.
+  \item Run the \textbf{gradient-descent update} $w\leftarrow w-s\,L'(w)$ to the minimum.
+  \item Lift the rule to many weights with the \textbf{gradient} $\ww\leftarrow\ww-s\,\nabla L$.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Learning $=$ making the Unit-4 squared-error loss as small as possible.
+  \item The slope points \emph{uphill}, so subtracting it moves toward smaller loss.
+  \item The \textbf{learning rate} $s$ sets the step: too small crawls, too big overshoots.
+  \item A zero slope means flat ground --- the minimum --- so the descent stops there.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Loss $L$} & Total (squared) error between predictions and targets; smaller means a better fit. \\
+\textbf{Gradient descent} & Repeatedly step downhill on the loss: $w\leftarrow w-s\,L'(w)$. \\
+\textbf{Slope $L'(w)$} & How steeply the loss rises; it points \emph{uphill}, so step the opposite way. \\
+\textbf{Learning rate $s$} & The size of each step (step size); controls speed vs.\ overshoot. \\
+\textbf{Gradient $\nabla L$} & The slopes for all weights at once, packed into a vector (steepest-uphill direction). \\
+\textbf{Minimum} & The bottom of the bowl, where the slope is $0$ --- the best (least-error) weights. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three moves gradient descent rests on: \textbf{(1)} the \textbf{squared-error
+    loss} $\sum(p_i-t_i)^2$ that learning tries to shrink (Unit~4 \& Lesson~8.0) --- here $[3,5]$ vs.\ $[2,6]$
+    gives $2$; \textbf{(2)} reading a \textbf{slope} $L'(w)=2w-8$ to find downhill (negative $\Rightarrow$ go
+    right, positive $\Rightarrow$ go left); and \textbf{(3)} the \textbf{update arithmetic}
+    $w-s\,L'(w)$ (Unit~1) --- from $w=2$ with $s=0.25$ it lands at $w=3$. Debrief item~2 aloud: the slope points
+    \emph{uphill}, so we subtract it to descend.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Open from Lesson~8.2's preview: we can now \emph{build} networks --- layers, folds, filters --- but nothing
+    yet says \emph{which weights} to use. Every choice gives a \textbf{loss} (the Unit-4 sum of squared errors).
+    Ask, \textbf{``If good weights mean small loss, how do we \emph{find} the best ones when there are millions
+    of them?''} Set the picture: the loss is a \textbf{bowl} (a valley) over the weights, and we want the
+    bottom. Pose the fog metaphor: \emph{standing in a valley in thick fog, feeling only the slope underfoot,
+    how do you walk to the lowest point?} Name the payoff question of Lesson~8.3: \textbf{``How can a network
+    tune millions of weights just by feeling which way is downhill?''} Preview the answer: read the slope, step
+    the opposite way, repeat --- gradient descent.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. Learning $=$ minimizing loss.} The loss $L$ scores the weights (Unit-4 squared error). Learning is
+one job: make $L$ smallest. For a single weight, $L(w)$ is a \textbf{bowl}; use $L(w)=(w-4)^2$ (minimum at
+$w=4$). Real nets have millions of weights, so we cannot eyeball the bottom --- we \emph{walk} there.
+
+\textbf{2. Which way is downhill?} The \textbf{slope} $L'(w)=2w-8$ points \emph{uphill}. At $w=0$ it is $-8$
+(negative $\Rightarrow$ go right, toward $4$); at the bottom $w=4$ it is $0$. \emph{We give students the slope
+--- no calculus.} Use the two-panel figure (bowl $+$ downhill arrow; descent staircase to the minimum).
+
+\columnbreak
+
+\textbf{3. Gradient descent.} The rule $w\leftarrow w-s\,L'(w)$ with learning rate $s=0.25$, from $w=0$:
+$0\to2\to3\to3.5\to\cdots\to4$; the loss falls $16\to4\to1\to0.25$. Stop when the slope is $0$ (the step
+changes nothing).
+
+\textbf{4. Many weights $+$ why it matters.} The \textbf{gradient} $\nabla L$ is the slopes for all weights at
+once; step against it, $\ww\leftarrow\ww-s\,\nabla L$ --- same rule. Learning rate: too small crawls, too big
+overshoots. \textbf{Punchline:} a network is Unit~1 (layers) $+$ ReLU (folds) $+$ Unit~4 (loss) $+$ gradient
+descent --- no new machinery. \textbf{Road ahead:} 8.4 mean, variance, covariance.
+\end{multicols}
+\end{skillbox}
+
+\begin{skillbox}[Explicit Instruction: One Gradient-Descent Step]{blush}
+\begin{tabularx}{\linewidth}{@{}p{0.46\linewidth} X@{}}
+\textbf{Steps (feel \& step).}
+\begin{enumerate}[leftmargin=1.3em, nosep, after=\vspace{2pt}]
+  \item Evaluate the slope $L'(w)$ at the current weight.
+  \item Multiply by the learning rate: $s\,L'(w)$.
+  \item \emph{Subtract} it: $w\leftarrow w-s\,L'(w)$ (step against the slope $=$ downhill).
+  \item Repeat until the slope is $\approx 0$ (the bottom of the bowl).
+\end{enumerate}
+&
+\textbf{Worked example} ($L(w)=(w-4)^2$, $L'(w)=2w-8$, $s=0.25$). From $w=0$: $L'(0)=-8$, so
+$w=0-0.25(-8)=2$; then $L'(2)=-4\Rightarrow w=3$; then $w=3.5$, marching to $w=4$. \textbf{Common slip:}
+dropping the minus sign (stepping \emph{with} the slope, going uphill), or multiplying $s\,L'(w)$
+\emph{after} subtracting.
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item dropping the minus sign in $w-s\,L'(w)$ (stepping \emph{with} the slope $=$ uphill --- loss grows);
+  \item sign errors when evaluating the slope $2w-8$;
+  \item multiplying $s\,L'(w)$ \emph{after} subtracting instead of before;
+  \item thinking a bigger learning rate is always better (show the overshoot to $w=8$).
+\end{itemize}
+Cold-call prompts: ``Which way does the slope point?'' ``So which way do we step?'' ``What is the slope at the
+bottom?'' ``What does too big a learning rate do?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Rolling Downhill} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Fill the update table from $w=0$ ($0\to2\to3$) and watch the loss fall
+($16\to4\to1$).
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Descend from the other side ($6\to5\to4.5$); find that the slope is $0$ at the
+minimum (the stopping signal); compare learning rates ($s=0.5$ exact vs.\ $s=1$ overshoot to $8$).
+
+\columnbreak
+\textbf{Tier E --- Extension.} The \textbf{gradient} of two weights: step $(0,0)\to(0.5,1.5)\to(0.75,2.25)$
+toward $(1,3)$; justify stepping against the gradient and stopping at slope $0$.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): take one gradient-descent step and check the loss dropped; state
+the slope at the minimum and why the descent stops (plus the name ``learning rate''); and a
+\textbf{conceptual/justification check} --- in one sentence, why we step \emph{against} the slope. Sort into
+``got it / arithmetic slip / concept slip'' to decide whether 8.4 opens with a quick ``feel the slope, step
+downhill, stop when flat'' recap. \emph{Enrichment unit --- use as formative feedback, not a graded
+assessment.}
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} take single steps from both sides (toward $w=4$); confirm the loss falls; tune the learning
+rate ($s=0.5$ exact vs.\ $s=1$ overshoot); step the gradient of two weights toward $(2,5)$; and short
+justifications (step against the slope, slope $=0$ at the best weights, why huge nets must iterate).
+\textbf{Extension:} a too-small learning rate (safe but slow) and the \emph{whole-unit synthesis} --- layers
+$+$ ReLU $+$ filters $+$ gradient descent $=$ a network that learns. \textbf{Preview:} Lesson~8.4, \emph{Mean,
+Variance, and Covariance} --- the shape of the data itself, the last piece of learning from data.
 \end{skillbox}
 \end{document}

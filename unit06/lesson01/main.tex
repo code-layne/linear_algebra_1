@@ -5,6 +5,8 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
 \newcommand{\UnitNumberName}{Unit 6: Eigenvalues and Eigenvectors \quad}
 \newcommand{\LessonNumberName}{Lesson 6.1: Introduction to Eigenvalues}
 
@@ -16,55 +18,139 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can \emph{find} the eigenvalues and eigenvectors of a
+    $2\times2$ matrix from scratch. They can rewrite $A\xx=\lambda\xx$ as $(A-\lambda I)\xx=\zero$
+    and explain why a nonzero solution forces $A-\lambda I$ to be singular --- so the eigenvalues
+    solve the \emph{characteristic equation} $\det(A-\lambda I)=0$. Given a matrix they can form
+    $A-\lambda I$, expand the determinant into the characteristic polynomial, solve for the
+    eigenvalues, and then solve $(A-\lambda I)\xx=\zero$ for an eigenvector of each. They can check
+    their answer with the trace (sum of eigenvalues) and determinant (product), read eigenvalues off
+    diagonal/triangular matrices, connect $\lambda=0$ to $\det A=0$ (Unit~5), and recognize that a
+    rotation has \emph{no real} eigenvalues because it turns every vector.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Rewrite $A\xx=\lambda\xx$ as $(A-\lambda I)\xx=\zero$.
+  \item \textbf{Find} eigenvalues from $\det(A-\lambda I)=0$.
+  \item \textbf{Find} an eigenvector by solving $(A-\lambda I)\xx=\zero$.
+  \item Check with the trace and determinant.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item A nonzero vector crushed to $\zero$ $\Rightarrow$ $A-\lambda I$ singular $\Rightarrow\det=0$.
+  \item The characteristic polynomial's roots \emph{are} the stretch factors.
+  \item Each eigenvector is the direction $A-\lambda I$ collapses.
+  \item Sum of $\lambda$'s $=$ trace; product $=\det$ (a fast error catch).
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Characteristic equation} & $\det(A-\lambda I)=0$ --- the equation whose solutions are the eigenvalues of $A$. \\
+\textbf{Characteristic polynomial} & What $\det(A-\lambda I)$ expands to; for a $2\times2$ it is $\lambda^2-(\text{trace})\lambda+\det A$. \\
+\textbf{$A-\lambda I$} & $A$ with $\lambda$ subtracted down the diagonal; it is singular exactly at the eigenvalues. \\
+\textbf{Finding an eigenvector} & For each $\lambda$, solve $(A-\lambda I)\xx=\zero$ (the nullspace direction of $A-\lambda I$). \\
+\textbf{Trace} & The sum $a+d$ of the diagonal entries; equals $\lambda_1+\lambda_2$. \\
+\textbf{Trace \& determinant check} & $\lambda_1+\lambda_2=\text{trace}$ and $\lambda_1\lambda_2=\det A$. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three moves that \emph{are} today's method:
+    \textbf{(1)} forming $A-\lambda I$ (subtract $\lambda$ down the diagonal),
+    \textbf{(2)} the $2\times2$ \emph{determinant} $ad-bc$ (Unit~5), and
+    \textbf{(3)} solving a \emph{quadratic} by factoring. Debrief by naming the plan aloud: ``today we
+    do exactly these three moves, but with a $\lambda$ inside the matrix'' --- compute
+    $\det(A-\lambda I)$, set it to $0$, and solve for the eigenvalues.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Recall Lesson~6.0: to test a vector, compute $A\xx$ and ask ``is it a multiple of $\xx$?'' Then
+    ask the harder question: \textbf{``How would you \emph{find} the special directions of
+    $A=\begin{bsmallmatrix}2&1\\1&2\end{bsmallmatrix}$ without guessing?''} Push the algebra on the
+    board: $A\xx=\lambda\xx\Rightarrow(A-\lambda I)\xx=\zero$. We need a \emph{nonzero} $\xx$ sent to
+    $\zero$ --- and a matrix does that only when it is \emph{singular} (Unit~5), i.e.\
+    $\det(A-\lambda I)=0$. Name the payoff: one determinant equation hands us every eigenvalue, and
+    then one nullspace solve hands us each eigenvector. That two-step method runs the rest of Unit~6.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. From ``test it'' to ``find it.''} Rewrite $A\xx=\lambda\xx$ as $(A-\lambda I)\xx=\zero$.
+A nonzero solution needs $A-\lambda I$ \emph{singular}, so $\det(A-\lambda I)=0$ --- the
+\textbf{characteristic equation}.
+
+\textbf{2. Step 1 --- eigenvalues.} For $A=\begin{bsmallmatrix}2&1\\1&2\end{bsmallmatrix}$,
+$\det(A-\lambda I)=(2-\lambda)^2-1=\lambda^2-4\lambda+3=(\lambda-1)(\lambda-3)$, so $\lambda=1,3$ ---
+the same factors guessed in 6.0, now derived.
+
+\columnbreak
+
+\textbf{3. Step 2 --- eigenvectors.} For each $\lambda$, solve $(A-\lambda I)\xx=\zero$: $\lambda=3\to
+\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$, $\lambda=1\to\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$
+(see the notes figure --- two eigen-lines).
+
+\textbf{4. Check + reach.} Trace $=\lambda_1+\lambda_2$ ($4$), $\det=\lambda_1\lambda_2$ ($3$).
+Eigenvalues sit on the diagonal of diagonal/triangular matrices; $\lambda=0\Leftrightarrow\det A=0$; a
+rotation gives $\lambda^2+1=0$ (no real $\lambda$). \textbf{Road ahead:} 6.2 diagonalizing, 6.3
+symmetric, 6.4 an application.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item sign slips forming $A-\lambda I$ (subtract $\lambda$ from \emph{both} diagonal entries only);
+  \item dropping the ``$-bc$'' term when expanding $\det(A-\lambda I)$;
+  \item stopping after the eigenvalues without solving $(A-\lambda I)\xx=\zero$ for an eigenvector;
+  \item forgetting that \emph{any} nonzero multiple of an eigenvector is also an eigenvector.
+\end{itemize}
+Cold-call prompts: ``What is $A-\lambda I$ here?'' ``Why must $\det(A-\lambda I)=0$?'' ``Do your
+$\lambda$'s add to the trace and multiply to the determinant?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Finding the Special Directions --- No Guessing} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Each half-skill: read eigenvalues off a diagonal matrix; form
+$A-\lambda I$ and solve the characteristic equation; solve $(A-\lambda I)\xx=\zero$ for one
+eigenvector.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} The full job on $\begin{bsmallmatrix}4&2\\1&3\end{bsmallmatrix}$
+(both $\lambda$'s, both eigenvectors, trace/det check) plus a $\lambda=0$ (singular) matrix tied to
+$\det A=0$ and non-invertibility (§5).
+
+\columnbreak
+\textbf{Tier E --- Extension.} The $90^\circ$ rotation $\begin{bsmallmatrix}0&-1\\1&0\end{bsmallmatrix}$:
+$\det(A-\lambda I)=\lambda^2+1=0$ has \emph{no real} solution --- justify geometrically (it turns every
+vector).
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes) on $A=\begin{bsmallmatrix}2&2\\1&3\end{bsmallmatrix}$:
+find both eigenvalues from $\det(A-\lambda I)=0$ ($\lambda=1,4$); find an eigenvector for the larger
+$\lambda$ ($\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$); and a \textbf{justification check} --- why
+does $\det(A-\lambda I)=0$ find the eigenvalues? Sort into ``got it / arithmetic slip / concept slip''
+to decide whether 6.2 opens with a quick characteristic-equation re-warm.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} the full method on a symmetric matrix; the diagonal/triangular shortcut; a
+\emph{negative} eigenvalue (a flip); a trace/determinant check (callback to the warm-up matrix); and a
+justification of the method (singular $\Rightarrow\det=0$; why $\xx\ne\zero$). \textbf{Extension:}
+eigenvalues of a $3\times3$ triangular matrix (still the diagonal). \textbf{Preview:} Lesson~6.2,
+\emph{Diagonalizing a Matrix} --- line the eigenvectors into $X$ and rebuild $A=X\Lambda X^{-1}$,
+turning matrix powers into easy work on the $\lambda$'s.
 \end{skillbox}
 \end{document}

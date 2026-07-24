@@ -3,17 +3,142 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 6, Lesson 6.1}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item turn $A\xx=\lambda\xx$ into $(A-\lambda I)\xx=\zero$ and explain why $\det(A-\lambda I)=0$;
+  \item \emph{find} the eigenvalues by solving the characteristic equation $\det(A-\lambda I)=0$;
+  \item \emph{find} an eigenvector for each $\lambda$ by solving $(A-\lambda I)\xx=\zero$, and check with the trace and determinant.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.06in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{Characteristic equation $\det(A-\lambda I)=0$}{the equation whose solutions are the eigenvalues of $A$ --- set the determinant of $A-\lambda I$ to zero}
+\vocabans{Characteristic polynomial (the quadratic in $\lambda$)}{what $\det(A-\lambda I)$ expands to; for a $2\times2$ it is $\lambda^2-(\text{trace})\lambda+\det A$}
+\vocabans{Finding an eigenvector: solve $(A-\lambda I)\xx=\zero$}{for each $\lambda$, find a nonzero $\xx$ the matrix $A-\lambda I$ crushes to $\zero$ (its nullspace direction)}
+\vocabans{Trace \& determinant checks (sum $=$ trace, product $=\det$)}{$\lambda_1+\lambda_2=a+d$ and $\lambda_1\lambda_2=ad-bc$ --- a fast way to catch errors}
+\end{vocabbox}
+
+\begin{hookbox}
+Yesterday we \emph{tested} vectors we were handed: compute $A\xx$, is it a multiple of $\xx$?
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item But how would you \emph{find} the special directions of $A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$ from scratch --- without guessing? \ansline{Find the $\lambda$'s that make $A-\lambda I$ singular, then solve $(A-\lambda I)\xx=\zero$ for each.}
+  \item If $A\xx=\lambda\xx$, what do you get when you move everything to one side? \ansline{$(A-\lambda I)\xx=\zero$ --- a nonzero vector sent to $\zero$.}
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. From ``Test It'' to ``Find It'': the Characteristic Equation}
+Start from the eigen-relation and move everything to one side (using $\xx=I\xx$):
+\[
+  A\xx=\lambda\xx \quad\Longrightarrow\quad A\xx-\lambda\xx=\zero \quad\Longrightarrow\quad
+  (A-\lambda I)\xx=\zero.
+\]
+We need a \textbf{nonzero} $\xx$ with $(A-\lambda I)\xx=\zero$. A matrix sends a nonzero vector to
+$\zero$ only when it is \textbf{singular} (Unit~5) --- so we need
+\[
+  \det(A-\lambda I)={\color{keyred}\mathbf{0}}.
+\]
+This is the \textbf{characteristic equation}. Its solutions are the \ans{eigenvalues} of $A$.
 \end{notesbox}
+
+\begin{notesbox}{2. Step 1 --- Find the Eigenvalues}
+Use $A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$ (yesterday's matrix). Subtract
+$\lambda$ down the diagonal, then take the determinant:
+\[
+  A-\lambda I=\begin{bmatrix} 2-\lambda & 1\\ 1 & 2-\lambda \end{bmatrix},\qquad
+  \det(A-\lambda I)=(2-\lambda)^2-1={\color{keyred}\mathbf{\lambda^2-4\lambda+3}}.
+\]
+Set it to zero and factor the \textbf{characteristic polynomial}:
+\[
+  \lambda^2-4\lambda+3=(\lambda-{\color{keyred}\mathbf{1}})(\lambda-{\color{keyred}\mathbf{3}})=0
+  \quad\Longrightarrow\quad \lambda={\color{keyred}\mathbf{1}}\ \text{ or }\ \lambda={\color{keyred}\mathbf{3}}.
+\]
+The eigenvalues are the two stretch factors --- exactly the ones we \emph{guessed} yesterday.
+\end{notesbox}
+
+\begin{notesbox}{3. Step 2 --- Find an Eigenvector for Each $\lambda$}
+For each eigenvalue, solve $(A-\lambda I)\xx=\zero$ (find the direction it crushes).
+
+\vspace{2pt}
+\textbf{$\lambda=3$:}\quad
+$A-3I=\begin{bsmallmatrix} -1 & 1\\ 1 & -1 \end{bsmallmatrix}$, so $-x_1+x_2=0$, i.e.\ $x_1=x_2$.
+One eigenvector: $\xx=\begin{bsmallmatrix}{\color{keyred}\mathbf{1}}\\[2pt]{\color{keyred}\mathbf{1}}\end{bsmallmatrix}$.
+
+\vspace{4pt}
+\textbf{$\lambda=1$:}\quad
+$A-1I=\begin{bsmallmatrix} 1 & 1\\ 1 & 1 \end{bsmallmatrix}$, so $x_1+x_2=0$, i.e.\ $x_1=-x_2$.
+One eigenvector: $\xx=\begin{bsmallmatrix}{\color{keyred}\mathbf{1}}\\[2pt]{\color{keyred}\mathbf{-1}}\end{bsmallmatrix}$.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  \draw[step=1, linegray!45, thin] (-2.4,-2.4) grid (2.4,2.4);
+  \draw[->, thick, charcoal] (-2.6,0)--(2.7,0);
+  \draw[->, thick, charcoal] (0,-2.6)--(0,2.7);
+  % lambda=3 eigen-line (through (1,1))
+  \draw[burgundy!40, dashed, thin] (-2.2,-2.2)--(2.2,2.2);
+  \draw[->, ultra thick, burgundy] (0,0)--(1,1) node[above left=-1pt]{\scriptsize $\xx_1$};
+  \draw[->, very thick, burgundy!55] (0,0)--(1.7,1.7) node[right=1pt]{\scriptsize $A\xx_1=3\xx_1$};
+  % lambda=1 eigen-line (through (1,-1)) -- unchanged (lambda=1)
+  \draw[royalblue!40, dashed, thin] (-2.2,2.2)--(2.2,-2.2);
+  \draw[->, ultra thick, royalblue] (0,0)--(1,-1) node[below right=-1pt]{\scriptsize $\xx_2,\ A\xx_2=1\xx_2$};
+\end{tikzpicture}
+\end{center}
+Each eigenvector sits on a line the matrix only \emph{scales}: the burgundy line is stretched
+$\times3$; the blue line is left \ans{unchanged} ($\lambda=1$).
+\end{notesbox}
+
+\begin{notesbox}{4. A Fast Check --- Trace and Determinant}
+Two quick sums catch most mistakes. For any $2\times2$ matrix, the eigenvalues satisfy
+\[
+  \lambda_1+\lambda_2=\underbrace{a+d}_{\textbf{trace}},\qquad
+  \lambda_1\lambda_2=\underbrace{ad-bc}_{\det A}.
+\]
+Check our answer $\lambda=1,3$ against $A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$:
+sum $1+3={\color{keyred}\mathbf{4}}$ should equal the trace $2+2={\color{keyred}\mathbf{4}}$; product $1\cdot3={\color{keyred}\mathbf{3}}$
+should equal $\det A={\color{keyred}\mathbf{3}}$. \; Both match.
+
+\vspace{3pt}
+\textbf{The road ahead.} We can now \emph{find} eigenvalues \emph{and} eigenvectors for any $2\times2$
+matrix. Next: \textbf{6.2} uses them to \emph{diagonalize} $A$ (rebuild the matrix from its special
+directions), \textbf{6.3} looks at symmetric matrices, and \textbf{6.4} an application.
+\end{notesbox}
+
+\begin{practicebox}
+Find the eigenvalues (solve $\det(A-\lambda I)=0$), then an eigenvector for each.
+\begin{enumerate}[leftmargin=1.6em, itemsep=6pt]
+  \item $A=\begin{bsmallmatrix} 3 & 0\\ 0 & 5 \end{bsmallmatrix}$: find both eigenvalues. (What do you notice about the diagonal?) \ansline{$\det(A-\lambda I)=(3-\lambda)(5-\lambda)=0\Rightarrow\lambda=3,5$ --- the eigenvalues \emph{are} the diagonal entries.}
+  \item $A=\begin{bsmallmatrix} 3 & 2\\ 2 & 3 \end{bsmallmatrix}$: find both eigenvalues, then an eigenvector for the larger one. \ansline{$\det(A-\lambda I)=(3-\lambda)^2-4=\lambda^2-6\lambda+5=(\lambda-1)(\lambda-5)\Rightarrow\lambda=1,5$. For $\lambda=5$: $A-5I=\begin{bsmallmatrix}-2&2\\2&-2\end{bsmallmatrix}\Rightarrow x_1=x_2\Rightarrow\xx=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$.}
+  \item Use the trace and determinant to check your eigenvalues in problem~2. \ansline{Sum $1+5=6=$ trace $(3+3)$; product $1\cdot5=5=\det A\ (9-4)$. Both match.}
+\end{enumerate}
+\end{practicebox}
+
+\begin{teachernote}
+The spine is the two-step method: \textbf{Step 1} (§2) find the $\lambda$'s from
+$\det(A-\lambda I)=0$; \textbf{Step 2} (§3) find each eigenvector from $(A-\lambda I)\xx=\zero$.
+Section~1 is the \emph{why} ($(A-\lambda I)\xx=\zero$ needs a nonzero $\xx$ $\Rightarrow$ $A-\lambda I$
+singular $\Rightarrow$ $\det=0$), reusing the Unit~5 fact ``singular $\Leftrightarrow\det=0$.''
+Section~4 is the trace/determinant check. We deliberately reuse yesterday's matrix
+$\begin{bsmallmatrix}2&1\\1&2\end{bsmallmatrix}$ so the method \emph{recovers} the $\lambda=1,3$ and
+eigenvectors $\begin{bsmallmatrix}1\\1\end{bsmallmatrix},\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$
+they found by guessing --- ``same answer, no guessing.'' Most common errors: sign slips forming
+$A-\lambda I$; expanding $(2-\lambda)^2-1$ incorrectly; and stopping after the eigenvalues without
+solving for an eigenvector. Remind them any nonzero multiple of an eigenvector is also an eigenvector
+(the \emph{direction} is what matters).
+\end{teachernote}
 
 \end{document}

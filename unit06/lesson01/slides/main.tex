@@ -1,6 +1,8 @@
 %! Introduction to Eigenvalues — Unit 6, Lesson 6.1 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
@@ -11,16 +13,97 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 6.1}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Introduction to Eigenvalues}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 6}
+    {\color{white}\bfseries\LARGE Introduction to Eigenvalues}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 6: Eigenvalues and Eigenvectors}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{From testing to finding}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+      Yesterday: \textbf{test} a vector you were handed --- is $A\xx$ a multiple of $\xx$?\\[8pt]
+      Today: \textbf{find} the special directions from scratch. Move everything to one side:
+      \[ A\xx=\lambda\xx \ \Longrightarrow\ (A-\lambda I)\xx=\zero. \]
+      We need a \emph{nonzero} $\xx$ crushed to $\zero$.
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.66]
+        \draw[step=1, linegray!45, thin] (-2.2,-2.2) grid (2.2,2.2);
+        \draw[->, thick, charcoal] (-2.3,0)--(2.4,0);
+        \draw[->, thick, charcoal] (0,-2.3)--(0,2.4);
+        \draw[burgundy!40, dashed, thin] (-2.0,-2.0)--(2.0,2.0);
+        \draw[->, ultra thick, burgundy] (0,0)--(1,1) node[above left=-1pt]{\scriptsize $\xx_1$};
+        \draw[->, very thick, burgundy!55] (0,0)--(1.7,1.7) node[right=1pt]{\scriptsize $3\xx_1$};
+        \draw[royalblue!40, dashed, thin] (-2.0,2.0)--(2.0,-2.0);
+        \draw[->, ultra thick, royalblue] (0,0)--(1,-1) node[below right=-1pt]{\scriptsize $\xx_2$};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{2pt}
+  \begin{block}{The key move (Unit 5)}
+    A matrix crushes a nonzero vector to $\zero$ \emph{only} when it is singular: $\det(A-\lambda I)=0$.
+  \end{block}
+\end{frame}
+
+% STEP 1
+\begin{frame}[t, plain]
+  \burgundyheader{Step 1 --- find the eigenvalues}
+  \sectionlabel[goldacc]{Characteristic equation}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item Subtract $\lambda$ down the diagonal, then take the determinant. For
+          $A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$:
+          \[ \det(A-\lambda I)=(2-\lambda)^2-1=\lambda^2-4\lambda+3. \]
+    \item Set it to zero and factor --- the \textbf{characteristic equation}:
+          \[ \lambda^2-4\lambda+3=(\lambda-1)(\lambda-3)=0 \ \Longrightarrow\ \lambda=1,\ 3. \]
+    \item These are the same stretch factors we \emph{guessed} yesterday --- now with no guessing.
+  \end{itemize}
+\end{frame}
+
+% STEP 2
+\begin{frame}[t, plain]
+  \burgundyheader{Step 2 --- find an eigenvector for each $\lambda$}
+  \sectionlabel{Skill}
+  \begin{block}{Solve $(A-\lambda I)\xx=\zero$}
+    For each eigenvalue, find the direction $A-\lambda I$ crushes.
+  \end{block}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \textbf{$\lambda=3$:}
+      \[ A-3I=\begin{bsmallmatrix} -1 & 1\\ 1 & -1 \end{bsmallmatrix} \Rightarrow x_1=x_2 \Rightarrow \xx=\begin{bsmallmatrix} 1\\ 1 \end{bsmallmatrix}. \]
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \textbf{$\lambda=1$:}
+      \[ A-I=\begin{bsmallmatrix} 1 & 1\\ 1 & 1 \end{bsmallmatrix} \Rightarrow x_1=-x_2 \Rightarrow \xx=\begin{bsmallmatrix} 1\\ -1 \end{bsmallmatrix}. \]
+    \end{column}
+  \end{columns}
+  \vspace{4pt}
+  \begin{block}{Fast check --- trace \& determinant}
+    $\lambda_1+\lambda_2 = 1+3 = 4 = \text{trace}$; \quad $\lambda_1\lambda_2 = 1\cdot 3 = 3 = \det A$.
+  \end{block}
+\end{frame}
+
+% WHEN THERE ARE NONE + ROAD AHEAD
+\begin{frame}[t, plain]
+  \burgundyheader{No special directions --- and the road ahead}
+  \sectionlabel[goldacc]{Payoff}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item \textbf{Diagonal / triangular:} the eigenvalues are just the diagonal entries.
+    \item \textbf{$\lambda=0$:} means $\det A=0$ --- the matrix is \emph{not invertible} (Unit~5).
+    \item \textbf{A rotation} $\begin{bsmallmatrix} 0 & -1\\ 1 & 0 \end{bsmallmatrix}$ gives
+          $\lambda^2+1=0$ --- \emph{no real} eigenvalue, because it turns every vector.
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{The road ahead}
+    \textbf{6.2} diagonalizing $A=X\Lambda X^{-1}$ \;$\bullet$\; \textbf{6.3} symmetric matrices
+    \;$\bullet$\; \textbf{6.4} an application.
+  \end{block}
 \end{frame}
 
 \end{document}

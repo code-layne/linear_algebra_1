@@ -7,7 +7,34 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-23 — **Authored & built Unit 6 Lesson 6.0 — "Special Directions --- Setting Up Eigenvalues" (the intro/spiral lesson).**
+**Last updated:** 2026-07-23 — **Authored & built Unit 6 Lesson 6.1 — "Introduction to Eigenvalues" (Strang §6.1).**
+Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides
+deck, mirroring Lesson 6.0's preamble/boxes/tone. **Content — the payoff of 6.0's Tier E/preview: \emph{find} the special
+directions with no guessing, via the two-step method.** (1) rewrite $A\xx=\lambda\xx$ as $(A-\lambda I)\xx=\zero$; a nonzero
+$\xx$ crushed to $\zero$ forces $A-\lambda I$ \textbf{singular} $\Rightarrow$ \textbf{characteristic equation}
+$\det(A-\lambda I)=0$ (Unit 5 callback). (2) \textbf{Step 1 — eigenvalues:} expand $\det(A-\lambda I)$ into the characteristic
+polynomial and solve; on the 6.0 spine $A=[[2,1],[1,2]]$: $(2-\lambda)^2-1=\lambda^2-4\lambda+3=(\lambda-1)(\lambda-3)$,
+$\lambda=1,3$ — \emph{recovers} the guessed values. (3) \textbf{Step 2 — eigenvectors:} solve $(A-\lambda I)\xx=\zero$ for
+each $\lambda$ ($\lambda3\to[1,1]$, $\lambda1\to[1,-1]$). (4) \textbf{trace/det check} ($\lambda_1+\lambda_2=$ trace,
+$\lambda_1\lambda_2=\det$), diagonal/triangular $\lambda$-on-the-diagonal, $\lambda=0\Leftrightarrow\det A=0$, and the 6.2
+preview $A=X\Lambda X^{-1}$. **Warmup = the method's three moves in miniature** (form $A-\lambda I$ on $[[4,1],[2,3]]$; $2\times2$
+determinant; factor $\lambda^2-5\lambda+6$). **Custom two-eigen-line TikZ** (burgundy $\xx_1$ + $A\xx_1=3\xx_1$ on the $y=x$
+eigen-line; royalblue $\xx_2$ unchanged on $y=-x$, $\lambda=1$) on notes §3 + slides Step 2. **Activity/Exit/HW spine (all
+hand-verified in pure Python, exact ints):** Tier R diagonal $[[6,0],[0,2]]$ + full method on symmetric $[[4,1],[1,4]]$
+($\lambda3,5$); Tier A full job on $[[4,2],[1,3]]$ ($\lambda2,5$; eigvecs $[1,-1],[2,1]$; trace/det check) + $\lambda=0$ on
+$[[2,4],[1,2]]$ ($[2,-1]\to\zero$, $\det=0$); Tier E rotation $[[0,-1],[1,0]]$ → $\lambda^2+1=0$, \emph{no real} eigenvalue
+(turns every vector, 5.3 callback). Exit uses $[[2,2],[1,3]]$ ($\lambda1,4$; eigvec $[1,1]$ for $\lambda4$; justify why
+$\det(A-\lambda I)=0$). HW: full method $[[5,2],[2,5]]$ ($\lambda3,7$), diagonal/triangular read-off, negative eigenvalue
+$[[1,2],[2,1]]$ ($\lambda3,-1$, a flip), trace/det check on the warmup matrix $[[4,1],[2,3]]$ ($\lambda2,5$), + a $3\times3$
+triangular extension $[[2,1,7],[0,3,4],[0,0,5]]\to\lambda2,3,5$. **Built `make -C unit06/lesson01 all` → clean** (0 `^!`/file-line
+errors across all 13 logs; no `\ans`-in-math; no overfull >15pt). Page counts: cover/warmup/exit 1pp (blank & key ✓ 1-page
+constraint), notes 2pp, activity 2pp, homework 2pp, slides 5pp, lesson plan 2pp; **student 9pp, full 16pp** (matches 6.0).
+Visually spot-checked notes_key p1/p2 (two-eigen-line figure — clean dashed lines, colored arrows, no tofu) and slides Step 2 —
+clean. **Gotcha (unchanged):** `\xx`/`\zero` are per-file macros — define every math macro the body uses (incl. the lesson-plan
+and beamer preambles). **Next run: author Unit 6 Lesson 6.2** ("Diagonalizing a Matrix", §6.2). Lessons 6.0/6.1 are the Unit 6
+models.
+
+**Prior run:** **Authored & built Unit 6 Lesson 6.0 — "Special Directions --- Setting Up Eigenvalues" (the intro/spiral lesson).**
 Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides
 deck, mirroring Lesson 5.0's preamble/boxes/tone. **Content — spiral + roadmap for Eigenvalues:** (1) a matrix usually
 \emph{turns} a vector (Lesson 5.3 callback: $A[1,0]^{\T}=[2,1]^{\T}$ under the spine $A=[[2,1],[1,2]]$); (2) the one big

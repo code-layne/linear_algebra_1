@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 6}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 6 \quad Eigenvalues and Eigenvectors}}\\[6pt]
   {\color{white}\textbf{\large Lesson 6.1 \quad Introduction to Eigenvalues}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} turn $A\mathbf{x}=\lambda\mathbf{x}$ into $(A-\lambda I)\mathbf{x}=\mathbf{0}$ and explain why the eigenvalues satisfy $\det(A-\lambda I)=0$.
+  \item \ldots{} \textbf{find} a matrix's eigenvalues by solving the characteristic equation $\det(A-\lambda I)=0$.
+  \item \ldots{} \textbf{find} an eigenvector for each $\lambda$ by solving $(A-\lambda I)\mathbf{x}=\mathbf{0}$, and check with the trace and determinant.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,25 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: $A-\lambda I$, the $2\times2$ determinant, solving a quadratic & \blank{1.2cm} \\
+2 & Guided Notes   & The characteristic equation $\det(A-\lambda I)=0$; finding $\lambda$'s and eigenvectors & \blank{1.2cm} \\
+3 & Group Activity & Running the full method; a $\lambda=0$ matrix; a rotation with no real $\lambda$ & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check: find eigenvalues, an eigenvector, and justify the method            & \blank{1.2cm} \\
+5 & Homework       & Full method, diagonal/triangular shortcut, a negative $\lambda$, trace/det check   & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small Yesterday you \emph{tested} vectors you were handed. Today you \emph{find} the special
+directions from scratch. The whole method is two steps: solve the \textbf{characteristic equation}
+$\det(A-\lambda I)=0$ for the \textbf{eigenvalues} $\lambda$, then solve $(A-\lambda I)\mathbf{x}=
+\mathbf{0}$ for an \textbf{eigenvector} of each. A nonzero $\mathbf{x}$ can be crushed to $\mathbf{0}$
+only when $A-\lambda I$ is singular --- that is why the determinant must be zero (Unit~5). Two fast
+checks: the eigenvalues \emph{sum} to the trace and \emph{multiply} to the determinant.
+\end{remindbox}
 
 \end{document}

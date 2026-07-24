@@ -1,6 +1,10 @@
 %! Convolutional Neural Nets — Unit 8, Lesson 8.2 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
@@ -11,16 +15,102 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 8.2}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Convolutional Neural Nets}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 8}
+    {\color{white}\bfseries\LARGE Convolutional Neural Nets}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 8: Learning from Data}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{Too many weights --- and the pattern repeats}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+      A \textbf{full} layer $\relu(A\vv+\bb)$ gives \emph{every} connection its own weight.\\[6pt]
+      A photo has \emph{millions} of pixels --- that is $\sim\!10^{12}$ weights. And a bright \textbf{edge}
+      looks the same in the corner or the center.\\[6pt]
+      \textbf{Idea:} learn \emph{one} small pattern-detector and \textbf{reuse} it everywhere.
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.5]
+        \draw[->, charcoal, thin] (-0.3,0)--(5.4,0) node[right]{\scriptsize position};
+        \draw[->, charcoal, thin] (0,-0.4)--(0,3.2) node[above]{\scriptsize value};
+        \draw[ultra thick, royalblue] (1,0.8)--(2,0.8)--(3,0.8)--(4,2.4)--(5,2.4);
+        \foreach \x/\y in {1/0.8,2/0.8,3/0.8,4/2.4,5/2.4}
+          \fill[royalblue] (\x,\y) circle (1.6pt);
+        \draw[goldacc, very thick, dashed] (2.75,0.45)--(4.25,0.45)--(4.25,2.8)--(2.75,2.8)--cycle;
+        \node[goldacc] at (3.5,3.15) {\scriptsize filter slides};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{2pt}
+  \begin{block}{The question of Lesson 8.2}
+    How can one small filter, reused everywhere, detect a pattern \textbf{wherever} it appears --- with almost
+    no weights?
+  \end{block}
+\end{frame}
+
+% SLIDE THE FILTER
+\begin{frame}[t, plain]
+  \burgundyheader{Convolution: slide a small filter}
+  \sectionlabel[goldacc]{Skill}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      Filter $\ww=[-1,1]$, signal $\vv=[2,2,2,6,6]$. At each spot: $-v_i+v_{i+1}$ (``next minus current'').
+      \[ [\,0,\ 0,\ 4,\ 0\,] \]
+      Zero on the flat parts, a \textbf{spike} at the edge $2\to6$. This output is the \textbf{feature map} ---
+      big where the pattern is.
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.5]
+        \draw[->, charcoal, thin] (-0.3,0)--(4.8,0) node[right]{\scriptsize position};
+        \draw[->, charcoal, thin] (0,-0.4)--(0,3.2) node[above]{\scriptsize output};
+        \foreach \x/\y in {1/0,2/0,3/1.7,4/0}{
+          \draw[ultra thick, burgundy] (\x,0)--(\x,\y);
+          \fill[burgundy] (\x,\y) circle (1.6pt);
+        }
+        \node[burgundy] at (3.0,2.15) {\scriptsize $4$};
+        \node[charcoal] at (3.0,-0.8) {\scriptsize fires at the edge};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% IT IS A MATRIX
+\begin{frame}[t, plain]
+  \burgundyheader{It is a matrix --- with shared weights}
+  \sectionlabel{Skill}
+  \[ A=\begin{bmatrix} -1 & 1 & 0 & 0 & 0\\ 0 & -1 & 1 & 0 & 0\\ 0 & 0 & -1 & 1 & 0\\ 0 & 0 & 0 & -1 & 1 \end{bmatrix},
+     \qquad A\,[2,2,2,6,6]^{\!\top}=[0,0,4,0]^{\!\top}. \]
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item The same $-1,1$ \textbf{repeat down the diagonals} --- a \textbf{convolution matrix}.
+    \item \textbf{Weight count:} a full $4\times5$ block $=20$ weights; this convolution $=\mathbf{2}$.
+    \item A $1000\times1000$ image: $\sim\!10^{12}$ full weights vs.\ a $3\times3$ filter's $\mathbf{9}$ ---
+          reused everywhere. That is \textbf{weight sharing}.
+  \end{itemize}
+\end{frame}
+
+% CONV LAYER + WHY IT MATTERS
+\begin{frame}[t, plain]
+  \burgundyheader{A convolutional layer --- and the road ahead}
+  \sectionlabel[goldacc]{Payoff}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item Same layer as before: $\relu(A\vv+\bb)$, only now $A$ is a \textbf{convolution matrix} and $\bb$ is a
+          \emph{threshold}. On $[0,0,4,0]$ with bias $-1$: $\relu([-1,-1,3,-1])=[0,0,3,0]$ --- keep the strong response.
+    \item \textbf{Detect anywhere:} one reused filter fires on its pattern \emph{wherever} it sits --- a cat in
+          the corner or the center (translation invariance).
+    \item \textbf{Why it matters:} weight sharing turns a trillion weights into a handful --- small enough to
+          actually learn. \emph{Still just matrices $+$ ReLU.}
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{The road ahead}
+    \textbf{8.3} minimizing loss by gradient descent \;$\bullet$\; \textbf{8.4} mean, variance, covariance.
+  \end{block}
 \end{frame}
 
 \end{document}

@@ -7,7 +7,42 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-24 — **Authored & built Unit 8 Lesson 8.1 — "Piecewise Linear Learning Functions" (§8.1 — folding
+**Last updated:** 2026-07-24 — **Authored & built Unit 8 Lesson 8.2 — "Convolutional Neural Nets" (§8.2 — the same layer
+$\relu(A\vv+\bb)$, but with weights *reused* across the input to scan for one pattern everywhere).** Filled every skeleton:
+lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides deck, mirroring Lesson 8.1's
+preamble/boxes/tone. **Content — from full layer to shared-weight filter:** (1) **too many weights** — a full layer gives every
+connection its own weight ($\sim\!10^{12}$ for a megapixel image) and relearns the same edge everywhere; fix = a **small filter**
+(kernel) **reused** at every position. (2) **Convolution = slide the filter**: filter $\ww=[-1,1]$ (output $-v_i+v_{i+1}$, "next
+minus current") slid across $\vv=[2,2,2,6,6]$ gives the **feature map** $[0,0,4,0]$ — $0$ on flat parts, a **spike at the edge**;
+an edge detector. (3) **It is a matrix** — sliding = $A\vv$ with $-1,1$ **repeated down the diagonals** (constant-diagonal
+**convolution matrix**); **weight count** full $4\times5=20$ vs conv **2**; $1000\times1000$ image $\sim\!10^{12}$ vs a $3\times3$
+filter's **9** (**weight sharing**). (4) **A conv layer is still $\relu(A\vv+\bb)$** — $A$ shared, $\bb$ a **threshold**: on
+$[0,0,4,0]$ bias $-1\Rightarrow\relu([-1,-1,3,-1])=[0,0,3,0]$ (keep the strong response); payoff = **translation invariance** (one
+reused filter fires wherever the pattern sits) + few enough weights to learn (8.3). **Custom two-panel TikZ** (left: royalblue step
+signal $[2,2,2,6,6]$ + gold dashed sliding-filter window over the edge; gold "convolve" arrow; right: burgundy feature-map spike
+$4$ at the edge, "fires at the edge") on notes §2 + slides. **Warmup spirals the three moves** (window dot products
+$[-1,1]\cdot[2,2]{=}0$, $[-1,1]\cdot[2,6]{=}4$ U1/4; constant-diagonal $2\times3$ matrix×vector $[2,2,6]{\to}[0,4]$ U1; ReLU
+entrywise $\relu([0,0,4,0])$ 8.0). **Activity/Exit/HW spines (all hand-verified pure Python):** Tier R edge filter $[-1,1]$ on
+$[1,1,4,4]{\to}[0,3,0]$ (fire at edge) vs averaging $\tfrac12[1,1]{\to}[1,2.5,4]$ (smooth); Tier A build $4\times5$ conv matrix,
+$A[3,3,3,8,8]{=}[0,0,5,0]$, count $20$ vs $2$, bias $-2\Rightarrow[0,0,3,0]$; Tier E translation invariance ($[3,9,9,9,9]{\to}
+[6,0,0,0]$ vs $[3,3,3,3,9]{\to}[0,0,0,6]$ — same jump $6$, different place) + $10^{12}$-vs-$9$ param argument. Exit: slide $[-1,1]$
+on $[2,2,7,7]{\to}[0,5,0]$, count $64$-vs-$3$ ("weight sharing"), justify detect-anywhere. HW: slide edge (flat $[4,4,4,4]{\to}
+[0,0,0]$ never fires; $[1,1,6,6]{\to}[0,5,0]$); smoothing $[2,6,6,2]{\to}[4,6,4]$; build $3\times4$ conv matrix ($A[1,1,6,6]{=}
+[0,5,0]$, repeated diagonal); weight count ($12$ vs $2$; $28\times28$ full $614{,}656$ vs $3\times3$ filter $9$); justify weight
+sharing + bias-as-threshold; extension $5\times5$ filter $=25$ (fixed regardless of image size) + full pipeline
+$\relu([-1,1]\ast[2,2,2,7,7]+(-3))=[0,0,2,0]$. **Built `make -C unit08/lesson02 all` → clean** (0 file-line/`^!` errors across all
+13 logs; no `\ans`-in-math; 0 overfull >15pt — max 10.77pt is the standard pageheader banner). Page counts: cover/warmup/exit 1pp
+(blank & key ✓ 1-page constraint), notes 3pp/3pp, activity 2pp/2pp, homework 2pp/2pp, slides 5pp, lesson plan 3pp; **student 10pp,
+full 18pp** (matches the 8.0/8.1 profile). Visually spot-checked notes_key p2 (two-panel convolution figure — clean royalblue step
+signal, gold dashed sliding window, "convolve" arrow, burgundy edge spike, no tofu; red answers $y{=}0,0,4,0$, $A\vv{=}[0,0,4,0]$,
+weight count "2", ReLU $[0,0,3,0]$ all correct) — clean. **Gotcha (recurred):** `\bb` is a per-file macro — the warmup_key
+teachernote used `$\relu(A\vv+\bb)$` but the blank warmup didn't, so the key preamble needed `\bb` added (define every math macro
+the body uses, keys included, even when the blank doesn't; 1 build failure fixed). **Macros per file:** `\vv,\bb,\ww,\zero,\relu`
+(added `\ww`=filter this lesson). Lessons 8.0/8.1/8.2 are now the Unit 8 models. **Next run: author Unit 8 Lesson 8.3**
+("Minimizing Loss by Gradient Descent", §8.3 — now that we can *build* networks, *choose* the weights by rolling downhill on the
+Unit-4 loss).
+
+**Prior run:** **Authored & built Unit 8 Lesson 8.1 — "Piecewise Linear Learning Functions" (§8.1 — folding
 shifted ReLUs into continuous piecewise-linear functions that bend to fit data).** Filled every skeleton: lesson plan, cover,
 warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides deck, mirroring Lesson 8.0's preamble/boxes/tone.
 **Content — the deep dive on the piecewise-linear structure 8.0 previewed:** (1) **one fold is not enough** — a line has one slope
@@ -942,17 +977,17 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | 5 | Determinants and Linear Transformations | 5.0 intro + 5.1–5.3 | ☑ all lessons + tests authored & built ✅ |
 | 6 | Eigenvalues and Eigenvectors | 6.0 intro + 6.1–6.4 (§6.4 optional) | ☑ all lessons + tests authored & built ✅ |
 | 7 | The Singular Value Decomposition *(optional/advanced)* | 7.0 intro + 7.1–7.4 | ☑ all lessons + tests authored & built ✅ |
-| 8 | Learning from Data *(optional enrichment)* | 8.0 intro + 8.1–8.4 | ◐ 8.0, 8.1 authored & built; 8.2–8.4 scaffolded (skeletons); tests scaffolded (skeletons) |
+| 8 | Learning from Data *(optional enrichment)* | 8.0 intro + 8.1–8.4 | ◐ 8.0, 8.1, 8.2 authored & built; 8.3–8.4 scaffolded (skeletons); tests scaffolded (skeletons) |
 
 ## Next steps
 
 1. **Core Units 1–6 and optional Unit 7 are complete** (all lessons + summative tests authored & built). **Unit 8 (optional
-   enrichment) is in progress:** lessons **8.0 and 8.1 are authored & built** (the Unit 8 models); the lesson map is confirmed
-   (8.0 intro + 8.1–8.4). **Next run: author Unit 8 Lesson 8.2** ("Convolutional Neural Nets", §8.2 — the same layer
-   $\relu(A\vv+\bb)$ but with weights *reused* across an image to scan for a pattern everywhere), then 8.3 ("Minimizing Loss
-   by Gradient Descent") and 8.4 ("Mean, Variance, and Covariance"). Unit 8 tests are scaffolded skeletons — author them last
-   only if the user wants Unit 8 assessed (it is enrichment, "no expectation of testing"). Lessons 8.0/8.1 are the Unit 8
-   models; Unit 4/5/6/7 tests are the assessment-format model; Lesson 4.0 the cross-unit style model.
+   enrichment) is in progress:** lessons **8.0, 8.1, and 8.2 are authored & built** (the Unit 8 models); the lesson map is
+   confirmed (8.0 intro + 8.1–8.4). **Next run: author Unit 8 Lesson 8.3** ("Minimizing Loss by Gradient Descent", §8.3 — now
+   that we can *build* networks with layers, folds, and filters, *choose* the weights by rolling downhill on the Unit-4 loss),
+   then 8.4 ("Mean, Variance, and Covariance"). Unit 8 tests are scaffolded skeletons — author them last only if the user wants
+   Unit 8 assessed (it is enrichment, "no expectation of testing"). Lessons 8.0/8.1/8.2 are the Unit 8 models; Unit 4/5/6/7
+   tests are the assessment-format model; Lesson 4.0 the cross-unit style model.
 2. *(optional)* Rebuild the whole-course packets (`make -C unitXX student|full`, or `make student|full` at the root) to
    confirm every unit's `sample_test`/`sample_test_key` drop-ins (now incl. Unit 7) merge in as expected.
 

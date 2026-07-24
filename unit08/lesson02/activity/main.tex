@@ -3,17 +3,74 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.2}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Scanning for a Pattern.} A \textbf{convolution} slides a small \textbf{filter} across a signal,
+taking a dot product at each spot. Written as a matrix, the filter's weights \emph{repeat down the diagonals}
+--- the same few weights, \textbf{reused everywhere}. That is what lets a network find the same pattern no
+matter where it sits, with almost no weights. Work with your partner, show each step, and \emph{explain} what
+you find.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Slide two different filters and see what each one does.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item \textbf{Edge filter.} Slide $\ww=[-1,1]$ (output $=-v_i+v_{i+1}$) across $\vv=[1,1,4,4]$:
+        \[ y_1=\blank{0.9cm},\ \ y_2=\blank{0.9cm},\ \ y_3=\blank{0.9cm}. \]
+        Output $=[\ \blank{0.5cm},\ \blank{0.5cm},\ \blank{0.5cm}\ ]$. At which spot does it \emph{fire},
+        and what does that spot correspond to in the signal? \writeline
+  \item \textbf{Averaging (smoothing) filter.} Slide $\ww=\tfrac12[1,1]$ (output $=\tfrac{v_i+v_{i+1}}{2}$)
+        across the same $\vv=[1,1,4,4]$:
+        \[ y_1=\blank{0.9cm},\ \ y_2=\blank{0.9cm},\ \ y_3=\blank{0.9cm}. \]
+        Compared to the edge filter, what does this filter \emph{do} to the jump? \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Write the convolution as a matrix, count the weights it saves, then finish the layer.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Build the matrix.} For the filter $\ww=[-1,1]$ and a length-$5$ signal, fill in the
+        convolution matrix (the same two numbers slide over one step each row):
+        \[ A=\begin{bmatrix} -1 & 1 & 0 & 0 & 0\\ 0 & \blank{0.5cm} & \blank{0.5cm} & 0 & 0\\
+             0 & 0 & \blank{0.5cm} & \blank{0.5cm} & 0\\ 0 & 0 & 0 & \blank{0.5cm} & \blank{0.5cm} \end{bmatrix}. \]
+        Then compute $A\vv$ for $\vv=[3,3,3,8,8]$: \quad output $=[\ \blank{0.5cm},\ \blank{0.5cm},\ \blank{0.5cm},\ \blank{0.5cm}\ ]$.
+  \item \textbf{Count the weights.} A \emph{full} $4\times5$ layer would have how many separate weights? How
+        many does this shared-weight convolution use? \writeline
+  \item \textbf{Finish the layer.} Apply $\relu(A\vv+\bb)$ with bias $\bb=-2$ to the output of problem~1.
+        What comes out, and which spot survives? \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{The same filter, wherever the pattern hides.} Weight sharing means one filter detects its pattern
+\emph{everywhere}.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Slide $\ww=[-1,1]$ across each signal (both have the \emph{same} jump of $6$, in different places):
+        \[ \text{A: }[3,9,9,9,9]\ \to\ [\ \blank{0.5cm},\ \blank{0.5cm},\ \blank{0.5cm},\ \blank{0.5cm}\ ],
+           \qquad \text{B: }[3,3,3,3,9]\ \to\ [\ \blank{0.5cm},\ \blank{0.5cm},\ \blank{0.5cm},\ \blank{0.5cm}\ ]. \]
+        The same filter fired with the same strength in both --- just at a different \emph{position}. In one
+        sentence, why does reusing one filter make the detector work no matter where the edge sits? \writeline
+  \item A real $1000\times1000$ image has a million pixels. A full layer to a million outputs needs about
+        $10^{12}$ weights; a $3\times3$ filter needs $9$. In a sentence, why is this the difference between a
+        network you \emph{can} train and one you cannot? \writeline
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

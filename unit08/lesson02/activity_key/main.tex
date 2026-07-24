@@ -3,17 +3,85 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.2}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Scanning for a Pattern.} A \textbf{convolution} slides a small \textbf{filter} across a signal,
+taking a dot product at each spot. Written as a matrix, the filter's weights \emph{repeat down the diagonals}
+--- the same few weights, \textbf{reused everywhere}. That is what lets a network find the same pattern no
+matter where it sits, with almost no weights. Work with your partner, show each step, and \emph{explain} what
+you find.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Slide two different filters and see what each one does.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item \textbf{Edge filter.} Slide $\ww=[-1,1]$ (output $=-v_i+v_{i+1}$) across $\vv=[1,1,4,4]$:
+        \[ y_1={\color{keyred}\mathbf{0}},\ \ y_2={\color{keyred}\mathbf{3}},\ \ y_3={\color{keyred}\mathbf{0}}. \]
+        Output $=[\ {\color{keyred}\mathbf{0}},\ {\color{keyred}\mathbf{3}},\ {\color{keyred}\mathbf{0}}\ ]$. At which spot does it \emph{fire},
+        and what does that spot correspond to in the signal? \ansline{It fires at the second spot ($y_2=3$) --- the \textbf{edge} where the signal jumps from $1$ up to $4$.}
+  \item \textbf{Averaging (smoothing) filter.} Slide $\ww=\tfrac12[1,1]$ (output $=\tfrac{v_i+v_{i+1}}{2}$)
+        across the same $\vv=[1,1,4,4]$:
+        \[ y_1={\color{keyred}\mathbf{1}},\ \ y_2={\color{keyred}\mathbf{2.5}},\ \ y_3={\color{keyred}\mathbf{4}}. \]
+        Compared to the edge filter, what does this filter \emph{do} to the jump? \ansline{It \emph{smooths} it: instead of a sharp $1\to4$ edge, the output eases $1\to2.5\to4$. Averaging blurs, the difference filter sharpens.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Write the convolution as a matrix, count the weights it saves, then finish the layer.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Build the matrix.} For the filter $\ww=[-1,1]$ and a length-$5$ signal, fill in the
+        convolution matrix (the same two numbers slide over one step each row):
+        \[ A=\begin{bmatrix} -1 & 1 & 0 & 0 & 0\\ 0 & {\color{keyred}\mathbf{-1}} & {\color{keyred}\mathbf{1}} & 0 & 0\\
+             0 & 0 & {\color{keyred}\mathbf{-1}} & {\color{keyred}\mathbf{1}} & 0\\ 0 & 0 & 0 & {\color{keyred}\mathbf{-1}} & {\color{keyred}\mathbf{1}} \end{bmatrix}. \]
+        Then compute $A\vv$ for $\vv=[3,3,3,8,8]$: \quad output $=[\ {\color{keyred}\mathbf{0}},\ {\color{keyred}\mathbf{0}},\ {\color{keyred}\mathbf{5}},\ {\color{keyred}\mathbf{0}}\ ]$.
+  \item \textbf{Count the weights.} A \emph{full} $4\times5$ layer would have how many separate weights? How
+        many does this shared-weight convolution use? \ansline{Full: $4\times5=20$ separate weights. Convolution: only $2$ (the filter $-1,1$, reused in every row).}
+  \item \textbf{Finish the layer.} Apply $\relu(A\vv+\bb)$ with bias $\bb=-2$ to the output of problem~1.
+        What comes out, and which spot survives? \ansline{$\relu([0,0,5,0]+(-2))=\relu([-2,-2,3,-2])=[0,0,3,0]$. Only the third spot survives --- the strong edge --- while the bias threshold clears the flat spots.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{The same filter, wherever the pattern hides.} Weight sharing means one filter detects its pattern
+\emph{everywhere}.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Slide $\ww=[-1,1]$ across each signal (both have the \emph{same} jump of $6$, in different places):
+        \[ \text{A: }[3,9,9,9,9]\ \to\ [\ {\color{keyred}\mathbf{6}},\ {\color{keyred}\mathbf{0}},\ {\color{keyred}\mathbf{0}},\ {\color{keyred}\mathbf{0}}\ ],
+           \qquad \text{B: }[3,3,3,3,9]\ \to\ [\ {\color{keyred}\mathbf{0}},\ {\color{keyred}\mathbf{0}},\ {\color{keyred}\mathbf{0}},\ {\color{keyred}\mathbf{6}}\ ]. \]
+        The same filter fired with the same strength in both --- just at a different \emph{position}. In one
+        sentence, why does reusing one filter make the detector work no matter where the edge sits? \ansline{Because the identical weights are applied at every window, an edge produces the same response wherever it appears --- the detector ``travels'' with the pattern (translation invariance).}
+  \item A real $1000\times1000$ image has a million pixels. A full layer to a million outputs needs about
+        $10^{12}$ weights; a $3\times3$ filter needs $9$. In a sentence, why is this the difference between a
+        network you \emph{can} train and one you cannot? \ansline{A trillion weights is far too many to store or fit from data, but $9$ shared weights is tiny --- weight sharing shrinks the model to something a computer can actually learn.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~R contrasts two filters on the same signal: the difference filter $[-1,1]$ \emph{sharpens} (fires at the
+edge $[0,3,0]$), the average $\tfrac12[1,1]$ \emph{smooths} ($1,2.5,4$) --- same slide, different job. Tier~A
+is the heart: build the constant-diagonal matrix (watch that the $-1,1$ shifts one step per row), compute
+$A\vv=[0,0,5,0]$, count $20$ full weights vs.\ $2$ shared, then finish the layer with a bias threshold
+$[0,0,3,0]$. Tier~E is the conceptual payoff --- \emph{translation invariance} (the same jump of $6$ is
+detected at the start in A and the end in B) and the parameter-count argument ($10^{12}$ vs.\ $9$). If time is
+short, Tier~R item~1 and Tier~A items~1--2 are the must-dos. Watch for sign/order slips in $-v_i+v_{i+1}$
+(``next minus current''), and for students who write a full matrix instead of noticing the repeated diagonal.
+\end{teachernote}
 
 \end{document}

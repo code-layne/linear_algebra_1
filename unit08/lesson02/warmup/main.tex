@@ -3,17 +3,41 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.2}{Warm-Up}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Warm-Up. See references/components.md for the expected structure.
-\begin{notesbox}{Warm-Up}
-\writelines{4}
+\begin{notesbox}{Getting Ready: Dot Products, Matrices, and ReLU}
+\small Today we slide a small \textbf{filter} across a signal --- which is just a dot product at each spot,
+packaged as a matrix times a vector, then a ReLU. Warm up on those three moves.
+
+\vspace{4pt}
+\textbf{1. Dot product (Units 1 \& 4).} The filter $\ww=[-1,1]$ meets two windows of a signal. Compute:
+\[
+  \ww\cdot[2,2]=(-1)(2)+(1)(2)=\blank{1.0cm},\qquad \ww\cdot[2,6]=(-1)(2)+(1)(6)=\blank{1.0cm}.
+\]
+The dot product is $0$ when the two values match, and nonzero when they \emph{jump}.
+
+\vspace{4pt}
+\textbf{2. Matrix $\times$ vector (Unit 1).} The same $-1,1$ repeats in each row. Multiply:
+\[
+  \begin{bmatrix} -1 & 1 & 0\\ 0 & -1 & 1 \end{bmatrix}\begin{bmatrix}2\\2\\6\end{bmatrix}
+  =\begin{bmatrix}\ \blank{0.8cm}\ \\[-1pt] \blank{0.8cm}\end{bmatrix}.
+\]
+Notice the two numbers just \emph{slide over} one step from the first row to the second.
+
+\vspace{4pt}
+\textbf{3. ReLU keeps the strong part (Lesson 8.0).} Recall $\relu(x)=\max(0,x)$. Apply it entry by entry:
+\[
+  \relu(-3)=\blank{0.9cm},\qquad \relu\big([\,0,\,0,\,4,\,0\,]\big)=\big[\ \blank{0.5cm},\ \blank{0.5cm},\ \blank{0.5cm},\ \blank{0.5cm}\ \big].
+\]
 \end{notesbox}
 
 \end{document}

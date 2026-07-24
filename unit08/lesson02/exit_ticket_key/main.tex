@@ -3,6 +3,9 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
@@ -11,9 +14,28 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Slide the filter.} Slide $\ww=[-1,1]$ (output $=-v_i+v_{i+1}$) across $\vv=[2,2,7,7]$.
+        Give the output, and say at which spot it fires and what that spot is.
+        \ansline{$y_1=2-2=0$, $y_2=7-2=5$, $y_3=7-7=0$. Output $[0,5,0]$; it fires at the second spot --- the \textbf{edge} where $2$ jumps to $7$.}
+  \item \textbf{Count the weights.} A full layer for a length-$8$ signal (eight outputs) would use $64$
+        weights. How many weights does a length-$3$ filter, reused everywhere, need? In one phrase, what is
+        that idea called?
+        \ansline{Only $3$ weights (the filter, shared across all positions). The idea is \textbf{weight sharing}.}
+  \item \textbf{Explain.} In one sentence, why can a single small filter detect the same pattern no matter
+        \emph{where} in the image it appears?
+        \ansline{Because the same filter weights are applied at every position, the pattern produces the same response wherever it sits --- the detector is reused everywhere, so location does not matter.}
+\end{enumerate}
+
+\begin{teachernote}
+Sort responses into ``got it / arithmetic slip / concept slip.'' Item~1 checks the slide-and-dot-product
+mechanic (feature map $[0,5,0]$, a spike at the edge) --- watch for sign/order errors in $-v_i+v_{i+1}$.
+Item~2 checks the weight-sharing count ($3$, not $64$) and the vocabulary. Item~3 is the target idea:
+\emph{one reused filter} $\Rightarrow$ the same pattern is found anywhere (translation invariance). If many
+stumble on item~1 or item~3, reopen next lesson with a 30-second ``slide the filter, spike at the edge, same
+filter everywhere'' recap.
+\end{teachernote}
 
 \end{document}

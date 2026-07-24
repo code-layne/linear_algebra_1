@@ -3,17 +3,151 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.2}{Guided Notes}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Guided Notes. See references/components.md for the expected structure.
-\begin{notesbox}{Guided Notes}
-\writelines{4}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item slide a small \emph{filter} across a signal, taking a weighted sum (dot product) at each spot, and read where the filter \emph{fires};
+  \item write a convolution as a matrix times a vector whose weights \emph{repeat down the diagonals} (a shared-weight matrix), and count how many weights it saves;
+  \item explain how a convolutional layer $\relu(A\vv+\bb)$ reuses one small filter everywhere --- so it needs far fewer weights and detects the same pattern \emph{wherever} it appears.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.06in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\termblanklong{Filter (kernel) --- the small set of weights we slide}
+\termblanklong{Convolution --- slide the filter, dot product at each spot}
+\termblanklong{Weight sharing --- the same filter weights reused everywhere}
+\termblanklong{Convolution matrix --- weights repeat down the diagonals}
+\termblanklong{Feature map --- the output signal, high where the pattern is}
+\end{vocabbox}
+
+\begin{hookbox}
+Last lesson a \textbf{layer} $\relu(A\vv+\bb)$ used a full weight matrix $A$ --- a separate weight for every
+connection. That is fine for a few numbers, but a photo has \emph{millions} of pixels.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item A ``bright edge'' looks the same whether it sits in the top-left corner or the middle of a picture. Should a network learn a \emph{separate} weight to spot that edge at every location? \writeline
+  \item If one small pattern-detector could be \emph{reused} at every spot, what would that do to the number of weights we have to learn? \writeline
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. Too Many Weights --- and the Pattern Repeats}
+In a full layer, the matrix $A$ has one weight for \emph{every} input-output connection. For an image with a
+million pixels that is around a \emph{trillion} weights --- far too many to learn, and wasteful: a useful
+pattern (an edge, a corner) is the \textbf{same shape} wherever it appears. The fix is one idea:
+\begin{center}
+\emph{use a \textbf{small} set of weights, and \textbf{reuse} the same weights at every position.}
+\end{center}
+That small set of weights is called a \textbf{filter} (or \textbf{kernel}). Sliding it across the input to
+look for its pattern everywhere is called a \textbf{convolution}.
 \end{notesbox}
+
+\begin{notesbox}{2. Convolution: Slide a Small Filter}
+Take the two-weight filter $\ww=[-1,\,1]$ and a signal $\vv=[\,2,\,2,\,2,\,6,\,6\,]$ (flat, then a jump up).
+\emph{Slide} the filter along the signal; at each spot line it up with a window and take the dot product
+(here $\ww\cdot[v_i,v_{i+1}]=-v_i+v_{i+1}$, the ``jump'' from one value to the next):
+\[
+  y_1=\blank{0.9cm},\qquad y_2=\blank{0.9cm},\qquad y_3=\blank{0.9cm},\qquad y_4=\blank{0.9cm}.
+\]
+(At the window $[2,2]$: $-2+2=0$. At $[2,6]$: $-2+6=4$.) The output is $[\,0,\,0,\,4,\,0\,]$: it is $0$ on the
+flat parts and \emph{fires} (nonzero) exactly at the \textbf{edge} where $2$ jumps to $6$. One filter, slid
+everywhere, is an \textbf{edge detector}. The output signal is called a \textbf{feature map} --- big where
+the pattern is present.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.62]
+  % LEFT: the input signal with the filter window sliding over the edge
+  \begin{scope}[shift={(-3.4,0)}]
+    \draw[->, charcoal, thin] (-0.3,0)--(5.6,0) node[right]{\scriptsize position};
+    \draw[->, charcoal, thin] (0,-0.4)--(0,3.4) node[above]{\scriptsize value};
+    % step signal 2,2,2,6,6 at x=1..5, scale y by 0.42
+    \draw[ultra thick, royalblue]
+      (1,0.84)--(2,0.84)--(3,0.84)--(4,2.52)--(5,2.52);
+    \foreach \x/\y in {1/0.84,2/0.84,3/0.84,4/2.52,5/2.52}
+      \fill[royalblue] (\x,\y) circle (1.7pt);
+    % sliding window over the edge (positions 3-4)
+    \draw[goldacc, very thick, dashed] (2.75,0.5)--(4.25,0.5)--(4.25,2.9)--(2.75,2.9)--cycle;
+    \node[goldacc] at (3.5,3.3) {\scriptsize filter $[-1,1]$ slides};
+    \node[charcoal] at (2.7,-0.75) {\scriptsize signal $[2,2,2,6,6]$};
+  \end{scope}
+  % ARROW
+  \draw[->, very thick, goldacc] (2.55,1.3)--(4.35,1.3) node[midway, above]{\scriptsize convolve};
+  % RIGHT: the feature map, spike at the edge
+  \begin{scope}[shift={(5.7,0)}]
+    \draw[->, charcoal, thin] (-0.3,0)--(5.0,0) node[right]{\scriptsize position};
+    \draw[->, charcoal, thin] (0,-0.4)--(0,3.4) node[above]{\scriptsize output};
+    % bars 0,0,4,0 at x=1..4, scale 0.42
+    \foreach \x/\y in {1/0,2/0,3/1.68,4/0}{
+      \draw[ultra thick, burgundy] (\x,0)--(\x,\y);
+      \fill[burgundy] (\x,\y) circle (1.7pt);
+    }
+    \node[burgundy] at (3.0,2.15) {\scriptsize $4$};
+    \node[charcoal] at (3.0,-0.75) {\scriptsize fires at the edge};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+\end{notesbox}
+
+\begin{notesbox}{3. It Is a Matrix --- with Shared Weights}
+Sliding a filter is just a matrix times a vector (Unit~1). Put the filter weights $-1,1$ into each row,
+shifted one step to the right each time:
+\[
+  A=\begin{bmatrix} -1 & 1 & 0 & 0 & 0\\ 0 & -1 & 1 & 0 & 0\\ 0 & 0 & -1 & 1 & 0\\ 0 & 0 & 0 & -1 & 1 \end{bmatrix},
+  \qquad A\vv = A\begin{bmatrix}2\\2\\2\\6\\6\end{bmatrix}=\begin{bmatrix}\ \blank{0.7cm}\ \\[-1pt] \blank{0.7cm}\\[-1pt] \blank{0.7cm}\\[-1pt] \blank{0.7cm}\end{bmatrix}.
+\]
+The \emph{same} two numbers repeat down the diagonals: this is a \textbf{convolution matrix} (a
+constant-diagonal matrix). \textbf{Weight sharing} is what makes it special.
+
+\vspace{2pt}
+\textbf{Counting the savings.} A \emph{full} $4\times5$ matrix would have $4\cdot 5=20$ separate weights. This
+convolution has only \blank{1.1cm}. For a real $1000\times1000$ image a full layer needs about $10^{12}$
+weights; a small $3\times3$ filter needs just $9$ --- reused everywhere.
+\end{notesbox}
+
+\begin{notesbox}{4. A Convolutional Layer --- and Why It Matters}
+A convolutional layer is the \emph{same} layer as before, $\relu(A\vv+\bb)$ --- only now $A$ is a
+convolution matrix (shared, sliding weights) and $\bb$ is a bias. On our feature map $[0,0,4,0]$ with a bias
+$-1$:
+\[
+  \relu\!\big([0,0,4,0]+(-1)\big)=\relu([-1,-1,3,-1])=\big[\ \blank{0.6cm},\ \blank{0.6cm},\ \blank{0.6cm},\ \blank{0.6cm}\ \big].
+\]
+The ReLU (with a bias \emph{threshold}) keeps only the strong response --- ``the edge is really here'' --- and
+zeroes the rest.
+
+\vspace{2pt}
+\textbf{Why it matters.} Because the one filter is reused at \emph{every} position, it detects its pattern
+\emph{wherever} that pattern sits --- move the edge and the same filter still fires (just at the new spot).
+That is why these networks recognize a cat in the corner or the center of a photo. And weight sharing cuts a
+trillion weights down to a handful, so the network is small enough to actually \emph{learn} (Lesson~8.3).
+
+\vspace{2pt}
+\textbf{The road ahead.} \textbf{8.3} minimizing loss by gradient descent\; $\bullet$\; \textbf{8.4} mean,
+variance, and covariance.
+\end{notesbox}
+
+\begin{practicebox}
+Show your work.
+\begin{enumerate}[leftmargin=1.6em, itemsep=4pt]
+  \item Slide the filter $\ww=[-1,1]$ (output $=-v_i+v_{i+1}$) across $\vv=[4,4,4,9]$. What is the output, and at which spot does it fire? \writeline
+  \item A full layer for a signal of length $6$ (six outputs) would need $36$ weights. How many weights does a length-$3$ filter, reused everywhere, need instead? \writeline
+  \item Take the feature map from problem~1 and apply $\relu(\,\cdot\,+\bb)$ with bias $\bb=-2$. What comes out, and what does the leftover value mean? \writeline
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

@@ -5,6 +5,10 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 \newcommand{\UnitNumberName}{Unit 6: Eigenvalues and Eigenvectors \quad}
 \newcommand{\LessonNumberName}{Lesson 6.4: Systems of Differential Equations}
 
@@ -16,55 +20,138 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students solve the single equation $\frac{du}{dt}=\lambda u$ as
+    $u(t)=u(0)e^{\lambda t}$ and read growth ($\lambda>0$) vs.\ decay ($\lambda<0$) from the sign of $\lambda$.
+    They solve a \emph{system} $\frac{d\uu}{dt}=A\uu$ by splitting the start into eigenvectors and letting each
+    piece run at its own rate --- $\uu(t)=c_1e^{\lambda_1 t}\xx_1+c_2e^{\lambda_2 t}\xx_2$ --- and use the
+    \emph{signs} of the eigenvalues to decide whether the system grows, decays to a steady state (stable), or
+    is mixed. This is the advanced/optional capstone of Unit~6: the same eigenvalues, now in charge of time.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Solve $\frac{du}{dt}=\lambda u$ and read grow/decay from $\lambda$.
+  \item Recognize an eigen-mode $e^{\lambda t}\xx$ (start on an eigenvector, stay on its line).
+  \item Split $\uu(0)$ into eigenvectors and assemble $\uu(t)$.
+  \item Judge stability from the signs of the eigenvalues.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item The exponential is the function whose rate of change is a multiple of itself.
+  \item On an eigenvector $A\xx=\lambda\xx$, so the system collapses to the scalar equation.
+  \item Each eigen-piece evolves independently at rate $e^{\lambda t}$.
+  \item $\lambda<0\Rightarrow$ decay, $\lambda>0\Rightarrow$ growth --- signs decide the long run.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Differential equation $\frac{du}{dt}=\lambda u$} & Rate of change proportional to amount; solved by $u(t)=u(0)e^{\lambda t}$. \\
+\textbf{System $\frac{d\uu}{dt}=A\uu$} & Coupled quantities evolving together; the matrix $A$ links their rates of change. \\
+\textbf{Eigen-mode} & A solution $e^{\lambda t}\xx$ that starts on an eigenvector and stays on that eigen-line. \\
+\textbf{General solution} & $\uu(t)=c_1e^{\lambda_1 t}\xx_1+c_2e^{\lambda_2 t}\xx_2$, with $c_1,c_2$ set by $\uu(0)=c_1\xx_1+c_2\xx_2$. \\
+\textbf{Stable system} & All eigenvalues negative, so every mode decays and $\uu(t)\to\zero$. \\
+\textbf{Matrix exponential} & $\uu(t)=Xe^{\Lambda t}X^{-1}\uu(0)$, with $e^{\Lambda t}=\mathrm{diag}(e^{\lambda_1 t},e^{\lambda_2 t})$. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three moves this lesson leans on: \textbf{(1)} reading \emph{growth vs.\ decay}
+    from the sign of $\lambda$ in $e^{\lambda t}$; \textbf{(2)} \emph{splitting a vector} into a combination
+    $c_1\begin{bsmallmatrix}1\\1\end{bsmallmatrix}+c_2\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$ (the move that
+    finds $c_1,c_2$); and \textbf{(3)} confirming an \emph{eigenvector/eigenvalue} pair (the data the method
+    runs on). Debrief by naming the plan: ``split the start into eigenvectors, let each run at rate
+    $e^{\lambda t}$, and add.''
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Money in an account at $5\%$ interest always grows at a rate \emph{proportional to what is there}: that is a
+    \textbf{differential equation}, $\frac{du}{dt}=0.05\,u$, solved by the exponential $u(t)=u(0)e^{\lambda t}$.
+    Pose the question: \textbf{``What if two quantities grow while feeding into each other?''} Then it is a
+    \emph{system} $\frac{d\uu}{dt}=A\uu$, and the eigenvalues/eigenvectors of $A$ run it. Reuse the symmetric
+    spine $A=\begin{bsmallmatrix}1&2\\2&1\end{bsmallmatrix}$ ($\lambda=3,-1$; eigenvectors
+    $\begin{bsmallmatrix}1\\1\end{bsmallmatrix},\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$): one direction
+    grows, one decays. This is the capstone of the unit --- the same eigenvalues, now in charge of time.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. One equation.} $\frac{du}{dt}=\lambda u$ means the rate of change is proportional to the amount, so
+$u(t)=u(0)e^{\lambda t}$. Sign of $\lambda$ is the story: $\lambda>0$ grows, $\lambda<0$ decays. Everything
+today is built from this.
+
+\textbf{2. Eigenvectors are pure modes.} For $\frac{d\uu}{dt}=A\uu$, a start on an eigenvector stays on its
+line: $\uu(t)=e^{\lambda t}\xx$. Check by differentiating --- $\lambda e^{\lambda t}\xx$ matches
+$A(e^{\lambda t}\xx)=e^{\lambda t}(\lambda\xx)$ because $A\xx=\lambda\xx$. The system acts like the scalar
+equation along an eigenvector.
+
+\columnbreak
+
+\textbf{3. General solution.} Split $\uu(0)=c_1\xx_1+c_2\xx_2$, then
+$\uu(t)=c_1e^{\lambda_1 t}\xx_1+c_2e^{\lambda_2 t}\xx_2$. On the spine with
+$\uu(0)=\begin{bsmallmatrix}3\\1\end{bsmallmatrix}$: $c_1=2,c_2=1$, so
+$\uu(t)=2e^{3t}\begin{bsmallmatrix}1\\1\end{bsmallmatrix}+e^{-t}\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$.
+
+\textbf{4. Stability + road ahead.} Signs of the eigenvalues decide: all $\lambda<0\Rightarrow$ decay to
+$\zero$ (stable); any $\lambda>0\Rightarrow$ growth. This is $\uu(t)=Xe^{\Lambda t}X^{-1}\uu(0)$ --- like
+$A^k=X\Lambda^k X^{-1}$ with $\lambda^k$ replaced by $e^{\lambda t}$. \textbf{Road ahead:} the Unit~6 review
+and test.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item dropping the front coefficient $c_i$ or the starting value $u(0)$ when writing the solution;
+  \item sign slips when solving the $2\times2$ system for $c_1,c_2$;
+  \item thinking a positive and a negative eigenvalue ``cancel'' --- the positive one always wins the long run;
+  \item reading ``mixed'' (one $+$, one $-$) as ``stays put'' rather than ``grows''; and treating $e^{\lambda t}$ as reaching $0$ (it approaches $0$).
+\end{itemize}
+Cold-call prompts: ``Why does a start on an eigenvector stay on its line?'' ``What sets $c_1$ and $c_2$?''
+``Which eigen-direction wins as $t\to\infty$, and how do you know from the eigenvalues?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Systems of Differential Equations} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} On the spine $A=\begin{bsmallmatrix}1&2\\2&1\end{bsmallmatrix}$ ($\lambda=3,-1$):
+solve two single equations, write the two pure eigen-modes, and read which direction grows vs.\ decays.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Full method on the same $A$ from $\uu(0)=\begin{bsmallmatrix}5\\1\end{bsmallmatrix}$:
+split ($c_1=3,c_2=2$), write $\uu(t)=3e^{3t}\begin{bsmallmatrix}1\\1\end{bsmallmatrix}+2e^{-t}\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$, and name the winning mode.
+
+\columnbreak
+\textbf{Tier E --- Extension.} A \emph{stable} system $A=\begin{bsmallmatrix}-2&1\\1&-2\end{bsmallmatrix}$
+($\lambda=-1,-3$): from $\uu(0)=\begin{bsmallmatrix}4\\2\end{bsmallmatrix}$ get
+$\uu(t)=3e^{-t}\begin{bsmallmatrix}1\\1\end{bsmallmatrix}+e^{-3t}\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}\to\zero$; both modes decay, the $e^{-3t}$ one faster.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes) on $A=\begin{bsmallmatrix}0&1\\1&0\end{bsmallmatrix}$
+($\lambda=1,-1$; eigenvectors $\begin{bsmallmatrix}1\\1\end{bsmallmatrix},\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$):
+write the general solution, fit the start $\uu(0)=\begin{bsmallmatrix}3\\1\end{bsmallmatrix}$ ($c_1=2,c_2=1$),
+and a \textbf{justification check} --- which eigen-direction the solution follows as $t\to\infty$ and why the
+other piece disappears. Sort into ``got it / arithmetic slip / concept slip'' to decide whether the Unit~6
+review opens with a quick re-warm.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} single equations (grow/decay); the general solution on the spine; fitting a start
+($\uu(0)=\begin{bsmallmatrix}4\\2\end{bsmallmatrix}$, $c_1=3,c_2=1$); a \emph{stability screen} (all-negative
+$\Rightarrow$ decay, all-positive $\Rightarrow$ growth, mixed $\Rightarrow$ saddle/growth); and justification
+(why an eigenvector start stays on its line; why the signs decide stability). \textbf{Extension:} the matrix
+exponential $\uu(t)=Xe^{\Lambda t}X^{-1}\uu(0)$ as the time-analogue of $A^k=X\Lambda^k X^{-1}$.
+\textbf{Preview:} the \emph{Unit~6 review and test} --- one set of eigenvalues answered every question in the
+unit.
 \end{skillbox}
 \end{document}

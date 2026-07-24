@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 6}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 6 \quad Eigenvalues and Eigenvectors}}\\[6pt]
   {\color{white}\textbf{\large Lesson 6.4 \quad Systems of Differential Equations}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} solve a single equation $\frac{du}{dt}=\lambda u$ as $u(t)=u(0)e^{\lambda t}$, and read \textbf{growth} vs.\ \textbf{decay} from the sign of $\lambda$.
+  \item \ldots{} solve a \textbf{system} $\frac{d\mathbf{u}}{dt}=A\mathbf{u}$ by splitting the start into eigenvectors: $\mathbf{u}(t)=c_1e^{\lambda_1 t}\mathbf{x}_1+c_2e^{\lambda_2 t}\mathbf{x}_2$.
+  \item \ldots{} use the \textbf{signs of the eigenvalues} to decide whether a system grows, decays to a steady state, or is mixed.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,23 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: grow/decay from the sign of $\lambda$, splitting a vector into a combination, recalling an eigenvector & \blank{1.2cm} \\
+2 & Guided Notes   & $\frac{du}{dt}=\lambda u$; eigen-modes $e^{\lambda t}\mathbf{x}$; general solution; stability from the eigenvalue signs & \blank{1.2cm} \\
+3 & Group Activity & Pure modes, a full solution with a given start, and a \emph{stable} system that decays to $\mathbf{0}$ & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check: general solution, fit the start, and which mode wins over time & \blank{1.2cm} \\
+5 & Homework       & Single equations, general solutions, a stability screen, and justification & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small You have eigenvalues, diagonalization $A=X\Lambda X^{-1}$, and the symmetric case $S=Q\Lambda Q^{\mathsf T}$.
+This lesson puts them to work on a system that \emph{changes over time}: $\frac{d\mathbf{u}}{dt}=A\mathbf{u}$.
+Split the start into eigenvectors, let each piece run at its own rate $e^{\lambda t}$, and add --- the
+\emph{signs} of the eigenvalues tell you whether each piece grows or decays. (Advanced/optional.)
+\end{remindbox}
 
 \end{document}

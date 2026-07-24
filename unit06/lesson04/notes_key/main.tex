@@ -3,17 +3,156 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{\mathsf{T}}
 
 \begin{document}
 
 \pageheader{Unit 6, Lesson 6.4}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item solve the single equation $\frac{du}{dt}=\lambda u$ and read growth vs.\ decay from the sign of $\lambda$;
+  \item solve a \emph{system} $\frac{d\uu}{dt}=A\uu$ by splitting the start into eigenvectors: $\uu(t)=c_1e^{\lambda_1 t}\xx_1+c_2e^{\lambda_2 t}\xx_2$;
+  \item use the signs of the eigenvalues to decide whether a system grows, decays, or heads to a steady state.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.06in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{Differential equation $\frac{du}{dt}=\lambda u$ (rate of change $\propto$ amount)}{solved by $u(t)=u(0)e^{\lambda t}$; grows if $\lambda>0$, decays if $\lambda<0$}
+\vocabans{Eigen-mode $e^{\lambda t}\xx$ (a solution that stays on one eigen-line)}{starting on an eigenvector, the system just scales by $e^{\lambda t}$}
+\vocabans{General solution $\uu(t)=c_1e^{\lambda_1 t}\xx_1+c_2e^{\lambda_2 t}\xx_2$}{split $\uu(0)$ into eigenvectors; each runs at its own rate}
+\vocabans{Stable system (all $\lambda<0$: every solution decays to $\zero$)}{all eigenvalues negative $\Rightarrow$ every mode decays $\Rightarrow$ $\uu(t)\to\zero$}
+\end{vocabbox}
+
+\begin{hookbox}
+Put \$1000 in an account earning $5\%$ interest, always \emph{growing at a rate proportional to what is there}. That
+is a \textbf{differential equation}: $\frac{du}{dt}=0.05\,u$.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item What function has a rate of change equal to a multiple of itself? \ansline{The exponential $u(t)=u(0)e^{\lambda t}$ --- its derivative is $\lambda$ times itself.}
+  \item What if \emph{two} quantities grow while feeding into each other? \ansline{Use a matrix: $\frac{d\uu}{dt}=A\uu$; the eigenvalues/eigenvectors run each piece.}
+\end{itemize}
+Today: eigenvalues run a whole system \emph{forward in time}.
+\end{hookbox}
+
+\begin{notesbox}{1. One Equation: $\frac{du}{dt}=\lambda u$}
+Start with a single quantity $u(t)$ whose \textbf{rate of change is proportional to its size}:
+$\frac{du}{dt}=\lambda u$. The function that is its own derivative up to the factor $\lambda$ is the
+\textbf{exponential}:
+\[
+  u(t)=u(0)\,e^{\lambda t}.
+\]
+The sign of $\lambda$ is the whole story. If $\lambda>0$ the amount \ans{grows} (compound growth); if
+$\lambda<0$ it \ans{decays} toward $0$. For example $u(t)=u(0)e^{-2t}$ shrinks, while $u(t)=u(0)e^{3t}$
+explodes. Everything today is built from this one fact.
 \end{notesbox}
+
+\begin{notesbox}{2. Eigenvectors Are ``Pure Modes''}
+Now let a whole \emph{vector} $\uu(t)$ change according to a matrix: $\frac{d\uu}{dt}=A\uu$. The two quantities
+are coupled --- each one's growth depends on the other. Our unit matrix is
+$A=\begin{bsmallmatrix}1&2\\2&1\end{bsmallmatrix}$, with eigen-data
+\[
+  \lambda_1=3,\ \xx_1=\begin{bmatrix}1\\1\end{bmatrix};\qquad
+  \lambda_2=-1,\ \xx_2=\begin{bmatrix}1\\-1\end{bmatrix}.
+\]
+Here is the key idea: \textbf{if the system starts on an eigenvector, it stays on that eigen-line forever},
+just scaling by $e^{\lambda t}$:
+\[
+  \uu(t)=e^{\lambda t}\xx \quad\text{solves}\quad \frac{d\uu}{dt}=A\uu.
+\]
+Why? Differentiate and compare: $\frac{d}{dt}\big(e^{\lambda t}\xx\big)=\lambda e^{\lambda t}\xx$, while
+$A\big(e^{\lambda t}\xx\big)=e^{\lambda t}(A\xx)=e^{\lambda t}(\lambda\xx)$. They match because
+$A\xx={\color{keyred}\mathbf{\lambda\xx}}$. So along an eigenvector the \emph{system} behaves like the single equation
+$\frac{du}{dt}=\lambda u$ --- pure growth or decay, no turning.
+\end{notesbox}
+
+\begin{notesbox}{3. General Solution: Split the Start into Eigenvectors}
+A real system does not start exactly on an eigenvector --- but every start is a \textbf{combination} of them.
+Write $\uu(0)=c_1\xx_1+c_2\xx_2$, let each piece run at its own rate, and add:
+\[
+  \uu(t)=c_1e^{\lambda_1 t}\xx_1+c_2e^{\lambda_2 t}\xx_2.
+\]
+Say the system starts at $\uu(0)=\begin{bsmallmatrix}3\\1\end{bsmallmatrix}$. Split it:
+$c_1\begin{bsmallmatrix}1\\1\end{bsmallmatrix}+c_2\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}=\begin{bsmallmatrix}3\\1\end{bsmallmatrix}$
+gives $c_1+c_2=3$ and $c_1-c_2=1$, so $c_1={\color{keyred}\mathbf{2}}$ and $c_2={\color{keyred}\mathbf{1}}$. The solution is
+\[
+  \uu(t)=2\,e^{3t}\begin{bmatrix}1\\1\end{bmatrix}+1\,e^{-t}\begin{bmatrix}1\\-1\end{bmatrix}.
+\]
+Each eigen-mode evolves independently: the $\xx_1$ part \emph{grows} ($e^{3t}$), the $\xx_2$ part
+\emph{decays} ($e^{-t}$).
+
+\begin{center}
+\begin{tikzpicture}[scale=1.02, font=\scriptsize, >=stealth]
+  \draw[linegray, ->] (-2.4,0) -- (2.4,0) node[right]{$x$};
+  \draw[linegray, ->] (0,-2.4) -- (0,2.4) node[above]{$y$};
+  % eigen-lines (dashed)
+  \draw[charcoal, dashed] (-2.05,-2.05) -- (2.05,2.05);
+  \draw[charcoal, dashed] (-2.05,2.05) -- (2.05,-2.05);
+  % growing eigen-direction: arrows OUTWARD along y=x
+  \draw[burgundy, ultra thick, ->] (0,0) -- (1.95,1.95)
+      node[above right, burgundy]{$\xx_1$: $\lambda=3$ (grows)};
+  \draw[burgundy, ultra thick, ->] (0,0) -- (-1.95,-1.95);
+  % decaying eigen-direction: arrows INWARD along y=-x
+  \draw[royalblue, ultra thick, <-] (0.22,-0.22) -- (1.95,-1.95)
+      node[below right, royalblue]{$\xx_2$: $\lambda=-1$ (decays)};
+  \draw[royalblue, ultra thick, <-] (-0.22,0.22) -- (-1.95,1.95);
+  % a sample trajectory swinging toward x1
+  \draw[goldacc, very thick, ->] (1.7,-1.35) .. controls (1.15,0.15) and (1.05,0.95) .. (1.75,1.7);
+  \node[charcoal] at (0,-2.95) {\itshape the growing mode wins: solutions swing toward $\xx_1$};
+\end{tikzpicture}
+\end{center}
+\end{notesbox}
+
+\begin{notesbox}{4. Stability: the Eigenvalue Signs Decide Everything}
+Because each piece is $e^{\lambda t}$, the \textbf{signs of the eigenvalues} decide the long run:
+\[
+  \lambda<0\Rightarrow e^{\lambda t}\to 0\ (\text{decays}),\qquad
+  \lambda>0\Rightarrow e^{\lambda t}\to\infty\ (\text{grows}).
+\]
+For our spine, $\lambda=-1$ makes the $\xx_2$ piece fade, so as time runs on the solution lines up with the
+\emph{growing} eigenvector \ans{$\xx_1=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$}. A system is called \textbf{stable} when \emph{every} eigenvalue is
+negative --- then all pieces decay and $\uu(t)\to\zero$ (a steady state).
+
+\vspace{3pt}
+\textbf{Where this comes from.} Diagonalizing $A=X\Lambda X^{-1}$ (Lesson~6.2) turns the whole system into
+$\uu(t)=Xe^{\Lambda t}X^{-1}\uu(0)$, where $e^{\Lambda t}=\begin{bsmallmatrix}e^{\lambda_1 t}&0\\0&e^{\lambda_2 t}\end{bsmallmatrix}$.
+Just as powers gave $A^k=X\Lambda^k X^{-1}$, running \emph{time} forward replaces each $\lambda^k$ with
+$e^{\lambda t}$ --- the same eigenvalues, now in charge of the clock.
+\end{notesbox}
+
+\begin{practicebox}
+Use $A=\begin{bsmallmatrix}1&2\\2&1\end{bsmallmatrix}$ ($\lambda=3,\xx_1=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$; $\lambda=-1,\xx_2=\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$). Show each step.
+\begin{enumerate}[leftmargin=1.6em, itemsep=6pt]
+  \item Solve the single equation $\frac{du}{dt}=-4u$ with $u(0)=5$. Does it grow or decay? \ansline{$u(t)=5e^{-4t}$. Since $\lambda=-4<0$, it \emph{decays} to $0$.}
+  \item Write the general solution of $\frac{d\uu}{dt}=A\uu$ (the combination formula). \ansline{$\uu(t)=c_1e^{3t}\begin{bsmallmatrix}1\\1\end{bsmallmatrix}+c_2e^{-t}\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$.}
+  \item Start at $\uu(0)=\begin{bsmallmatrix}5\\1\end{bsmallmatrix}$: find $c_1,c_2$ and write $\uu(t)$. As $t\to\infty$, which eigen-direction does the solution follow? \ansline{$c_1+c_2=5,\ c_1-c_2=1\Rightarrow c_1=3,c_2=2$, so $\uu(t)=3e^{3t}\begin{bsmallmatrix}1\\1\end{bsmallmatrix}+2e^{-t}\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$. The $e^{-t}$ piece fades, so the solution follows $\xx_1=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ (the $\lambda=3$ growing direction).}
+\end{enumerate}
+\end{practicebox}
+
+\begin{teachernote}
+The spine is again the symmetric matrix $\begin{bsmallmatrix}1&2\\2&1\end{bsmallmatrix}$ ($\lambda=3,-1$;
+eigenvectors $\begin{bsmallmatrix}1\\1\end{bsmallmatrix},\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$ --- the same
+pair seen all unit), so no new eigen-finding. \S1: the scalar building block $\frac{du}{dt}=\lambda u\Rightarrow
+u=u(0)e^{\lambda t}$; sign of $\lambda$ $=$ grow/decay. \S2: an eigenvector start stays on its eigen-line
+because $A\xx=\lambda\xx$ collapses the system to the scalar equation --- verified by differentiating
+$e^{\lambda t}\xx$. \S3: split $\uu(0)$ into eigenvectors (a $2\times2$ solve, $c_1=2,c_2=1$), then add the
+eigen-modes; the phase portrait shows the growing $\xx_1$-direction (outward arrows) beating the decaying
+$\xx_2$-direction (inward arrows). \S4: eigenvalue signs decide stability; ties back to $A=X\Lambda X^{-1}$
+via $\uu(t)=Xe^{\Lambda t}X^{-1}\uu(0)$ (replace $\lambda^k$ with $e^{\lambda t}$). Common errors: forgetting
+$u(0)$ as the front coefficient; sign slips when solving for $c_1,c_2$; and thinking a positive \emph{and} a
+negative eigenvalue ``cancel'' --- the positive one always wins the long run. Note $e^{\lambda t}$ never
+reaches $0$; ``decays to $0$'' is the limit.
+\end{teachernote}
 
 \end{document}

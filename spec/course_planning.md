@@ -7,7 +7,36 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-23 — **Authored & built Unit 6 Lesson 6.1 — "Introduction to Eigenvalues" (Strang §6.1).**
+**Last updated:** 2026-07-23 — **Authored & built Unit 6 Lesson 6.2 — "Diagonalizing a Matrix" (Strang §6.2).**
+Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides
+deck, mirroring Lesson 6.1's preamble/boxes/tone. **Content — the payoff of 6.1's eigen-finding: put the eigenvectors to
+work.** (1) **Line them up:** eigenvectors into the columns of $X$, eigenvalues down the diagonal of $\Lambda$; multiplying
+$A\cdot X$ column by column scales each eigenvector, so $AX=X\Lambda$ ($\Lambda$ on the \emph{right} scales columns). (2)
+**Solve for $A$:** if $X$ is invertible, $A=X\Lambda X^{-1}$ (and $\Lambda=X^{-1}AX$ — diagonal in eigenvector coordinates);
+uses the Unit~2 inverse formula for $X^{-1}$. (3) **Payoff — powers:** $A^2=X\Lambda X^{-1}X\Lambda X^{-1}=X\Lambda^2 X^{-1}$
+(inner $X^{-1}X$ cancels), so $A^k=X\Lambda^k X^{-1}$ — just raise the $\lambda$'s. (4) **When it fails:** need $n$
+independent eigenvectors ($X$ invertible); distinct $\lambda$'s always work, a repeat can fail. **Reused the unit spine**
+$A=[[2,1],[1,2]]$ ($\lambda3,1$; eigvecs $[1,1],[1,-1]$) end-to-end so nothing new is computed: $X=[[1,1],[1,-1]]$,
+$\det X=-2$, $X^{-1}=[[\tfrac12,\tfrac12],[\tfrac12,-\tfrac12]]$, and $A^2=X\Lambda^2X^{-1}=[[5,4],[4,5]]$ (matches squaring
+$A$). **Custom diagonalization-pipeline TikZ** (four blush boxes → burgundy arrows $X^{-1}/\Lambda/X$ labeled
+rewrite→scale→rebuild) on notes §3 + slides "Big idea" frame. **Warmup = the three assembly moves** (build $X$ from column
+vectors; $2\times2$ inverse of $[[1,1],[0,1]]$; right-multiply $[[1,1],[1,-1]]\mathrm{diag}(3,1)$ scales columns).
+**Activity/Exit/HW spine (all hand-verified in pure Python, exact fractions):** Tier R build+assemble $A=X\Lambda X^{-1}$
+from eigen-data $[1,0]\!\to\!\lambda6,[1,1]\!\to\!\lambda2$ (fraction-free $\det X=1$, $A=[[6,-4],[0,2]]$); Tier A full job on
+$[[4,-2],[1,1]]$ ($\lambda2,3$; eigvecs $[1,1],[2,1]$; integer $X^{-1}=[[-1,2],[1,-1]]$; $A^2=[[14,-10],[5,-1]]$); Tier E the
+shear $[[2,1],[0,2]]$ (repeated $\lambda2$, one eigenvector $[1,0]$ ⇒ \emph{not} diagonalizable). Exit uses $[[1,4],[0,3]]$
+($\lambda1,3$; eigvecs $[1,0],[2,1]$; $\det X=1$; $A=X\Lambda X^{-1}$) + justify why $A^k=X\Lambda^kX^{-1}$ is easy. HW: full
+diagonalize symmetric $[[1,2],[2,1]]$ ($\lambda3,-1$); power $A^4=[[16,45],[0,1]]$ on $[[2,3],[0,1]]$; diagonalizable-or-not
+($[[3,0],[1,3]]$ repeat→no vs $[[2,1],[1,2]]$ distinct→yes); read eigenvalues of $A^3/A^{-1}$ off $\Lambda=\mathrm{diag}(2,5)$;
+justify the $X^{-1}X$ cancellation; extension $A^4=[[81,65],[0,16]]$ on the notes matrix $[[3,1],[0,2]]$. **Built
+`make -C unit06/lesson02 all` → clean** (0 `^!`/file-line errors across all 13 logs; no `\ans`-in-math; no overfull >15pt).
+Page counts: cover/warmup/exit 1pp (blank & key ✓ 1-page constraint), notes 2pp/3pp, activity 2pp, homework 2pp, slides 6pp,
+lesson plan 2pp; **student 9pp, full 18pp** (matches 6.0/6.1). Visually spot-checked notes_key p2 (pipeline figure — clean
+blush boxes, burgundy arrows, no tofu) and slides "Big idea" frame — clean. **Gotcha (unchanged):** `\xx`/`\vv`/`\zero` are
+per-file macros — define every math macro the body uses (incl. the lesson-plan and beamer preambles). **Next run: author
+Unit 6 Lesson 6.3** ("Symmetric Positive Definite Matrices", §6.3). Lessons 6.0/6.1/6.2 are the Unit 6 models.
+
+**Prior run:** **Authored & built Unit 6 Lesson 6.1 — "Introduction to Eigenvalues" (Strang §6.1).**
 Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides
 deck, mirroring Lesson 6.0's preamble/boxes/tone. **Content — the payoff of 6.0's Tier E/preview: \emph{find} the special
 directions with no guessing, via the two-step method.** (1) rewrite $A\xx=\lambda\xx$ as $(A-\lambda I)\xx=\zero$; a nonzero
@@ -551,7 +580,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ☑ all lessons + tests authored & built ✅ |
 | 4 | Orthogonality | 4.0 intro + 4.1–4.4 | ☑ all lessons + tests authored & built ✅ |
 | 5 | Determinants and Linear Transformations | 5.0 intro + 5.1–5.3 | ☑ all lessons + tests authored & built ✅ |
-| 6 | Eigenvalues and Eigenvectors | 6.0 intro + 6.1–6.4 (§6.4 optional) | ◧ scaffolded; **6.0 authored & built ✅**; 6.1–6.4 + tests skeleton |
+| 6 | Eigenvalues and Eigenvectors | 6.0 intro + 6.1–6.4 (§6.4 optional) | ◧ scaffolded; **6.0/6.1/6.2 authored & built ✅**; 6.3–6.4 + tests skeleton |
 | 7 | The Singular Value Decomposition *(optional/advanced)* | 7.1–7.4 | ☐ |
 | 8 | Learning from Data *(optional enrichment)* | 8.1–8.4 | ☐ |
 
@@ -559,11 +588,12 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 1. **Author Unit 6 (Eigenvalues and Eigenvectors)** — Unit 6 is **scaffolded**; lesson map is **confirmed** (5 lessons,
    incl. the optional §6.4 — user chose to include it): 6.0 "Special Directions --- Setting Up Eigenvalues" (intro,
-   **authored & built ✅**) · 6.1 "Introduction to Eigenvalues" · 6.2 "Diagonalizing a Matrix" · 6.3 "Symmetric Positive
-   Definite Matrices" · 6.4 "Systems of Differential Equations". **Next: author Lesson 6.1** ("Introduction to Eigenvalues",
-   §6.1 — find eigenvalues via $\det(A-\lambda I)=0$, then eigenvectors via $(A-\lambda I)\xx=\zero$), then 6.2–6.4 in order
-   (6.0 is the Unit 6 model; 5.0–5.3 the lesson model; Lesson 4.0 the cross-unit style model), and finally the Unit 6
-   summative tests (Unit 4 + Unit 5 tests are the format model). Content comes from Strang §6.1–6.4.
+   **authored & built ✅**) · 6.1 "Introduction to Eigenvalues" (**authored & built ✅**) · 6.2 "Diagonalizing a Matrix"
+   (**authored & built ✅**) · 6.3 "Symmetric Positive Definite Matrices" · 6.4 "Systems of Differential Equations".
+   **Next: author Lesson 6.3** ("Symmetric Positive Definite Matrices", §6.3 — symmetric matrices always diagonalize, with
+   \emph{perpendicular} eigenvectors: $A=Q\Lambda Q^{\T}$; positive definite ⇔ all $\lambda>0$), then 6.4, and finally the
+   Unit 6 summative tests (Unit 4 + Unit 5 tests are the format model). 6.0/6.1/6.2 are the Unit 6 models; Lesson 4.0 the
+   cross-unit style model. Content comes from Strang §6.3–6.4.
 2. *(optional)* Rebuild the whole Unit 1–5 packets (`make -C unitXX student|full`, or `make student|full`
    at the root) to confirm the `sample_test`/`sample_test_key` drop-ins merge in as expected.
 

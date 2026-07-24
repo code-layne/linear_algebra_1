@@ -1,6 +1,9 @@
 %! Diagonalizing a Matrix — Unit 6, Lesson 6.2 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
@@ -11,16 +14,102 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 6.2}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Diagonalizing a Matrix}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 6}
+    {\color{white}\bfseries\LARGE Diagonalizing a Matrix}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 6: Eigenvalues and Eigenvectors}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{From finding eigenvectors to using them}
+  \sectionlabel{Hook}
+  \begin{itemize}
+    \setlength{\itemsep}{7pt}
+    \item Yesterday: $A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$ has $\lambda=3,1$ with
+          eigenvectors $\begin{bsmallmatrix}1\\1\end{bsmallmatrix},\begin{bsmallmatrix}1\\-1\end{bsmallmatrix}$.
+    \item Now suppose you need $A^{10}$. Multiply $A$ by itself ten times? \emph{No.}
+    \item Along an eigenvector, $A$ acts like a single number $\lambda$. Today we make the \emph{whole}
+          matrix act that simply.
+  \end{itemize}
+  \begin{block}{The plan}
+    Line the eigenvectors into a matrix $X$, the eigenvalues into a diagonal $\Lambda$, and rebuild
+    $A=X\Lambda X^{-1}$.
+  \end{block}
+\end{frame}
+
+% LINE THEM UP
+\begin{frame}[t, plain]
+  \burgundyheader{Line up the eigenvectors: $AX = X\Lambda$}
+  \sectionlabel[goldacc]{Set-up}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      Eigenvectors into the columns of $X$, eigenvalues down $\Lambda$:
+      \[ X=\begin{bsmallmatrix} 1 & 1\\ 1 & -1 \end{bsmallmatrix},\quad
+         \Lambda=\begin{bsmallmatrix} 3 & 0\\ 0 & 1 \end{bsmallmatrix}. \]
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      Multiply $A$ by $X$ one column at a time --- each is scaled:
+      \[ AX=[\,3\xx_1\ \ 1\xx_2\,]=X\Lambda. \]
+    \end{column}
+  \end{columns}
+  \vspace{4pt}
+  \begin{block}{Key identity}
+    $AX=X\Lambda$. Multiplying by $\Lambda$ on the \emph{right} scales the columns of $X$ by the eigenvalues.
+  \end{block}
+\end{frame}
+
+% DIAGONALIZATION + PIPELINE
+\begin{frame}[t, plain]
+  \burgundyheader{Solve for $A$: the diagonalization $A=X\Lambda X^{-1}$}
+  \sectionlabel[goldacc]{Big idea}
+  If the eigenvectors are independent, $X$ is invertible. Right-multiply $AX=X\Lambda$ by $X^{-1}$:
+  \[ A=X\Lambda X^{-1}. \]
+  \vspace{-2pt}
+  \begin{center}
+  \begin{tikzpicture}[scale=1, font=\scriptsize,
+      box/.style={draw=charcoal, rounded corners=1pt, fill=blush, minimum height=8mm, inner sep=3pt, align=center},
+      ar/.style={->, thick, burgundy}]
+    \node[box] (v)  at (0,0)   {vector\\ $\vv$};
+    \node[box] (c)  at (3.0,0) {eigenvector\\ coordinates};
+    \node[box] (sc) at (6.6,0) {scaled\\ coordinates};
+    \node[box] (av) at (9.6,0) {result\\ $A\vv$};
+    \draw[ar] (v)  -- node[above]{$X^{-1}$} node[below]{\itshape rewrite} (c);
+    \draw[ar] (c)  -- node[above]{$\Lambda$} node[below]{\itshape scale} (sc);
+    \draw[ar] (sc) -- node[above]{$X$} node[below]{\itshape rebuild} (av);
+  \end{tikzpicture}
+  \end{center}
+  Read right to left: \textbf{rewrite} $\vv$ in eigenvector coordinates, \textbf{scale} by the $\lambda$'s,
+  \textbf{rebuild}. In eigenvector coordinates, $A$ is just the diagonal $\Lambda$.
+\end{frame}
+
+% PAYOFF: POWERS
+\begin{frame}[t, plain]
+  \burgundyheader{The payoff --- powers become easy}
+  \sectionlabel{Skill}
+  \[ A^2=(X\Lambda X^{-1})(X\Lambda X^{-1})=X\Lambda\underbrace{(X^{-1}X)}_{I}\Lambda X^{-1}=X\Lambda^2X^{-1}
+     \ \Longrightarrow\ A^k=X\Lambda^k X^{-1}. \]
+  \begin{block}{For $A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$}
+    $\Lambda^2=\begin{bsmallmatrix}9&0\\0&1\end{bsmallmatrix}\Rightarrow
+     A^2=X\Lambda^2X^{-1}=\begin{bsmallmatrix}5&4\\4&5\end{bsmallmatrix}$ --- just powers of the $\lambda$'s,
+     no repeated matrix multiplication.
+  \end{block}
+\end{frame}
+
+% WHEN IT FAILS + ROAD AHEAD
+\begin{frame}[t, plain]
+  \burgundyheader{When it fails --- and the road ahead}
+  \sectionlabel[goldacc]{Payoff}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item \textbf{Need independent eigenvectors.} Different eigenvalues $\Rightarrow$ always diagonalizable.
+    \item \textbf{A repeat can fail:} the shear $\begin{bsmallmatrix} 2 & 1\\ 0 & 2 \end{bsmallmatrix}$ has
+          only $\lambda=2$ and \emph{one} eigenvector $\begin{bsmallmatrix}1\\0\end{bsmallmatrix}$ --- no invertible $X$.
+  \end{itemize}
+  \begin{block}{The road ahead}
+    \textbf{6.3} symmetric matrices (always diagonalizable, \emph{perpendicular} eigenvectors)
+    \;$\bullet$\; \textbf{6.4} run a system forward with $A^k=X\Lambda^k X^{-1}$.
+  \end{block}
 \end{frame}
 
 \end{document}

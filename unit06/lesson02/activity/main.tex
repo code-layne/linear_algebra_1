@@ -3,17 +3,62 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
 \pageheader{Unit 6, Lesson 6.2}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Diagonalizing a Matrix.} Line the eigenvectors into the columns of $X$ and the eigenvalues
+down the diagonal of $\Lambda$. Then $AX=X\Lambda$, and (when $X$ is invertible)
+$A=X\Lambda X^{-1}$. The payoff: $A^k=X\Lambda^k X^{-1}$ --- powers become powers of the $\lambda$'s. Show
+every step with your partner.
+\end{headlinebox}
+
+\vspace{0.08in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Build the pieces, then assemble. A matrix $A$ has eigenvector $\begin{bsmallmatrix}1\\0\end{bsmallmatrix}$
+with $\lambda=6$ and eigenvector $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ with $\lambda=2$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Line them up.} Write $X$ (eigenvectors in the columns) and $\Lambda$ (eigenvalues on the diagonal).
+        \[ X=\begin{bmatrix}\rule{0pt}{1.1em}\blank{0.6cm}&\blank{0.6cm}\\[3pt]\blank{0.6cm}&\blank{0.6cm}\end{bmatrix},\qquad
+           \Lambda=\begin{bmatrix}\rule{0pt}{1.1em}\blank{0.6cm}&\blank{0.6cm}\\[3pt]\blank{0.6cm}&\blank{0.6cm}\end{bmatrix}. \]
+  \item \textbf{Invert $X$} (Unit~2 formula). $X^{-1}=\blank{2.6cm}$.
+  \item \textbf{Assemble $A=X\Lambda X^{-1}$.} Multiply $X\Lambda$ first (scales the columns), then times $X^{-1}$. \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Run the full method, then use it for a power. Let $A=\begin{bsmallmatrix} 4 & -2\\ 1 & 1 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Diagonalize.}
+        \begin{enumerate}[label=(\alph*), leftmargin=1.7em, itemsep=3pt]
+          \item Find both eigenvalues from $\det(A-\lambda I)=0$, then an eigenvector for each.
+          \item Write $X$, $\Lambda$, and $X^{-1}$, and confirm $A=X\Lambda X^{-1}$.
+        \end{enumerate}
+        \writelines{3}
+  \item \textbf{Use it for a power.} Write $A^2=X\Lambda^2 X^{-1}$ and multiply it out. Check by squaring
+        $A$ directly. \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{When diagonalization \emph{fails}.} Consider the shear $A=\begin{bsmallmatrix} 2 & 1\\ 0 & 2 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Find its eigenvalues from $\det(A-\lambda I)=0$. What do you notice? \writeline
+  \item Solve $(A-2I)\xx=\zero$. How many \emph{independent} eigenvector directions are there? \writeline
+  \item Explain why you \emph{cannot} build an invertible $X$ here --- so $A$ is \emph{not diagonalizable}.
+        (Contrast: a matrix with two \emph{different} eigenvalues always can be.) \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

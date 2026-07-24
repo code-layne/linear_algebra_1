@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 6}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 6 \quad Eigenvalues and Eigenvectors}}\\[6pt]
   {\color{white}\textbf{\large Lesson 6.2 \quad Diagonalizing a Matrix}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} line a matrix's eigenvectors into the columns of $X$ and its eigenvalues down the diagonal of $\Lambda$, and explain why $AX=X\Lambda$.
+  \item \ldots{} \textbf{diagonalize} a matrix as $A=X\Lambda X^{-1}$ (when it has enough independent eigenvectors).
+  \item \ldots{} use $A^k=X\Lambda^k X^{-1}$ to compute powers of a matrix quickly, and say when a matrix \emph{cannot} be diagonalized.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,25 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: build a matrix from columns, the $2\times2$ inverse, scaling columns & \blank{1.2cm} \\
+2 & Guided Notes   & $AX=X\Lambda$; the factorization $A=X\Lambda X^{-1}$; powers $A^k=X\Lambda^k X^{-1}$ & \blank{1.2cm} \\
+3 & Group Activity & Building $X,\Lambda$; a full diagonalization + a power; a matrix that \emph{can't} be diagonalized & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check: diagonalize a matrix and explain why powers become easy & \blank{1.2cm} \\
+5 & Homework       & Diagonalize, compute a power, decide diagonalizability, justify the method & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small Yesterday you learned to \emph{find} a matrix's eigenvalues and eigenvectors. Today you put them
+to work. Line the eigenvectors up as the columns of a matrix $X$ and the eigenvalues down the diagonal
+of $\Lambda$; then every matrix with enough independent eigenvectors factors as
+$A=X\Lambda X^{-1}$ --- it \emph{acts like the diagonal matrix} $\Lambda$ in eigenvector coordinates. The
+payoff: powers collapse to $A^k=X\Lambda^k X^{-1}$, so raising $A$ to a power just means raising each
+eigenvalue to that power.
+\end{remindbox}
 
 \end{document}

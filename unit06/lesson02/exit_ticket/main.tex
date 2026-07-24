@@ -3,6 +3,8 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zero}{\mathbf{0}}
 
 \begin{document}
 
@@ -11,9 +13,17 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+No notes. Show your reasoning. Use $A=\begin{bmatrix} 1 & 4 \\ 0 & 3 \end{bmatrix}$ for items 1--2.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=14pt]
+  \item \textbf{Build $X$ and $\Lambda$.} State the two eigenvalues (it is triangular), find an eigenvector
+        for each, and write the eigenvector matrix $X$ and the eigenvalue matrix $\Lambda$.
+        \vspace{1.7cm}
+  \item \textbf{Diagonalize.} Find $X^{-1}$ (Unit~2 formula) and write $A$ as $X\Lambda X^{-1}$.
+        \vspace{1.5cm}
+  \item \textbf{Explain.} Once you have $A=X\Lambda X^{-1}$, why is $A^{k}=X\Lambda^{k}X^{-1}$ so much easier
+        to compute than multiplying $A$ by itself $k$ times? (One or two sentences.)
+        \writelines{2}
+\end{enumerate}
 
 \end{document}

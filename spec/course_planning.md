@@ -7,7 +7,37 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-24 — **Scaffolded all of Unit 7 (The Singular Value Decomposition) — skeletons only.**
+**Last updated:** 2026-07-24 — **Authored & built Unit 7 Lesson 7.0 — "Setting Up the SVD" (the intro/spiral on-ramp).**
+Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides
+deck, mirroring Lesson 6.0's preamble/boxes/tone. **Content — spiral + roadmap for the SVD:** (1) a matrix stretches the
+**unit circle** into an **ellipse**; the two half-widths are the **singular values** $\sigma_1\ge\sigma_2\ge0$ (diagonal
+$D=[[3,0],[0,2]]\to\sigma 3,2$). (2) **The big idea — perpendicular in $\to$ perpendicular out:** every matrix has unit
+vectors $\vv_1\perp\vv_2$, $\uu_1\perp\uu_2$ with $A\vv_i=\sigma_i\uu_i$. Spine = the Unit-6 symmetric $A=[[2,1],[1,2]]$
+($\vv_1=[1,1]\to A\vv_1=[3,3]=3\vv_1$, $\vv_2=[1,-1]\to 1\vv_2$; perpendicular in \& out; $\sigma 3,1$; tilted-$45^\circ$
+ellipse). (3) **Input frame $\ne$ output frame** — the swap $S=[[0,2],[1,0]]$ ($S\ee_1=[0,1],S\ee_2=[2,0]$; $\sigma 2,1$;
+largest input $\ee_2\to$ output $[1,0]\ne\ee_2$). (4) **The SVD $A=U\Sigma V^{\top}$** (rotate–stretch–rotate) + why it
+matters: exists for **every** matrix (any shape), $\sigma\ge0$ always — unlike eigenvectors (Unit 6); *find* via
+$\sigma=\sqrt\lambda$ from $A^{\top}A$ (deferred to 7.1). **Custom circle$\to$ellipse TikZ** (unit circle + $\vv$'s, gold
+"$A$" arrow, tilted ellipse + $\uu$'s, semi-axes $\sigma_1=3,\sigma_2=1$) on notes §2 + slides hook. **Warmup spirals the
+prereqs** (matrix$\times$vector Unit 1; dot-product $\perp$ test Unit 4; length/normalize Unit 4). **Activity/Exit/HW spine
+(all hand-verified in pure Python):** Tier R read $\sigma$ off diagonals (+ ordering: $[[2,0],[0,4]]\to\sigma_1=4$ from
+$\ee_2$); Tier A swap $[[0,1],[4,0]]$ (frames differ) + symmetric $[[5,2],[2,5]]$ ($\sigma 7,3$, Unit-6 eigenvector tie-in);
+Tier E the 7.1 preview $A^{\top}A=[[5,4],[4,5]]\to\lambda 9,1\to\sigma 3,1$ (recovers the notes). Exit: diagonal $[[4,0],[0,3]]$
++ swap $[[0,3],[2,0]]$ ($\sigma 3,2$) + justify $\sigma$ geometrically. HW: read $\sigma$'s (incl. circle-stays-circle
+$[[3,0],[0,3]]$); swap $[[0,4],[3,0]]$ ($\sigma 4,3$); symmetric $[[3,1],[1,3]]$ ($\sigma 4,2$); justify $\sigma\ge0$ \&
+every-matrix-has-SVD; extension $A^{\top}A=[[9,0],[0,16]]\to\sigma 4,3$. **Built `make -C unit07/lesson00 all` → clean**
+(0 `^!`/file-line errors across all 13 logs; no `\ans`-in-math that breaks; no overfull >15pt). Page counts: cover/warmup/exit
+1pp (blank & key ✓ 1-page constraint), notes 3pp/3pp, activity 1pp/2pp, homework 2pp/2pp, slides 5pp, lesson plan 3pp;
+**student 9pp, full 18pp.** Visually spot-checked notes_key p2 (circle$\to$ellipse figure — clean tilted ellipse, colored
+$\vv$/$\uu$ arrows, gold "$A$", no tofu), slides hook, and activity_key p1 (all red answers correct) — clean. **Gotchas
+(recurred):** (a) `\ww` used in the lesson-plan spiral-review but not defined — added it (define every math macro the body
+uses, plan preamble included); (b) `\emph{...}` cannot wrap an inline matrix (the `\\` triggers "Forbidden control sequence
+\check@nocorr@") — replaced with `(\textbf{...} ...)`; (c) in a key, `$\sigma_1=\ans{$x$}, $\sigma_2=...$` closes math early
+and leaves `\sigma_2` in text mode — used `{\color{keyred}\mathbf{...}}` for in-formula answers instead. Transpose macro:
+`\newcommand{\T}{^{\top}}`. **Next run: author Unit 7 Lesson 7.1** ("Singular Values and Singular Vectors", §7.1 — find
+$\sigma,\vv,\uu$ from $A^{\top}A$). Lesson 7.0 is now the Unit 7 model (mirrors 6.0/5.0/4.0).
+
+**Prior run:** **Scaffolded all of Unit 7 (The Singular Value Decomposition) — skeletons only.**
 Ran `new_lesson.py` for lessons 7.0–7.4 (component set: cover, warmup, notes, activity, exit_ticket, homework, slides
 + keys for the keyed components). The 7.0 run created the unit, so `unit07/tests/` (practice + actual),
 `unit07/test_keys/` (both keys), `unit07/sample_test/`, `unit07/sample_test_key/`, `unit07/Makefile`, and the
@@ -16,12 +46,10 @@ thin-include test Makefiles were all auto-scaffolded too. **Confirmed lesson map
 7.2 "Compressing Images by the SVD" (§7.2) · 7.3 "Principal Component Analysis" (§7.3) · 7.4 "The Victory of
 Orthogonality" (§7.4) — matches `spec/linear_algebra_v2.md` §7.1–7.4 plus the customary `lesson00` intro. **Unit 7 is
 advanced/optional per the spec, but authored as an ordinary unit of lessons** (same component set + down-leveling as
-1–6). Verified on disk: 5 lesson dirs each with all components (+ keys), `main.tex` lesson plan with correct
-`\UnitNumberName`/`\LessonNumberName`, plus the four unit-assessment dirs. **Nothing authored or built yet — all files are
-scaffolder skeletons; `sample_test`/`sample_test_key` PDFs are NOT yet populated** (they come from `drop` after the tests
-are authored). **Next run: author Unit 7 Lesson 7.0** ("Setting Up the SVD" — the intro/spiral on-ramp). Lessons 6.0–6.4
-are the model set; Unit 4/5/6 tests are the assessment-format model; Lesson 4.0 remains the cross-unit style model. The
-core sequence (Units 1–6) is complete; Unit 7 (and optionally Unit 8) is the optional/advanced extension now in progress.
+1–6). `sample_test`/`sample_test_key` PDFs are NOT yet populated (they come from `drop` after the tests are authored).
+Lessons 6.0–6.4 are the model set; Unit 4/5/6 tests are the assessment-format model; Lesson 4.0 remains the cross-unit
+style model. The core sequence (Units 1–6) is complete; Unit 7 (and optionally Unit 8) is the optional/advanced extension
+now in progress.
 
 **Prior run:** **Authored & built the Unit 6 summative tests — Unit 6 is now complete.**
 Filled all four skeletons (`tests/practice_test`, `tests/actual_test`, `test_keys/practice_test_key`, `test_keys/actual_test_key`),

@@ -3,6 +3,7 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\ee}{\mathbf{e}}
 
 \begin{document}
 
@@ -11,9 +12,20 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Read the ellipse.} A diagonal matrix $D=\begin{bmatrix} 4 & 0 \\ 0 & 3 \end{bmatrix}$
+        turns the unit circle into an ellipse. What are its two half-widths, and what are the singular
+        values $\sigma_1,\sigma_2$ (larger first)?
+        \vspace{1.2cm}
+  \item \textbf{Perpendicular in, perpendicular out.} For $S=\begin{bmatrix} 0 & 3 \\ 2 & 0 \end{bmatrix}$,
+        compute $S\ee_1$ and $S\ee_2$. Are the two outputs perpendicular? Give the singular values
+        $\sigma_1,\sigma_2$.
+        \vspace{1.3cm}
+  \item \textbf{Explain.} In one sentence, what does a \emph{singular value} of a matrix tell you
+        \emph{geometrically}?
+        \writelines{2}
+\end{enumerate}
 
 \end{document}

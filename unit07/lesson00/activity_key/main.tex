@@ -3,17 +3,89 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.0}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Stretching the Unit Circle into an Ellipse.} A matrix turns the unit circle into an
+\textbf{ellipse}. The \textbf{singular values} $\sigma_1\ge\sigma_2\ge0$ are the ellipse's half-widths
+(stretch factors); a perpendicular input pair $\vv_1,\vv_2$ is sent to a perpendicular output pair with
+$A\vv_i=\sigma_i\uu_i$. Work with your partner, show every $A\vv$, and \emph{justify} each answer.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Diagonal matrices just stretch the axes. Compute the outputs and read the singular values.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item For $A=\begin{bsmallmatrix} 3 & 0\\ 0 & 1 \end{bsmallmatrix}$, compute
+        $A\begin{bsmallmatrix} 1\\ 0 \end{bsmallmatrix}=\ans{$\begin{bsmallmatrix} 3\\ 0 \end{bsmallmatrix}$}$ and
+        $A\begin{bsmallmatrix} 0\\ 1 \end{bsmallmatrix}=\ans{$\begin{bsmallmatrix} 0\\ 1 \end{bsmallmatrix}$}$. The unit circle becomes an
+        ellipse with half-widths \ans{$3$} and \ans{$1$}, so
+        $\sigma_1={\color{keyred}\mathbf{3}}$, $\sigma_2={\color{keyred}\mathbf{1}}$.
+  \item \textbf{Order matters.} For $A=\begin{bsmallmatrix} 2 & 0\\ 0 & 4 \end{bsmallmatrix}$, compute
+        $A\ee_1$ and $A\ee_2$. Which axis stretches more? We always list the \emph{larger} singular
+        value first: $\sigma_1={\color{keyred}\mathbf{4}}$, $\sigma_2={\color{keyred}\mathbf{2}}$.
+        \ansline{$A\ee_1=\begin{bsmallmatrix} 2\\0 \end{bsmallmatrix}$, $A\ee_2=\begin{bsmallmatrix} 0\\4 \end{bsmallmatrix}$; the $y$-axis stretches more (by $4$), so $\sigma_1=4$ (from $\ee_2$), $\sigma_2=2$ (from $\ee_1$).}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Now tilt the ellipse: perpendicular in, perpendicular out.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Input frame $\ne$ output frame.} For $S=\begin{bsmallmatrix} 0 & 1\\ 4 & 0 \end{bsmallmatrix}$,
+        compute $S\ee_1$ and $S\ee_2$. Check the two outputs are perpendicular, then give
+        $\sigma_1,\sigma_2$ (larger first). Which input direction gives $\sigma_1$, and what is its
+        output direction $\uu_1$?
+        \ansline{$S\ee_1=\begin{bsmallmatrix} 0\\4 \end{bsmallmatrix}$ (length $4$), $S\ee_2=\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}$ (length $1$); $\begin{bsmallmatrix} 0\\4 \end{bsmallmatrix}\cdot\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}=0$ (perpendicular). So $\sigma_1=4,\ \sigma_2=1$. $\sigma_1$ comes from input $\vv_1=\ee_1$, with output $\uu_1=\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}$ --- a \emph{different} direction from $\vv_1$.}
+  \item \textbf{A symmetric matrix (recall Unit~6).} For $A=\begin{bsmallmatrix} 5 & 2\\ 2 & 5 \end{bsmallmatrix}$,
+        the perpendicular directions $\vv_1=\begin{bsmallmatrix} 1\\ 1 \end{bsmallmatrix}$ and
+        $\vv_2=\begin{bsmallmatrix} 1\\ -1 \end{bsmallmatrix}$ are eigenvectors. Compute $A\vv_1$ and
+        $A\vv_2$, and use them to read $\sigma_1$ and $\sigma_2$.
+        \ansline{$A\vv_1=\begin{bsmallmatrix} 7\\7 \end{bsmallmatrix}=7\vv_1$ and $A\vv_2=\begin{bsmallmatrix} 3\\-3 \end{bsmallmatrix}=3\vv_2$, so $\sigma_1=7$, $\sigma_2=3$ (the singular vectors are $\vv_1,\vv_2$ divided by $\sqrt2$).}
+  \item \textbf{Perpendicular out.} For the same $A$, verify $(A\vv_1)\cdot(A\vv_2)=0$ --- the output
+        pair is perpendicular, just like the input pair.
+        \ansline{$(A\vv_1)\cdot(A\vv_2)=\begin{bsmallmatrix} 7\\7 \end{bsmallmatrix}\cdot\begin{bsmallmatrix} 3\\-3 \end{bsmallmatrix}=21-21=0$. Perpendicular in \emph{and} out.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{A first look at \emph{finding} singular values (Lesson~7.1).} So far the singular vectors were
+handed to you. Here is how the $\sigma$'s come from the matrix alone: the singular values are
+$\sigma=\sqrt{\lambda}$, where $\lambda$ are the eigenvalues of the symmetric matrix $A\T A$. Use the
+notes matrix $A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Compute $A\T A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$ (here $A\T=A$ since $A$ is symmetric).
+        \ansline{$A\T A=\begin{bsmallmatrix} 5 & 4\\ 4 & 5 \end{bsmallmatrix}$.}
+  \item Find the eigenvalues $\lambda$ of $A\T A$ from $\det(A\T A-\lambda I)=0$.
+        \ansline{$(5-\lambda)^2-16=\lambda^2-10\lambda+9=(\lambda-1)(\lambda-9)=0\Rightarrow\lambda=9$ or $\lambda=1$.}
+  \item Take $\sigma=\sqrt{\lambda}$ for each. Do your singular values match the $\sigma_1=3,\ \sigma_2=1$
+        from the notes?
+        \ansline{$\sigma=\sqrt{9}=3$ and $\sqrt{1}=1$ --- yes, exactly the notes' $\sigma_1=3,\ \sigma_2=1$. This is the Lesson~7.1 method.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~R keeps it to diagonal matrices (read $\sigma$ off the stretched axes) and drills the ordering
+convention $\sigma_1\ge\sigma_2$ (item~2: the larger stretch is listed first). Tier~A is the heart:
+item~1 shows input $\ne$ output frame on a swap matrix; items~2--3 connect to Unit~6 (perpendicular
+eigenvectors of a symmetric matrix \emph{are} the singular vectors, positive eigenvalues \emph{are} the
+singular values) and confirm ``perpendicular out.'' Tier~E is the Lesson~7.1 preview: $\sigma=\sqrt{\lambda}$
+from $A\T A$ recovers the notes' $\sigma=3,1$. If time is short, Tier~A item~1 and Tier~E items~1--2 are the
+must-dos. Watch for students who forget to order $\sigma$'s, or who report a length as negative.
+\end{teachernote}
 
 \end{document}

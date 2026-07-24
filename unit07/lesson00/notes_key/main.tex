@@ -3,17 +3,176 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.0}{Guided Notes --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Guided Notes verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Guided Notes --- Key}
-\ansline{TODO: answer}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item explain that a matrix maps the \emph{unit circle} to an \emph{ellipse}, whose semi-axis lengths are the \emph{singular values};
+  \item find a perpendicular input pair $\vv_1,\vv_2$ sent to a perpendicular output pair with $A\vv_i=\sigma_i\uu_i$, and read the singular values $\sigma_i$;
+  \item state the SVD $A=U\Sigma V\T$ and say why every matrix has one.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.08in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\vocabans{Singular value $\sigma$ (a stretch factor)}{a half-width of the ellipse the unit circle maps to; the factor $\ge0$ a singular direction is stretched by}
+\vocabans{Singular vectors $\vv_i$ (input) and $\uu_i$ (output)}{perpendicular unit vectors with $A\vv_i=\sigma_i\uu_i$: $\vv_i$ the input directions, $\uu_i$ the output (ellipse-axis) directions}
+\vocabans{The relation $A\vv_i=\sigma_i\uu_i$}{$A$ sends the input direction $\vv_i$ to $\sigma_i$ times the output direction $\uu_i$ --- perpendicular in, perpendicular out}
+\vocabans{The SVD $A=U\Sigma V\T$}{$U,V$ have the (orthonormal) output/input singular vectors as columns; $\Sigma$ is diagonal with the singular values}
+\end{vocabbox}
+
+\begin{hookbox}
+In Unit~5 a matrix \emph{moved} the whole plane; in Unit~6 we found the few directions it only
+\emph{stretched}. Now watch what a matrix does to the \textbf{unit circle} (all vectors of length $1$).
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item What shape do you think the circle becomes after you multiply every point by a matrix? \ansline{An ellipse (a stretched, possibly tilted, oval).}
+  \item If the circle becomes a stretched oval, what two numbers would describe how far it stretches? \ansline{The two semi-axis lengths --- the \emph{singular values} $\sigma_1,\sigma_2$.}
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. A Matrix Turns the Unit Circle into an Ellipse}
+Multiply every vector of length $1$ (the unit circle) by a matrix and the circle becomes an
+\textbf{ellipse}. The simplest case is a \emph{diagonal} matrix, which just stretches the axes. Take
+$D=\begin{bsmallmatrix} 3 & 0\\ 0 & 2 \end{bsmallmatrix}$:
+\[
+  D\begin{bmatrix} 1\\ 0 \end{bmatrix}=\begin{bmatrix}{\color{keyred}\mathbf{3}}\\[2pt]{\color{keyred}\mathbf{0}}\end{bmatrix}
+  \ (\text{length }{\color{keyred}\mathbf{3}}),\qquad
+  D\begin{bmatrix} 0\\ 1 \end{bmatrix}=\begin{bmatrix}{\color{keyred}\mathbf{0}}\\[2pt]{\color{keyred}\mathbf{2}}\end{bmatrix}
+  \ (\text{length }{\color{keyred}\mathbf{2}}).
+\]
+So the circle becomes an ellipse stretched to a half-width of {\color{keyred}\textbf{3}} along the $x$-axis and
+{\color{keyred}\textbf{2}} along the $y$-axis. Those two half-widths --- the \textbf{singular values} --- are
+$\sigma_1={\color{keyred}\mathbf{3}}$ and $\sigma_2={\color{keyred}\mathbf{2}}$ (we list the larger one first).
 \end{notesbox}
+
+\begin{notesbox}{2. The Big Idea: Perpendicular In $\to$ Perpendicular Out}
+Most matrices are not diagonal, so they \emph{tilt} the ellipse. The key fact of Unit~7:
+\begin{center}
+\emph{every matrix sends some perpendicular pair of input directions to a perpendicular pair of
+output directions} --- only stretched.
+\end{center}
+In symbols, there are unit vectors $\vv_1\perp\vv_2$ and $\uu_1\perp\uu_2$ with
+\[
+  A\vv_1=\sigma_1\uu_1,\qquad A\vv_2=\sigma_2\uu_2,\qquad \sigma_1\ge\sigma_2\ge0.
+\]
+The $\vv$'s are the \textbf{input (right) singular vectors}, the $\uu$'s the \textbf{output (left)
+singular vectors}, and the $\sigma$'s the \textbf{singular values}. Take the Unit~6 matrix
+$A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$ with its two perpendicular directions
+$\vv_1=\begin{bsmallmatrix} 1\\ 1 \end{bsmallmatrix}$, $\vv_2=\begin{bsmallmatrix} 1\\ -1 \end{bsmallmatrix}$:
+\[
+  A\vv_1=\begin{bmatrix}{\color{keyred}\mathbf{3}}\\[2pt]{\color{keyred}\mathbf{3}}\end{bmatrix}
+  ={\color{keyred}\mathbf{3}}\cdot\vv_1,\qquad
+  A\vv_2=\begin{bmatrix}{\color{keyred}\mathbf{1}}\\[2pt]{\color{keyred}\mathbf{-1}}\end{bmatrix}
+  ={\color{keyred}\mathbf{1}}\cdot\vv_2.
+\]
+Perpendicular in: $\vv_1\cdot\vv_2={\color{keyred}\mathbf{0}}$. \; Perpendicular out:
+$(A\vv_1)\cdot(A\vv_2)={\color{keyred}\mathbf{0}}$. \; So the stretch factors --- the singular values --- are
+$\sigma_1={\color{keyred}\mathbf{3}}$ and $\sigma_2={\color{keyred}\mathbf{1}}$. (As \emph{unit} vectors, divide each direction
+by $\sqrt2$; here the output directions equal the input directions.)
+
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+  % LEFT: unit circle with perpendicular v's
+  \begin{scope}[shift={(-4.4,0)}]
+    \draw[->, charcoal, thin] (-1.8,0)--(1.8,0);
+    \draw[->, charcoal, thin] (0,-1.8)--(0,1.8);
+    \draw[burgundy!70, thick] (0,0) circle (1);
+    \draw[->, ultra thick, burgundy] (0,0)--(0.707,0.707) node[above right=-2pt]{\scriptsize $\vv_1$};
+    \draw[->, ultra thick, royalblue] (0,0)--(0.707,-0.707) node[below right=-2pt]{\scriptsize $\vv_2$};
+    \node[charcoal, below] at (0,-2.0) {\scriptsize unit circle};
+  \end{scope}
+  % ARROW
+  \draw[->, very thick, goldacc] (-2.0,0)--(-0.2,0) node[midway, above]{\scriptsize $A$};
+  % RIGHT: tilted ellipse with perpendicular u's
+  \begin{scope}[shift={(3.1,0)}]
+    \draw[->, charcoal, thin] (-3.4,0)--(3.4,0);
+    \draw[->, charcoal, thin] (0,-3.4)--(0,3.4);
+    \draw[burgundy!70, thick, rotate=45] (0,0) ellipse (3 and 1);
+    \draw[->, ultra thick, burgundy] (0,0)--(2.121,2.121) node[above right=-2pt]{\scriptsize $A\vv_1=3\uu_1$};
+    \draw[->, ultra thick, royalblue] (0,0)--(0.707,-0.707) node[below right=-2pt]{\scriptsize $A\vv_2=\uu_2$};
+    \node[charcoal, below] at (0,-3.6) {\scriptsize ellipse: semi-axes $\sigma_1=3,\ \sigma_2=1$};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+\end{notesbox}
+
+\begin{notesbox}{3. Reading It Off --- Input and Output Frames Can Differ}
+For a symmetric matrix (above) the input and output directions happened to match. In general they are
+\emph{different} perpendicular frames. Take the swap-and-stretch
+$S=\begin{bsmallmatrix} 0 & 2\\ 1 & 0 \end{bsmallmatrix}$ acting on the axes $\ee_1,\ee_2$:
+\[
+  S\begin{bmatrix} 1\\ 0 \end{bmatrix}=\begin{bmatrix}{\color{keyred}\mathbf{0}}\\[2pt]{\color{keyred}\mathbf{1}}\end{bmatrix}
+  \ (\text{length }{\color{keyred}\mathbf{1}}),\qquad
+  S\begin{bmatrix} 0\\ 1 \end{bmatrix}=\begin{bmatrix}{\color{keyred}\mathbf{2}}\\[2pt]{\color{keyred}\mathbf{0}}\end{bmatrix}
+  \ (\text{length }{\color{keyred}\mathbf{2}}).
+\]
+The inputs $\ee_1,\ee_2$ are perpendicular; the outputs are perpendicular too
+($\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}\cdot\begin{bsmallmatrix} 2\\0 \end{bsmallmatrix}={\color{keyred}\mathbf{0}}$).
+Listing the bigger stretch first, the singular values are $\sigma_1={\color{keyred}\mathbf{2}}$ and
+$\sigma_2={\color{keyred}\mathbf{1}}$. Notice the largest input direction $\vv_1=\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}$
+is sent to the \emph{different} output direction $\uu_1=\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}$ ---
+input and output frames need not be the same.
+\end{notesbox}
+
+\begin{notesbox}{4. The SVD $A=U\Sigma V\T$ --- and Why It Matters}
+Collect the pieces: put the input unit vectors $\vv_1,\vv_2$ into the columns of $V$, the output unit
+vectors $\uu_1,\uu_2$ into the columns of $U$, and the singular values down the diagonal of $\Sigma$.
+Then every matrix factors as
+\[
+  A = U\,\Sigma\,V\T \qquad(\Sigma=\begin{bsmallmatrix} \sigma_1 & 0\\ 0 & \sigma_2 \end{bsmallmatrix}),
+\]
+the \textbf{Singular Value Decomposition}: rotate to the input frame ($V\T$), stretch by the
+$\sigma$'s ($\Sigma$), rotate to the output frame ($U$).
+
+\vspace{2pt}
+\textbf{Why it matters.} Singular values are always \ans{nonnegative ($\ge0$)} (they are lengths), and
+\emph{every} matrix has an SVD --- even non-square ones --- while eigenvectors need a square matrix and
+may not exist. That is why the SVD is the tool behind image compression and data science.
+
+\vspace{2pt}
+\textbf{How do we \emph{find} them} without guessing? The singular values are $\sigma=\sqrt{\lambda}$ for
+the eigenvalues $\lambda$ of $A\T A$ --- a symmetric matrix (Unit~6). That is Lesson~7.1.
+
+\vspace{2pt}
+\textbf{The road ahead.} \textbf{7.1} \emph{finding} singular values/vectors from $A\T A$\; $\bullet$\;
+\textbf{7.2} compressing images\; $\bullet$\; \textbf{7.3} principal component analysis\; $\bullet$\;
+\textbf{7.4} the victory of orthogonality.
+\end{notesbox}
+
+\begin{practicebox}
+Show your work.
+\begin{enumerate}[leftmargin=1.6em, itemsep=4pt]
+  \item For $D=\begin{bsmallmatrix} 5 & 0\\ 0 & 2 \end{bsmallmatrix}$, what ellipse does the unit circle become? Give the singular values $\sigma_1,\sigma_2$. \ansline{An ellipse with half-widths $5$ ($x$-axis) and $2$ ($y$-axis); $\sigma_1=5$, $\sigma_2=2$.}
+  \item For $S=\begin{bsmallmatrix} 0 & 3\\ 1 & 0 \end{bsmallmatrix}$, compute $S\ee_1$ and $S\ee_2$, check the outputs are perpendicular, and read $\sigma_1,\sigma_2$. \ansline{$S\ee_1=\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}$ (length $1$), $S\ee_2=\begin{bsmallmatrix} 3\\0 \end{bsmallmatrix}$ (length $3$); dot $=0$ so perpendicular; $\sigma_1=3$, $\sigma_2=1$.}
+  \item Why can a singular value never be negative? \ansline{A singular value is a \emph{length} (a stretch factor / semi-axis of the ellipse), and lengths are never negative.}
+\end{enumerate}
+\end{practicebox}
+
+\begin{teachernote}
+The spine is Section~2 (perpendicular in $\to$ perpendicular out, $A\vv_i=\sigma_i\uu_i$), built from
+Section~1 (circle $\to$ ellipse) and made concrete by the tilted-ellipse figure. Section~3 is the honest
+general case (input frame $\ne$ output frame), read straight off the columns of the swap matrix. Section~4
+names $A=U\Sigma V\T$ and its selling point: it exists for \emph{every} matrix, and $\sigma\ge0$ always ---
+unlike eigenvectors (Unit~6). Defer \emph{finding} $\sigma$ from $A\T A$ to 7.1. Most common slips: forgetting
+to order $\sigma_1\ge\sigma_2$; thinking a singular value could be negative; conflating $\vv_i$ (input) with
+$\uu_i$ (output) --- Section~3 exists precisely to separate them. Sentence to land: the singular values are how
+far a matrix stretches the unit circle into an ellipse.
+\end{teachernote}
 
 \end{document}

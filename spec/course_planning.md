@@ -7,7 +7,35 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-24 — **Authored & built Unit 7 Lesson 7.0 — "Setting Up the SVD" (the intro/spiral on-ramp).**
+**Last updated:** 2026-07-24 — **Authored & built Unit 7 Lesson 7.1 — "Singular Values and Singular Vectors" (§7.1 — the
+$A\T A$ recipe to *find* $\sigma,\vv,\uu$ for any matrix).** Filled every skeleton: lesson plan, cover, warmup, notes,
+activity, exit_ticket, homework (+ the five keys) and the slides deck, mirroring Lesson 7.0's preamble/boxes/tone.
+**Content — the five-step recipe:** (1) build the symmetric $A\T A$ (entries = column dot products); (2) its eigenvalues
+$\lambda_1\ge\lambda_2\ge0$ + perpendicular unit eigenvectors are the input vectors $\vv_i$ (Unit 6); (3) singular values
+$\sigma_i=\sqrt{\lambda_i}$; (4) output vectors $\uu_i=A\vv_i/\sigma_i$ (perpendicular & unit automatically); (5) assemble
+$A=U\Sigma V\T$. **Why it works** (the engine): $A\vv=\sigma\uu\Rightarrow A\T A\vv=\sigma^2\vv$, so $\vv$ is an eigenvector of
+$A\T A$; $A\T A$ is *symmetric* for **any** $A$ (any shape) ⇒ real $\lambda\ge0$ (real $\sigma=\sqrt\lambda$) + perpendicular
+eigenvectors, and $\lambda=|A\vv|^2/|\vv|^2\ge0$. **Fresh non-symmetric spine** $A=\begin{bsmallmatrix}1&2\\-2&2\end{bsmallmatrix}$:
+$A\T A=\begin{bsmallmatrix}5&-2\\-2&8\end{bsmallmatrix}\to\lambda 9,4\to\sigma 3,2$; $\vv_1=\tfrac1{\sqrt5}(1,-2)\to\uu_1=\tfrac1{\sqrt5}(-1,-2)$,
+$\vv_2=\tfrac1{\sqrt5}(2,1)\to\uu_2=\tfrac1{\sqrt5}(2,-1)$; $U\Sigma V\T=A$ verified in Python. **Warmup literally does Steps 1–3 on the
+spine matrix** (transpose+$A\T A$ Units 1/6; eigenvalues of the symmetric $[[5,-2],[-2,8]]\to9,4$ Unit 6; normalize $(1,-2)\to\tfrac1{\sqrt5}$
+Unit 4) — so the warmup answers *are* the notes' opening. **Custom 5-box recipe-pipeline TikZ** ($A\to A\T A\to\lambda,\vv\to\sigma,\uu\to U\Sigma V\T$,
+blush boxes + burgundy arrows, arrows.meta) on notes §2 + mirrored across slides. **Activity/Exit/HW spine (all hand-verified in pure
+Python):** Tier R diagonal-$A\T A$ ($[[3,0],[0,2]]$; swap $[[0,3],[2,0]]$ with the ordering catch $\lambda9\!\to\!\ee_2$); Tier A full recipe on
+tilted $[[2,2],[1,-2]]$ ($A\T A=[[5,2],[2,8]]$, $\sigma3,2$, $\uu$'s = swapped $\vv$'s, perp-out check); Tier E **non-square** $3\times2$
+$[[2,0],[0,2],[1,2]]$ ($A\T A=[[5,2],[2,8]]$, $\sigma3,2$) + justify $\lambda\ge0$. Exit: $[[1,-2],[2,2]]$ ($\sigma3,2$) find $\sigma$'s + one
+$\uu_1=A\vv_1/\sigma_1=\tfrac1{\sqrt5}(-1,2)$ + justify $\sigma=\sqrt\lambda$. HW: diagonal-order $[[0,3],[2,0]]$; full recipe $[[2,1],[-2,2]]$
+($A\T A=[[8,-2],[-2,5]]$, $\sigma3,2$); isolated $\uu$ step on the notes matrix; justify $\lambda\ge0$/real & why-beats-eigenvectors;
+extension non-square $[[3,0],[0,3],[0,4]]$ ($A\T A=[[9,0],[0,25]]\to\sigma5,3$). **Built `make -C unit07/lesson01 all` → clean** (0 `^!`/file-line
+errors across all 13 logs; no `\ans`-in-math; no overfull >15pt). Page counts: cover/warmup/exit 1pp (blank & key ✓ 1-page constraint), notes
+3pp/3pp, activity 2pp/2pp, homework 2pp/2pp, slides 6pp, lesson plan 3pp; **student 10pp, full 19pp.** Visually spot-checked notes_key p2
+(recipe-pipeline figure — clean blush boxes/burgundy arrows/labels, red answers correct, no tofu), activity_key p1 (all tiers, red answers
+correct), and the slide title — clean. **Gotchas (none new):** `\usetikzlibrary{arrows.meta, positioning}` works fine after `-boxes`/`-key`
+(tcolorbox already loads tikz); define every math macro (`\uu\vv\ee\T`) in each file incl. plan & beamer preambles. **Next run: author Unit 7
+Lesson 7.2** ("Compressing Images by the SVD", §7.2 — keep the largest $\sigma$'s: $A\approx\sigma_1\uu_1\vv_1\T+\cdots$). Lessons 7.0/7.1 are
+the Unit 7 models.
+
+**Prior run:** **Authored & built Unit 7 Lesson 7.0 — "Setting Up the SVD" (the intro/spiral on-ramp).**
 Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides
 deck, mirroring Lesson 6.0's preamble/boxes/tone. **Content — spiral + roadmap for the SVD:** (1) a matrix stretches the
 **unit circle** into an **ellipse**; the two half-widths are the **singular values** $\sigma_1\ge\sigma_2\ge0$ (diagonal

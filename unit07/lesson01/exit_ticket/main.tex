@@ -3,6 +3,9 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
@@ -11,9 +14,20 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+No notes. Show your reasoning. Use $A=\begin{bmatrix} 1 & -2 \\ 2 & 2 \end{bmatrix}$ for Questions 1--2.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Find the singular values.} Compute $A\T A$, find its eigenvalues $\lambda$, and give the
+        singular values $\sigma_1,\sigma_2$ (larger first).
+        \vspace{1.7cm}
+  \item \textbf{One output vector.} The input singular vector for $\lambda_1$ is
+        $\vv_1=\frac{1}{\sqrt5}\begin{bmatrix} 1 \\ 2 \end{bmatrix}$. Compute the output singular vector
+        $\uu_1=A\vv_1/\sigma_1$.
+        \vspace{1.7cm}
+  \item \textbf{Explain.} Why do the eigenvalues of $A\T A$ always let us take a real
+        $\sigma=\sqrt{\lambda}$? (What is special about $A\T A$, and what does that guarantee about
+        its eigenvalues?)
+        \writelines{2}
+\end{enumerate}
 
 \end{document}

@@ -3,6 +3,9 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
@@ -11,9 +14,28 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning. Use $A=\begin{bmatrix} 1 & -2 \\ 2 & 2 \end{bmatrix}$ for Questions 1--2.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Find the singular values.} Compute $A\T A$, find its eigenvalues $\lambda$, and give the
+        singular values $\sigma_1,\sigma_2$ (larger first).
+        \ansline{$A\T A=\begin{bsmallmatrix} 1 & 2\\ -2 & 2 \end{bsmallmatrix}\begin{bsmallmatrix} 1 & -2\\ 2 & 2 \end{bsmallmatrix}=\begin{bsmallmatrix} 5 & 2\\ 2 & 8 \end{bsmallmatrix}$; $\lambda^2-13\lambda+36=(\lambda-9)(\lambda-4)$, so $\lambda=9,4$ and $\sigma_1=3$, $\sigma_2=2$.}
+  \item \textbf{One output vector.} The input singular vector for $\lambda_1$ is
+        $\vv_1=\frac{1}{\sqrt5}\begin{bmatrix} 1 \\ 2 \end{bmatrix}$. Compute the output singular vector
+        $\uu_1=A\vv_1/\sigma_1$.
+        \ansline{$A\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}=\begin{bsmallmatrix} -3\\ 6 \end{bsmallmatrix}$, so $\uu_1=\tfrac13\cdot\tfrac1{\sqrt5}\begin{bsmallmatrix} -3\\ 6 \end{bsmallmatrix}=\tfrac1{\sqrt5}\begin{bsmallmatrix} -1\\ 2 \end{bsmallmatrix}$ (a unit vector).}
+  \item \textbf{Explain.} Why do the eigenvalues of $A\T A$ always let us take a real
+        $\sigma=\sqrt{\lambda}$? (What is special about $A\T A$, and what does that guarantee about
+        its eigenvalues?)
+        \ansline{$A\T A$ is \emph{symmetric}, so (Unit~6) its eigenvalues are real; and each $\lambda=\sigma^2=|A\vv|^2/|\vv|^2\ge0$, so $\sqrt{\lambda}$ is a real, nonnegative number.}
+\end{enumerate}
+
+\begin{teachernote}
+Sort into ``got the recipe / arithmetic slip / concept slip.'' Q1 is Steps~1--3 (build $A\T A$, factor,
+$\sigma=\sqrt\lambda$); watch for $AA\T$ instead of $A\T A$. Q2 isolates Step~4 ($\uu=A\vv/\sigma$); the
+common slip is dividing by the wrong $\sigma$ or skipping the $\tfrac1{\sqrt5}$. Q3 is the target
+justification: symmetric $\Rightarrow$ real eigenvalues, and $\lambda=\sigma^2\ge0$. If many miss Q3,
+open 7.2 with a 30-second ``$A\T A$ is symmetric, so $\sigma=\sqrt\lambda$'' recap.
+\end{teachernote}
 
 \end{document}

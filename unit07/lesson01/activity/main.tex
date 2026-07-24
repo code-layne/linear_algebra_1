@@ -3,17 +3,70 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.1}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Finding the SVD with $A\T A$.} The recipe: \textbf{(1)} build $A\T A$; \textbf{(2)} find its
+eigenvalues $\lambda_1\ge\lambda_2\ge0$ and perpendicular unit eigenvectors $\vv_i$; \textbf{(3)}
+$\sigma_i=\sqrt{\lambda_i}$; \textbf{(4)} $\uu_i=A\vv_i/\sigma_i$; \textbf{(5)} assemble $A=U\Sigma V\T$.
+Work with your partner, show every step, and \emph{justify} each answer.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+When the columns of $A$ are perpendicular, $A\T A$ is \emph{diagonal} --- so you can read $\lambda$ right
+off, and the input vectors are the axes $\ee_1,\ee_2$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Diagonal.} For $A=\begin{bsmallmatrix} 3 & 0\\ 0 & 2 \end{bsmallmatrix}$, compute
+        $A\T A=\blank{2.2cm}$. Its eigenvalues are $\lambda_1=\blank{0.9cm}$, $\lambda_2=\blank{0.9cm}$,
+        so $\sigma_1=\blank{0.8cm}$, $\sigma_2=\blank{0.8cm}$. With $\vv_1=\ee_1$, $\vv_2=\ee_2$, find
+        $\uu_1=A\vv_1/\sigma_1$ and $\uu_2=A\vv_2/\sigma_2$. \writeline
+  \item \textbf{Swap --- watch the order.} For $S=\begin{bsmallmatrix} 0 & 3\\ 2 & 0 \end{bsmallmatrix}$,
+        compute $S\T S$ (still diagonal). Its eigenvalues are $9$ and $4$. \emph{Which axis} is the
+        eigenvector for $\lambda=9$? Give $\sigma_1,\sigma_2$ and then $\uu_1=S\vv_1/\sigma_1$. Is $\uu_1$
+        the same direction as $\vv_1$? \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Now a genuinely tilted matrix --- the columns are \emph{not} perpendicular, so $A\T A$ is not diagonal.
+Run the full recipe on $A=\begin{bsmallmatrix} 2 & 2\\ 1 & -2 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Steps 1--3.} Compute $A\T A$, find its eigenvalues $\lambda_1\ge\lambda_2$, and take
+        $\sigma_1,\sigma_2$. \writelines{2}
+  \item \textbf{Input vectors.} The eigenvector directions are $\begin{bsmallmatrix} 1\\ 2 \end{bsmallmatrix}$
+        (for $\lambda_1$) and $\begin{bsmallmatrix} 2\\ -1 \end{bsmallmatrix}$ (for $\lambda_2$). Normalize
+        each to a unit $\vv_i$ (divide by $\sqrt5$), and confirm $\vv_1\perp\vv_2$. \writeline
+  \item \textbf{Output vectors + check.} Compute $\uu_1=A\vv_1/\sigma_1$ and $\uu_2=A\vv_2/\sigma_2$, and
+        verify $\uu_1\cdot\uu_2=0$ --- perpendicular out, automatically. \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Any shape.} The recipe needs only $A\T A$, so $A$ need not be square. Take the tall
+$3\times2$ matrix $A=\begin{bsmallmatrix} 2 & 0\\ 0 & 2\\ 1 & 2 \end{bsmallmatrix}$ --- it has no
+eigenvalues of its own (it isn't square), but $A\T A$ is a clean $2\times2$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Compute $A\T A$ (a $2\times2$: each entry is a dot product of two columns of $A$). \writelines{2}
+  \item Find its eigenvalues and take $\sigma_1,\sigma_2$. \writeline
+  \item \textbf{Justify.} Explain why the eigenvalues of \emph{any} $A\T A$ must be $\ge0$ --- so that
+        $\sigma=\sqrt{\lambda}$ always exists. (Hint: what does $\lambda$ equal?) \writeline
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

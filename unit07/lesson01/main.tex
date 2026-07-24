@@ -5,6 +5,12 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 \newcommand{\UnitNumberName}{Unit 7: The Singular Value Decomposition \quad}
 \newcommand{\LessonNumberName}{Lesson 7.1: Singular Values and Singular Vectors}
 
@@ -16,55 +22,163 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can \emph{find} the singular values and singular vectors of
+    \emph{any} matrix --- no guessing --- with the $A\T A$ recipe. Given $A$, they form the symmetric
+    matrix $A\T A$ (Unit~6), find its eigenvalues $\lambda_1\ge\lambda_2\ge0$ and perpendicular unit
+    eigenvectors, take the singular values $\sigma_i=\sqrt{\lambda_i}$ with input singular vectors
+    $\vv_i$ (the eigenvectors of $A\T A$), and compute the output singular vectors $\uu_i=A\vv_i/\sigma_i$.
+    They can assemble $A=U\Sigma V\T$ and justify \emph{why} the recipe works: $A\T A$ is symmetric, so
+    it always has real, nonnegative eigenvalues and perpendicular eigenvectors, which makes
+    $\sigma=\sqrt{\lambda}$ real and the whole method work for a matrix of \emph{any} shape.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Build the symmetric matrix $A\T A$ from any $A$.
+  \item Find its eigenvalues $\lambda$ and take the singular values $\sigma=\sqrt{\lambda}$.
+  \item Read the input singular vectors $\vv_i$ off the eigenvectors of $A\T A$.
+  \item Compute the output singular vectors $\uu_i=A\vv_i/\sigma_i$ and assemble $A=U\Sigma V\T$.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item $A\T A$ is \emph{symmetric} --- Unit~6 guarantees real $\lambda\ge0$ and perpendicular eigenvectors.
+  \item $\sigma=\sqrt{\lambda}$ is always a real, nonnegative \emph{length}.
+  \item The eigenvectors of $A\T A$ are exactly the perpendicular input frame $\vv_1\perp\vv_2$.
+  \item $\uu_i=A\vv_i/\sigma_i$ comes out perpendicular and unit-length automatically --- for \emph{any} shape of $A$.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{The matrix $A\T A$} & The symmetric matrix built from $A$; its entries are the dot products of the columns of $A$. Its eigenvalues are $\sigma^2$. \\
+\textbf{Singular value $\sigma_i=\sqrt{\lambda_i}$} & The (nonnegative) square root of an eigenvalue $\lambda_i$ of $A\T A$; the stretch factor / ellipse half-width from Lesson~7.0. \\
+\textbf{Input singular vector $\vv_i$} & A perpendicular unit eigenvector of $A\T A$ (the right singular vector). \\
+\textbf{Output singular vector $\uu_i$} & Computed as $\uu_i=A\vv_i/\sigma_i$; automatically a perpendicular unit vector (the left singular vector). \\
+\textbf{The recipe} & (1)~$A\T A$; (2)~$\lambda,\vv$; (3)~$\sigma=\sqrt{\lambda}$; (4)~$\uu=A\vv/\sigma$; (5)~assemble $A=U\Sigma V\T$. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three moves the recipe is built from --- and it uses \emph{today's} matrix,
+    so the Warm-Up answers become Steps~1--3 of the notes: \textbf{(1)} the \emph{transpose} $A\T$ and the
+    product $A\T A$ (Unit~1 matrix multiply / Unit~6 symmetry) --- the entries are column dot products;
+    \textbf{(2)} finding the \emph{eigenvalues} of a symmetric $2\times2$ from $\det(S-\lambda I)=0$
+    (Unit~6); and \textbf{(3)} \emph{normalizing} a vector to unit length (Unit~4) --- singular vectors are
+    reported as unit vectors. Debrief aloud: $A\T A$ is symmetric, so its eigenvalues are real and
+    $\ge0$ --- that is exactly why $\sigma=\sqrt{\lambda}$ always makes sense.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Recall the Lesson~7.0 promise: a matrix stretches the unit circle into an ellipse, and the
+    \emph{singular values} are the half-widths. But there we were \emph{handed} the perpendicular
+    directions. Ask: \textbf{``Given only the matrix, how do we \emph{find} the singular values and the
+    perpendicular directions --- with no guessing?''} The obstacle: eigenvectors (Unit~6) keep a
+    direction fixed, but a general matrix \emph{turns} every direction, so $A$'s own eigenvectors are the
+    wrong tool. The fix is a beautiful trick: multiply by $A\T$ first. The matrix $A\T A$ is
+    \emph{symmetric}, so Unit~6 hands us real eigenvalues $\ge0$ and perpendicular eigenvectors ---
+    exactly the singular values ($\sigma=\sqrt{\lambda}$) and input directions $\vv$ we wanted. Then
+    $\uu=A\vv/\sigma$ finishes the job. This recipe works for \emph{every} matrix, of \emph{any} shape.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{The idea.} Lesson~7.0 gave us $A\vv_i=\sigma_i\uu_i$ but not \emph{how} to find $\vv,\sigma,\uu$.
+Multiply $A\vv=\sigma\uu$ by $A\T$: since it turns out $A\T\uu=\sigma\vv$, we get
+$A\T A\,\vv=\sigma^2\vv$. So $\vv$ is an \textbf{eigenvector of $A\T A$} with eigenvalue
+$\lambda=\sigma^2$. That is the whole engine.
+
+\textbf{Why $A\T A$ is the right matrix.} It is \emph{symmetric} ($ (A\T A)\T=A\T A$), so Unit~6
+guarantees real eigenvalues, and they are $\ge0$ (they are $\sigma^2$), \emph{and} perpendicular
+eigenvectors. Real nonnegative $\lambda\Rightarrow$ real $\sigma=\sqrt{\lambda}$; perpendicular
+eigenvectors $\Rightarrow$ the perpendicular input frame $\vv_1\perp\vv_2$.
+
+\columnbreak
+
+\textbf{The recipe (spine $A=\begin{bsmallmatrix} 1 & 2\\ -2 & 2 \end{bsmallmatrix}$).}
+\textbf{(1)} $A\T A=\begin{bsmallmatrix} 5 & -2\\ -2 & 8 \end{bsmallmatrix}$ (column dot products).
+\textbf{(2)} $\det(A\T A-\lambda I)=\lambda^2-13\lambda+36=(\lambda-9)(\lambda-4)$, so $\lambda=9,4$ with
+$\vv_1=\tfrac1{\sqrt5}\begin{bsmallmatrix} 1\\ -2 \end{bsmallmatrix}$,
+$\vv_2=\tfrac1{\sqrt5}\begin{bsmallmatrix} 2\\ 1 \end{bsmallmatrix}$.
+\textbf{(3)} $\sigma_1=\sqrt9=3,\ \sigma_2=\sqrt4=2$.
+\textbf{(4)} $\uu_1=A\vv_1/\sigma_1=\tfrac1{\sqrt5}\begin{bsmallmatrix} -1\\ -2 \end{bsmallmatrix}$,
+$\uu_2=\tfrac1{\sqrt5}\begin{bsmallmatrix} 2\\ -1 \end{bsmallmatrix}$ (perpendicular, unit).
+\textbf{(5)} $A=U\Sigma V\T$.
+\end{multicols}
+\end{skillbox}
+
+\begin{skillbox}[Explicit Instruction: The $A\T A$ Recipe]{blush}
+\begin{tabularx}{\linewidth}{@{}p{0.46\linewidth} X@{}}
+\textbf{Steps.}
+\begin{enumerate}[leftmargin=1.3em, nosep, after=\vspace{2pt}]
+  \item Form $A\T A$ (symmetric; entries are column dot products).
+  \item Eigenvalues $\lambda_1\ge\lambda_2\ge0$ and perpendicular unit eigenvectors $\vv_1,\vv_2$ (Unit~6).
+  \item Singular values $\sigma_i=\sqrt{\lambda_i}$.
+  \item Output vectors $\uu_i=A\vv_i/\sigma_i$ (come out perpendicular \& unit).
+  \item Assemble $A=U\Sigma V\T$ ($V,U$ hold the $\vv$'s, $\uu$'s; $\Sigma$ the $\sigma$'s).
+\end{enumerate}
+&
+\textbf{Worked} ($A=\begin{bsmallmatrix} 1 & 2\\ -2 & 2 \end{bsmallmatrix}$).
+$A\T A=\begin{bsmallmatrix} 5 & -2\\ -2 & 8 \end{bsmallmatrix}$; $\lambda=9,4$;
+$\vv_1=\tfrac1{\sqrt5}\begin{bsmallmatrix} 1\\ -2 \end{bsmallmatrix}$,
+$\vv_2=\tfrac1{\sqrt5}\begin{bsmallmatrix} 2\\ 1 \end{bsmallmatrix}$; $\sigma_1=3,\sigma_2=2$.
+$A\begin{bsmallmatrix} 1\\ -2 \end{bsmallmatrix}=\begin{bsmallmatrix} -3\\ -6 \end{bsmallmatrix}$, so
+$\uu_1=\tfrac1{3}\cdot\tfrac1{\sqrt5}\begin{bsmallmatrix} -3\\ -6 \end{bsmallmatrix}=
+\tfrac1{\sqrt5}\begin{bsmallmatrix} -1\\ -2 \end{bsmallmatrix}$. Check $\uu_1\cdot\uu_2=0$.
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item computing $A A\T$ instead of $A\T A$, or slipping in the matrix product (transpose \emph{first});
+  \item forgetting to \emph{order} $\lambda_1\ge\lambda_2$, so $\sigma$'s (and $\vv$'s) come out mismatched;
+  \item dividing by the wrong $\sigma$ in $\uu_i=A\vv_i/\sigma_i$ (pair $\uu_i$ with \emph{its} $\sigma_i$);
+  \item forgetting to normalize the eigenvectors of $A\T A$ to unit length.
+\end{itemize}
+Cold-call prompts: ``Is $A\T A$ symmetric --- how do you know?'' ``Why must its eigenvalues be $\ge0$?''
+``What is $\sigma$ once you have $\lambda$?'' ``How do you get $\uu$ from $\vv$?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Finding the SVD with $A\T A$} activity (tiered; mirrors the notes recipe).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} A matrix whose $A\T A$ is \emph{diagonal} (perpendicular columns): read
+$\lambda$ straight off, take $\sigma=\sqrt{\lambda}$, and get $\vv=\ee_1,\ee_2$; then $\uu=A\vv/\sigma$.
+
+\columnbreak
+\textbf{Tier A --- Approaching.} The full recipe on a genuinely tilted non-symmetric matrix: build
+$A\T A$, find $\lambda$ and perpendicular eigenvectors $\vv$, take $\sigma=\sqrt{\lambda}$, and compute
+both $\uu_i=A\vv_i/\sigma_i$; verify $\uu_1\perp\uu_2$.
+
+\columnbreak
+\textbf{Tier E --- Extension.} \emph{Any shape:} a \emph{non-square} ($3\times2$) matrix --- eigenvectors of
+$A$ do not even exist, but $A\T A$ is a clean $2\times2$; find its $\sigma$'s and justify why $A\T A$
+always has real, nonnegative eigenvalues.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): from a given non-symmetric $A$, form $A\T A$ and give the
+singular values $\sigma_1,\sigma_2$; use a supplied input singular vector to compute an output singular
+vector $\uu_1=A\vv_1/\sigma_1$; and a \textbf{conceptual/justification check} --- why does $A\T A$
+always let us take $\sigma=\sqrt{\lambda}$ (why are the eigenvalues real and $\ge0$)? Collect and sort
+into ``got the recipe / arithmetic slip / concept slip'' to decide whether 7.2 opens with a re-cap.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} run the recipe end to end --- a diagonal-$A\T A$ warm case (and the ordering
+subtlety), a full non-symmetric matrix ($A\T A\to\lambda\to\sigma\to\vv\to\uu$), an isolated
+$\uu=A\vv/\sigma$ step, and short justifications ($\sigma\ge0$ and real; why $A\T A$ is symmetric).
+\textbf{Extension:} a \emph{non-square} matrix, to show the method needs only $A\T A$ and works for any
+shape. \textbf{Preview:} Lesson~7.2, \emph{Compressing Images by the SVD} --- keep only the largest
+$\sigma$'s ($\sigma_1\uu_1\vv_1\T+\cdots$) to store a picture in far less space.
 \end{skillbox}
 \end{document}

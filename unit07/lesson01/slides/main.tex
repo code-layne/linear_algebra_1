@@ -1,6 +1,10 @@
 %! Singular Values and Singular Vectors — Unit 7, Lesson 7.1 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
@@ -11,16 +15,110 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 7.1}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Singular Values and Singular Vectors}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 7}
+    {\color{white}\bfseries\LARGE Singular Values and Singular Vectors}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 7: The Singular Value Decomposition}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{How do we \emph{find} the singular values?}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      Lesson~7.0 said a matrix stretches the unit circle into an ellipse, with singular values
+      $\sigma_1\ge\sigma_2\ge0$ --- but it \textbf{handed} us the perpendicular directions.\\[6pt]
+      Now: given only $A$, find $\sigma$ and the directions --- \emph{no guessing}.
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \begin{block}{The obstacle}
+        Eigenvectors (Unit~6) keep a direction \emph{fixed}, but a general matrix \textbf{turns} every
+        direction. So $A$'s own eigenvectors are the wrong tool.
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{2pt}
+  \begin{block}{The trick}
+    Multiply by $A\T$ first: $A\T A$ is \textbf{symmetric}, and Unit~6 loves symmetric matrices.
+  \end{block}
+\end{frame}
+
+% THE IDEA
+\begin{frame}[t, plain]
+  \burgundyheader{Why $A\T A$ --- the engine}
+  \sectionlabel[goldacc]{Idea}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item Start from $A\vv=\sigma\uu$ (Lesson~7.0). Multiply by $A\T$:
+          \[ A\T A\,\vv = A\T(\sigma\uu) = \sigma(A\T\uu) = \sigma^2\,\vv. \]
+    \item So $\vv$ is an \textbf{eigenvector of $A\T A$} with eigenvalue $\lambda=\sigma^2$.
+    \item $A\T A$ is \textbf{symmetric} $\Rightarrow$ real eigenvalues $\ge0$ \emph{and} perpendicular
+          eigenvectors (spectral theorem, Unit~6).
+    \item Therefore $\sigma=\sqrt{\lambda}$ is always real, and the $\vv$'s are the perpendicular input frame.
+  \end{itemize}
+\end{frame}
+
+% THE RECIPE
+\begin{frame}[t, plain]
+  \burgundyheader{The five-step recipe}
+  \sectionlabel{Skill}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \begin{enumerate}
+        \setlength{\itemsep}{5pt}
+        \item Form $A\T A$ (symmetric).
+        \item Eigenvalues $\lambda_1\ge\lambda_2\ge0$ and perpendicular unit eigenvectors $\vv_i$.
+        \item $\sigma_i=\sqrt{\lambda_i}$.
+        \item $\uu_i=A\vv_i/\sigma_i$ (perpendicular \& unit, free).
+        \item Assemble $A=U\Sigma V\T$.
+      \end{enumerate}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \textbf{Spine} $A=\begin{bsmallmatrix} 1 & 2\\ -2 & 2 \end{bsmallmatrix}$:
+      \[ A\T A=\begin{bsmallmatrix} 5 & -2\\ -2 & 8 \end{bsmallmatrix},\quad \lambda=9,4. \]
+      \[ \sigma_1=3,\ \sigma_2=2. \]
+      \[ \vv_1=\tfrac1{\sqrt5}\begin{bsmallmatrix} 1\\-2 \end{bsmallmatrix},\ \
+         \vv_2=\tfrac1{\sqrt5}\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}. \]
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% FINISH THE EXAMPLE
+\begin{frame}[t, plain]
+  \burgundyheader{Finish the job: $\uu=A\vv/\sigma$, then assemble}
+  \sectionlabel{Skill}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item $A\begin{bsmallmatrix} 1\\-2 \end{bsmallmatrix}=\begin{bsmallmatrix} -3\\-6 \end{bsmallmatrix}
+          \Rightarrow \uu_1=\tfrac13\cdot\tfrac1{\sqrt5}\begin{bsmallmatrix} -3\\-6 \end{bsmallmatrix}
+          =\tfrac1{\sqrt5}\begin{bsmallmatrix} -1\\-2 \end{bsmallmatrix}$, \quad
+          $\uu_2=\tfrac1{\sqrt5}\begin{bsmallmatrix} 2\\-1 \end{bsmallmatrix}$.
+    \item Perpendicular out, for free: $\uu_1\cdot\uu_2=0$.
+    \item Assemble:
+          \[ A=U\Sigma V\T,\quad
+             U=\tfrac1{\sqrt5}\begin{bsmallmatrix} -1 & 2\\ -2 & -1 \end{bsmallmatrix},\
+             \Sigma=\begin{bsmallmatrix} 3 & 0\\ 0 & 2 \end{bsmallmatrix},\
+             V=\tfrac1{\sqrt5}\begin{bsmallmatrix} 1 & 2\\ -2 & 1 \end{bsmallmatrix}. \]
+  \end{itemize}
+\end{frame}
+
+% WHY + ROAD AHEAD
+\begin{frame}[t, plain]
+  \burgundyheader{Why it always works --- and the road ahead}
+  \sectionlabel[goldacc]{Payoff}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item $A\T A$ is symmetric for \textbf{any} $A$: eigenvalues real and $\ge0$ ($=\sigma^2$),
+          eigenvectors perpendicular.
+    \item $A$ need not be square: if $A$ is $m\times n$, then $A\T A$ is a tidy $n\times n$ symmetric
+          matrix --- so \textbf{every} matrix has an SVD (eigenvectors can't promise that).
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{The road ahead}
+    \textbf{7.2} compressing images \;$\bullet$\; \textbf{7.3} principal component analysis \;$\bullet$\;
+    \textbf{7.4} the victory of orthogonality.
+  \end{block}
 \end{frame}
 
 \end{document}

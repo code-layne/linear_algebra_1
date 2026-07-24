@@ -7,7 +7,23 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-24 — **Authored & built the Unit 6 summative tests — Unit 6 is now complete.**
+**Last updated:** 2026-07-24 — **Scaffolded all of Unit 7 (The Singular Value Decomposition) — skeletons only.**
+Ran `new_lesson.py` for lessons 7.0–7.4 (component set: cover, warmup, notes, activity, exit_ticket, homework, slides
++ keys for the keyed components). The 7.0 run created the unit, so `unit07/tests/` (practice + actual),
+`unit07/test_keys/` (both keys), `unit07/sample_test/`, `unit07/sample_test_key/`, `unit07/Makefile`, and the
+thin-include test Makefiles were all auto-scaffolded too. **Confirmed lesson map (6 lessons; user chose 7.0 + 7.1–7.4):**
+7.0 "Setting Up the SVD" (intro/spiral, mirrors 6.0/5.0/4.0) · 7.1 "Singular Values and Singular Vectors" (§7.1) ·
+7.2 "Compressing Images by the SVD" (§7.2) · 7.3 "Principal Component Analysis" (§7.3) · 7.4 "The Victory of
+Orthogonality" (§7.4) — matches `spec/linear_algebra_v2.md` §7.1–7.4 plus the customary `lesson00` intro. **Unit 7 is
+advanced/optional per the spec, but authored as an ordinary unit of lessons** (same component set + down-leveling as
+1–6). Verified on disk: 5 lesson dirs each with all components (+ keys), `main.tex` lesson plan with correct
+`\UnitNumberName`/`\LessonNumberName`, plus the four unit-assessment dirs. **Nothing authored or built yet — all files are
+scaffolder skeletons; `sample_test`/`sample_test_key` PDFs are NOT yet populated** (they come from `drop` after the tests
+are authored). **Next run: author Unit 7 Lesson 7.0** ("Setting Up the SVD" — the intro/spiral on-ramp). Lessons 6.0–6.4
+are the model set; Unit 4/5/6 tests are the assessment-format model; Lesson 4.0 remains the cross-unit style model. The
+core sequence (Units 1–6) is complete; Unit 7 (and optionally Unit 8) is the optional/advanced extension now in progress.
+
+**Prior run:** **Authored & built the Unit 6 summative tests — Unit 6 is now complete.**
 Filled all four skeletons (`tests/practice_test`, `tests/actual_test`, `test_keys/practice_test_key`, `test_keys/actual_test_key`),
 mirroring the Unit 4/5 test format (`shared/tests.mk` + `test_keys.mk`; `\parthead` burgundy strips; Part A vocab matching / B
 multiple choice / C computation / D extended response; 8/12/35/10 pts). **Blueprint spans the whole unit §6.0–6.4:** A (8 terms —

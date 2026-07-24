@@ -3,17 +3,70 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.0}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Building a Learning Function.} A neural network layer is $\relu(A\vv+\bb)$: a
+\emph{linear step} (matrix times vector, plus a bias --- Unit~1) then the \emph{nonlinear step}
+$\relu(x)=\max(0,x)$, applied to each entry. Stacking and shifting ReLUs builds \textbf{piecewise-linear}
+functions that bend to fit data; the network \emph{learns} by shrinking a \textbf{loss}. Work with your
+partner, show each step, and \emph{explain} what the ReLU did.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Warm up the two moves: the ReLU, then one layer.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item Evaluate the ReLU (keep positives, zero out negatives):
+        \[ \relu(4)=\blank{0.9cm},\ \ \relu(-3)=\blank{0.9cm},\ \ \relu(0)=\blank{0.9cm},\ \ \relu(7)=\blank{0.9cm}. \]
+  \item \textbf{One layer.} For $A=\begin{bsmallmatrix} 2 & -1\\ -1 & 2 \end{bsmallmatrix}$ and
+        $\vv=\begin{bsmallmatrix} 1\\ 3 \end{bsmallmatrix}$ (take $\bb=\zero$), compute the linear step
+        $A\vv=\blank{1.8cm}$, then apply ReLU to each entry: $\relu(A\vv)=\blank{1.8cm}$. Which entry did
+        the ReLU change? \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Now a layer with a bias, a bending function, and a loss.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{A full layer.} For $A=\begin{bsmallmatrix} 1 & 2\\ 1 & -1 \end{bsmallmatrix}$,
+        $\bb=\begin{bsmallmatrix} -5\\ 0 \end{bsmallmatrix}$, and $\vv=\begin{bsmallmatrix} 2\\ 1 \end{bsmallmatrix}$,
+        compute $A\vv$, then $A\vv+\bb$, then $\relu(A\vv+\bb)$. \writelines{2}
+  \item \textbf{Bending with ReLUs.} Let $F(x)=\relu(x)+\relu(x-2)$. Evaluate $F(1)$ and $F(3)$. The graph
+        has slope $0$ before $x=0$, slope $1$ between the two folds, and slope \blank{0.8cm} after $x=2$.
+        Where are the two folds? \writeline
+  \item \textbf{Comparing losses.} The loss is the sum of squared errors. Targets are $4,3,4$.
+        Network~1 predicts $5,3,6$; Network~2 predicts $4,3,5$. Compute both losses. Which network fits
+        better --- and would learning move \emph{toward} or \emph{away} from those weights? \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Why the ReLU is not optional.} A network stacks layers. What if we \emph{dropped} the ReLU and
+just multiplied by two matrices in a row? Use $A_1=\begin{bsmallmatrix} 1 & 1\\ 0 & 1 \end{bsmallmatrix}$
+and $A_2=\begin{bsmallmatrix} 2 & 0\\ 1 & 1 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Compute the single matrix $A_2A_1$. \writelines{2}
+  \item For $\vv=\begin{bsmallmatrix} 1\\ 1 \end{bsmallmatrix}$, check that $A_2(A_1\vv)$ and $(A_2A_1)\vv$
+        give the \emph{same} answer. \writeline
+  \item So two linear steps with no ReLU collapse into \emph{one} matrix --- a single straight-line map
+        that cannot bend. In one sentence, what job does the ReLU do that makes a network more than one
+        matrix? \writeline
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

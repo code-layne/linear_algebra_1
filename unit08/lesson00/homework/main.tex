@@ -3,17 +3,70 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.0}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+A neural network layer is $\relu(A\vv+\bb)$: a \textbf{linear step} (weight matrix $A$ times the input,
+plus a bias $\bb$) then the \textbf{ReLU} $=\max(0,x)$, applied to each entry. Stacking ReLUs builds
+\textbf{piecewise-linear} functions; the network \textbf{learns} by shrinking a \textbf{loss} (sum of
+squared errors).
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item \textbf{Evaluate the ReLU.} Keep positives, replace negatives with $0$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\relu(6)$ \hfill
+      \item $\relu(-4)$ \hfill
+      \item $\relu(0)$ \hfill
+      \item $\relu(2.5)$ \hfill
+      \item $\relu(-1.5)$
+    \end{enumerate}
+    \vspace{0.8cm}
+  \item \textbf{One layer, two inputs.} Use $A=\begin{bmatrix} 1 & -1 \\ 2 & 1 \end{bmatrix}$ and
+        $\bb=\begin{bmatrix} 0 \\ -3 \end{bmatrix}$. For each input, compute $A\vv+\bb$, then
+        $\relu(A\vv+\bb)$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\vv=\begin{bmatrix} 2 \\ 1 \end{bmatrix}$ \hfill
+      \item $\vv=\begin{bmatrix} 1 \\ 3 \end{bmatrix}$
+    \end{enumerate}
+    \vspace{1.1cm}
+  \item \textbf{A bending function.} Let $F(x)=\relu(x)-\relu(x-3)$. Evaluate $F(-2)$, $F(1)$, $F(3)$, and
+        $F(5)$. Where are the two folds, and describe the shape (what does the graph do after $x=3$)?
+        \writelines{2}
+  \item \textbf{Compare two networks.} The targets are $2,4,5$. Network~A predicts $3,4,6$; Network~B
+        predicts $1,4,7$. Compute each loss (sum of squared errors). Which network fits better, and which
+        set of weights would gradient descent keep? \writelines{2}
+  \item \textbf{Explain.} (a) Why is \emph{matrix multiplication} called the ``engine'' of a neural
+        network? (b) Why is the ReLU step essential --- what could the network \emph{not} do without it?
+        \writelines{2}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Two layers with no ReLU collapse into one (why nonlinearity matters).} Suppose a network used two
+linear steps back-to-back with \emph{no} ReLU between them:
+$A_1=\begin{bmatrix} 1 & 0 \\ 1 & 1 \end{bmatrix}$ and $A_2=\begin{bmatrix} 1 & 2 \\ 0 & 1 \end{bmatrix}$.
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item Compute the single matrix $A_2A_1$.
+  \item Explain: applying $A_1$ then $A_2$ is the same as applying the one matrix $A_2A_1$ --- still just a
+        straight-line map. What must sit \emph{between} the two layers for the network to bend?
+\end{enumerate}
+\writelines{3}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 8.1: Piecewise Linear Learning Functions.} Today one ReLU made one fold.
+Next we fold many lines together: a layer $\relu(A\vv+\bb)$ builds a \emph{continuous piecewise-linear}
+function, and stacking layers lets it bend enough to fit any data.
+\end{spiralbox}
 
 \end{document}

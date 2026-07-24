@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 8}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 8 \quad Learning from Data}}\\[6pt]
   {\color{white}\textbf{\large Lesson 8.0 \quad Setting Up --- Learning from Data}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} explain that a \textbf{learning function} (a neural network) alternates a \textbf{linear step} (multiply by a weight matrix, add a bias) with the \textbf{nonlinear} ReLU $=\max(0,x)$.
+  \item \ldots{} evaluate ReLU and compute one layer $\mathrm{ReLU}(A\mathbf{v}+\mathbf{b})$, and explain how stacking ReLUs builds \textbf{piecewise-linear} functions that bend to fit data.
+  \item \ldots{} describe \textbf{learning} as adjusting the weights to shrink a \textbf{loss} (sum of squared errors) by \textbf{gradient descent}.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,26 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: matrix $\times$ vector, squared error, and the $\max(0,x)$ function & \blank{1.2cm} \\
+2 & Guided Notes   & ReLU $=\max(0,x)$; one layer $\mathrm{ReLU}(A\mathbf{v}+\mathbf{b})$; piecewise-linear fits; loss \& gradient descent & \blank{1.2cm} \\
+3 & Group Activity & Evaluating ReLU and one layer; building bent functions from ReLUs; comparing losses & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check: one layer, a loss, and why the ReLU step is needed & \blank{1.2cm} \\
+5 & Homework       & ReLU practice, layers with a bias, piecewise-linear graphs, comparing losses, and a look ahead & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small A \textbf{neural network} is a \emph{function} that turns an input into a prediction, built from
+tools you already know: each \textbf{layer} does a \emph{linear step} --- multiply by a \textbf{weight
+matrix} and add a \textbf{bias} (Unit~1) --- then the one nonlinear step, the \textbf{ReLU}
+$=\max(0,x)$, which keeps positives and zeroes negatives. That single fold, stacked and shifted, builds
+\textbf{piecewise-linear} functions that bend to fit any data. The network \textbf{learns} by choosing its
+weights to make a \textbf{loss} (the Unit~4 sum of squared errors) as small as possible, rolling downhill
+by \textbf{gradient descent}. Modern AI is, at heart, the linear algebra of this course.
+\end{remindbox}
 
 \end{document}

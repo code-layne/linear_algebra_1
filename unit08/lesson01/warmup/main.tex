@@ -3,17 +3,39 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.1}{Warm-Up}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Warm-Up. See references/components.md for the expected structure.
-\begin{notesbox}{Warm-Up}
-\writelines{4}
+\begin{notesbox}{Getting Ready: The Fold We Built Last Lesson}
+\small Last lesson the \textbf{ReLU} $=\max(0,x)$ gave us one \emph{fold}. Today we shift and add folds to
+build functions that bend. Warm up on the three pieces of that idea.
+
+\vspace{4pt}
+\textbf{1. The ReLU makes one fold (Lesson 8.0).} Evaluate:
+\[
+  \relu(3)=\blank{0.9cm},\qquad \relu(-2)=\blank{0.9cm},\qquad \relu(0)=\blank{0.9cm}.
+\]
+As a graph, one ReLU has exactly \blank{1.2cm} fold (corner), at $x=0$.
+
+\vspace{4pt}
+\textbf{2. Shifting the input moves the fold.} Consider $\relu(x-2)$. Evaluate it at two inputs:
+\[
+  \relu(1-2)=\relu(-1)=\blank{0.9cm},\qquad \relu(4-2)=\relu(2)=\blank{0.9cm}.
+\]
+This function is flat until $x=\blank{0.9cm}$, then rises --- its fold has \emph{slid} to the right.
+
+\vspace{4pt}
+\textbf{3. Adding ReLUs changes the slope.} Compute $\relu(x)+\relu(x)$ at $x=3$ and at $x=-1$:
+\[
+  \relu(3)+\relu(3)=\blank{1.0cm},\qquad \relu(-1)+\relu(-1)=\blank{1.0cm}.
+\]
+For $x>0$ this equals $2x$: adding two copies \emph{doubled} the slope.
 \end{notesbox}
 
 \end{document}

@@ -1,6 +1,9 @@
 %! Piecewise Linear Learning Functions — Unit 8, Lesson 8.1 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
@@ -11,16 +14,105 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 8.1}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Piecewise Linear Learning Functions}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 8}
+    {\color{white}\bfseries\LARGE Piecewise Linear Learning Functions}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 8: Learning from Data}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{One fold is not enough --- so we add folds}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      Last lesson: one \textbf{ReLU} $=$ one \emph{fold}; one \textbf{layer} $\relu(A\vv+\bb)$ bends once.\\[6pt]
+      A straight line has one slope forever --- it cannot rise \emph{and} fall. To trace bending data we join
+      several straight pieces at \textbf{folds}. Two knobs:\\[4pt]
+      \textbf{shift} $=$ \emph{where} the fold sits\quad$\bullet$\quad\textbf{weight} $=$ \emph{how steep}.
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.5]
+        \draw[->, charcoal, thin] (-0.4,0)--(4.6,0) node[right]{\scriptsize $x$};
+        \draw[->, charcoal, thin] (0,-0.5)--(0,2.8) node[above]{\scriptsize $y$};
+        \draw[ultra thick, royalblue] (0,0)--(2,2) node[right]{\scriptsize $\relu(x)$};
+        \draw[ultra thick, burgundy] (0,0)--(2,0)--(3.7,1.7);
+        \node[burgundy] at (3.5,0.5) {\scriptsize $\relu(x-2)$};
+        \fill[burgundy] (2,0) circle (1.6pt);
+        \node[charcoal] at (2.2,-0.9) {\scriptsize the shift slides the fold};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{2pt}
+  \begin{block}{The question of Lesson 8.1}
+    How do shifted ReLUs \textbf{add up} into a function that bends to fit any data?
+  \end{block}
+\end{frame}
+
+% BUILD THE TENT
+\begin{frame}[t, plain]
+  \burgundyheader{Building a function: the tent}
+  \sectionlabel[goldacc]{Skill}
+  \[ F(x)=\relu(x)-2\,\relu(x-2)+\relu(x-4). \]
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      Turn on only the ReLUs whose fold is left of $x$:
+      \[ F(0)=0,\ \ F(2)=2, \]
+      \[ F(4)=0,\ \ F(6)=0. \]
+      Rises to a peak, comes back down, stays flat --- a \textbf{tent} from three ReLUs.
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.5]
+        \draw[->, charcoal, thin] (-0.4,0)--(5.6,0) node[right]{\scriptsize $x$};
+        \draw[->, charcoal, thin] (0,-0.5)--(0,2.9) node[above]{\scriptsize $F(x)$};
+        \draw[ultra thick, burgundy] (-0.3,0)--(0,0)--(2,2)--(4,0)--(5.4,0);
+        \fill[burgundy] (0,0) circle (1.6pt);
+        \fill[burgundy] (2,2) circle (1.6pt);
+        \fill[burgundy] (4,0) circle (1.6pt);
+        \node[charcoal] at (2.05,2.5) {\scriptsize peak $(2,2)$};
+        \node[charcoal] at (0,-0.85) {\scriptsize fold};
+        \node[charcoal] at (2,-0.85) {\scriptsize fold};
+        \node[charcoal] at (4,-0.85) {\scriptsize fold};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% SLOPES + COUNTING
+\begin{frame}[t, plain]
+  \burgundyheader{Reading slopes and counting pieces}
+  \sectionlabel{Skill}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item \textbf{Slope on a piece} $=$ sum of the weights of the ReLUs switched on so far. For the tent:
+          \[ 0 \ \xrightarrow{+1}\ 1 \ \xrightarrow{-2}\ -1 \ \xrightarrow{+1}\ 0. \]
+    \item Each fold \emph{adds} its ReLU's weight to the slope --- up, then down, then flat.
+    \item \textbf{Counting rule:} $N$ folds $\Rightarrow N+1$ straight pieces. More ReLUs $\Rightarrow$ more
+          folds $\Rightarrow$ a function that bends more.
+  \end{itemize}
+\end{frame}
+
+% IT IS A LAYER + ROAD AHEAD
+\begin{frame}[t, plain]
+  \burgundyheader{This is exactly a layer --- and the road ahead}
+  \sectionlabel[goldacc]{Payoff}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item A layer $\relu(A\vv+\bb)$ makes these shifted ReLUs: row $i$'s \textbf{bias} places fold~$i$, its
+          \textbf{weight} sets the slope there.
+    \item \textbf{Fitting data:} choose the weights and biases so the folds and slopes thread the points --- a
+          \emph{wider} matrix $A$ has more folds, so it fits \emph{wigglier} data. Shrinking the loss to pick
+          them is \textbf{learning} (8.3).
+    \item \textbf{Why it matters:} bending to fit data is just shifting and adding ReLUs --- Unit~1 matrices
+          plus one fold. \emph{No new machinery.}
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{The road ahead}
+    \textbf{8.2} convolutional neural nets \;$\bullet$\; \textbf{8.3} minimizing loss by gradient descent
+    \;$\bullet$\; \textbf{8.4} mean, variance, covariance.
+  \end{block}
 \end{frame}
 
 \end{document}

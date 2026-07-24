@@ -3,6 +3,7 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
@@ -11,9 +12,18 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Build the shape.} Let $F(x)=\relu(x)-2\,\relu(x-2)+\relu(x-4)$. Compute
+        $F(0)$, $F(2)$, $F(4)$, and $F(6)$, and describe the shape the graph makes.
+        \vspace{1.5cm}
+  \item \textbf{Folds and pieces.} A piecewise-linear function is built from $4$ ReLUs. How many folds does
+        it have, and how many straight pieces?
+        \vspace{1.1cm}
+  \item \textbf{Explain.} In one sentence, why can a sum of ReLUs bend to fit rising-and-falling data when a
+        single straight line cannot?
+        \writelines{2}
+\end{enumerate}
 
 \end{document}

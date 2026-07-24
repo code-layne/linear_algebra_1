@@ -3,17 +3,60 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 \begin{document}
 
 \pageheader{Unit 8, Lesson 8.1}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+A \textbf{piecewise-linear} function is a sum of shifted ReLUs. Each $\relu(x-s)$ adds a \textbf{fold} at
+$x=s$; its coefficient sets how much the slope changes there. On any piece the slope is the sum of the
+weights of the ReLUs already switched on, and $N$ folds give $N+1$ straight pieces.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+  \item \textbf{Shifted ReLUs.} Evaluate each, and give its fold location.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $\relu(x-2)$ at $x=0$, $x=2$, $x=4$ \hfill fold at $x=\underline{\hspace{1.2cm}}$
+      \item $\relu(x-3)$ at $x=1$, $x=5$ \hfill fold at $x=\underline{\hspace{1.2cm}}$
+    \end{enumerate}
+    \vspace{0.7cm}
+  \item \textbf{Read a piecewise-linear function.} Let $F(x)=\relu(x)-\relu(x-2)+\relu(x-4)$. Compute
+        $F(0)$, $F(2)$, $F(4)$, and $F(6)$. Where are the folds, what is the slope on each piece, and
+        describe the shape.
+        \writelines{3}
+  \item \textbf{Build a tent.} Let $F(x)=\relu(x)-2\,\relu(x-3)+\relu(x-6)$. Compute $F(3)$, $F(6)$, and
+        $F(9)$. Name the peak and describe the shape (what happens after $x=6$?).
+        \writelines{2}
+  \item \textbf{Fit data, then score it.} Use $F(x)=\relu(x)-\relu(x-2)$ as a model. Compute the
+        predictions $F(1)$, $F(3)$, $F(5)$. The true targets are $1,2,3$. Compute the \textbf{loss} (sum of
+        squared errors). Does $F$ fit the first two points exactly? \writelines{2}
+  \item \textbf{Explain.} (a) Inside a layer, how does the \emph{bias} control where a fold sits?
+        (b) Why does adding more ReLUs (a \emph{wider} weight matrix) let a network fit more complicated
+        data? \writelines{2}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{How many folds does a wiggle need?}
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+  \item A hidden layer has $6$ ReLUs. What is the greatest number of straight pieces its function can have?
+  \item A data pattern changes direction $3$ times (up, down, up, down). What is the fewest number of folds
+        a piecewise-linear function needs to trace it? Explain the ``one fold per turn'' idea in a sentence.
+\end{enumerate}
+\writelines{3}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 8.2: Convolutional Neural Nets.} We keep the layer $\relu(A\vv+\bb)$, but for
+images we \emph{reuse} the same small set of weights across the whole picture --- a special weight matrix
+that scans for the same pattern everywhere.
+\end{spiralbox}
 
 \end{document}

@@ -5,6 +5,10 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\relu}{\mathrm{ReLU}}
 \newcommand{\UnitNumberName}{Unit 8: Learning from Data \quad}
 \newcommand{\LessonNumberName}{Lesson 8.1: Piecewise Linear Learning Functions}
 
@@ -16,55 +20,152 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can build a \emph{continuous piecewise-linear} function by
+    \emph{shifting} and \emph{adding} ReLUs --- reading each \textbf{fold} off its shift and each slope as
+    the running sum of the switched-on ReLUs --- and can apply the counting rule ($N$ folds give $N+1$
+    straight pieces). They can explain that one \emph{layer} $\relu(A\vv+\bb)$ produces exactly these
+    functions: the \emph{bias} places each fold, the \emph{weights} set each slope, so a \emph{wider} layer
+    has more folds and fits wigglier data. They connect this to \emph{learning} (choose weights so the folds
+    and slopes thread the data, shrinking the Unit~4 loss). \emph{(Unit~8 is optional enrichment ---
+    explored, not formally assessed.)}
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Build a piecewise-linear function as a sum of \textbf{shifted ReLUs}; locate each \textbf{fold}.
+  \item Find the slope on each piece (running sum of switched-on weights); evaluate the function.
+  \item Apply the counting rule: $N$ folds $\Rightarrow N+1$ straight pieces.
+  \item Connect a \textbf{layer} $\relu(A\vv+\bb)$ to the folds: bias $=$ location, weight $=$ slope.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item A single line has one slope; \emph{folds} are what let a graph change direction and fit bending data.
+  \item The \emph{shift} (bias) places a fold; the \emph{weight} sets how much the slope turns there.
+  \item More ReLUs $=$ more folds $=$ more pieces $=$ the power to fit wigglier data.
+  \item Fitting data is just choosing these weights and biases --- that choosing is ``learning'' (8.3).
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Piecewise-linear function} & Straight pieces joined at folds; a sum of shifted ReLUs is one, and it can trace any bending data. \\
+\textbf{Fold (corner)} & A point where the slope changes; each ReLU contributes exactly one, at its shift. \\
+\textbf{Shift $\relu(x-s)$} & Slides a fold from $x=0$ to $x=s$; inside a layer the \emph{bias} does this. \\
+\textbf{Weight on a ReLU} & The coefficient $c$ in $c\,\relu(x-s)$; sets how much the slope changes at that fold ($c<0$ bends down). \\
+\textbf{Counting rule} & $N$ folds $\Rightarrow N+1$ straight pieces. \\
+\textbf{Layer $\relu(A\vv+\bb)$} & Produces many shifted ReLUs at once: biases place the folds, weights set the slopes. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three moves today's build rests on: \textbf{(1)} one \textbf{ReLU} makes one
+    \emph{fold} (Lesson~8.0 recall); \textbf{(2)} the \emph{shift} $\relu(x-2)$ \emph{slides} that fold to
+    $x=2$ --- exactly what a bias does; and \textbf{(3)} \emph{adding} ReLUs, $\relu(x)+\relu(x)=2x$ for
+    $x>0$, scales the slope. Debrief item~2 aloud: the bias is the fold's location knob --- shift to place a
+    fold, weight to set its slope.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Open from Lesson~8.0's cliffhanger: one ReLU bends once, but real data bends many times. Draw a single
+    straight line and ask, \textbf{``This line has one slope forever --- can it ever go up and then come back
+    down?''} No: it needs \emph{folds}. Then show the move that makes folds: $\relu(x-2)$ is the same fold
+    \emph{slid} to $x=2$. Name the payoff question of Lesson~8.1: \textbf{``How do shifted ReLUs add up into a
+    function that bends to fit any data?''} Preview the answer --- shift to place each fold, weight to set
+    each slope, and $N$ folds make $N+1$ straight pieces --- and that this is exactly what one layer
+    $\relu(A\vv+\bb)$ builds.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. One fold is not enough.} A line has one slope; bending data needs \textbf{folds} (corners where
+the slope changes). Build them by \emph{adding shifted ReLUs}: the \emph{shift} places a fold, the
+\emph{weight} sets how steeply the slope turns there.
+
+\textbf{2. Build the tent.} $F(x)=\relu(x)-2\,\relu(x-2)+\relu(x-4)$. Turn on only the ReLUs whose fold is
+left of $x$: $F(0)=0$, $F(2)=2$, $F(4)=0$, $F(6)=0$ --- a tent (folds at $0,2,4$; peak $(2,2)$). Use the
+two-panel figure: a shift slides a fold, then the three ReLUs add into the tent.
+
+\columnbreak
+
+\textbf{3. Slopes \& counting.} On each piece the slope is the \emph{running sum of switched-on weights}:
+$0\to1\to-1\to0$. Each fold adds its weight to the slope. \textbf{Counting rule:} $N$ folds $\Rightarrow
+N+1$ straight pieces.
+
+\textbf{4. It is a layer.} One layer $\relu(A\vv+\bb)$ makes many shifted ReLUs at once: row $i$'s bias
+places fold~$i$, its weight sets the slope. A \emph{wider} $A$ $=$ more folds $=$ fits wigglier data.
+Choosing those weights to shrink the loss is \emph{learning} (8.3). \textbf{Road ahead:} 8.2 conv nets; 8.3
+gradient descent; 8.4 mean/variance/covariance.
+\end{multicols}
+\end{skillbox}
+
+\begin{skillbox}[Explicit Instruction: Evaluating a Sum of Shifted ReLUs]{blush}
+\begin{tabularx}{\linewidth}{@{}p{0.46\linewidth} X@{}}
+\textbf{Steps (evaluate \& read).}
+\begin{enumerate}[leftmargin=1.3em, nosep, after=\vspace{2pt}]
+  \item List each ReLU's fold (its shift $s$) and its weight $c$.
+  \item At an input $x$, turn on only the ReLUs with fold to the \emph{left} ($s\le x$).
+  \item Add their contributions $c\,(x-s)$ (plus any always-on terms) to get $F(x)$.
+  \item Slope on a piece $=$ sum of the weights already switched on. Folds $+1 =$ pieces.
+\end{enumerate}
+&
+\textbf{Worked example} ($F(x)=\relu(x)-2\,\relu(x-2)+\relu(x-4)$). At $x=4$: $\relu(x)=4$ and
+$-2\,\relu(x-2)=-2(2)=-4$; the third is still off, so $F(4)=4-4=0$. Slope just after $x=2$: weights $+1$
+then $-2$ are on, so slope $=1-2=-1$ (turning down). \textbf{Common slip:} adding a ReLU before its fold, or
+summing a ReLU's \emph{value} into the slope instead of its \emph{weight}.
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item turning a ReLU on \emph{before} its fold (a ReLU contributes only once $x$ passes its shift);
+  \item summing a ReLU's \emph{value} into the slope instead of its \emph{weight};
+  \item miscounting pieces --- it is folds $+1$, not the number of folds;
+  \item forgetting that a negative weight bends the graph \emph{down} (the middle of the tent).
+\end{itemize}
+Cold-call prompts: ``Which ReLUs are on at $x=3$?'' ``What is the slope just after this fold?'' ``How many
+pieces from $5$ ReLUs?'' ``What part of a layer moves a fold?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Folding Lines into a Fit} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Evaluate a shifted ReLU and find its fold; add two ReLUs into a ramp that
+levels off (folds and slopes).
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Build a tent $\relu(x)-2\,\relu(x-3)+\relu(x-6)$ (values, slopes, peak);
+find the fold of $\relu(2x-6)$ from $2x-6=0$; apply the $N\to N+1$ counting rule.
+
+\columnbreak
+\textbf{Tier E --- Extension.} \emph{Why width $=$ power:} fill the pieces table, find the fewest folds for a
+two-turn wiggle, and justify why a wider weight matrix fits wigglier data.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): build a piecewise-linear function's values and name its shape
+(the tent); apply the folds-and-pieces counting rule; and a \textbf{conceptual/justification check} --- in
+one sentence, why a sum of ReLUs can bend to fit rising-and-falling data when a single line cannot (folds
+let the slope change). Sort into ``got it / arithmetic slip / concept slip'' to decide whether 8.2 opens
+with a quick ``each ReLU $=$ one fold; folds let the graph turn'' recap. \emph{Enrichment unit --- use as
+formative feedback, not a graded assessment.}
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} evaluate shifted ReLUs and give their folds; read a three-fold function (with a plateau);
+build a symmetric tent; \emph{fit} data with a piecewise-linear model and score it by the Unit~4 loss; and
+short justifications (bias places a fold; width supplies more folds). \textbf{Extension:} the counting rule
+for $6$ ReLUs and the ``one fold per turn'' idea for a wiggly pattern. \textbf{Preview:} Lesson~8.2,
+\emph{Convolutional Neural Nets} --- the same layer $\relu(A\vv+\bb)$, but with weights \emph{reused} across
+an image to scan for the same pattern everywhere.
 \end{skillbox}
 \end{document}

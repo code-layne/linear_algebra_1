@@ -7,7 +7,37 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-24 — **Authored & built Unit 8 Lesson 8.0 — "Setting Up --- Learning from Data" (the intro/spiral on-ramp for the final unit).**
+**Last updated:** 2026-07-24 — **Authored & built Unit 8 Lesson 8.1 — "Piecewise Linear Learning Functions" (§8.1 — folding
+shifted ReLUs into continuous piecewise-linear functions that bend to fit data).** Filled every skeleton: lesson plan, cover,
+warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides deck, mirroring Lesson 8.0's preamble/boxes/tone.
+**Content — the deep dive on the piecewise-linear structure 8.0 previewed:** (1) **one fold is not enough** — a line has one slope
+forever, so bending data needs *folds*; build them by **adding shifted ReLUs** with two knobs: **shift $=$ where** ($\relu(x-s)$
+slides the fold to $x=s$ — the bias) and **weight $=$ how steep** ($c\,\relu(x-s)$; $c<0$ bends down). (2) **The tent spine**
+$F(x)=\relu(x)-2\relu(x-2)+\relu(x-4)$: turn on only ReLUs whose fold is left of $x$ ⇒ $F(0){=}0,F(2){=}2,F(4){=}0,F(6){=}0$ —
+folds at $0,2,4$, peak $(2,2)$, a tent (up, down, flat). (3) **Read slopes as the running sum of switched-on weights**
+$0\to1\to-1\to0$ (each fold adds its weight); **counting rule $N$ folds $\Rightarrow N+1$ pieces**. (4) **It is exactly a layer**
+$\relu(A\vv+\bb)$: row $i$'s bias places fold $i$, its weight sets the slope; a *wider* $A$ = more folds = fits wigglier data;
+choosing them to shrink the loss is learning (8.3). **Custom two-panel TikZ** (left: royalblue $\relu(x)$ + burgundy shifted
+$\relu(x-2)$, gold "add" arrow, "the shift slides the fold"; right: burgundy tent, peak $(2,2)$, three fold markers) on notes §2 +
+slides. **Warmup spirals the three build moves** (one ReLU = 1 fold, 8.0 recall; $\relu(x-2)$ slides fold to $x{=}2$; $\relu(x)+
+\relu(x){=}2x$ doubles slope). **Activity/Exit/HW spines (all hand-verified pure Python):** Tier R shifted $\relu(x-2)$ fold +
+ramp $\relu(x)-\relu(x-3)$ (folds 0,3, levels at 3); Tier A tent $\relu(x)-2\relu(x-3)+\relu(x-6)$ (peak $(3,3)$, slopes
+$0,1,-1,0$), fold of $\relu(2x-6)$ from $2x-6{=}0\Rightarrow x{=}3$, count 5 ReLUs→6 pieces; Tier E pieces table $N{\to}N+1$,
+2-turn wiggle needs 2 folds, why width=power. Exit: build tent $\relu(x)-2\relu(x-2)+\relu(x-4)$ ($0,2,0,0$, name shape), 4
+ReLUs→5 pieces, justify folds-beat-a-line. HW: shifted ReLUs+folds; read $\relu(x)-\relu(x-2)+\relu(x-4)$ ($0,2,2,4$; slopes
+$0,1,0,1$, a plateau); build tent $\relu(x)-2\relu(x-3)+\relu(x-6)$; **fit data + loss** $\relu(x)-\relu(x-2)$ preds $1,2,2$ vs
+targets $1,2,3$ → loss 1 (fits first two exactly); justify bias-places-fold & width-adds-folds; extension 6 ReLUs→7 pieces + "one
+fold per turn" (3 turns→3 folds). **Built `make -C unit08/lesson01 all` → clean** (0 `^!`/file-line errors across all 13 logs; no
+`\ans`-in-math; 0 overfull >15pt after fixing 2: the notes §3 underbrace slope line → split into two `\[...\]`, and the slides tent
+$F(x)$ def → moved full-width above the columns). Page counts: cover/warmup/exit 1pp (blank & key ✓ 1-page constraint), notes
+3pp/3pp, activity 2pp/2pp, homework 2pp/2pp, slides 5pp, lesson plan 3pp; **student 10pp, full 18pp** (matches the 8.0 profile).
+Visually spot-checked notes_key p2 (two-panel tent figure — clean royalblue/burgundy ReLUs, gold "add" arrow, tent peak $(2,2)$,
+three fold markers, no tofu; red answers $F$ values, slopes $1,-1,0$, count "4", $N$ all correct) and the slides tent frame — clean.
+**Macros per file:** `\vv,\bb,\zero,\relu`. Lessons 8.0/8.1 are now the Unit 8 models. **Next run: author Unit 8 Lesson 8.2**
+("Convolutional Neural Nets", §8.2 — the same layer $\relu(A\vv+\bb)$ but with weights *reused* across an image to scan for the same
+pattern everywhere).
+
+**Prior run:** **Authored & built Unit 8 Lesson 8.0 — "Setting Up --- Learning from Data" (the intro/spiral on-ramp for the final unit).**
 Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides deck,
 mirroring Lesson 7.0's preamble/boxes/tone. **Content — spiral + roadmap for Learning from Data:** (1) **learning = fitting a
 function** to input–output examples; the simplest is the Unit-4 best-fit line $y=wx+b$ (two weights), but a line can't bend. (2)
@@ -912,16 +942,17 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | 5 | Determinants and Linear Transformations | 5.0 intro + 5.1–5.3 | ☑ all lessons + tests authored & built ✅ |
 | 6 | Eigenvalues and Eigenvectors | 6.0 intro + 6.1–6.4 (§6.4 optional) | ☑ all lessons + tests authored & built ✅ |
 | 7 | The Singular Value Decomposition *(optional/advanced)* | 7.0 intro + 7.1–7.4 | ☑ all lessons + tests authored & built ✅ |
-| 8 | Learning from Data *(optional enrichment)* | 8.1–8.4 | ☐ |
+| 8 | Learning from Data *(optional enrichment)* | 8.0 intro + 8.1–8.4 | ◐ 8.0, 8.1 authored & built; 8.2–8.4 scaffolded (skeletons); tests scaffolded (skeletons) |
 
 ## Next steps
 
-1. **Core Units 1–6 and optional Unit 7 are complete** (all lessons + summative tests authored & built). The course's
-   required sequence and the SVD extension are done. The only remaining unauthored unit is the optional enrichment
-   **Unit 8 (Learning from Data)** — begin it only if the user wants it: first **confirm the Unit 8 lesson map**
-   (decompose Strang Ch. 8 §8.1–8.4 into lessons via `spec/linear_algebra_v2.md`), then scaffold + author, mirroring the
-   Unit 7 model set. Lessons 7.0–7.4 are the newest models; Unit 4/5/6/7 tests are the assessment-format model; Lesson 4.0
-   the cross-unit style model.
+1. **Core Units 1–6 and optional Unit 7 are complete** (all lessons + summative tests authored & built). **Unit 8 (optional
+   enrichment) is in progress:** lessons **8.0 and 8.1 are authored & built** (the Unit 8 models); the lesson map is confirmed
+   (8.0 intro + 8.1–8.4). **Next run: author Unit 8 Lesson 8.2** ("Convolutional Neural Nets", §8.2 — the same layer
+   $\relu(A\vv+\bb)$ but with weights *reused* across an image to scan for a pattern everywhere), then 8.3 ("Minimizing Loss
+   by Gradient Descent") and 8.4 ("Mean, Variance, and Covariance"). Unit 8 tests are scaffolded skeletons — author them last
+   only if the user wants Unit 8 assessed (it is enrichment, "no expectation of testing"). Lessons 8.0/8.1 are the Unit 8
+   models; Unit 4/5/6/7 tests are the assessment-format model; Lesson 4.0 the cross-unit style model.
 2. *(optional)* Rebuild the whole-course packets (`make -C unitXX student|full`, or `make student|full` at the root) to
    confirm every unit's `sample_test`/`sample_test_key` drop-ins (now incl. Unit 7) merge in as expected.
 

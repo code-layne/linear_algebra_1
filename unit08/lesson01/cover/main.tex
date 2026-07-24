@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 8}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 8 \quad Learning from Data}}\\[6pt]
   {\color{white}\textbf{\large Lesson 8.1 \quad Piecewise Linear Learning Functions}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} build a \textbf{piecewise-linear} function by \textbf{shifting} and \textbf{adding} ReLUs, and read off where each \textbf{fold} sits.
+  \item \ldots{} find the slope on each straight piece (the running sum of the switched-on ReLUs) and count pieces: $N$ folds make $N+1$ pieces.
+  \item \ldots{} explain how a layer $\mathrm{ReLU}(A\mathbf{v}+\mathbf{b})$ makes these functions --- the bias places each fold, the weights set each slope --- so a wider layer fits wigglier data.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,25 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: one ReLU $=$ one fold, shifting the fold, and adding ReLUs to change slope & \blank{1.2cm} \\
+2 & Guided Notes   & Adding shifted ReLUs; the tent function; reading slopes; counting folds and pieces; a layer builds them & \blank{1.2cm} \\
+3 & Group Activity & Shifted ReLUs, building tents, the fold-of-$ax+b$, and how many folds fit wigglier data & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check: evaluate a piecewise-linear function, count folds \& pieces, and why folds beat a line & \blank{1.2cm} \\
+5 & Homework       & Shifted ReLUs, building and reading piecewise-linear graphs, fitting data by loss, and a look ahead & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small A single \textbf{ReLU} bends once, at one \textbf{fold}. Shift it --- $\mathrm{ReLU}(x-s)$ --- and the
+fold slides to $x=s$; scale it --- $c\cdot\mathrm{ReLU}(x-s)$ --- and $c$ sets how much the slope changes
+there. \textbf{Add} several together and you get a \textbf{piecewise-linear} function: straight pieces joined
+at folds, with $N$ folds giving $N+1$ pieces. This is exactly what one \textbf{layer}
+$\mathrm{ReLU}(A\mathbf{v}+\mathbf{b})$ builds --- the \textbf{bias} places each fold, the \textbf{weights}
+set each slope --- so a wider layer bends more and fits wigglier data.
+\end{remindbox}
 
 \end{document}

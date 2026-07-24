@@ -3,17 +3,46 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\qq}{\mathbf{q}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.4}{Warm-Up}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Warm-Up. See references/components.md for the expected structure.
-\begin{notesbox}{Warm-Up}
-\writelines{4}
+\begin{notesbox}{Getting Ready: the Set-Up Moves of Today's Idea}
+\small These three quick checks --- testing perpendicular unit columns, forming $Q\T Q$, and measuring length
+after $Q$ --- \emph{are} the opening moves of today's lesson. We use the matrix that has appeared all unit:
+\[
+  Q=\tfrac1{\sqrt2}\begin{bmatrix} 1 & 1\\ 1 & -1 \end{bmatrix},\qquad
+  \text{columns }\ \qq_1=\tfrac1{\sqrt2}\begin{bmatrix} 1\\1 \end{bmatrix},\ \ \qq_2=\tfrac1{\sqrt2}\begin{bmatrix} 1\\-1 \end{bmatrix}.
+\]
+
+\vspace{2pt}
+\textbf{1. Perpendicular unit columns? (Unit 4).} Use dot products. Each column's length is
+$\sqrt{\qq\cdot\qq}$, and two vectors are perpendicular when their dot product is $0$.
+\[
+  \qq_1\cdot\qq_1=\blank{1.0cm},\qquad \qq_2\cdot\qq_2=\blank{1.0cm},\qquad \qq_1\cdot\qq_2=\blank{1.0cm}.
+\]
+
+\textbf{2. Form $Q\T Q$ (Unit 1 \& Unit 6).} Each entry of $Q\T Q$ is a dot product of two columns of $Q$:
+\[
+  Q\T Q=\begin{bmatrix}\rule{0pt}{1.1em}\blank{0.9cm} & \blank{0.9cm}\\[2pt]\blank{0.9cm} & \blank{0.9cm}\end{bmatrix}.
+  \qquad\text{So $Q^{-1}=$ }\blank{1.6cm}.
+\]
+
+\textbf{3. Length after $Q$ (Unit 4).} Let $\xx=(3,1)$, so $|\xx|^2=10$. Compute $Q\xx$ and its length squared.
+\[
+  Q\xx=\tfrac1{\sqrt2}\begin{bmatrix}\rule{0pt}{1.1em}\blank{0.7cm}\\[2pt]\blank{0.7cm}\end{bmatrix},\qquad
+  |Q\xx|^2=\blank{1.2cm}.
+\]
+Did $Q$ change the length of $\xx$?\ \ \blank{2.4cm}
 \end{notesbox}
 
 \end{document}

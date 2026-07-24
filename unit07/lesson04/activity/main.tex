@@ -3,17 +3,58 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\qq}{\mathbf{q}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.4}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Orthogonal matrices.} A matrix $Q$ is \textbf{orthogonal} when its columns are perpendicular unit
+vectors --- the one test is $Q\T Q=I$. Then the inverse is free ($Q^{-1}=Q\T$) and $Q$ preserves length
+($|Q\xx|=|\xx|$). In the SVD $A=U\Sigma V\T$ the orthogonal $U,V$ only rotate; $\Sigma$ does all the stretching.
+Work with your partner, show every step, and \emph{justify} each answer.
+\end{headlinebox}
+
+\vspace{0.08in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Verify that $Q=\tfrac15\begin{bsmallmatrix} 3 & -4\\ 4 & 3 \end{bsmallmatrix}$ is orthogonal.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Unit columns?} The columns are $\qq_1=\tfrac15(3,4)$ and $\qq_2=\tfrac15(-4,3)$. Compute $\qq_1\cdot\qq_1$ and $\qq_2\cdot\qq_2$ --- are both columns length $1$? \writeline
+  \item \textbf{Perpendicular?} Compute $\qq_1\cdot\qq_2$. \writeline
+  \item \textbf{The test.} Put those three dot products together as $Q\T Q=\blank{2.4cm}$. Is $Q$ orthogonal? \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Keep working with the orthogonal $Q=\tfrac15\begin{bsmallmatrix} 3 & -4\\ 4 & 3 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Length preserved.} Let $\xx=(5,0)$, so $|\xx|=5$. Compute $Q\xx$ and its length. Did $Q$ change the length? \writeline
+  \item \textbf{Free inverse.} Write $Q^{-1}$ with no computation. \blank{3.2cm}
+  \item \textbf{Interpret (justify).} A rotation has $\det=+1$. Compute $\det Q$, and explain in one sentence what $Q$ does to space geometrically. \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{Rotate--stretch--rotate.} A matrix $A=U\Sigma V\T$ has orthogonal $U,V$ and
+$\Sigma=\begin{bsmallmatrix} 4 & 0\\ 0 & 1 \end{bsmallmatrix}$ (so its singular values are $\sigma_1=4,\ \sigma_2=1$).
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Biggest stretch.} As $\xx$ runs over all unit vectors, what is the \emph{largest} value of $|A\xx|$? Along which singular direction is it reached? \writeline
+  \item \textbf{Smallest stretch.} What is the \emph{smallest} value of $|A\xx|$ for a unit vector $\xx$? \writeline
+  \item \textbf{Why (justify).} Explain why $U$ and $V\T$ don't change the stretch factor --- so all of the stretching comes from $\Sigma$. \writelines{2}
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

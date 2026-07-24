@@ -1,6 +1,13 @@
 %! The Victory of Orthogonality — Unit 7, Lesson 7.4 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\usetikzlibrary{arrows.meta, positioning, calc}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\qq}{\mathbf{q}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
@@ -11,16 +18,123 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 7.4}\\[0.5cm]
-    {\color{white}\bfseries\LARGE The Victory of Orthogonality}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 7}
+    {\color{white}\bfseries\LARGE The Victory of Orthogonality}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 7: The Singular Value Decomposition}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{What idea has been doing the work all unit?}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      Singular vectors came in \textbf{perpendicular} pairs. Compression and PCA both used perpendicular
+      directions. Symmetric matrices had perpendicular eigenvectors. Least squares was a perpendicular
+      projection.\\[6pt]
+      One idea runs through all of it: \textbf{orthogonality}.
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \begin{block}{The question}
+        What is so special about a matrix whose columns are \textbf{perpendicular unit vectors}?
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{2pt}
+  \begin{block}{Today}
+    Meet the \textbf{orthogonal matrices} --- and see why the SVD writes \emph{every} matrix using them.
+  \end{block}
+\end{frame}
+
+% ORTHOGONAL MATRIX + FREE INVERSE
+\begin{frame}[t, plain]
+  \burgundyheader{Orthogonal matrices: one test, one free inverse}
+  \sectionlabel{Skill}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item $Q$ is \textbf{orthogonal} when its columns are perpendicular unit vectors --- one equation:
+          \[ Q\T Q=I \qquad Q=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1 & 1\\ 1 & -1 \end{bsmallmatrix}
+             \ \Rightarrow\ Q\T Q=\begin{bsmallmatrix} 1 & 0\\ 0 & 1 \end{bsmallmatrix}. \]
+    \item Diagonal $1$'s $=$ unit length; off-diagonal $0$'s $=$ perpendicular.
+    \item \textbf{The inverse is free:} $Q^{-1}=Q\T$ --- no elimination, no determinant.
+  \end{itemize}
+\end{frame}
+
+% LENGTH PRESERVED
+\begin{frame}[t, plain]
+  \burgundyheader{Orthogonal matrices preserve length}
+  \sectionlabel[goldacc]{Idea}
+  \begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+      \[ |Q\xx|^2=(Q\xx)\T(Q\xx)=\xx\T Q\T Q\,\xx=\xx\T\xx=|\xx|^2. \]
+      So $|Q\xx|=|\xx|$ for \textbf{every} $\xx$: an orthogonal matrix moves vectors \textbf{rigidly} --- a
+      rotation or a reflection, no stretching.
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \begin{block}{Check: $\xx=(3,1)$}
+        $Q\xx=\tfrac1{\sqrt2}(4,2)$, and
+        \[ |Q\xx|^2=\tfrac12(16+4)=10=|\xx|^2. \]
+        Same length.
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ROTATE-STRETCH-ROTATE
+\begin{frame}[t, plain]
+  \burgundyheader{The SVD is rotate--stretch--rotate}
+  \sectionlabel{Skill}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      $A=U\Sigma V\T$ with $U,V$ orthogonal, $\Sigma$ diagonal. Right to left:
+      \begin{itemize}
+        \setlength{\itemsep}{4pt}
+        \item $V\T$ --- \textbf{turns} the input to the axes;
+        \item $\Sigma$ --- \textbf{stretches} by $\sigma_1,\sigma_2$;
+        \item $U$ --- \textbf{turns} to the output.
+      \end{itemize}
+      \vspace{4pt}
+      All the stretching lives in $\Sigma$; the orthogonal factors only rotate.
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \centering
+      \begin{tikzpicture}[font=\scriptsize, node distance=5.5mm,
+          box/.style={draw=burgundy, fill=blush, rounded corners=1pt, minimum width=8mm, minimum height=6mm, align=center},
+          ar/.style={-{Latex[length=1.6mm]}, burgundy, thick}]
+        \node[box] (x)  {$\xx$};
+        \node[box, right=of x] (v)  {$V\T$};
+        \node[box, right=of v] (s)  {$\Sigma$};
+        \node[box, right=of s] (u)  {$U$};
+        \node[box, right=of u] (ax) {$A\xx$};
+        \draw[ar] (x)--(v);
+        \draw[ar] (v)--(s);
+        \draw[ar] (s)--(u);
+        \draw[ar] (u)--(ax);
+        \node[burgundy] at ($(v)+(0,0.8)$) {turn};
+        \node[burgundy] at ($(s)+(0,0.8)$) {stretch};
+        \node[burgundy] at ($(u)+(0,0.8)$) {turn};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% THE VICTORY
+\begin{frame}[t, plain]
+  \burgundyheader{The victory --- and the revolution}
+  \sectionlabel[goldacc]{Payoff}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item Orthogonal $U,V$ are \textbf{reversible for free}, \textbf{length-preserving}, and \textbf{never
+          amplify errors} --- so modern algorithms compute with them (the ``revolution'').
+    \item Orthogonality is the thread through the course: projections \& least squares (U4), perpendicular
+          eigenvectors (U6), perpendicular singular vectors for \emph{every} matrix (U7).
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{Unit 7 in one line}
+    Every matrix is \textbf{rotate--stretch--rotate}: two perfect orthogonal turns and one diagonal stretch.
+    That is orthogonality's victory --- the reason the SVD, compression, and PCA all work.
+  \end{block}
 \end{frame}
 
 \end{document}

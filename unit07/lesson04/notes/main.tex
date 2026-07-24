@@ -2,18 +2,139 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
+\usetikzlibrary{arrows.meta, positioning, calc}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\qq}{\mathbf{q}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.4}{Guided Notes}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Guided Notes. See references/components.md for the expected structure.
-\begin{notesbox}{Guided Notes}
-\writelines{4}
+\begin{objectivebox}
+\textbf{By the end of this lesson, I will be able to\dots}
+\begin{itemize}\setlength{\itemsep}{2pt}
+  \item recognize an orthogonal matrix by $Q\T Q=I$ and read off its free inverse $Q^{-1}=Q\T$;
+  \item show that an orthogonal matrix preserves length, $|Q\xx|=|\xx|$;
+  \item read the SVD $A=U\Sigma V\T$ as rotate--stretch--rotate, and explain why orthogonality is behind every result this unit.
+\end{itemize}
+\end{objectivebox}
+
+\vspace{0.06in}
+
+\begin{vocabbox}
+\small
+Fill in each term as we build it together.
+\vspace{2pt}
+\termblanklong{Orthogonal matrix (a square $Q$ with perpendicular unit columns --- $Q\T Q=I$)}
+\termblanklong{Free inverse (for orthogonal $Q$, $Q^{-1}=Q\T$ --- just transpose)}
+\termblanklong{Length-preserving ($|Q\xx|=|\xx|$ --- $Q$ moves vectors rigidly, no stretching)}
+\end{vocabbox}
+
+\begin{hookbox}
+Look back at the whole unit: singular vectors came in \emph{perpendicular} pairs, compression and PCA both used
+perpendicular directions, symmetric matrices had perpendicular eigenvectors.
+\begin{itemize}\setlength{\itemsep}{1pt}
+  \item What one idea has been doing the work behind every result this unit? \writeline
+  \item Guess: what is special about a matrix whose columns are perpendicular unit vectors? \writeline
+\end{itemize}
+\end{hookbox}
+
+\begin{notesbox}{1. Orthogonal Matrices: One Test, One Free Inverse}
+An \textbf{orthogonal matrix} $Q$ is a square matrix whose columns are \textbf{perpendicular unit vectors}. All
+of that is packed into a single equation --- form $Q\T Q$ (each entry is a dot product of two columns):
+\[
+  Q=\tfrac1{\sqrt2}\begin{bmatrix} 1 & 1\\ 1 & -1 \end{bmatrix}\ \Rightarrow\
+  Q\T Q=\begin{bmatrix}\rule{0pt}{1.1em}\blank{0.8cm} & \blank{0.8cm}\\[2pt]\blank{0.8cm} & \blank{0.8cm}\end{bmatrix}=I.
+\]
+The diagonal $1$'s say each column has \textbf{length one}; the off-diagonal $0$'s say the columns are
+\textbf{perpendicular}. The immediate payoff: since $Q\T Q=I$, the transpose \emph{is} the inverse,
+\[
+  Q^{-1}=\blank{1.4cm}.
+\]
+No elimination, no determinant --- the inverse is \textbf{free}.
 \end{notesbox}
+
+\begin{notesbox}{2. Orthogonal Matrices Preserve Length}
+Watch what $Q$ does to the length of any vector. Using $Q\T Q=I$:
+\[
+  |Q\xx|^2=(Q\xx)\T(Q\xx)=\xx\T Q\T Q\,\xx=\xx\T\xx=|\xx|^2.
+\]
+So $|Q\xx|=|\xx|$ for \emph{every} $\xx$: an orthogonal matrix moves vectors \textbf{rigidly} --- a rotation or a
+reflection --- with no stretching and no distortion. Check it on $\xx=(3,1)$ (length $\sqrt{10}$):
+\[
+  Q\xx=\tfrac1{\sqrt2}\begin{bmatrix}\rule{0pt}{1.1em}\blank{0.7cm}\\[2pt]\blank{0.7cm}\end{bmatrix},\qquad
+  |Q\xx|^2=\blank{1.0cm}=|\xx|^2.
+\]
+\end{notesbox}
+
+\begin{notesbox}{3. The SVD is Rotate--Stretch--Rotate}
+\begin{minipage}[t]{0.52\linewidth}\vspace{0pt}
+Every matrix factors as $A=U\Sigma V\T$ with $U,V$ \textbf{orthogonal} and $\Sigma$ \textbf{diagonal}. Reading
+right to left, applying $A$ to $\xx$ is three moves:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item $V\T$ --- \textbf{turns} $\xx$ to line up with the axes (orthogonal: no stretch);
+  \item $\Sigma$ --- \textbf{stretches} along the axes by $\sigma_1,\sigma_2$;
+  \item $U$ --- \textbf{turns} to the output direction (orthogonal: no stretch).
+\end{itemize}
+\vspace{2pt}
+\textbf{All the stretching lives in $\Sigma$}; the orthogonal factors only rotate. Our spine
+$A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$ from Unit~6 is exactly
+$Q\,\Sigma\,Q\T$ with $\Sigma=\mathrm{diag}(3,1)$: rotate, stretch by $3$ and $1$, rotate back.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.44\linewidth}\vspace{0pt}
+\centering
+\begin{tikzpicture}[font=\scriptsize, node distance=6mm,
+    box/.style={draw=burgundy, fill=blush, rounded corners=1pt, minimum width=9mm, minimum height=6.5mm, align=center},
+    ar/.style={-{Latex[length=1.8mm]}, burgundy, thick}]
+  \node[box] (x)  {$\xx$};
+  \node[box, right=of x] (v)  {$V\T$};
+  \node[box, right=of v] (s)  {$\Sigma$};
+  \node[box, right=of s] (u)  {$U$};
+  \node[box, right=of u] (ax) {$A\xx$};
+  \draw[ar] (x)--(v);
+  \draw[ar] (v)--(s);
+  \draw[ar] (s)--(u);
+  \draw[ar] (u)--(ax);
+  \node[burgundy] at ($(v)+(0,0.85)$) {turn};
+  \node[burgundy] at ($(s)+(0,0.85)$) {stretch};
+  \node[burgundy] at ($(u)+(0,0.85)$) {turn};
+\end{tikzpicture}\\[3pt]
+{\scriptsize $V\T$ and $U$ only rotate; $\Sigma$ does all the stretching.}
+\end{minipage}
+\end{notesbox}
+
+\begin{notesbox}{4. The Victory --- and Why It Matters}
+\textbf{Why orthogonal matrices win.} Because $U$ and $V$ are orthogonal, they are \emph{reversible for free}
+($Q^{-1}=Q\T$), they \emph{never change length}, and --- crucially for computing --- they \emph{never amplify
+errors}. That last fact is the ``revolution'': modern algorithms deliberately compute with orthogonal matrices
+because rounding mistakes stay small instead of blowing up.
+
+\vspace{2pt}
+\textbf{The thread through the course.} Orthogonality has been the quiet engine all along: perpendicular
+projections and least squares (Unit~4), perpendicular eigenvectors of symmetric matrices (Unit~6), and now
+perpendicular singular vectors for \emph{every} matrix, any shape (Unit~7).
+
+\vspace{2pt}
+\textbf{The victory.} The SVD $A=U\Sigma V\T$ says every matrix is really just \textbf{rotate--stretch--rotate}.
+The two rotations are orthogonal --- perfect, distortion-free --- and one diagonal $\Sigma$ carries all the
+stretching. That is why the SVD, image compression, and PCA all work: they run on orthogonality.
+\end{notesbox}
+
+\begin{practicebox}
+Show your work.
+\begin{enumerate}[leftmargin=1.6em, itemsep=4pt]
+  \item Is $Q=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1 & -1\\ 1 & 1 \end{bsmallmatrix}$ orthogonal? Compute $Q\T Q$ to decide, and write $Q^{-1}$. \writeline
+  \item An orthogonal matrix $Q$ acts on a vector with $|\xx|=5$. What is $|Q\xx|$, and why? \writeline
+  \item In $A=U\Sigma V\T$, which factor does the stretching, and which factors only rotate? \writeline
+\end{enumerate}
+\end{practicebox}
 
 \end{document}

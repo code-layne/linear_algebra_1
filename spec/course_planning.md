@@ -7,7 +7,39 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-24 — **Authored & built Unit 7 Lesson 7.3 — "Principal Component Analysis" (§7.3 — the
+**Last updated:** 2026-07-24 — **Authored & built Unit 7 Lesson 7.4 — "The Victory of Orthogonality" (§7.4 — the
+unit capstone: why perpendicular directions make the SVD, compression, and PCA all work).** Filled every skeleton: lesson plan,
+cover, warmup, notes, activity, exit_ticket, homework (+ the five keys) and the slides deck, mirroring Lesson 7.3's preamble/boxes/tone.
+**Content — a celebration lesson (light on new machinery, heavy on tying threads):** (1) an **orthogonal matrix** $Q$ has
+**perpendicular unit columns**, captured by the one test $Q\T Q=I$ (diagonal $1$'s = unit length, off-diagonal $0$'s = perpendicular)
+⇒ the **inverse is free**, $Q^{-1}=Q\T$; (2) orthogonal matrices **preserve length** — one-line proof $|Q\xx|^2=(Q\xx)\T(Q\xx)=\xx\T Q\T Q\xx=\xx\T\xx=|\xx|^2$
+— so they are **rigid motions** (rotation or reflection, no distortion); (3) the SVD $A=U\Sigma V\T$ is **rotate–stretch–rotate** —
+$V\T$ turns, $\Sigma$ stretches by the $\sigma$'s, $U$ turns; **all the stretching lives in $\Sigma$**; (4) **the victory & the
+revolution** — orthogonal factors are reversible for free, length-preserving, and **never amplify errors** (why modern algorithms
+compute with them), and orthogonality is the thread through the whole course (projections/least squares U4, perpendicular eigenvectors
+U6, perpendicular singular vectors for *every* matrix U7). **Spine = the unit's recurring $Q=\tfrac1{\sqrt2}[[1,1],[1,-1]]$** ($Q\T Q=I$,
+$Q^{-1}=Q\T=Q$; $\xx=(3,1)\to Q\xx=\tfrac1{\sqrt2}(4,2)$, both length $\sqrt{10}$) — and the Unit-6 spine $A=[[2,1],[1,2]]=Q\,\mathrm{diag}(3,1)\,Q\T$
+(symmetric ⇒ $U=V=Q$) makes rotate–stretch–rotate concrete. **Warmup literally does the notes' three opening checks** (perpendicular
+unit columns via dot products U4; $Q\T Q=I$ U1/U6; length after $Q$ on $(3,1)\to10$ U4). **Custom rotate–stretch–rotate pipeline TikZ**
+(5 blush boxes $\xx\to V\T\to\Sigma\to U\to A\xx$, burgundy arrows, "turn/stretch/turn" labels; needs `arrows.meta, positioning, calc`)
+on notes §3 + slides. **Activity/Exit/HW spines (all hand-verified pure Python; clean integer rotations):** Tier R verify
+$\tfrac15[[3,-4],[4,3]]$ orthogonal ($Q\T Q=I$, $3$-$4$-$5$); Tier A length preserved on $(5,0)\to(3,4)$ len 5 + free inverse + $\det=1$
+rotation; Tier E rotate–stretch–rotate with $\sigma=4,1$ ⇒ max/min stretch $=\sigma_1/\sigma_2$ (only $\Sigma$ scales). Exit:
+$\tfrac15[[4,-3],[3,4]]$ orthogonal, $Q^{-1}=Q\T$, $|\xx|=6\Rightarrow|Q\xx|=6$, justify rotate–stretch–rotate. HW: orthogonal-or-not
+screen ($\tfrac1{\sqrt2}[[1,-1],[1,1]]$ yes / $[[2,0],[0,1]]$ no — unit-length is the discriminator / $\tfrac1{13}[[5,-12],[12,5]]$ yes);
+length + free inverse on the $5$-$12$-$13$ rotation ($(13,0)\to(5,12)$ len 13); SVD factors ($\sigma=5,2$, only $\Sigma$ stretches);
+justify $Q^{-1}=Q\T$ & length/stability; **extension** $\det Q=\pm1$ from $\det(Q\T Q)=1$ — rotation $+1$ vs reflection $-1$ (U5
+callback). **Built `make -C unit07/lesson04 all` → clean** (0 `^!`/file-line errors across all 13 logs; no `\ans`-in-math; 0 overfull
+>15pt). Page counts: cover/warmup/exit 1pp (blank & key ✓ 1-page constraint), notes 2pp/3pp, activity 1pp/2pp, homework 2pp/2pp,
+slides 6pp, lesson plan 2pp; **student 8pp, full 18pp.** Visually spot-checked notes_key p2 (pipeline figure — clean blush boxes,
+burgundy arrows, turn/stretch/turn labels, no tofu; red answers $Q\xx=\tfrac1{\sqrt2}(4,2)$, $|Q\xx|^2=10$, all practice correct) —
+clean. **Gotcha (recurred, TikZ):** the pipeline needs `\usetikzlibrary{arrows.meta, positioning, calc}` — `positioning` for `right=of`
+and `calc` for `($(node)+(dx,dy)$)` label placement (2 build failures fixed by adding them; 7.1 only needed `positioning`). **Unit 7
+lessons 7.0–7.4 are now all authored & built; next run authors the Unit 7 summative tests** (`tests/practice_test` + `actual_test`,
+`test_keys/`), then `drop` to populate `sample_test`/`sample_test_key`, to complete the unit. Lessons 7.0–7.4 are the Unit 7 models;
+Unit 4/5/6 tests are the assessment-format model.
+
+**Prior run:** **Authored & built Unit 7 Lesson 7.3 — "Principal Component Analysis" (§7.3 — the
 "keep the biggest $\sigma$" idea on *data* instead of pixels).** Filled every skeleton: lesson plan, cover, warmup, notes,
 activity, exit_ticket, homework (+ the five keys) and the slides deck, mirroring Lesson 7.2's preamble/boxes/tone. **Content —
 the three-move PCA pipeline:** (1) **center** the data matrix $A$ (rows = data points, cols = features; subtract each column's

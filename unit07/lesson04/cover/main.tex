@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 7}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 7 \quad The Singular Value Decomposition}}\\[6pt]
   {\color{white}\textbf{\large Lesson 7.4 \quad The Victory of Orthogonality}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} recognize an \textbf{orthogonal matrix} $Q$ by the single test $Q^{\top}Q=I$ (perpendicular unit columns), and read off its free inverse $Q^{-1}=Q^{\top}$.
+  \item \ldots{} show that an orthogonal matrix \textbf{preserves length} ($|Q\mathbf{x}|=|\mathbf{x}|$) --- it moves vectors rigidly, without stretching.
+  \item \ldots{} read the SVD $A=U\Sigma V^{\top}$ as \textbf{rotate--stretch--rotate} and explain why orthogonal matrices are the idea behind every result in this unit.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,25 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: perpendicular unit columns, $Q^{\top}Q=I$, and length after $Q$      & \blank{1.2cm} \\
+2 & Guided Notes   & Orthogonal matrices, the free inverse, length preservation, rotate--stretch--rotate & \blank{1.2cm} \\
+3 & Group Activity & Verify a matrix is orthogonal, show length is preserved, read the SVD's factors     & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check: verify orthogonality, the free inverse, and justify                    & \blank{1.2cm} \\
+5 & Homework       & Orthogonal-or-not, length \& free inverse, the SVD factors, and a $\det=\pm1$ fact   & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small An \textbf{orthogonal matrix} $Q$ is a square matrix whose columns are \textbf{perpendicular unit
+vectors} --- captured by the one equation $Q^{\top}Q=I$. Its inverse is then \emph{free}: $Q^{-1}=Q^{\top}$,
+and it \textbf{preserves length}, $|Q\mathbf{x}|=|\mathbf{x}|$, so it moves space rigidly (a rotation or a
+reflection). The SVD $A=U\Sigma V^{\top}$ writes \emph{every} matrix using two orthogonal matrices and a
+diagonal one: $V^{\top}$ turns, $\Sigma$ stretches by the singular values, $U$ turns --- \textbf{rotate,
+stretch, rotate}. This is orthogonality's victory: the reason the SVD, image compression, and PCA all work.
+\end{remindbox}
 
 \end{document}

@@ -3,17 +3,81 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.2}{Homework --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Homework verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Homework --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Practice}
+\textbf{Compressing with the SVD.} A matrix is a sum of rank-1 layers
+$A=\sigma_1\uu_1\vv_1\T+\sigma_2\uu_2\vv_2\T+\cdots$ (biggest $\sigma$ first); each layer $\uu\vv\T$ is a
+column times a row. The rank-$k$ approximation $A_k$ keeps the first $k$ layers.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item \textbf{Outer products.} Compute each column-times-row, and state its rank.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=3pt]
+      \item $\begin{bmatrix} 3\\1 \end{bmatrix}\begin{bmatrix} 2 & 4 \end{bmatrix}$
+      \item $\begin{bmatrix} 1\\-1 \end{bmatrix}\begin{bmatrix} 1 & -1 \end{bmatrix}$
+    \end{enumerate}
+    \ansline{(a) $\begin{bsmallmatrix} 6 & 12\\ 2 & 4 \end{bsmallmatrix}$, rank~$1$.\quad (b) $\begin{bsmallmatrix} 1 & -1\\ -1 & 1 \end{bsmallmatrix}$, rank~$1$. (Every column is a multiple of the first vector.)}
+  \item \textbf{Decompose and compress.} The symmetric matrix $A=\begin{bmatrix} 7 & 5\\ 5 & 7 \end{bmatrix}$
+        has $\sigma_1=12,\ \sigma_2=2$ with $\uu_1=\vv_1=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$
+        and $\uu_2=\vv_2=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=3pt]
+      \item Build both layers $\sigma_1\uu_1\vv_1\T$ and $\sigma_2\uu_2\vv_2\T$, and check that they add to $A$.
+      \item Write the rank-1 approximation $A_1$, and find what fraction of the energy $\sigma_1^2+\sigma_2^2$ it keeps.
+    \end{enumerate}
+    \ansline{(a) $\sigma_1\uu_1\vv_1\T=12\cdot\tfrac12\begin{bsmallmatrix} 1 & 1\\ 1 & 1 \end{bsmallmatrix}=\begin{bsmallmatrix} 6 & 6\\ 6 & 6 \end{bsmallmatrix}$; $\sigma_2\uu_2\vv_2\T=2\cdot\tfrac12\begin{bsmallmatrix} 1 & -1\\ -1 & 1 \end{bsmallmatrix}=\begin{bsmallmatrix} 1 & -1\\ -1 & 1 \end{bsmallmatrix}$; sum $=\begin{bsmallmatrix} 7 & 5\\ 5 & 7 \end{bsmallmatrix}=A$.}
+    \ansline{(b) $A_1=\begin{bsmallmatrix} 6 & 6\\ 6 & 6 \end{bsmallmatrix}$; energy kept $=\sigma_1^2/(\sigma_1^2+\sigma_2^2)=144/148\approx97\%$.}
+  \item \textbf{Storage.} A $500\times500$ grayscale photo is stored as a matrix.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=3pt]
+      \item How many numbers does the full image hold?
+      \item Each rank-1 layer needs $1+500+500$ numbers. How many numbers to keep the $20$ biggest layers, and what percent of the full image is that?
+    \end{enumerate}
+    \ansline{(a) $500\times500=250{,}000$.\quad (b) $20\times(1+500+500)=20\times1001=20{,}020$, which is $20{,}020/250{,}000\approx8\%$ of the full image.}
+  \item \textbf{Justify.} Explain (i) why we keep the layers with the \emph{largest} singular values, and (ii) why one rank-1 layer stores only $1+m+n$ numbers instead of the full $m\times n$.
+        \ansline{(i) Each layer contributes energy $\sigma^2$ and the biggest $\sigma$'s carry the most of $A$, so keeping them loses the least ($A_k$ is the best rank-$k$ approximation). (ii) A rank-1 layer $\sigma\uu\vv\T$ is rebuilt from $\uu$ ($m$ numbers), $\vv$ ($n$ numbers), and $\sigma$ (one) --- you never store all $m\times n$ entries.}
+  \item \textbf{When $\sigma_2=0$.} The matrix $A=\begin{bmatrix} 2 & 6\\ 1 & 3 \end{bmatrix}$ is already rank~1 (row~1 $=2\times$ row~2), so $\sigma_2=0$. How many layers do you need to store $A$ \emph{exactly}? What does that say about compressing it?
+        \ansline{Just \emph{one} layer: $A=\sigma_1\uu_1\vv_1\T$ exactly (the $\sigma_2$ layer is zero). A rank-1 matrix compresses perfectly --- its rank-1 approximation \emph{is} the matrix.}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Choosing how many layers to keep.} A photo's SVD has singular values
+$\sigma=10,\ 6,\ 3,\ 1$ (biggest four). The energy of layer $i$ is $\sigma_i^2$.
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+  \item Find the total energy $\sigma_1^2+\sigma_2^2+\sigma_3^2+\sigma_4^2$.
+  \item Find the running (cumulative) percentage of energy captured by the first $1$, $2$, $3$, and $4$ layers.
+  \item What is the smallest number of layers you must keep to capture at least $99\%$ of the energy?
+\end{enumerate}
+\ansline{(a) $100+36+9+1=146$.}
+\ansline{(b) $100/146\approx68\%$; $136/146\approx93\%$; $145/146\approx99.3\%$; $146/146=100\%$.}
+\ansline{(c) $3$ layers (through $\sigma_3$) already reach $\approx99.3\%\ge99\%$.}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 7.3: Principal Component Analysis.} PCA runs today's idea on \emph{data}
+instead of pixels: the biggest singular values of a data matrix point to the directions that carry the
+most information, so keeping a few of them summarizes the data in far fewer numbers.
+\end{spiralbox}
+
+\begin{teachernote}
+Item~1 drills the outer product (column $\times$ row $=$ rank-1 matrix) --- the one new mechanic. Item~2 is
+the core: decompose $\begin{bsmallmatrix} 7 & 5\\ 5 & 7 \end{bsmallmatrix}$ into layers, form $A_1$, and
+measure it ($144/148\approx97\%$). Item~3 makes the storage payoff concrete ($20$ layers $\approx8\%$ of a
+$500\times500$ image). Item~4 is the target justification (biggest $\sigma$ $=$ most energy; a layer stores
+$1+m+n$, not $mn$). Item~5's rank-1 case ($\sigma_2=0$) shows the extreme: one layer is exact. The
+extension is a PCA-flavored ``cumulative energy'' calculation --- keep $3$ of $4$ layers for $99\%$ ---
+previewing 7.3. Common slips: inner product (row $\times$ column, a number) instead of outer product;
+dropping the $\tfrac12$ when scaling a layer; forgetting to \emph{square} the $\sigma$'s for energy.
+\end{teachernote}
 
 \end{document}

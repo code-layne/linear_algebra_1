@@ -3,6 +3,9 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
@@ -11,9 +14,16 @@
 
 \vspace{0.15in}
 
-% TODO: author the Exit Ticket. See references/components.md for the expected structure.
-\begin{notesbox}{Exit Ticket}
-\writelines{4}
-\end{notesbox}
+No notes. Show your reasoning. A matrix $A=\begin{bmatrix} 6 & 4\\ 4 & 6 \end{bmatrix}$ has singular values
+$\sigma_1=10,\ \sigma_2=2$ with $\uu_1=\vv_1=\tfrac1{\sqrt2}\begin{bmatrix} 1\\1 \end{bmatrix}$ and
+$\uu_2=\vv_2=\tfrac1{\sqrt2}\begin{bmatrix} 1\\-1 \end{bmatrix}$.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=15pt]
+  \item \textbf{Build the rank-1 approximation.} Compute the first layer $A_1=\sigma_1\uu_1\vv_1\T$ (remember $\tfrac1{\sqrt2}\cdot\tfrac1{\sqrt2}=\tfrac12$).
+        \vspace{1.7cm}
+  \item \textbf{How much did you keep?} The total energy is $\sigma_1^2+\sigma_2^2$. What fraction of it does $A_1$ capture? Is a rank-1 copy a good approximation here?
+        \vspace{1.7cm}
+  \item \textbf{Explain.} A photo's SVD has hundreds of layers. Why do we keep the ones with the \emph{largest} singular values --- and how does that save storage? \writelines{2}
+\end{enumerate}
 
 \end{document}

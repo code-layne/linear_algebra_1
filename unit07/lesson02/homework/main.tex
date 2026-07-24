@@ -3,17 +3,65 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.2}{Homework}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: author the Homework. See references/components.md for the expected structure.
-\begin{notesbox}{Homework}
-\writelines{4}
+\begin{notesbox}{Practice}
+\textbf{Compressing with the SVD.} A matrix is a sum of rank-1 layers
+$A=\sigma_1\uu_1\vv_1\T+\sigma_2\uu_2\vv_2\T+\cdots$ (biggest $\sigma$ first); each layer $\uu\vv\T$ is a
+column times a row. The rank-$k$ approximation $A_k$ keeps the first $k$ layers.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item \textbf{Outer products.} Compute each column-times-row, and state its rank.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=3pt]
+      \item $\begin{bmatrix} 3\\1 \end{bmatrix}\begin{bmatrix} 2 & 4 \end{bmatrix}$
+      \item $\begin{bmatrix} 1\\-1 \end{bmatrix}\begin{bmatrix} 1 & -1 \end{bmatrix}$
+    \end{enumerate}
+    \vspace{1.6cm}
+  \item \textbf{Decompose and compress.} The symmetric matrix $A=\begin{bmatrix} 7 & 5\\ 5 & 7 \end{bmatrix}$
+        has $\sigma_1=12,\ \sigma_2=2$ with $\uu_1=\vv_1=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$
+        and $\uu_2=\vv_2=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}$.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=3pt]
+      \item Build both layers $\sigma_1\uu_1\vv_1\T$ and $\sigma_2\uu_2\vv_2\T$, and check that they add to $A$.
+      \item Write the rank-1 approximation $A_1$, and find what fraction of the energy $\sigma_1^2+\sigma_2^2$ it keeps.
+    \end{enumerate}
+    \vspace{2.4cm}
+  \item \textbf{Storage.} A $500\times500$ grayscale photo is stored as a matrix.
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=3pt]
+      \item How many numbers does the full image hold?
+      \item Each rank-1 layer needs $1+500+500$ numbers. How many numbers to keep the $20$ biggest layers, and what percent of the full image is that?
+    \end{enumerate}
+    \vspace{1.6cm}
+  \item \textbf{Justify.} Explain (i) why we keep the layers with the \emph{largest} singular values, and (ii) why one rank-1 layer stores only $1+m+n$ numbers instead of the full $m\times n$. \writelines{2}
+  \item \textbf{When $\sigma_2=0$.} The matrix $A=\begin{bmatrix} 2 & 6\\ 1 & 3 \end{bmatrix}$ is already rank~1 (row~1 $=2\times$ row~2), so $\sigma_2=0$. How many layers do you need to store $A$ \emph{exactly}? What does that say about compressing it? \writelines{2}
+\end{enumerate}
 \end{notesbox}
+
+\begin{extensionbox}
+\textbf{Choosing how many layers to keep.} A photo's SVD has singular values
+$\sigma=10,\ 6,\ 3,\ 1$ (biggest four). The energy of layer $i$ is $\sigma_i^2$.
+\begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+  \item Find the total energy $\sigma_1^2+\sigma_2^2+\sigma_3^2+\sigma_4^2$.
+  \item Find the running (cumulative) percentage of energy captured by the first $1$, $2$, $3$, and $4$ layers.
+  \item What is the smallest number of layers you must keep to capture at least $99\%$ of the energy?
+\end{enumerate}
+\writelines{3}
+\end{extensionbox}
+
+\begin{spiralbox}
+\textbf{Coming next --- Lesson 7.3: Principal Component Analysis.} PCA runs today's idea on \emph{data}
+instead of pixels: the biggest singular values of a data matrix point to the directions that carry the
+most information, so keeping a few of them summarizes the data in far fewer numbers.
+\end{spiralbox}
 
 \end{document}

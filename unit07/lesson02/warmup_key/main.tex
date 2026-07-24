@@ -3,17 +3,60 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.2}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: the Pieces of Today's Idea}
+\small These three quick skills --- a column times a row, the singular values of a symmetric matrix,
+and a sum of squares --- \emph{are} the opening moves of today's lesson. We use today's matrix.
+
+\vspace{4pt}
+\textbf{1. A column times a row (Unit 1).} Multiplying a $2\times1$ column by a $1\times2$ row gives a
+$2\times2$ matrix. Fill it in:
+\[
+  \begin{bmatrix} 1 \\ 2 \end{bmatrix}\begin{bmatrix} 3 & 1 \end{bmatrix}
+  =\begin{bmatrix}{\color{keyred}\mathbf{3}} & {\color{keyred}\mathbf{1}}\\[2pt]{\color{keyred}\mathbf{6}} & {\color{keyred}\mathbf{2}}\end{bmatrix}.
+\]
+Look at your answer: every \emph{column} is a multiple of $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$
+--- yes or no? \ans{Yes} (column 1 is $3\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$, column 2 is $1\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$).
+
+\vspace{4pt}
+\textbf{2. Singular values of a symmetric matrix (Unit 6 \& Lesson 7.1).} For the symmetric, positive
+matrix $A=\begin{bmatrix} 5 & 3\\ 3 & 5 \end{bmatrix}$ the singular values \emph{are} its eigenvalues.
+Solve $\det(A-\lambda I)=0$:
+\[
+  (5-\lambda)^2-9=\lambda^2-10\lambda+16=0 \ \Rightarrow\ \lambda={\color{keyred}\mathbf{8}}\ \text{or}\ {\color{keyred}\mathbf{2}},
+  \quad\text{so}\quad \sigma_1={\color{keyred}\mathbf{8}},\ \sigma_2={\color{keyred}\mathbf{2}}.
+\]
+Its unit eigenvectors are $\vv_1=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$ and
+$\vv_2=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}$ (and since $A$ is symmetric, $\uu_i=\vv_i$).
+
+\vspace{4pt}
+\textbf{3. A sum of squares (arithmetic).} Add the squares of the singular values, then add the squares
+of \emph{all four entries} of $A$:
+\[
+  \sigma_1^2+\sigma_2^2=8^2+2^2={\color{keyred}\mathbf{68}},\qquad
+  5^2+3^2+3^2+5^2={\color{keyred}\mathbf{68}}.
+\]
+Are the two totals equal? \ans{Yes --- both equal $68$.}
 \end{notesbox}
+
+\begin{teachernote}
+Every item is a piece of today's lesson on the very matrix $A=\begin{bsmallmatrix} 5 & 3\\ 3 & 5 \end{bsmallmatrix}$
+used in the notes. Item~1 is the \emph{outer product} $\uu\vv\T$ (a column times a row) --- the new
+object; the ``every column is a multiple of $\uu$'' observation is exactly why it is a \emph{rank-1}
+matrix. Item~2 hands students the singular values $\sigma=8,2$ and the vectors (this $A$ is symmetric and
+positive, so $\sigma$'s equal the eigenvalues and $\uu_i=\vv_i$ --- keeping the arithmetic clean). Item~3
+is the ``energy'' identity $\sigma_1^2+\sigma_2^2=$ (sum of squares of all entries): the total size of $A$
+splits across the singular values, which is why keeping the biggest $\sigma$ keeps the most of the matrix.
+\end{teachernote}
 
 \end{document}

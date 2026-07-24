@@ -7,7 +7,35 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-24 — **Authored & built Unit 7 Lesson 7.1 — "Singular Values and Singular Vectors" (§7.1 — the
+**Last updated:** 2026-07-24 — **Authored & built Unit 7 Lesson 7.2 — "Compressing Images by the SVD" (§7.2 — write $A$ as a
+sum of rank-1 layers and keep the biggest).** Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket,
+homework (+ the five keys) and the slides deck, mirroring Lesson 7.1's preamble/boxes/tone. **Content — the one new mechanic + the
+compression idea:** (1) the **outer product** $\uu\vv\T$ (a column times a row) is a *matrix* whose every column is a multiple of
+$\uu$ — a **rank-1** matrix, stored in $m+n$ numbers not $mn$; (2) multiplying out $A=U\Sigma V\T$ regroups $A$ into ordered
+**rank-1 layers** $A=\sigma_1\uu_1\vv_1\T+\sigma_2\uu_2\vv_2\T+\cdots$, biggest $\sigma$ first; (3) **compress** = keep the first
+$k$ layers $A_k$ (the *closest* rank-$k$ matrix, **Eckart–Young** stated not proved); (4) **energy** $\sigma_1^2+\sigma_2^2+\cdots=$
+sum of squares of all entries, so big-$\sigma$ layers hold the most, and each layer costs $1+m+n$ numbers ⇒ storage win.
+**Deliberately clean symmetric spines** (form $[[a,b],[b,a]]$: eig $a\pm b$, $\uu_i=\vv_i=\tfrac1{\sqrt2}(1,\pm1)$, integer layers
+since $a,b$ same parity) so the arithmetic stays integer while focus stays on compression: **notes spine** $[[5,3],[3,5]]$
+($\sigma 8,2$; layers $[[4,4],[4,4]]+[[1,-1],[-1,1]]$; $A_1$ keeps $64/68\approx94\%$). **Warmup literally builds the notes' opening**
+(outer product $[1,2]^T[3,1]=[[3,1],[6,2]]$ Unit 1; $\sigma$'s of symmetric $[[5,3],[3,5]]$ via $\det(A-\lambda I)=0\to8,2$ Unit 6/7.1;
+energy identity $8^2+2^2=68=5^2+3^2+3^2+5^2$). **Custom singular-value bar-chart TikZ** (6 decaying bars, first two burgundy "keep",
+rest blushmid "drop", dashed divider, `arrows.meta` axis) on notes §3 + verbally on slides. **Activity/Exit/HW spines (all
+hand-verified pure Python):** Tier R outer product $[2,1]^T[1,3]$ + build layer $[[3,3],[3,3]]$; Tier A full decomposition of
+$[[4,2],[2,4]]$ ($\sigma6,2$; $B_1=[[3,3],[3,3]]$ keeps $36/40=90\%$); Tier E storage on $600\times800$ ($480{,}000$ vs rank-20
+$28{,}020\approx5.8\%$) + justify keep-biggest. Exit: $[[6,4],[4,6]]$ ($\sigma10,2$) build $A_1=[[5,5],[5,5]]$ + energy $100/104\approx96\%$
++ justify. HW: outer products; full decompose $[[7,5],[5,7]]$ ($\sigma12,2$; $144/148\approx97\%$); $500\times500$ storage ($20{,}020\approx8\%$);
+justify; rank-1 $\sigma_2{=}0$ case (one layer exact); extension $\sigma$-spectrum $10,6,3,1$ cumulative-energy → keep 3 of 4 for $99\%$
+(PCA preview). **Built `make -C unit07/lesson02 all` → clean** (0 `^!`/file-line errors across all 13 logs; no `\ans`-in-math; no
+overfull >15pt). Page counts: cover/warmup/exit 1pp (blank & key ✓ 1-page constraint), notes 3pp/3pp, activity 1pp/2pp, homework
+2pp/2pp, slides 6pp, lesson plan 3pp; **student 9pp, full 19pp.** Visually spot-checked notes_key p2 (bar-chart figure — clean
+burgundy keep / blushmid drop bars, dashed divider, no tofu; layer arithmetic + red answers correct) and activity_key p1 (all tiers,
+red answers correct) — clean. **Gotcha (recurred, 7.0-style):** `{\color{keyred}\mathbf{...}}` is a *math-mode* answer — a text-mode
+percentage answer (`...\approx \_\_\%`) must use `\ans{4\%}`, not a bare `\mathbf` (fixed one such in notes_key §4). **Next run:
+author Unit 7 Lesson 7.3** ("Principal Component Analysis", §7.3 — same keep-biggest-$\sigma$ idea on *data*: center the data matrix,
+its top singular directions are the principal components). Lessons 7.0/7.1/7.2 are the Unit 7 models.
+
+**Prior run:** **Authored & built Unit 7 Lesson 7.1 — "Singular Values and Singular Vectors" (§7.1 — the
 $A\T A$ recipe to *find* $\sigma,\vv,\uu$ for any matrix).** Filled every skeleton: lesson plan, cover, warmup, notes,
 activity, exit_ticket, homework (+ the five keys) and the slides deck, mirroring Lesson 7.0's preamble/boxes/tone.
 **Content — the five-step recipe:** (1) build the symmetric $A\T A$ (entries = column dot products); (2) its eigenvalues

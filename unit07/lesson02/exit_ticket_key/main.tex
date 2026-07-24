@@ -3,6 +3,9 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
@@ -11,9 +14,25 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning. A matrix $A=\begin{bmatrix} 6 & 4\\ 4 & 6 \end{bmatrix}$ has singular values
+$\sigma_1=10,\ \sigma_2=2$ with $\uu_1=\vv_1=\tfrac1{\sqrt2}\begin{bmatrix} 1\\1 \end{bmatrix}$ and
+$\uu_2=\vv_2=\tfrac1{\sqrt2}\begin{bmatrix} 1\\-1 \end{bmatrix}$.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=15pt]
+  \item \textbf{Build the rank-1 approximation.} Compute the first layer $A_1=\sigma_1\uu_1\vv_1\T$ (remember $\tfrac1{\sqrt2}\cdot\tfrac1{\sqrt2}=\tfrac12$).
+        \ansline{$A_1=10\cdot\tfrac12\begin{bsmallmatrix} 1 & 1\\ 1 & 1 \end{bsmallmatrix}=\begin{bsmallmatrix} 5 & 5\\ 5 & 5 \end{bsmallmatrix}$.}
+  \item \textbf{How much did you keep?} The total energy is $\sigma_1^2+\sigma_2^2$. What fraction of it does $A_1$ capture? Is a rank-1 copy a good approximation here?
+        \ansline{$\sigma_1^2+\sigma_2^2=100+4=104$; $A_1$ keeps $100/104\approx96\%$. Yes --- one layer holds almost all of the matrix, so the rank-1 copy is very close (and it is the best possible rank-1 approximation).}
+  \item \textbf{Explain.} A photo's SVD has hundreds of layers. Why do we keep the ones with the \emph{largest} singular values --- and how does that save storage? \ansline{Each layer contributes energy $\sigma^2$, and the biggest $\sigma$'s carry the most of the picture, so keeping them loses the least. Each rank-1 layer stores only $1+m+n$ numbers instead of $m\times n$, so keeping a few big layers is a near-perfect copy in a fraction of the space.}
+\end{enumerate}
+
+\begin{teachernote}
+Sort into ``got it / arithmetic slip / concept slip.'' Q1 checks the outer-product-and-scale mechanic
+(watch for the missing $\tfrac12$, giving $\begin{bsmallmatrix} 10 & 10\\ 10 & 10 \end{bsmallmatrix}$, or
+row$\times$column instead of column$\times$row). Q2 is the energy fraction $100/104\approx96\%$ --- students
+should connect a high percentage to ``good approximation.'' Q3 is the target justification: biggest $\sigma$
+$=$ most energy, and each layer stores $1+m+n$ rather than $mn$ numbers. If many miss Q3, open 7.3 with a
+30-second ``keep the biggest $\sigma$'s'' recap --- it is the same idea PCA runs on data.
+\end{teachernote}
 
 \end{document}

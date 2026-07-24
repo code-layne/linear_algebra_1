@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 7}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 7 \quad The Singular Value Decomposition}}\\[6pt]
   {\color{white}\textbf{\large Lesson 7.2 \quad Compressing Images by the SVD}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} build a rank-1 matrix as an \textbf{outer product} $\mathbf{u}\mathbf{v}^{\top}$ (a column times a row).
+  \item \ldots{} write a matrix as a sum of rank-1 layers $A=\sigma_1\mathbf{u}_1\mathbf{v}_1^{\top}+\sigma_2\mathbf{u}_2\mathbf{v}_2^{\top}+\cdots$ and form the \textbf{rank-$k$ approximation} $A_k$.
+  \item \ldots{} explain why keeping the \emph{largest} singular values gives the best low-storage copy of an image.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,26 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: a column times a row, singular values of a symmetric matrix, a sum of squares & \blank{1.2cm} \\
+2 & Guided Notes   & Outer products, the SVD as rank-1 layers, and keeping the biggest to compress                & \blank{1.2cm} \\
+3 & Group Activity & Building layers, the rank-1 approximation, and counting the storage savings                 & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check: build a rank-1 layer, the energy fraction, and justify                          & \blank{1.2cm} \\
+5 & Homework       & Layers end to end, energy percentages, storage counts, and a $\sigma$-spectrum choice        & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small The SVD writes any matrix as a sum of \textbf{rank-1 layers}, one per singular value:
+$A=\sigma_1\mathbf{u}_1\mathbf{v}_1^{\top}+\sigma_2\mathbf{u}_2\mathbf{v}_2^{\top}+\cdots$, ordered from the
+biggest $\sigma$ to the smallest. Each layer $\mathbf{u}\mathbf{v}^{\top}$ is a column times a row. To
+\textbf{compress}, keep only the first $k$ layers: $A_k=\sigma_1\mathbf{u}_1\mathbf{v}_1^{\top}+\cdots+\sigma_k\mathbf{u}_k\mathbf{v}_k^{\top}$
+--- the closest rank-$k$ matrix to $A$. Because the total ``energy'' is $\sigma_1^2+\sigma_2^2+\cdots$, the
+biggest singular values carry the most of the picture, so a few layers store a near-perfect copy in a
+fraction of the space.
+\end{remindbox}
 
 \end{document}

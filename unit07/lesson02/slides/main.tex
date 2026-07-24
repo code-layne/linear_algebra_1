@@ -1,6 +1,9 @@
 %! Compressing Images by the SVD — Unit 7, Lesson 7.2 — Slides (Beamer)
 \documentclass[aspectratio=169, 11pt]{beamer}
 \usepackage{linalg-beamer}   % provides \burgundyheader{} and \sectionlabel[color]{}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
@@ -11,16 +14,105 @@
   \vspace{2.8cm}\hspace{0.55cm}%
   \begin{minipage}{0.9\textwidth}
     {\color{goldacc}\bfseries\small LESSON 7.2}\\[0.5cm]
-    {\color{white}\bfseries\LARGE Compressing Images by the SVD}\\[1.2cm]
-    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 7}
+    {\color{white}\bfseries\LARGE Compressing Images by the SVD}\\[1.0cm]
+    {\color{blushmid}\small Linear Algebra~$\cdot$~Unit 7: The Singular Value Decomposition}
   \end{minipage}
 \end{frame}
 }
 
-% CONTENT SLIDE
+% HOOK
 \begin{frame}[t, plain]
-  \burgundyheader{TODO: section title}
-  % TODO: slide content
+  \burgundyheader{A photo is a big matrix --- can we store less?}
+  \sectionlabel{Hook}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      A $1000\times1000$ grayscale photo is a matrix of \textbf{one million} pixel values.\\[6pt]
+      Lesson~7.1: the SVD splits any matrix into \emph{ordered layers}
+      $\sigma_1\uu_1\vv_1\T,\ \sigma_2\uu_2\vv_2\T,\dots$
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \begin{block}{The question}
+        Keep only a few layers, throw the rest away --- \textbf{which} do you keep, and how much of the
+        picture survives?
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{2pt}
+  \begin{block}{Today}
+    Build the layers, keep the biggest singular values, and count the storage saved.
+  \end{block}
+\end{frame}
+
+% OUTER PRODUCT
+\begin{frame}[t, plain]
+  \burgundyheader{One new move: a column times a row}
+  \sectionlabel[goldacc]{Idea}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item An \textbf{outer product} $\uu\vv\T$ is a column times a row --- and the result is a \emph{matrix}:
+          \[ \begin{bmatrix} 1\\2 \end{bmatrix}\begin{bmatrix} 3 & 1 \end{bmatrix}
+             =\begin{bmatrix} 3 & 1\\ 6 & 2 \end{bmatrix}. \]
+    \item Every column is a multiple of $\uu$ --- the simplest nonzero matrix, called \textbf{rank-1}.
+    \item It stores in only $m+n$ numbers (the entries of $\uu$ and $\vv$), not $m\times n$.
+  \end{itemize}
+\end{frame}
+
+% SVD AS LAYERS
+\begin{frame}[t, plain]
+  \burgundyheader{The SVD is a sum of rank-1 layers}
+  \sectionlabel{Skill}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      Multiply out $A=U\Sigma V\T$:
+      \[ A=\sigma_1\uu_1\vv_1\T+\sigma_2\uu_2\vv_2\T+\cdots \]
+      Each \textbf{layer} is a rank-1 outer product scaled by $\sigma_i$, ordered biggest $\sigma$ first.
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \textbf{Spine} $A=\begin{bsmallmatrix} 5 & 3\\ 3 & 5 \end{bsmallmatrix}$, $\sigma_1=8,\sigma_2=2$
+      (symmetric, so $\uu_i=\vv_i$):
+      \[ 8\cdot\tfrac12\begin{bsmallmatrix} 1 & 1\\ 1 & 1 \end{bsmallmatrix}
+         +2\cdot\tfrac12\begin{bsmallmatrix} 1 & -1\\ -1 & 1 \end{bsmallmatrix} \]
+      \[ =\begin{bsmallmatrix} 4 & 4\\ 4 & 4 \end{bsmallmatrix}
+         +\begin{bsmallmatrix} 1 & -1\\ -1 & 1 \end{bsmallmatrix}
+         =\begin{bsmallmatrix} 5 & 3\\ 3 & 5 \end{bsmallmatrix}. \]
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% COMPRESS
+\begin{frame}[t, plain]
+  \burgundyheader{Compress: keep the biggest layers}
+  \sectionlabel{Skill}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item Keep the first $k$ layers: $A_k=\sigma_1\uu_1\vv_1\T+\cdots+\sigma_k\uu_k\vv_k\T$ --- the
+          \textbf{closest} rank-$k$ matrix to $A$ (Eckart--Young).
+    \item Spine: $A_1=\begin{bsmallmatrix} 4 & 4\\ 4 & 4 \end{bsmallmatrix}$, off by only $\pm1$.
+    \item \textbf{Energy.} Total $=\sigma_1^2+\sigma_2^2=64+4=68$; layer~1 holds $64$, i.e.
+          $64/68\approx\mathbf{94\%}$.
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{One layer already captures $94\%$ of the matrix}
+    Big-$\sigma$ layers carry the most; the small tail is safe to drop.
+  \end{block}
+\end{frame}
+
+% STORAGE + ROAD AHEAD
+\begin{frame}[t, plain]
+  \burgundyheader{The payoff --- and the road ahead}
+  \sectionlabel[goldacc]{Payoff}
+  \begin{itemize}
+    \setlength{\itemsep}{6pt}
+    \item \textbf{Storage.} A $1000\times1000$ image $=10^6$ numbers. Each layer costs $1+1000+1000=2001$.
+          Keep $20$ layers: $\approx40{,}000$ numbers $\approx\mathbf{4\%}$ --- and it looks nearly identical.
+    \item \textbf{Why the biggest $\sigma$'s?} They carry the most energy ($\sigma^2$), so dropping the tail
+          loses the least. \emph{Every} matrix has this layered SVD, so every image compresses.
+  \end{itemize}
+  \vspace{2pt}
+  \begin{block}{The road ahead}
+    \textbf{7.3} principal component analysis (the same idea on \emph{data}) \;$\bullet$\; \textbf{7.4} the
+    victory of orthogonality.
+  \end{block}
 \end{frame}
 
 \end{document}

@@ -5,6 +5,9 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\T}{^{\top}}
 \newcommand{\UnitNumberName}{Unit 7: The Singular Value Decomposition \quad}
 \newcommand{\LessonNumberName}{Lesson 7.2: Compressing Images by the SVD}
 
@@ -16,55 +19,154 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can use the SVD to \emph{compress} a matrix. They build a rank-1
+    matrix as an outer product $\uu\vv\T$ (a column times a row), write a matrix as a sum of ordered rank-1
+    layers $A=\sigma_1\uu_1\vv_1\T+\sigma_2\uu_2\vv_2\T+\cdots$, and form the rank-$k$ approximation $A_k$ by
+    keeping only the biggest layers. They can justify --- using the ``energy'' $\sigma^2$ and the storage
+    count $1+m+n$ per layer --- why keeping the largest singular values gives the best low-storage copy of
+    an image.
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Build a rank-1 matrix as an outer product $\uu\vv\T$.
+  \item Write $A$ as a sum of rank-1 layers $\sigma_i\uu_i\vv_i\T$, biggest $\sigma$ first.
+  \item Form the rank-$k$ approximation $A_k$ by keeping the $k$ biggest layers.
+  \item Measure the energy kept ($\sigma^2$) and the storage saved ($1+m+n$ per layer).
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item A column times a row is the simplest nonzero matrix --- every column is a multiple of $\uu$.
+  \item Ordering by $\sigma$ means the first layers carry the most of $A$.
+  \item $A_k$ is the \emph{closest} rank-$k$ matrix to $A$ (Eckart--Young).
+  \item Total energy $=\sigma_1^2+\sigma_2^2+\cdots$; big-$\sigma$ layers hold most of it, so a few store a near-perfect copy.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Outer product $\uu\vv\T$} & A column times a row; the result is a matrix whose every column is a multiple of $\uu$ (a \textbf{rank-1} matrix). \\
+\textbf{Rank-1 layer $\sigma_i\uu_i\vv_i\T$} & One piece of the SVD --- a rank-1 outer product scaled by its singular value. \\
+\textbf{SVD as layers} & $A=\sigma_1\uu_1\vv_1\T+\sigma_2\uu_2\vv_2\T+\cdots+\sigma_r\uu_r\vv_r\T$, ordered biggest $\sigma$ first. \\
+\textbf{Rank-$k$ approximation $A_k$} & The sum of the first $k$ layers; the closest rank-$k$ matrix to $A$ (Eckart--Young). \\
+\textbf{Energy} & The total size $\sigma_1^2+\sigma_2^2+\cdots$ (also the sum of squares of the entries); a layer's share is $\sigma_i^2$. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up assembles the three pieces of today's idea on \emph{today's} matrix, so the Warm-Up answers
+    become the opening of the notes: \textbf{(1)} a \emph{column times a row} (Unit~1 matrix multiply) ---
+    the new outer-product object, with the observation that every column is a multiple of $\uu$;
+    \textbf{(2)} the \emph{singular values} of the symmetric matrix $A=\begin{bsmallmatrix} 5 & 3\\ 3 & 5 \end{bsmallmatrix}$
+    (Unit~6 / Lesson~7.1) --- because $A$ is symmetric and positive, $\sigma$'s equal the eigenvalues
+    $8,2$ and $\uu_i=\vv_i$; and \textbf{(3)} a \emph{sum of squares}, showing $\sigma_1^2+\sigma_2^2=68$
+    equals the sum of the squares of all four entries --- the ``energy'' that keeping big $\sigma$'s preserves.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Put up the number: a $1000\times1000$ grayscale photo is a matrix of \emph{one million} pixel values, and
+    storing them all is expensive. Remind them of Lesson~7.1's promise: the SVD splits any matrix into
+    \emph{ordered layers} $\sigma_1\uu_1\vv_1\T,\sigma_2\uu_2\vv_2\T,\dots$ Ask: \textbf{``If you could keep
+    only a handful of layers and throw the rest away, which would you keep --- and how much of the picture
+    would survive?''} That is exactly image compression: keep the biggest-$\sigma$ layers, drop the small
+    tail, and store a near-perfect copy in a fraction of the space. Today we build the layers and count the
+    savings.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{The one new move: an outer product.} A column $\uu$ times a row $\vv\T$ is a whole matrix
+$\uu\vv\T$, and every column of it is a multiple of $\uu$ --- the simplest nonzero matrix, called
+\textbf{rank-1}. It stores in just $m+n$ numbers, not $mn$. \emph{Pose:} ``is $\uu\vv\T$ a number or a
+matrix?'' (a matrix --- column times row, not row times column).
+
+\textbf{The SVD is a stack of layers.} Multiplying out $A=U\Sigma V\T$ regroups $A$ into one rank-1 layer
+per singular value: $A=\sigma_1\uu_1\vv_1\T+\sigma_2\uu_2\vv_2\T+\cdots$, biggest $\sigma$ first.
+
+\columnbreak
+
+\textbf{Worked spine $A=\begin{bsmallmatrix} 5 & 3\\ 3 & 5 \end{bsmallmatrix}$} ($\sigma_1=8,\sigma_2=2$;
+$\uu_i=\vv_i$ since symmetric): layer~1 $=8\cdot\tfrac12\begin{bsmallmatrix} 1 & 1\\ 1 & 1 \end{bsmallmatrix}=\begin{bsmallmatrix} 4 & 4\\ 4 & 4 \end{bsmallmatrix}$,
+layer~2 $=\begin{bsmallmatrix} 1 & -1\\ -1 & 1 \end{bsmallmatrix}$; they add back to $A$.
+
+\textbf{Compress: keep the biggest.} $A_1=\begin{bsmallmatrix} 4 & 4\\ 4 & 4 \end{bsmallmatrix}$ is off by
+only $\pm1$ and holds $\sigma_1^2/(\sigma_1^2+\sigma_2^2)=64/68\approx94\%$ of the energy. On a real image,
+$20$ layers store $\approx4\%$ of the numbers and look almost identical.
+\end{multicols}
+\end{skillbox}
+
+\begin{skillbox}[Explicit Instruction: Layer, Approximate, Count]{blush}
+\begin{tabularx}{\linewidth}{@{}p{0.46\linewidth} X@{}}
+\textbf{Steps.}
+\begin{enumerate}[leftmargin=1.3em, nosep, after=\vspace{2pt}]
+  \item Outer product: $\uu\vv\T$ (column times row) --- a rank-1 matrix.
+  \item Layer: scale by $\sigma$ to get $\sigma\uu\vv\T$.
+  \item Sum the layers to rebuild $A$ (biggest $\sigma$ first).
+  \item Keep the first $k$ layers: $A_k$ (best rank-$k$ approximation).
+  \item Count: energy kept $=\tfrac{\sigma_1^2+\cdots+\sigma_k^2}{\sigma_1^2+\cdots}$; storage $=k(1+m+n)$.
+\end{enumerate}
+&
+\textbf{Worked} ($A=\begin{bsmallmatrix} 5 & 3\\ 3 & 5 \end{bsmallmatrix}$, $\sigma=8,2$).
+$A_1=8\cdot\tfrac12\begin{bsmallmatrix} 1 & 1\\ 1 & 1 \end{bsmallmatrix}=\begin{bsmallmatrix} 4 & 4\\ 4 & 4 \end{bsmallmatrix}$;
+dropped layer $\begin{bsmallmatrix} 1 & -1\\ -1 & 1 \end{bsmallmatrix}$.
+Energy kept $=64/68\approx94\%$. For a $1000\times1000$ image, $20$ layers $=20(2001)\approx40{,}000$
+numbers $\approx4\%$.
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item computing an \emph{inner} product (row $\times$ column $=$ a number) instead of the \emph{outer} product (column $\times$ row $=$ a matrix);
+  \item dropping the $\tfrac1{\sqrt2}\cdot\tfrac1{\sqrt2}=\tfrac12$ when scaling a layer (giving entries twice too big);
+  \item forgetting to \emph{square} the singular values when computing the energy fraction;
+  \item confusing ``rank-$k$'' (number of layers kept) with the size of the matrix.
+\end{itemize}
+Cold-call prompts: ``Is $\uu\vv\T$ a number or a matrix?'' ``Which layer carries the most --- how do you know?''
+``What fraction of the energy does $A_1$ keep?'' ``How many numbers does one rank-1 layer cost?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Compressing with rank-1 layers} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Build an outer product $\uu\vv\T$ and confirm it is rank~1; then scale one
+into a layer $\sigma\uu\vv\T$ (warms up the Tier~A matrix).
+
+\columnbreak
+\textbf{Tier A --- Approaching.} Full compression of $B=\begin{bsmallmatrix} 4 & 2\\ 2 & 4 \end{bsmallmatrix}$:
+build both layers, add them to recover $B$, form $B_1$, and judge it (keeps $36/40=90\%$ --- the best
+rank-1 copy).
+
+\columnbreak
+\textbf{Tier E --- Extension.} The storage payoff: for a $600\times800$ photo, count full vs.\ rank-20
+storage ($\approx5.8\%$) and \emph{justify} why the largest-$\sigma$ layers are the ones to keep (energy $\sigma^2$).
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): from a given $A=\begin{bsmallmatrix} 6 & 4\\ 4 & 6 \end{bsmallmatrix}$
+with $\sigma=10,2$ and $\uu_i=\vv_i$, build the rank-1 approximation $A_1=\begin{bsmallmatrix} 5 & 5\\ 5 & 5 \end{bsmallmatrix}$;
+compute the energy fraction it keeps ($100/104\approx96\%$) and judge whether it is a good copy; and a
+\textbf{conceptual/justification check} --- why keep the largest singular values, and how does that save
+storage? Collect and sort into ``got it / arithmetic slip / concept slip'' to decide whether 7.3 opens
+with a re-cap.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} outer products and their rank; a full two-layer decomposition of
+$\begin{bsmallmatrix} 7 & 5\\ 5 & 7 \end{bsmallmatrix}$ with the rank-1 energy fraction ($144/148\approx97\%$);
+a storage count on a $500\times500$ image ($\approx8\%$ for $20$ layers); justifications (keep biggest
+$\sigma$; a layer costs $1+m+n$); and the $\sigma_2=0$ rank-1 case (one layer is exact).
+\textbf{Extension:} a $\sigma$-spectrum ($10,6,3,1$) --- cumulative energy percentages and choosing the
+smallest $k$ for $99\%$. \textbf{Preview:} Lesson~7.3, \emph{Principal Component Analysis} --- the same
+``keep the biggest $\sigma$'' idea applied to data instead of pixels.
 \end{skillbox}
 \end{document}

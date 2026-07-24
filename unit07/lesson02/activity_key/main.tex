@@ -3,17 +3,74 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.2}{Group Activity --- Answer Key}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: copy the blank Group Activity verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Group Activity --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Compressing with rank-1 layers.} The SVD writes $A=\sigma_1\uu_1\vv_1\T+\sigma_2\uu_2\vv_2\T+\cdots$,
+biggest $\sigma$ first. Each layer $\uu\vv\T$ is a column times a row. To \emph{compress}, keep the first
+$k$ layers: $A_k=\sigma_1\uu_1\vv_1\T+\cdots+\sigma_k\uu_k\vv_k\T$. Work with your partner, show every step,
+and \emph{justify} each answer.
+\end{headlinebox}
+
+\vspace{0.08in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Warm up the two moves: build an outer product, then scale one into a layer.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Outer product.} Compute $\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}\begin{bsmallmatrix} 1 & 3 \end{bsmallmatrix}=\ans{$\begin{bsmallmatrix} 2 & 6\\ 1 & 3 \end{bsmallmatrix}$}$. Is every column a multiple of $\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$? What is the rank of this matrix? \ansline{Yes --- column~2 is $3\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$. Rank~$1$.}
+  \item \textbf{Build a layer.} A matrix has $\sigma_1=6$ with $\uu_1=\vv_1=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$. Build its first layer $\sigma_1\uu_1\vv_1\T=6\cdot\tfrac12\begin{bsmallmatrix} 1 & 1\\ 1 & 1 \end{bsmallmatrix}=\ans{$\begin{bsmallmatrix} 3 & 3\\ 3 & 3 \end{bsmallmatrix}$}$. (You will meet this matrix again in Tier~A.) \ansline{$6\cdot\tfrac12=3$, so every entry is $3$.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Compress the symmetric matrix $B=\begin{bsmallmatrix} 4 & 2\\ 2 & 4 \end{bsmallmatrix}$. Its SVD gives
+$\sigma_1=6,\ \sigma_2=2$ with $\uu_1=\vv_1=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$ and
+$\uu_2=\vv_2=\tfrac1{\sqrt2}\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}$ ($B$ is symmetric, so $\uu_i=\vv_i$).
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Both layers.} Build $\sigma_1\uu_1\vv_1\T$ and $\sigma_2\uu_2\vv_2\T$, and check that they add up to $B$.
+        \ansline{$\sigma_1\uu_1\vv_1\T=6\cdot\tfrac12\begin{bsmallmatrix} 1 & 1\\ 1 & 1 \end{bsmallmatrix}=\begin{bsmallmatrix} 3 & 3\\ 3 & 3 \end{bsmallmatrix}$; $\sigma_2\uu_2\vv_2\T=2\cdot\tfrac12\begin{bsmallmatrix} 1 & -1\\ -1 & 1 \end{bsmallmatrix}=\begin{bsmallmatrix} 1 & -1\\ -1 & 1 \end{bsmallmatrix}$. Sum $=\begin{bsmallmatrix} 4 & 2\\ 2 & 4 \end{bsmallmatrix}=B$.}
+  \item \textbf{Rank-1 approximation.} Write $B_1=\sigma_1\uu_1\vv_1\T$. By how much does each entry of $B_1$ differ from $B$?
+        \ansline{$B_1=\begin{bsmallmatrix} 3 & 3\\ 3 & 3 \end{bsmallmatrix}$; each entry differs from $B$ by exactly $1$ (the dropped layer $\pm1$).}
+  \item \textbf{How good is it? (justify)} The total energy is $\sigma_1^2+\sigma_2^2$. What fraction does $B_1$ keep? Is a rank-1 copy a good approximation of $B$ here --- why or why not?
+        \ansline{$\sigma_1^2+\sigma_2^2=36+4=40$; $B_1$ keeps $36/40=90\%$. Reasonably good --- one layer already holds $90\%$ of the energy, and it is the \emph{best} possible rank-1 copy (Eckart--Young).}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{The real payoff: storage.} A grayscale photo is a matrix of pixel values. Consider a
+$600\times800$ photo.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Full storage.} How many numbers does the whole matrix hold? \ans{$600\times800=480{,}000$.}
+  \item \textbf{Compressed storage.} Each rank-1 layer needs $1+600+800$ numbers ($\sigma$, then $\uu$, then $\vv$). How many numbers to keep the $20$ biggest layers? What percent of the full image is that?
+        \ansline{$20\times(1+600+800)=20\times1401=28{,}020$ numbers, which is $28{,}020/480{,}000\approx5.8\%$ of the full image.}
+  \item \textbf{Justify.} Explain why we keep the layers with the \emph{largest} singular values rather than any other $20$ layers. (Hint: what does $\sigma^2$ measure?)
+        \ansline{$\sigma^2$ measures how much ``energy'' a layer contributes to $A$ (the energies sum to the total size of $A$). The largest $\sigma$'s carry the most, so keeping them loses the least --- $A_{20}$ is the \emph{best} rank-20 approximation. Any other $20$ layers would keep less of the picture.}
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{teachernote}
+Tier~R isolates the two mechanics: the outer product (column $\times$ row $=$ matrix, rank~1) and scaling
+one into a layer; item~2 deliberately builds layer~1 of the Tier~A matrix. Tier~A is the heart --- decompose
+$B=\begin{bsmallmatrix} 4 & 2\\ 2 & 4 \end{bsmallmatrix}$ into two layers, form the rank-1 approximation
+$B_1=\begin{bsmallmatrix} 3 & 3\\ 3 & 3 \end{bsmallmatrix}$, and judge it ($90\%$ of the energy, best
+possible rank-1). Tier~E is the motivation: on a real $600\times800$ image, $20$ layers store $\approx5.8\%$
+of the numbers, and $\sigma^2$ (energy) is \emph{why} the biggest layers are the ones to keep. If time is
+short, Tier~A is the must-do. Watch for row$\times$column (inner product $=$ a number) instead of
+column$\times$row (outer product $=$ a matrix), and for the missing $\tfrac12$ when scaling a layer.
+\end{teachernote}
 
 \end{document}

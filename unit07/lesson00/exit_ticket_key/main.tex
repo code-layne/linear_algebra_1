@@ -3,6 +3,7 @@
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\ee}{\mathbf{e}}
 
 \begin{document}
 
@@ -11,9 +12,28 @@
 
 \vspace{0.15in}
 
-% TODO: copy the blank Exit Ticket verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Exit Ticket --- Key}
-\ansline{TODO: answer}
-\end{notesbox}
+No notes. Show your reasoning.
+
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+  \item \textbf{Read the ellipse.} A diagonal matrix $D=\begin{bmatrix} 4 & 0 \\ 0 & 3 \end{bmatrix}$
+        turns the unit circle into an ellipse. What are its two half-widths, and what are the singular
+        values $\sigma_1,\sigma_2$ (larger first)?
+        \ansline{Half-widths $4$ (along the $x$-axis) and $3$ (along the $y$-axis), so $\sigma_1=4$ and $\sigma_2=3$.}
+  \item \textbf{Perpendicular in, perpendicular out.} For $S=\begin{bmatrix} 0 & 3 \\ 2 & 0 \end{bmatrix}$,
+        compute $S\ee_1$ and $S\ee_2$. Are the two outputs perpendicular? Give the singular values
+        $\sigma_1,\sigma_2$.
+        \ansline{$S\ee_1=\begin{bsmallmatrix} 0\\2 \end{bsmallmatrix}$ (length $2$), $S\ee_2=\begin{bsmallmatrix} 3\\0 \end{bsmallmatrix}$ (length $3$); dot $=0$, so yes, perpendicular. $\sigma_1=3$, $\sigma_2=2$.}
+  \item \textbf{Explain.} In one sentence, what does a \emph{singular value} of a matrix tell you
+        \emph{geometrically}?
+        \ansline{It is a half-width (semi-axis length) of the ellipse the unit circle is stretched into --- how far the matrix stretches along one of its perpendicular singular directions.}
+\end{enumerate}
+
+\begin{teachernote}
+Sort responses into ``got it / arithmetic slip / concept slip.'' Item~1 is the clean read-off from a
+diagonal matrix ($\sigma_1=4,\sigma_2=3$). Item~2 checks the perpendicular-in/perpendicular-out idea and
+the ordering convention on a non-diagonal (swap) matrix. Item~3 is the target sentence: a singular value
+is a stretch factor / semi-axis length of the ellipse. If many stumble on item~3, open Lesson~7.1 with a
+30-second ``circle $\to$ ellipse, singular values are the half-widths'' re-cap.
+\end{teachernote}
 
 \end{document}

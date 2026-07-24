@@ -16,7 +16,7 @@
 
 \begin{center}
   {\color{white}\textbf{\LARGE Linear Algebra}}\\[4pt]
-  {\color{blushmid}\large\textbf{Unit 7}}\\[6pt]
+  {\color{blushmid}\large\textbf{Unit 7 \quad The Singular Value Decomposition}}\\[6pt]
   {\color{white}\textbf{\large Lesson 7.0 \quad Setting Up the SVD}}
 \end{center}
 
@@ -27,8 +27,9 @@
 \begin{learningtargetbox}
 \small
 \begin{enumerate}[leftmargin=1.5em, itemsep=5pt]
-  \item \ldots{} TODO: learning target 1 (restate a Learning Objective as "I can ...").
-  \item \ldots{} TODO: learning target 2.
+  \item \ldots{} explain that a matrix stretches the \textbf{unit circle} into an \textbf{ellipse}, whose half-widths are the \textbf{singular values} $\sigma_1\ge\sigma_2\ge0$.
+  \item \ldots{} find a perpendicular input pair $\mathbf{v}_1,\mathbf{v}_2$ sent to a perpendicular output pair with $A\mathbf{v}_i=\sigma_i\mathbf{u}_i$, and read the singular values.
+  \item \ldots{} state the \textbf{SVD} $A=U\Sigma V^{\top}$ and explain why \emph{every} matrix has one.
 \end{enumerate}
 \end{learningtargetbox}
 
@@ -41,13 +42,26 @@
 \rowcolor{blush}
 \textbf{\#} & \textbf{Component} & \textbf{Description} & \textbf{Score} \\
 \midrule
-1 & Warm-Up      & TODO & \blank{1.2cm} \\
-2 & Group Activity & TODO & \blank{1.2cm} \\
-3 & Exit Ticket  & TODO & \blank{1.2cm} \\
-4 & Homework     & TODO & \blank{1.2cm} \\
+1 & Warm-Up        & Spiral review: matrix $\times$ vector, the perpendicular (dot-product) test, length \& unit vectors & \blank{1.2cm} \\
+2 & Guided Notes   & The unit circle $\to$ ellipse; singular values $\sigma_i$; $A\mathbf{v}_i=\sigma_i\mathbf{u}_i$; $A=U\Sigma V^{\top}$ & \blank{1.2cm} \\
+3 & Group Activity & Reading singular values off diagonal, swap, and symmetric matrices                      & \blank{1.2cm} \\
+4 & Exit Ticket    & Quick check: read the ellipse, perpendicular in/out, and justify the idea               & \blank{1.2cm} \\
+5 & Homework       & Reading $\sigma$'s, input vs.\ output frames, the $A^{\top}A$ preview, and a look ahead    & \blank{1.2cm} \\
 \midrule
   & \multicolumn{2}{r}{\textbf{Total}} & \blank{1.2cm} \\
 \end{tabularx}
 \end{tocbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small A matrix stretches the \textbf{unit circle} into an \textbf{ellipse}. The half-widths of that
+ellipse are the \textbf{singular values} $\sigma_1\ge\sigma_2\ge0$ --- the stretch factors --- and there
+is always a perpendicular pair of input directions $\mathbf{v}_1,\mathbf{v}_2$ sent to a perpendicular
+pair of output directions $\mathbf{u}_1,\mathbf{u}_2$, with $A\mathbf{v}_i=\sigma_i\mathbf{u}_i$.
+Collecting these gives the \textbf{Singular Value Decomposition} $A=U\Sigma V^{\top}$: rotate, stretch,
+rotate. Unlike eigenvectors, \emph{every} matrix --- of any shape --- has one, and the singular values
+are always real and never negative. This is the tool behind image compression and data science.
+\end{remindbox}
 
 \end{document}

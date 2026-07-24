@@ -3,17 +3,72 @@
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 
 \begin{document}
 
 \pageheader{Unit 7, Lesson 7.0}{Group Activity}
 \namepartnerperiod
 
-\vspace{0.15in}
+\vspace{0.10in}
 
-% TODO: author the Group Activity. See references/components.md for the expected structure.
-\begin{notesbox}{Group Activity}
-\writelines{4}
-\end{notesbox}
+\begin{headlinebox}{blush}
+\small\textbf{Stretching the Unit Circle into an Ellipse.} A matrix turns the unit circle into an
+\textbf{ellipse}. The \textbf{singular values} $\sigma_1\ge\sigma_2\ge0$ are the ellipse's half-widths
+(stretch factors); a perpendicular input pair $\vv_1,\vv_2$ is sent to a perpendicular output pair with
+$A\vv_i=\sigma_i\uu_i$. Work with your partner, show every $A\vv$, and \emph{justify} each answer.
+\end{headlinebox}
+
+\vspace{0.10in}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Diagonal matrices just stretch the axes. Compute the outputs and read the singular values.
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item For $A=\begin{bsmallmatrix} 3 & 0\\ 0 & 1 \end{bsmallmatrix}$, compute
+        $A\begin{bsmallmatrix} 1\\ 0 \end{bsmallmatrix}=\blank{1.6cm}$ and
+        $A\begin{bsmallmatrix} 0\\ 1 \end{bsmallmatrix}=\blank{1.6cm}$. The unit circle becomes an
+        ellipse with half-widths \blank{1.0cm} and \blank{1.0cm}, so $\sigma_1=\blank{0.9cm}$,
+        $\sigma_2=\blank{0.9cm}$.
+  \item \textbf{Order matters.} For $A=\begin{bsmallmatrix} 2 & 0\\ 0 & 4 \end{bsmallmatrix}$, compute
+        $A\ee_1$ and $A\ee_2$. Which axis stretches more? We always list the \emph{larger} singular
+        value first: $\sigma_1=\blank{0.9cm}$, $\sigma_2=\blank{0.9cm}$. \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+Now tilt the ellipse: perpendicular in, perpendicular out.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item \textbf{Input frame $\ne$ output frame.} For $S=\begin{bsmallmatrix} 0 & 1\\ 4 & 0 \end{bsmallmatrix}$,
+        compute $S\ee_1$ and $S\ee_2$. Check the two outputs are perpendicular, then give
+        $\sigma_1,\sigma_2$ (larger first). Which input direction gives $\sigma_1$, and what is its
+        output direction $\uu_1$? \writelines{2}
+  \item \textbf{A symmetric matrix (recall Unit~6).} For $A=\begin{bsmallmatrix} 5 & 2\\ 2 & 5 \end{bsmallmatrix}$,
+        the perpendicular directions $\vv_1=\begin{bsmallmatrix} 1\\ 1 \end{bsmallmatrix}$ and
+        $\vv_2=\begin{bsmallmatrix} 1\\ -1 \end{bsmallmatrix}$ are eigenvectors. Compute $A\vv_1$ and
+        $A\vv_2$, and use them to read $\sigma_1$ and $\sigma_2$. \writelines{2}
+  \item \textbf{Perpendicular out.} For the same $A$, verify $(A\vv_1)\cdot(A\vv_2)=0$ --- the output
+        pair is perpendicular, just like the input pair. \writeline
+\end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
+    fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
+\textbf{A first look at \emph{finding} singular values (Lesson~7.1).} So far the singular vectors were
+handed to you. Here is how the $\sigma$'s come from the matrix alone: the singular values are
+$\sigma=\sqrt{\lambda}$, where $\lambda$ are the eigenvalues of the symmetric matrix $A\T A$. Use the
+notes matrix $A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$.
+\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+  \item Compute $A\T A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$ (here $A\T=A$ since $A$ is symmetric). \writelines{2}
+  \item Find the eigenvalues $\lambda$ of $A\T A$ from $\det(A\T A-\lambda I)=0$. \writelines{2}
+  \item Take $\sigma=\sqrt{\lambda}$ for each. Do your singular values match the $\sigma_1=3,\ \sigma_2=1$
+        from the notes? \writeline
+\end{enumerate}
+\end{tcolorbox}
 
 \end{document}

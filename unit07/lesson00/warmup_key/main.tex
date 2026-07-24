@@ -9,11 +9,41 @@
 \pageheader{Unit 7, Lesson 7.0}{Warm-Up --- Answer Key}
 \namedateperiod
 
-\vspace{0.15in}
+\vspace{0.12in}
 
-% TODO: copy the blank Warm-Up verbatim, then fill blanks with \ans{} / \ansline{}.
-\begin{notesbox}{Warm-Up --- Key}
-\ansline{TODO: answer}
+\begin{notesbox}{Getting Ready: Ideas We'll Use Today}
+\small These three ideas from Units~1 and~4 set up today's picture of the SVD. Answer quickly.
+
+\vspace{4pt}
+\textbf{1. Matrix times a vector (Unit 1).} Compute $A\mathbf{v}$ for
+$A=\begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$ and $\mathbf{v}=\begin{bmatrix} 1 \\ 1 \end{bmatrix}$:
+\[
+  A\mathbf{v}=\begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}\begin{bmatrix} 1 \\ 1 \end{bmatrix}
+  = \begin{bmatrix}{\color{keyred}\mathbf{3}}\\[2pt]{\color{keyred}\mathbf{3}}\end{bmatrix}.
+\]
+
+\vspace{4pt}
+\textbf{2. Perpendicular vectors (Unit 4).} Two vectors are \emph{perpendicular} when their dot
+product is $0$. Are $\begin{bmatrix} 1 \\ 1 \end{bmatrix}$ and $\begin{bmatrix} 1 \\ -1 \end{bmatrix}$
+perpendicular?
+\[
+  \begin{bmatrix} 1 \\ 1 \end{bmatrix}\cdot\begin{bmatrix} 1 \\ -1 \end{bmatrix}
+  = (1)(1)+(1)(-1) = {\color{keyred}\mathbf{0}}\quad\Rightarrow\quad \text{perpendicular? }\ans{yes}
+\]
+
+\vspace{4pt}
+\textbf{3. Length and unit vectors (Unit 4).} The length of $\begin{bmatrix} 1 \\ 1 \end{bmatrix}$ is
+$\sqrt{1^2+1^2}={\color{keyred}\mathbf{\sqrt{2}}}$. To make it a \emph{unit} vector (length $1$), divide by its length:
+\[
+  \frac{1}{{\color{keyred}\mathbf{\sqrt{2}}}}\begin{bmatrix} 1 \\ 1 \end{bmatrix}.
+\]
 \end{notesbox}
+
+\begin{teachernote}
+All three skills reappear today. Item~1 is a matrix stretching a vector (the $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$
+direction goes to $\begin{bsmallmatrix}3\\3\end{bsmallmatrix}$ --- three times as long). Items~2--3 are the
+Unit~4 tools we need to describe the SVD's \emph{perpendicular} input and output directions and to
+report them as \emph{unit} vectors. Debrief item~2 aloud: a dot product of $0$ means a right angle.
+\end{teachernote}
 
 \end{document}

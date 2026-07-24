@@ -5,6 +5,12 @@
 \usepackage{graphicx}   % -article does NOT load graphicx; needed for thumbnails/screenshots
 \graphicspath{{images/}}
 \newcommand{\TallMath}[1]{$\displaystyle #1\rule[-1.4em]{0pt}{3.2em}$}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\T}{^{\top}}
 \newcommand{\UnitNumberName}{Unit 7: The Singular Value Decomposition \quad}
 \newcommand{\LessonNumberName}{Lesson 7.0: Setting Up the SVD}
 
@@ -16,55 +22,163 @@
 
 \begin{tcolorbox}[colback=blush, colframe=burgundy, boxrule=0.9pt, arc=2mm,
     left=2mm, right=2mm, top=1.5mm, bottom=1.5mm]
-    \textbf{Primary Objective:} TODO --- restate the lesson aim in student terms
-    % (what students can do, interpret, and justify with this topic).
+    \textbf{Primary Objective:} Students can describe what a matrix does to the \emph{unit circle}:
+    it stretches it into an \emph{ellipse} whose two half-widths are the \emph{singular values}
+    $\sigma_1\ge\sigma_2\ge0$. They can find a perpendicular pair of input directions $\vv_1,\vv_2$
+    that a matrix sends to a perpendicular pair of output directions $\uu_1,\uu_2$, satisfying
+    $A\vv_i=\sigma_i\uu_i$, and read off the singular values as the output lengths. They can name the
+    \emph{Singular Value Decomposition} $A=U\Sigma V\T$ (rotate--stretch--rotate) and explain \emph{why}
+    it matters --- \emph{every} matrix (of any shape) has one and the singular values are always real and
+    nonnegative, unlike eigenvectors (Unit~6). They can describe where Unit~7 is going: \emph{finding}
+    the singular values/vectors from $A\T A$ (7.1), compressing images (7.2), principal component analysis
+    (7.3), and the victory of orthogonality (7.4).
 \end{tcolorbox}
 
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.4}
 \begin{skillbox}[Priority Ideas \& Skills]{goldbox}
-    % TODO: left minipage = priority ideas/skills for this topic;
-    %       right minipage = Key Understandings (the "why", in conceptual/geometric terms).
+\begin{tabularx}{\linewidth}{@{}X|X@{}}
+\textbf{Priority Ideas \& Skills} & \textbf{Key Understandings (the ``why'')} \\[2pt]
+\hline
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item A matrix maps the \textbf{unit circle} to an \textbf{ellipse}; read the \textbf{singular values} as its half-widths.
+  \item State $A\vv_i=\sigma_i\uu_i$: a perpendicular input pair $\to$ a perpendicular output pair.
+  \item Read $\sigma_1\ge\sigma_2\ge0$ off diagonal, swap, and symmetric matrices.
+  \item Name the SVD $A=U\Sigma V\T$ and why every matrix has one.
+\end{itemize}
+&
+\vspace{-6pt}
+\begin{itemize}[leftmargin=1.1em, nosep, after=\vspace{2pt}]
+  \item Singular values measure \emph{how far} a matrix stretches the circle into an oval.
+  \item ``Perpendicular in, perpendicular out'' works for \emph{any} matrix --- not just symmetric ones.
+  \item Singular values are \emph{lengths}: always real, never negative (unlike eigenvalues).
+  \item The SVD splits any matrix into rotate--stretch--rotate; it drives compression \& data science.
+\end{itemize}
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[{Vocabulary, Concepts, \& Theorems}]{greenbox}
-    % TODO: key terms + definitions for this lesson.
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\textbf{Singular value $\sigma$} & A half-width (semi-axis length) of the ellipse the unit circle maps to; the factor $\ge0$ a singular direction is stretched by. \\
+\textbf{Input singular vectors $\vv_i$} & A perpendicular set of \emph{input} directions ($\vv_1\perp\vv_2$), the right singular vectors. \\
+\textbf{Output singular vectors $\uu_i$} & The perpendicular \emph{output} directions ($\uu_1\perp\uu_2$) --- the ellipse's axes, the left singular vectors. \\
+\textbf{The relation $A\vv_i=\sigma_i\uu_i$} & $A$ sends input direction $\vv_i$ to $\sigma_i$ times output direction $\uu_i$: perpendicular in, perpendicular out. \\
+\textbf{Singular Value Decomposition} & $A=U\Sigma V\T$: columns of $V,U$ are the (orthonormal) input/output singular vectors; $\Sigma$ is diagonal with the $\sigma$'s. \\
+\textbf{Finding $\sigma$} (preview 7.1) & $\sigma=\sqrt{\lambda}$ for the eigenvalues $\lambda$ of the symmetric matrix $A\T A$. \\
+\end{tabularx}
 \end{skillbox}
 
 \begin{fixedskillbox}[Activate Prior Knowledge \& Spiral Review]{blush}
-    \begin{tabularx}{\linewidth}{@{}X c@{}}
-        \begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-            Please see attached spiral review.  % TODO: list skills reviewed
-        \end{minipage}
-        &
-        \begin{minipage}[t]{0.38\linewidth}\vspace{0pt}\centering
-            % TODO: spiral-review thumbnail. Authored warm-ups compile to
-            % target/, so leave this text-only unless you keep a source
-            % PDF in the warmup/ directory to embed.
-        \end{minipage}
-    \end{tabularx}
+    The Warm-Up rehearses the three ideas this lesson builds on:
+    \textbf{(1)} computing a \emph{matrix times a vector} $A\vv$ (Unit~1) --- a matrix stretching a
+    direction; \textbf{(2)} the \emph{dot-product perpendicular test} (Unit~4) --- $\vv\cdot\ww=0$ means a
+    right angle, the tool for ``perpendicular in, perpendicular out''; and \textbf{(3)} the \emph{length}
+    of a vector and \emph{normalizing} to a unit vector (Unit~4) --- singular vectors are reported as unit
+    vectors. Debrief item~2 aloud: a dot product of $0$ is exactly the right-angle condition the SVD needs.
 \end{fixedskillbox}
 
 \begin{skillbox}[Hook]{blush}
-    % TODO: the engaging entry question / scenario.
+    Show a matrix acting on the plane (Lesson~5.3), then focus on the \textbf{unit circle} --- all vectors
+    of length~$1$. Ask: \textbf{``What shape does the circle become after we multiply every point by a
+    matrix?''} Answer: an \emph{ellipse}. Name the payoff question of Unit~7: \textbf{``How far does the
+    circle stretch, and in which perpendicular directions?''} Those stretch amounts are the
+    \emph{singular values}; the perpendicular input/output directions are the \emph{singular vectors}. They
+    run all of Unit~7 --- finding them (7.1), image compression (7.2), PCA (7.3), and the victory of
+    orthogonality (7.4). Tie back to Unit~6: eigenvectors kept a direction \emph{fixed}; singular vectors
+    send one perpendicular frame to \emph{another}, and they exist for \emph{every} matrix.
 \end{skillbox}
 
 \begin{skillbox}[Lesson]{blush}
-    % TODO: instructional walkthrough. Use \begin{multicols}{2} for density.
+\begin{multicols}{2}
+\textbf{1. Circle $\to$ ellipse.} Multiplying every unit vector by a matrix turns the unit circle into an
+ellipse. For a diagonal $D=\begin{bsmallmatrix} 3 & 0\\ 0 & 2 \end{bsmallmatrix}$, the axes stretch to
+lengths $3$ and $2$: the \textbf{singular values} $\sigma_1=3,\ \sigma_2=2$ (larger first).
+
+\textbf{2. Perpendicular in $\to$ perpendicular out.} The key fact: every matrix has unit vectors
+$\vv_1\perp\vv_2$ and $\uu_1\perp\uu_2$ with $A\vv_i=\sigma_i\uu_i$. On the Unit~6 matrix
+$A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$: $A\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}=
+3\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$ and $A\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}=
+1\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}$, so $\sigma_1=3,\ \sigma_2=1$; the ellipse is tilted $45^\circ$.
+
+\columnbreak
+
+\textbf{3. Input and output frames can differ.} For the swap $S=\begin{bsmallmatrix} 0 & 2\\ 1 & 0
+\end{bsmallmatrix}$, $S\ee_1=\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}$, $S\ee_2=\begin{bsmallmatrix} 2\\0
+\end{bsmallmatrix}$ --- perpendicular out, $\sigma_1=2,\ \sigma_2=1$, and the largest input $\vv_1=\ee_2$ is
+sent to a \emph{different} output $\uu_1=\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}$.
+
+\textbf{4. The SVD + why it matters.} Collect the pieces into $A=U\Sigma V\T$ (rotate--stretch--rotate).
+It exists for \emph{every} matrix and $\sigma\ge0$ always --- unlike eigenvectors. \textbf{Finding them}
+(7.1): $\sigma=\sqrt{\lambda}$ from the eigenvalues of $A\T A$. \textbf{Road ahead:} \textbf{7.1} finding
+$\sigma$; \textbf{7.2} image compression; \textbf{7.3} PCA; \textbf{7.4} the victory of orthogonality.
+\end{multicols}
+\end{skillbox}
+
+\begin{skillbox}[Explicit Instruction: Reading Singular Values Off a Matrix]{blush}
+\begin{tabularx}{\linewidth}{@{}p{0.46\linewidth} X@{}}
+\textbf{Steps (the read-off).}
+\begin{enumerate}[leftmargin=1.3em, nosep, after=\vspace{2pt}]
+  \item Pick a perpendicular input pair (the axes $\ee_1,\ee_2$, or given eigenvectors).
+  \item Compute each output $A\vv_i$.
+  \item Check the outputs are perpendicular: $(A\vv_1)\cdot(A\vv_2)=0$.
+  \item The output \emph{lengths} are the singular values --- list the larger first ($\sigma_1\ge\sigma_2$).
+  \item The output \emph{directions} $\uu_i=A\vv_i/\sigma_i$ are the output singular vectors.
+\end{enumerate}
+&
+\textbf{Worked example} ($A=\begin{bsmallmatrix} 2 & 1\\ 1 & 2 \end{bsmallmatrix}$).
+Inputs $\vv_1=\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$, $\vv_2=\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}$
+($\vv_1\cdot\vv_2=0$). Outputs $A\vv_1=\begin{bsmallmatrix} 3\\3 \end{bsmallmatrix}$,
+$A\vv_2=\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}$; $(A\vv_1)\cdot(A\vv_2)=0$. Lengths (over $|\vv_i|$):
+$\sigma_1=3,\ \sigma_2=1$. As unit vectors, divide by $\sqrt2$. (\textbf{7.1 preview:} these same
+$\sigma$'s are $\sqrt{9},\sqrt{1}$ from the eigenvalues of $A\T A=\begin{bsmallmatrix} 5 & 4\\ 4 & 5 \end{bsmallmatrix}$.)
+\end{tabularx}
 \end{skillbox}
 
 \begin{skillbox}[Active Monitoring]{redbox}
-    % TODO: what to circulate and check for; cold-call prompts.
+Circulate during the notes practice and Tier work. Watch for and correct:
+\begin{itemize}[leftmargin=1.2em, nosep]
+  \item arithmetic slips in $A\vv$ (row $\cdot$ vector) --- every read-off depends on the product;
+  \item forgetting the ordering convention $\sigma_1\ge\sigma_2$ (list the \emph{larger} stretch first);
+  \item reporting a singular value as \emph{negative} --- a singular value is a length, always $\ge0$;
+  \item conflating the input direction $\vv_i$ with the output direction $\uu_i$ (they differ in general).
+\end{itemize}
+Cold-call prompts: ``What shape does the unit circle become?'' ``Which output is longer --- so which is
+$\sigma_1$?'' ``Are the two outputs perpendicular?'' ``Is $\uu_1$ the same as $\vv_1$ here?''
 \end{skillbox}
 
 \begin{skillbox}[Group Work \& Differentiation]{redbox}
-    % TODO: Tier R / Tier A / Tier E (mirror activity/).
+\textbf{Stretching the Unit Circle into an Ellipse} activity (tiered; mirrors the notes).
+\begin{multicols}{3}
+\textbf{Tier R --- Remediate.} Diagonal matrices: compute $A\ee_1,A\ee_2$, describe the ellipse, read
+$\sigma_1,\sigma_2$, and practice the ordering convention (larger first).
+
+\columnbreak
+\textbf{Tier A --- Approaching.} A swap matrix showing input frame $\ne$ output frame; then a symmetric
+matrix (Unit~6) whose perpendicular eigenvectors \emph{are} the singular vectors and whose positive
+eigenvalues \emph{are} the singular values; confirm ``perpendicular out.''
+
+\columnbreak
+\textbf{Tier E --- Extension.} \emph{First look at finding singular values:} compute $A\T A$, find its
+eigenvalues, and take $\sigma=\sqrt{\lambda}$ --- recovering the notes' $\sigma=3,1$. This is the
+Lesson~7.1 method.
+\end{multicols}
 \end{skillbox}
 
 \begin{skillbox}[Individual Work \& Assessment]{redbox}
-    % TODO: exit-ticket summary + assessment note (mirror exit_ticket/).
+\textbf{Exit Ticket} (independent, no notes): read the singular values off a diagonal matrix (describe
+the ellipse); compute $S\ee_1,S\ee_2$ for a swap matrix, check ``perpendicular out,'' and give
+$\sigma_1,\sigma_2$; and a \textbf{conceptual/justification check} --- state in one sentence what a
+singular value tells you geometrically. Collect and sort into ``got it / arithmetic slip / concept slip''
+to decide whether 7.1 opens with a quick ``circle $\to$ ellipse'' re-cap.
 \end{skillbox}
 
 \begin{skillbox}[Reinforcement \& Extension]{goldbox}
-    % TODO: homework overview + extension + preview of next lesson (mirror homework/).
+\textbf{Homework:} read $\sigma$'s off diagonal matrices (incl.\ the ordering and the circle-stays-a-circle
+case); a swap matrix separating input vs.\ output frames; a symmetric matrix tying singular values to
+Unit~6 eigenvalues; and short justifications ($\sigma\ge0$ as a length; why every matrix has an SVD).
+\textbf{Extension:} compute $A\T A$ and take $\sigma=\sqrt{\lambda}$ --- a first taste of Lesson~7.1.
+\textbf{Preview:} Lesson~7.1, \emph{Singular Values and Singular Vectors} --- how to \emph{find} the
+$\sigma$'s and singular vectors for \emph{any} matrix from $A\T A$, with $\uu_i=A\vv_i/\sigma_i$.
 \end{skillbox}
 \end{document}

@@ -7,7 +7,26 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-24 — **Authored & built the Unit 7 summative tests — Unit 7 is now complete.**
+**Last updated:** 2026-07-24 — **Scaffolded all of Unit 8 (Learning from Data), the final unit — skeletons only.**
+Ran `new_lesson.py` for lessons 8.0–8.4 (component set: cover, warmup, notes, activity, exit_ticket, homework, slides
++ keys for the keyed components). The 8.0 run created the unit, so `unit08/tests/` (practice + actual),
+`unit08/test_keys/` (both keys), `unit08/sample_test/`, `unit08/sample_test_key/`, `unit08/Makefile`, and the
+thin-include test Makefiles were all auto-scaffolded too. **Confirmed lesson map (5 lessons; user chose 8.0 intro +
+8.1–8.4):** 8.0 "Setting Up --- Learning from Data" (intro/spiral, mirrors 7.0/6.0/5.0/4.0) · 8.1 "Piecewise Linear
+Learning Functions" (§8.1) · 8.2 "Convolutional Neural Nets" (§8.2) · 8.3 "Minimizing Loss by Gradient Descent" (§8.3) ·
+8.4 "Mean, Variance, and Covariance" (§8.4) — matches `spec/linear_algebra_v2.md` §8.1–8.4 plus the customary `lesson00`
+intro. **Unit 8 is "optional enrichment — not assessed" per the spec** ("no expectation of testing students"), but the
+**user explicitly chose to scaffold the summative tests anyway** (in case they want the option to assess later — they may
+stay skeletons); authored as an ordinary unit of lessons (same component set + down-leveling as 1–7). Verified all 5 lesson
+dirs carry the identical 13-subdir component set (cover/warmup/notes/activity/exit_ticket/homework/slides + 5 keys + images),
+and root + `unit08/` Makefiles exist. `sample_test`/`sample_test_key` PDFs are NOT yet populated (they come from `drop`
+after the tests are authored). **Nothing is authored yet — every `main.tex` is a preambled skeleton.** Lessons 7.0–7.4 are
+the newest model set (SVD unit, same structure); Lesson 4.0 remains the cross-unit intro-style model; Unit 4/5/6/7 tests are
+the assessment-format model. **Next run: author Unit 8 Lesson 8.0** ("Setting Up --- Learning from Data") first as the Unit 8
+model, then 8.1→8.4, then the Unit 8 tests — completing the course. The core sequence (Units 1–6) and optional Unit 7 are
+already complete; Unit 8 is the final optional-enrichment extension.
+
+**Prior run:** **Authored & built the Unit 7 summative tests — Unit 7 is now complete.**
 Filled all four skeletons (`tests/practice_test`, `tests/actual_test`, `test_keys/practice_test_key`, `test_keys/actual_test_key`),
 mirroring the Unit 4/5/6 test format (`shared/tests.mk` + `test_keys.mk`; `\parthead` burgundy strips; Part A vocab matching /
 B multiple choice / C computation / D extended response; 8/12/35/10 pts = 65). **Blueprint spans the whole unit §7.0–7.4:** A

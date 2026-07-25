@@ -2,6 +2,10 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 % Part-divider strip
 \newcommand{\parthead}[1]{%
@@ -12,20 +16,142 @@
 \begin{document}
 
 \pageheader{Unit 8: Learning from Data}{Unit Test --- Answer Key}
+\namedateperiod
 
-% Mirror the blank test EXACTLY, filling each answer with \ans{...} (inline) or
-% \ansline{...} (on a write-line). Use teachernote for scoring/teacher guidance.
+\vspace{0.06in}
+\noindent\textbf{Instructions:} Show all work. No notes unless your teacher says so.
+
 % ======================================================================
-\parthead{Part A --- Vocabulary}
-% TODO: answers via \ans{...}
+\parthead{Part A --- Vocabulary (8 pts)}
+Write the letter of the best description next to each term.
 
-\parthead{Part B --- Multiple Choice}
-% TODO: mark correct options, e.g. \textcolor{keyred}{\textbf{$\leftarrow$ correct}}
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=7pt, label=\arabic*.]
+  \item Neural network layer \ans{C}
+  \item Learning rate \ans{G}
+  \item ReLU \ans{A}
+  \item Covariance matrix \ans{F}
+  \item Convolution filter \ans{H}
+  \item Piecewise linear function \ans{B}
+  \item Weight sharing \ans{E}
+  \item Gradient descent \ans{D}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.57\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=3pt]
+  \item[(A)] The rectifier $\max(0,x)$: keep positive inputs, send negatives to $0$.
+  \item[(B)] A function built of straight pieces joined at folds (a sum of shifted ReLUs).
+  \item[(C)] The building block $\relu(A\vv+\bb)$: multiply by weights, add a bias, then rectify.
+  \item[(D)] The rule $\ww\leftarrow\ww-s\,\nabla L$: step opposite the slope to shrink the loss.
+  \item[(E)] Reusing one filter at every position, so a giant layer needs only a few weights.
+  \item[(F)] The symmetric matrix of variances and covariances; its eigenvectors are the principal components.
+  \item[(G)] The step size $s$ in gradient descent --- too small crawls, too big overshoots.
+  \item[(H)] A small weight pattern slid across the input to detect one feature everywhere.
+\end{description}
+\end{minipage}
 
-\parthead{Part C --- Short Answer \& Computation}
-% TODO: worked answers via \ans{...}
+% ======================================================================
+\parthead{Part B --- Multiple Choice (12 pts)}
+Circle the best answer.
 
-\parthead{Part D --- Extended Response}
-% TODO: sample response + scoring notes in a teachernote.
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item $\relu(-5)$ equals
+    \hfill (A) $-5$ \quad (B) $5$ \quad \textbf{(C) $0$} \ans{$\leftarrow$} \quad (D) $1$
+  \item In a layer $\relu(A\vv+\bb)$, the bias vector $\bb$ acts as
+    \hfill \textbf{(A) a shift added before rectifying} \ans{$\leftarrow$} \quad (B) the slope \quad (C) the output \quad (D) an inverse
+  \item A piecewise linear function with $3$ folds has how many straight pieces?
+    \hfill (A) $2$ \quad (B) $3$ \quad \textbf{(C) $4$} \ans{$\leftarrow$} \quad (D) $6$
+  \item Sliding the edge filter $[-1,1]$ across a signal gives a large output
+    \hfill (A) on flat stretches \quad \textbf{(B) at an edge (a jump)} \ans{$\leftarrow$} \quad (C) everywhere equally \quad (D) nowhere
+  \item If the learning rate $s$ is far too large, gradient descent will
+    \hfill (A) reach the bottom instantly \quad \textbf{(B) overshoot and bounce} \ans{$\leftarrow$} \quad (C) never move \quad (D) find the mean
+  \item A negative covariance $\sigma_{xy}<0$ between two features means they
+    \hfill (A) move together \quad \textbf{(B) move in opposite directions} \ans{$\leftarrow$} \quad (C) are unrelated \quad (D) are equal
+\end{enumerate}
+
+\begin{teachernote}
+Item 1: ReLU zeroes negatives, so $\relu(-5)=0$. Item 2: the bias is a shift added before the ReLU rectifies (it sets
+where the fold sits / the threshold). Item 3: $3$ folds cut the line into $3+1=4$ pieces. Item 4: the edge filter fires
+at a jump; flat stretches give $0$. Item 5: too large a step overshoots the bottom and bounces (or diverges). Item 6:
+a negative covariance means the two features move in opposite directions.
+\end{teachernote}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (35 pts)}
+Show your work.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
+  \item One layer $\relu(A\vv+\bb)$.
+        \ans{$A\vv=\begin{bsmallmatrix}1&-1\\1&1\end{bsmallmatrix}\begin{bsmallmatrix}1\\4\end{bsmallmatrix}
+        =\begin{bsmallmatrix}-3\\5\end{bsmallmatrix}$; add the bias:
+        $A\vv+\bb=\begin{bsmallmatrix}-3\\5\end{bsmallmatrix}+\begin{bsmallmatrix}2\\-1\end{bsmallmatrix}
+        =\begin{bsmallmatrix}-1\\4\end{bsmallmatrix}$; then ReLU zeroes the negative and keeps the positive:
+        $\relu\begin{bsmallmatrix}-1\\4\end{bsmallmatrix}=\begin{bsmallmatrix}0\\4\end{bsmallmatrix}$.}
+  \item Tent function $F(x)=\relu(x)-2\relu(x-3)+\relu(x-6)$.
+        \ans{\textbf{(a)} Turn on only the ReLUs whose fold is left of $x$:
+        $F(0)=0$, $F(3)=3-0+0=3$, $F(6)=6-2(3)+0=0$, $F(9)=9-2(6)+3=0$.
+        \textbf{(b)} Folds at $x=0,3,6$ (where each ReLU switches on); the peak is $(3,3)$ --- up, then down, then flat
+        (a tent).}
+  \item Edge filter $[-1,1]$ across $\vv=[2,2,7,7,7]$.
+        \ans{\textbf{(a)} Each output is (next $-$ current): $2{-}2,\ 7{-}2,\ 7{-}7,\ 7{-}7$, so the feature map is
+        $[0,5,0,0]$. \textbf{(b)} The one nonzero value ($5$) sits at the jump from $2$ to $7$ --- that is the edge.
+        On the flat stretches the two window values are equal, so next $-$ current $=0$.}
+  \item Convolution matrix $A=\begin{bsmallmatrix}-1&1&0&0\\0&-1&1&0\\0&0&-1&1\end{bsmallmatrix}$.
+        \ans{\textbf{(a)} $A\begin{bsmallmatrix}2\\2\\7\\7\end{bsmallmatrix}
+        =\begin{bsmallmatrix}2{-}2\\7{-}2\\7{-}7\end{bsmallmatrix}=\begin{bsmallmatrix}0\\5\\0\end{bsmallmatrix}$ ---
+        the same slide-the-filter output. \textbf{(b)} The filter uses only \textbf{2} weights (the $-1$ and $1$,
+        reused down every diagonal), while a full $3\times4$ layer would have its own weight in each entry: $12$.}
+  \item Gradient descent on $L(w)=(w-4)^2$, $L'(w)=2w-8$, $s=0.25$, $w_0=8$.
+        \ans{\textbf{(a)} $w_1=8-0.25(8)=6$;\ $w_2=6-0.25(4)=5$;\ $w_3=5-0.25(2)=4.5$ (coming down from the right side).
+        \textbf{(b)} Losses $L(8)=16,\ L(6)=4,\ L(5)=1,\ L(4.5)=0.25$ --- shrinking fast.
+        \textbf{(c)} It is heading toward $w=4$, the bottom of the bowl; you know to stop when the slope
+        $L'(w)=0$ (no downhill left).}
+  \item One gradient step on $L=(w_1-2)^2+(w_2-5)^2$.
+        \ans{$\nabla L(0,0)=\big(2(0-2),2(0-5)\big)=(-4,-10)$. Step against it:
+        $(0,0)-0.25(-4,-10)=(1,2.5)$. The loss bottoms out at $(w_1,w_2)=(2,5)$, where both slopes are $0$.}
+  \item Mean, variance, covariance, PCA for $(1,2),(3,6),(5,4),(7,8)$.
+        \ans{\textbf{(a)} Mean $=\big(\tfrac{1+3+5+7}{4},\tfrac{2+6+4+8}{4}\big)=(4,5)$.
+        \textbf{(b)} Centered $x:-3,-1,1,3$ and $y:-3,1,-1,3$. Variances
+        $\sigma_x^2=\tfrac{9+1+1+9}{4}=5$, $\sigma_y^2=5$; covariance
+        $\sigma_{xy}=\tfrac{(-3)(-3)+(-1)(1)+(1)(-1)+(3)(3)}{4}=\tfrac{16}{4}=4$.
+        \textbf{(c)} $V=\begin{bsmallmatrix}5&4\\4&5\end{bsmallmatrix}$.
+        \textbf{(d)} Eigenvalues $\lambda=5\pm4=9,1$; $\mathrm{PC}_1$ (eigenvector $\tfrac{1}{\sqrt2}\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$)
+        holds $\dfrac{9}{9+1}=\dfrac{9}{10}=90\%$ of the total variance.}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (10 pts)}
+Explain your reasoning in full sentences.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item How a network learns.
+        \ans{\textbf{(a)} A layer $\relu(A\vv+\bb)$ multiplies the input by weights $A$, shifts by the bias $\bb$
+        (which places each fold), then rectifies with ReLU (which zeroes negatives, creating a kink). Each row adds one
+        shifted ReLU, so a wider $A$ stacks more folds; a sum of shifted ReLUs is a continuous piecewise-linear function
+        whose bends can be positioned and tilted to trace the data. \textbf{(b)} Gradient descent starts from some weights
+        and repeatedly steps opposite the slope of the squared-error loss $L$ (the rule $\ww\leftarrow\ww-s\,\nabla L$),
+        which lowers $L$ each step --- it rolls downhill in the loss bowl. The bottom of the bowl is where the slope is
+        $0$: no downhill direction remains, so those weights give the smallest loss and are the ones the network learns.}
+  \item Why the covariance matrix unlocks PCA.
+        \ans{\textbf{(a)} $V$ is symmetric because the covariance of $x$ with $y$ equals the covariance of $y$ with $x$
+        ($\sigma_{xy}=\sigma_{yx}$), so the off-diagonal entries match and $V=V^{\mathsf T}$. By the spectral theorem
+        (Unit 6) a symmetric matrix always has \emph{real} eigenvalues and \emph{perpendicular} eigenvectors.
+        \textbf{(b)} Those eigenvectors are the principal components --- the perpendicular directions the data cloud
+        spreads along --- and each eigenvalue is the variance (amount of spread) along its direction, largest first.
+        The total variance is $\sigma_x^2+\sigma_y^2$, the trace of $V$; since a symmetric matrix's trace equals the sum
+        of its eigenvalues, the total spread is split exactly among the principal directions.}
+\end{enumerate}
+
+\begin{teachernote}
+\textbf{Scoring Part D (5 pts each).} D1: 3 pts (a) layer $=$ weight/bias/ReLU, wider $A$ $=$ more folds $=$ flexible
+piecewise-linear fit; 2 pts (b) gradient descent steps against the slope to shrink $L$, slope $0$ $=$ best weights.
+D2: 3 pts (a) $\sigma_{xy}=\sigma_{yx}\Rightarrow V$ symmetric $\Rightarrow$ real eigenvalues, perpendicular
+eigenvectors; 2 pts (b) eigenvectors $=$ principal components (directions of spread), eigenvalues $=$ variances,
+trace $=$ total variance $=$ sum of eigenvalues. Accept equivalent wording throughout.
+\end{teachernote}
 
 \end{document}

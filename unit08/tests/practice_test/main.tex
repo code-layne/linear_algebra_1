@@ -2,6 +2,10 @@
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\relu}{\mathrm{ReLU}}
 
 % Part-divider strip
 \newcommand{\parthead}[1]{%
@@ -23,16 +27,107 @@ with no notes, then check your answers against the key.
 \end{remindbox}
 
 % ======================================================================
-\parthead{Part A --- Vocabulary}
-% TODO: matching / fill-in vocabulary items for this unit.
+\parthead{Part A --- Vocabulary (8 pts)}
+Write the letter of the best description next to each term.
 
-\parthead{Part B --- Multiple Choice}
-% TODO: multiple-choice items (concept checks).
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=7pt, label=\arabic*.]
+  \item ReLU \blank{1.2cm}
+  \item Neural network layer \blank{1.2cm}
+  \item Piecewise linear function \blank{1.2cm}
+  \item Convolution filter \blank{1.2cm}
+  \item Weight sharing \blank{1.2cm}
+  \item Gradient descent \blank{1.2cm}
+  \item Learning rate \blank{1.2cm}
+  \item Covariance matrix \blank{1.2cm}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.57\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=3pt]
+  \item[(A)] The building block $\relu(A\vv+\bb)$: multiply by weights, add a bias, then rectify.
+  \item[(B)] The step size $s$ in gradient descent --- too small crawls, too big overshoots.
+  \item[(C)] The rectifier $\max(0,x)$: keep positive inputs, send negatives to $0$.
+  \item[(D)] A small weight pattern slid across the input to detect one feature everywhere.
+  \item[(E)] The rule $\ww\leftarrow\ww-s\,\nabla L$: step opposite the slope to shrink the loss.
+  \item[(F)] A function built of straight pieces joined at folds (a sum of shifted ReLUs).
+  \item[(G)] Reusing one filter at every position, so a giant layer needs only a few weights.
+  \item[(H)] The symmetric matrix of variances and covariances; its eigenvectors are the principal components.
+\end{description}
+\end{minipage}
 
-\parthead{Part C --- Short Answer \& Computation}
-% TODO: computation items; leave \vspace work room after each.
+% ======================================================================
+\parthead{Part B --- Multiple Choice (12 pts)}
+Circle the best answer.
 
-\parthead{Part D --- Extended Response}
-% TODO: one or two interpret/justify items ("what does this mean, and how do you know?").
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item $\relu(-3)$ equals
+    \hfill (A) $-3$ \quad (B) $0$ \quad (C) $3$ \quad (D) $1$
+  \item One neural-network layer computes
+    \hfill (A) $A\vv$ \quad (B) $\relu(A\vv+\bb)$ \quad (C) $\vv+\bb$ \quad (D) $A^{-1}\vv$
+  \item A piecewise linear function built from $N$ folds (kinks) has
+    \hfill (A) $N-1$ pieces \quad (B) $N$ pieces \quad (C) $N+1$ pieces \quad (D) $2N$ pieces
+  \item Sliding one small filter across the whole input is convolution; reusing that filter everywhere is
+    \hfill (A) weight sharing \quad (B) the bias \quad (C) the loss \quad (D) a rotation
+  \item Gradient descent updates a weight by stepping
+    \hfill (A) along the slope \quad (B) opposite the slope (downhill) \quad (C) to a random weight \quad (D) to $0$
+  \item A positive covariance $\sigma_{xy}>0$ between two features means they
+    \hfill (A) move in opposite directions \quad (B) tend to move together \quad (C) are unrelated \quad (D) are equal
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (35 pts)}
+Show your work.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item Evaluate one layer $\relu(A\vv+\bb)$ where
+        $A=\begin{bsmallmatrix}1&1\\1&-1\end{bsmallmatrix}$, $\vv=\begin{bsmallmatrix}1\\3\end{bsmallmatrix}$,
+        $\bb=\begin{bsmallmatrix}0\\1\end{bsmallmatrix}$. Show $A\vv$, then $A\vv+\bb$, then the ReLU.
+        \vspace{2.6cm}
+  \item The tent function $F(x)=\relu(x)-2\relu(x-2)+\relu(x-4)$.
+        \textbf{(a)} Find $F(0),F(2),F(4),F(6)$. \textbf{(b)} Where are its folds, and what is the peak point?
+        \vspace{2.8cm}
+  \item Slide the edge filter $\ww=[-1,1]$ (output $=$ next $-$ current) across $\vv=[2,2,2,6,6]$.
+        \textbf{(a)} Write the feature map. \textbf{(b)} Where is the edge, and why is the output $0$ on the flat parts?
+        \vspace{2.6cm}
+  \item The filter $[-1,1]$ on a length-$4$ signal is the convolution matrix
+        $A=\begin{bsmallmatrix}-1&1&0&0\\0&-1&1&0\\0&0&-1&1\end{bsmallmatrix}$.
+        \textbf{(a)} Compute $A\begin{bsmallmatrix}1\\1\\6\\6\end{bsmallmatrix}$.
+        \textbf{(b)} How many weights does this shared filter use, versus a full $3\times4$ layer?
+        \vspace{2.8cm}
+  \item Gradient descent on the loss bowl $L(w)=(w-4)^2$, with slope $L'(w)=2w-8$, learning rate $s=0.25$,
+        starting at $w_0=0$. Use $w\leftarrow w-s\,L'(w)$.
+        \textbf{(a)} Find $w_1,w_2,w_3$. \textbf{(b)} Give the loss at each step. \textbf{(c)} What weight is it heading toward, and how would you know to stop?
+        \vspace{3.0cm}
+  \item Two-weight loss $L=(w_1-1)^2+(w_2-3)^2$ has gradient $\nabla L=\big(2(w_1-1),\,2(w_2-3)\big)$.
+        Starting at $(0,0)$ with $s=0.25$, take \textbf{one} gradient-descent step. Where does the loss bottom out?
+        \vspace{2.8cm}
+  \item Four students' two quiz scores are $(2,4),(4,2),(6,8),(8,6)$.
+        \textbf{(a)} Find the mean point. \textbf{(b)} Find the variances $\sigma_x^2,\sigma_y^2$ and the covariance $\sigma_{xy}$.
+        \textbf{(c)} Write the covariance matrix $V$. \textbf{(d)} Find its eigenvalues and the fraction of the total
+        variance the first principal component ($\mathrm{PC}_1$) holds.
+        \vspace{3.2cm}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (10 pts)}
+Explain your reasoning in full sentences.
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=16pt]
+  \item A neural network that learns is built entirely from tools in this course.
+        \textbf{(a)} Explain what a single layer $\relu(A\vv+\bb)$ does, and why widening it (adding more shifted ReLUs)
+        produces a flexible piecewise-linear function that can bend to fit data.
+        \textbf{(b)} Explain how gradient descent \emph{chooses} the weights by rolling downhill on the squared-error loss,
+        and why a slope of $0$ marks the best weights.
+        \vspace{3.0cm}
+  \item The covariance matrix $V=\begin{bsmallmatrix}\sigma_x^2&\sigma_{xy}\\\sigma_{xy}&\sigma_y^2\end{bsmallmatrix}$.
+        \textbf{(a)} Explain why $V$ is symmetric, and why that guarantees real eigenvalues and perpendicular eigenvectors.
+        \textbf{(b)} Explain what those eigenvectors and eigenvalues tell you about the data cloud, and why the total
+        variance equals the trace $=$ the sum of the eigenvalues.
+        \vspace{2.8cm}
+\end{enumerate}
 
 \end{document}

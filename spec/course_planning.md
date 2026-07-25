@@ -7,7 +7,40 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-24 — **Authored & built the Unit 8 summative tests — the course is now COMPLETE (lessons +
+**Last updated:** 2026-07-24 — **Authored & built a 50-question cumulative FINAL EXAM for the whole course, in a new
+top-level `finals/` directory (parallel to the `unitXX/` dirs).** Per the user's request, `finals/` holds four flat
+subdirs — `practice_final`, `practice_final_key`, `final`, `final_key` — mirroring the unit-test practice/actual pattern
+but **without** any `sample_*` drop-in dirs (the user said samples need not be compiled/checked-in as PDFs, so there is no
+`drop`/publish step). Added a **standalone `finals/Makefile`** (mirrors `shared/tests.mk`: globs `*/main.tex`, compiles each
+to `target/finals/<name>/main.pdf` with `latexmk -xelatex`, `clean` target; **no** `shared/` files were modified) — build
+with `make -C finals all`. **Blueprint (50 Q, 100 pts):** Part A Vocabulary = **16** items in two 8-term matching sets
+(Set 1 Units 1–4, Set 2 Units 5–8; 2 terms/unit), 16 pts; Part B Multiple Choice = **12** items (~1–2/unit), 24 pts;
+Part C Short Answer & Computation = **16** items = **2 per unit ×8 units**, 48 pts; Part D Extended Response = **6** synthesis
+items (Units 1–3 rank / U4 least squares / U5–6 singular / U6 spectral theorem / U7 SVD-for-every-matrix / U8 whole-course
+neural-net synthesis), 12 pts. **Same format kit as the unit tests:** `\parthead` burgundy `headlinebox` strips; practice
+carries the `remindbox` "this is a practice final" banner, actual carries the plain **Instructions** line; keys swap `-boxes`→
+`-key`, wrap answers in `\ans{}`, add `teachernote` scoring/answer-letter summaries. **Practice & actual are parallel forms**
+(same structure/ideas, different numbers + reshuffled vocab letters). **All Part C arithmetic hand-verified in pure Python
+(both forms) before authoring.** **Part C spine — practice / actual:** C1 $2\vv+\ww$ & perpendicular $(3,4)\!\perp\!(4,-3)$ /
+$(5,12)\!\perp\!(12,-5)$; C2 rank-1 $A\vv$ $[[1,2],[2,4]](1,3){=}(7,14)$ / $[[1,3],[2,6]](2,1){=}(5,10)$; C3 elimination
+$(1,2)$ / $(3,2)$; C4 inverse det-1 $[[2,1],[5,3]]^{-1}{=}[[3,-1],[-5,2]]$ / $[[3,1],[5,2]]^{-1}{=}[[2,-1],[-5,3]]$; C5 special
+soln $(-2,1,0)$ / $(-3,1,0)$; C6 3×4 rank-2 four-subspace dims $2/2/2/1$ (both); C7 projection $\bb{=}(4,3)$ on $(1,2)\to\pp{=}(2,4),\ee{=}(2,-1)$ /
+$\bb{=}(5,5)$ on $(1,3)\to\pp{=}(2,6),\ee{=}(3,-1)$; C8 best-fit line $b{=}5{-}3t$ / $b{=}1{+}3t$; C9 dets $10,7$ / $13,1$;
+C10 area factor $6$ (×½→3) / $12$ (×2→24), orient preserved; C11 eig $[[2,1],[1,2]]\to3,1$ / $[[3,2],[2,3]]\to5,1$, vecs $(1,1)/(1,-1)$;
+C12 diagonalize $[[4,1],[2,3]]\to\lambda5,2$ / $[[4,2],[1,3]]\to\lambda5,2$; C13 SVD via $A^\top A$: $[[2,2],[1,-2]]\to\sigma3,2$ /
+$[[3,1],[-1,-3]]\to\sigma4,2$; C14 outer product + energy keep $64/68{\approx}94\%$ / $100/104{\approx}96\%$; C15 ReLU layer $\to(4,0)$ / $(0,4)$;
+C16 covariance+PCA $(2,4),(4,2),(6,8),(8,6)\to V{=}[[5,3],[3,5]],\lambda8,2$,PC1 80% / $(1,2),(3,6),(5,4),(7,8)\to V{=}[[5,4],[4,5]],\lambda9,1$,PC1 90%.
+Most C spines reuse the already-hand-verified Unit 7/8 test data. **Built `make -C finals all` → clean** (0 `^!`/file-line errors
+across all 4 logs; 0 `\ans`-in-math; max overfull 10.77pt = the standard pageheader banner, <15pt). Page counts: blanks **5pp** each,
+keys **4pp** each. Visually spot-checked practice-key p1 (both vocab matching sets — red letters C,E,F,A,B,D,G,H / E,A,C,F,B,H,D,G) & p3
+(all Part C matrices/inverses/projections/eigen/SVD/PCA + Part D prose) and final-key p1 (actual-form vocab C,A,F,D,B,G,E,H / A,D,B,F,E,C,G,H
++ MC red arrows) — all render clean, no tofu. **`finals/` is complete and not merged into any packet** (standalone, like the actual unit
+tests). **The Linear Algebra curriculum + a cumulative final are DONE.** No outstanding work; next run only on user request (revisions or
+a new component). **Model:** the Unit 7/8 tests were the format template; `finals/` is now the model for any future exam-style deliverable.
+
+---
+
+**Prior run:** **Authored & built the Unit 8 summative tests — the course is now COMPLETE (lessons +
 assessments, Units 1–8).** Filled all four skeletons: `tests/practice_test`, `tests/actual_test`, `test_keys/practice_test_key`,
 `test_keys/actual_test_key`, mirroring the Unit 7 test model (Parts A–D: Vocabulary 8 pts / Multiple Choice 12 pts / Short Answer &
 Computation 35 pts / Extended Response 10 pts; `\parthead` burgundy `headlinebox` strips; practice test carries the `remindbox`

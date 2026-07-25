@@ -1,0 +1,262 @@
+%! Linear Algebra — Cumulative Final Exam — Final (KEY)
+\documentclass[10pt]{article}
+\usepackage{linalg-article}
+\usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\relu}{\mathrm{ReLU}}
+\newcommand{\T}{\mathsf{T}}
+
+% Part-divider strip
+\newcommand{\parthead}[1]{%
+  \vspace{6pt}\noindent
+  \begin{headlinebox}{burgundy}{\color{white}\bfseries #1}\end{headlinebox}%
+  \vspace{4pt}}
+
+\begin{document}
+
+\pageheader{Linear Algebra --- Cumulative Final}{Final Exam --- Answer Key}
+\namedateperiod
+
+\vspace{0.06in}
+\noindent\textbf{Instructions:} Show all work. No notes unless your teacher says so. The exam has
+$50$ questions in four parts --- A Vocabulary, B Multiple Choice, C Short Answer \& Computation,
+D Extended Response. \hfill\textbf{Total: 100 pts.}
+
+% ======================================================================
+\parthead{Part A --- Vocabulary (16 pts)}
+Write the letter of the best description next to each term. Two matching sets.
+
+\vspace{2pt}
+\noindent\textit{Set 1 --- Units 1--4.}\\[2pt]
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=5pt, label=\arabic*.]
+  \item Dot product \ans{C}
+  \item Unit vector \ans{A}
+  \item Basis \ans{F}
+  \item Nullspace $N(A)$ \ans{D}
+  \item Pivot \ans{B}
+  \item Least squares \ans{G}
+  \item Inverse matrix \ans{E}
+  \item Projection \ans{H}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.57\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=2pt]
+  \item[(A)] A vector whose length is exactly $1$.
+  \item[(B)] The first nonzero entry in a row, used to clear the entries below it.
+  \item[(C)] $\vv\cdot\ww=v_1w_1+v_2w_2$; it measures length and angle.
+  \item[(D)] The set of all solutions to $A\xx=\zero$.
+  \item[(E)] $A^{-1}$, the matrix that undoes $A$: $A^{-1}A=I$.
+  \item[(F)] An independent set that spans a space --- the fewest vectors that build every vector in it.
+  \item[(G)] Choosing $\hat\xx$ to make the error $\|\bb-A\xx\|^2$ as small as possible.
+  \item[(H)] Sending $\bb$ to the closest point $\pp$ in a subspace.
+\end{description}
+\end{minipage}
+
+\vspace{6pt}
+\noindent\textit{Set 2 --- Units 5--8.}\\[2pt]
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=5pt, label=\arabic*., start=9]
+  \item Eigenvector \ans{A}
+  \item Determinant \ans{D}
+  \item Covariance matrix \ans{B}
+  \item Singular value \ans{F}
+  \item ReLU \ans{E}
+  \item Linear transformation \ans{C}
+  \item Diagonalization \ans{G}
+  \item Principal component \ans{H}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.57\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=2pt]
+  \item[(A)] A nonzero vector $\xx$ whose direction is unchanged by $A$: $A\xx=\lambda\xx$.
+  \item[(B)] The symmetric matrix of variances and covariances; its eigenvectors are the principal components.
+  \item[(C)] The map $\xx\mapsto A\xx$ that fixes the origin and sends grid lines to straight, evenly spaced lines.
+  \item[(D)] A number whose absolute value is the area (or volume) factor; it is $0$ exactly when the matrix is singular.
+  \item[(E)] The rectifier $\max(0,x)$: keep positive inputs, send negatives to $0$.
+  \item[(F)] A number $\sigma\ge0$: how far $A$ stretches along a singular direction ($\sigma=\sqrt\lambda$ of $A^\T A$).
+  \item[(G)] Writing $A=X\Lambda X^{-1}$ with the eigenvectors in $X$ and the eigenvalues down $\Lambda$.
+  \item[(H)] A top singular direction of centered data --- the direction of greatest spread.
+\end{description}
+\end{minipage}
+
+\begin{teachernote}
+Set 1: 1\,C, 2\,A, 3\,F, 4\,D, 5\,B, 6\,G, 7\,E, 8\,H. \quad
+Set 2: 9\,A, 10\,D, 11\,B, 12\,F, 13\,E, 14\,C, 15\,G, 16\,H. \quad One point each.
+\end{teachernote}
+
+% ======================================================================
+\parthead{Part B --- Multiple Choice (24 pts)}
+Circle the best answer. ($2$ pts each.)
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=8pt]
+  \item The length of the vector $(5,12)$ is
+    \hfill (A) $17$ \quad \textbf{(B) $13$} \ans{$\leftarrow$} \quad (C) $60$ \quad (D) $7$
+  \item Saying two nonzero vectors have dot product $0$ means they are
+    \hfill (A) pointing the same way \quad \textbf{(B) perpendicular} \ans{$\leftarrow$} \quad (C) equal \quad (D) both zero
+  \item A $2\times2$ matrix whose determinant $ad-bc=0$
+    \hfill (A) has a unique inverse \quad (B) is orthogonal \quad \textbf{(C) is singular (no inverse)} \ans{$\leftarrow$} \quad (D) is symmetric
+  \item For an $m\times n$ matrix of rank $r$, the dimension of the column space $C(A)$ is
+    \hfill (A) $n-r$ \quad (B) $m$ \quad \textbf{(C) $r$} \ans{$\leftarrow$} \quad (D) $n$
+  \item For a matrix with $n$ columns, $\dim C(A)+\dim N(A)$ equals
+    \hfill (A) $m$ \quad \textbf{(B) $n$} \ans{$\leftarrow$} \quad (C) $r$ \quad (D) $0$
+  \item The projection $\pp$ of $\bb$ onto $C(A)$ is the point of $C(A)$ that is
+    \hfill (A) farthest from $\bb$ \quad \textbf{(B) closest to $\bb$} \ans{$\leftarrow$} \quad (C) equal to $\bb$ \quad (D) at the origin
+  \item The quantity $|\det A|$ measures
+    \hfill (A) the trace \quad \textbf{(B) the area/volume scaling factor} \ans{$\leftarrow$} \quad (C) the rank \quad (D) the largest entry
+  \item If $\det A=0$, the transformation $\xx\mapsto A\xx$
+    \hfill (A) is a rotation \quad (B) doubles area \quad \textbf{(C) collapses space to a lower dimension} \ans{$\leftarrow$} \quad (D) preserves length
+  \item The eigenvalues of $A$ are the solutions of
+    \hfill (A) $A\xx=\zero$ \quad \textbf{(B) $\det(A-\lambda I)=0$} \ans{$\leftarrow$} \quad (C) $A=A^\T$ \quad (D) $A^\T A=I$
+  \item The trace of a $2\times2$ matrix equals
+    \hfill (A) the product of the eigenvalues \quad (B) the determinant \quad \textbf{(C) the sum of the eigenvalues} \ans{$\leftarrow$} \quad (D) the largest eigenvalue
+  \item The singular values of a matrix $A$ are
+    \hfill (A) the eigenvalues of $A$ \quad \textbf{(B) $\sqrt{\text{eigenvalues of }A^\T A}$, always $\ge0$} \ans{$\leftarrow$} \quad (C) always negative \quad (D) its diagonal entries
+  \item $\relu(x)=\max(0,x)$ applied to $x=-4$ gives
+    \hfill (A) $-4$ \quad (B) $4$ \quad \textbf{(C) $0$} \ans{$\leftarrow$} \quad (D) $1$
+\end{enumerate}
+
+\begin{teachernote}
+1\,B ($\sqrt{25+144}=13$). 2\,B (dot product $0\Leftrightarrow$ perpendicular). 3\,C ($ad-bc=0\Rightarrow$ no inverse).
+4\,C (column rank $=r$). 5\,B (rank--nullity: $r+(n-r)=n$). 6\,B (the projection is the closest point).
+7\,B ($|\det A|$ is the area/volume factor). 8\,C (a zero determinant flattens space). 9\,B (the characteristic equation).
+10\,C (trace $=$ sum of eigenvalues). 11\,B ($\sigma=\sqrt\lambda$ of $A^\T A$, $\ge0$). 12\,C ($\max(0,-4)=0$).
+\end{teachernote}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (48 pts)}
+Show your work. ($3$ pts each.)
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item \textbf{(U1)} $\vv=(5,12)$, $\ww=(12,-5)$.
+        \ans{\textbf{(a)} $2\vv+\ww=(10,24)+(12,-5)=(22,19)$.
+        \textbf{(b)} $\vv\cdot\ww=5(12)+12(-5)=60-60=0$; $\|\vv\|=\sqrt{25+144}=13$, $\|\ww\|=\sqrt{144+25}=13$.
+        Since $\vv\cdot\ww=0$, \textbf{yes} --- they are perpendicular.}
+  \item \textbf{(U1)} $A=\begin{bsmallmatrix}1&3\\2&6\end{bsmallmatrix}$.
+        \ans{\textbf{(a)} $A\begin{bsmallmatrix}2\\1\end{bsmallmatrix}=\begin{bsmallmatrix}2+3\\4+6\end{bsmallmatrix}=\begin{bsmallmatrix}5\\10\end{bsmallmatrix}$.
+        \textbf{(b)} Column $2=3\times$ column $1$, so the columns are \textbf{dependent}; rank $=1$; the column space is
+        the \emph{line} through $(1,2)$.}
+  \item \textbf{(U2)} Solve $x+2y=7,\ 2x+5y=16$.
+        \ans{$R_2-2R_1$: $(5-4)y=16-14\Rightarrow y=2$; back-substitute $x=7-2(2)=3$.
+        Solution $(x,y)=(3,2)$. Check: $2(3)+5(2)=16$.}
+  \item \textbf{(U2)} $A=\begin{bsmallmatrix}3&1\\5&2\end{bsmallmatrix}$.
+        \ans{\textbf{(a)} $\det A=3(2)-1(5)=1$.
+        \textbf{(b)} $A^{-1}=\dfrac{1}{1}\begin{bsmallmatrix}2&-1\\-5&3\end{bsmallmatrix}=\begin{bsmallmatrix}2&-1\\-5&3\end{bsmallmatrix}$;
+        check $A^{-1}A=\begin{bsmallmatrix}2&-1\\-5&3\end{bsmallmatrix}\begin{bsmallmatrix}3&1\\5&2\end{bsmallmatrix}
+        =\begin{bsmallmatrix}1&0\\0&1\end{bsmallmatrix}$.}
+  \item \textbf{(U3)} $A=\begin{bsmallmatrix}1&3&1\\2&6&3\end{bsmallmatrix}$.
+        \ans{$R_2-2R_1=[0,0,1]$, so the rows are $[1,3,1]$ and $[0,0,1]$. From row $2$, $x_3=0$; row $1$ gives
+        $x_1=-3x_2$. Free variable $x_2=1$: special solution $(-3,1,0)$. $N(A)$ has dimension $1$.}
+  \item \textbf{(U3)} $A=\begin{bsmallmatrix}1&3&0&2\\0&0&1&4\\0&0&0&0\end{bsmallmatrix}$ ($m=3$, $n=4$).
+        \ans{Two pivots, so $r=2$. $\dim C(A)=r=2$ (in $\mathbb{R}^3$); $\dim N(A)=n-r=4-2=2$ (in $\mathbb{R}^4$);
+        $\dim C(A^\T)=r=2$ (row space, in $\mathbb{R}^4$); $\dim N(A^\T)=m-r=3-2=1$ (in $\mathbb{R}^3$).}
+  \item \textbf{(U4)} Project $\bb=(5,5)$ onto the line through $\avec=(1,3)$.
+        \ans{$\hat x=\dfrac{\avec\cdot\bb}{\avec\cdot\avec}=\dfrac{5+15}{1+9}=\dfrac{20}{10}=2$, so
+        $\pp=2\avec=(2,6)$. \textbf{(b)} $\ee=\bb-\pp=(5,5)-(2,6)=(3,-1)$; $\ee\cdot\avec=3(1)+(-1)(3)=0$,
+        so $\ee\perp\avec$.}
+  \item \textbf{(U4)} Best-fit line through $(0,2),(1,2),(2,8)$.
+        \ans{$A=\begin{bsmallmatrix}1&0\\1&1\\1&2\end{bsmallmatrix}$, $A^\T A=\begin{bsmallmatrix}3&3\\3&5\end{bsmallmatrix}$,
+        $A^\T\bb=\begin{bsmallmatrix}12\\18\end{bsmallmatrix}$. Solve $3C+3D=12,\ 3C+5D=18$: subtract to get
+        $2D=6\Rightarrow D=3$, then $C=1$. Best line $b=1+3t$.}
+  \item \textbf{(U5)} Determinants.
+        \ans{\textbf{(a)} $\det\begin{bsmallmatrix}5&2\\1&3\end{bsmallmatrix}=5(3)-2(1)=13$.
+        \textbf{(b)} Expand along row $1$: $2\!\cdot\!\det\begin{bsmallmatrix}3&1\\2&1\end{bsmallmatrix}
+        -1\!\cdot\!\det\begin{bsmallmatrix}1&1\\0&1\end{bsmallmatrix}+0
+        =2(3-2)-1(1-0)=2-1=1$.}
+  \item \textbf{(U5)} $A=\begin{bsmallmatrix}3&2\\0&4\end{bsmallmatrix}$.
+        \ans{\textbf{(a)} $\det A=12$, so a unit square maps to area $12$.
+        \textbf{(b)} $\det A>0$, so orientation is \textbf{preserved}.
+        \textbf{(c)} $\det(AB)=\det A\,\det B=12\cdot2=24$, so $AB$ multiplies area by $24$.}
+  \item \textbf{(U6)} $A=\begin{bsmallmatrix}3&2\\2&3\end{bsmallmatrix}$.
+        \ans{$\det(A-\lambda I)=(3-\lambda)^2-4=0\Rightarrow \lambda=5,1$. For $\lambda=5$: $(A-5I)=\begin{bsmallmatrix}-2&2\\2&-2\end{bsmallmatrix}\Rightarrow(1,1)$;
+        for $\lambda=1$: $\begin{bsmallmatrix}2&2\\2&2\end{bsmallmatrix}\Rightarrow(1,-1)$.
+        Check: trace $=6=5+1$, $\det=5=5\cdot1$.}
+  \item \textbf{(U6)} $A=\begin{bsmallmatrix}4&2\\1&3\end{bsmallmatrix}$.
+        \ans{Trace $=7$, $\det=12-2=10$, so $\lambda^2-7\lambda+10=0\Rightarrow\lambda=5,2$.
+        $\lambda=5$: $(A-5I)=\begin{bsmallmatrix}-1&2\\1&-2\end{bsmallmatrix}\Rightarrow(2,1)$;
+        $\lambda=2$: $\begin{bsmallmatrix}2&2\\1&1\end{bsmallmatrix}\Rightarrow(1,-1)$.
+        $A=X\Lambda X^{-1}$ with $X=\begin{bsmallmatrix}2&1\\1&-1\end{bsmallmatrix}$,
+        $\Lambda=\begin{bsmallmatrix}5&0\\0&2\end{bsmallmatrix}$.}
+  \item \textbf{(U7)} $A=\begin{bsmallmatrix}3&1\\-1&-3\end{bsmallmatrix}$.
+        \ans{$A^\T A=\begin{bsmallmatrix}3^2+(-1)^2&3(1)+(-1)(-3)\\ \cdot&1^2+(-3)^2\end{bsmallmatrix}
+        =\begin{bsmallmatrix}10&6\\6&10\end{bsmallmatrix}$. Eigenvalues: $\lambda^2-20\lambda+64=0\Rightarrow\lambda=16,4$.
+        Singular values $\sigma=\sqrt\lambda=4,2$.}
+  \item \textbf{(U7)} Outer product and energy.
+        \ans{\textbf{(a)} $\uu\vv^\T=\begin{bsmallmatrix}2\\1\end{bsmallmatrix}\begin{bsmallmatrix}1&3\end{bsmallmatrix}
+        =\begin{bsmallmatrix}2&6\\1&3\end{bsmallmatrix}$; every column is a multiple of $\uu=(2,1)$, so it is rank one.
+        \textbf{(b)} Energy $=\sigma_1^2+\sigma_2^2=10^2+2^2=104$; the top layer keeps $\dfrac{100}{104}\approx96\%$.}
+  \item \textbf{(U8)} One layer $\relu(A\vv+\bb)$.
+        \ans{$A\vv=\begin{bsmallmatrix}1&-1\\1&1\end{bsmallmatrix}\begin{bsmallmatrix}1\\4\end{bsmallmatrix}
+        =\begin{bsmallmatrix}-3\\5\end{bsmallmatrix}$; $A\vv+\bb=\begin{bsmallmatrix}-3\\5\end{bsmallmatrix}+\begin{bsmallmatrix}2\\-1\end{bsmallmatrix}
+        =\begin{bsmallmatrix}-1\\4\end{bsmallmatrix}$; $\relu\begin{bsmallmatrix}-1\\4\end{bsmallmatrix}=\begin{bsmallmatrix}0\\4\end{bsmallmatrix}$
+        (zero the negative, keep the positive).}
+  \item \textbf{(U8)} Scores $(1,2),(3,6),(5,4),(7,8)$.
+        \ans{\textbf{(a)} Mean $=(4,5)$; centered $x:-3,-1,1,3$, $y:-3,1,-1,3$; $\sigma_x^2=\sigma_y^2=\tfrac{9+1+1+9}{4}=5$,
+        $\sigma_{xy}=\tfrac{9-1-1+9}{4}=4$, so $V=\begin{bsmallmatrix}5&4\\4&5\end{bsmallmatrix}$.
+        \textbf{(b)} $\lambda=5\pm4=9,1$; $\mathrm{PC}_1$ holds $\dfrac{9}{9+1}=90\%$ of the total variance.}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (12 pts)}
+Explain your reasoning in full sentences. ($2$ pts each.)
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
+  \item \textbf{(Units 1--3 --- rank)}
+        \ans{The rank $r$ is the number of pivots after elimination, which equals the number of independent columns
+        (and independent rows) of $A$. It sets all four subspace dimensions: $\dim C(A)=r$ and $\dim C(A^\T)=r$
+        (column rank $=$ row rank), $\dim N(A)=n-r$, and $\dim N(A^\T)=m-r$. The count $\dim C(A)+\dim N(A)=n$ holds
+        because each of the $n$ columns is either a pivot column ($r$ of them, spanning the column space) or a free
+        column ($n-r$ of them, each giving one special solution in the nullspace).}
+  \item \textbf{(Unit 4 --- least squares)}
+        \ans{When $A\xx=\bb$ has no exact solution, $\bb$ lies off the column space, so we settle for the closest
+        reachable point $\pp=A\hat\xx$ in $C(A)$ --- the projection of $\bb$. ``Closest'' means the error
+        $\ee=\bb-A\hat\xx$ is perpendicular to $C(A)$, i.e.\ perpendicular to every column of $A$: $A^\T(\bb-A\hat\xx)=\zero$.
+        Rearranging gives the normal equations $A^\T A\,\hat\xx=A^\T\bb$, whose solution is the least-squares best fit.}
+  \item \textbf{(Units 5--6 --- singular)}
+        \ans{All four statements say the same thing. $\det A=0$ means the box built from the columns is flattened
+        (zero area/volume), so the columns are dependent; dependent columns mean some nonzero $\xx$ has $A\xx=\zero$,
+        i.e.\ $A$ has no inverse (singular); and $A\xx=\zero=0\cdot\xx$ says $0$ is an eigenvalue. Geometrically,
+        $|\det A|$ is the factor by which the transformation $\xx\mapsto A\xx$ scales area (or volume), and its sign
+        tells whether orientation is kept ($+$) or flipped ($-$).}
+  \item \textbf{(Unit 6 --- spectral theorem)}
+        \ans{The spectral theorem says a symmetric matrix $S=S^\T$ has all \emph{real} eigenvalues and a full set of
+        \emph{perpendicular} eigenvectors. Symmetry forces the eigenvalues to be real (no rotation part), and
+        eigenvectors for different eigenvalues come out perpendicular. Collecting those unit eigenvectors as the
+        columns of an orthogonal matrix $Q$ (so $Q^\T Q=I$, $Q^{-1}=Q^\T$) and the eigenvalues in $\Lambda$ gives
+        $S=Q\Lambda Q^\T$ --- diagonalized by a pure rotation/reflection.}
+  \item \textbf{(Unit 7 --- the SVD)}
+        \ans{For \emph{any} matrix $A$ (any shape), $A^\T A$ is square and symmetric, so by the spectral theorem it has
+        real eigenvalues $\lambda\ge0$ (they are lengths-squared, $\lambda=\|A\vv\|^2\ge0$) and perpendicular unit
+        eigenvectors $\vv_i$. Setting $\sigma_i=\sqrt{\lambda_i}$ and $\uu_i=A\vv_i/\sigma_i$ builds
+        $A=U\Sigma V^\T$. This is stronger than eigen-diagonalization, which needs a square matrix with enough
+        independent eigenvectors --- many matrices fail that, but every matrix has an SVD.}
+  \item \textbf{(Unit 8 --- the whole course)}
+        \ans{(i) A layer is a matrix--vector step plus a bias followed by ReLU, $\relu(A\vv+\bb)$ --- matrix
+        multiplication from Unit 1. (ii) Predictions are scored by a squared-error loss, exactly the least-squares
+        measure of Unit 4. (iii) The weights are chosen by gradient descent, rolling downhill on that loss (opposite
+        the slope) until the slope is $0$. (iv) The shape of the data is captured by its mean, variances, and the
+        symmetric covariance matrix, whose eigenvectors (Unit 6) are the principal components (Unit 7). A learning
+        network is linear algebra end to end.}
+\end{enumerate}
+
+\begin{teachernote}
+\textbf{Part C} is $3$ pts each (partial credit for correct setup); \textbf{Part D} is $2$ pts each
+(1 pt for the correct idea, 1 pt for a complete justification). Accept equivalent wording and any valid
+eigenvector scaling throughout. \textbf{Total: 100 pts} ($16+24+48+12$).
+\end{teachernote}
+
+\end{document}

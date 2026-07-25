@@ -1,0 +1,220 @@
+%! Linear Algebra — Cumulative Final Exam — Final (blank)
+\documentclass[10pt]{article}
+\usepackage{linalg-article}
+\usepackage{linalg-boxes}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\relu}{\mathrm{ReLU}}
+\newcommand{\T}{\mathsf{T}}
+
+% Part-divider strip
+\newcommand{\parthead}[1]{%
+  \vspace{6pt}\noindent
+  \begin{headlinebox}{burgundy}{\color{white}\bfseries #1}\end{headlinebox}%
+  \vspace{4pt}}
+
+\begin{document}
+
+\pageheader{Linear Algebra --- Cumulative Final}{Final Exam}
+\namedateperiod
+
+\vspace{0.06in}
+\noindent\textbf{Instructions:} Show all work. No notes unless your teacher says so. The exam has
+$50$ questions in four parts --- A Vocabulary, B Multiple Choice, C Short Answer \& Computation,
+D Extended Response. \hfill\textbf{Total: 100 pts.}
+
+% ======================================================================
+\parthead{Part A --- Vocabulary (16 pts)}
+Write the letter of the best description next to each term. Two matching sets.
+
+\vspace{2pt}
+\noindent\textit{Set 1 --- Units 1--4.}\\[2pt]
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=5pt, label=\arabic*.]
+  \item Dot product \blank{1.1cm}
+  \item Unit vector \blank{1.1cm}
+  \item Basis \blank{1.1cm}
+  \item Nullspace $N(A)$ \blank{1.1cm}
+  \item Pivot \blank{1.1cm}
+  \item Least squares \blank{1.1cm}
+  \item Inverse matrix \blank{1.1cm}
+  \item Projection \blank{1.1cm}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.57\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=2pt]
+  \item[(A)] A vector whose length is exactly $1$.
+  \item[(B)] The first nonzero entry in a row, used to clear the entries below it.
+  \item[(C)] $\vv\cdot\ww=v_1w_1+v_2w_2$; it measures length and angle.
+  \item[(D)] The set of all solutions to $A\xx=\zero$.
+  \item[(E)] $A^{-1}$, the matrix that undoes $A$: $A^{-1}A=I$.
+  \item[(F)] An independent set that spans a space --- the fewest vectors that build every vector in it.
+  \item[(G)] Choosing $\hat\xx$ to make the error $\|\bb-A\xx\|^2$ as small as possible.
+  \item[(H)] Sending $\bb$ to the closest point $\pp$ in a subspace.
+\end{description}
+\end{minipage}
+
+\vspace{6pt}
+\noindent\textit{Set 2 --- Units 5--8.}\\[2pt]
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=5pt, label=\arabic*., start=9]
+  \item Eigenvector \blank{1.1cm}
+  \item Determinant \blank{1.1cm}
+  \item Covariance matrix \blank{1.1cm}
+  \item Singular value \blank{1.1cm}
+  \item ReLU \blank{1.1cm}
+  \item Linear transformation \blank{1.1cm}
+  \item Diagonalization \blank{1.1cm}
+  \item Principal component \blank{1.1cm}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.57\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=2pt]
+  \item[(A)] A nonzero vector $\xx$ whose direction is unchanged by $A$: $A\xx=\lambda\xx$.
+  \item[(B)] The symmetric matrix of variances and covariances; its eigenvectors are the principal components.
+  \item[(C)] The map $\xx\mapsto A\xx$ that fixes the origin and sends grid lines to straight, evenly spaced lines.
+  \item[(D)] A number whose absolute value is the area (or volume) factor; it is $0$ exactly when the matrix is singular.
+  \item[(E)] The rectifier $\max(0,x)$: keep positive inputs, send negatives to $0$.
+  \item[(F)] A number $\sigma\ge0$: how far $A$ stretches along a singular direction ($\sigma=\sqrt\lambda$ of $A^\T A$).
+  \item[(G)] Writing $A=X\Lambda X^{-1}$ with the eigenvectors in $X$ and the eigenvalues down $\Lambda$.
+  \item[(H)] A top singular direction of centered data --- the direction of greatest spread.
+\end{description}
+\end{minipage}
+
+% ======================================================================
+\parthead{Part B --- Multiple Choice (24 pts)}
+Circle the best answer. ($2$ pts each.)
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=8pt]
+  \item The length of the vector $(5,12)$ is
+    \hfill (A) $17$ \quad (B) $13$ \quad (C) $60$ \quad (D) $7$
+  \item Saying two nonzero vectors have dot product $0$ means they are
+    \hfill (A) pointing the same way \quad (B) perpendicular \quad (C) equal \quad (D) both zero
+  \item A $2\times2$ matrix whose determinant $ad-bc=0$
+    \hfill (A) has a unique inverse \quad (B) is orthogonal \quad (C) is singular (no inverse) \quad (D) is symmetric
+  \item For an $m\times n$ matrix of rank $r$, the dimension of the column space $C(A)$ is
+    \hfill (A) $n-r$ \quad (B) $m$ \quad (C) $r$ \quad (D) $n$
+  \item For a matrix with $n$ columns, $\dim C(A)+\dim N(A)$ equals
+    \hfill (A) $m$ \quad (B) $n$ \quad (C) $r$ \quad (D) $0$
+  \item The projection $\pp$ of $\bb$ onto $C(A)$ is the point of $C(A)$ that is
+    \hfill (A) farthest from $\bb$ \quad (B) closest to $\bb$ \quad (C) equal to $\bb$ \quad (D) at the origin
+  \item The quantity $|\det A|$ measures
+    \hfill (A) the trace \quad (B) the area/volume scaling factor \quad (C) the rank \quad (D) the largest entry
+  \item If $\det A=0$, the transformation $\xx\mapsto A\xx$
+    \hfill (A) is a rotation \quad (B) doubles area \quad (C) collapses space to a lower dimension \quad (D) preserves length
+  \item The eigenvalues of $A$ are the solutions of
+    \hfill (A) $A\xx=\zero$ \quad (B) $\det(A-\lambda I)=0$ \quad (C) $A=A^\T$ \quad (D) $A^\T A=I$
+  \item The trace of a $2\times2$ matrix equals
+    \hfill (A) the product of the eigenvalues \quad (B) the determinant \quad (C) the sum of the eigenvalues \quad (D) the largest eigenvalue
+  \item The singular values of a matrix $A$ are
+    \hfill (A) the eigenvalues of $A$ \quad (B) $\sqrt{\text{eigenvalues of }A^\T A}$, always $\ge0$ \quad (C) always negative \quad (D) its diagonal entries
+  \item $\relu(x)=\max(0,x)$ applied to $x=-4$ gives
+    \hfill (A) $-4$ \quad (B) $4$ \quad (C) $0$ \quad (D) $1$
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (48 pts)}
+Show your work. ($3$ pts each.)
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
+  \item \textbf{(U1)} Let $\vv=(5,12)$ and $\ww=(12,-5)$.
+        \textbf{(a)} Compute $2\vv+\ww$. \textbf{(b)} Compute $\vv\cdot\ww$ and the lengths $\|\vv\|,\|\ww\|$.
+        Are $\vv$ and $\ww$ perpendicular?
+        \vspace{2.2cm}
+  \item \textbf{(U1)} Let $A=\begin{bsmallmatrix}1&3\\2&6\end{bsmallmatrix}$.
+        \textbf{(a)} Compute $A\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$.
+        \textbf{(b)} Are the columns independent? What is the rank, and what does the column space look like?
+        \vspace{2.2cm}
+  \item \textbf{(U2)} Solve by elimination: $\;x+2y=7,\quad 2x+5y=16.$
+        \vspace{2.2cm}
+  \item \textbf{(U2)} Let $A=\begin{bsmallmatrix}3&1\\5&2\end{bsmallmatrix}$.
+        \textbf{(a)} Find $\det A$. \textbf{(b)} Find $A^{-1}$ and check that $A^{-1}A=I$.
+        \vspace{2.4cm}
+  \item \textbf{(U3)} Reduce $A=\begin{bsmallmatrix}1&3&1\\2&6&3\end{bsmallmatrix}$ and find a special solution of $A\xx=\zero$.
+        What is the dimension of the nullspace?
+        \vspace{2.4cm}
+  \item \textbf{(U3)} The $3\times4$ matrix $A=\begin{bsmallmatrix}1&3&0&2\\0&0&1&4\\0&0&0&0\end{bsmallmatrix}$.
+        Give the rank $r$ and the dimensions of all four subspaces: $C(A)$, $N(A)$, the row space $C(A^\T)$, and $N(A^\T)$.
+        \vspace{2.6cm}
+  \item \textbf{(U4)} Project $\bb=(5,5)$ onto the line through $\avec=(1,3)$. \textbf{(a)} Find the projection $\pp$.
+        \textbf{(b)} Find the error $\ee=\bb-\pp$ and verify it is perpendicular to $\avec$.
+        \vspace{2.4cm}
+  \item \textbf{(U4)} Find the best-fit line $b=C+Dt$ through the points $(0,2),(1,2),(2,8)$ using the normal
+        equations $A^\T A\,\hat\xx=A^\T\bb$.
+        \vspace{2.8cm}
+  \item \textbf{(U5)} Compute the determinants.
+        \textbf{(a)} $\det\begin{bsmallmatrix}5&2\\1&3\end{bsmallmatrix}$.
+        \textbf{(b)} $\det\begin{bsmallmatrix}2&1&0\\1&3&1\\0&2&1\end{bsmallmatrix}$ (expand along a row).
+        \vspace{2.4cm}
+  \item \textbf{(U5)} The transformation $A=\begin{bsmallmatrix}3&2\\0&4\end{bsmallmatrix}$.
+        \textbf{(a)} What area does a unit square map to? \textbf{(b)} Does $A$ preserve or flip orientation?
+        \textbf{(c)} If $\det B=2$, what does $AB$ do to area?
+        \vspace{2.4cm}
+  \item \textbf{(U6)} Let $A=\begin{bsmallmatrix}3&2\\2&3\end{bsmallmatrix}$. Find its eigenvalues and an eigenvector
+        for each. Check your eigenvalues against the trace and determinant.
+        \vspace{2.6cm}
+  \item \textbf{(U6)} Let $A=\begin{bsmallmatrix}4&2\\1&3\end{bsmallmatrix}$. Use the trace and determinant to find the
+        eigenvalues, find an eigenvector for each, and write the diagonalization $A=X\Lambda X^{-1}$ (give $X$ and $\Lambda$).
+        \vspace{2.8cm}
+  \item \textbf{(U7)} Let $A=\begin{bsmallmatrix}3&1\\-1&-3\end{bsmallmatrix}$. Form $A^\T A$, find its eigenvalues,
+        and give the singular values of $A$.
+        \vspace{2.6cm}
+  \item \textbf{(U7)} \textbf{(a)} Compute the outer product $\uu\vv^\T$ for $\uu=(2,1)$, $\vv=(1,3)$, and say why it is
+        rank one. \textbf{(b)} The matrix $A=\begin{bsmallmatrix}6&4\\4&6\end{bsmallmatrix}$ has singular values $10,2$.
+        What fraction of the energy does the top rank-one layer keep?
+        \vspace{2.4cm}
+  \item \textbf{(U8)} Evaluate one neural-network layer $\relu(A\vv+\bb)$ with
+        $A=\begin{bsmallmatrix}1&-1\\1&1\end{bsmallmatrix}$, $\vv=\begin{bsmallmatrix}1\\4\end{bsmallmatrix}$,
+        $\bb=\begin{bsmallmatrix}2\\-1\end{bsmallmatrix}$. Show $A\vv$, then $A\vv+\bb$, then the ReLU.
+        \vspace{2.4cm}
+  \item \textbf{(U8)} Four students' two quiz scores are $(1,2),(3,6),(5,4),(7,8)$.
+        \textbf{(a)} Find the mean point and the covariance matrix $V$.
+        \textbf{(b)} Find the eigenvalues of $V$ and the fraction of the total variance the first principal
+        component ($\mathrm{PC}_1$) holds.
+        \vspace{2.8cm}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (12 pts)}
+Explain your reasoning in full sentences. ($2$ pts each.)
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+  \item \textbf{(Units 1--3 --- rank)} Explain what the rank $r$ of an $m\times n$ matrix counts (pivots
+        $=$ independent columns), and how it fixes the dimensions of the four subspaces. Include why
+        $\dim C(A)+\dim N(A)=n$.
+        \vspace{2.4cm}
+  \item \textbf{(Unit 4 --- least squares)} Explain why the best-fit solution $\hat\xx$ comes from
+        \emph{projecting} $\bb$ onto the column space, and why the error must be perpendicular to $C(A)$ ---
+        the idea behind the normal equations $A^\T A\,\hat\xx=A^\T\bb$.
+        \vspace{2.4cm}
+  \item \textbf{(Units 5--6 --- singular)} Explain the chain: $\det A=0$ $\iff$ $A$ is singular $\iff$ the
+        columns are dependent $\iff$ $0$ is an eigenvalue. What does $\det A$ measure geometrically?
+        \vspace{2.4cm}
+  \item \textbf{(Unit 6 --- spectral theorem)} State the spectral theorem for a symmetric matrix $S=S^\T$.
+        Why are its eigenvalues real and its eigenvectors perpendicular, and why does this let you write
+        $S=Q\Lambda Q^\T$ with an orthogonal $Q$?
+        \vspace{2.4cm}
+  \item \textbf{(Unit 7 --- the SVD)} Explain why \emph{every} matrix $A$ has a singular value decomposition,
+        building the argument from the fact that $A^\T A$ is symmetric (real $\lambda\ge0$, perpendicular
+        eigenvectors) so $\sigma=\sqrt\lambda$. Why is this stronger than diagonalization by eigenvectors?
+        \vspace{2.4cm}
+  \item \textbf{(Unit 8 --- the whole course)} A neural network that learns from data is built entirely from
+        tools in this course. Name the linear-algebra idea behind each stage: (i) a layer, (ii) scoring
+        predictions with a loss, (iii) choosing the weights, (iv) understanding the shape of the data.
+        \vspace{2.6cm}
+\end{enumerate}
+
+\end{document}

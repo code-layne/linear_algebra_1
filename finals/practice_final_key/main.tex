@@ -1,0 +1,268 @@
+%! Linear Algebra — Cumulative Final Exam — Practice Final --- Study Copy (KEY)
+\documentclass[10pt]{article}
+\usepackage{linalg-article}
+\usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\zero}{\mathbf{0}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\avec}{\mathbf{a}}
+\newcommand{\relu}{\mathrm{ReLU}}
+\newcommand{\T}{\mathsf{T}}
+
+% Part-divider strip
+\newcommand{\parthead}[1]{%
+  \vspace{6pt}\noindent
+  \begin{headlinebox}{burgundy}{\color{white}\bfseries #1}\end{headlinebox}%
+  \vspace{4pt}}
+
+\begin{document}
+
+\pageheader{Linear Algebra --- Cumulative Final}{Practice Final --- Study Copy --- Answer Key}
+\namedateperiod
+
+\vspace{0.10in}
+\begin{remindbox}
+\small
+\textbf{This is a practice final.} It covers the whole course (Units 1--8) and mirrors the
+real final in length ($50$ questions), format, and the ideas it tests --- but the numbers and
+contexts differ. Work every problem with no notes, then check your answers against the key.
+\textbf{Parts:} A Vocabulary ($16$) $\cdot$ B Multiple Choice ($12$) $\cdot$ C Short Answer \&
+Computation ($16$) $\cdot$ D Extended Response ($6$). \hfill\textbf{Total: 100 pts.}
+\end{remindbox}
+
+% ======================================================================
+\parthead{Part A --- Vocabulary (16 pts)}
+Write the letter of the best description next to each term. Two matching sets.
+
+\vspace{2pt}
+\noindent\textit{Set 1 --- Units 1--4.}\\[2pt]
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=5pt, label=\arabic*.]
+  \item Unit vector \ans{C}
+  \item Dot product \ans{E}
+  \item Pivot \ans{F}
+  \item Inverse matrix \ans{A}
+  \item Nullspace $N(A)$ \ans{B}
+  \item Basis \ans{D}
+  \item Projection \ans{G}
+  \item Least squares \ans{H}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.57\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=2pt]
+  \item[(A)] $A^{-1}$, the matrix that undoes $A$: $A^{-1}A=I$.
+  \item[(B)] The set of all solutions to $A\xx=\zero$.
+  \item[(C)] A vector whose length is exactly $1$.
+  \item[(D)] An independent set that spans a space --- the fewest vectors that build every vector in it.
+  \item[(E)] $\vv\cdot\ww=v_1w_1+v_2w_2$; it measures length and angle.
+  \item[(F)] The first nonzero entry in a row, used to clear the entries below it.
+  \item[(G)] Sending $\bb$ to the closest point $\pp$ in a subspace.
+  \item[(H)] Choosing $\hat\xx$ to make the error $\|\bb-A\xx\|^2$ as small as possible.
+\end{description}
+\end{minipage}
+
+\vspace{6pt}
+\noindent\textit{Set 2 --- Units 5--8.}\\[2pt]
+\noindent
+\begin{minipage}[t]{0.40\textwidth}
+\begin{enumerate}[leftmargin=2.2em, itemsep=5pt, label=\arabic*., start=9]
+  \item Determinant \ans{E}
+  \item Linear transformation \ans{A}
+  \item Eigenvector \ans{C}
+  \item Diagonalization \ans{F}
+  \item Singular value \ans{B}
+  \item Principal component \ans{H}
+  \item ReLU \ans{D}
+  \item Covariance matrix \ans{G}
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.57\textwidth}
+\small
+\begin{description}[leftmargin=1.4em, itemsep=2pt]
+  \item[(A)] The map $\xx\mapsto A\xx$ that fixes the origin and sends grid lines to straight, evenly spaced lines.
+  \item[(B)] A number $\sigma\ge0$: how far $A$ stretches along a singular direction ($\sigma=\sqrt\lambda$ of $A^\T A$).
+  \item[(C)] A nonzero vector $\xx$ whose direction is unchanged by $A$: $A\xx=\lambda\xx$.
+  \item[(D)] The rectifier $\max(0,x)$: keep positive inputs, send negatives to $0$.
+  \item[(E)] A number whose absolute value is the area (or volume) factor; it is $0$ exactly when the matrix is singular.
+  \item[(F)] Writing $A=X\Lambda X^{-1}$ with the eigenvectors in $X$ and the eigenvalues down $\Lambda$.
+  \item[(G)] The symmetric matrix of variances and covariances; its eigenvectors are the principal components.
+  \item[(H)] A top singular direction of centered data --- the direction of greatest spread.
+\end{description}
+\end{minipage}
+
+\begin{teachernote}
+Set 1: 1\,C, 2\,E, 3\,F, 4\,A, 5\,B, 6\,D, 7\,G, 8\,H. \quad
+Set 2: 9\,E, 10\,A, 11\,C, 12\,F, 13\,B, 14\,H, 15\,D, 16\,G. \quad One point each.
+\end{teachernote}
+
+% ======================================================================
+\parthead{Part B --- Multiple Choice (24 pts)}
+Circle the best answer. ($2$ pts each.)
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=8pt]
+  \item The length of the vector $(6,8)$ is
+    \hfill \textbf{(A) $10$} \ans{$\leftarrow$} \quad (B) $14$ \quad (C) $48$ \quad (D) $100$
+  \item Two nonzero vectors are perpendicular exactly when
+    \hfill (A) they are parallel \quad (B) they have equal length \quad \textbf{(C) their dot product is $0$} \ans{$\leftarrow$} \quad (D) their sum is $\zero$
+  \item If elimination reaches a zero in a pivot position with no row below to swap in, the matrix is
+    \hfill (A) invertible \quad \textbf{(B) singular} \ans{$\leftarrow$} \quad (C) symmetric \quad (D) orthogonal
+  \item For an $m\times n$ matrix of rank $r$, the dimension of the nullspace $N(A)$ is
+    \hfill (A) $r$ \quad (B) $m-r$ \quad \textbf{(C) $n-r$} \ans{$\leftarrow$} \quad (D) $n$
+  \item The column space and the row space of a matrix always have
+    \hfill \textbf{(A) the same dimension $r$} \ans{$\leftarrow$} \quad (B) dimensions $r$ and $n$ \quad (C) dimension $0$ \quad (D) no relation
+  \item In a least-squares fit, the error vector $\ee=\bb-\pp$ is
+    \hfill (A) in the column space \quad \textbf{(B) perpendicular to the column space} \ans{$\leftarrow$} \quad (C) always $\zero$ \quad (D) parallel to $\bb$
+  \item A square matrix has $\det=0$ exactly when it is
+    \hfill (A) symmetric \quad (B) orthogonal \quad \textbf{(C) singular (no inverse)} \ans{$\leftarrow$} \quad (D) diagonal
+  \item For square matrices, $\det(AB)$ equals
+    \hfill (A) $\det A+\det B$ \quad \textbf{(B) $\det A\,\det B$} \ans{$\leftarrow$} \quad (C) $\det A-\det B$ \quad (D) $1$
+  \item The number $\lambda$ is an eigenvalue of $A$ when $A\xx=\lambda\xx$ holds for
+    \hfill (A) $\xx=\zero$ \quad \textbf{(B) some nonzero $\xx$} \ans{$\leftarrow$} \quad (C) every $\xx$ \quad (D) no $\xx$
+  \item A symmetric matrix $S=S^\T$ is guaranteed to have
+    \hfill (A) complex eigenvalues \quad (B) no eigenvectors \quad \textbf{(C) real eigenvalues and perpendicular eigenvectors} \ans{$\leftarrow$} \quad (D) equal eigenvalues
+  \item Which is true of \emph{every} matrix $A$ (any shape)?
+    \hfill (A) it is invertible \quad \textbf{(B) it has an SVD $A=U\Sigma V^\T$} \ans{$\leftarrow$} \quad (C) it is symmetric \quad (D) it has real eigenvalues
+  \item Gradient descent updates the weights by stepping
+    \hfill (A) along the slope (uphill) \quad \textbf{(B) opposite the slope (downhill)} \ans{$\leftarrow$} \quad (C) to $\zero$ \quad (D) to a random point
+\end{enumerate}
+
+\begin{teachernote}
+1\,A ($\sqrt{36+64}=10$). 2\,C (perpendicular $\Leftrightarrow$ dot product $0$). 3\,B (a missing pivot means no inverse).
+4\,C (free columns $=n-r$). 5\,A (row rank $=$ column rank $=r$). 6\,B (the residual lies in $N(A^\T)\perp C(A)$).
+7\,C ($\det=0\Leftrightarrow$ singular). 8\,B (determinants multiply). 9\,B (an eigenvector must be nonzero).
+10\,C (spectral theorem). 11\,B (every matrix has an SVD; eigen-decomposition is not guaranteed). 12\,B (step downhill,
+opposite the slope).
+\end{teachernote}
+
+% ======================================================================
+\parthead{Part C --- Short Answer \& Computation (48 pts)}
+Show your work. ($3$ pts each.)
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=9pt]
+  \item \textbf{(U1)} $\vv=(3,4)$, $\ww=(4,-3)$.
+        \ans{\textbf{(a)} $2\vv+\ww=(6,8)+(4,-3)=(10,5)$.
+        \textbf{(b)} $\vv\cdot\ww=3(4)+4(-3)=12-12=0$; $\|\vv\|=\sqrt{9+16}=5$, $\|\ww\|=\sqrt{16+9}=5$.
+        Since $\vv\cdot\ww=0$, \textbf{yes} --- they are perpendicular.}
+  \item \textbf{(U1)} $A=\begin{bsmallmatrix}1&2\\2&4\end{bsmallmatrix}$.
+        \ans{\textbf{(a)} $A\begin{bsmallmatrix}1\\3\end{bsmallmatrix}=\begin{bsmallmatrix}1+6\\2+12\end{bsmallmatrix}=\begin{bsmallmatrix}7\\14\end{bsmallmatrix}$.
+        \textbf{(b)} Column $2=2\times$ column $1$, so the columns are \textbf{dependent}; rank $=1$; the column space is
+        the \emph{line} through $(1,2)$.}
+  \item \textbf{(U2)} Solve $x+2y=5,\ 3x+4y=11$.
+        \ans{$R_2-3R_1$: $(4-6)y=11-15\Rightarrow -2y=-4\Rightarrow y=2$; back-substitute $x=5-2(2)=1$.
+        Solution $(x,y)=(1,2)$. Check: $3(1)+4(2)=11$.}
+  \item \textbf{(U2)} $A=\begin{bsmallmatrix}2&1\\5&3\end{bsmallmatrix}$.
+        \ans{\textbf{(a)} $\det A=2(3)-1(5)=1$.
+        \textbf{(b)} $A^{-1}=\dfrac{1}{1}\begin{bsmallmatrix}3&-1\\-5&2\end{bsmallmatrix}=\begin{bsmallmatrix}3&-1\\-5&2\end{bsmallmatrix}$;
+        check $A^{-1}A=\begin{bsmallmatrix}3&-1\\-5&2\end{bsmallmatrix}\begin{bsmallmatrix}2&1\\5&3\end{bsmallmatrix}
+        =\begin{bsmallmatrix}1&0\\0&1\end{bsmallmatrix}$.}
+  \item \textbf{(U3)} $A=\begin{bsmallmatrix}1&2&1\\2&4&3\end{bsmallmatrix}$.
+        \ans{$R_2-2R_1=[0,0,1]$, so the rows are $[1,2,1]$ and $[0,0,1]$. From row $2$, $x_3=0$; row $1$ gives
+        $x_1=-2x_2$. Free variable $x_2=1$: special solution $(-2,1,0)$. $N(A)$ has dimension $1$.}
+  \item \textbf{(U3)} $A=\begin{bsmallmatrix}1&2&0&1\\0&0&1&3\\0&0&0&0\end{bsmallmatrix}$ ($m=3$, $n=4$).
+        \ans{Two pivots, so $r=2$. $\dim C(A)=r=2$ (in $\mathbb{R}^3$); $\dim N(A)=n-r=4-2=2$ (in $\mathbb{R}^4$);
+        $\dim C(A^\T)=r=2$ (row space, in $\mathbb{R}^4$); $\dim N(A^\T)=m-r=3-2=1$ (in $\mathbb{R}^3$).}
+  \item \textbf{(U4)} Project $\bb=(4,3)$ onto the line through $\avec=(1,2)$.
+        \ans{$\hat x=\dfrac{\avec\cdot\bb}{\avec\cdot\avec}=\dfrac{4+6}{1+4}=\dfrac{10}{5}=2$, so
+        $\pp=2\avec=(2,4)$. \textbf{(b)} $\ee=\bb-\pp=(4,3)-(2,4)=(2,-1)$; $\ee\cdot\avec=2(1)+(-1)(2)=0$,
+        so $\ee\perp\avec$.}
+  \item \textbf{(U4)} Best-fit line through $(0,6),(1,0),(2,0)$.
+        \ans{$A=\begin{bsmallmatrix}1&0\\1&1\\1&2\end{bsmallmatrix}$, $A^\T A=\begin{bsmallmatrix}3&3\\3&5\end{bsmallmatrix}$,
+        $A^\T\bb=\begin{bsmallmatrix}6\\0\end{bsmallmatrix}$. Solve $3C+3D=6,\ 3C+5D=0$: subtract to get
+        $2D=-6\Rightarrow D=-3$, then $C=5$. Best line $b=5-3t$.}
+  \item \textbf{(U5)} Determinants.
+        \ans{\textbf{(a)} $\det\begin{bsmallmatrix}3&1\\2&4\end{bsmallmatrix}=3(4)-1(2)=10$.
+        \textbf{(b)} Expand along row $1$: $1\!\cdot\!\det\begin{bsmallmatrix}3&1\\0&1\end{bsmallmatrix}
+        -2\!\cdot\!\det\begin{bsmallmatrix}0&1\\2&1\end{bsmallmatrix}+0
+        =1(3)-2(0-2)=3+4=7$.}
+  \item \textbf{(U5)} $A=\begin{bsmallmatrix}2&1\\0&3\end{bsmallmatrix}$.
+        \ans{\textbf{(a)} $\det A=6$, so a unit square maps to area $6$.
+        \textbf{(b)} $\det A>0$, so orientation is \textbf{preserved}.
+        \textbf{(c)} $\det(AB)=\det A\,\det B=6\cdot\tfrac12=3$, so $AB$ multiplies area by $3$.}
+  \item \textbf{(U6)} $A=\begin{bsmallmatrix}2&1\\1&2\end{bsmallmatrix}$.
+        \ans{$\det(A-\lambda I)=(2-\lambda)^2-1=0\Rightarrow \lambda=3,1$. For $\lambda=3$: $(A-3I)=\begin{bsmallmatrix}-1&1\\1&-1\end{bsmallmatrix}\Rightarrow(1,1)$;
+        for $\lambda=1$: $\begin{bsmallmatrix}1&1\\1&1\end{bsmallmatrix}\Rightarrow(1,-1)$.
+        Check: trace $=4=3+1$, $\det=3=3\cdot1$.}
+  \item \textbf{(U6)} $A=\begin{bsmallmatrix}4&1\\2&3\end{bsmallmatrix}$.
+        \ans{Trace $=7$, $\det=12-2=10$, so $\lambda^2-7\lambda+10=0\Rightarrow\lambda=5,2$.
+        $\lambda=5$: $(A-5I)=\begin{bsmallmatrix}-1&1\\2&-2\end{bsmallmatrix}\Rightarrow(1,1)$;
+        $\lambda=2$: $\begin{bsmallmatrix}2&1\\2&1\end{bsmallmatrix}\Rightarrow(1,-2)$.
+        $A=X\Lambda X^{-1}$ with $X=\begin{bsmallmatrix}1&1\\1&-2\end{bsmallmatrix}$,
+        $\Lambda=\begin{bsmallmatrix}5&0\\0&2\end{bsmallmatrix}$.}
+  \item \textbf{(U7)} $A=\begin{bsmallmatrix}2&2\\1&-2\end{bsmallmatrix}$.
+        \ans{$A^\T A=\begin{bsmallmatrix}2^2+1^2&2\cdot2+1(-2)\\ \cdot&2^2+(-2)^2\end{bsmallmatrix}
+        =\begin{bsmallmatrix}5&2\\2&8\end{bsmallmatrix}$. Eigenvalues: $\lambda^2-13\lambda+36=0\Rightarrow\lambda=9,4$.
+        Singular values $\sigma=\sqrt\lambda=3,2$.}
+  \item \textbf{(U7)} Outer product and energy.
+        \ans{\textbf{(a)} $\uu\vv^\T=\begin{bsmallmatrix}1\\2\end{bsmallmatrix}\begin{bsmallmatrix}3&1\end{bsmallmatrix}
+        =\begin{bsmallmatrix}3&1\\6&2\end{bsmallmatrix}$; every column is a multiple of $\uu=(1,2)$, so it is rank one.
+        \textbf{(b)} Energy $=\sigma_1^2+\sigma_2^2=8^2+2^2=68$; the top layer keeps $\dfrac{64}{68}\approx94\%$.}
+  \item \textbf{(U8)} One layer $\relu(A\vv+\bb)$.
+        \ans{$A\vv=\begin{bsmallmatrix}1&1\\1&-1\end{bsmallmatrix}\begin{bsmallmatrix}1\\3\end{bsmallmatrix}
+        =\begin{bsmallmatrix}4\\-2\end{bsmallmatrix}$; $A\vv+\bb=\begin{bsmallmatrix}4\\-2\end{bsmallmatrix}+\begin{bsmallmatrix}0\\1\end{bsmallmatrix}
+        =\begin{bsmallmatrix}4\\-1\end{bsmallmatrix}$; $\relu\begin{bsmallmatrix}4\\-1\end{bsmallmatrix}=\begin{bsmallmatrix}4\\0\end{bsmallmatrix}$
+        (keep the positive, zero the negative).}
+  \item \textbf{(U8)} Scores $(2,4),(4,2),(6,8),(8,6)$.
+        \ans{\textbf{(a)} Mean $=(5,5)$; centered $x:-3,-1,1,3$, $y:-1,-3,3,1$; $\sigma_x^2=\sigma_y^2=\tfrac{9+1+1+9}{4}=5$,
+        $\sigma_{xy}=\tfrac{3+3+3+3}{4}=3$, so $V=\begin{bsmallmatrix}5&3\\3&5\end{bsmallmatrix}$.
+        \textbf{(b)} $\lambda=5\pm3=8,2$; $\mathrm{PC}_1$ holds $\dfrac{8}{8+2}=80\%$ of the total variance.}
+\end{enumerate}
+
+% ======================================================================
+\parthead{Part D --- Extended Response (12 pts)}
+Explain your reasoning in full sentences. ($2$ pts each.)
+
+\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
+  \item \textbf{(Units 1--3 --- rank)}
+        \ans{The rank $r$ is the number of pivots after elimination, which equals the number of independent columns
+        (and independent rows) of $A$. It sets all four subspace dimensions: $\dim C(A)=r$ and $\dim C(A^\T)=r$
+        (column rank $=$ row rank), $\dim N(A)=n-r$, and $\dim N(A^\T)=m-r$. The count $\dim C(A)+\dim N(A)=n$ holds
+        because each of the $n$ columns is either a pivot column ($r$ of them, spanning the column space) or a free
+        column ($n-r$ of them, each giving one special solution in the nullspace).}
+  \item \textbf{(Unit 4 --- least squares)}
+        \ans{When $A\xx=\bb$ has no exact solution, $\bb$ lies off the column space, so we settle for the closest
+        reachable point $\pp=A\hat\xx$ in $C(A)$ --- the projection of $\bb$. ``Closest'' means the error
+        $\ee=\bb-A\hat\xx$ is perpendicular to $C(A)$, i.e.\ perpendicular to every column of $A$: $A^\T(\bb-A\hat\xx)=\zero$.
+        Rearranging gives the normal equations $A^\T A\,\hat\xx=A^\T\bb$, whose solution is the least-squares best fit.}
+  \item \textbf{(Units 5--6 --- singular)}
+        \ans{All four statements say the same thing. $\det A=0$ means the box built from the columns is flattened
+        (zero area/volume), so the columns are dependent; dependent columns mean some nonzero $\xx$ has $A\xx=\zero$,
+        i.e.\ $A$ has no inverse (singular); and $A\xx=\zero=0\cdot\xx$ says $0$ is an eigenvalue. Geometrically,
+        $|\det A|$ is the factor by which the transformation $\xx\mapsto A\xx$ scales area (or volume), and its sign
+        tells whether orientation is kept ($+$) or flipped ($-$).}
+  \item \textbf{(Unit 6 --- spectral theorem)}
+        \ans{The spectral theorem says a symmetric matrix $S=S^\T$ has all \emph{real} eigenvalues and a full set of
+        \emph{perpendicular} eigenvectors. Symmetry forces the eigenvalues to be real (no rotation part), and
+        eigenvectors for different eigenvalues come out perpendicular. Collecting those unit eigenvectors as the
+        columns of an orthogonal matrix $Q$ (so $Q^\T Q=I$, $Q^{-1}=Q^\T$) and the eigenvalues in $\Lambda$ gives
+        $S=Q\Lambda Q^\T$ --- diagonalized by a pure rotation/reflection.}
+  \item \textbf{(Unit 7 --- the SVD)}
+        \ans{For \emph{any} matrix $A$ (any shape), $A^\T A$ is square and symmetric, so by the spectral theorem it has
+        real eigenvalues $\lambda\ge0$ (they are lengths-squared, $\lambda=\|A\vv\|^2\ge0$) and perpendicular unit
+        eigenvectors $\vv_i$. Setting $\sigma_i=\sqrt{\lambda_i}$ and $\uu_i=A\vv_i/\sigma_i$ builds
+        $A=U\Sigma V^\T$. This is stronger than eigen-diagonalization, which needs a square matrix with enough
+        independent eigenvectors --- many matrices fail that, but every matrix has an SVD.}
+  \item \textbf{(Unit 8 --- the whole course)}
+        \ans{(i) A layer is a matrix--vector step plus a bias followed by ReLU, $\relu(A\vv+\bb)$ --- matrix
+        multiplication from Unit 1. (ii) Predictions are scored by a squared-error loss, exactly the least-squares
+        measure of Unit 4. (iii) The weights are chosen by gradient descent, rolling downhill on that loss (opposite
+        the slope) until the slope is $0$. (iv) The shape of the data is captured by its mean, variances, and the
+        symmetric covariance matrix, whose eigenvectors (Unit 6) are the principal components (Unit 7). A learning
+        network is linear algebra end to end.}
+\end{enumerate}
+
+\begin{teachernote}
+\textbf{Part C} is $3$ pts each (partial credit for correct setup); \textbf{Part D} is $2$ pts each
+(1 pt for the correct idea, 1 pt for a complete justification). Accept equivalent wording and any valid
+eigenvector scaling throughout. \textbf{Total: 100 pts} ($16+24+48+12$).
+\end{teachernote}
+
+\end{document}

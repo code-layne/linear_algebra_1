@@ -102,6 +102,23 @@ Build order matters: run `make -C unitXX/tests all` (and `test_keys all`) **befo
 packet, so the `sample_test` prefab exists when `unit.mk` merges it. Output lands in
 `target/UNIT/tests/<name>/main.pdf` and `target/UNIT/test_keys/<name>/main.pdf`.
 
+## Course final exam (`finals/`)
+
+A cumulative course-wide final lives in a top-level **`finals/`** dir (sibling of `unitXX/`),
+holding four flat subdirs — `practice_final/`, `practice_final_key/`, `final/`, `final_key/`,
+each with a `main.tex`. It is **created by hand, not by the scaffolder**, and uses its own
+**self-contained `finals/Makefile`** (the SKILL's "Authoring a course-wide final exam" section
+has the full Makefile text). That Makefile globs `*/main.tex`, compiles each to
+`target/finals/<name>/main.pdf`, and — unlike unit tests — has **no `drop`/publish step and no
+`sample_*` dirs**; the final is standalone and is merged into no packet.
+
+```bash
+make -C finals all       # compile all four → target/finals/<name>/main.pdf
+make -C finals clean      # remove target/finals
+```
+
+Do not add `finals` to `shared/root.mk`/`unit.mk` — it builds only via its own Makefile.
+
 ## Troubleshooting
 
 `-file-line-error` makes errors report as `file:line: message`. Read the component's log at

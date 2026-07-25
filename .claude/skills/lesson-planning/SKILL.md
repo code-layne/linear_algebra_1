@@ -10,7 +10,9 @@ description: >-
   course map mirrors Strang's Linear Algebra for Everyone: eight units are its eight chapters
   and each lesson is a subchapter; decompose units into lessons from it. Trigger this even
   when the user just says "make lesson 2.3" or "I need a warm-up and key for tomorrow," and
-  even if they don't say "skill" or "LaTeX."
+  even if they don't say "skill" or "LaTeX." Also use it to author unit-level tests and a
+  cumulative, course-wide final exam (the `finals/` deliverable) — any "final," "final exam,"
+  or "cumulative assessment" for the whole course.
 ---
 
 # Lesson Planning — Linear Algebra
@@ -78,6 +80,24 @@ automatically when the unit is first created (Step 2):
 
 So the practice test is what students study from (in the packet); the actual test is authored
 alongside it, shares the format, but is distributed separately at test time.
+
+## What a course final is
+
+A **cumulative final exam** for the whole course lives in a single top-level **`finals/`**
+directory, a sibling of the `unitXX/` dirs (not inside any unit). It follows the unit-test
+practice/actual pattern but as **four flat subdirectories**, each with its own `main.tex`:
+
+- **`practice_final/`** — the study copy (blank), carrying the `remindbox` "this is a practice
+  final" banner.
+- **`practice_final_key/`** — its answer key.
+- **`final/`** — the real exam (blank), carrying the plain **Instructions** line.
+- **`final_key/`** — its answer key.
+
+`practice_final` and `final` are **parallel forms**: same blueprint and ideas, different numbers
+and reshuffled vocabulary letters. `finals/` has its own **standalone `finals/Makefile`** (it is
+*not* produced by the scaffolder, and it does *not* reuse `shared/tests.mk`) and, unlike unit
+tests, has **no `sample_*` drop-in dirs and no `drop`/publish step** — the final is a standalone
+deliverable, merged into no packet. See "Authoring a course-wide final exam" below.
 
 ## Workflow
 
@@ -239,6 +259,80 @@ Keep it terse and current — overwrite stale entries rather than appending a ch
 file does not exist yet, create it with these sections. Since it lives in `spec/`, it is
 tracked and travels with the branch, so the Step 0 sync always brings the latest state forward.
 
+## Authoring a course-wide final exam
+
+When the user asks for a **final exam** / **cumulative assessment for the whole course**, follow
+this workflow instead of the per-lesson one. It still bookends with Step 0 (sync + read the
+planning log) and Step 6 (update the planning log). The unit `tests/` and `test_keys/` are the
+**format model** — read the newest unit's `practice_test`, `actual_test`, and their keys first
+and mirror their preamble, `\parthead` strips, box usage, and key style.
+
+**1. Scaffold `finals/` by hand.** The `new_lesson.py` scaffolder does *not* create finals.
+Make the four subdirectories and a standalone Makefile at the project root:
+
+```bash
+mkdir -p finals/practice_final finals/practice_final_key finals/final finals/final_key
+```
+
+Write `finals/Makefile` (it mirrors `shared/tests.mk` but is self-contained, globs `*/main.tex`,
+compiles each to `target/finals/<name>/main.pdf`, and has **no** `drop`/publish step):
+
+```make
+# finals/Makefile — build the cumulative course final exam.
+PROJECT_ROOT := $(abspath ..)
+TEXINPUTS    := $(PROJECT_ROOT)/shared//:
+PDF_DIR      := $(PROJECT_ROOT)/target/finals
+LATEXFLAGS   := -xelatex -interaction=nonstopmode -halt-on-error -file-line-error
+
+FINALS := $(patsubst %/main.tex,%,$(wildcard */main.tex))
+
+.PHONY: all clean $(FINALS)
+all: $(FINALS)
+$(FINALS):
+	@mkdir -p $(PDF_DIR)/$@
+	cd $@ && TEXINPUTS="$(TEXINPUTS)" latexmk $(LATEXFLAGS) -outdir="$(PDF_DIR)/$@" main.tex
+	@echo "OK  final -> target/finals/$@/main.pdf"
+clean:
+	rm -rf $(PDF_DIR)
+```
+
+Unless the user says otherwise, **do not** create `sample_final*` drop-in dirs or PDFs — the
+final is standalone and merged into no packet. (Don't add `finals` to any unit/root packet
+Makefile in `shared/`.)
+
+**2. Design the blueprint — genuinely cumulative.** Sweep every unit's `practice_test` Part A
+vocab and Part C spines so the final samples the whole course, roughly evenly. The proven
+shape (50 questions / 100 pts) is four parts, mirroring the unit tests:
+
+| Part | Items | Pts | Coverage rule |
+|---|---|---|---|
+| A — Vocabulary (two matching sets) | 16 | 16 | ~2 terms per unit; Set 1 = Units 1–4, Set 2 = Units 5–8 |
+| B — Multiple Choice | 12 | 24 | ~1–2 concept checks per unit |
+| C — Short Answer & Computation | 16 | 48 | **exactly 2 computational items per unit** |
+| D — Extended Response | 6 | 12 | cross-unit **synthesis** (e.g. rank ties U1–3; least squares U4; det/singular U5–6; spectral theorem U6; SVD-for-every-matrix U7; the whole-course neural-net synthesis U8) |
+
+Scale the counts to the course, but keep Part C's "2 per unit" spine — it is what makes the
+exam cumulative. Reuse the unit tests' already-hand-verified numeric spines where you can.
+
+**3. Author the four files, blank-and-key in lockstep.** Same invariants as any component:
+blanks use `\usepackage{linalg-boxes}`, keys swap in `\usepackage{linalg-key}` and wrap every
+answer in `\ans{...}`. Define in each preamble every math macro the body uses (`\vv,\ww,\xx,\bb,
+\pp,\ee,\uu,\avec,\zero,\relu,\T`, plus a local `\parthead`). Give the keys `teachernote` blocks
+with the vocab answer-letter summary, per-item MC rationale, and Part C/D scoring. Practice and
+actual are parallel forms — **different numbers and reshuffled vocab letters**, same structure.
+
+**4. Verify all arithmetic in pure Python before authoring**, for *both* forms (means, variances,
+covariance/eigenvalues, projections, determinants, inverses, SVD via $A^\top A$, ReLU layers) —
+this is non-negotiable, exactly as for unit tests.
+
+**5. Build and QA.** `make -C finals all`. Then scan all four logs for `^!`/file-line errors,
+grep for `\ans` inside `$...$` (must be zero), check overfull `\hbox > 15pt` (the standard
+pageheader banner ~10.8pt is fine), and page-count each PDF with `pdftoppm`. Visually spot-check
+at least one page of each **key** to confirm red answers render with no tofu.
+
+**6. Update the planning log** (Step 6) noting the `finals/` deliverable, the blueprint, and both
+forms' Part C spines, so a later run can reproduce or revise it.
+
 ## Reference files
 
 - `references/conventions.md` — the style packages, every box environment, the fill-in and
@@ -265,6 +359,9 @@ tracked and travels with the branch, so the Step 0 sync always brings the latest
 - Greenfield: there may be no existing lesson to mirror; lean on the reference docs and make
   the first lesson a clean model.
 - Keep blank and key documents in lockstep — the key is the blank with answers filled in.
+- A **course final** is the `finals/` deliverable (four flat subdirs + a standalone Makefile,
+  no `sample_*` drops); build it via `make -C finals all`. See "Authoring a course-wide final
+  exam." Verify all arithmetic in Python for both the practice and actual forms before authoring.
 - This is a conceptual, geometry-first course: interpretation and justification over
   procedure; applications are guided illustration, not open-ended modeling; no "sketch from
   scratch" questions.

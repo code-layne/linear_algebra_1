@@ -7,7 +7,35 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-24 — **Authored & built Unit 8 Lesson 8.4 — "Mean, Variance, and Covariance" (§8.4 — the shape of
+**Last updated:** 2026-07-24 — **Authored & built the Unit 8 summative tests — the course is now COMPLETE (lessons +
+assessments, Units 1–8).** Filled all four skeletons: `tests/practice_test`, `tests/actual_test`, `test_keys/practice_test_key`,
+`test_keys/actual_test_key`, mirroring the Unit 7 test model (Parts A–D: Vocabulary 8 pts / Multiple Choice 12 pts / Short Answer &
+Computation 35 pts / Extended Response 10 pts; `\parthead` burgundy `headlinebox` strips; practice test carries the `remindbox`
+"this is a practice test" banner, actual test carries the plain **Instructions** line). Practice and actual are **parallel forms** —
+same structure and ideas, different numbers and shuffled vocab letters. **Coverage spans all five lessons 8.0–8.4:** Part A vocab =
+ReLU / layer / piecewise-linear / convolution filter / weight sharing / gradient descent / learning rate / covariance matrix; Part B
+MC = ReLU value, layer formula, N folds→N+1 pieces, weight sharing, descent steps opposite the slope, covariance sign; Part C (7
+items, 5 pts each) = evaluate a layer $\relu(A\vv+\bb)$, tent function $F=\relu(x)-2\relu(x-2)+\relu(x-4)$ (folds/peak), slide edge
+filter $[-1,1]$ (feature map + edge), $3\times4$ convolution matrix + weight count (2 vs 12), gradient descent on a bowl (3 iterates +
+losses + stop at slope 0), one two-weight $\nabla L$ step, and full mean/variance/covariance-matrix/PCA; Part D (2×5 pts) = "how a
+network learns" synthesis (layer=weight/bias/ReLU → wider=more folds → gradient descent to slope 0) + "why the covariance matrix
+unlocks PCA" (symmetric ⇒ real λ / ⊥ eigenvectors = principal components / trace = total variance = Σλ). **All arithmetic
+hand-verified in pure Python** before authoring. **Spines — practice / actual:** layer $\to(4,0)$ / $(0,4)$; tent peak $(2,2)$ /
+$(3,3)$; feature map $[0,0,4,0]$ / $[0,5,0,0]$; conv $[1,1,6,6]\to[0,5,0]$ / $[2,2,7,7]\to[0,5,0]$; descent from $0\to2\to3\to3.5$
+(losses $16/4/1/0.25$) / from $8\to6\to5\to4.5$ (same losses), min $w=4$; $\nabla$ step $(0.5,1.5)$ toward $(1,3)$ / $(1,2.5)$ toward
+$(2,5)$; PCA data $(2,4),(4,2),(6,8),(8,6)$ → $V=[[5,3],[3,5]]$, λ=8,2, PC1 80% / $(1,2),(3,6),(5,4),(7,8)$ → $V=[[5,4],[4,5]]$,
+λ=9,1, PC1 90%. **Built `make -C unit08/tests all` + `make -C unit08/test_keys all` → clean** (0 `^!`/file-line errors across all 4
+logs; 0 `\ans`-in-math; max overfull 10.77pt = the standard pageheader banner, <15pt). Page counts: practice/actual blank **3pp** each,
+practice/actual key **3pp** each. `drop` published practice test → `unit08/sample_test/main.pdf` (merges into student + full packets)
+and practice key → `unit08/sample_test_key/main.pdf` (full packet only); the actual test + key stay out of all packets. Visually
+spot-checked both key pages — vocab matching (C,A,F,D,G,E,B,H), MC red-arrow marks, all Part C matrices/feature-maps/iterates/PCA
+fractions, and both Part D responses render clean, no tofu. **Model:** the Unit 7 tests were the template; Unit 8's are now a second
+model for the format. **The Linear Algebra curriculum is DONE** — core Units 1–6 + optional Units 7–8 lessons + every unit's practice
+& actual summative assessment. No outstanding work; next run only if the user requests revisions or a new component.
+
+---
+
+**Prior run:** **Authored & built Unit 8 Lesson 8.4 — "Mean, Variance, and Covariance" (§8.4 — the shape of
 the data itself, and the LAST lesson of the course).** Filled every skeleton: lesson plan, cover, warmup, notes, activity, exit_ticket,
 homework (+ the five keys) and the slides deck, mirroring Lesson 8.3's preamble/boxes/tone. **Content — center → spread → lean →
 the matrix:** (1) **mean** $\mu=\frac1N\sum x_i$ = the center (balance point); subtracting it *centers* the data (the 7.3 move); light

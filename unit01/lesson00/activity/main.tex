@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.0}{Group Activity}
-\namepartnerperiod
 
 \vspace{0.10in}
 
@@ -27,12 +26,27 @@ The drone's first two hops are $\vv = \begin{bmatrix} 4 \\ 3 \end{bmatrix}$ and
 $\ww = \begin{bmatrix} -1 \\ 2 \end{bmatrix}$.
 \begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
   \item In words, what does hop $\ww$ tell the drone to do? \writeline
-  \item Find $\vv + \ww$ (the two hops combined). \vspace{0.5cm}
-  \item Find $2\vv$. What happens to the arrow when you double it? \vspace{0.5cm}
-  \item Find $\|\vv\|$, the length of the first hop. Show the Pythagorean step. \vspace{0.7cm}
+  \item Find $\vv + \ww$ (the two hops combined).
+\begin{work}
+  \vv + \ww &= \begin{bsmallmatrix} 4+(-1) \\ 3+2 \end{bsmallmatrix} \\
+            &= \begin{bsmallmatrix} 3 \\ 5 \end{bsmallmatrix}
+\end{work}
+  \item Find $2\vv$. What happens to the arrow when you double it?
+\begin{work}
+  2\vv &= \begin{bsmallmatrix} 2(4) \\ 2(3) \end{bsmallmatrix} \\
+       &= \begin{bsmallmatrix} 8 \\ 6 \end{bsmallmatrix}
+\end{work}
+        \writeline
+  \item Find $\|\vv\|$, the length of the first hop. Show the Pythagorean step.
+\begin{work}
+  \|\vv\| &= \sqrt{4^2 + 3^2} \\
+          &= \sqrt{25} \\
+          &= 5
+\end{work}
 \end{enumerate}
 \end{tcolorbox}
 
+\boxguard[30]
 \begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
 A full delivery is three hops from the depot at the origin:
@@ -42,9 +56,18 @@ A full delivery is three hops from the depot at the origin:
   \mathbf{c} = \begin{bmatrix} -2 \\ 2 \end{bmatrix}.
 \]
 \begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
-  \item Find the drone's final position $\mathbf{a}+\mathbf{b}+\mathbf{c}$. \vspace{0.6cm}
+  \item Find the drone's final position $\mathbf{a}+\mathbf{b}+\mathbf{c}$.
+\begin{work}
+  \mathbf{a}+\mathbf{b}+\mathbf{c} &= \begin{bsmallmatrix} 6+2+(-2) \\ 0+6+2 \end{bsmallmatrix} \\
+                                   &= \begin{bsmallmatrix} 6 \\ 8 \end{bsmallmatrix}
+\end{work}
   \item How far east and how far north of the depot does it end up? \writeline
-  \item Find the straight-line distance from the depot to the final position. \vspace{0.9cm}
+  \item Find the straight-line distance from the depot to the final position.
+\begin{work}
+  \left\|\begin{bsmallmatrix} 6 \\ 8 \end{bsmallmatrix}\right\| &= \sqrt{6^2 + 8^2} \\
+                                                                &= \sqrt{100} \\
+                                                                &= 10
+\end{work}
   \item The drone flew the three hops but the \emph{customer} only cares about the
         straight-line distance. Explain why those two totals are different. \writelines{2}
 \end{enumerate}
@@ -54,11 +77,22 @@ A full delivery is three hops from the depot at the origin:
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
 \begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
   \item A hop $\vv=\begin{bmatrix} 8 \\ 6 \end{bmatrix}$ has length $10$. Find a
-        \textbf{unit vector} pointing the same direction as $\vv$. \writelines{2}
+        \textbf{unit vector} pointing the same direction as $\vv$.
+\begin{work}
+  \frac{1}{\|\vv\|}\,\vv &= \frac{1}{10}\begin{bsmallmatrix} 8 \\ 6 \end{bsmallmatrix} \\
+                         &= \begin{bsmallmatrix} 0.8 \\ 0.6 \end{bsmallmatrix}
+\end{work}
   \item \textbf{Justify.} For two hops $\vv$ and $\ww$, is it always true that
         $\|\vv+\ww\| = \|\vv\| + \|\ww\|$? Test it on
         $\vv=\begin{bmatrix} 3 \\ 0\end{bmatrix},\ \ww=\begin{bmatrix} 0 \\ 4 \end{bmatrix}$,
-        then explain when the two sides are equal. \writelines{3}
+        then explain when the two sides are equal.
+\begin{work}
+  \|\vv + \ww\| &= \sqrt{3^2 + 4^2} \\
+                &= 5 \\
+  \|\vv\| + \|\ww\| &= 3 + 4 \\
+                    &= 7
+\end{work}
+        \writelines{2}
 \end{enumerate}
 \end{tcolorbox}
 

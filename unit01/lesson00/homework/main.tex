@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.0}{Homework}
-\namedateperiod
 
 \vspace{0.12in}
 
@@ -19,18 +18,21 @@ $\ww = \begin{bmatrix} -5 \\ 1 \end{bmatrix}$. Show your steps.
 
 \begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
   \item Compute each vector.
-    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
-      \item $\vv + \ww$ \hfill \item $\vv - \ww$ \hfill
-      \item $3\vv$ \hfill \item $\vv + 2\ww$
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=8pt]
+      \item $\vv + \ww = {}$\blank{2.0cm} \hfill \item $\vv - \ww = {}$\blank{2.0cm} \hfill
+      \item $3\vv = {}$\blank{2.0cm} \hfill \item $\vv + 2\ww = {}$\blank{2.0cm}
     \end{enumerate}
-    \vspace{1.4cm}
   \item Find each length. Leave any non-perfect square in simplest radical form.
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
       \item $\left\|\begin{bsmallmatrix} 9 \\ 12 \end{bsmallmatrix}\right\|$ \hfill
       \item $\left\|\begin{bsmallmatrix} -8 \\ 15 \end{bsmallmatrix}\right\|$ \hfill
       \item $\left\|\begin{bsmallmatrix} 1 \\ 1 \end{bsmallmatrix}\right\|$
     \end{enumerate}
-    \vspace{1.4cm}
+\begin{work}
+  \text{(a)}\ \ \sqrt{9^2 + 12^2} &= \sqrt{225} = 15 \\
+  \text{(b)}\ \ \sqrt{(-8)^2 + 15^2} &= \sqrt{289} = 17 \\
+  \text{(c)}\ \ \sqrt{1^2 + 1^2} &= \sqrt{2}
+\end{work}
   \item Which of these is a \textbf{unit vector}? Justify with a calculation.
     \[
       \mathbf{p}=\begin{bmatrix} 0 \\ 1 \end{bmatrix}, \qquad
@@ -40,8 +42,17 @@ $\ww = \begin{bmatrix} -5 \\ 1 \end{bmatrix}$. Show your steps.
   \item A hiker walks $\begin{bmatrix} 3 \\ -4 \end{bmatrix}$ then $\begin{bmatrix} 5 \\ 4 \end{bmatrix}$
         (kilometers, east/north).
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
-      \item What is the hiker's net displacement (the sum)? \vspace{0.8cm}
-      \item How far is the hiker from the start, in a straight line? \vspace{0.8cm}
+      \item What is the hiker's net displacement (the sum)?
+\begin{work}
+  \begin{bsmallmatrix} 3 \\ -4 \end{bsmallmatrix}
+    + \begin{bsmallmatrix} 5 \\ 4 \end{bsmallmatrix}
+    &= \begin{bsmallmatrix} 8 \\ 0 \end{bsmallmatrix}
+\end{work}
+      \item How far is the hiker from the start, in a straight line?
+\begin{work}
+  \left\|\begin{bsmallmatrix} 8 \\ 0 \end{bsmallmatrix}\right\| &= \sqrt{8^2 + 0^2} \\
+                                                                &= 8 \text{ km}
+\end{work}
       \item \emph{Interpret:} the hiker walked $5+\sqrt{41}\approx 11.4$ km of trail. Why is
             that more than your answer to (b)? \writelines{2}
     \end{enumerate}

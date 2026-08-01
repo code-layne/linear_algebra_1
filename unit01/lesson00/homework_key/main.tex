@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.0}{Homework --- Answer Key}
-\namedateperiod
 
 \vspace{0.12in}
 
@@ -17,9 +16,9 @@
 Throughout, let $\vv = \begin{bmatrix} 2 \\ 7 \end{bmatrix}$ and
 $\ww = \begin{bmatrix} -5 \\ 1 \end{bmatrix}$. Show your steps.
 
-\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
   \item Compute each vector.
-    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=8pt]
       \item $\vv + \ww = {}$\ans{$\begin{bsmallmatrix} -3 \\ 8 \end{bsmallmatrix}$} \hfill
       \item $\vv - \ww = {}$\ans{$\begin{bsmallmatrix} 7 \\ 6 \end{bsmallmatrix}$} \hfill
       \item $3\vv = {}$\ans{$\begin{bsmallmatrix} 6 \\ 21 \end{bsmallmatrix}$} \hfill
@@ -27,10 +26,15 @@ $\ww = \begin{bmatrix} -5 \\ 1 \end{bmatrix}$. Show your steps.
     \end{enumerate}
   \item Find each length. Leave any non-perfect square in simplest radical form.
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
-      \item \ans{$\sqrt{9^2+12^2}=\sqrt{225}=15$} \hfill
-      \item \ans{$\sqrt{(-8)^2+15^2}=\sqrt{289}=17$} \hfill
-      \item \ans{$\sqrt{1^2+1^2}=\sqrt{2}$}
+      \item $\left\|\begin{bsmallmatrix} 9 \\ 12 \end{bsmallmatrix}\right\|$ \hfill
+      \item $\left\|\begin{bsmallmatrix} -8 \\ 15 \end{bsmallmatrix}\right\|$ \hfill
+      \item $\left\|\begin{bsmallmatrix} 1 \\ 1 \end{bsmallmatrix}\right\|$
     \end{enumerate}
+\begin{work}
+  \text{(a)}\ \ \sqrt{9^2 + 12^2} &= \sqrt{225} = 15 \\
+  \text{(b)}\ \ \sqrt{(-8)^2 + 15^2} &= \sqrt{289} = 17 \\
+  \text{(c)}\ \ \sqrt{1^2 + 1^2} &= \sqrt{2}
+\end{work}
   \item Which of these is a \textbf{unit vector}? Justify with a calculation.
     \[
       \mathbf{p}=\begin{bmatrix} 0 \\ 1 \end{bmatrix}, \qquad
@@ -40,11 +44,18 @@ $\ww = \begin{bmatrix} -5 \\ 1 \end{bmatrix}$. Show your steps.
              $\|\mathbf{q}\|=\sqrt{1^2+2^2}=\sqrt{5}\approx 2.24\neq 1$, so $\mathbf{q}$ is not.}
   \item A hiker walks $\begin{bmatrix} 3 \\ -4 \end{bmatrix}$ then $\begin{bmatrix} 5 \\ 4 \end{bmatrix}$
         (kilometers, east/north).
-    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
       \item What is the hiker's net displacement (the sum)?
-            \ans{$\begin{bsmallmatrix} 8 \\ 0 \end{bsmallmatrix}$}
+\begin{work}
+  \begin{bsmallmatrix} 3 \\ -4 \end{bsmallmatrix}
+    + \begin{bsmallmatrix} 5 \\ 4 \end{bsmallmatrix}
+    &= \begin{bsmallmatrix} 8 \\ 0 \end{bsmallmatrix}
+\end{work}
       \item How far is the hiker from the start, in a straight line?
-            \ans{$\|(8,0)\|=\sqrt{8^2+0^2}=8$ km}
+\begin{work}
+  \left\|\begin{bsmallmatrix} 8 \\ 0 \end{bsmallmatrix}\right\| &= \sqrt{8^2 + 0^2} \\
+                                                                &= 8 \text{ km}
+\end{work}
       \item \emph{Interpret:} the hiker walked $5+\sqrt{41}\approx 11.4$ km of trail. Why is
             that more than your answer to (b)?
             \ansline{The $11.4$ km is total distance walked along a bent path; the $8$ km is

@@ -7,15 +7,49 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-08-01 — **Retrofitted all five conventions onto Lesson 1.0 (`unit01/lesson00`) — the first lesson brought
-forward, and the working model for the remaining 40.** Applied in the mandated order; every component now equals its key in page
-count. Details in "Lesson 1.0 retrofit" below. **The order to run them when reviewing or revising a lesson — user's decision,
-recorded in `SKILL.md` and `references/conventions.md`:**
+**Last updated:** 2026-08-01 — **Retrofitted all five conventions onto Lesson 1.1 (`unit01/lesson01`)** — the second lesson brought
+forward, following Lesson 1.0. Applied in the mandated order; every component now equals its key in page count. Details in
+"Lesson 1.1 retrofit" below, Lesson 1.0's in the section after it. **The order to run them when reviewing or revising a lesson —
+user's decision, recorded in `SKILL.md` and `references/conventions.md`:**
 
 > **1. vocabpar → 2. teachernote → 3. namestrip → 4. work rule → 5. boxguard**
 
 (The first four all change vertical space; **boxguard runs last because it repairs the pagination the other four disturb**. vocabpar
 leads because it makes vocab boxes taller and can reverse a guard verdict measured before it.)
+
+**Lesson 1.1 retrofit (`unit01/lesson01`) — what each convention actually did.** Baseline was `homework` 2pp blank / 1pp key —
+the *same* opening defect as 1.0, from the same cause.
+
+1. **vocabpar** — `\par\vspace{2pt}` after the vocabbox intro sentence in `notes` + `notes_key`; the intro no longer collides with
+   "Linear combination:".
+2. **teachernote** — `movenotes.py` lifted 3 notes (warm-up, activity, exit ticket) into the plan as titled blocks. No `_key` in the
+   lesson carries one now; the plan grew to 3pp.
+3. **namestrip** — `namestrip.py` removed 10 name rows (5 components × blank/key); `cover/` kept its row. **Unlike 1.0, it opened no
+   new mismatch here** — re-measured after it and the counts were unchanged. Expect either outcome; always re-measure.
+4. **work rule** — the fix for the homework mismatch, and the substantive edit. 10 byte-identical `work` blocks now carry every
+   multi-step solution: `activity` 4, `homework` 3, `exit_ticket` 2, `notes` 1. They replaced the same drift-prone pattern 1.0 had —
+   a bare `\vspace{1.4cm}`/`{1.6cm}`/`{0.9cm}`/`{0.5cm}` in the blank against an inline `\ans`/`\ansline` in the key — and let the
+   hand-tuned `itemsep` hacks (16pt/14pt, 12pt/10pt, 10pt/8pt, 6pt/5pt) be unified to one value per file. Also repaired **the same
+   real defect 1.0 had, in the same place**: `homework_key` item 2 had *dropped* both target-vector prompts, replacing the question
+   text with the answers — prompts restored, work moved into a `work` block. **Worth checking `homework_key` item 2 first on every
+   remaining lesson.**
+5. **boxguard** — 2 guards, mirrored blank and key: `\boxguard[20]` before notes box 2 (it opens with a TikZ figure) and `\boxguard`
+   before the notes `practicebox`. Each fixed a genuine stub in the *key* (box 2 took a title + 2 lines at the foot of p1; the
+   practicebox took a title + 1 line at the foot of p2). **Both were free — no component gained a page.** `activity` and `homework`
+   were inspected page by page and need no guards: every box already breaks whole. A **third guard was measured and declined** —
+   `\boxguard` before notes box 1 cost no page, but it was still a bad trade: it left p1 ~40% empty and pushed box 3 into a
+   title + 4-line stub at the foot of p2, i.e. it *moved* the defect rather than fixing it. Box 1's break is acceptable as it stands
+   (title + 7 lines incl. a display on p1, 5 lines on p2 — a substantial chunk each side).
+
+**Verified (Lesson 1.1):** `make -C unit01/lesson01 all` exits 0; warmup 1/1, notes 3/3, activity 2/2, exit_ticket 1/1, homework 2/2 —
+**every component equals its key**; warm-up and exit ticket still 1 page on both sides; student and key packets both 14pp, plan 3pp.
+Zero `\ans` inside `$...$`, zero `teachernote` in a `_key` (3 in the plan), zero name rows outside `cover/`, zero overfull
+`\hbox > 15pt`, both convention scripts report clean/idempotent, all 10 `work` blocks confirmed byte-identical blank vs key by
+checksum, and `pdftotext` on all four blanks confirms **no solution string reaches the blank's text layer**. `git status` shows only
+the 11 edited `.tex` files (nothing compiled in place). Key pages spot-checked visually — red answers and work blocks render with no
+tofu. All lesson arithmetic independently re-verified in Python (both robot/juice/smoothie spines and every weight solve).
+
+---
 
 **Lesson 1.0 retrofit (`unit01/lesson00`) — what each convention actually did.** Baseline was `homework` 2pp blank / 1pp key.
 
@@ -64,21 +98,29 @@ the solution; `\boxguard` demonstrated to push a box whole to the next page (box
 lines of preceding content); scaffolder output (`--unit 09 --lesson 01`) compiles — components carry no name row and the lesson plan
 is born with five titled `teachernote` stubs.
 
-**Current state of the conventions across the course — 1 of 41 lessons retrofitted** (`unit01/lesson00`; still no bulk sweep, by
-design — it would re-flow the pagination of every verified lesson at once). Remaining debt: **175** files still carry a `teachernote`
-in a `_key`, **400** component files still carry a name row, and `work`/`\boxguard` appear only in Lesson 1.0 (6 files / 4 files).
-vocabpar is unfixed everywhere else — spot-checked `unit06/lesson00`, whose `vocabbox` still has the intro sentence colliding with the
-first term in both `notes` and `notes_key`.
+**Current state of the conventions across the course — 2 of 41 lessons retrofitted** (`unit01/lesson00`, `unit01/lesson01`; still no
+bulk sweep, by design — it would re-flow the pagination of every verified lesson at once). Remaining debt: **172** files still carry a
+`teachernote` in a `_key`, **390** component files still carry a name row, and `work`/`\boxguard` appear only in Lessons 1.0 and 1.1
+(14 files / 6 files). vocabpar is unfixed everywhere else — spot-checked `unit06/lesson00`, whose `vocabbox` still has the intro
+sentence colliding with the first term in both `notes` and `notes_key`.
 
-**Next run:** retrofit the next lesson **on request, one at a time, in the order above** — e.g. `/lesson-planning apply the retrofit
-to 1.1`. Finish each with the evidence: `make -C unitXX/lessonYY all` exits 0, every component's page count equals its `_key`'s, and
-warm-up + exit ticket are still 1 page on both sides.
+**Next run:** retrofit **Lesson 1.2 (`unit01/lesson02`)**, then onward one at a time, in the order above — e.g. `/lesson-planning
+apply the retrofit to 1.2`. Finish each with the evidence: `make -C unitXX/lessonYY all` exits 0, every component's page count equals
+its `_key`'s, and warm-up + exit ticket are still 1 page on both sides.
 
-**Two lessons learned on 1.0, worth expecting on every retrofit:** (a) **namestrip can open a new mismatch** rather than close one —
-the space it frees can let a key collapse a page below its blank, so always re-measure after step 3 and let the work rule fix it;
-(b) **the work rule is where the real editing is** — hunt the `\vspace{Xcm}`-in-blank / `\ansline`-in-key pairs and the hand-tuned
-`itemsep` differences, since those are the same defect wearing two hats. Retrofitting is also a good time to catch keys that dropped
-prompt text (1.0's homework item 2 had).
+**Four things to expect on every retrofit — 1.0 and 1.1 both showed them:**
+
+(a) **The baseline defect is `homework` 2pp blank / 1pp key**, in both lessons so far, from the same cause. Start there.
+(b) **`homework_key` item 2 dropped its prompts** in *both* lessons — the key replaced the question text with the answers, so it did
+not mirror the blank. Check it first; it is a content bug the page counts do not reveal.
+(c) **The work rule is where the real editing is** — hunt the `\vspace{Xcm}`-in-blank / `\ans`-or-`\ansline`-in-key pairs and the
+hand-tuned `itemsep` differences (16/14, 12/10, 10/8, 6/5), since those are the same defect wearing two hats.
+(d) **namestrip may or may not open a new mismatch** — it did on 1.0, did not on 1.1. Re-measure after step 3 either way; never carry
+a verdict forward.
+
+**And one new lesson from 1.1: a free guard can still be the wrong guard.** `\boxguard` before notes box 1 cost no page, so the page-count
+test passed — but it left p1 40% empty and pushed box 3 into a fresh stub. **Judge a guard by re-rendering the pages, not only by the
+page count.** Measure the overflow, look at both sides of every break, and decline guards that relocate a stub instead of removing it.
 
 ---
 

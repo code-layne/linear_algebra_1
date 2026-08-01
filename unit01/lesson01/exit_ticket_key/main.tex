@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.1}{Exit Ticket --- Answer Key}
-\namedateperiod
 
 \vspace{0.15in}
 
@@ -18,11 +17,17 @@ Show your work.
 
 \begin{enumerate}[leftmargin=1.8em, itemsep=14pt]
   \item Compute the linear combination $2\vv + 3\ww$.
-        \ansline{$2\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}+3\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}
-        = \begin{bsmallmatrix} 6\\2 \end{bsmallmatrix}+\begin{bsmallmatrix} 3\\6 \end{bsmallmatrix}
-        = \begin{bsmallmatrix} 9\\8 \end{bsmallmatrix}$}
+\begin{work}
+  2\vv+3\ww &= \begin{bsmallmatrix} 6 \\ 2 \end{bsmallmatrix}
+               + \begin{bsmallmatrix} 3 \\ 6 \end{bsmallmatrix} \\
+            &= \begin{bsmallmatrix} 9 \\ 8 \end{bsmallmatrix}
+\end{work}
   \item Find weights $c$ and $d$ so that $c\,\vv + d\,\ww = \begin{bmatrix} 5 \\ 5 \end{bmatrix}$.
-        \ansline{$3c+d=5,\ c+2d=5 \Rightarrow c=1,\ d=2$; check $\vv+2\ww=(3,1)+(2,4)=(5,5)$}
+\begin{work}
+  3c+d &= 5 \\
+  c+2d &= 5 \\
+     c &= 1,\ d = 2
+\end{work}
   \item Sam says the two vectors $\begin{bmatrix} 2 \\ 4 \end{bmatrix}$ and
         $\begin{bmatrix} 1 \\ 2 \end{bmatrix}$ can reach \emph{every} point in the plane.
         Is Sam right? Explain.
@@ -30,11 +35,5 @@ Show your work.
         so the two are parallel. Every combination lands on the single line $y=2x$, so most
         points in the plane are unreachable.}
 \end{enumerate}
-
-\begin{teachernote}
-Item 3 checks the central misconception --- assuming \emph{any} two vectors span the plane.
-Full credit needs both ``they are parallel / one is a multiple of the other'' \emph{and} the
-consequence ``they span only a line.''
-\end{teachernote}
 
 \end{document}

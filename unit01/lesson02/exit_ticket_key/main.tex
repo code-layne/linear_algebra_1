@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.2}{Exit Ticket --- Answer Key}
-\namedateperiod
 
 \vspace{0.15in}
 
@@ -17,20 +16,25 @@ Show your work.
 
 \begin{enumerate}[leftmargin=1.8em, itemsep=14pt]
   \item Compute the dot product $\begin{bmatrix} 3 \\ 4 \end{bmatrix}\cdot\begin{bmatrix} 1 \\ 2 \end{bmatrix}$.
-        \ansline{$(3)(1)+(4)(2)=3+8=11$}
+\begin{work}
+  \begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}\cdot\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}
+      &= (3)(1)+(4)(2) \\
+      &= 3+8 \\
+      &= 11
+\end{work}
   \item Find the length of $\begin{bmatrix} 6 \\ 8 \end{bmatrix}$ using $\|\vv\|=\sqrt{\vv\cdot\vv}$.
-        \ansline{$\sqrt{6^2+8^2}=\sqrt{36+64}=\sqrt{100}=10$}
+\begin{work}
+  \left\|\begin{bsmallmatrix} 6\\8 \end{bsmallmatrix}\right\|
+      &= \sqrt{6^2+8^2} \\
+      &= \sqrt{36+64} \\
+      &= \sqrt{100} \\
+      &= 10
+\end{work}
   \item Are $\begin{bmatrix} 4 \\ 1 \end{bmatrix}$ and $\begin{bmatrix} -1 \\ 4 \end{bmatrix}$
         perpendicular? Use the dot product to decide, and say what your answer means about the
         angle between them.
         \ansline{$(4)(-1)+(1)(4)=-4+4=0$. The dot product is $0$, so yes --- they are
         perpendicular: the angle between them is $90^\circ$.}
 \end{enumerate}
-
-\begin{teachernote}
-Item 3 checks the central idea --- dot product $=0$ means a right angle. Full credit needs both
-the computation ($=0$) \emph{and} the meaning (perpendicular / $90^\circ$). A common slip in
-item~1 is crossing components ($3\cdot2+4\cdot1$); look for matching products $3\cdot1+4\cdot2$.
-\end{teachernote}
 
 \end{document}

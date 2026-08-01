@@ -210,12 +210,19 @@ structure and a worked skeleton for every component and its key. Hold to these i
   `\usepackage{linalg-article}` + `\usepackage{linalg-boxes}`.
 - **Answer keys** are *separate files* that swap `-boxes` for `\usepackage{linalg-key}`
   and wrap every answer in `\ans{...}` (inline) or `\ansline{...}` (fills a write-line).
-  Mirror the blank document exactly, then fill the blanks with `\ans`. Use `teachernote`
-  for teacher-only guidance. There is **no** answer-key toggle — never try to build one.
+  Mirror the blank document exactly, then fill the blanks with `\ans`. There is **no**
+  answer-key toggle — never try to build one.
+- **Author to the five conventions from the start** (full spec in `references/conventions.md`):
+  worked solutions go in byte-identical `\begin{work}` blocks in the blank and the key (the
+  **work rule**); teacher prose goes in the lesson plan as `\begin{teachernote}[Component]`,
+  never in a `_key`; components carry **no** name/date/period row (**namestrip** — cover and
+  tests only); a `vocabbox` intro sentence is followed by `\par\vspace{2pt}` before the first
+  term (**vocabpar**); and `\boxguard` goes before any breakable box that would otherwise
+  strand a stub, in the blank and the key both (**boxguard**).
 - Use the project's box vocabulary (`skillbox`, `objectivebox`, `learningtargetbox`,
   `vocabbox`, `hookbox`, `notesbox`, `practicebox`, `scenariobox`, `tocbox`, etc.) and
-  fill-in helpers (`\blank`, `\writeline`, `\termblanklong`, `\namedateperiod`) rather than
-  reinventing layout. The full catalog is in `references/conventions.md`.
+  fill-in helpers (`\blank`, `\writeline`, `\termblanklong`) rather than reinventing layout.
+  The full catalog is in `references/conventions.md`.
 - **Match the course pedagogy.** Favor geometric intuition, interpretation, and justification
   over rote computation; lean on the unit's guided applications for context. Never ask students to
   "sketch/draw/construct" a graph from scratch — give a pre-drawn figure to read, a table to
@@ -283,6 +290,42 @@ Update the file to reflect reality *now*:
 Keep it terse and current — overwrite stale entries rather than appending a changelog. If the
 file does not exist yet, create it with these sections. Since it lives in `spec/`, it is
 tracked and travels with the branch, so the Step 0 sync always brings the latest state forward.
+
+## Reviewing or revising a lesson — the five conventions, in order
+
+The conventions landed **after** most of this course was authored, so any of the 41 existing
+lessons can be behind on one. The user brings a lesson forward by name:
+
+> `/lesson-planning apply boxguard namestrip retrofit to 6.1 and 6.3`
+
+Apply **only the conventions named** — all five if none are named — to the lessons named.
+
+**Whenever you review or revise a lesson, execute the conventions in this order:**
+
+> **1. vocabpar → 2. teachernote → 3. namestrip → 4. work rule → 5. boxguard**
+
+The first four each change how much vertical space a component takes; **boxguard runs last
+because it repairs the pagination the other four disturb**. vocabpar leads because it makes
+vocab boxes taller and can reverse a guard verdict measured before it. Re-measure after each
+step — a "this guard costs a page" verdict is only valid for the box heights it was measured
+against.
+
+| # | Name | The rule | How to apply |
+| --- | --- | --- | --- |
+| 1 | **vocabpar** | `\par` before the first term in a `vocabbox`, so the intro sentence and the first term do not collide | Hand fix: `\par\vspace{2pt}` in `notes/main.tex` **and** `notes_key/main.tex` |
+| 2 | **teachernote** | Teacher prose in the lesson plan, one titled note per component — never in a `_key` | `python3 .claude/skills/lesson-planning/scripts/movenotes.py unitNN/lessonMM` (`--check` to preview) |
+| 3 | **namestrip** | Name/date/period row on the cover (and tests) only | `python3 .claude/skills/lesson-planning/scripts/namestrip.py --project . --unit NN --lesson MM` (`--check` to preview) |
+| 4 | **work rule** | A component is the same length blank and keyed | `work` blocks authored byte-identically in both files; `\writelines{n}` only for prose `\ansline` drift |
+| 5 | **boxguard** | No box stranded as a ~1in sliver across a page break | `\boxguard` (or `\boxguard[n]`) on its own line before the `\begin{...}` — blank **and** key |
+
+Full spec for each: `references/conventions.md` ("The five conventions").
+
+**There is no bulk sweep.** Retrofitting every lesson at once would re-flow the pagination of
+all 41 verified lessons; do them lesson-by-lesson as they are reviewed.
+
+**Always finish with the evidence**, per lesson: `make -C unitXX/lessonYY all` exits 0, every
+component's page count equals its `_key`'s, and the warm-up and exit ticket are still 1 page on
+both sides. Report any component that still differs and why. Then Step 6.
 
 ## Authoring a course-wide final exam
 
@@ -361,7 +404,8 @@ forms' Part C spines, so a later run can reproduce or revise it.
 ## Reference files
 
 - `references/conventions.md` — the style packages, every box environment, the fill-in and
-  answer-key macros, color palette, and per-document-type preambles. Read before authoring.
+  answer-key macros, color palette, per-document-type preambles, and **the five conventions**
+  (vocabpar, teachernote, namestrip, work rule, boxguard). Read before authoring.
 - `references/components.md` — section-by-section spec and a skeleton for the lesson plan and
   each component + key.
 - `references/course-workflow.md` — decomposing `spec/linear_algebra_v2.md` into units and
@@ -383,7 +427,12 @@ forms' Part C spines, so a later run can reproduce or revise it.
   applications up front, no verbatim college problems).
 - Greenfield: there may be no existing lesson to mirror; lean on the reference docs and make
   the first lesson a clean model.
-- Keep blank and key documents in lockstep — the key is the blank with answers filled in.
+- Keep blank and key documents in lockstep — the key is the blank with answers filled in, and it
+  must come out the **same number of pages**. Worked solutions live in shared `work` blocks (the
+  work rule); a key that runs long costs the student packet a blank padding page.
+- **When reviewing or revising a lesson, run the conventions in order:** vocabpar → teachernote →
+  namestrip → work rule → boxguard. Boxguard is always last — it repairs the pagination the other
+  four disturb. See "Reviewing or revising a lesson."
 - A **course final** is the `finals/` deliverable (four flat subdirs + a standalone Makefile,
   no `sample_*` drops); build it via `make -C finals all`. See "Authoring a course-wide final
   exam." Verify all arithmetic in Python for both the practice and actual forms before authoring.

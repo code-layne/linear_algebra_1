@@ -3,6 +3,13 @@
 
 \RequirePackage{linalg-boxes}
 
+% ── The work rule ─────────────────────────────────────────────────────────────
+% \begin{work} is defined in linalg-boxes and is authored identically in the
+% blank and the key. The blank reserves the block's exact height and ships
+% nothing; loading this package is what makes the same block visible. See the
+% comment above the environment in linalg-boxes.sty.
+\la@workvisibletrue
+
 % ── Answer macros ─────────────────────────────────────────────────────────────
 \newcommand{\ans}[1]{\textcolor{keyred}{\textbf{#1}}}
 \newcommand{\ansline}[1]{%
@@ -11,15 +18,17 @@
 
 % Filled-in vocabulary entry: the answer-key counterpart of \termblanklong.
 % \vocabans{Term}{definition} → burgundy bold "Term:" followed by the keyed answer.
+%
+% VOCABPAR: this opens with \noindent, a NO-OP in the middle of a paragraph, so a
+% vocabbox that starts with an intro sentence runs that sentence into the first
+% term. The fix is per-lesson, not here (patching it would re-flow every already-
+% verified lesson at once): put \par\vspace{2pt} after the intro sentence, in the
+% blank AND the key. See references/conventions.md ("vocabpar").
 \newcommand{\vocabans}[2]{%
     \noindent\textbf{\textcolor{burgundy}{#1:}}\ \ans{#2}\par\vspace{3pt}}
 
 % ── Teacher note box ──────────────────────────────────────────────────────────
-\newtcolorbox{teachernote}{
-    enhanced,
-    colback=skyblue, colframe=royalblue, boxrule=0.7pt, arc=1.5mm,
-    left=2mm, right=2mm, top=1.5mm, bottom=1.5mm,
-    fonttitle=\bfseries\scriptsize\color{white}, title={Teacher Note},
-    attach boxed title to top left={yshift=-2mm, xshift=4mm},
-    boxed title style={colback=royalblue, colframe=royalblue, arc=1mm}
-}
+% MOVED to linalg-boxes: teacher notes now live in the lesson plan, which loads
+% -boxes and not -key. It takes an optional component title there
+% (\begin{teachernote}[Warm-Up]) and a bare \begin{teachernote} still works, so
+% keys not yet migrated keep compiling. See "Teacher notes" in linalg-boxes.sty.

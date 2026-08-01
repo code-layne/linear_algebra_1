@@ -58,7 +58,7 @@ order:
 
 `cover/main.tex` — student-facing front page of the packet. No key. Structure:
 - Full-bleed burgundy banner (tikz) with `\LARGE` course name, unit, and `Lesson <id>  <title>`.
-- `\namedateperiod`.
+- `\namedateperiod` — the cover is the **one** component that carries it (namestrip).
 - `learningtargetbox` — an "I can…" list, one target per priority idea/skill.
 - `tocbox` — a `tabularx` listing each packet component (#, Component, Description, Score blank)
   with a Total row. Keep the rows aligned with the components you actually scaffolded.
@@ -69,16 +69,19 @@ order:
 `warmup/` (+ `warmup_key/`) — short spiral review of *prerequisite* skills (e.g. arithmetic,
 prior lessons' vectors/matrices). Frequently a **prefab PDF**: if so, drop it in as
 `warmup/main.pdf` (and `warmup_key/main.pdf`) — `lesson.mk` merges it directly and the lesson
-plan can embed its thumbnail. If authored: 3–5 quick problems with work space (`\vspace`),
-`\namedateperiod`, and the spiral review stays text-only in the plan. Key mirrors with `\ans`.
+plan can embed its thumbnail. If authored: 3–5 quick problems with work space (`\vspace`), **no
+name row** (namestrip), and the spiral review stays text-only in the plan. Key mirrors with `\ans`.
+The warm-up must fit **one page**, blank and key.
 
 ## Guided notes
 
 `notes/` (+ `notes_key/`) — the student's fill-in notes. Structure:
-- `\pageheader{Unit X, Lesson Y.Z}{Guided Notes}` + `\namedateperiod`.
+- `\pageheader{Unit X, Lesson Y.Z}{Guided Notes}` — **no name row** (namestrip).
 - `objectivebox` — "By the end of this lesson, I will be able to…" with `\writeline`s for
   students to fill (the key uses `\ansline{...}`, one per priority idea/skill).
-- `vocabbox` — `\termblanklong{Term}` per key term (key replaces each with `\ans{definition}`).
+- `vocabbox` — `\termblanklong{Term}` per key term (key uses `\vocabans{Term}{definition}`).
+  End the intro sentence with `\par\vspace{2pt}` before the first term, in **both** files —
+  without the `\par` the sentence and the first term collide (vocabpar).
 - `hookbox` — the same hook as the plan, with write-lines for student responses.
 - Direct-instruction sections in `notesbox{Title}` with blanks (`\blank`, `\writeline`) at the
   points where students record steps/definitions/results. Build the worked example from the
@@ -89,7 +92,7 @@ plan can embed its thumbnail. If authored: 3–5 quick problems with work space 
 
 `activity/` (+ `activity_key/`) — differentiated group practice, ideally a small **applied
 investigation** drawn from the unit's guided applications.
-- `\pageheader{Unit X, Lesson Y.Z}{Group Activity}` + `\namepartnerperiod`.
+- `\pageheader{Unit X, Lesson Y.Z}{Group Activity}` — **no name row** (namestrip).
 - Three `tcolorbox`es titled **Tier R — Remediate**, **Tier A — Approaching Proficiency**,
   **Tier E — Extension** (`colframe=black!40`), each with problems and generous `\vspace` work
   room. Tiers escalate in difficulty and align to the same skills; the top tier should reach an
@@ -100,13 +103,13 @@ investigation** drawn from the unit's guided applications.
 ## Exit ticket
 
 `exit_ticket/` (+ `exit_ticket_key/`) — a short independent check (2–3 items), no notes.
-`\pageheader{...}{Exit Ticket}` + `\namedateperiod`; a tight `enumerate` with a little work
+`\pageheader{...}{Exit Ticket}` — **no name row** (namestrip); a tight `enumerate` with a little work
 space. Include at least one "what does this result mean?" item. Key fills with `\ans`.
 
 ## Homework
 
 `homework/` (+ `homework_key/`) — independent practice + stretch.
-`\pageheader{...}{Homework}` + `\namedateperiod`; a numbered practice set (problems adapted
+`\pageheader{...}{Homework}` — **no name row** (namestrip); a numbered practice set (problems adapted
 from the subchapter's exercises, rewritten to level), an `extensionbox` ("Extension — optional"), and
 a short preview of the next lesson. Key fills with `\ans` and shows worked steps for the
 harder items.
@@ -125,7 +128,8 @@ down-leveled for the secondary-school audience.
 
 Unit-level, not per-lesson — scaffolded once per unit under `unitXX/tests/` and
 `unitXX/test_keys/` (see SKILL "What a unit is" and `references/build.md`). Author **two blank
-tests and their two keys**, all with `\pageheader{Unit X: <Title>}{...}` + `\namedateperiod`:
+tests and their two keys**, all with `\pageheader{Unit X: <Title>}{...}` + `\namedateperiod` — tests
+are taken in a testing setting, not stapled behind a lesson cover, so they keep the name row:
 
 - **`tests/practice_test/main.tex`** — the study copy students keep. Opens with a `remindbox`
   telling students it mirrors the real test in format and ideas but uses different numbers.
@@ -158,6 +162,12 @@ test keys too):
   `itemize`.
 - `\ans` is text-mode: never put it inside `$...$` — wrap math fragments instead
   (`\ans{$\hat v$}`) — and never let it span a blank line.
-- Use the `teachernote` environment for teacher-only guidance (pacing, common errors).
+- **Worked solutions go in a `\begin{work}` block, authored byte-identically in the blank and
+  the key** (the work rule). The blank reserves the block's exact height and prints nothing; the
+  key prints the same block in `keyred`, so the two cannot drift.
+- **No `teachernote` in a lesson component key.** It is the one block with no counterpart in the
+  blank, so it makes the key longer than the blank. Teacher prose goes in the lesson plan as
+  `\begin{teachernote}[Component]`. *(Unit tests and the finals are the exception — they are not
+  page-matched into a student packet, so their keys keep scoring notes in a `teachernote`.)*
 - Because the key matches the blank line-for-line, the two paginate identically — verify by
-  building both and comparing.
+  building both and comparing page counts.

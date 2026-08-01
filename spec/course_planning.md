@@ -7,15 +7,38 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-08-01 — **Imported the FIVE PAGINATION CONVENTIONS from `~/Mathematics/algebra_2`. No lesson content
-changed; no lesson retrofitted.** The conventions are now available project-wide, documented, and scripted; existing lessons are
-untouched and therefore all still behind on them (see "state" below). **The order to run them when reviewing or revising a lesson —
-user's decision, recorded in `SKILL.md` and `references/conventions.md`:**
+**Last updated:** 2026-08-01 — **Retrofitted all five conventions onto Lesson 1.0 (`unit01/lesson00`) — the first lesson brought
+forward, and the working model for the remaining 40.** Applied in the mandated order; every component now equals its key in page
+count. Details in "Lesson 1.0 retrofit" below. **The order to run them when reviewing or revising a lesson — user's decision,
+recorded in `SKILL.md` and `references/conventions.md`:**
 
 > **1. vocabpar → 2. teachernote → 3. namestrip → 4. work rule → 5. boxguard**
 
 (The first four all change vertical space; **boxguard runs last because it repairs the pagination the other four disturb**. vocabpar
 leads because it makes vocab boxes taller and can reverse a guard verdict measured before it.)
+
+**Lesson 1.0 retrofit (`unit01/lesson00`) — what each convention actually did.** Baseline was `homework` 2pp blank / 1pp key.
+
+1. **vocabpar** — `\par\vspace{2pt}` after the vocabbox intro sentence in `notes` + `notes_key`; the intro no longer collides with
+   "Vector:".
+2. **teachernote** — `movenotes.py` lifted 3 notes (warm-up, activity, exit ticket) into the plan as titled blocks. No `_key` in the
+   lesson carries one now; the plan grew to 3pp.
+3. **namestrip** — `namestrip.py` removed 10 name rows (5 components × blank/key); `cover/` kept its row. This *opened a second
+   mismatch* exactly as the docs warn — the freed space let `activity_key` collapse to 1pp against a 2pp blank.
+4. **work rule** — the fix for both mismatches, and the substantive edit. 12 byte-identical `work` blocks now carry every multi-step
+   solution: `activity` 7, `homework` 3, `exit_ticket` 2. They replaced the drift-prone pattern of a bare `\vspace{1.4cm}` in the
+   blank against an inline `\ansline` in the key, and let the hand-tuned `itemsep` hacks (16pt/14pt, 12pt/10pt, 10pt/8pt) be unified
+   to one value per file. Also repaired a real defect: `homework_key` item 2 had *dropped* the three norm prompts, replacing the
+   question text with the answers — the prompts are restored and the work moved into a `work` block.
+5. **boxguard** — 4 guards, mirrored blank and key: `\boxguard` before notes box 3 and before the notes `practicebox`, `\boxguard[30]`
+   before the activity's Tier A tcolorbox. Each fixed a genuine stub (notes box 3 got a title + 4 lines at the foot of p2; the key's
+   practicebox got a title + 1 line; activity Tier A orphaned item 4 atop p2). **All four were free — no component gained a page.**
+
+**Verified (Lesson 1.0):** `make -C unit01/lesson00 all` exits 0; warmup 1/1, notes 3/3, activity 2/2, exit_ticket 1/1, homework 2/2 —
+**every component equals its key**; warm-up and exit ticket still 1 page on both sides; student and key packets both 14pp. Zero `\ans`
+inside `$...$`, zero `teachernote` in a `_key`, zero overfull `\hbox > 15pt`, both convention scripts report clean/idempotent, all 12
+`work` blocks confirmed byte-identical blank vs key by checksum, and `git status` shows only the 11 edited `.tex` files (nothing
+compiled in place). Key pages spot-checked visually — red answers and work blocks render with no tofu.
 
 **What landed.** `shared/linalg-boxes.sty` (all additions purely additive — nothing re-flows until a lesson actually uses them):
 `\boxguard[n]` (default 16 lines, via `needspace`); the **`work` environment** — a worked-solution block authored *byte-identically*
@@ -41,14 +64,21 @@ the solution; `\boxguard` demonstrated to push a box whole to the next page (box
 lines of preceding content); scaffolder output (`--unit 09 --lesson 01`) compiles — components carry no name row and the lesson plan
 is born with five titled `teachernote` stubs.
 
-**Current state of the conventions across the course — nothing retrofitted, by design** (a bulk sweep would re-flow the pagination of
-all 41 verified lessons at once): **196** files still carry a `teachernote` in a `_key`, **483** component files still carry a name
-row, and there are **0** `work` blocks and **0** `\boxguard` calls in the whole course. vocabpar is unfixed everywhere — spot-checked
-`unit06/lesson00`, whose `vocabbox` has the intro sentence colliding with the first term in both `notes` and `notes_key`.
+**Current state of the conventions across the course — 1 of 41 lessons retrofitted** (`unit01/lesson00`; still no bulk sweep, by
+design — it would re-flow the pagination of every verified lesson at once). Remaining debt: **175** files still carry a `teachernote`
+in a `_key`, **400** component files still carry a name row, and `work`/`\boxguard` appear only in Lesson 1.0 (6 files / 4 files).
+vocabpar is unfixed everywhere else — spot-checked `unit06/lesson00`, whose `vocabbox` still has the intro sentence colliding with the
+first term in both `notes` and `notes_key`.
 
-**Next run:** retrofit lessons **on request, one at a time, in the order above** — e.g. `/lesson-planning apply the retrofit to 6.0`.
-Finish each with the evidence: `make -C unitXX/lessonYY all` exits 0, every component's page count equals its `_key`'s, and warm-up +
-exit ticket are still 1 page on both sides.
+**Next run:** retrofit the next lesson **on request, one at a time, in the order above** — e.g. `/lesson-planning apply the retrofit
+to 1.1`. Finish each with the evidence: `make -C unitXX/lessonYY all` exits 0, every component's page count equals its `_key`'s, and
+warm-up + exit ticket are still 1 page on both sides.
+
+**Two lessons learned on 1.0, worth expecting on every retrofit:** (a) **namestrip can open a new mismatch** rather than close one —
+the space it frees can let a key collapse a page below its blank, so always re-measure after step 3 and let the work rule fix it;
+(b) **the work rule is where the real editing is** — hunt the `\vspace{Xcm}`-in-blank / `\ansline`-in-key pairs and the hand-tuned
+`itemsep` differences, since those are the same defect wearing two hats. Retrofitting is also a good time to catch keys that dropped
+prompt text (1.0's homework item 2 had).
 
 ---
 

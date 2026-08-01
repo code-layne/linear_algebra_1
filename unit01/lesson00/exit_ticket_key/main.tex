@@ -8,28 +8,30 @@
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.0}{Exit Ticket --- Answer Key}
-\namedateperiod
 
 \vspace{0.15in}
 
 Let $\vv = \begin{bmatrix} 5 \\ 12 \end{bmatrix}$ and $\mathbf{u} = \begin{bmatrix} -4 \\ 1 \end{bmatrix}$.
 Show your work.
 
-\begin{enumerate}[leftmargin=1.8em, itemsep=14pt]
+\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
   \item Find $\vv + \mathbf{u}$ and $3\mathbf{u}$.
-        \ansline{$\vv+\mathbf{u}=\begin{bsmallmatrix} 1 \\ 13 \end{bsmallmatrix}$;\quad
-                 $3\mathbf{u}=\begin{bsmallmatrix} -12 \\ 3 \end{bsmallmatrix}$}
+\begin{work}
+  \vv + \mathbf{u} &= \begin{bsmallmatrix} 5+(-4) \\ 12+1 \end{bsmallmatrix}
+                    = \begin{bsmallmatrix} 1 \\ 13 \end{bsmallmatrix} \\
+  3\mathbf{u} &= \begin{bsmallmatrix} 3(-4) \\ 3(1) \end{bsmallmatrix}
+               = \begin{bsmallmatrix} -12 \\ 3 \end{bsmallmatrix}
+\end{work}
   \item Find $\|\vv\|$, the length of $\vv$. Show the Pythagorean step.
-        \ansline{$\|\vv\|=\sqrt{5^2+12^2}=\sqrt{169}=13$}
+\begin{work}
+  \|\vv\| &= \sqrt{5^2 + 12^2} \\
+          &= \sqrt{169} \\
+          &= 13
+\end{work}
   \item Maya says the vector $\begin{bmatrix} -7 \\ 0 \end{bmatrix}$ has length $-7$.
         Explain her mistake and give the correct length.
         \ansline{A length is a distance, so it is never negative. The formula squares each
         component: $\sqrt{(-7)^2+0^2}=\sqrt{49}=7$. The correct length is $7$.}
 \end{enumerate}
-
-\begin{teachernote}
-Item 3 checks the most common misconception --- treating a negative component as a negative
-length. Full credit needs both ``length can't be negative'' \emph{and} the correct value $7$.
-\end{teachernote}
 
 \end{document}

@@ -3,3 +3,4 @@ target
 __pycache__/
 .stamps
 .idea
+**/.DS_Store

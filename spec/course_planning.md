@@ -58,10 +58,19 @@ blank's text layer**. `git status` shows only the 11 edited `.tex` files (nothin
 pages spot-checked visually — red answers and work blocks render with no tofu. All lesson arithmetic independently re-verified in
 Python (dot products, norms, all four angles incl. $37^\circ$/$45^\circ$/$135^\circ$/$16^\circ$, every perpendicularity test).
 
-**One content defect left un-fixed (not a convention issue — flagged for the user).** The lesson plan's *Group Work & Differentiation*
-box describes the activity as **"Are These Records Alike?"** with vectors $\begin{smallmatrix}\text{steps}\\\text{active min}\end{smallmatrix}$,
-but the authored activity is **"Are These Viewers Alike?"** with action/romance ratings. The plan and the activity disagree on the
-scenario; the tier descriptions otherwise match. Needs a one-line decision on which context wins, so it was left alone.
+**One content defect found and fixed (not a convention issue — user chose the direction).** The lesson plan's *Group Work* box and the
+cover's contents row described the activity as **"Are These Records Alike?"** with vectors $\begin{smallmatrix}\text{steps}\\\text{active min}\end{smallmatrix}$,
+while the authored activity is **"Are These Viewers Alike?"** with action/romance ratings on a $-2\ldots+2$ scale. Evidence the activity
+was the newer text: the migrated teacher note already mixed both vocabularies ("sorts *viewers*" then "a scaled *record*"), i.e. the
+lesson was drafted as "records" and partly rewritten, leaving the plan and cover behind. **Decisive argument — the math requires signed
+data:** steps/active-minutes are non-negative, so two such vectors always sit in the first quadrant, always give a dot product $\ge 0$
+and an angle $\le 90^\circ$. That would destroy Tier A item 2 (read the *sign*: Ava$\cdot$Dan $=-5$ = opposite taste) and the notes'
+three-case table ($>0$ acute / $=0$ right / $<0$ obtuse). **Resolved to "Viewers"** — 8 refs updated in the plan (incl. the Reinforcement
+box and the migrated teacher note) and 1 in the cover's contents row; the activity pair was left untouched. Zero "record" strings remain
+in the lesson, all four "Are These Viewers Alike?" titles agree, and page counts were unaffected (plan still 3pp, cover 1pp).
+
+**Lesson for later retrofits:** when a plan and its component disagree on a scenario, **check whether the numbers depend on the
+context's sign range before deciding which side to rewrite** — that, not word count, settled this one.
 
 ---
 

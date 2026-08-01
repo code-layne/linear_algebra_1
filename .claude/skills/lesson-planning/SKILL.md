@@ -56,11 +56,23 @@ A lesson lives in `unitXX/lessonYY/` and consists of:
   `warmup_key`, `notes_key`, `activity_key`, `exit_ticket_key`, `homework_key`.
   (`cover` has no key.)
 
-`shared/lesson.mk` discovers a component if it has a `main.tex` **or** a `main.pdf`,
-compiles the `main.tex` ones with `latexmk -xelatex`, and merges all of them with
-`pdfunite` in pedagogical order into `lessonYY_student.pdf` (cover + blank components) and
-`lessonYY_full.pdf` (cover + keyed versions, plus the lesson plan and slides). A prefab `main.pdf` is
-fed straight to `pdfunite` from the source tree with no compile step (Step 4).
+`shared/lesson.mk` discovers a component if it has a `main.tex` **or** a `main.pdf` and
+compiles the `main.tex` ones with `latexmk -xelatex`; a prefab `main.pdf` is used as-is from
+the source tree with no compile step (Step 4). It then builds **five work products** into
+`target/compiled/unitXX/`:
+
+| Product | Contents |
+|---|---|
+| `lessonYY_plan.pdf` | the lesson plan (the lesson-root `main.tex`), on its own |
+| `lessonYY_slides.pdf` | the Beamer deck **printed** — 3 slides per page, each with a ruled notes column beside it |
+| `lessonYY_slides.pptx` | the same deck wrapped for PowerPoint (one full-page image per slide) — the **projected** form |
+| `lessonYY_student.pdf` | cover + the **blank** warmup, notes, activity, exit ticket, homework, in that order |
+| `lessonYY_key.pdf` | cover + the **key** version of each, in the same order |
+
+The student and key packets are paginated as one pair: numbers run lesson-wide, each component
+starts on a recto page, and the two are **page-for-page identical** (the shorter of a
+blank/key pair is padded to match). Never edit the slide products — the deck at
+`slides/main.tex` is the source of truth for both. Details in `references/build.md`.
 
 ## What a unit is
 
@@ -74,9 +86,9 @@ automatically when the unit is first created (Step 2):
 - **`test_keys/`** — the matching answer keys: **`practice_test_key/`** and
   **`actual_test_key/`**; its `drop` publishes the *practice* test key to `sample_test_key/main.pdf`.
 - **`sample_test/`** and **`sample_test_key/`** — prefab drop-in dirs that receive those
-  published PDFs. `shared/unit.mk` merges `sample_test` into **both** the unit student and full
-  packets, and `sample_test_key` into the **full** packet only. The **actual** test and its key
-  are never merged into any packet — they stay out of student hands.
+  published PDFs. `shared/unit.mk` merges `sample_test` into the unit **student** packet and
+  `sample_test_key` into the unit **key** packet. The **actual** test and its key are never
+  merged into any packet — they stay out of student hands.
 
 So the practice test is what students study from (in the packet); the actual test is authored
 alongside it, shares the format, but is distributed separately at test time.
@@ -164,7 +176,7 @@ unit `Makefile`** so the unit/curriculum builds work:
 ```bash
 python3 ${CLAUDE_SKILL_DIR}/scripts/new_lesson.py --project . --unit 01 --lesson 03 \
   --title "Dot Product" --unit-title "Vectors as Data" \
-  --components cover,warmup,notes,activity,exit_ticket,homework
+  --components cover,warmup,notes,activity,exit_ticket,homework,slides
 ```
 
 The script is bundled with the skill, so it is invoked via `${CLAUDE_SKILL_DIR}` (the
@@ -172,9 +184,10 @@ working directory at runtime is the user's project, not the skill folder); `--pr
 is the project root. It auto-detects the prefix and writes each authored component's
 `main.tex` as a correctly-preambled skeleton (and the matching `_key` skeleton for keyed
 components). Pass `--prefab warmup` to create that component as an empty drop-in directory
-instead (Step 4). Add `slides` to the component list to scaffold a Beamer deck — the
-scaffolder requires `shared/linalg-beamer.sty` to exist and errors clearly if it doesn't.
-Then fill in the skeletons.
+instead (Step 4). `slides` is part of the default component list — every lesson ships a deck,
+and the deck is the source for two of the five work products — so scaffold it unless the
+lesson genuinely has none; it requires `shared/linalg-beamer.sty` and errors clearly if that
+is missing. Then fill in the skeletons.
 
 **Unit assessments scaffold automatically.** When the run creates a *new* unit, the scaffolder
 also lays down that unit's `tests/`, `test_keys/`, `sample_test/`, and `sample_test_key/` dirs
@@ -228,15 +241,27 @@ drop-in directory.
 Build from the lesson directory (or the unit/root for wider packets):
 
 ```bash
-make -C unit01/lesson03 student   # cover + blank student components → lessonYY_student.pdf
-make -C unit01/lesson03 full      # lesson plan + keyed versions      → lessonYY_full.pdf
-make -C unit01/lesson03 all       # both
+make -C unit01/lesson03 all       # all five products (this is the normal build)
+make -C unit01/lesson03 plan      # the lesson plan          → lessonYY_plan.pdf
+make -C unit01/lesson03 slides    # 3-up deck + notes column → lessonYY_slides.pdf
+make -C unit01/lesson03 pptx      # projectable deck         → lessonYY_slides.pptx
+make -C unit01/lesson03 student   # cover + blank components → lessonYY_student.pdf
+make -C unit01/lesson03 key       # cover + key components   → lessonYY_key.pdf
 ```
 
-`make -C unit01 student|full` merges a unit; `make student|full` at the root merges the
-whole curriculum. Output lands in `target/`. The build needs XeLaTeX, `latexmk`, and
-`pdfunite`; if a compile fails, surface the `.log` and fix the offending `.tex` rather than
-editing the build system. Details and troubleshooting in `references/build.md`.
+`make -C unit01 student|key` merges a unit; `make student|key` at the root merges the whole
+curriculum (the plan and slide products stay per-lesson). Output lands in `target/compiled/`.
+The build needs XeLaTeX, `latexmk`, `pdfunite`, and `pdfinfo`/`pdftoppm` (poppler) for the
+pagination, handout, and PPTX passes; if a compile fails, surface the `.log` and fix the
+offending `.tex` rather than editing the build system. Details and troubleshooting in
+`references/build.md`.
+
+After building, confirm the pair is aligned — the student and key packets must report the
+**same page count**:
+
+```bash
+for f in target/compiled/unit01/lesson03_{student,key}.pdf; do pdfinfo "$f" | awk -v f="$f" '/^Pages/{print f, $2}'; done
+```
 
 ### Step 6 — Update the course planning log (always do this last)
 

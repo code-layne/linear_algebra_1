@@ -29,7 +29,7 @@ $(KEYS):
 drop: $(DROP_SRC)
 	@mkdir -p $(dir $(DROP_DST))
 	cp $(PDF_DIR)/$(DROP_SRC)/main.pdf $(DROP_DST)
-	@echo "OK  Published practice test key -> $(UNIT)/sample_test_key/main.pdf (full packet)"
+	@echo "OK  Published practice test key -> $(UNIT)/sample_test_key/main.pdf (unit key packet)"
 
 clean:
 	rm -rf $(PDF_DIR)

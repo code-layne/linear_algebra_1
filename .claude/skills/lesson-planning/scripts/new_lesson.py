@@ -10,7 +10,7 @@ creates the root Makefile and the unit Makefile if they don't exist yet.
 Example:
     python new_lesson.py --project . --unit 01 --lesson 01 \
         --title "Vectors" --unit-title "Vectors as Data" \
-        --components cover,warmup,notes,activity,exit_ticket,homework
+        --components cover,warmup,notes,activity,exit_ticket,homework,slides
 """
 from __future__ import annotations
 
@@ -24,7 +24,7 @@ SKEL_DIR = Path(__file__).resolve().parent.parent / "assets" / "skeletons"
 KEYED = ["warmup", "notes", "activity", "exit_ticket", "homework"]
 NO_KEY = ["cover", "slides"]
 ALL_COMPONENTS = KEYED + NO_KEY
-DEFAULT_COMPONENTS = ["cover", "warmup", "notes", "activity", "exit_ticket", "homework"]
+DEFAULT_COMPONENTS = ["cover", "warmup", "notes", "activity", "exit_ticket", "homework", "slides"]
 
 DOC_TITLE = {
     "warmup": "Warm-Up",
@@ -109,7 +109,7 @@ def scaffold_unit_tests(project: Path, unit_dir: str, unit_int: str,
       sample_test/     drop-in for the PDF the tests/ `drop` target publishes
       sample_test_key/ drop-in for the PDF the test_keys/ `drop` target publishes
     The practice test/key double as the sample_test/sample_test_key that
-    shared/unit.mk merges into the student/full packets; the actual test/key stay
+    shared/unit.mk merges into the student/key packets; the actual test/key stay
     out of every packet.
     """
     udir = project / unit_dir

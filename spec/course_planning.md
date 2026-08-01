@@ -7,15 +7,63 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-08-01 — **Retrofitted all five conventions onto Lesson 1.1 (`unit01/lesson01`)** — the second lesson brought
-forward, following Lesson 1.0. Applied in the mandated order; every component now equals its key in page count. Details in
-"Lesson 1.1 retrofit" below, Lesson 1.0's in the section after it. **The order to run them when reviewing or revising a lesson —
+**Last updated:** 2026-08-01 — **Retrofitted all five conventions onto Lesson 1.2 (`unit01/lesson02`)** — the third lesson brought
+forward, following Lessons 1.0 and 1.1. Applied in the mandated order; every component still equals its key in page count. Details in
+"Lesson 1.2 retrofit" below, then 1.1 and 1.0. **The order to run them when reviewing or revising a lesson —
 user's decision, recorded in `SKILL.md` and `references/conventions.md`:**
 
 > **1. vocabpar → 2. teachernote → 3. namestrip → 4. work rule → 5. boxguard**
 
 (The first four all change vertical space; **boxguard runs last because it repairs the pagination the other four disturb**. vocabpar
 leads because it makes vocab boxes taller and can reverse a guard verdict measured before it.)
+
+**Lesson 1.2 retrofit (`unit01/lesson02`) — what each convention actually did.** **Baseline was already aligned** — warmup 1/1,
+notes 3/3, activity 2/2, exit 1/1, homework 2/2. **The first lesson to open with no page mismatch**, so expectation (a) below
+("the baseline defect is `homework` 2pp/1pp") is *not* universal — 1.0 and 1.1 had it, 1.2 did not. The work here was to apply the
+conventions *without* breaking an alignment that already held.
+
+1. **vocabpar** — `\par\vspace{2pt}` after the vocabbox intro sentence in `notes` + `notes_key`; the intro no longer collides with
+   "Dot product:".
+2. **teachernote** — `movenotes.py` lifted 3 notes (warm-up, activity, exit ticket) into the plan as titled blocks. No `_key` carries
+   one now; the plan grew 2pp → 3pp.
+3. **namestrip** — `namestrip.py` removed 10 name rows (5 components × blank/key), incl. 2 `\namepartnerperiod` in the activity pair;
+   `cover/` kept its row. **Opened no new mismatch** — same as 1.1, unlike 1.0. Re-measured after it; counts unchanged.
+4. **work rule** — 10 byte-identical `work` blocks: `activity` 4, `homework` 4, `exit_ticket` 2. (`notes` needed none — its
+   practicebox answers are single final answers on `\hfill` lines, already the same size both sides.) They replaced the usual
+   drift-prone pattern — `\vspace{0.4/0.5/0.8/0.9/1.2/1.3/1.6cm}` in the blank against an inline `\ans`/`\ansline` in the key — and
+   let the hand-tuned `itemsep` drift be unified to one value per file (activity 10pt→8pt across all three tiers, exit 16pt→14pt,
+   homework 12pt→10pt and 6pt→5pt). Two prompts that mix computation with interpretation (activity Tier A item 1, homework item 5a)
+   were **split**: `work` block for the computation, `\writeline`/`\ansline` for the interpretation — a clean pattern worth reusing.
+   Also repaired **the same real defect 1.0 and 1.1 had, in the same place**: `homework_key` item 2 had *dropped* both length prompts
+   ($\begin{smallmatrix}3\\4\end{smallmatrix}$, $\begin{smallmatrix}5\\12\end{smallmatrix}$), replacing the question text with the
+   answers — prompts restored, work moved into a `work` block. **Three for three: check `homework_key` item 2 first on every
+   remaining lesson.**
+5. **boxguard** — 3 guards, mirrored blank and key, **all free** (no component gained a page): `\boxguard` before the notes
+   `practicebox`, `\boxguard[30]` before notes box 4 (it opens with text then an unbreakable TikZ grid), and `\boxguard[20]` before
+   the activity's Tier A tcolorbox. `homework` was inspected page by page and needs none — its Practice box splits with a substantial
+   chunk on each side, and the extension/spiral boxes are whole.
+
+**The new finding from 1.2: the blank and the key can have *different* stubs in the same component.** Both prior retrofits found a
+defect on one side; here each side had its own, in both multi-page components. In `notes`, the *blank* split box 4 (2-line stub atop
+p3) while the *key* split the practicebox (item 3 alone on p3). In `activity`, the *blank*'s Tier A left only item 3 (2 lines) atop
+p2 while the *key*'s left ~5 lines. **So render and inspect both sides — a clean blank does not certify the key, or vice versa.**
+After guarding, blank and key break at *identical* points in both components, which is the outcome to aim for.
+
+**Verified (Lesson 1.2):** `make -C unit01/lesson02 all` exits 0; warmup 1/1, notes 3/3, activity 2/2, exit_ticket 1/1, homework 2/2 —
+**every component equals its key**; warm-up and exit ticket still 1 page on both sides; student and key packets both 14pp, plan 3pp.
+Zero `\ans` inside `$...$`, zero `teachernote` in a `_key` (3 in the plan), zero name rows outside `cover/`, zero overfull
+`\hbox > 15pt` (max 10.77pt = the standard pageheader banner), both convention scripts report clean/idempotent, all 10 `work` blocks
+confirmed byte-identical blank vs key by checksum, and `pdftotext` on all four blanks confirms **no solution string reaches the
+blank's text layer**. `git status` shows only the 11 edited `.tex` files (nothing compiled in place). Notes/activity/exit-ticket key
+pages spot-checked visually — red answers and work blocks render with no tofu. All lesson arithmetic independently re-verified in
+Python (dot products, norms, all four angles incl. $37^\circ$/$45^\circ$/$135^\circ$/$16^\circ$, every perpendicularity test).
+
+**One content defect left un-fixed (not a convention issue — flagged for the user).** The lesson plan's *Group Work & Differentiation*
+box describes the activity as **"Are These Records Alike?"** with vectors $\begin{smallmatrix}\text{steps}\\\text{active min}\end{smallmatrix}$,
+but the authored activity is **"Are These Viewers Alike?"** with action/romance ratings. The plan and the activity disagree on the
+scenario; the tier descriptions otherwise match. Needs a one-line decision on which context wins, so it was left alone.
+
+---
 
 **Lesson 1.1 retrofit (`unit01/lesson01`) — what each convention actually did.** Baseline was `homework` 2pp blank / 1pp key —
 the *same* opening defect as 1.0, from the same cause.
@@ -98,28 +146,32 @@ the solution; `\boxguard` demonstrated to push a box whole to the next page (box
 lines of preceding content); scaffolder output (`--unit 09 --lesson 01`) compiles — components carry no name row and the lesson plan
 is born with five titled `teachernote` stubs.
 
-**Current state of the conventions across the course — 2 of 41 lessons retrofitted** (`unit01/lesson00`, `unit01/lesson01`; still no
-bulk sweep, by design — it would re-flow the pagination of every verified lesson at once). Remaining debt: **172** files still carry a
-`teachernote` in a `_key`, **390** component files still carry a name row, and `work`/`\boxguard` appear only in Lessons 1.0 and 1.1
-(14 files / 6 files). vocabpar is unfixed everywhere else — spot-checked `unit06/lesson00`, whose `vocabbox` still has the intro
-sentence colliding with the first term in both `notes` and `notes_key`.
+**Current state of the conventions across the course — 3 of 41 lessons retrofitted** (`unit01/lesson00`, `unit01/lesson01`,
+`unit01/lesson02`; still no bulk sweep, by design — it would re-flow the pagination of every verified lesson at once). Remaining debt:
+**169** files still carry a `teachernote` in a `_key`, **380** component files still carry a name row, and `work`/`\boxguard` appear
+only in Lessons 1.0–1.2 (20 files / 10 files). vocabpar is unfixed everywhere else — spot-checked `unit06/lesson00`, whose `vocabbox`
+still has the intro sentence colliding with the first term in both `notes` and `notes_key`.
 
-**Next run:** retrofit **Lesson 1.2 (`unit01/lesson02`)**, then onward one at a time, in the order above — e.g. `/lesson-planning
-apply the retrofit to 1.2`. Finish each with the evidence: `make -C unitXX/lessonYY all` exits 0, every component's page count equals
+**Next run:** retrofit **Lesson 1.3 (`unit01/lesson03`)**, then onward one at a time, in the order above — e.g. `/lesson-planning
+apply the retrofit to 1.3`. Finish each with the evidence: `make -C unitXX/lessonYY all` exits 0, every component's page count equals
 its `_key`'s, and warm-up + exit ticket are still 1 page on both sides.
 
-**Four things to expect on every retrofit — 1.0 and 1.1 both showed them:**
+**What to expect on every retrofit — after three lessons:**
 
-(a) **The baseline defect is `homework` 2pp blank / 1pp key**, in both lessons so far, from the same cause. Start there.
-(b) **`homework_key` item 2 dropped its prompts** in *both* lessons — the key replaced the question text with the answers, so it did
-not mirror the blank. Check it first; it is a content bug the page counts do not reveal.
+(a) **A `homework` 2pp blank / 1pp key baseline defect is common but NOT universal** — 1.0 and 1.1 had it, **1.2 opened fully
+aligned**. Measure first; do not assume a mismatch exists, and do not assume there is none.
+(b) **`homework_key` item 2 dropped its prompts** in *all three* lessons — the key replaced the question text with the answers, so it
+did not mirror the blank. Check it first; it is a content bug the page counts do not reveal.
 (c) **The work rule is where the real editing is** — hunt the `\vspace{Xcm}`-in-blank / `\ans`-or-`\ansline`-in-key pairs and the
-hand-tuned `itemsep` differences (16/14, 12/10, 10/8, 6/5), since those are the same defect wearing two hats.
-(d) **namestrip may or may not open a new mismatch** — it did on 1.0, did not on 1.1. Re-measure after step 3 either way; never carry
-a verdict forward.
+hand-tuned `itemsep` differences (16/14, 12/10, 10/8, 6/5), since those are the same defect wearing two hats. When a prompt mixes
+computation with interpretation, **split it**: `work` block for the computation, `\writeline`/`\ansline` for the prose.
+(d) **namestrip may or may not open a new mismatch** — it did on 1.0, did not on 1.1 or 1.2. Re-measure after step 3 either way;
+never carry a verdict forward.
+(e) **Render and inspect the blank AND the key** (new in 1.2) — the two can carry *different* stubs in the same component, so a clean
+blank does not certify the key. Aim for blank and key breaking at identical points.
 
-**And one new lesson from 1.1: a free guard can still be the wrong guard.** `\boxguard` before notes box 1 cost no page, so the page-count
-test passed — but it left p1 40% empty and pushed box 3 into a fresh stub. **Judge a guard by re-rendering the pages, not only by the
+**And from 1.1: a free guard can still be the wrong guard.** `\boxguard` before notes box 1 cost no page, so the page-count test
+passed — but it left p1 40% empty and pushed box 3 into a fresh stub. **Judge a guard by re-rendering the pages, not only by the
 page count.** Measure the overflow, look at both sides of every break, and decline guards that relocate a stub instead of removing it.
 
 ---

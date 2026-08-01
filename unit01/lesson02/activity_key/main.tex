@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.2}{Group Activity --- Answer Key}
-\namepartnerperiod
 
 \vspace{0.10in}
 
@@ -29,23 +28,42 @@ Three viewers: $\text{Ava}=\begin{bmatrix} 2 \\ 1 \end{bmatrix}$,
 $\text{Ben}=\begin{bmatrix} 1 \\ 2 \end{bmatrix}$,
 $\text{Cora}=\begin{bmatrix} -1 \\ 2 \end{bmatrix}$.
 \begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
-  \item Compute $\text{Ava}\cdot\text{Ben}$. \ans{$(2)(1)+(1)(2)=4$}
-  \item Compute $\text{Ava}\cdot\text{Cora}$. \ans{$(2)(-1)+(1)(2)=0$}
+  \item Compute $\text{Ava}\cdot\text{Ben}$.
+\begin{work}
+  \text{Ava}\cdot\text{Ben} &= (2)(1)+(1)(2) \\
+                            &= 4
+\end{work}
+  \item Compute $\text{Ava}\cdot\text{Cora}$.
+\begin{work}
+  \text{Ava}\cdot\text{Cora} &= (2)(-1)+(1)(2) \\
+                             &= 0
+\end{work}
   \item Find the lengths $\|\text{Ava}\|$ and $\|\text{Ben}\|$ using $\|\vv\|=\sqrt{\vv\cdot\vv}$.
-        \ans{$\|\text{Ava}\|=\sqrt{4+1}=\sqrt5$; \ $\|\text{Ben}\|=\sqrt{1+4}=\sqrt5$}
+\begin{work}
+  \|\text{Ava}\| &= \sqrt{2^2+1^2} \\
+                 &= \sqrt5 \\
+  \|\text{Ben}\| &= \sqrt{1^2+2^2} \\
+                 &= \sqrt5
+\end{work}
   \item Which of the two dot products in (1) and (2) is bigger?
         \ansline{(1) is bigger: $4>0$. Ava and Ben point more the same way than Ava and Cora.}
 \end{enumerate}
 \end{tcolorbox}
 
+\boxguard[20]
 \begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
 Same viewers, plus $\text{Dan}=\begin{bmatrix} -2 \\ -1 \end{bmatrix}$. Use
 $\cos\theta=\dfrac{\vv\cdot\ww}{\|\vv\|\,\|\ww\|}$; round angles to the nearest degree.
 \begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
   \item Find the angle between Ava and Ben. Are their tastes similar?
-        \ansline{$\cos\theta=\dfrac{4}{\sqrt5\,\sqrt5}=\dfrac45=0.8$, so $\theta\approx37^\circ$.
-        A small angle --- yes, their tastes are similar.}
+\begin{work}
+  \cos\theta &= \frac{\text{Ava}\cdot\text{Ben}}{\|\text{Ava}\|\,\|\text{Ben}\|} \\
+             &= \frac{4}{\sqrt5\cdot\sqrt5} \\
+             &= 0.8 \\
+      \theta &\approx 37^\circ
+\end{work}
+        \ansline{A small angle --- yes, their tastes are similar.}
   \item Compute $\text{Ava}\cdot\text{Cora}$ and $\text{Ava}\cdot\text{Dan}$. From the \emph{sign}
         of each, describe how each viewer's taste compares to Ava's (similar / unrelated / opposite).
         \ansline{$\text{Ava}\cdot\text{Cora}=0$ (right angle) $\Rightarrow$ \emph{unrelated} taste.
@@ -75,13 +93,5 @@ $\cos\theta=\dfrac{\vv\cdot\ww}{\|\vv\|\,\|\ww\|}$; round angles to the nearest 
         The only angle between $0^\circ$ and $180^\circ$ with cosine $0$ is $90^\circ$.}
 \end{enumerate}
 \end{tcolorbox}
-
-\begin{teachernote}
-Tier A item 2 is the central ``interpret'' moment: the \emph{sign} of the dot product sorts
-viewers into similar ($+$), unrelated ($0$), and opposite ($-$). Tier E item 2 separates
-\emph{length} from \emph{direction} --- a scaled record has the same direction (angle $0$), which
-is why cosine similarity ignores magnitude. Accept any correct perpendicular vector in Tier E
-item 1.
-\end{teachernote}
 
 \end{document}

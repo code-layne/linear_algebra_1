@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.2}{Group Activity}
-\namepartnerperiod
 
 \vspace{0.10in}
 
@@ -28,20 +27,42 @@ product} measures exactly that. Work with your partner and \emph{show your steps
 Three viewers: $\text{Ava}=\begin{bmatrix} 2 \\ 1 \end{bmatrix}$,
 $\text{Ben}=\begin{bmatrix} 1 \\ 2 \end{bmatrix}$,
 $\text{Cora}=\begin{bmatrix} -1 \\ 2 \end{bmatrix}$.
-\begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
-  \item Compute $\text{Ava}\cdot\text{Ben}$. \vspace{0.4cm}
-  \item Compute $\text{Ava}\cdot\text{Cora}$. \vspace{0.4cm}
-  \item Find the lengths $\|\text{Ava}\|$ and $\|\text{Ben}\|$ using $\|\vv\|=\sqrt{\vv\cdot\vv}$. \vspace{0.5cm}
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item Compute $\text{Ava}\cdot\text{Ben}$.
+\begin{work}
+  \text{Ava}\cdot\text{Ben} &= (2)(1)+(1)(2) \\
+                            &= 4
+\end{work}
+  \item Compute $\text{Ava}\cdot\text{Cora}$.
+\begin{work}
+  \text{Ava}\cdot\text{Cora} &= (2)(-1)+(1)(2) \\
+                             &= 0
+\end{work}
+  \item Find the lengths $\|\text{Ava}\|$ and $\|\text{Ben}\|$ using $\|\vv\|=\sqrt{\vv\cdot\vv}$.
+\begin{work}
+  \|\text{Ava}\| &= \sqrt{2^2+1^2} \\
+                 &= \sqrt5 \\
+  \|\text{Ben}\| &= \sqrt{1^2+2^2} \\
+                 &= \sqrt5
+\end{work}
   \item Which of the two dot products in (1) and (2) is bigger? \writeline
 \end{enumerate}
 \end{tcolorbox}
 
+\boxguard[20]
 \begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
 Same viewers, plus $\text{Dan}=\begin{bmatrix} -2 \\ -1 \end{bmatrix}$. Use
 $\cos\theta=\dfrac{\vv\cdot\ww}{\|\vv\|\,\|\ww\|}$; round angles to the nearest degree.
-\begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
-  \item Find the angle between Ava and Ben. Are their tastes similar? \vspace{0.9cm}
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item Find the angle between Ava and Ben. Are their tastes similar?
+\begin{work}
+  \cos\theta &= \frac{\text{Ava}\cdot\text{Ben}}{\|\text{Ava}\|\,\|\text{Ben}\|} \\
+             &= \frac{4}{\sqrt5\cdot\sqrt5} \\
+             &= 0.8 \\
+      \theta &\approx 37^\circ
+\end{work}
+        \writeline
   \item Compute $\text{Ava}\cdot\text{Cora}$ and $\text{Ava}\cdot\text{Dan}$. From the \emph{sign}
         of each, describe how each viewer's taste compares to Ava's (similar / unrelated / opposite). \writelines{2}
   \item \textbf{Interpret.} Cora's dot product with Ava is $0$. What does a right angle mean for
@@ -51,7 +72,7 @@ $\cos\theta=\dfrac{\vv\cdot\ww}{\|\vv\|\,\|\ww\|}$; round angles to the nearest 
 
 \begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
-\begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
   \item Find a taste vector that is \textbf{perpendicular} to $\text{Ava}=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$
         (a nonzero vector whose dot product with Ava is $0$). Show it works. \writelines{2}
   \item A new viewer's taste is $3\,\text{Ava}=\begin{bsmallmatrix} 6\\3 \end{bsmallmatrix}$. Find the

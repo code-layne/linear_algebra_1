@@ -138,7 +138,7 @@ tests and their two keys**, all with `\pageheader{Unit X: <Title>}{...}` + `\nam
 - **`test_keys/practice_test_key/main.tex`**, **`test_keys/actual_test_key/main.tex`** — the
   keys, each mirroring its blank test exactly (preamble swaps `-boxes` for `-key`), answers in
   `\ans{...}`, correct MC options tagged, extended-response scoring in a `teachernote`. The
-  practice key is published as `sample_test_key` (full packet only).
+  practice key is published as `sample_test_key` (unit key packet only).
 
 Content comes from across the whole unit's subchapters (it is summative). Cover the same
 priority ideas the lessons taught; keep the interpret-and-justify emphasis in the extended

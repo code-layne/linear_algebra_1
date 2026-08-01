@@ -7,7 +7,30 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-07-24 — **Authored & built a 50-question cumulative FINAL EXAM for the whole course, in a new
+**Last updated:** 2026-08-01 — **Rebuilt the BUILD SYSTEM to match `~/Mathematics/algebra_2`. No lesson content changed.**
+The old `student` / `full` packet pair is gone. Every lesson now produces **five work products** in `target/compiled/unitXX/`:
+`lessonYY_plan.pdf` (the lesson plan alone), `lessonYY_slides.pdf` (the Beamer deck printed **3 slides per page**, thumbnails in the
+left column and a ruled notes column beside each), `lessonYY_slides.pptx` (the same deck as one full-bleed page image per slide — the
+projected form), `lessonYY_student.pdf` (cover + blank warmup/notes/activity/exit_ticket/homework) and `lessonYY_key.pdf` (cover + the
+key version of each, same order). **Ported from algebra_2, byte-identical where possible:** `shared/lesson.mk` (identical), plus three
+new files — `shared/handout.tex` (the 3-up printable pass; `algebra2-colors`→`linalg-colors`), `shared/paginate.tex` (packet-wide
+pagination), and `shared/pdf2pptx.py` (dependency-free OOXML wrapper, poppler only, `PPTX_DPI` default 300). `shared/unit.mk` and
+`shared/root.mk` were rewritten so the aggregated packets are now `unitXX_{student,key}.pdf` and `curriculum_{student,key}.pdf`;
+`sample_test` merges into the unit **student** packet, `sample_test_key` into the unit **key** packet. Only the two packets aggregate —
+plan/slides/pptx stay per-lesson. **New guarantees from `paginate.tex`:** page numbers run lesson-wide, every component starts on an
+**odd (recto)** page, and the student and key packets are **page-for-page identical** (each component gets a `max(blank,key)`-rounded-to-even
+slot, the shorter padded with numbered blank versos). **Verified:** `make -C unit01 student` + `key` → all 5 lessons build all five products;
+lesson00–03 student=key=14pp, lesson04 student=key=12pp (all aligned); `unit01_student.pdf` 71pp vs `unit01_key.pdf` 70pp — expected, the
+sample test (5pp) and its key (4pp) sit at the end and are the only unpaired pieces. Visually confirmed the 3-up handout and a
+student/key page pair (both p5 = guided-notes p1). **Skill docs updated to match**: SKILL.md ("What a lesson is" product table, Step 5
+commands), `references/build.md` (five-products section, the three passes, new commands + troubleshooting), and `scripts/new_lesson.py`
+now defaults `--components` to include **`slides`** (every lesson ships a deck — it is the source of two of the five products).
+**Next run:** nothing outstanding. Build with `make -C unitXX/lessonYY all`; after any lesson build, confirm student and key report the
+same page count. Older narrative below still describes lesson/test *content* accurately; ignore any "full packet" wording in it.
+
+---
+
+**Prior run (2026-07-24):** **Authored & built a 50-question cumulative FINAL EXAM for the whole course, in a new
 top-level `finals/` directory (parallel to the `unitXX/` dirs).** Per the user's request, `finals/` holds four flat
 subdirs — `practice_final`, `practice_final_key`, `final`, `final_key` — mirroring the unit-test practice/actual pattern
 but **without** any `sample_*` drop-in dirs (the user said samples need not be compiled/checked-in as PDFs, so there is no

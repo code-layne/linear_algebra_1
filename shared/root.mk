@@ -1,6 +1,9 @@
 # shared/root.mk — included by the project-root Makefile (just `include shared/root.mk`).
-# Discovers every unit*/Makefile, delegates to it, and merges the per-unit packets
-# into target/compiled/curriculum_{student,full}.pdf.
+# Delegates to the unit sub-makes and stitches the whole-curriculum packets.
+#
+# Only the student and key packets aggregate to this level. Each lesson's other
+# three products (plan, the 3-up slides PDF, the full-page slides PPTX) stay in
+# target/compiled/unitXX/ — they are per-lesson teacher artifacts.
 
 PROJECT_ROOT := $(CURDIR)
 COMPILED_DIR := $(PROJECT_ROOT)/target/compiled
@@ -8,7 +11,7 @@ COMPILED_DIR := $(PROJECT_ROOT)/target/compiled
 # Auto-discover units that have a Makefile, in sorted order.
 UNITS := $(patsubst %/Makefile,%,$(sort $(wildcard unit*/Makefile)))
 
-.PHONY: all student full clean distclean $(UNITS)
+.PHONY: all student key clean distclean $(UNITS)
 
 all: $(UNITS)
 
@@ -26,19 +29,21 @@ student:
 	  echo "  (no unit student PDFs found)"; \
 	fi
 
-full:
-	@for u in $(UNITS); do $(MAKE) -C $$u full || exit 1; done
+key:
+	@for u in $(UNITS); do $(MAKE) -C $$u key || exit 1; done
 	@mkdir -p $(COMPILED_DIR)
-	@unit_pdfs=$$(ls $(COMPILED_DIR)/unit*_full.pdf 2>/dev/null | sort); \
+	@unit_pdfs=$$(ls $(COMPILED_DIR)/unit*_key.pdf 2>/dev/null | sort); \
 	if [ -n "$$unit_pdfs" ]; then \
-	  pdfunite $$unit_pdfs $(COMPILED_DIR)/curriculum_full.pdf; \
-	  echo "✓  Curriculum full packet    → target/compiled/curriculum_full.pdf"; \
+	  pdfunite $$unit_pdfs $(COMPILED_DIR)/curriculum_key.pdf; \
+	  echo "✓  Curriculum key packet     → target/compiled/curriculum_key.pdf"; \
 	else \
-	  echo "  (no unit full PDFs found)"; \
+	  echo "  (no unit key PDFs found)"; \
 	fi
 
 clean:
 	@for u in $(UNITS); do $(MAKE) -C $$u clean; done
+	rm -f $(COMPILED_DIR)/curriculum_student.pdf $(COMPILED_DIR)/curriculum_key.pdf \
+	      $(COMPILED_DIR)/curriculum_full.pdf
 
 distclean: clean
 	rm -rf $(PROJECT_ROOT)/target $(PROJECT_ROOT)/.stamps

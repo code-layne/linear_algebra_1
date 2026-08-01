@@ -12,7 +12,7 @@ TESTS := $(patsubst %/main.tex,%,$(wildcard */main.tex))
 
 # The practice test doubles as the unit "sample test" drop-in: its compiled PDF is
 # published to ../sample_test/main.pdf, which shared/unit.mk merges into BOTH the
-# student and full packets. The actual test is never published into a packet.
+# student and key packets. The actual test is never published into a packet.
 DROP_SRC := practice_test
 DROP_DST := ../sample_test/main.pdf
 
@@ -29,7 +29,7 @@ $(TESTS):
 drop: $(DROP_SRC)
 	@mkdir -p $(dir $(DROP_DST))
 	cp $(PDF_DIR)/$(DROP_SRC)/main.pdf $(DROP_DST)
-	@echo "OK  Published practice test -> $(UNIT)/sample_test/main.pdf (student + full packet)"
+	@echo "OK  Published practice test -> $(UNIT)/sample_test/main.pdf (student packet)"
 
 clean:
 	rm -rf $(PDF_DIR)

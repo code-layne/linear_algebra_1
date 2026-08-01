@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.1}{Homework --- Answer Key}
-\namedateperiod
 
 \vspace{0.12in}
 
@@ -20,16 +19,35 @@ $\ww = \begin{bmatrix} 3 \\ 1 \end{bmatrix}$. Show your steps.
 \begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
   \item Compute each linear combination.
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
-      \item $\vv + \ww = {}$\ans{$\begin{bsmallmatrix} 4 \\ 3 \end{bsmallmatrix}$} \hfill
-      \item $2\vv - \ww = {}$\ans{$\begin{bsmallmatrix} -1 \\ 3 \end{bsmallmatrix}$} \hfill
-      \item $3\vv + \ww = {}$\ans{$\begin{bsmallmatrix} 6 \\ 7 \end{bsmallmatrix}$} \hfill
-      \item $-2\vv + 2\ww = {}$\ans{$\begin{bsmallmatrix} 4 \\ -2 \end{bsmallmatrix}$}
+      \item $\vv + \ww$ \hfill \item $2\vv - \ww$ \hfill
+      \item $3\vv + \ww$ \hfill \item $-2\vv + 2\ww$
     \end{enumerate}
+\begin{work}
+  \text{(a)}\ \ \vv+\ww &= \begin{bsmallmatrix} 1+3 \\ 2+1 \end{bsmallmatrix}
+                         = \begin{bsmallmatrix} 4 \\ 3 \end{bsmallmatrix} \\
+  \text{(b)}\ \ 2\vv-\ww &= \begin{bsmallmatrix} 2 \\ 4 \end{bsmallmatrix}
+                            - \begin{bsmallmatrix} 3 \\ 1 \end{bsmallmatrix}
+                         = \begin{bsmallmatrix} -1 \\ 3 \end{bsmallmatrix} \\
+  \text{(c)}\ \ 3\vv+\ww &= \begin{bsmallmatrix} 3 \\ 6 \end{bsmallmatrix}
+                            + \begin{bsmallmatrix} 3 \\ 1 \end{bsmallmatrix}
+                         = \begin{bsmallmatrix} 6 \\ 7 \end{bsmallmatrix} \\
+  \text{(d)}\ \ -2\vv+2\ww &= \begin{bsmallmatrix} -2 \\ -4 \end{bsmallmatrix}
+                              + \begin{bsmallmatrix} 6 \\ 2 \end{bsmallmatrix}
+                           = \begin{bsmallmatrix} 4 \\ -2 \end{bsmallmatrix}
+\end{work}
   \item Find weights $c,d$ so that $c\,\vv + d\,\ww$ equals the given target. Show the match-up.
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
-      \item \ans{$c+3d=5,\ 2c+d=5 \Rightarrow c=2,\ d=1$} \hfill
-      \item \ans{$c+3d=7,\ 2c+d=9 \Rightarrow c=4,\ d=1$}
+      \item $\begin{bsmallmatrix} 5 \\ 5 \end{bsmallmatrix}$ \hfill
+      \item $\begin{bsmallmatrix} 7 \\ 9 \end{bsmallmatrix}$
     \end{enumerate}
+\begin{work}
+  \text{(a)}\ \ c+3d &= 5 \\
+                2c+d &= 5 \\
+                   c &= 2,\ d = 1 \\
+  \text{(b)}\ \ c+3d &= 7 \\
+                2c+d &= 9 \\
+                   c &= 4,\ d = 1
+\end{work}
   \item For each pair of vectors, does it span the \textbf{whole plane} or only a
         \textbf{line}? Give a one-line reason.
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
@@ -46,8 +64,12 @@ $\ww = \begin{bmatrix} 3 \\ 1 \end{bmatrix}$. Show your steps.
         $\mathbf{b}=\begin{bmatrix} 5 \\ 50 \end{bmatrix}$.
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
       \item A new drink is the blend $2\mathbf{a}+\mathbf{b}$. Find its sugar and vitamin~C.
-            \ans{$2\begin{bsmallmatrix} 8\\30 \end{bsmallmatrix}+\begin{bsmallmatrix} 5\\50 \end{bsmallmatrix}
-            = \begin{bsmallmatrix} 21\\110 \end{bsmallmatrix}$: $21$ g sugar, $110$ mg vitamin C}
+\begin{work}
+  2\mathbf{a}+\mathbf{b} &= \begin{bsmallmatrix} 16 \\ 60 \end{bsmallmatrix}
+                            + \begin{bsmallmatrix} 5 \\ 50 \end{bsmallmatrix}
+                          = \begin{bsmallmatrix} 21 \\ 110 \end{bsmallmatrix}
+                          \ \ \text{: $21$ g sugar, $110$ mg vitamin C}
+\end{work}
       \item \emph{Interpret:} what does the weight $2$ on $\mathbf{a}$ mean for this recipe?
             \ansline{The blend uses two parts of juice $\mathbf{a}$ for every one part of $\mathbf{b}$.}
     \end{enumerate}

@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.1}{Guided Notes --- Answer Key}
-\namedateperiod
 
 \vspace{0.12in}
 
@@ -27,7 +26,7 @@
 \begin{vocabbox}
 \small
 Fill in each term as we build it together.
-\vspace{2pt}
+\par\vspace{2pt}
 \vocabans{Linear combination}{scale each vector by a number and add: $c\,\mathbf{v}+d\,\mathbf{w}$}
 \vocabans{Coefficients (weights)}{the scalars $c,d$ that say how much of each vector to use}
 \vocabans{Span}{all the points you can reach as linear combinations of the given vectors}
@@ -71,6 +70,7 @@ Some combinations have familiar names. Fill in the weights $c$ and $d$:
 \end{itemize}
 \end{notesbox}
 
+\boxguard[20]
 \begin{notesbox}{2. The Multiples of One Vector Fill a Line}
 Take a single vector $\vv=\begin{bmatrix} 2 \\ 1 \end{bmatrix}$ and scale it by \emph{every}
 possible number $c$. Each $c\,\vv$ lands on the same straight \ans{line} through the origin.
@@ -140,11 +140,17 @@ Check: $c\,\vv+d\,\ww$ should return $(5,5)$. This confirms the robot in the Hoo
 reach $(5,5)$.
 \end{notesbox}
 
+\boxguard
 \begin{practicebox}
 Let $\vv = \begin{bmatrix} 2 \\ 1 \end{bmatrix}$ and $\ww = \begin{bmatrix} 1 \\ 3 \end{bmatrix}$.
 \begin{enumerate}[leftmargin=1.6em]
   \item Compute $3\vv - \ww$. \hfill \ans{$\begin{bmatrix} 5 \\ 0 \end{bmatrix}$}
-  \item Find weights $c,d$ so that $c\,\vv + d\,\ww = \begin{bmatrix} 4 \\ 7 \end{bmatrix}$. \ansline{$2c+d=4,\ c+3d=7 \Rightarrow c=1,\ d=2$; check $\vv+2\ww=(4,7)$}
+  \item Find weights $c,d$ so that $c\,\vv + d\,\ww = \begin{bmatrix} 4 \\ 7 \end{bmatrix}$.
+\begin{work}
+  2c+d &= 4 \\
+  c+3d &= 7 \\
+     c &= 1,\ d = 2
+\end{work}
   \item Do $\begin{bmatrix} 1 \\ 2 \end{bmatrix}$ and $\begin{bmatrix} 3 \\ 6 \end{bmatrix}$
         span the plane or only a line? How do you know? \ansline{Only a line --- $\begin{bsmallmatrix} 3\\6 \end{bsmallmatrix}=3\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$, so they are parallel.}
 \end{enumerate}

@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.1}{Group Activity}
-\namepartnerperiod
 
 \vspace{0.10in}
 
@@ -27,10 +26,25 @@
 The robot's two moves are $\vv = \begin{bmatrix} 2 \\ 1 \end{bmatrix}$ and
 $\ww = \begin{bmatrix} 1 \\ 3 \end{bmatrix}$. Compute each combination and give the point where
 the robot ends up.
-\begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
-  \item $\vv + \ww$ \vspace{0.5cm}
-  \item $2\vv$ (use move $\vv$ twice) \vspace{0.5cm}
-  \item $\vv - \ww$ \vspace{0.5cm}
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item $\vv + \ww$
+\begin{work}
+  \vv+\ww &= \begin{bsmallmatrix} 2+1 \\ 1+3 \end{bsmallmatrix}
+           = \begin{bsmallmatrix} 3 \\ 4 \end{bsmallmatrix}
+           \ \ \text{: the point } (3,4)
+\end{work}
+  \item $2\vv$ (use move $\vv$ twice)
+\begin{work}
+  2\vv &= \begin{bsmallmatrix} 2(2) \\ 2(1) \end{bsmallmatrix}
+        = \begin{bsmallmatrix} 4 \\ 2 \end{bsmallmatrix}
+        \ \ \text{: the point } (4,2)
+\end{work}
+  \item $\vv - \ww$
+\begin{work}
+  \vv-\ww &= \begin{bsmallmatrix} 2-1 \\ 1-3 \end{bsmallmatrix}
+           = \begin{bsmallmatrix} 1 \\ -2 \end{bsmallmatrix}
+           \ \ \text{: the point } (1,-2)
+\end{work}
   \item If the robot uses $0$ of each move ($0\,\vv + 0\,\ww$), where is it? Why does that make sense? \writeline
 \end{enumerate}
 \end{tcolorbox}
@@ -38,9 +52,17 @@ the robot ends up.
 \begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
 Still with $\vv = \begin{bmatrix} 2 \\ 1 \end{bmatrix}$ and $\ww = \begin{bmatrix} 1 \\ 3 \end{bmatrix}$.
-\begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
   \item Find weights $c$ and $d$ so the robot lands on $(7,6)$: solve $c\,\vv + d\,\ww =
-        \begin{bmatrix} 7 \\ 6 \end{bmatrix}$. \vspace{0.9cm}
+        \begin{bmatrix} 7 \\ 6 \end{bmatrix}$.
+\begin{work}
+  2c+d &= 7 \\
+  c+3d &= 6 \\
+     c &= 3,\ d = 1 \\
+  3\vv+\ww &= \begin{bsmallmatrix} 6 \\ 3 \end{bsmallmatrix}
+              + \begin{bsmallmatrix} 1 \\ 3 \end{bsmallmatrix}
+            = \begin{bsmallmatrix} 7 \\ 6 \end{bsmallmatrix} \ \ \text{\checkmark}
+\end{work}
   \item A \emph{second} robot has broken moves $\mathbf{a} = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$
         and $\mathbf{b} = \begin{bmatrix} 2 \\ 4 \end{bmatrix}$. Try to reach $(3,0)$ with
         $c\,\mathbf{a} + d\,\mathbf{b}$. What goes wrong? \writelines{2}

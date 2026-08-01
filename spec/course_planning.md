@@ -7,7 +7,52 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-08-01 — **Rebuilt the BUILD SYSTEM to match `~/Mathematics/algebra_2`. No lesson content changed.**
+**Last updated:** 2026-08-01 — **Imported the FIVE PAGINATION CONVENTIONS from `~/Mathematics/algebra_2`. No lesson content
+changed; no lesson retrofitted.** The conventions are now available project-wide, documented, and scripted; existing lessons are
+untouched and therefore all still behind on them (see "state" below). **The order to run them when reviewing or revising a lesson —
+user's decision, recorded in `SKILL.md` and `references/conventions.md`:**
+
+> **1. vocabpar → 2. teachernote → 3. namestrip → 4. work rule → 5. boxguard**
+
+(The first four all change vertical space; **boxguard runs last because it repairs the pagination the other four disturb**. vocabpar
+leads because it makes vocab boxes taller and can reverse a guard verdict measured before it.)
+
+**What landed.** `shared/linalg-boxes.sty` (all additions purely additive — nothing re-flows until a lesson actually uses them):
+`\boxguard[n]` (default 16 lines, via `needspace`); the **`work` environment** — a worked-solution block authored *byte-identically*
+in the blank and its key, shipped as a `\vphantom` under `-boxes` (exact height, no ink, nothing in the text layer) and printed in
+`keyred` under `-key`, so the two can never drift; and **`teachernote`**, **moved here from `linalg-key.sty`** with an optional
+component title (`\begin{teachernote}[Warm-Up]` → "Teacher Note: Warm-Up") — the lesson plan loads `-boxes`, not `-key`, and a bare
+`\begin{teachernote}` still works, so the 196 files that carry one keep compiling untouched. `shared/linalg-key.sty` sets
+`\la@workvisibletrue` and no longer defines `teachernote`. **Scripts** (copied from algebra_2, project-agnostic, both verified with
+`--check` on `unit06/lesson00`): `scripts/namestrip.py` (strips `\namedateperiod`/`\namepartnerperiod` from every component + key,
+skips `cover/`; `--check` exits 1 = review gate) and `scripts/movenotes.py` (lifts each `_key`'s teachernote into the lesson plan,
+titled per component; refuses to run twice). **New lessons are born namestripped:** `new_lesson.py` + the worksheet skeletons no
+longer emit a name row (cover and unit tests keep theirs — tests are taken in a testing setting). **Docs:** a new "The five
+conventions" section in `references/conventions.md` (each rule, its fix, and the two known boxguard limits — inert inside a breakable
+tcolorbox, use `\tcbbreak`; a guard that costs a page can often be bought back with mirrored spacing trims), a new "Reviewing or
+revising a lesson" section in `SKILL.md` with the order + retrofit table, and `components.md` updated (no name rows on components,
+`\par\vspace{2pt}` before the first vocab term, work blocks for solutions, no teachernote in a lesson-component key — unit tests and
+`finals/` keys keep theirs, they are not page-matched into a packet).
+
+**Verified:** full out-of-tree compile scan of every `main.tex` in `unit01`–`unit08` + `finals` — **569/569 OK, 0 failures**, and
+`git status` clean afterward (nothing compiled in place); `make -C unit06/lesson00 all` clean; a purpose-built smoke doc proves the
+`work` block reserves *identical* height blank vs key (98.74pt gap on both sides) and that the blank's PDF text layer contains none of
+the solution; `\boxguard` demonstrated to push a box whole to the next page (box starts on p1 unguarded, p2 guarded, at 30 and 34
+lines of preceding content); scaffolder output (`--unit 09 --lesson 01`) compiles — components carry no name row and the lesson plan
+is born with five titled `teachernote` stubs.
+
+**Current state of the conventions across the course — nothing retrofitted, by design** (a bulk sweep would re-flow the pagination of
+all 41 verified lessons at once): **196** files still carry a `teachernote` in a `_key`, **483** component files still carry a name
+row, and there are **0** `work` blocks and **0** `\boxguard` calls in the whole course. vocabpar is unfixed everywhere — spot-checked
+`unit06/lesson00`, whose `vocabbox` has the intro sentence colliding with the first term in both `notes` and `notes_key`.
+
+**Next run:** retrofit lessons **on request, one at a time, in the order above** — e.g. `/lesson-planning apply the retrofit to 6.0`.
+Finish each with the evidence: `make -C unitXX/lessonYY all` exits 0, every component's page count equals its `_key`'s, and warm-up +
+exit ticket are still 1 page on both sides.
+
+---
+
+**Prior run (2026-08-01, earlier):** **Rebuilt the BUILD SYSTEM to match `~/Mathematics/algebra_2`. No lesson content changed.**
 The old `student` / `full` packet pair is gone. Every lesson now produces **five work products** in `target/compiled/unitXX/`:
 `lessonYY_plan.pdf` (the lesson plan alone), `lessonYY_slides.pdf` (the Beamer deck printed **3 slides per page**, thumbnails in the
 left column and a ruled notes column beside each), `lessonYY_slides.pptx` (the same deck as one full-bleed page image per slide — the

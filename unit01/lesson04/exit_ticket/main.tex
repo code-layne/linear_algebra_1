@@ -9,20 +9,31 @@
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.4}{Exit Ticket}
-\namedateperiod
 
 \vspace{0.15in}
 
 Show your work.
 
-\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+\begin{enumerate}[leftmargin=1.8em, itemsep=14pt]
   \item Multiply \emph{by columns}:
         $\begin{bmatrix} 2 & 1 \\ 1 & 1 \end{bmatrix}\begin{bmatrix} 1 & 3 \\ 2 & 1 \end{bmatrix}$.
         Compute each column of the product as a combination of the first matrix's columns.
-        \vspace{1.6cm}
+\begin{work}
+  1\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} + 2\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 4\\3 \end{bsmallmatrix} \\
+  3\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} + 1\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 7\\4 \end{bsmallmatrix} \\
+  AB &= \begin{bsmallmatrix} 4 & 7\\3 & 4 \end{bsmallmatrix}
+\end{work}
   \item Factor $A=\begin{bmatrix} 1 & 2 & 3 \\ 1 & 3 & 4 \end{bmatrix}$ as $A=CR$. Which columns are
         \textbf{independent} (they go in $C$)? Build the recipe $R$, and give the \textbf{rank}.
-        \writelines{3}
+\begin{work}
+  \begin{bsmallmatrix} 1\\1 \end{bsmallmatrix} + \begin{bsmallmatrix} 2\\3 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 3\\4 \end{bsmallmatrix} \\
+  C &= \begin{bsmallmatrix} 1 & 2\\1 & 3 \end{bsmallmatrix} \\
+  R &= \begin{bsmallmatrix} 1 & 0 & 1\\0 & 1 & 1 \end{bsmallmatrix}
+\end{work}
+        \writeline
 \end{enumerate}
 
 \end{document}

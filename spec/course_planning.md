@@ -7,10 +7,61 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-08-02 — **Retrofitted all five conventions onto Lesson 1.4 (`unit01/lesson04`, Matrix Multiplication and
-$A=CR$)** — the fifth lesson brought forward, finishing Unit 1. Applied in the mandated order; every component equals its key in page
-count. Details in "Lesson 1.4 retrofit" below, then 1.3, 1.2, 1.1, and 1.0. **The order to run them when reviewing or revising a lesson —
-user's decision, recorded in `SKILL.md` and `references/conventions.md`:**
+**Last updated:** 2026-08-02 — **Authored the course's first unit cover sheet: `unit01/unit_cover/main.tex`.** The build machinery for
+one already existed (`shared/unit.mk` compiles `unit_cover/main.tex` and leads the unit packet with it) but **no unit had ever authored
+one** — Unit 1 is now the model. Details in "Unit cover sheets" immediately below. Prior run: the Lesson 1.4 convention retrofit,
+detailed further down.
+
+---
+
+## Unit cover sheets (`unitXX/unit_cover/main.tex`)
+
+**What the repo already had.** `shared/unit.mk` has always supported an **optional** `unit_cover/` component:
+`HAS_UNIT_COVER := $(wildcard unit_cover/main.tex)`, a `_unit_cover` rule that compiles it with `latexmk -xelatex` to
+`target/compiled/$(UNIT)/unit_cover.pdf`, and both the `student` and `key` unit targets `pdfunite` it **first**, ahead of the lesson
+packets and the sample test. A unit opts in simply by having the directory. Until now **zero units had one**, so the rule was inert
+course-wide. (This is *not* the binder cover: `algebra_2` also has a `binder_cover/` — a `cover.py`-generated prefab PDF whose two
+identical pages are the front and back of the student's binder. This course has no binder covers and no `cover.py`.)
+
+**The model, ported from `algebra_2/unit01/unit_cover/main.tex` and `unit02`'s.** Same one-page skeleton, re-voiced for this course:
+
+1. **Full-bleed banner** — a `remember picture, overlay` tikzpicture filling the top **1.70in** in `burgundy`, with the text set
+   **inside a `\node` anchored to `current page.north`** (a negative `\vspace` would push it off the sheet). "Linear Algebra" in white
+   at 30pt over "Unit N: Title" in `blushmid` at 19pt. Body then clears it with `\vspace*{1.32in}`.
+2. **Unit Overview** — a plain `tcolorbox` (`colback=blush, colframe=burgundy`), one paragraph opening `\textbf{Unit Overview.}\quad`.
+3. **Lessons in This Unit** — `\begin{skillbox}[Lessons in This Unit]{goldbox}` wrapping a 3-column `tabularx`
+   (`c` / `>{\bfseries\raggedright\arraybackslash}p{0.29\linewidth}` / `X`) = **#, Title, Focus**, `\hline` between rows,
+   `\arraystretch` 1.32. Rows are `1.0`–`1.4` (the intro lesson gets a row like any other).
+4. **Big Ideas of Unit N** — `\begin{skillbox}[...]{greenbox}`, 5 bullets. **This replaces `algebra_2`'s SOL-standards table**: this
+   course has no standards documents, so the slot carries the unit's throughlines instead.
+5. **`remindbox`** — Source (LAfE chapter + sections) and Assessment (practice test is bound at the back).
+
+**Two things that differ from the `algebra_2` model, both deliberate:**
+
+- **`\pagestyle{empty}`.** `unit.mk` merges the unit cover **without** the packet-wide pagination pass (`shared/paginate.tex` runs
+  per *lesson*, inside `lesson.mk`), so a folio here would print a stray "1" immediately before Lesson 1.0's own page 1. The
+  `algebra_2` covers do print that number; this course's do not. **Keep `\pagestyle{empty}` in every future unit cover.**
+- **`\frac`, not `\dfrac`, inside a table cell.** The `\dfrac` in the 1.2 row's $\cos\theta$ formula inflated the row's line height
+  and pushed "as perpendicular" onto a line of its own.
+
+**One-page fit is tight and is the whole layout constraint.** The first draft ran 2pp (the `remindbox` alone spilled). What bought it
+back: `\arraystretch` 1.45 → **1.32** and the inter-box `\vspace`s trimmed to 0.13in / 0.11in / 0.10in. **Budget for a 5-lesson unit:
+overview ~8 lines, 5 table rows, 5 bullets, 1 remindbox.** A unit with more lessons (Unit 3 has 7) will need shorter Focus cells or
+fewer Big Ideas bullets — verify with `pdfinfo` every time.
+
+**Verified (Unit 1 cover):** `make -C unit01 _unit_cover` exits 0; `unit_cover.pdf` is **1 page**, **zero** overfull/underfull `\hbox`.
+`make -C unit01 student` → `unit01_student.pdf` **74pp** with the cover as p1 (`pdftotext` p1 = "Linear Algebra / Unit 1: Vectors and
+Matrices / Unit Overview…", p2 = Lesson 1.0's own cover); `make -C unit01 key` → `unit01_key.pdf` **73pp**, same cover leading it. The
+1-page student/key difference is **pre-existing and at the tail** — `sample_test` is 3pp against a 2pp `sample_test_key`, exactly the
+one gap `unit.mk`'s own comment allows; the cover changes nothing about blank/key alignment.
+
+**Not done (deliberately out of scope for this run):** Units 2–8 have no `unit_cover/`. Adding them is a per-unit authoring job —
+copy `unit01/unit_cover/main.tex`, swap the banner title, overview, lesson rows, big ideas, and the LAfE chapter reference, then
+re-check the 1-page fit.
+
+---
+
+**The five-conventions order — user's decision, recorded in `SKILL.md` and `references/conventions.md`:**
 
 > **1. vocabpar → 2. teachernote → 3. namestrip → 4. work rule → 5. boxguard**
 
@@ -1301,6 +1352,8 @@ $N(A)$, special solutions, $\dim N(A)=n-r$ (macro `\ss` collides with ß → use
   previews Unit 2 (solving $A\mathbf x=\mathbf b$).
 - `unit01/tests` (practice + actual) + `unit01/test_keys` (both keys) — **authored ✅ & built**;
   `sample_test`/`sample_test_key` populated by `drop` (practice test + key).
+- `unit01/unit_cover/main.tex` — **authored ✅ & built (2026-08-02), the course's only unit cover so far** and the model for the rest.
+  1pp; leads both `unit01_student.pdf` and `unit01_key.pdf`. See "Unit cover sheets" at the top of this log.
 - Root `Makefile` and `unit01/Makefile` created. Toolchain present (xelatex, latexmk, pdfunite).
 
 **Unit 2 — lessons 2.0–2.4 AND the summative tests all authored & built. Unit 2 complete.**
@@ -1404,7 +1457,7 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 
 | Unit | Chapter | Lessons | Status |
 | --- | --- | --- | --- |
-| 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ |
+| 1 | Vectors and Matrices | 1.0 intro + 1.1–1.4 | ☑ all lessons + tests authored & built ✅ · **unit cover ☑** |
 | 2 | Solving Linear Equations Ax = b | 2.0 intro + 2.1–2.4 | ☑ all lessons + tests authored & built ✅ |
 | 3 | The Four Fundamental Subspaces | 3.0 intro + 3.1–3.5 + 3.6 capstone (FTLA) | ☑ all lessons + tests authored & built ✅ |
 | 4 | Orthogonality | 4.0 intro + 4.1–4.4 | ☑ all lessons + tests authored & built ✅ |
@@ -1422,7 +1475,10 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
    then 8.4 ("Mean, Variance, and Covariance"). Unit 8 tests are scaffolded skeletons — author them last only if the user wants
    Unit 8 assessed (it is enrichment, "no expectation of testing"). Lessons 8.0/8.1/8.2 are the Unit 8 models; Unit 4/5/6/7
    tests are the assessment-format model; Lesson 4.0 the cross-unit style model.
-2. *(optional)* Rebuild the whole-course packets (`make -C unitXX student|full`, or `make student|full` at the root) to
+2. **Unit covers for Units 2–8** — only Unit 1 has one. Copy `unit01/unit_cover/main.tex` per unit and swap the banner title,
+   overview paragraph, lesson rows, big ideas, and LAfE chapter/sections; keep `\pagestyle{empty}`; re-verify 1 page with `pdfinfo`
+   (units with 6–7 lessons will need tighter Focus cells). Ask the user first whether they want all seven.
+3. *(optional)* Rebuild the whole-course packets (`make -C unitXX student|full`, or `make student|full` at the root) to
    confirm every unit's `sample_test`/`sample_test_key` drop-ins (now incl. Unit 7) merge in as expected.
 
 ## Notes for the next run

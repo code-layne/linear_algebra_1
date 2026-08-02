@@ -10,7 +10,6 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.3}{Guided Notes --- Answer Key}
-\namedateperiod
 
 \vspace{0.12in}
 
@@ -29,7 +28,7 @@
 \begin{vocabbox}
 \small
 Fill in each term as we build it together.
-\vspace{2pt}
+\par\vspace{2pt}
 \vocabans{Lower triangular $L$}{$1$s on the diagonal, the multipliers $\ell$ below, $0$s above; entry $\ell_{ij}$ is the multiplier that cleared position $(i,j)$}
 \vocabans{Upper triangular $U$}{the result of forward elimination: pivots on the diagonal, $0$s below}
 \vocabans{Factorization $A=LU$}{splitting $A$ into (lower)$\times$(upper); $L$ remembers how we eliminated, $U$ remembers what we got}
@@ -101,7 +100,7 @@ piece a name: $\cc=U\xx$. Then solve two easy triangular systems back-to-back.
   \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}\begin{bmatrix} c_1 \\ c_2 \end{bmatrix} = \begin{bmatrix} 7 \\ 15 \end{bmatrix}
   \;\Rightarrow\; c_1 = {\color{keyred}\mathbf{7}},\quad 2c_1 + c_2 = 15 \Rightarrow c_2 = {\color{keyred}\mathbf{1}}.
 \]
-So $\cc=\begin{bsmallmatrix} 7\\1 \end{bsmallmatrix}$ --- exactly the updated right-hand side from 2.1!
+So $\cc=\begin{bsmallmatrix} 7\\1 \end{bsmallmatrix}$ --- exactly the updated right-hand side elimination produced in 2.2!
 The forward sweep \emph{is} ``update $\bb$ as you eliminate.''
 
 \vspace{3pt}
@@ -110,9 +109,10 @@ The forward sweep \emph{is} ``update $\bb$ as you eliminate.''
   \begin{bmatrix} 1 & 3 \\ 0 & 1 \end{bmatrix}\begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} 7 \\ 1 \end{bmatrix}
   \;\Rightarrow\; y = {\color{keyred}\mathbf{1}},\quad x + 3y = 7 \Rightarrow x = {\color{keyred}\mathbf{4}}.
 \]
-So $(x,y)=(\,\ans{$4,\,1$}\,)$ --- the same answer as 2.1 and 2.2, with no inverse in sight.
+So $(x,y)=(\,\ans{$4,\,1$}\,)$ --- the same answer 2.2 got, with no inverse in sight.
 \end{notesbox}
 
+\boxguard
 \begin{notesbox}{4. Why Factor? The ``Matrix Computations'' Point}
 Factoring $A=LU$ is the \emph{expensive} step --- but you do it \textbf{once}. After that, every new
 order $\bb$ costs only the two quick sweeps above. Compare the options for the same $A$ with many
@@ -126,25 +126,30 @@ right-hand sides:
 $L$ and $U$ are just elimination, \emph{saved} and ready to reuse.
 \end{notesbox}
 
+\boxguard
 \begin{practicebox}
 Let $A=\begin{bmatrix} 1 & 4 \\ 3 & 10 \end{bmatrix}$ and $\bb=\begin{bmatrix} 6 \\ 16 \end{bmatrix}$.
 \begin{enumerate}[leftmargin=1.6em]
   \item Find the multiplier, then write $L$ and $U$. \hfill $\ell=\ans{$3$}$
-        \ansline{$U=\begin{bsmallmatrix} 1&4\\0&-2 \end{bsmallmatrix}$ (row$_2-3\,$row$_1$), $L=\begin{bsmallmatrix} 1&0\\3&1 \end{bsmallmatrix}$.}
+\begin{work}
+  U &= \begin{bsmallmatrix} 1&4\\0&-2 \end{bsmallmatrix} \\
+  L &= \begin{bsmallmatrix} 1&0\\3&1 \end{bsmallmatrix}
+\end{work}
   \item \textbf{Check} $LU=A$.
-        \ansline{$\begin{bsmallmatrix} 1&0\\3&1 \end{bsmallmatrix}\begin{bsmallmatrix} 1&4\\0&-2 \end{bsmallmatrix}=\begin{bsmallmatrix} 1&4\\3&10 \end{bsmallmatrix}=A$ \checkmark}
+\begin{work}
+  \begin{bsmallmatrix} 1&0\\3&1 \end{bsmallmatrix}\begin{bsmallmatrix} 1&4\\0&-2 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 1&4\\3&10 \end{bsmallmatrix} = A \ \ \text{\checkmark}
+\end{work}
   \item Solve $A\xx=\bb$ by two sweeps ($L\cc=\bb$, then $U\xx=\cc$). \hfill $x=\ans{$2$}$\quad $y=\ans{$1$}$
-        \ansline{Forward: $c_1=6$, $3(6)+c_2=16\Rightarrow c_2=-2$, so $\cc=\begin{bsmallmatrix} 6\\-2 \end{bsmallmatrix}$. Back: $-2y=-2\Rightarrow y=1$, $x+4=6\Rightarrow x=2$.}
+\begin{work}
+  c_1 &= 6 \\
+  3(6)+c_2 &= 16 \\
+  c_2 &= -2 \\
+  -2y &= -2 \\
+  y &= 1 \\
+  x+4 &= 6,\ x = 2
+\end{work}
 \end{enumerate}
 \end{practicebox}
-
-\begin{teachernote}
-The through-line: $A=LU$ is elimination \emph{saved}. $U$ is the 2.1 result; $L$ is the 2.2
-undo-matrices $E^{-1}$ gathered up, so its below-diagonal entries are just the multipliers (with a
-\emph{plus} sign --- the most common slip is writing $-\ell$). Emphasize \S3: the forward sweep
-reproduces ``update the right-hand side'' (watch $\cc=\begin{bsmallmatrix} 7\\1 \end{bsmallmatrix}$ match
-2.1), and the back sweep is ordinary back-substitution. \S4 is the concept behind the section title:
-factor once, then two cheap sweeps per order --- how real solvers work.
-\end{teachernote}
 
 \end{document}

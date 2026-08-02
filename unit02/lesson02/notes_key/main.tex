@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.2}{Guided Notes --- Answer Key}
-\namedateperiod
 
 \vspace{0.12in}
 
@@ -28,7 +27,7 @@
 \begin{vocabbox}
 \small
 Fill in each term as we build it together.
-\vspace{2pt}
+\par\vspace{2pt}
 \vocabans{Identity matrix $I$}{$1$s on the diagonal, $0$s elsewhere; $IA=A$ and $I\xx=\xx$ --- it changes nothing}
 \vocabans{Elimination matrix $E$}{the identity with $-\ell$ in one below-diagonal spot; $EA$ subtracts $\ell\times$(pivot row) from a lower row}
 \vocabans{Inverse matrix $A^{-1}$}{the matrix with $A^{-1}A=I$; then $A\xx=\bb$ has the one solution $\xx=A^{-1}\bb$}
@@ -55,7 +54,7 @@ Start with the \textbf{identity matrix} $I=\begin{bsmallmatrix} 1&0\\0&1 \end{bs
 any matrix alone: $IA=A$ and $I\bb=\bb$.
 
 \vspace{3pt}
-Now take our system's multiplier from 2.1: pivot $1$, so $\ell=2\div1=2$. Drop $-\ell$ into the
+Now take the bakery system's multiplier, using 2.1's rule: pivot $1$, so $\ell=2\div1=2$. Drop $-\ell$ into the
 lower-left spot of $I$ to get the \textbf{elimination matrix}:
 \[
   E_{21} = \begin{bmatrix} 1 & 0 \\ -\ell & 1 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ {\color{keyred}\mathbf{-2}} & 1 \end{bmatrix}.
@@ -66,7 +65,7 @@ Watch $E_{21}A$ do exactly one elimination step --- row~1 untouched, row~2 becom
   = \begin{bmatrix} 1 & 3 \\ {\color{keyred}\mathbf{0}} & {\color{keyred}\mathbf{1}} \end{bmatrix} = U.
 \]
 The same matrix updates the right-hand side: $E_{21}\bb=\begin{bsmallmatrix} 1&0\\-2&1 \end{bsmallmatrix}\begin{bsmallmatrix} 7\\15 \end{bsmallmatrix}=\begin{bsmallmatrix}{\color{keyred}\mathbf{7}}\\[2pt]{\color{keyred}\mathbf{1}}\end{bsmallmatrix}$ ---
-the triangular system from 2.1.
+the triangular system, ready for back-substitution.
 \end{notesbox}
 
 \begin{notesbox}{2. Undoing a Step: The Inverse of $E$}
@@ -100,7 +99,7 @@ For $A=\begin{bsmallmatrix} 1&3\\2&7 \end{bsmallmatrix}$: $ad-bc = (1)(7)-(3)(2)
   A^{-1} = \frac{1}{1}\begin{bmatrix} 7 & -3 \\ -2 & 1 \end{bmatrix} = \begin{bmatrix} 7 & -3 \\ -2 & 1 \end{bmatrix}.
 \]
 Now solve this week's order: $\xx = A^{-1}\bb = \begin{bsmallmatrix} 7&-3\\-2&1 \end{bsmallmatrix}\begin{bsmallmatrix} 7\\15 \end{bsmallmatrix} = \begin{bsmallmatrix}{\color{keyred}\mathbf{4}}\\[2pt]{\color{keyred}\mathbf{1}}\end{bsmallmatrix}$,
-so $(x,y)=(\,\ans{$4,\,1$}\,)$ --- matching 2.1's answer.
+so $(x,y)=(\,\ans{$4,\,1$}\,)$ --- the same answer elimination gives.
 
 \vspace{3pt}
 \textbf{Singular warning.} If $ad-bc=0$, the formula divides by zero: there is \textbf{no inverse}.
@@ -125,25 +124,26 @@ Read off $A^{-1}=\begin{bsmallmatrix}{\color{keyred}\mathbf{7}} & {\color{keyred
 the same inverse as the formula gave.
 \end{notesbox}
 
+\boxguard
 \begin{practicebox}
 Let $A=\begin{bmatrix} 3 & 5 \\ 1 & 2 \end{bmatrix}$ and $\bb=\begin{bmatrix} 11 \\ 4 \end{bmatrix}$.
 \begin{enumerate}[leftmargin=1.6em]
   \item Compute $ad-bc$ and write $A^{-1}$ from the formula. \hfill $ad-bc=\ans{$1$}$
-        \ansline{$A^{-1}=\begin{bsmallmatrix} 2&-5\\-1&3 \end{bsmallmatrix}$ (swap $3,2$; negate $5,1$; divide by $1$).}
+\begin{work}
+  A^{-1} &= \begin{bsmallmatrix} 2&-5\\-1&3 \end{bsmallmatrix}
+\end{work}
   \item Use $\xx=A^{-1}\bb$ to solve $A\xx=\bb$. \hfill $x=\ans{$2$}$\quad $y=\ans{$1$}$
-        \ansline{$\begin{bsmallmatrix} 2&-5\\-1&3 \end{bsmallmatrix}\begin{bsmallmatrix} 11\\4 \end{bsmallmatrix}=\begin{bsmallmatrix} 22-20\\-11+12 \end{bsmallmatrix}=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$.}
+\begin{work}
+  \begin{bsmallmatrix} 2&-5\\-1&3 \end{bsmallmatrix}\begin{bsmallmatrix} 11\\4 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 22-20\\-11+12 \end{bsmallmatrix}
+       = \begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}
+\end{work}
   \item \textbf{Check} that your $A^{-1}$ is right by multiplying $A^{-1}A$ --- you should get $I$.
-        \ansline{$\begin{bsmallmatrix} 2&-5\\-1&3 \end{bsmallmatrix}\begin{bsmallmatrix} 3&5\\1&2 \end{bsmallmatrix}=\begin{bsmallmatrix} 1&0\\0&1 \end{bsmallmatrix}=I$ \checkmark}
+\begin{work}
+  \begin{bsmallmatrix} 2&-5\\-1&3 \end{bsmallmatrix}\begin{bsmallmatrix} 3&5\\1&2 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 1&0\\0&1 \end{bsmallmatrix} = I \ \ \text{\checkmark}
+\end{work}
 \end{enumerate}
 \end{practicebox}
-
-\begin{teachernote}
-The through-line: 2.1's ``subtract $\ell\times$ a row'' \emph{is} left-multiplication by
-$E=\begin{bsmallmatrix} 1&0\\-\ell&1 \end{bsmallmatrix}$. Two recurring slips --- the sign ($E$ has
-$-\ell$, $E^{-1}$ has $+\ell$) and the order ($EA$, step-matrix on the \emph{left}). \S3's formula is
-fast but only $2\times2$; \S4's Gauss--Jordan is the general method and is worth doing slowly. Tie
-the ``singular'' warning straight back to the zero pivot of 2.1: no inverse $\Leftrightarrow$
-elimination breaks down.
-\end{teachernote}
 
 \end{document}

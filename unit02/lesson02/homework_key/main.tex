@@ -9,42 +9,64 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.2}{Homework --- Answer Key}
-\namedateperiod
 
 \vspace{0.12in}
 
 \begin{notesbox}{Practice}
 Show your steps. Where you find an inverse, \textbf{check} it by multiplying $A^{-1}A=I$.
 
-\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
   \item \textbf{Step matrices.} For each $A$, name the pivot and multiplier $\ell$, then write the
         elimination matrix $E_{21}$ and its undo-matrix $E_{21}^{-1}$.
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
-      \item \ans{pivot $1$, $\ell=3$; $E_{21}=\begin{bsmallmatrix} 1&0\\-3&1 \end{bsmallmatrix}$, $E_{21}^{-1}=\begin{bsmallmatrix} 1&0\\3&1 \end{bsmallmatrix}$} \hfill
-      \item \ans{pivot $2$, $\ell=3$; $E_{21}=\begin{bsmallmatrix} 1&0\\-3&1 \end{bsmallmatrix}$, $E_{21}^{-1}=\begin{bsmallmatrix} 1&0\\3&1 \end{bsmallmatrix}$}
+      \item $A=\begin{bmatrix} 1 & 4 \\ 3 & 5 \end{bmatrix}$ \hfill
+      \item $A=\begin{bmatrix} 2 & 1 \\ 6 & 5 \end{bmatrix}$
     \end{enumerate}
+\begin{work}
+  \text{(a)}\ \text{pivot } 1,\ \ell=3:\quad E_{21} &= \begin{bsmallmatrix} 1&0\\-3&1 \end{bsmallmatrix},\quad
+      E_{21}^{-1} = \begin{bsmallmatrix} 1&0\\3&1 \end{bsmallmatrix} \\
+  \text{(b)}\ \text{pivot } 2,\ \ell=3:\quad E_{21} &= \begin{bsmallmatrix} 1&0\\-3&1 \end{bsmallmatrix},\quad
+      E_{21}^{-1} = \begin{bsmallmatrix} 1&0\\3&1 \end{bsmallmatrix}
+\end{work}
   \item \textbf{Do the step.} For the two matrices in Problem~1, multiply $E_{21}A$ to reach
         upper-triangular $U$.
-        \ansline{(a) $E_{21}A=\begin{bsmallmatrix} 1&4\\0&-7 \end{bsmallmatrix}$ \ ($-3(1,4)+(3,5)=(0,-7)$).}
-        \ansline{(b) $E_{21}A=\begin{bsmallmatrix} 2&1\\0&2 \end{bsmallmatrix}$ \ ($-3(2,1)+(6,5)=(0,2)$).}
+\begin{work}
+  \text{(a)}\ -3(1,4)+(3,5) &= (0,-7),\quad E_{21}A = \begin{bsmallmatrix} 1&4\\0&-7 \end{bsmallmatrix} \\
+  \text{(b)}\ -3(2,1)+(6,5) &= (0,2),\quad E_{21}A = \begin{bsmallmatrix} 2&1\\0&2 \end{bsmallmatrix}
+\end{work}
   \item \textbf{Inverses by formula.} Find $A^{-1}=\dfrac{1}{ad-bc}\begin{bsmallmatrix} d&-b\\-c&a \end{bsmallmatrix}$
         for each, and check $A^{-1}A=I$.
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
-      \item \ans{$ad-bc=1$; $A^{-1}=\begin{bsmallmatrix} 3&-1\\-5&2 \end{bsmallmatrix}$} \hfill
-      \item \ans{$ad-bc=2$; $A^{-1}=\tfrac12\begin{bsmallmatrix} 4&-3\\-2&2 \end{bsmallmatrix}=\begin{bsmallmatrix} 2&-\frac32\\-1&1 \end{bsmallmatrix}$}
+      \item $A=\begin{bmatrix} 2 & 1 \\ 5 & 3 \end{bmatrix}$ \hfill
+      \item $A=\begin{bmatrix} 2 & 3 \\ 2 & 4 \end{bmatrix}$
     \end{enumerate}
-    {\footnotesize Checks: (a) $\begin{bsmallmatrix} 3&-1\\-5&2 \end{bsmallmatrix}\begin{bsmallmatrix} 2&1\\5&3 \end{bsmallmatrix}=I$;\ \
-    (b) $\begin{bsmallmatrix} 2&-3/2\\-1&1 \end{bsmallmatrix}\begin{bsmallmatrix} 2&3\\2&4 \end{bsmallmatrix}=I$.}
+\begin{work}
+  \text{(a)}\ ad-bc &= 1,\quad A^{-1} = \begin{bsmallmatrix} 3&-1\\-5&2 \end{bsmallmatrix} \\
+  \text{(b)}\ ad-bc &= 2,\quad A^{-1} = \tfrac12\begin{bsmallmatrix} 4&-3\\-2&2 \end{bsmallmatrix}
+      = \begin{bsmallmatrix} 2&-\frac32\\-1&1 \end{bsmallmatrix} \\
+  A^{-1}A &= I \ \text{ in both} \ \ \text{\checkmark}
+\end{work}
   \item \textbf{Juice bar --- one machine, two batches.} Each liter of \textbf{Mix P} carries $1$ unit
         sugar and $2$ units vitamin; each liter of \textbf{Mix Q} carries $2$ sugar and $5$ vitamin.
         With $p$ liters of P and $q$ of Q the totals are $A\begin{bsmallmatrix} p\\q \end{bsmallmatrix}=\bb$,
         $A=\begin{bmatrix} 1 & 2 \\ 2 & 5 \end{bmatrix}$ (sugar row, vitamin row).
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
-      \item Build $A^{-1}$ once. \ans{$ad-bc=1$, so $A^{-1}=\begin{bsmallmatrix} 5&-2\\-2&1 \end{bsmallmatrix}$.}
+      \item Build $A^{-1}$ once.
+\begin{work}
+  ad-bc &= 1,\quad A^{-1} = \begin{bsmallmatrix} 5&-2\\-2&1 \end{bsmallmatrix}
+\end{work}
       \item \textbf{Batch 1:} sugar $8$, vitamin $19$. Solve $\xx=A^{-1}\bb$ for $p,q$.
-            \ansline{$\begin{bsmallmatrix} 5&-2\\-2&1 \end{bsmallmatrix}\begin{bsmallmatrix} 8\\19 \end{bsmallmatrix}=\begin{bsmallmatrix} 40-38\\-16+19 \end{bsmallmatrix}=\begin{bsmallmatrix} 2\\3 \end{bsmallmatrix}$: $p=2$, $q=3$.}
+\begin{work}
+  \begin{bsmallmatrix} 5&-2\\-2&1 \end{bsmallmatrix}\begin{bsmallmatrix} 8\\19 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 40-38\\-16+19 \end{bsmallmatrix}
+       = \begin{bsmallmatrix} 2\\3 \end{bsmallmatrix}
+\end{work}
       \item \textbf{Batch 2:} sugar $9$, vitamin $21$. Same $A^{-1}$ --- solve for $p,q$.
-            \ansline{$\begin{bsmallmatrix} 5&-2\\-2&1 \end{bsmallmatrix}\begin{bsmallmatrix} 9\\21 \end{bsmallmatrix}=\begin{bsmallmatrix} 45-42\\-18+21 \end{bsmallmatrix}=\begin{bsmallmatrix} 3\\3 \end{bsmallmatrix}$: $p=3$, $q=3$.}
+\begin{work}
+  \begin{bsmallmatrix} 5&-2\\-2&1 \end{bsmallmatrix}\begin{bsmallmatrix} 9\\21 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 45-42\\-18+21 \end{bsmallmatrix}
+       = \begin{bsmallmatrix} 3\\3 \end{bsmallmatrix}
+\end{work}
       \item \emph{Interpret:} give the liters for each batch, and say why one inverse handled both.
             \ansline{Batch 1: $2$ L P, $3$ L Q; Batch 2: $3$ L P, $3$ L Q. The mixes (so $A$) never
             change, so the one machine $A^{-1}$ solves any batch in a single multiplication.}
@@ -54,15 +76,21 @@ Show your steps. Where you find an inverse, \textbf{check} it by multiplying $A^
         \[
           \left[\begin{array}{cc|cc} 1 & 2 & 1 & 0 \\ 4 & 9 & 0 & 1 \end{array}\right]
         \]
-        \ansline{row$_2-4\,$row$_1$: $\left[\begin{smallmatrix} 1&2&1&0\\0&1&-4&1 \end{smallmatrix}\right]$;
-        then row$_1-2\,$row$_2$: $\left[\begin{smallmatrix} 1&0&9&-2\\0&1&-4&1 \end{smallmatrix}\right]$.
-        So $A^{-1}=\begin{bsmallmatrix} 9&-2\\-4&1 \end{bsmallmatrix}$.}
+\begin{work}
+  \text{row}_2-4\,\text{row}_1:\quad
+      &\left[\begin{smallmatrix} 1&2&1&0\\0&1&-4&1 \end{smallmatrix}\right] \\
+  \text{row}_1-2\,\text{row}_2:\quad
+      &\left[\begin{smallmatrix} 1&0&9&-2\\0&1&-4&1 \end{smallmatrix}\right] \\
+  A^{-1} &= \begin{bsmallmatrix} 9&-2\\-4&1 \end{bsmallmatrix}
+\end{work}
   \item \textbf{No inverse.} Show that $A=\begin{bmatrix} 3 & 6 \\ 2 & 4 \end{bmatrix}$ is
         \textbf{singular}: compute $ad-bc$, run one elimination step, and explain why no inverse
         exists.
-        \ansline{$ad-bc=12-12=0$, so the $\tfrac{1}{ad-bc}$ formula fails. Elimination
-        (row$_2-\tfrac23\,$row$_1$) gives $(0,0)$ --- a zero pivot. $A$ is singular: no inverse
-        (its rows/columns are proportional).}
+\begin{work}
+  ad-bc &= 12-12 = 0 \\
+  \text{row}_2-\tfrac23\,\text{row}_1 &= (0,0)
+\end{work}
+        \ansline{The formula fails and elimination hits a zero pivot, so $A$ is singular --- no inverse.}
 \end{enumerate}
 \end{notesbox}
 
@@ -73,9 +101,13 @@ $E_{31}=\begin{bsmallmatrix} 1&0&0\\0&1&0\\-5&0&1 \end{bsmallmatrix}$, so the co
 $E_{31}E_{21}$. To undo them you reverse the order:
 $(E_{31}E_{21})^{-1}=E_{21}^{-1}E_{31}^{-1}$ (take shoes off before socks). Write out that product.
 What do you notice about where $2$ and $5$ land?
-\ansline{$E_{21}^{-1}E_{31}^{-1}=\begin{bsmallmatrix} 1&0&0\\2&1&0\\0&0&1 \end{bsmallmatrix}\begin{bsmallmatrix} 1&0&0\\0&1&0\\5&0&1 \end{bsmallmatrix}=\begin{bsmallmatrix} 1&0&0\\2&1&0\\5&0&1 \end{bsmallmatrix}$.
-The multipliers $2$ and $5$ slot straight into positions $(2,1)$ and $(3,1)$ --- no interference. That
-lower-triangular matrix of multipliers is the $L$ of $A=LU$, coming in 2.3.}
+\begin{work}
+  E_{21}^{-1}E_{31}^{-1}
+      &= \begin{bsmallmatrix} 1&0&0\\2&1&0\\0&0&1 \end{bsmallmatrix}
+         \begin{bsmallmatrix} 1&0&0\\0&1&0\\5&0&1 \end{bsmallmatrix}
+       = \begin{bsmallmatrix} 1&0&0\\2&1&0\\5&0&1 \end{bsmallmatrix}
+\end{work}
+\ansline{The multipliers $2$ and $5$ slot straight into positions $(2,1)$ and $(3,1)$ --- the $L$ of $A=LU$.}
 \end{extensionbox}
 
 \begin{spiralbox}

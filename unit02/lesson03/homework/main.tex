@@ -10,7 +10,6 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.3}{Homework}
-\namedateperiod
 
 \vspace{0.12in}
 
@@ -18,32 +17,68 @@
 Show your steps. Remember: $U$ is elimination's result, $L$ holds the multipliers ($+\ell$) with $1$s
 on the diagonal, and $A\xx=\bb$ solves in two sweeps --- $L\cc=\bb$ forward, then $U\xx=\cc$ back.
 
-\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
   \item \textbf{Factor.} For each $A$, name the pivot and multiplier $\ell$, then write $L$ and $U$.
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
       \item $A=\begin{bmatrix} 1 & 5 \\ 2 & 12 \end{bmatrix}$ \hfill
       \item $A=\begin{bmatrix} 2 & 3 \\ 8 & 15 \end{bmatrix}$
     \end{enumerate}
-    \vspace{1.5cm}
+\begin{work}
+  \text{(a)}\ \text{pivot } 1,\ \ell=2:\quad U &= \begin{bsmallmatrix} 1&5\\0&2 \end{bsmallmatrix},\quad
+      L = \begin{bsmallmatrix} 1&0\\2&1 \end{bsmallmatrix} \\
+  \text{(b)}\ \text{pivot } 2,\ \ell=4:\quad U &= \begin{bsmallmatrix} 2&3\\0&3 \end{bsmallmatrix},\quad
+      L = \begin{bsmallmatrix} 1&0\\4&1 \end{bsmallmatrix}
+\end{work}
   \item \textbf{Check.} For both matrices in Problem~1, multiply $LU$ and confirm you get back $A$.
-    \vspace{1.5cm}
+\begin{work}
+  \text{(a)}\ \begin{bsmallmatrix} 1&0\\2&1 \end{bsmallmatrix}\begin{bsmallmatrix} 1&5\\0&2 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 1&5\\2&12 \end{bsmallmatrix} = A \\
+  \text{(b)}\ \begin{bsmallmatrix} 1&0\\4&1 \end{bsmallmatrix}\begin{bsmallmatrix} 2&3\\0&3 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 2&3\\8&15 \end{bsmallmatrix} = A \ \ \text{\checkmark}
+\end{work}
   \item \textbf{Two sweeps.} Factor $A=\begin{bmatrix} 1 & 2 \\ 4 & 9 \end{bmatrix}$, then solve
         $A\xx=\bb$ for $\bb=\begin{bmatrix} 3 \\ 14 \end{bmatrix}$ using $L\cc=\bb$ then $U\xx=\cc$.
-    \vspace{1.8cm}
+\begin{work}
+  \ell=4:\quad U &= \begin{bsmallmatrix} 1&2\\0&1 \end{bsmallmatrix},\quad
+      L = \begin{bsmallmatrix} 1&0\\4&1 \end{bsmallmatrix} \\
+  \cc &= \begin{bsmallmatrix} 3\\2 \end{bsmallmatrix} \\
+  y &= 2 \\
+  x+4 &= 3,\ x = -1
+\end{work}
   \item \textbf{Juice bar --- one factorization, two batches.} Each liter of \textbf{Mix P} carries $1$
         unit sugar and $2$ units vitamin; each liter of \textbf{Mix Q} carries $2$ sugar and $6$
         vitamin. With $p$ liters of P and $q$ of Q the totals are $A\begin{bsmallmatrix} p\\q \end{bsmallmatrix}=\bb$,
         $A=\begin{bmatrix} 1 & 2 \\ 2 & 6 \end{bmatrix}$ (sugar row, vitamin row).
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
-      \item Factor $A=LU$ once. \vspace{1.0cm}
-      \item \textbf{Batch 1:} sugar $5$, vitamin $12$. Two sweeps --- find $p,q$. \vspace{1.0cm}
-      \item \textbf{Batch 2:} sugar $8$, vitamin $22$. Same $L,U$ --- find $p,q$. \vspace{1.0cm}
+      \item Factor $A=LU$ once.
+\begin{work}
+  \ell=2:\quad U &= \begin{bsmallmatrix} 1&2\\0&2 \end{bsmallmatrix},\quad
+      L = \begin{bsmallmatrix} 1&0\\2&1 \end{bsmallmatrix}
+\end{work}
+      \item \textbf{Batch 1:} sugar $5$, vitamin $12$. Two sweeps --- find $p,q$.
+\begin{work}
+  \cc &= \begin{bsmallmatrix} 5\\2 \end{bsmallmatrix} \\
+  2q &= 2,\ q = 1 \\
+  p+2 &= 5,\ p = 3
+\end{work}
+      \item \textbf{Batch 2:} sugar $8$, vitamin $22$. Same $L,U$ --- find $p,q$.
+\begin{work}
+  \cc &= \begin{bsmallmatrix} 8\\6 \end{bsmallmatrix} \\
+  2q &= 6,\ q = 3 \\
+  p+6 &= 8,\ p = 2
+\end{work}
       \item \emph{Interpret:} give the liters for each batch, and say why one factorization handled both. \writeline
     \end{enumerate}
   \item \textbf{A $3\times3$.} Factor $A=\begin{bmatrix} 1 & 1 & 2 \\ 3 & 5 & 7 \\ 1 & 5 & 5 \end{bmatrix}$
         (collect $\ell_{21},\ell_{31},\ell_{32}$ into $L$), then solve $A\xx=\bb$ for
         $\bb=\begin{bmatrix} 5 \\ 20 \\ 16 \end{bmatrix}$ by two sweeps.
-    \vspace{2.2cm}
+\begin{work}
+  \ell_{21}=3,\ \ell_{31} &= 1,\ \ell_{32} = 2 \\
+  U &= \begin{bsmallmatrix} 1&1&2\\0&2&1\\0&0&1 \end{bsmallmatrix},\quad
+      L = \begin{bsmallmatrix} 1&0&0\\3&1&0\\1&2&1 \end{bsmallmatrix} \\
+  \cc &= \begin{bsmallmatrix} 5\\5\\1 \end{bsmallmatrix} \\
+  z &= 1,\ y = 2,\ x = 1
+\end{work}
   \item \textbf{Explain.} In Problem~3 the middle vector $\cc$ from $L\cc=\bb$ is exactly the
         right-hand side you would get by running elimination on $\bb$. Explain \emph{why} the forward
         sweep and ``updating $\bb$ during elimination'' give the same thing. \writeline
@@ -58,7 +93,14 @@ $(E_{31}E_{21})^{-1}=E_{21}^{-1}E_{31}^{-1}$. Those undo-matrices, multiplied to
     = \begin{bmatrix} 1&0&0\\ \ell_{21}&1&0\\ \ell_{31}&\ell_{32}&1 \end{bmatrix}.
 \]
 Using the multipliers from Problem~5, write out this product and confirm the multipliers land in their
-$L$-positions with no interference. Why is it so much cheaper to keep $L$ and $U$ than to build $A^{-1}$? \writeline
+$L$-positions with no interference. Why is it so much cheaper to keep $L$ and $U$ than to build $A^{-1}$?
+\begin{work}
+  \begin{bsmallmatrix} 1&0&0\\3&1&0\\0&0&1 \end{bsmallmatrix}
+  \begin{bsmallmatrix} 1&0&0\\0&1&0\\1&0&1 \end{bsmallmatrix}
+  \begin{bsmallmatrix} 1&0&0\\0&1&0\\0&2&1 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 1&0&0\\3&1&0\\1&2&1 \end{bsmallmatrix} = L
+\end{work}
+\writeline
 \end{extensionbox}
 
 \begin{spiralbox}

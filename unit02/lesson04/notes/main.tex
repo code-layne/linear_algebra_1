@@ -12,7 +12,6 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.4}{Guided Notes}
-\namedateperiod
 
 \vspace{0.12in}
 
@@ -31,7 +30,7 @@
 \begin{vocabbox}
 \small
 Fill in each term as we build it together.
-\vspace{2pt}
+\par\vspace{2pt}
 \termblanklong{Permutation matrix $\PP$}
 \termblanklong{Zero pivot / row exchange}
 \termblanklong{Factorization $\PP A=LU$}
@@ -124,12 +123,22 @@ Two rules we'll reuse. Transpose \textbf{reverses the order} of a product (2.2's
 And a permutation's transpose is its inverse: $\PP^{\tp}=\PP^{-1}$ (swapping, then swapping back, is $I$).
 \end{notesbox}
 
+\boxguard
 \begin{practicebox}
 Let $A=\begin{bmatrix} 0 & 4 \\ 2 & 6 \end{bmatrix}$ and $\bb=\begin{bmatrix} 4 \\ 8 \end{bmatrix}$.
 \begin{enumerate}[leftmargin=1.6em]
   \item Write the swap matrix $\PP$ and compute $\PP A$. \hfill $\PP A=\begin{bmatrix}\ \blank{0.7cm} & \blank{0.7cm}\ \\[2pt] \blank{0.7cm} & \blank{0.7cm} \end{bmatrix}$
   \item Solve $A\xx=\bb$ using $\PP A\xx=\PP\bb$. \hfill $x=\blank{1.1cm}$\quad $y=\blank{1.1cm}$
-  \item Write $A^{\tp}$. Is $A$ symmetric? \writeline
+\begin{work}
+  \PP\bb &= \begin{bsmallmatrix} 8\\4 \end{bsmallmatrix} \\
+  4y &= 4,\ y = 1 \\
+  2x+6 &= 8,\ x = 1
+\end{work}
+  \item Write $A^{\tp}$. Is $A$ symmetric?
+\begin{work}
+  A^{\tp} &= \begin{bsmallmatrix} 0&2\\4&6 \end{bsmallmatrix} \ne A
+\end{work}
+        \writeline
 \end{enumerate}
 \end{practicebox}
 

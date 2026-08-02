@@ -153,4 +153,39 @@ without interference --- and count why two sweeps are cheaper than a fresh solve
 Lesson~2.4, \emph{Permutations and Transposes} --- when a zero pivot forces a row swap, a permutation
 $P$ fixes it: $PA=LU$.
 \end{skillbox}
+% ── Teacher notes (migrated from the component keys) ──
+% One per component, titled for it. They live here rather than in the _key
+% files so that every component is the same length blank and keyed.
+
+\begin{teachernote}[Warm-Up]
+Item~1 is the $LU$ shape --- lower~$\times$~upper rebuilds a full matrix, so factoring is that step run
+backwards. Item~2 is the second sweep of today's method (back-substitution on $U$). Item~3's system and
+multiplier ($A=\begin{bsmallmatrix} 1&3\\2&7 \end{bsmallmatrix}$, $\ell=2$) are the running example
+carried through the notes --- the $2$ becomes the below-diagonal entry of $L$.
+\end{teachernote}
+
+\begin{teachernote}[Guided Notes]
+The through-line: $A=LU$ is elimination \emph{saved}. $U$ is the 2.1 result; $L$ is the 2.2
+undo-matrices $E^{-1}$ gathered up, so its below-diagonal entries are just the multipliers (with a
+\emph{plus} sign --- the most common slip is writing $-\ell$). Emphasize \S3: the forward sweep
+reproduces ``update the right-hand side'' (watch $\cc=\begin{bsmallmatrix} 7\\1 \end{bsmallmatrix}$ match
+2.1), and the back sweep is ordinary back-substitution. \S4 is the concept behind the section title:
+factor once, then two cheap sweeps per order --- how real solvers work.
+\end{teachernote}
+
+\begin{teachernote}[Group Activity]
+Tier~A is the payoff: one $A=LU$, reused across right-hand sides --- the reason factoring beats
+re-eliminating. Common slips: a minus sign in $L$ (it stores $+\ell$), or sweeping $U$ before $L$.
+Tier~E makes the ``free $L$'' idea explicit --- the multipliers are a by-product of elimination, so
+factoring adds no work. Tie back to 2.2: $L$ is the undo-matrices $E^{-1}$ collected together.
+\end{teachernote}
+
+\begin{teachernote}[Exit Ticket]
+Item~1 checks the whole method: full credit needs the multiplier, correct $L$ and $U$ (watch the sign
+--- $L$ holds $+3$), \emph{and} the two-sweep solve (note the negative $x$). Item~2 is the conceptual
+check --- students must name the below-diagonal entries as the multipliers and justify that $L$ is a
+free by-product of elimination. Sort into ``factors \& sweeps solid / sign or diagonal slip / unclear
+on the two sweeps'' to set up Lesson~2.4 (row swaps, $PA=LU$).
+\end{teachernote}
+
 \end{document}

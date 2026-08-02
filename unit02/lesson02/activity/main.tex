@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.2}{Group Activity}
-\namepartnerperiod
 
 \vspace{0.10in}
 
@@ -27,10 +26,14 @@ and \emph{show every step}.
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
 Let $A=\begin{bmatrix} 2 & 5 \\ 4 & 12 \end{bmatrix}$. The pivot is $2$, so the multiplier is
 $\ell=4\div2=2$.
-\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
   \item Write the elimination matrix $E_{21}$ (put $-\ell$ in the lower-left of $I$).
         \; $E_{21}=\begin{bmatrix} 1 & 0 \\ \blank{0.9cm} & 1 \end{bmatrix}$ \vspace{0.2cm}
-  \item Multiply $E_{21}A$ to reach upper-triangular $U$. \vspace{1.3cm}
+  \item Multiply $E_{21}A$ to reach upper-triangular $U$.
+\begin{work}
+  -2(2,5)+(4,12) &= (0,2) \\
+  E_{21}A &= \begin{bsmallmatrix} 2&5\\0&2 \end{bsmallmatrix} = U
+\end{work}
   \item Write $E_{21}^{-1}$, the matrix that \emph{undoes} the step. \; $E_{21}^{-1}=\begin{bmatrix} 1 & 0 \\ \blank{0.9cm} & 1 \end{bmatrix}$ \vspace{0.2cm}
   \item In one sentence: how are $E_{21}$ and $E_{21}^{-1}$ related? \writeline
 \end{enumerate}
@@ -43,9 +46,23 @@ $1$ mug and $1$ candle; each \textbf{Large} box holds $2$ mugs and $3$ candles. 
 $t$ larges, the totals are $A\begin{bsmallmatrix} s\\ t \end{bsmallmatrix}=\bb$ where
 $A=\begin{bmatrix} 1 & 2 \\ 1 & 3 \end{bmatrix}$ (mug row, candle row).
 \begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
-  \item Build the machine once: compute $ad-bc$ and write $A^{-1}$. \vspace{1.1cm}
-  \item \textbf{Monday's order:} $8$ mugs, $11$ candles. Use $\xx=A^{-1}\bb$ to find $s$ and $t$. \vspace{1.1cm}
-  \item \textbf{Tuesday's order:} $10$ mugs, $14$ candles. Same machine --- find $s$ and $t$. \vspace{1.1cm}
+  \item Build the machine once: compute $ad-bc$ and write $A^{-1}$.
+\begin{work}
+  ad-bc &= 3-2 = 1 \\
+  A^{-1} &= \begin{bsmallmatrix} 3&-2\\-1&1 \end{bsmallmatrix}
+\end{work}
+  \item \textbf{Monday's order:} $8$ mugs, $11$ candles. Use $\xx=A^{-1}\bb$ to find $s$ and $t$.
+\begin{work}
+  \begin{bsmallmatrix} 3&-2\\-1&1 \end{bsmallmatrix}\begin{bsmallmatrix} 8\\11 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 24-22\\-8+11 \end{bsmallmatrix}
+       = \begin{bsmallmatrix} 2\\3 \end{bsmallmatrix}
+\end{work}
+  \item \textbf{Tuesday's order:} $10$ mugs, $14$ candles. Same machine --- find $s$ and $t$.
+\begin{work}
+  \begin{bsmallmatrix} 3&-2\\-1&1 \end{bsmallmatrix}\begin{bsmallmatrix} 10\\14 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 30-28\\-10+14 \end{bsmallmatrix}
+       = \begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}
+\end{work}
   \item \emph{Interpret:} give each day's box counts, and say why building $A^{-1}$ once beats
         re-running elimination every day. \writeline
 \end{enumerate}
@@ -58,11 +75,22 @@ row-reducing $[\,A\mid I\,]$ down \emph{then} up until the left side is $I$.
 \[
   \left[\begin{array}{cc|cc} 1 & 2 & 1 & 0 \\ 3 & 7 & 0 & 1 \end{array}\right]
 \]
-\vspace{1.6cm}
+\begin{work}
+  \text{row}_2-3\,\text{row}_1:\quad
+      &\left[\begin{smallmatrix} 1&2&1&0\\0&1&-3&1 \end{smallmatrix}\right] \\
+  \text{row}_1-2\,\text{row}_2:\quad
+      &\left[\begin{smallmatrix} 1&0&7&-2\\0&1&-3&1 \end{smallmatrix}\right] \\
+  A^{-1} &= \begin{bsmallmatrix} 7&-2\\-3&1 \end{bsmallmatrix}
+\end{work}
 
 \textbf{(2) No machine.} Try to invert $A=\begin{bmatrix} 2 & 3 \\ 4 & 6 \end{bmatrix}$. Compute
 $ad-bc$, run one elimination step, and explain what goes wrong. Is $A$ \textbf{singular}? Connect it
-to the zero-pivot breakdown from Lesson~2.1. \writelines{3}
+to the zero-pivot breakdown from Lesson~2.1.
+\begin{work}
+  ad-bc &= 12-12 = 0 \\
+  \text{row}_2-2\,\text{row}_1 &= (0,0)
+\end{work}
+\writelines{2}
 \end{tcolorbox}
 
 \end{document}

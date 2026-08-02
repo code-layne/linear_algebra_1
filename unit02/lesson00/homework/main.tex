@@ -9,35 +9,54 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.0}{Homework}
-\namedateperiod
 
 \vspace{0.12in}
 
 \begin{notesbox}{Practice}
 Show your steps and \textbf{check} every solution by rebuilding $\bb$.
 
-\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
   \item \textbf{Three views.} Let $A=\begin{bmatrix} 2 & 1 \\ 1 & 4 \end{bmatrix}$ and
         $\bb=\begin{bmatrix} 8 \\ 11 \end{bmatrix}$.
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
       \item Write $A\xx=\bb$ as a \emph{combination of the columns} of $A$.
       \item Write $A\xx=\bb$ as a \emph{system of two equations}.
     \end{enumerate}
-    \vspace{1.3cm}
+\begin{work}
+  x_1\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} + x_2\begin{bsmallmatrix} 1\\4 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 8\\11 \end{bsmallmatrix} \\
+  2x_1+x_2 &= 8 \\
+  x_1+4x_2 &= 11
+\end{work}
   \item \textbf{Solve by elimination.} Find $x_1$ and $x_2$ for each system.
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
       \item $\begin{aligned}[t] x_1 + x_2 &= 6 \\ 2x_1 + x_2 &= 8 \end{aligned}$ \hfill
       \item $\begin{aligned}[t] 3x_1 + 2x_2 &= 16 \\ x_1 + 2x_2 &= 8 \end{aligned}$ \hfill
       \item $\begin{aligned}[t] x_1 - x_2 &= 1 \\ 2x_1 + x_2 &= 8 \end{aligned}$
     \end{enumerate}
-    \vspace{1.6cm}
+\begin{work}
+  \text{(a)}\ \ (2x_1+x_2)-(x_1+x_2) &= 8-6 \\
+                                 x_1 &= 2,\ x_2 = 4 \\
+  \text{(b)}\ \ (3x_1+2x_2)-(x_1+2x_2) &= 16-8 \\
+                                 x_1 &= 4,\ x_2 = 2 \\
+  \text{(c)}\ \ (x_1-x_2)+(2x_1+x_2) &= 1+8 \\
+                                 x_1 &= 3,\ x_2 = 2
+\end{work}
   \item \textbf{Fertilizer blend.} Each bag of \textbf{Base A} has $1$ kg nitrogen and $2$ kg
         phosphorus; each bag of \textbf{Base B} has $3$ kg nitrogen and $1$ kg phosphorus. A
         field needs $13$ kg nitrogen and $11$ kg phosphorus.
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
-      \item Set up and solve $A\xx=\bb$ for the number of bags of each base. \vspace{1.2cm}
+      \item Set up and solve $A\xx=\bb$ for the number of bags of each base.
+\begin{work}
+                x_1+3x_2 &= 13 \\
+                2x_1+x_2 &= 11 \\
+  2(x_1+3x_2)-(2x_1+x_2) &= 26-11 \\
+                    5x_2 &= 15 \\
+                     x_2 &= 3,\ x_1 = 4
+\end{work}
       \item \emph{Interpret:} how many bags of each, and does the answer make sense? \writeline
     \end{enumerate}
+  \tcbbreak
   \item \textbf{How many solutions?} Classify each system as \emph{one}, \emph{none}, or
         \emph{infinitely many}, and say why (parallel lines, same line, or crossing).
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
@@ -45,7 +64,13 @@ Show your steps and \textbf{check} every solution by rebuilding $\bb$.
       \item $\begin{aligned}[t] x_1 + 2x_2 &= 5 \\ 2x_1 + 4x_2 &= 7 \end{aligned}$ \hfill
       \item $\begin{aligned}[t] x_1 + 2x_2 &= 5 \\ x_1 + 3x_2 &= 7 \end{aligned}$
     \end{enumerate}
-    \vspace{1.2cm}
+\begin{work}
+  \text{(a)}\ \ 2(x_1+2x_2) &= 10 = \text{eq 2} \\
+  \text{(b)}\ \ 2(x_1+2x_2) &= 10 \ne 7 \\
+  \text{(c)}\ \ (x_1+3x_2)-(x_1+2x_2) &= 7-5 \\
+                                 x_2 &= 2,\ x_1 = 1
+\end{work}
+    \writeline
 \end{enumerate}
 \end{notesbox}
 
@@ -60,7 +85,14 @@ Show your steps and \textbf{check} every solution by rebuilding $\bb$.
 \]
 Subtract the first equation from the second, and subtract twice the first from the third. You
 are left with a small system in $y$ and $z$ --- solve it, then back-substitute for $x$.
-\writelines{3}
+\begin{work}
+  \text{Eq2}-\text{Eq1}:\quad y &= 2 \\
+  \text{Eq3}-2\,\text{Eq1}:\quad -y-z &= -5 \\
+                            y+z &= 5 \\
+                              z &= 3 \\
+                              x &= 6-2-3 = 1
+\end{work}
+\writeline
 \end{extensionbox}
 
 \begin{spiralbox}

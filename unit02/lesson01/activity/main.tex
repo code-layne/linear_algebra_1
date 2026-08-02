@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.1}{Group Activity}
-\namepartnerperiod
 
 \vspace{0.10in}
 
@@ -25,11 +24,23 @@ Work with your partner and \emph{show every step}.
 \begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier R --- Remediate},
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
 Solve $\ 2x + y = 7,\quad 4x + 3y = 17$. \; The pivot is $2$ and the multiplier is $\ell=4\div2=2$.
-\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
   \item Elimination step: replace row~2 by (row~2)$-2\,($row~1$)$. What equation is left? \writeline
-  \item That gives $y$. \; $y=\blank{1.4cm}$ \vspace{0.3cm}
-  \item Back-substitute into row~1 to find $x$. \; $x=\blank{1.4cm}$ \vspace{0.4cm}
-  \item \textbf{Check:} rebuild $\bb$ as $x\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}+y\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$. \vspace{0.5cm}
+  \item That gives $y$. \; $y=\blank{1.4cm}$
+\begin{work}
+  (4x+3y)-2(2x+y) &= 17-14 \\
+                y &= 3
+\end{work}
+  \item Back-substitute into row~1 to find $x$. \; $x=\blank{1.4cm}$
+\begin{work}
+  2x+3 &= 7 \\
+     x &= 2
+\end{work}
+  \item \textbf{Check:} rebuild $\bb$ as $x\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix}+y\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$.
+\begin{work}
+  2\begin{bsmallmatrix} 2\\4 \end{bsmallmatrix} + 3\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 7\\17 \end{bsmallmatrix} \ \ \text{\checkmark}
+\end{work}
 \end{enumerate}
 \end{tcolorbox}
 
@@ -40,11 +51,18 @@ Solve $\ 2x + y = 7,\quad 4x + 3y = 17$. \; The pivot is $2$ and the multiplier 
 bars and $17$ juice boxes.
 \begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
   \item Write it as a system (bars row, juice row) with unknowns $a,b$ (packs of each). \writeline
-  \item Solve by elimination. Choose the pivot so the multiplier is a whole number. \vspace{1.1cm}
+  \item Solve by elimination. Choose the pivot so the multiplier is a whole number.
+\begin{work}
+  (3a+b)-3(a+2b) &= 17-27 \\
+            -5b &= -10 \\
+              b &= 2 \\
+              a &= 9-4 = 5
+\end{work}
   \item \emph{Interpret:} how many of each pack, and does the answer make sense? \writeline
 \end{enumerate}
 
 \vspace{4pt}
+\tcbbreak
 \textbf{(2) Three at once.} Solve by elimination (clear column~1, then column~2):
 \[
   \begin{array}{r@{}c@{}l}
@@ -53,22 +71,46 @@ bars and $17$ juice boxes.
     x &{}+ 4y + 9z ={}& 36
   \end{array}
 \]
-\vspace{1.6cm}
+\begin{work}
+  \ell_{21}=2:\quad y+2z &= 8 \\
+  \ell_{31}=1:\quad 3y+8z &= 30 \\
+  \ell_{32}=3:\quad 2z &= 6 \\
+                     z &= 3 \\
+                     y &= 2 \\
+                     x &= 1
+\end{work}
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier E --- Extension},
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
 \textbf{(1) Zero pivot.} In $\ 0x + 2y = 6,\ \ 4x + 3y = 17$, elimination can't start. Explain
-why, fix it with a \textbf{row exchange}, then solve. \writelines{2}
+why, fix it with a \textbf{row exchange}, then solve.
+\begin{work}
+  \text{swap rows:}\quad 4x+3y &= 17 \\
+                          2y &= 6 \\
+                           y &= 3 \\
+                           x &= 2
+\end{work}
+\writelines{2}
 
 \vspace{4pt}
 \textbf{(2) Read the breakdown.} Run elimination on each system (multiplier $2$) and use the last
 line to decide \emph{no solution} or \emph{infinitely many} --- and justify.
 \begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
   \item $\begin{aligned}[t] x + 2y &= 4 \\ 2x + 4y &= 9 \end{aligned}$
-        \hspace{1.5em} No, or infinitely many? Why? \writelines{2}
+        \hspace{1.5em} No, or infinitely many? Why?
+\begin{work}
+  (2x+4y)-2(x+2y) &= 9-8 \\
+                0 &= 1
+\end{work}
+        \writelines{2}
   \item $\begin{aligned}[t] x + 2y &= 4 \\ 2x + 4y &= 8 \end{aligned}$
-        \hspace{1.5em} No, or infinitely many? Why? \writelines{2}
+        \hspace{1.5em} No, or infinitely many? Why?
+\begin{work}
+  (2x+4y)-2(x+2y) &= 8-8 \\
+                0 &= 0
+\end{work}
+        \writelines{2}
 \end{enumerate}
 \end{tcolorbox}
 

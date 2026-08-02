@@ -10,7 +10,6 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.3}{Exit Ticket --- Answer Key}
-\namedateperiod
 
 \vspace{0.15in}
 
@@ -20,12 +19,20 @@
         \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=7pt]
           \item Factor $A=LU$: find the multiplier, then write $L$ and $U$.
                 \hfill $\ell=\ans{$3$}$
-                \ansline{$U=\begin{bsmallmatrix} 1&4\\0&2 \end{bsmallmatrix}$ (row$_2-3\,$row$_1$), $L=\begin{bsmallmatrix} 1&0\\3&1 \end{bsmallmatrix}$. Check: $LU=\begin{bsmallmatrix} 1&4\\3&14 \end{bsmallmatrix}=A$ \checkmark}
+\begin{work}
+  U &= \begin{bsmallmatrix} 1&4\\0&2 \end{bsmallmatrix},\quad
+  L = \begin{bsmallmatrix} 1&0\\3&1 \end{bsmallmatrix} \\
+  LU &= \begin{bsmallmatrix} 1&4\\3&14 \end{bsmallmatrix} = A \ \ \text{\checkmark}
+\end{work}
           \item Solve $A\xx=\bb$ in two sweeps ($L\cc=\bb$, then $U\xx=\cc$).
                 \hfill $x=\ans{$-3$}$\quad $y=\ans{$1$}$
-                \ansline{Forward: $c_1=1$, $3(1)+c_2=5\Rightarrow c_2=2$, so $\cc=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$. Back: $2y=2\Rightarrow y=1$, $x+4=1\Rightarrow x=-3$. Check: $1(-3)+4(1)=1$, $3(-3)+14(1)=5$ \checkmark}
+\begin{work}
+  c_1 &= 1 \\
+  3(1)+c_2 &= 5,\ c_2 = 2 \\
+  2y &= 2,\ y = 1 \\
+  x+4 &= 1,\ x = -3
+\end{work}
         \end{enumerate}
-        \vspace{2pt}
   \item \textbf{What does $L$ record?} In a factorization $A=LU$, what do the numbers \emph{below} the
         diagonal of $L$ represent, and why does building $L$ take no extra work once you have
         eliminated?
@@ -34,13 +41,5 @@
         you already computed those multipliers while eliminating; you just record them (with a plus
         sign) instead of throwing them away.}
 \end{enumerate}
-
-\begin{teachernote}
-Item~1 checks the whole method: full credit needs the multiplier, correct $L$ and $U$ (watch the sign
---- $L$ holds $+3$), \emph{and} the two-sweep solve (note the negative $x$). Item~2 is the conceptual
-check --- students must name the below-diagonal entries as the multipliers and justify that $L$ is a
-free by-product of elimination. Sort into ``factors \& sweeps solid / sign or diagonal slip / unclear
-on the two sweeps'' to set up Lesson~2.4 (row swaps, $PA=LU$).
-\end{teachernote}
 
 \end{document}

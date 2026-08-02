@@ -11,23 +11,33 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.4}{Exit Ticket}
-\namedateperiod
 
 \vspace{0.15in}
 
-\begin{enumerate}[leftmargin=1.8em, itemsep=15pt]
+\begin{enumerate}[leftmargin=1.8em, itemsep=13pt]
   \item \textbf{Fix the zero pivot and solve.} Let $A=\begin{bmatrix} 0 & 4 \\ 2 & 6 \end{bmatrix}$ and
         $\bb=\begin{bmatrix} 4 \\ 8 \end{bmatrix}$.
-        \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=8pt]
+        \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=7pt]
           \item Write the swap matrix $\PP$ and compute $\PP A$ and $\PP\bb$.
-                \vspace{1.2cm}
+\begin{work}
+  \PP &= \begin{bsmallmatrix} 0&1\\1&0 \end{bsmallmatrix},\quad
+      \PP A = \begin{bsmallmatrix} 2&6\\0&4 \end{bsmallmatrix},\quad
+      \PP\bb = \begin{bsmallmatrix} 8\\4 \end{bsmallmatrix}
+\end{work}
           \item Solve $A\xx=\bb$ (solve $\PP A\xx=\PP\bb$).
                 \hfill $x=\blank{1.4cm}$\quad $y=\blank{1.4cm}$
+\begin{work}
+  4y &= 4,\ y = 1 \\
+  2x+6 &= 8,\ x = 1 \\
+  0(1)+4(1) &= 4,\quad 2(1)+6(1) = 8 \ \ \text{\checkmark}
+\end{work}
         \end{enumerate}
-        \vspace{0.3cm}
   \item \textbf{Transpose.} Write $A^{\tp}$ for $A=\begin{bmatrix} 2 & 7 \\ 1 & 5 \end{bmatrix}$, and state
         whether $A$ is symmetric.
-        \vspace{1.4cm}
+\begin{work}
+  A^{\tp} &= \begin{bsmallmatrix} 2&1\\7&5 \end{bsmallmatrix} \ne A
+\end{work}
+        \writeline
   \item \textbf{Why is the swap safe?} A classmate worries that swapping two rows of $A$ might change the
         answer $\xx$. Explain why it does not.
         \writelines{3}

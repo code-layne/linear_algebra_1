@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.2}{Guided Notes}
-\namedateperiod
 
 \vspace{0.12in}
 
@@ -28,7 +27,7 @@
 \begin{vocabbox}
 \small
 Fill in each term as we build it together.
-\vspace{2pt}
+\par\vspace{2pt}
 \termblanklong{Identity matrix $I$}
 \termblanklong{Elimination matrix $E$}
 \termblanklong{Inverse matrix $A^{-1}$}
@@ -54,7 +53,7 @@ Start with the \textbf{identity matrix} $I=\begin{bsmallmatrix} 1&0\\0&1 \end{bs
 any matrix alone: $IA=A$ and $I\bb=\bb$.
 
 \vspace{3pt}
-Now take our system's multiplier from 2.1: pivot $1$, so $\ell=2\div1=2$. Drop $-\ell$ into the
+Now take the bakery system's multiplier, using 2.1's rule: pivot $1$, so $\ell=2\div1=2$. Drop $-\ell$ into the
 lower-left spot of $I$ to get the \textbf{elimination matrix}:
 \[
   E_{21} = \begin{bmatrix} 1 & 0 \\ -\ell & 1 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ \blank{0.8cm} & 1 \end{bmatrix}.
@@ -65,7 +64,7 @@ Watch $E_{21}A$ do exactly one elimination step --- row~1 untouched, row~2 becom
   = \begin{bmatrix} 1 & 3 \\ \blank{0.8cm} & \blank{0.8cm} \end{bmatrix} = U.
 \]
 The same matrix updates the right-hand side: $E_{21}\bb=\begin{bsmallmatrix} 1&0\\-2&1 \end{bsmallmatrix}\begin{bsmallmatrix} 7\\15 \end{bsmallmatrix}=\begin{bsmallmatrix}\blank{0.8cm}\\[2pt]\blank{0.8cm}\end{bsmallmatrix}$ ---
-the triangular system from 2.1.
+the triangular system, ready for back-substitution.
 \end{notesbox}
 
 \begin{notesbox}{2. Undoing a Step: The Inverse of $E$}
@@ -99,7 +98,7 @@ For $A=\begin{bsmallmatrix} 1&3\\2&7 \end{bsmallmatrix}$: $ad-bc = (1)(7)-(3)(2)
   A^{-1} = \frac{1}{1}\begin{bmatrix} 7 & -3 \\ -2 & 1 \end{bmatrix} = \begin{bmatrix} 7 & -3 \\ -2 & 1 \end{bmatrix}.
 \]
 Now solve this week's order: $\xx = A^{-1}\bb = \begin{bsmallmatrix} 7&-3\\-2&1 \end{bsmallmatrix}\begin{bsmallmatrix} 7\\15 \end{bsmallmatrix} = \begin{bsmallmatrix}\blank{0.8cm}\\[2pt]\blank{0.8cm}\end{bsmallmatrix}$,
-so $(x,y)=(\,\blank{1.4cm}\,)$ --- matching 2.1's answer.
+so $(x,y)=(\,\blank{1.4cm}\,)$ --- the same answer elimination gives.
 
 \vspace{3pt}
 \textbf{Singular warning.} If $ad-bc=0$, the formula divides by zero: there is \textbf{no inverse}.
@@ -124,12 +123,25 @@ Read off $A^{-1}=\begin{bsmallmatrix}\blank{0.7cm} & \blank{0.7cm}\\[2pt]-2 & 1 
 the same inverse as the formula gave.
 \end{notesbox}
 
+\boxguard
 \begin{practicebox}
 Let $A=\begin{bmatrix} 3 & 5 \\ 1 & 2 \end{bmatrix}$ and $\bb=\begin{bmatrix} 11 \\ 4 \end{bmatrix}$.
 \begin{enumerate}[leftmargin=1.6em]
   \item Compute $ad-bc$ and write $A^{-1}$ from the formula. \hfill $ad-bc=\blank{1.2cm}$
+\begin{work}
+  A^{-1} &= \begin{bsmallmatrix} 2&-5\\-1&3 \end{bsmallmatrix}
+\end{work}
   \item Use $\xx=A^{-1}\bb$ to solve $A\xx=\bb$. \hfill $x=\blank{1.2cm}$\quad $y=\blank{1.2cm}$
-  \item \textbf{Check} that your $A^{-1}$ is right by multiplying $A^{-1}A$ --- you should get $I$. \writeline
+\begin{work}
+  \begin{bsmallmatrix} 2&-5\\-1&3 \end{bsmallmatrix}\begin{bsmallmatrix} 11\\4 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 22-20\\-11+12 \end{bsmallmatrix}
+       = \begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}
+\end{work}
+  \item \textbf{Check} that your $A^{-1}$ is right by multiplying $A^{-1}A$ --- you should get $I$.
+\begin{work}
+  \begin{bsmallmatrix} 2&-5\\-1&3 \end{bsmallmatrix}\begin{bsmallmatrix} 3&5\\1&2 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 1&0\\0&1 \end{bsmallmatrix} = I \ \ \text{\checkmark}
+\end{work}
 \end{enumerate}
 \end{practicebox}
 

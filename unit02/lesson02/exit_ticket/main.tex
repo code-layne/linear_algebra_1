@@ -9,24 +9,33 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.2}{Exit Ticket}
-\namedateperiod
 
 \vspace{0.15in}
 
-\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+\begin{enumerate}[leftmargin=1.8em, itemsep=14pt]
   \item \textbf{Build and use an inverse.} Let $A=\begin{bmatrix} 4 & 3 \\ 5 & 4 \end{bmatrix}$ and
         $\bb=\begin{bmatrix} 10 \\ 13 \end{bmatrix}$.
-        \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=8pt]
+        \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=7pt]
           \item Compute $ad-bc$ and write $A^{-1}$ from the formula.
                 \hfill $ad-bc=\blank{1.4cm}$
-                \vspace{1.2cm}
+\begin{work}
+  A^{-1} &= \begin{bsmallmatrix} 4&-3\\-5&4 \end{bsmallmatrix}
+\end{work}
           \item Solve $A\xx=\bb$ using $\xx=A^{-1}\bb$. \hfill $x=\blank{1.4cm}$\quad $y=\blank{1.4cm}$
+\begin{work}
+  \begin{bsmallmatrix} 4&-3\\-5&4 \end{bsmallmatrix}\begin{bsmallmatrix} 10\\13 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 40-39\\-50+52 \end{bsmallmatrix}
+       = \begin{bsmallmatrix} 1\\2 \end{bsmallmatrix} \ \ \text{\checkmark}
+\end{work}
         \end{enumerate}
-        \vspace{0.3cm}
   \item \textbf{Undo a step.} Deshawn's one elimination step on a system is the matrix
         $E=\begin{bmatrix} 1 & 0 \\ -4 & 1 \end{bmatrix}$. What single matrix $E^{-1}$ undoes it,
         \emph{why} does it work, and what do you get when you multiply $E^{-1}E$?
-        \writelines{3}
+\begin{work}
+  E^{-1} &= \begin{bsmallmatrix} 1&0\\4&1 \end{bsmallmatrix} \\
+  E^{-1}E &= \begin{bsmallmatrix} 1&0\\0&1 \end{bsmallmatrix} = I
+\end{work}
+        \writelines{2}
 \end{enumerate}
 
 \end{document}

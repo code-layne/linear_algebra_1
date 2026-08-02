@@ -10,7 +10,6 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.3}{Homework --- Answer Key}
-\namedateperiod
 
 \vspace{0.12in}
 
@@ -18,30 +17,56 @@
 Show your steps. Remember: $U$ is elimination's result, $L$ holds the multipliers ($+\ell$) with $1$s
 on the diagonal, and $A\xx=\bb$ solves in two sweeps --- $L\cc=\bb$ forward, then $U\xx=\cc$ back.
 
-\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
   \item \textbf{Factor.} For each $A$, name the pivot and multiplier $\ell$, then write $L$ and $U$.
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
-      \item \ans{pivot $1$, $\ell=2$; $U=\begin{bsmallmatrix} 1&5\\0&2 \end{bsmallmatrix}$, $L=\begin{bsmallmatrix} 1&0\\2&1 \end{bsmallmatrix}$} \hfill
-      \item \ans{pivot $2$, $\ell=4$; $U=\begin{bsmallmatrix} 2&3\\0&3 \end{bsmallmatrix}$, $L=\begin{bsmallmatrix} 1&0\\4&1 \end{bsmallmatrix}$}
+      \item $A=\begin{bmatrix} 1 & 5 \\ 2 & 12 \end{bmatrix}$ \hfill
+      \item $A=\begin{bmatrix} 2 & 3 \\ 8 & 15 \end{bmatrix}$
     \end{enumerate}
+\begin{work}
+  \text{(a)}\ \text{pivot } 1,\ \ell=2:\quad U &= \begin{bsmallmatrix} 1&5\\0&2 \end{bsmallmatrix},\quad
+      L = \begin{bsmallmatrix} 1&0\\2&1 \end{bsmallmatrix} \\
+  \text{(b)}\ \text{pivot } 2,\ \ell=4:\quad U &= \begin{bsmallmatrix} 2&3\\0&3 \end{bsmallmatrix},\quad
+      L = \begin{bsmallmatrix} 1&0\\4&1 \end{bsmallmatrix}
+\end{work}
   \item \textbf{Check.} For both matrices in Problem~1, multiply $LU$ and confirm you get back $A$.
-        \ansline{(a) $\begin{bsmallmatrix} 1&0\\2&1 \end{bsmallmatrix}\begin{bsmallmatrix} 1&5\\0&2 \end{bsmallmatrix}=\begin{bsmallmatrix} 1&5\\2&12 \end{bsmallmatrix}=A$ \ (row~2: $2(1,5)+(0,2)=(2,12)$).}
-        \ansline{(b) $\begin{bsmallmatrix} 1&0\\4&1 \end{bsmallmatrix}\begin{bsmallmatrix} 2&3\\0&3 \end{bsmallmatrix}=\begin{bsmallmatrix} 2&3\\8&15 \end{bsmallmatrix}=A$ \ (row~2: $4(2,3)+(0,3)=(8,15)$).}
+\begin{work}
+  \text{(a)}\ \begin{bsmallmatrix} 1&0\\2&1 \end{bsmallmatrix}\begin{bsmallmatrix} 1&5\\0&2 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 1&5\\2&12 \end{bsmallmatrix} = A \\
+  \text{(b)}\ \begin{bsmallmatrix} 1&0\\4&1 \end{bsmallmatrix}\begin{bsmallmatrix} 2&3\\0&3 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 2&3\\8&15 \end{bsmallmatrix} = A \ \ \text{\checkmark}
+\end{work}
   \item \textbf{Two sweeps.} Factor $A=\begin{bmatrix} 1 & 2 \\ 4 & 9 \end{bmatrix}$, then solve
         $A\xx=\bb$ for $\bb=\begin{bmatrix} 3 \\ 14 \end{bmatrix}$ using $L\cc=\bb$ then $U\xx=\cc$.
-        \ansline{$\ell=4$: $U=\begin{bsmallmatrix} 1&2\\0&1 \end{bsmallmatrix}$, $L=\begin{bsmallmatrix} 1&0\\4&1 \end{bsmallmatrix}$.
-        Forward: $c_1=3$, $4(3)+c_2=14\Rightarrow c_2=2$, so $\cc=\begin{bsmallmatrix} 3\\2 \end{bsmallmatrix}$.
-        Back: $y=2$, $x+2(2)=3\Rightarrow x=-1$. So $(x,y)=(-1,2)$ \ (check: $1(-1)+2(2)=3$, $4(-1)+9(2)=14$ \checkmark).}
+\begin{work}
+  \ell=4:\quad U &= \begin{bsmallmatrix} 1&2\\0&1 \end{bsmallmatrix},\quad
+      L = \begin{bsmallmatrix} 1&0\\4&1 \end{bsmallmatrix} \\
+  \cc &= \begin{bsmallmatrix} 3\\2 \end{bsmallmatrix} \\
+  y &= 2 \\
+  x+4 &= 3,\ x = -1
+\end{work}
   \item \textbf{Juice bar --- one factorization, two batches.} Each liter of \textbf{Mix P} carries $1$
         unit sugar and $2$ units vitamin; each liter of \textbf{Mix Q} carries $2$ sugar and $6$
         vitamin. With $p$ liters of P and $q$ of Q the totals are $A\begin{bsmallmatrix} p\\q \end{bsmallmatrix}=\bb$,
         $A=\begin{bmatrix} 1 & 2 \\ 2 & 6 \end{bmatrix}$ (sugar row, vitamin row).
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
-      \item Factor $A=LU$ once. \ans{$\ell=2$: $U=\begin{bsmallmatrix} 1&2\\0&2 \end{bsmallmatrix}$, $L=\begin{bsmallmatrix} 1&0\\2&1 \end{bsmallmatrix}$.}
+      \item Factor $A=LU$ once.
+\begin{work}
+  \ell=2:\quad U &= \begin{bsmallmatrix} 1&2\\0&2 \end{bsmallmatrix},\quad
+      L = \begin{bsmallmatrix} 1&0\\2&1 \end{bsmallmatrix}
+\end{work}
       \item \textbf{Batch 1:} sugar $5$, vitamin $12$. Two sweeps --- find $p,q$.
-            \ansline{Forward: $c_1=5$, $2(5)+c_2=12\Rightarrow c_2=2$, $\cc=\begin{bsmallmatrix} 5\\2 \end{bsmallmatrix}$. Back: $2q=2\Rightarrow q=1$, $p+2=5\Rightarrow p=3$. So $p=3$, $q=1$.}
+\begin{work}
+  \cc &= \begin{bsmallmatrix} 5\\2 \end{bsmallmatrix} \\
+  2q &= 2,\ q = 1 \\
+  p+2 &= 5,\ p = 3
+\end{work}
       \item \textbf{Batch 2:} sugar $8$, vitamin $22$. Same $L,U$ --- find $p,q$.
-            \ansline{Forward: $c_1=8$, $16+c_2=22\Rightarrow c_2=6$, $\cc=\begin{bsmallmatrix} 8\\6 \end{bsmallmatrix}$. Back: $2q=6\Rightarrow q=3$, $p+6=8\Rightarrow p=2$. So $p=2$, $q=3$.}
+\begin{work}
+  \cc &= \begin{bsmallmatrix} 8\\6 \end{bsmallmatrix} \\
+  2q &= 6,\ q = 3 \\
+  p+6 &= 8,\ p = 2
+\end{work}
       \item \emph{Interpret:} give the liters for each batch, and say why one factorization handled both.
             \ansline{Batch 1: $3$ L P, $1$ L Q; Batch 2: $2$ L P, $3$ L Q. The mixes (so $A$) never
             change, so one factorization $A=LU$ solves any batch with two quick sweeps.}
@@ -49,9 +74,13 @@ on the diagonal, and $A\xx=\bb$ solves in two sweeps --- $L\cc=\bb$ forward, the
   \item \textbf{A $3\times3$.} Factor $A=\begin{bmatrix} 1 & 1 & 2 \\ 3 & 5 & 7 \\ 1 & 5 & 5 \end{bmatrix}$
         (collect $\ell_{21},\ell_{31},\ell_{32}$ into $L$), then solve $A\xx=\bb$ for
         $\bb=\begin{bmatrix} 5 \\ 20 \\ 16 \end{bmatrix}$ by two sweeps.
-        \ansline{$\ell_{21}=3$, $\ell_{31}=1$, then pivot $2$ gives $\ell_{32}=4/2=2$. So
-        $U=\begin{bsmallmatrix} 1&1&2\\0&2&1\\0&0&1 \end{bsmallmatrix}$, $L=\begin{bsmallmatrix} 1&0&0\\3&1&0\\1&2&1 \end{bsmallmatrix}$.}
-        \ansline{Forward: $c_1=5$; $3(5)+c_2=20\Rightarrow c_2=5$; $5+2(5)+c_3=16\Rightarrow c_3=1$, so $\cc=\begin{bsmallmatrix} 5\\5\\1 \end{bsmallmatrix}$. Back: $z=1$; $2y+1=5\Rightarrow y=2$; $x+2+2=5\Rightarrow x=1$. So $(x,y,z)=(1,2,1)$.}
+\begin{work}
+  \ell_{21}=3,\ \ell_{31} &= 1,\ \ell_{32} = 2 \\
+  U &= \begin{bsmallmatrix} 1&1&2\\0&2&1\\0&0&1 \end{bsmallmatrix},\quad
+      L = \begin{bsmallmatrix} 1&0&0\\3&1&0\\1&2&1 \end{bsmallmatrix} \\
+  \cc &= \begin{bsmallmatrix} 5\\5\\1 \end{bsmallmatrix} \\
+  z &= 1,\ y = 2,\ x = 1
+\end{work}
   \item \textbf{Explain.} In Problem~3 the middle vector $\cc$ from $L\cc=\bb$ is exactly the
         right-hand side you would get by running elimination on $\bb$. Explain \emph{why} the forward
         sweep and ``updating $\bb$ during elimination'' give the same thing.
@@ -71,11 +100,14 @@ $(E_{31}E_{21})^{-1}=E_{21}^{-1}E_{31}^{-1}$. Those undo-matrices, multiplied to
 \]
 Using the multipliers from Problem~5, write out this product and confirm the multipliers land in their
 $L$-positions with no interference. Why is it so much cheaper to keep $L$ and $U$ than to build $A^{-1}$?
-\ansline{With $\ell_{21}=3,\ell_{31}=1,\ell_{32}=2$:
-$\begin{bsmallmatrix} 1&0&0\\3&1&0\\0&0&1 \end{bsmallmatrix}\begin{bsmallmatrix} 1&0&0\\0&1&0\\1&0&1 \end{bsmallmatrix}\begin{bsmallmatrix} 1&0&0\\0&1&0\\0&2&1 \end{bsmallmatrix}=\begin{bsmallmatrix} 1&0&0\\3&1&0\\1&2&1 \end{bsmallmatrix}=L$.
-Each multiplier drops into its own position with nothing overlapping. Keeping $L,U$ is cheaper because
-they are just the elimination you already did --- no inverse to compute, and each new $\bb$ is only two
-sweeps.}
+\begin{work}
+  \begin{bsmallmatrix} 1&0&0\\3&1&0\\0&0&1 \end{bsmallmatrix}
+  \begin{bsmallmatrix} 1&0&0\\0&1&0\\1&0&1 \end{bsmallmatrix}
+  \begin{bsmallmatrix} 1&0&0\\0&1&0\\0&2&1 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 1&0&0\\3&1&0\\1&2&1 \end{bsmallmatrix} = L
+\end{work}
+\ansline{Each multiplier drops into its own position with nothing overlapping; $L$ and $U$ come
+free from the elimination you already ran, while $A^{-1}$ takes a whole extra reduction.}
 \end{extensionbox}
 
 \begin{spiralbox}

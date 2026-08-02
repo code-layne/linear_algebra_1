@@ -9,14 +9,13 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.1}{Homework}
-\namedateperiod
 
 \vspace{0.12in}
 
 \begin{notesbox}{Practice}
 Show your steps and \textbf{check} every solution by rebuilding $\bb$.
 
-\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
   \item \textbf{Just the multiplier.} For each pair, name the \emph{pivot} (top-left coefficient) and
         the \emph{multiplier} $\ell=$ entry $\div$ pivot that would clear the term below it. Do not solve.
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
@@ -24,20 +23,38 @@ Show your steps and \textbf{check} every solution by rebuilding $\bb$.
       \item $\begin{aligned}[t] 2x + 5y &= \phantom{0} \\ 8x + y &= \phantom{0} \end{aligned}$ \hfill
       \item $\begin{aligned}[t] x - 2y &= \phantom{0} \\ 5x + y &= \phantom{0} \end{aligned}$
     \end{enumerate}
-    \vspace{0.9cm}
+\begin{work}
+  \text{(a)}\ \ \text{pivot } 3,\quad \ell &= 6\div3 = 2 \\
+  \text{(b)}\ \ \text{pivot } 2,\quad \ell &= 8\div2 = 4 \\
+  \text{(c)}\ \ \text{pivot } 1,\quad \ell &= 5\div1 = 5
+\end{work}
   \item \textbf{Solve by elimination.} Find $x$ and $y$ for each system.
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
       \item $\begin{aligned}[t] x + y &= 5 \\ 2x + 3y &= 13 \end{aligned}$ \hfill
       \item $\begin{aligned}[t] 2x + 3y &= 8 \\ 4x + 5y &= 14 \end{aligned}$ \hfill
       \item $\begin{aligned}[t] x - y &= 1 \\ 2x + y &= 8 \end{aligned}$
     \end{enumerate}
-    \vspace{1.6cm}
+\begin{work}
+  \text{(a)}\ \ (2x+3y)-2(x+y) &= 13-10 \\
+                             y &= 3,\ x = 2 \\
+  \text{(b)}\ \ (4x+5y)-2(2x+3y) &= 14-16 \\
+                             y &= 2,\ x = 1 \\
+  \text{(c)}\ \ (2x+y)-2(x-y) &= 8-2 \\
+                             y &= 2,\ x = 3
+\end{work}
   \item \textbf{Feed blend.} Each bag of \textbf{Feed A} has $2$ kg corn and $1$ kg oats; each bag of
         \textbf{Feed B} has $1$ kg corn and $4$ kg oats. A farmer needs exactly $13$ kg corn and
         $24$ kg oats.
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
       \item Set up $A\xx=\bb$ and solve by elimination for the number of bags of each feed.
-            (Reorder the equations first so the multiplier is a whole number.) \vspace{1.3cm}
+            (Reorder the equations first so the multiplier is a whole number.)
+\begin{work}
+  \text{oats first:}\quad a+4b &= 24 \\
+                        2a+b &= 13 \\
+             (2a+b)-2(a+4b) &= 13-48 \\
+                        -7b &= -35 \\
+                          b &= 5,\ a = 4
+\end{work}
       \item \emph{Interpret:} how many bags of each, and does the answer make sense? \writeline
     \end{enumerate}
   \item \textbf{Three unknowns.} Solve by elimination --- clear column~1, then column~2, then
@@ -49,9 +66,23 @@ Show your steps and \textbf{check} every solution by rebuilding $\bb$.
             2x &{}+ 5y + 6z ={}& 30
           \end{array}
         \]
-        \vspace{1.8cm}
+\begin{work}
+  \ell_{21}=1:\quad y+z &= 5 \\
+  \ell_{31}=2:\quad y+4z &= 14 \\
+  \ell_{32}=1:\quad 3z &= 9 \\
+                    z &= 3 \\
+                    y &= 2 \\
+                    x &= 1
+\end{work}
   \item \textbf{Fix the zero pivot.} Elimination on $\ 0x + 4y = 8,\ \ x + 3y = 9\ $ can't start.
-        Say what is wrong, fix it with a \textbf{row exchange}, and solve. \writeline
+        Say what is wrong, fix it with a \textbf{row exchange}, and solve.
+\begin{work}
+  \text{swap rows:}\quad x+3y &= 9 \\
+                          4y &= 8 \\
+                           y &= 2 \\
+                           x &= 3
+\end{work}
+        \writeline
 \end{enumerate}
 \end{notesbox}
 
@@ -63,7 +94,11 @@ on the diagonal:
   L = \begin{bmatrix} 1 & 0 & 0 \\ \ell_{21} & 1 & 0 \\ \ell_{31} & \ell_{32} & 1 \end{bmatrix}.
 \]
 You have just recorded the \emph{whole} elimination in one matrix --- the $L$ of $A=LU$ coming in
-Lesson~2.3. \writeline
+Lesson~2.3.
+\begin{work}
+  \ell_{21}=1,\quad \ell_{31} &= 2,\quad \ell_{32} = 1 \\
+  L &= \begin{bsmallmatrix} 1&0&0 \\ 1&1&0 \\ 2&1&1 \end{bsmallmatrix}
+\end{work}
 \end{extensionbox}
 
 \begin{spiralbox}

@@ -154,4 +154,38 @@ $3\times 3$ elimination and notice they record the whole process --- a first loo
 $A=LU$. \textbf{Preview:} Lesson~2.2, \emph{Elimination Matrices and Inverse Matrices} --- each
 elimination step is itself a matrix, and undoing them leads to the inverse.
 \end{skillbox}
+% ── Teacher notes (migrated from the component keys) ──
+% One per component, titled for it. They live here rather than in the _key
+% files so that every component is the same length blank and keyed.
+
+\begin{teachernote}[Warm-Up]
+Item~1 is exactly the Lesson~2.0 move --- it works only \emph{because} both equations carry a
+$2y$. Item~2 is the new ingredient: scaling a row so coefficients line up. Item~3 is the very
+system solved in the notes; point out in the debrief that its $x$-coefficients ($2$ and $4$) do
+\emph{not} match, so item~1's plain subtraction won't work --- that is why we need a multiplier.
+\end{teachernote}
+
+\begin{teachernote}[Guided Notes]
+The heart of the lesson is the multiplier: $\ell=$ entry $\div$ pivot, applied as (lower row)
+$-\,\ell\times$(pivot row). Watch for the flipped ratio (pivot $\div$ entry) and for students
+forgetting to subtract $\ell\times$ the right-hand side. \S3's $3\times3$ is a big time sink ---
+consider doing Round~1 with the class and letting groups finish Round~2. \S4 (zero pivot) is only a
+preview of the permutations in 2.4.
+\end{teachernote}
+
+\begin{teachernote}[Group Activity]
+Tier~A(1) is the interpret moment: whole positive pack counts make the algebra a real order. If a
+group divides pivot by entry in Tier~A(1), they will get $\ell=\tfrac13$ --- remind them $\ell=$
+entry $\div$ pivot, and that choosing the row-1 pivot of $1$ keeps it whole. Tier~E connects the
+zero-pivot swap (fixable) with a genuine breakdown ($0=$ nonzero vs.\ $0=0$), the same
+no/infinitely-many split from Lesson~2.0.
+\end{teachernote}
+
+\begin{teachernote}[Exit Ticket]
+Item~1 checks the full procedure; full credit needs the pivot/multiplier named \emph{and} a check.
+Item~2 is the conceptual check --- students must name the \emph{row exchange} and say \emph{why}
+(no nonzero pivot without it), not just solve. Sort responses into ``procedure solid / multiplier
+slip / stuck on the zero pivot'' to set up Lesson~2.2.
+\end{teachernote}
+
 \end{document}

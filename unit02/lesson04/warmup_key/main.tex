@@ -10,7 +10,6 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.4}{Warm-Up --- Answer Key}
-\namedateperiod
 
 \vspace{0.12in}
 
@@ -26,7 +25,10 @@ and we meet the \emph{transpose}. These three quick items are the pieces.
   = \begin{bmatrix}{\color{keyred}\mathbf{9}}\\[2pt]{\color{keyred}\mathbf{4}}\end{bmatrix}.
 \]
 Notice this matrix simply \emph{swaps} the two entries.
-\hspace{1em}{\footnotesize(row 1 picks the second entry, row 2 the first)}
+\begin{work}
+  \text{row 1} &= \text{second entry} = 9 \\
+  \text{row 2} &= \text{first entry} = 4
+\end{work}
 
 \vspace{4pt}
 \textbf{2. A stuck pivot} (Lesson 2.1/2.3). To start elimination on
@@ -39,12 +41,5 @@ ${\color{keyred}\mathbf{0}}$, and elimination cannot start because we would have
 the entry in \emph{row 1, column 2} is ${\color{keyred}\mathbf{1}}$ and the entry in \emph{row 2, column 1}
 is ${\color{keyred}\mathbf{4}}$. (Today the transpose will trade these two spots.)
 \end{notesbox}
-
-\begin{teachernote}
-Item~1 is a preview of what a permutation matrix does --- it reorders entries (and, applied on the left
-to a matrix, reorders rows). Item~2 is the exact gap Lesson~2.3 left open: a zero pivot stalls
-elimination, and today's row swap is the rescue. Item~3 sets up the transpose --- the $(1,2)$ and
-$(2,1)$ entries ($1$ and $4$) are the two that trade places when we flip across the diagonal.
-\end{teachernote}
 
 \end{document}

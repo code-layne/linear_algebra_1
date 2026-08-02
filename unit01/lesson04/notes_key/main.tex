@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.4}{Guided Notes --- Answer Key}
-\namedateperiod
 
 \vspace{0.12in}
 
@@ -27,7 +26,7 @@
 \begin{vocabbox}
 \small
 Fill in each term as we build it together.
-\vspace{2pt}
+\par\vspace{2pt}
 \vocabans{Matrix multiplication (by columns)}{column $j$ of $AB$ is $A\mathbf{b}_j$; a combination of $A$'s columns}
 \vocabans{Independent columns / $C$}{the columns that add a new direction; collected in $C$ (a basis for $C(A)$)}
 \vocabans{Recipe $R$ (rebuilds each column)}{each column of $R$ gives the weights that rebuild a column of $A$ from $C$; $A=CR$}
@@ -114,11 +113,26 @@ Your turn: $B=\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$ has parallel columns
 rank, and what is $C$? \ansline{Rank $1$; $C=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$ (one column), and $R=\begin{bsmallmatrix} 1 & 2 \end{bsmallmatrix}$.}
 \end{notesbox}
 
+\boxguard[24]
 \begin{practicebox}
 \begin{enumerate}[leftmargin=1.6em]
-  \item Multiply by columns: $\begin{bmatrix} 1 & 0 \\ 3 & 1 \end{bmatrix}\begin{bmatrix} 2 & 1 \\ 1 & 4 \end{bmatrix}$. \hfill \ans{$\begin{bsmallmatrix} 2\\7 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 1\\7 \end{bsmallmatrix}$, so $\begin{bsmallmatrix} 2 & 1\\7 & 7 \end{bsmallmatrix}$}
+  \item Multiply by columns: $\begin{bmatrix} 1 & 0 \\ 3 & 1 \end{bmatrix}\begin{bmatrix} 2 & 1 \\ 1 & 4 \end{bmatrix}$.
+\begin{work}
+  A\mathbf{b}_1 &= 2\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix} + 1\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}
+      = \begin{bsmallmatrix} 2\\7 \end{bsmallmatrix} \\
+  A\mathbf{b}_2 &= 1\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix} + 4\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}
+      = \begin{bsmallmatrix} 1\\7 \end{bsmallmatrix} \\
+  AB &= \begin{bsmallmatrix} 2 & 1\\7 & 7 \end{bsmallmatrix}
+\end{work}
   \item Factor $A=\begin{bmatrix} 1 & 2 & 3 \\ 0 & 1 & 1 \end{bmatrix}$ as $A=CR$. Which columns are
-        independent? Write $C$ and $R$, and give the rank. \ansline{Columns~1 and~2 are independent; column~3 $=$ col~1 $+$ col~2. $C=\begin{bsmallmatrix} 1 & 2\\0 & 1 \end{bsmallmatrix}$, $R=\begin{bsmallmatrix} 1 & 0 & 1\\0 & 1 & 1 \end{bsmallmatrix}$, rank $2$.}
+        independent? Write $C$ and $R$, and give the rank.
+\begin{work}
+  \begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 1\\0 \end{bsmallmatrix} + \begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} \\
+  C &= \begin{bsmallmatrix} 1 & 2\\0 & 1 \end{bsmallmatrix} \\
+  R &= \begin{bsmallmatrix} 1 & 0 & 1\\0 & 1 & 1 \end{bsmallmatrix}
+\end{work}
+        \ansline{Columns~1 and~2 are independent; column~3 $=$ col~1 $+$ col~2, so rank $2$.}
   \item True or false, with a reason: a $2\times 4$ matrix can have rank $3$. \ansline{False --- each column is a vector in the plane ($2$ entries), so at most $2$ can be independent; rank $\le 2$.}
 \end{enumerate}
 \end{practicebox}

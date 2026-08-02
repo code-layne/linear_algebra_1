@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.4}{Exit Ticket --- Answer Key}
-\namedateperiod
 
 \vspace{0.15in}
 
@@ -19,18 +18,22 @@ Show your work.
   \item Multiply \emph{by columns}:
         $\begin{bmatrix} 2 & 1 \\ 1 & 1 \end{bmatrix}\begin{bmatrix} 1 & 3 \\ 2 & 1 \end{bmatrix}$.
         Compute each column of the product as a combination of the first matrix's columns.
-        \ansline{Col~1: $1\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}+2\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}=\begin{bsmallmatrix} 4\\3 \end{bsmallmatrix}$. \ Col~2: $3\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}+1\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}=\begin{bsmallmatrix} 7\\4 \end{bsmallmatrix}$. \ Product $=\begin{bsmallmatrix} 4 & 7\\3 & 4 \end{bsmallmatrix}$.}
+\begin{work}
+  1\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} + 2\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 4\\3 \end{bsmallmatrix} \\
+  3\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} + 1\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 7\\4 \end{bsmallmatrix} \\
+  AB &= \begin{bsmallmatrix} 4 & 7\\3 & 4 \end{bsmallmatrix}
+\end{work}
   \item Factor $A=\begin{bmatrix} 1 & 2 & 3 \\ 1 & 3 & 4 \end{bmatrix}$ as $A=CR$. Which columns are
         \textbf{independent} (they go in $C$)? Build the recipe $R$, and give the \textbf{rank}.
-        \ansline{Columns~1 and~2 ($\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix},\begin{bsmallmatrix} 2\\3 \end{bsmallmatrix}$) are independent; column~3 $=$ col~1 $+$ col~2 ($\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}+\begin{bsmallmatrix} 2\\3 \end{bsmallmatrix}=\begin{bsmallmatrix} 3\\4 \end{bsmallmatrix}$). So $C=\begin{bsmallmatrix} 1 & 2\\1 & 3 \end{bsmallmatrix}$, $R=\begin{bsmallmatrix} 1 & 0 & 1\\0 & 1 & 1 \end{bsmallmatrix}$, rank $2$.}
+\begin{work}
+  \begin{bsmallmatrix} 1\\1 \end{bsmallmatrix} + \begin{bsmallmatrix} 2\\3 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 3\\4 \end{bsmallmatrix} \\
+  C &= \begin{bsmallmatrix} 1 & 2\\1 & 3 \end{bsmallmatrix} \\
+  R &= \begin{bsmallmatrix} 1 & 0 & 1\\0 & 1 & 1 \end{bsmallmatrix}
+\end{work}
+        \ansline{Columns~1 and~2 are independent; column~3 $=$ col~1 $+$ col~2, so the rank is $2$.}
 \end{enumerate}
-
-\begin{teachernote}
-Item~1 checks ``multiply by columns'' --- full credit needs each product column shown as a
-combination of $\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}$,
-not a row-by-row mash. Item~2 is the whole factorization: independent columns $\to C$, weights that
-rebuild each column $\to R$, and rank $=$ columns in $C$. A common slip is putting the dependent
-column~3 into $C$; $C$ holds only the independent columns.
-\end{teachernote}
 
 \end{document}

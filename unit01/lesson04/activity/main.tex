@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.4}{Group Activity}
-\namepartnerperiod
 
 \vspace{0.10in}
 
@@ -27,26 +26,54 @@ record a \textbf{recipe} $R$ that rebuilds the whole catalog: $A=CR$. Work with 
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
 Base products $C=\begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}$ (columns $\mathbf{c}_1=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$,
 $\mathbf{c}_2=\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$) and recipe $R=\begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 2 \end{bmatrix}$.
-\begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
   \item Multiply \emph{by columns}: compute $C\begin{bsmallmatrix} 1\\0 \end{bsmallmatrix}$ and
-        $C\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}$ (the first two columns of the catalog). \vspace{0.6cm}
-  \item Compute the third catalog product $C\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}=1\,\mathbf{c}_1+2\,\mathbf{c}_2$. \vspace{0.7cm}
+        $C\begin{bsmallmatrix} 0\\1 \end{bsmallmatrix}$ (the first two columns of the catalog).
+\begin{work}
+  1\,\mathbf{c}_1 + 0\,\mathbf{c}_2 &= \begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} \\
+  0\,\mathbf{c}_1 + 1\,\mathbf{c}_2 &= \begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}
+\end{work}
+  \item Compute the third catalog product $C\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}=1\,\mathbf{c}_1+2\,\mathbf{c}_2$.
+\begin{work}
+  1\,\mathbf{c}_1 + 2\,\mathbf{c}_2
+      &= \begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} + \begin{bsmallmatrix} 2\\6 \end{bsmallmatrix} \\
+      &= \begin{bsmallmatrix} 4\\7 \end{bsmallmatrix}
+\end{work}
   \item Write out the full catalog $A=CR$. What does column~3 mean --- how is that product built
-        from the base products? \writeline
+        from the base products?
+\begin{work}
+  CR &= \begin{bsmallmatrix} 2 & 1 & 4\\1 & 3 & 7 \end{bsmallmatrix}
+\end{work}
+        \writeline
 \end{enumerate}
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
 A catalog $A=\begin{bmatrix} 1 & 2 & 4 \\ 2 & 1 & 5 \end{bmatrix}$ (three products).
-\begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
   \item Are columns~1 and~2 independent (not multiples)? These are the \textbf{base products} ---
-        write $C$. \vspace{0.6cm}
+        write $C$.
+\begin{work}
+  \begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}
+      &\ne t\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} \ \text{for any } t \\
+  C &= \begin{bsmallmatrix} 1 & 2\\2 & 1 \end{bsmallmatrix}
+\end{work}
   \item Show product~3 is a bundle: find weights so $\begin{bsmallmatrix} 4\\5 \end{bsmallmatrix}
         = \blank{0.7cm}\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix} + \blank{0.7cm}\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$.
-        Use them to write $R$. \vspace{0.7cm}
+        Use them to write $R$.
+\begin{work}
+  2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix} + 1\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 4\\5 \end{bsmallmatrix} \\
+  R &= \begin{bsmallmatrix} 1 & 0 & 2\\0 & 1 & 1 \end{bsmallmatrix}
+\end{work}
   \item \textbf{Interpret.} State $A=CR$ and the \textbf{rank}. What does the rank say about how many
-        \emph{truly different} products this catalog really has? \writelines{2}
+        \emph{truly different} products this catalog really has?
+\begin{work}
+  A &= \begin{bsmallmatrix} 1 & 2\\2 & 1 \end{bsmallmatrix}\begin{bsmallmatrix} 1 & 0 & 2\\0 & 1 & 1 \end{bsmallmatrix} \\
+  \operatorname{rank}(A) &= 2
+\end{work}
+        \writeline
 \end{enumerate}
 \end{tcolorbox}
 
@@ -54,12 +81,28 @@ A catalog $A=\begin{bmatrix} 1 & 2 & 4 \\ 2 & 1 & 5 \end{bmatrix}$ (three produc
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
 A different catalog has every product on \emph{one line}:
 $M=\begin{bmatrix} 1 & 2 & 3 \\ 2 & 4 & 6 \end{bmatrix}$.
-\begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
   \item Show all three columns are multiples of $\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$. What
-        is the \textbf{rank} of $M$? \writeline
-  \item Write $M=CR$ with $C$ a single column and $R$ a single row. \vspace{0.9cm}
+        is the \textbf{rank} of $M$?
+\begin{work}
+  \begin{bsmallmatrix} 2\\4 \end{bsmallmatrix} &= 2\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix} \\
+  \begin{bsmallmatrix} 3\\6 \end{bsmallmatrix} &= 3\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix} \\
+  \operatorname{rank}(M) &= 1
+\end{work}
+        \writeline
+  \item Write $M=CR$ with $C$ a single column and $R$ a single row.
+\begin{work}
+  C &= \begin{bsmallmatrix} 1\\2 \end{bsmallmatrix} \\
+  R &= \begin{bsmallmatrix} 1 & 2 & 3 \end{bsmallmatrix} \\
+  M &= \begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}\begin{bsmallmatrix} 1 & 2 & 3 \end{bsmallmatrix}
+\end{work}
   \item \textbf{Justify.} Explain why \emph{every} product in this catalog must use twice as much
-        labor as parts --- no matter which base you pick. \writelines{2}
+        labor as parts --- no matter which base you pick.
+\begin{work}
+  t\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix} &= \begin{bsmallmatrix} t\\2t \end{bsmallmatrix} \\
+  \text{labor} &= 2t = 2\,(\text{parts})
+\end{work}
+        \writeline
 \end{enumerate}
 \end{tcolorbox}
 

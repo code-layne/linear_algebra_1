@@ -9,22 +9,37 @@
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.4}{Homework}
-\namedateperiod
 
 \vspace{0.12in}
 
 \begin{notesbox}{Practice}
 Show your steps. For matrix products, work \emph{one column at a time}.
 
-\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
   \item Multiply by columns. Let $A=\begin{bmatrix} 1 & 2 \\ 3 & 1 \end{bmatrix}$.
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
       \item $A\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$ \hfill
       \item $A\begin{bmatrix} 2 & 1 \\ 1 & 1 \end{bmatrix}$
     \end{enumerate}
-    \vspace{1.3cm}
+\begin{work}
+  A\begin{bsmallmatrix} 1 & 0\\0 & 1 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 1 & 2\\3 & 1 \end{bsmallmatrix} \\
+  2\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix} + 1\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 4\\7 \end{bsmallmatrix} \\
+  1\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix} + 1\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 3\\4 \end{bsmallmatrix} \\
+  A\begin{bsmallmatrix} 2 & 1\\1 & 1 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 4 & 3\\7 & 4 \end{bsmallmatrix}
+\end{work}
   \item Factor $A=\begin{bmatrix} 1 & 2 & 5 \\ 1 & 1 & 4 \end{bmatrix}$ as $A=CR$. Which columns are
-        independent? Write $C$, build the recipe $R$, and give the rank. \writelines{2}
+        independent? Write $C$, build the recipe $R$, and give the rank.
+\begin{work}
+  3\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix} + 1\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 5\\4 \end{bsmallmatrix} \\
+  C &= \begin{bsmallmatrix} 1 & 2\\1 & 1 \end{bsmallmatrix} \\
+  R &= \begin{bsmallmatrix} 1 & 0 & 3\\0 & 1 & 1 \end{bsmallmatrix}
+\end{work}
+        \writeline
   \item State the \textbf{rank} of each matrix and give a one-line reason.
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
       \item $\begin{bsmallmatrix} 1 & 2 \\ 2 & 4 \end{bsmallmatrix}$ \hfill
@@ -32,15 +47,31 @@ Show your steps. For matrix products, work \emph{one column at a time}.
       \item $\begin{bsmallmatrix} 2 & 4 & 6 \\ 1 & 2 & 3 \end{bsmallmatrix}$
     \end{enumerate}
     \writelines{2}
+  \tcbbreak
   \item \textbf{Reverse it.} Given $C=\begin{bmatrix} 1 & 2 \\ 3 & 1 \end{bmatrix}$ and
         $R=\begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & 1 \end{bmatrix}$, rebuild $A=CR$ by columns.
-        \vspace{1.2cm}
+\begin{work}
+  \text{col 3} &= 2\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix} + 1\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} \\
+      &= \begin{bsmallmatrix} 4\\7 \end{bsmallmatrix} \\
+  A &= \begin{bsmallmatrix} 1 & 2 & 4\\3 & 1 & 7 \end{bsmallmatrix}
+\end{work}
   \item A workshop catalog is $A=\begin{bmatrix} 3 & 1 & 4 \\ 1 & 2 & 3 \end{bmatrix}$, each column a
         product listed as $\begin{bsmallmatrix} \text{parts} \\ \text{labor} \end{bsmallmatrix}$.
-    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
-      \item Which two products are the \emph{base} products (independent columns)? Write $C$. \vspace{0.8cm}
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
+      \item Which two products are the \emph{base} products (independent columns)? Write $C$.
+\begin{work}
+  \begin{bsmallmatrix} 3\\1 \end{bsmallmatrix}
+      &\ne t\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix} \ \text{for any } t \\
+  C &= \begin{bsmallmatrix} 3 & 1\\1 & 2 \end{bsmallmatrix}
+\end{work}
       \item Product~3 is a bundle of the base products. Find its recipe (column~3 of $R$) and say
-            what it means in parts and labor. \writeline
+            what it means in parts and labor.
+\begin{work}
+  1\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix} + 1\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 4\\3 \end{bsmallmatrix} \\
+  \text{col 3 of } R &= \begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}
+\end{work}
+            \writeline
     \end{enumerate}
 \end{enumerate}
 \end{notesbox}
@@ -49,7 +80,13 @@ Show your steps. For matrix products, work \emph{one column at a time}.
 A factory catalog is $A=\begin{bmatrix} 2 & 4 & 6 \\ 3 & 6 & 9 \end{bmatrix}$, each column listing
 $\begin{bsmallmatrix} \text{labor hours} \\ \text{material units} \end{bsmallmatrix}$. Show that the
 rank is $1$, write $A=CR$ with $C$ a single column and $R$ a single row, and explain what it means
-that the factory really has only \emph{one} base product. \writelines{2}
+that the factory really has only \emph{one} base product.
+\begin{work}
+  \begin{bsmallmatrix} 4\\6 \end{bsmallmatrix} &= 2\begin{bsmallmatrix} 2\\3 \end{bsmallmatrix} \\
+  \begin{bsmallmatrix} 6\\9 \end{bsmallmatrix} &= 3\begin{bsmallmatrix} 2\\3 \end{bsmallmatrix} \\
+  A &= \begin{bsmallmatrix} 2\\3 \end{bsmallmatrix}\begin{bsmallmatrix} 1 & 2 & 3 \end{bsmallmatrix}
+\end{work}
+\writeline
 \end{extensionbox}
 
 \begin{spiralbox}

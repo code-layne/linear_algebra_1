@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.3}{Group Activity --- Answer Key}
-\namepartnerperiod
 
 \vspace{0.10in}
 
@@ -30,11 +29,26 @@ If $\xx=\begin{bsmallmatrix} \text{\# Classic}\\ \text{\# Deluxe} \end{bsmallmat
 Columns of $A=\begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}$: Classic $=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$,
 Deluxe $=\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$.
 \begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
-  \item Write out the two columns of $A$. \ans{$\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$ and $\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$}
+  \item Write out the two columns of $A$.
+\begin{work}
+  \mathbf{a}_1 &= \begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} \\
+  \mathbf{a}_2 &= \begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}
+\end{work}
   \item Compute $A\begin{bmatrix} 2 \\ 1 \end{bmatrix}$ as a combination of the columns
-        (2 Classic, 1 Deluxe). \ans{$2\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}+1\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}=\begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}+\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}=\begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}$}
+        (2 Classic, 1 Deluxe).
+\begin{work}
+  A\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}
+      &= 2\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} + 1\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix} \\
+      &= \begin{bsmallmatrix} 4\\2 \end{bsmallmatrix} + \begin{bsmallmatrix} 1\\3 \end{bsmallmatrix} \\
+      &= \begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}
+\end{work}
   \item Compute $A\begin{bmatrix} 3 \\ 0 \end{bmatrix}$. What does the answer mean in mugs and shirts?
-        \ansline{$3\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}+0\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}=\begin{bsmallmatrix} 6\\3 \end{bsmallmatrix}$ --- 3 Classic boxes give 6 mugs and 3 shirts.}
+\begin{work}
+  A\begin{bsmallmatrix} 3\\0 \end{bsmallmatrix}
+      &= 3\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} + 0\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix} \\
+      &= \begin{bsmallmatrix} 6\\3 \end{bsmallmatrix}
+\end{work}
+        \ansline{3 Classic boxes give 6 mugs and 3 shirts.}
 \end{enumerate}
 \end{tcolorbox}
 
@@ -44,7 +58,12 @@ Same shop, $A=\begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}$.
 \begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
   \item A customer wants a total order of $\begin{bmatrix} 5 \\ 5 \end{bmatrix}$ (5 mugs, 5 shirts).
         Find $\xx$ with $A\xx=\begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}$. (Hint: check Tier~R.)
-        \ans{$\xx=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$: 2 Classic and 1 Deluxe give $\begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}$.}
+\begin{work}
+  2\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} + 1\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 5\\5 \end{bsmallmatrix} \\
+  \xx &= \begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}
+      \ \text{(2 Classic, 1 Deluxe)}
+\end{work}
   \item Are the two columns of $A$ parallel (multiples of each other)?
         \ansline{No --- $\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$ is not a multiple of $\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$. They are independent.}
   \item \textbf{Interpret.} Because the two boxes are \emph{independent}, is the column space a
@@ -60,22 +79,23 @@ $M=\begin{bmatrix} 2 & 4 \\ 1 & 2 \end{bmatrix}$, columns $\begin{bsmallmatrix} 
 $\begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}$.
 \begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
   \item Show that column~2 is a multiple of column~1. What line is the column space $C(M)$?
-        \ansline{$\begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}=2\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$. $C(M)$ is the line of all multiples of $\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$ (points with twice as many mugs as shirts).}
+\begin{work}
+  \begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}
+      &= 2\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}
+\end{work}
+        \ansline{$C(M)$ is the line of all multiples of $\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$ --- points with twice as many mugs as shirts.}
   \item Can this shop fill an order of $\begin{bmatrix} 3 \\ 3 \end{bmatrix}$? Decide, and explain
         using the columns.
         \ansline{No. $\begin{bsmallmatrix} 3\\3 \end{bsmallmatrix}$ is not a multiple of $\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$ (would need $3=2t$ and $3=t$ at once), so it is not on the line $C(M)$.}
   \item \textbf{Justify.} Explain why \emph{any} order this shop fills must have
         twice as many mugs as shirts --- no matter how many of each box it uses.
-        \ansline{Every order is $a\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}+b\begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}=\begin{bsmallmatrix} 2a+4b\\a+2b \end{bsmallmatrix}$. The top is $2(a+2b)=2\times$ the bottom, so mugs $=2\times$ shirts always.}
+\begin{work}
+  a\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} + b\begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 2a+4b\\a+2b \end{bsmallmatrix} \\
+  2a+4b &= 2(a+2b)
+\end{work}
+        \ansline{The top entry is always $2\times$ the bottom, so mugs $=2\times$ shirts for every order.}
 \end{enumerate}
 \end{tcolorbox}
-
-\begin{teachernote}
-Tier~A item~3 is the central ``interpret'' moment: independent columns $\Rightarrow$ column space
-is the whole plane $\Rightarrow$ every target is reachable. Tier~E flips it: parallel columns
-$\Rightarrow$ the column space collapses to a line, so most targets are \emph{unreachable} ---
-which is exactly what ``$A\xx=\bb$ has no solution'' will mean in Unit~2. Accept any correct
-reasoning in Tier~E item~3 (component equations or the ``$2\times$'' pattern).
-\end{teachernote}
 
 \end{document}

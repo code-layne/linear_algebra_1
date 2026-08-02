@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.3}{Group Activity}
-\namepartnerperiod
 
 \vspace{0.10in}
 
@@ -29,20 +28,42 @@ If $\xx=\begin{bsmallmatrix} \text{\# Classic}\\ \text{\# Deluxe} \end{bsmallmat
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
 Columns of $A=\begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}$: Classic $=\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$,
 Deluxe $=\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}$.
-\begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
-  \item Write out the two columns of $A$. \vspace{0.3cm}
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item Write out the two columns of $A$.
+\begin{work}
+  \mathbf{a}_1 &= \begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} \\
+  \mathbf{a}_2 &= \begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}
+\end{work}
   \item Compute $A\begin{bmatrix} 2 \\ 1 \end{bmatrix}$ as a combination of the columns
-        (2 Classic, 1 Deluxe). \vspace{0.7cm}
-  \item Compute $A\begin{bmatrix} 3 \\ 0 \end{bmatrix}$. What does the answer mean in mugs and shirts? \writeline
+        (2 Classic, 1 Deluxe).
+\begin{work}
+  A\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}
+      &= 2\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} + 1\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix} \\
+      &= \begin{bsmallmatrix} 4\\2 \end{bsmallmatrix} + \begin{bsmallmatrix} 1\\3 \end{bsmallmatrix} \\
+      &= \begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}
+\end{work}
+  \item Compute $A\begin{bmatrix} 3 \\ 0 \end{bmatrix}$. What does the answer mean in mugs and shirts?
+\begin{work}
+  A\begin{bsmallmatrix} 3\\0 \end{bsmallmatrix}
+      &= 3\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} + 0\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix} \\
+      &= \begin{bsmallmatrix} 6\\3 \end{bsmallmatrix}
+\end{work}
+        \writeline
 \end{enumerate}
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=white, colframe=black!40, title=\textbf{Tier A --- Approaching Proficiency},
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
 Same shop, $A=\begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}$.
-\begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
   \item A customer wants a total order of $\begin{bmatrix} 5 \\ 5 \end{bmatrix}$ (5 mugs, 5 shirts).
-        Find $\xx$ with $A\xx=\begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}$. (Hint: check Tier~R.) \vspace{0.8cm}
+        Find $\xx$ with $A\xx=\begin{bsmallmatrix} 5\\5 \end{bsmallmatrix}$. (Hint: check Tier~R.)
+\begin{work}
+  2\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} + 1\begin{bsmallmatrix} 1\\3 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 5\\5 \end{bsmallmatrix} \\
+  \xx &= \begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}
+      \ \text{(2 Classic, 1 Deluxe)}
+\end{work}
   \item Are the two columns of $A$ parallel (multiples of each other)? \writeline
   \item \textbf{Interpret.} Because the two boxes are \emph{independent}, is the column space a
         line or the whole plane? What does that say about which orders the shop can fill? \writelines{2}
@@ -54,12 +75,23 @@ Same shop, $A=\begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}$.
 A different shop stocks two boxes that are \emph{parallel}:
 $M=\begin{bmatrix} 2 & 4 \\ 1 & 2 \end{bmatrix}$, columns $\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}$ and
 $\begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}$.
-\begin{enumerate}[leftmargin=1.7em, itemsep=10pt]
-  \item Show that column~2 is a multiple of column~1. What line is the column space $C(M)$? \writeline
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
+  \item Show that column~2 is a multiple of column~1. What line is the column space $C(M)$?
+\begin{work}
+  \begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}
+      &= 2\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}
+\end{work}
+        \writeline
   \item Can this shop fill an order of $\begin{bmatrix} 3 \\ 3 \end{bmatrix}$? Decide, and explain
         using the columns. \writelines{2}
   \item \textbf{Justify.} Explain why \emph{any} order this shop fills must have
-        twice as many mugs as shirts --- no matter how many of each box it uses. \writelines{2}
+        twice as many mugs as shirts --- no matter how many of each box it uses.
+\begin{work}
+  a\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} + b\begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 2a+4b\\a+2b \end{bsmallmatrix} \\
+  2a+4b &= 2(a+2b)
+\end{work}
+        \writeline
 \end{enumerate}
 \end{tcolorbox}
 

@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.0}{Exit Ticket --- Answer Key}
-\namedateperiod
 
 \vspace{0.15in}
 
@@ -18,10 +17,18 @@ $\bb=\begin{bmatrix} 5 \\ 8 \end{bmatrix}$. Show your work.
 
 \begin{enumerate}[leftmargin=1.8em, itemsep=14pt]
   \item Write $A\xx=\bb$ as a system of two equations (one per row).
-        \ansline{$x_1 + x_2 = 5$;\qquad $x_1 + 2x_2 = 8$}
+\begin{work}
+   x_1 + x_2 &= 5 \\
+  x_1 + 2x_2 &= 8
+\end{work}
   \item Solve the system by eliminating a variable, then \textbf{check} by rebuilding $\bb$.
-        \ansline{Subtract the first from the second: $x_2 = 3$; then $x_1 = 5-3 = 2$.}
-        \ansline{Check: $2\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}+3\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}=\begin{bsmallmatrix} 5\\8 \end{bsmallmatrix}$ \checkmark}
+\begin{work}
+  (x_1+2x_2)-(x_1+x_2) &= 8-5 \\
+                   x_2 &= 3 \\
+                   x_1 &= 5-3 = 2 \\
+  2\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix} + 3\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 5\\8 \end{bsmallmatrix} \ \ \text{\checkmark}
+\end{work}
   \item Dev graphs another system and gets \textbf{two parallel lines} that never meet.
         How many solutions does that system have, and why? Connect your answer to whether the
         target $\bb$ is \emph{reachable}.
@@ -29,10 +36,5 @@ $\bb=\begin{bmatrix} 5 \\ 8 \end{bmatrix}$. Show your work.
         equations. Equivalently, the columns point the same direction (a single line), and
         $\bb$ is \emph{off} that line --- unreachable --- so the system is inconsistent.}
 \end{enumerate}
-
-\begin{teachernote}
-Item~3 checks the geometry--reachability link. Full credit needs both ``parallel lines don't
-meet $\Rightarrow$ no solution'' \emph{and} the connection to $\bb$ not being in the column space.
-\end{teachernote}
 
 \end{document}

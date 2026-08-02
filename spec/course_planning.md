@@ -7,10 +7,87 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-08-02 — **Authored the course's first unit cover sheet: `unit01/unit_cover/main.tex`.** The build machinery for
-one already existed (`shared/unit.mk` compiles `unit_cover/main.tex` and leads the unit packet with it) but **no unit had ever authored
-one** — Unit 1 is now the model. Details in "Unit cover sheets" immediately below. Prior run: the Lesson 1.4 convention retrofit,
-detailed further down.
+**Last updated:** 2026-08-02 — **Retrofitted the five pagination conventions onto ALL of Unit 2 in one run: Lessons 2.0–2.4
+(`unit02/lesson00` … `unit02/lesson04`).** Every component now equals its key, all five plans carry their migrated teacher notes,
+and 99 `work` blocks replaced the drift-prone `\vspace`/`\ans` pairs. Details in "Unit 2 retrofit" immediately below. Prior runs:
+the Unit 1 cover sheet and the Lesson 1.0–1.4 retrofits, both detailed further down.
+
+---
+
+## Unit 2 retrofit (Lessons 2.0–2.4) — 2026-08-02
+
+**Baseline: all five lessons opened fully aligned** — warmup 1/1, notes 3/3, activity 2/2, exit 1/1, homework 2/2, every one.
+That is 5 for 5, so expectation (a) below ("a `homework` 2pp/1pp baseline defect is common") is now **8 aligned out of 10 lessons**;
+only 1.0 and 1.1 ever had it. **Measure, don't assume.**
+
+**What each convention did, across the unit:**
+
+1. **vocabpar** — `\par\vspace{2pt}` after the vocabbox intro in all five `notes` + `notes_key` pairs (10 files). Every lesson in
+   Unit 2 had the collision.
+2. **teachernote** — `movenotes.py` lifted **21 notes** into the plans (4 each for 2.0–2.3, **5 for 2.4** — 2.4 was the only lesson
+   in the unit whose `homework_key` also carried one). Every plan grew 2pp → 3pp. No `_key` carries a note now.
+3. **namestrip** — 50 name rows removed (5 components × blank/key × 5 lessons), including a `\namepartnerperiod` in each activity
+   pair; every `cover/` kept its row. **Opened no new mismatch on any of the five** — the first unit where namestrip was free
+   throughout, despite every lesson having a five-term `vocabbox`. Confirms (d): the vocabbox height gap is always there, but
+   whether it surfaces depends on where the page break happens to fall.
+4. **work rule** — **99 byte-identical `work` blocks** (2.0: 17, 2.1: 20, 2.2: 23, 2.3: 22, 2.4: 17), all checksum-verified. They
+   replaced the usual `\vspace{0.2–2.4cm}`-in-blank / `\ans`-or-`\ansline`-in-key pairs and let the hand-tuned `itemsep` drift be
+   unified per file (12/11 → 10, 9/7 → 8, 16/15 → 14/13, 8/6 → 8/7). **A NEW defect shape showed up in Unit 2 and is worth naming:
+   the key-only `{\footnotesize (...)}` parenthetical** — a bracketed one-line hint appended after an answer with no counterpart in
+   the blank. Found **10 of them** (2.0 warmup ×1; 2.1 warmup ×1, activity ×1, exit ×1, homework ×2; 2.2 warmup ×2, homework ×1;
+   2.3 warmup ×2, activity ×1). Each became a shared `work` block. **Grep every key for `\footnotesize` before starting.**
+5. **boxguard** — 12 guards total, mirrored blank and key:
+   - **`\boxguard` before the `notes` `practicebox` in all five lessons.** This is now the single most reliable guard site in the
+     course: in every Unit 2 lesson the **key** stranded practicebox items atop p3 while the blank carried the box whole, exactly
+     the vocabbox-gap asymmetry finding (g). The **default 16 lines fired in the key and stayed inert in the blank** every time —
+     no lesson needed a raised `[n]`.
+   - **`\boxguard` before `notes` box 4 in 2.1 and 2.3**, where the *blank* stranded a one-line tail atop p3. **Sizing note that
+     corrects an earlier mis-measure: at 55 dpi a letter page is 595 px tall and the text block ~550 px, so ~110 px of free space
+     is ~12 lines, not ~6.** A first attempt at `\boxguard[8]` was inert; the default 16 was correct. **Measure free space against
+     the full 11 in page, not a 9 in guess.**
+   - **`\tcbbreak` in 2.0 (activity Tier A before item 4; homework before item 4) and 2.3 (activity Tier A before Order 2).** All
+     free.
+   - **Two guards were measured and DECLINED because they cost a page** (and, in one case, the blank/key match):
+     `\tcbbreak` before homework item 4 in **2.2** took both sides 2pp → 3pp, and `\tcbbreak` before homework item 5 in **2.3**
+     took the key alone to 3pp. In both the box was already breaking with a substantial chunk on each side, so the trade was wrong.
+     **Reverted; this is the (b)-limit working as documented.**
+   - **In 2.3 a guard was MOVED rather than removed:** `\tcbbreak` before activity Tier A item 4 left that one-line item alone atop
+     p2. Moving the break up one item (before Order 2) gives p2 a two-item chunk instead. **When a `\tcbbreak` leaves a thin
+     opening on the next page, move it earlier rather than dropping it.**
+
+**Three content defects found and fixed** (none of them a pagination issue; all three were invisible to the page counts):
+
+- **2.0 activity, Tier A item 4 — the numbers contradicted the question.** The prompt asked what "goes wrong" with a target of
+  $8$ g protein / **$4$** g fiber, but that target solves cleanly as $(4,0)$ — nothing goes wrong. The key's own answer
+  ($x_2=-\tfrac45$, $x_1=\tfrac{22}{5}$) requires a **$2$ g** fiber target. Changed the prompt to $2$ g in blank and key; verified
+  in Python. **The teacher note in the plan ("a system can be mathematically solvable yet physically impossible") is now true.**
+- **2.2 notes — three prose lines credited Lesson 2.1 for numbers that are 2.2's own.** §1 called $\ell=2\div1$ "our system's
+  multiplier from 2.1" (2.1's pivot was $2$), §1 called $E_{21}\bb=[7,1]^\top$ "the triangular system from 2.1" (2.1's was
+  $[13,1]^\top$), and §3 called $(4,1)$ "matching 2.1's answer" (2.1's was $(5,1)$). 2.2 runs the **bakery** system
+  $A=[\begin{smallmatrix}1&3\\2&7\end{smallmatrix}]$, not 2.1's. Re-voiced all three to describe 2.2's own example.
+- **2.3 notes — the same defect inherited.** §3 called $\cc=[7,1]^\top$ "the updated right-hand side from 2.1" and the solution
+  "the same answer as 2.1 and 2.2." Both now credit **2.2**, which is the lesson those numbers actually come from.
+
+**Lesson for later retrofits: check cross-lesson references whenever a lesson reuses a running example.** Units carry an example
+forward (2.2 and 2.3 both reuse 2.1's *method* on 2.2's *numbers*), and the prose drifts one lesson behind the arithmetic. Grep
+each lesson's notes for references to a neighbouring lesson number and re-verify the cited value.
+
+**The `homework_key` answers-in-the-prompt defect is 10 for 10** — every Unit 2 lesson had it, and Unit 2 escalates the pattern:
+**2.1, 2.2, and 2.4 had it in *two* items each** (1 and 2 / 1 and 3 / 1 and 4), where Unit 1 lessons had it in one. 2.0 had it in
+items 2 and 4; 2.3 in item 1. In every case the key had *replaced* the question stems (matrices, systems, pivot pairs) with the
+answers, so the key did not mirror the blank at all. All stems restored byte-identically and the work moved into `work` blocks.
+**Restate the rule: on any remaining lesson, diff `homework` against `homework_key` item by item before anything else.**
+
+**Verified (all five lessons):** `make -C unit02/lessonYY all` exits 0 for each; every component's page count equals its key's
+(warmup 1/1, notes 3/3, activity 2/2, exit_ticket 1/1, homework 2/2 — identical across all five); warm-up and exit ticket still
+1 page on both sides; **student and key packets both 14pp for every lesson**, plans 3pp. Zero `\ans` inside `$...$`, zero
+`teachernote` in any `_key` (21 in the five plans), zero name rows outside `cover/`, max overfull `\hbox` 10.77pt (the standard
+pageheader banner), both convention scripts report clean/idempotent on all five, and all 99 `work` blocks confirmed byte-identical
+blank vs key by checksum. `pdftotext` on all 25 blanks finds no solution string in the text layer (the two `\checkmark` hits, in
+2.3 and 2.4 `notes`, are taught worked examples in the lesson body, not student answers). `git status` shows only the 55 edited
+`.tex` files (11 per lesson) — nothing compiled in place. Notes/activity/exit-ticket/homework pages spot-checked visually on
+**both sides** of every lesson; red answers and work blocks render with no tofu. All lesson arithmetic independently re-verified in
+Python for every lesson (every elimination, multiplier, $LU$ and $\PP A=LU$ factorization, inverse, transpose, and two-sweep solve).
 
 ---
 
@@ -302,35 +379,53 @@ the solution; `\boxguard` demonstrated to push a box whole to the next page (box
 lines of preceding content); scaffolder output (`--unit 09 --lesson 01`) compiles — components carry no name row and the lesson plan
 is born with five titled `teachernote` stubs.
 
-**Current state of the conventions across the course — 5 of 41 lessons retrofitted, and Unit 1 is now complete**
-(`unit01/lesson00` … `unit01/lesson04`; still no bulk sweep, by design — it would re-flow the pagination of every verified lesson at
-once). Remaining debt: **163** files still carry a `teachernote` in a `_key`, **360** component files still carry a name row, and
-`work`/`\boxguard` appear only in Lessons 1.0–1.4. vocabpar is unfixed everywhere else — spot-checked `unit06/lesson00`, whose
-`vocabbox` still has the intro sentence colliding with the first term in both `notes` and `notes_key`.
+**Current state of the conventions across the course — 10 of 41 lessons retrofitted; Units 1 and 2 are both complete**
+(`unit01/lesson00` … `unit01/lesson04` and `unit02/lesson00` … `unit02/lesson04`; still no bulk sweep, by design — it would re-flow
+the pagination of every verified lesson at once). Remaining debt: **142** files still carry a `teachernote` in a `_key`, **310**
+component files still carry a name row, and `work`/`\boxguard` appear only in Lessons 1.0–1.4 and 2.0–2.4. vocabpar is unfixed
+everywhere else — spot-checked `unit06/lesson00`, whose `vocabbox` still has the intro sentence colliding with the first term in
+both `notes` and `notes_key`.
 
-**Next run:** start **Unit 2** — retrofit **Lesson 2.0 (`unit02/lesson00`)**, then onward one at a time, in the order above — e.g.
-`/lesson-planning apply the retrofit to 2.0`. Finish each with the evidence: `make -C unitXX/lessonYY all` exits 0, every component's
-page count equals its `_key`'s, and warm-up + exit ticket are still 1 page on both sides.
+**Unit 2 proved a whole unit can be retrofitted in one run** (5 lessons, 55 files, ~2 hours of build/measure cycles) without the
+lesson-by-lesson pacing costing anything — each lesson was still measured, guarded, and verified on its own before moving on. That
+is the recommended shape for Units 3–8: take the unit as the unit of work, but keep the per-lesson measure/guard/verify loop.
 
-**What to expect on every retrofit — after five lessons:**
+**Next run:** start **Unit 3** — `/lesson-planning apply the retrofit to lessons 3.0 - 3.6` (Unit 3 has **7** lessons, the largest
+in the course, so budget accordingly). Run the conventions in order per lesson. Finish each with the evidence: `make -C
+unitXX/lessonYY all` exits 0, every component's page count equals its `_key`'s, and warm-up + exit ticket are still 1 page on both
+sides. **Before touching a lesson, do the two cheap greps Unit 2 turned into standard practice:** diff `homework` against
+`homework_key` item by item (the answers-in-the-prompt defect is 10 for 10, and Unit 2 had it in *two* items per lesson), and
+`grep -n footnotesize` every `_key` (the key-only bracketed hint with no blank counterpart — 10 found in Unit 2).
 
-(a) **A `homework` 2pp blank / 1pp key baseline defect is common but NOT universal** — 1.0 and 1.1 had it; **1.2, 1.3, and 1.4 opened
-fully aligned**. Measure first; do not assume a mismatch exists, and do not assume there is none.
-(b) **The `homework_key` answers-in-the-prompt defect appears in all five lessons** — 1.0/1.1/1.2 had item 2 with its prompts
-*replaced* by the answers; 1.3 and 1.4 had **item 1** with the answers folded into the stem as plain un-reddened text (1.4 also
-appended an un-reddened work line with no counterpart in the blank). Check items 1 *and* 2 first; it is a content bug the page counts
-never reveal, and it moves between items.
+**What to expect on every retrofit — after ten lessons (Units 1 and 2):**
+
+(a) **A `homework` 2pp blank / 1pp key baseline defect is uncommon** — only 1.0 and 1.1 had it; **1.2, 1.3, 1.4 and all five Unit 2
+lessons opened fully aligned (8 of 10)**. Measure first; do not assume a mismatch exists, and do not assume there is none.
+(b) **The `homework_key` answers-in-the-prompt defect appears in ALL TEN lessons** — 1.0/1.1/1.2 had item 2 with its prompts
+*replaced* by the answers; 1.3, 1.4 and 2.3 had **item 1** with the answers folded into the stem; and **2.0, 2.1, 2.2 and 2.4 each
+had it in TWO items** (2 and 4 / 1 and 2 / 1 and 3 / 1 and 4). Diff `homework` against `homework_key` item by item before anything
+else — it is a content bug the page counts never reveal, and it moves between items and multiplies.
+(h) **NEW in Unit 2 — the key-only `{\footnotesize (...)}` parenthetical.** A bracketed one-line hint appended after an answer with
+no counterpart in the blank: the same "block in the key with no counterpart" problem as a `teachernote`, just smaller. **10 found
+across Unit 2**, concentrated in the warm-ups. `grep -n footnotesize` every `_key` and convert each to a shared `work` block.
+(i) **NEW in Unit 2 — check cross-lesson references.** When a lesson reuses a running example (2.2 and 2.3 both apply 2.1's *method*
+to 2.2's *numbers*), the prose drifts a lesson behind the arithmetic: 2.2 credited 2.1 for three values that are 2.2's own, and 2.3
+inherited the error. Grep each `notes` for references to a neighbouring lesson number and re-verify the cited value.
 (c) **The work rule is where the real editing is** — hunt the `\vspace{Xcm}`-in-blank / `\ans`-or-`\ansline`-in-key pairs and the
 hand-tuned `itemsep` differences (16/14, 12/10, 10/8, 6/5), since those are the same defect wearing two hats. When a prompt mixes
 computation with interpretation, **split it**: `work` block for the computation, `\writeline`/`\ansline` for the prose.
-(d) **namestrip may or may not open a new mismatch** — it did on 1.0 and 1.3, did not on 1.1, 1.2, or 1.4. Re-measure after step 3
-either way; never carry a verdict forward. **When it does fire, suspect the `vocabbox` first** (1.3): a four-term box is ~10 lines
-taller in the blank than in the key, and the name row is often all that hides it. The fix is a `work` block that lengthens *both*
-sides, not a guard. **But a four-term vocab box does not guarantee it fires** — 1.4 has one and namestrip stayed free. The height gap
-is always there; whether it surfaces depends on where the page break happens to fall.
-(g) **Size a `notes` boxguard against the KEY's free space, not the blank's** (new in 1.4). The same vocabbox gap that hides from
-namestrip makes the key the *looser* side of a `notes` page, so a guard tuned to the blank can be inert in the key and leave the two
-breaking at different points. Render both, take the larger free-space figure, and set `\boxguard[n]` above it.
+(d) **namestrip may or may not open a new mismatch** — it did on 1.0 and 1.3, did not on 1.1, 1.2, 1.4, or **any of 2.0–2.4**
+(7 of 10 free). Re-measure after step 3 either way; never carry a verdict forward. **When it does fire, suspect the `vocabbox`
+first** (1.3): a multi-term box is ~10 lines taller in the blank than in the key, and the name row is often all that hides it. The
+fix is a `work` block that lengthens *both* sides, not a guard. **But a multi-term vocab box does not guarantee it fires** — 1.4 and
+every Unit 2 lesson have five-term boxes and namestrip stayed free. The height gap is always there; whether it surfaces depends on
+where the page break happens to fall.
+(g) **Size a `notes` boxguard against the KEY's free space, not the blank's** (new in 1.4, confirmed 5/5 in Unit 2). The same
+vocabbox gap that hides from namestrip makes the key the *looser* side of a `notes` page, so a guard tuned to the blank can be inert
+in the key and leave the two breaking at different points. **`\boxguard` before the `notes` `practicebox` is now the single most
+reliable guard in the course — every Unit 2 lesson needed exactly it, at the default 16 lines.** Render both sides, take the larger
+free-space figure, and set `\boxguard[n]` above it. **When measuring free space from a `pdftoppm -r 55` render, the page is 595 px
+and the text block ~550 px, so ~110 px ≈ 12 lines** — an earlier 9-inch estimate halved every figure and made one guard inert.
 (e) **Render and inspect the blank AND the key** (new in 1.2) — the two can carry *different* stubs in the same component, so a clean
 blank does not certify the key. Aim for blank and key breaking at identical points.
 (f) **Pick the right break tool for where the stub is** (new in 1.3). Stub *before* a box → `\boxguard` on the line above

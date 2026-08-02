@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.2}{Exit Ticket --- Answer Key}
-\namedateperiod
 
 \vspace{0.15in}
 
@@ -19,24 +18,25 @@
         \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=7pt]
           \item Compute $ad-bc$ and write $A^{-1}$ from the formula.
                 \hfill $ad-bc=\ans{$16-15=1$}$
-                \ansline{$A^{-1}=\begin{bsmallmatrix} 4&-3\\-5&4 \end{bsmallmatrix}$ (swap $4,4$; negate $3,5$; divide by $1$).}
+\begin{work}
+  A^{-1} &= \begin{bsmallmatrix} 4&-3\\-5&4 \end{bsmallmatrix}
+\end{work}
           \item Solve $A\xx=\bb$ using $\xx=A^{-1}\bb$. \hfill $x=\ans{$1$}$\quad $y=\ans{$2$}$
-                \ansline{$\begin{bsmallmatrix} 4&-3\\-5&4 \end{bsmallmatrix}\begin{bsmallmatrix} 10\\13 \end{bsmallmatrix}=\begin{bsmallmatrix} 40-39\\-50+52 \end{bsmallmatrix}=\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}$. Check: $4(1)+3(2)=10$, $5(1)+4(2)=13$ \checkmark}
+\begin{work}
+  \begin{bsmallmatrix} 4&-3\\-5&4 \end{bsmallmatrix}\begin{bsmallmatrix} 10\\13 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 40-39\\-50+52 \end{bsmallmatrix}
+       = \begin{bsmallmatrix} 1\\2 \end{bsmallmatrix} \ \ \text{\checkmark}
+\end{work}
         \end{enumerate}
-        \vspace{2pt}
   \item \textbf{Undo a step.} Deshawn's one elimination step on a system is the matrix
         $E=\begin{bmatrix} 1 & 0 \\ -4 & 1 \end{bmatrix}$. What single matrix $E^{-1}$ undoes it,
         \emph{why} does it work, and what do you get when you multiply $E^{-1}E$?
-        \ansline{$E^{-1}=\begin{bsmallmatrix} 1&0\\4&1 \end{bsmallmatrix}$: flip the multiplier's sign.
-        $E$ subtracted $4\times$row~1 from row~2, so $E^{-1}$ \emph{adds} it back --- and
-        $E^{-1}E=\begin{bsmallmatrix} 1&0\\0&1 \end{bsmallmatrix}=I$, which is exactly what ``undo'' means.}
+\begin{work}
+  E^{-1} &= \begin{bsmallmatrix} 1&0\\4&1 \end{bsmallmatrix} \\
+  E^{-1}E &= \begin{bsmallmatrix} 1&0\\0&1 \end{bsmallmatrix} = I
+\end{work}
+        \ansline{Flip the multiplier's sign: $E$ subtracted $4\times$row~1 from row~2, so $E^{-1}$
+        \emph{adds} it back --- and $E^{-1}E=I$, which is exactly what ``undo'' means.}
 \end{enumerate}
-
-\begin{teachernote}
-Item~1 checks the full inverse procedure; full credit needs $ad-bc$, the correct signs in $A^{-1}$,
-\emph{and} the solve. Item~2 is the conceptual check --- students must name $E^{-1}$, justify by the
-add-back idea, and state $E^{-1}E=I$, not just write a matrix. Sort responses into ``inverse solid /
-sign or $ad-bc$ slip / unclear on undoing a step'' to set up Lesson~2.3 ($A=LU$).
-\end{teachernote}
 
 \end{document}

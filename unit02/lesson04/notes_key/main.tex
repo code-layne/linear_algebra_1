@@ -12,7 +12,6 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.4}{Guided Notes --- Answer Key}
-\namedateperiod
 
 \vspace{0.12in}
 
@@ -31,7 +30,7 @@
 \begin{vocabbox}
 \small
 Fill in each term as we build it together.
-\vspace{2pt}
+\par\vspace{2pt}
 \vocabans{Permutation matrix $\PP$}{the identity with its rows reordered; multiplying $\PP A$ carries out that same row reordering on $A$}
 \vocabans{Zero pivot / row exchange}{a $0$ where a pivot is needed; swap in a lower row (a row exchange) to bring up a nonzero pivot}
 \vocabans{Factorization $\PP A=LU$}{swap rows first ($\PP A$), then factor into lower$\times$upper as usual --- the fix when $A=LU$ is blocked}
@@ -126,26 +125,23 @@ Two rules we'll reuse. Transpose \textbf{reverses the order} of a product (2.2's
 And a permutation's transpose is its inverse: $\PP^{\tp}=\PP^{-1}$ (swapping, then swapping back, is $I$).
 \end{notesbox}
 
+\boxguard
 \begin{practicebox}
 Let $A=\begin{bmatrix} 0 & 4 \\ 2 & 6 \end{bmatrix}$ and $\bb=\begin{bmatrix} 4 \\ 8 \end{bmatrix}$.
 \begin{enumerate}[leftmargin=1.6em]
   \item Write the swap matrix $\PP$ and compute $\PP A$. \hfill $\PP A=\begin{bmatrix}\ {\color{keyred}\mathbf{2}} & {\color{keyred}\mathbf{6}}\ \\[2pt] {\color{keyred}\mathbf{0}} & {\color{keyred}\mathbf{4}} \end{bmatrix}$
   \item Solve $A\xx=\bb$ using $\PP A\xx=\PP\bb$. \hfill $x=\ans{$1$}$\quad $y=\ans{$1$}$
-        \ansline{$\PP\bb=\begin{bsmallmatrix} 8\\4 \end{bsmallmatrix}$; $L=I$, so $U\xx=\PP\bb$: $4y=4\Rightarrow y=1$, $2x+6=8\Rightarrow x=1$.}
+\begin{work}
+  \PP\bb &= \begin{bsmallmatrix} 8\\4 \end{bsmallmatrix} \\
+  4y &= 4,\ y = 1 \\
+  2x+6 &= 8,\ x = 1
+\end{work}
   \item Write $A^{\tp}$. Is $A$ symmetric?
-        \ansline{$A^{\tp}=\begin{bsmallmatrix} 0&2\\4&6 \end{bsmallmatrix}$. Not symmetric --- the off-diagonal entries $4$ and $2$ differ.}
+\begin{work}
+  A^{\tp} &= \begin{bsmallmatrix} 0&2\\4&6 \end{bsmallmatrix} \ne A
+\end{work}
+        \ansline{Not symmetric --- the off-diagonal entries $4$ and $2$ differ.}
 \end{enumerate}
 \end{practicebox}
-
-\begin{teachernote}
-The through-line: 2.3 assumed every pivot was nonzero; 2.4 supplies the missing case. \S1--\S2: a
-permutation $\PP$ only \emph{reorders} rows, and a swap turns a stuck (zero) pivot into a good one, giving
-$\PP A=LU$. Note that a $2\times2$ zero-pivot swap lands directly on $U$ with $L=I$ --- the nontrivial
-$L$ shows up for $3\times3$ (activity/homework). \S3 is the conceptual payoff: a row swap reorders
-equations, so with $\bb$ swapped too the solution is identical. \S4: transpose = reflect across the
-diagonal (the diagonal stays put); symmetric means $A^{\tp}=A$; the reversal rule
-$(AB)^{\tp}=B^{\tp}A^{\tp}$ mirrors 2.2's $(AB)^{-1}=B^{-1}A^{-1}$. Most common slips: swapping columns
-instead of rows, and forgetting to reverse the order in the product rule.
-\end{teachernote}
 
 \end{document}

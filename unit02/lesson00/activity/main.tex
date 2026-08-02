@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.0}{Group Activity}
-\namepartnerperiod
 
 \vspace{0.10in}
 
@@ -26,11 +25,24 @@ Work with your partner and \emph{show your steps}.
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
 Solve $A\xx=\bb$ with $A=\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}$ and
 $\bb=\begin{bmatrix} 7 \\ 1 \end{bmatrix}$.
-\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
   \item Write the two equations (one per row). \writeline
-  \item \emph{Add} the two equations to eliminate $x_2$, and find $x_1$. \vspace{0.5cm}
-  \item Back-substitute to find $x_2$. \vspace{0.5cm}
-  \item \textbf{Check:} rebuild $\bb$ as $x_1\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}+x_2\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}$. \vspace{0.6cm}
+  \item \emph{Add} the two equations to eliminate $x_2$, and find $x_1$.
+\begin{work}
+  (x_1+x_2)+(x_1-x_2) &= 7+1 \\
+                 2x_1 &= 8 \\
+                  x_1 &= 4
+\end{work}
+  \item Back-substitute to find $x_2$.
+\begin{work}
+  4 + x_2 &= 7 \\
+      x_2 &= 3
+\end{work}
+  \item \textbf{Check:} rebuild $\bb$ as $x_1\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix}+x_2\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}$.
+\begin{work}
+  4\begin{bsmallmatrix} 1\\1 \end{bsmallmatrix} + 3\begin{bsmallmatrix} 1\\-1 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 7\\1 \end{bsmallmatrix} \ \ \text{\checkmark}
+\end{work}
 \end{enumerate}
 \end{tcolorbox}
 
@@ -38,14 +50,28 @@ $\bb=\begin{bmatrix} 7 \\ 1 \end{bmatrix}$.
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
 Each scoop of \textbf{Base X} adds $2$ g protein and $1$ g fiber; each scoop of \textbf{Base Y}
 adds $1$ g protein and $3$ g fiber. A smoothie must total $8$ g protein and $9$ g fiber.
-\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
   \item Set it up as $A\xx=\bb$. Fill in the matrix and target.
         \[ A=\begin{bmatrix}\ \rule{0.7cm}{0pt}&\rule{0.7cm}{0pt}\ \\[6pt] & \end{bmatrix},\qquad
            \bb=\begin{bmatrix}\ \rule{0.7cm}{0pt}\ \\[6pt] \end{bmatrix} \]
-  \item Write the system and solve it by elimination. \vspace{1.1cm}
+  \item Write the system and solve it by elimination.
+\begin{work}
+  2(x_1+3x_2)-(2x_1+x_2) &= 18-8 \\
+                    5x_2 &= 10 \\
+                     x_2 &= 2 \\
+                     x_1 &= 3
+\end{work}
   \item \emph{Interpret:} how many scoops of each base, and does the answer make sense in cups? \writeline
-  \item A new target is $8$ g protein and $4$ g fiber. Solve again --- what goes wrong, and what
-        would it mean to ``use $-\tfrac{4}{5}$ of a scoop''? \writelines{2}
+  \tcbbreak
+  \item A new target is $8$ g protein and $2$ g fiber. Solve again --- what goes wrong, and what
+        would it mean to ``use $-\tfrac{4}{5}$ of a scoop''?
+\begin{work}
+  2(x_1+3x_2)-(2x_1+x_2) &= 4-8 \\
+                    5x_2 &= -4 \\
+                     x_2 &= -\tfrac{4}{5} \\
+                     x_1 &= \tfrac{22}{5}
+\end{work}
+        \writelines{2}
 \end{enumerate}
 \end{tcolorbox}
 
@@ -53,11 +79,21 @@ adds $1$ g protein and $3$ g fiber. A smoothie must total $8$ g protein and $9$ 
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
 Two systems have \emph{parallel} column directions. For each, decide how many solutions it has
 and \textbf{justify} from both the picture (two lines) and reachability of $\bb$.
-\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
   \item $\begin{aligned}[t] x_1 + 2x_2 &= 4 \\ 2x_1 + 4x_2 &= 9 \end{aligned}$
-        \hspace{1.5em} How many solutions? Why? \writelines{2}
+        \hspace{1.5em} How many solutions? Why?
+\begin{work}
+  2(x_1+2x_2) &= 2(4) = 8 \\
+            8 &\ne 9
+\end{work}
+        \writelines{2}
   \item $\begin{aligned}[t] x_1 + 2x_2 &= 3 \\ 2x_1 + 4x_2 &= 6 \end{aligned}$
-        \hspace{1.5em} How many solutions? Why? \writelines{2}
+        \hspace{1.5em} How many solutions? Why?
+\begin{work}
+  2(x_1+2x_2) &= 2(3) = 6 \\
+  \begin{bsmallmatrix} 3\\6 \end{bsmallmatrix} &= 3\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix}
+\end{work}
+        \writelines{2}
 \end{enumerate}
 \end{tcolorbox}
 

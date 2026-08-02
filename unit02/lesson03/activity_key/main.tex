@@ -10,7 +10,6 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.3}{Group Activity --- Answer Key}
-\namepartnerperiod
 
 \vspace{0.10in}
 
@@ -27,12 +26,17 @@ your partner and \emph{show every step}.
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
 Factor $A=\begin{bmatrix} 2 & 6 \\ 6 & 20 \end{bmatrix}$. The pivot is $2$, so the multiplier is
 $\ell=6\div2=3$.
-\begin{enumerate}[leftmargin=1.7em, itemsep=7pt]
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
   \item Eliminate (row$_2 - 3\,$row$_1$) to get $U$. \; $U=\begin{bmatrix} 2 & 6 \\ {\color{keyred}\mathbf{0}} & {\color{keyred}\mathbf{2}} \end{bmatrix}$
-        \hfill {\footnotesize$-3(2,6)+(6,20)=(0,2)$}
-  \item Write $L$: put $1$s on the diagonal and the multiplier below. \; $L=\begin{bmatrix} 1 & 0 \\ {\color{keyred}\mathbf{3}} & 1 \end{bmatrix}$
+\begin{work}
+  -3(2,6)+(6,20) &= (0,2)
+\end{work}
+  \item Write $L$: put $1$s on the diagonal and the multiplier below. \; $L=\begin{bmatrix} 1 & 0 \\ {\color{keyred}\mathbf{3}} & 1 \end{bmatrix}$ \vspace{0.2cm}
   \item \textbf{Check} $LU=A$ by multiplying.
-        \ansline{$\begin{bsmallmatrix} 1&0\\3&1 \end{bsmallmatrix}\begin{bsmallmatrix} 2&6\\0&2 \end{bsmallmatrix}=\begin{bsmallmatrix} 2&6\\6&20 \end{bsmallmatrix}=A$ \checkmark \ (row~2: $3(2,6)+(0,2)=(6,20)$).}
+\begin{work}
+  \begin{bsmallmatrix} 1&0\\3&1 \end{bsmallmatrix}\begin{bsmallmatrix} 2&6\\0&2 \end{bsmallmatrix}
+      &= \begin{bsmallmatrix} 2&6\\6&20 \end{bsmallmatrix} = A \ \ \text{\checkmark}
+\end{work}
   \item In one sentence: what does the $3$ in $L$ record?
         \ansline{The multiplier --- how many of row~1 we subtracted from row~2 during elimination.}
 \end{enumerate}
@@ -44,13 +48,28 @@ $\ell=6\div2=3$.
 carries $1$ unit sugar and $3$ units vitamin; each liter of \textbf{Mix Q} carries $2$ sugar and $8$
 vitamin. With $p$ liters of P and $q$ of Q the totals are $A\begin{bsmallmatrix} p\\q \end{bsmallmatrix}=\bb$,
 where $A=\begin{bmatrix} 1 & 2 \\ 3 & 8 \end{bmatrix}$ (sugar row, vitamin row).
-\begin{enumerate}[leftmargin=1.7em, itemsep=6pt]
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
   \item Factor once: find $\ell$, and write $L$ and $U$.
-        \ansline{$\ell=3$; $U=\begin{bsmallmatrix} 1&2\\0&2 \end{bsmallmatrix}$, $L=\begin{bsmallmatrix} 1&0\\3&1 \end{bsmallmatrix}$.}
+\begin{work}
+  \ell &= 3 \\
+  U &= \begin{bsmallmatrix} 1&2\\0&2 \end{bsmallmatrix},\quad
+  L = \begin{bsmallmatrix} 1&0\\3&1 \end{bsmallmatrix}
+\end{work}
   \item \textbf{Order 1:} sugar $4$, vitamin $14$. Two sweeps ($L\cc=\bb$, then $U\xx=\cc$) --- find $p,q$.
-        \ansline{Forward: $c_1=4$, $3(4)+c_2=14\Rightarrow c_2=2$, so $\cc=\begin{bsmallmatrix} 4\\2 \end{bsmallmatrix}$. Back: $2q=2\Rightarrow q=1$, $p+2=4\Rightarrow p=2$. So $p=2$, $q=1$.}
+\begin{work}
+  c_1 &= 4 \\
+  3(4)+c_2 &= 14,\ c_2 = 2 \\
+  2q &= 2,\ q = 1 \\
+  p+2 &= 4,\ p = 2
+\end{work}
+  \tcbbreak
   \item \textbf{Order 2:} sugar $7$, vitamin $27$. Same $L$ and $U$ --- find $p,q$.
-        \ansline{Forward: $c_1=7$, $21+c_2=27\Rightarrow c_2=6$, so $\cc=\begin{bsmallmatrix} 7\\6 \end{bsmallmatrix}$. Back: $2q=6\Rightarrow q=3$, $p+6=7\Rightarrow p=1$. So $p=1$, $q=3$.}
+\begin{work}
+  c_1 &= 7 \\
+  3(7)+c_2 &= 27,\ c_2 = 6 \\
+  2q &= 6,\ q = 3 \\
+  p+6 &= 7,\ p = 1
+\end{work}
   \item \emph{Interpret:} give each order's liters, and say why keeping $L$ and $U$ beats re-eliminating
         every order.
         \ansline{Order 1: $2$ L P, $1$ L Q; Order 2: $1$ L P, $3$ L Q. The recipe $A$ never changes, so
@@ -62,25 +81,24 @@ where $A=\begin{bmatrix} 1 & 2 \\ 3 & 8 \end{bmatrix}$ (sugar row, vitamin row).
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
 \textbf{A $3\times3$ factorization.} Factor $A=\begin{bmatrix} 2 & 4 & 2 \\ 4 & 9 & 5 \\ 2 & 7 & 8 \end{bmatrix}$
 by elimination, recording all three multipliers $\ell_{21},\ell_{31},\ell_{32}$ into $L$.
-\ansline{$\ell_{21}=4/2=2$, $\ell_{31}=2/2=1$, then pivot $1$ gives $\ell_{32}=3/1=3$. So
-$U=\begin{bsmallmatrix} 2&4&2\\0&1&1\\0&0&3 \end{bsmallmatrix}$, $L=\begin{bsmallmatrix} 1&0&0\\2&1&0\\1&3&1 \end{bsmallmatrix}$.}
+\begin{work}
+  \ell_{21}=2,\ \ell_{31} &= 1,\ \ell_{32} = 3 \\
+  U &= \begin{bsmallmatrix} 2&4&2\\0&1&1\\0&0&3 \end{bsmallmatrix} \\
+  L &= \begin{bsmallmatrix} 1&0&0\\2&1&0\\1&3&1 \end{bsmallmatrix}
+\end{work}
 
 \vspace{4pt}
 \textbf{Then solve} $A\xx=\bb$ for $\bb=\begin{bmatrix} 10 \\ 22 \\ 19 \end{bmatrix}$ using two sweeps
 ($L\cc=\bb$ forward, then $U\xx=\cc$ back). \emph{Justify:} explain why writing down $L$ cost you no
 extra arithmetic beyond the elimination you already did.
-\ansline{Forward: $c_1=10$; $2(10)+c_2=22\Rightarrow c_2=2$; $10+3(2)+c_3=19\Rightarrow c_3=3$, so
-$\cc=\begin{bsmallmatrix} 10\\2\\3 \end{bsmallmatrix}$. Back: $3z=3\Rightarrow z=1$; $y+z=2\Rightarrow y=1$;
-$2x+4y+2z=10\Rightarrow x=2$. So $(x,y,z)=(2,1,1)$. $L$ is free because its entries are exactly the
-multipliers you compute \emph{anyway} while eliminating --- you just write each one down instead of
-discarding it.}
+\begin{work}
+  \cc &= \begin{bsmallmatrix} 10\\2\\3 \end{bsmallmatrix} \\
+  3z &= 3,\ z = 1 \\
+  y+z &= 2,\ y = 1 \\
+  2x+4+2 &= 10,\ x = 2
+\end{work}
+\ansline{$L$ is free: its entries are exactly the multipliers you compute \emph{anyway} while
+eliminating --- you just write each one down instead of discarding it.}
 \end{tcolorbox}
-
-\begin{teachernote}
-Tier~A is the payoff: one $A=LU$, reused across right-hand sides --- the reason factoring beats
-re-eliminating. Common slips: a minus sign in $L$ (it stores $+\ell$), or sweeping $U$ before $L$.
-Tier~E makes the ``free $L$'' idea explicit --- the multipliers are a by-product of elimination, so
-factoring adds no work. Tie back to 2.2: $L$ is the undo-matrices $E^{-1}$ collected together.
-\end{teachernote}
 
 \end{document}

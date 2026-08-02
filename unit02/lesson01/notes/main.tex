@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.1}{Guided Notes}
-\namedateperiod
 
 \vspace{0.12in}
 
@@ -27,7 +26,7 @@
 \begin{vocabbox}
 \small
 Fill in each term as we build it together.
-\vspace{2pt}
+\par\vspace{2pt}
 \termblanklong{Pivot}
 \termblanklong{Multiplier $\ell$}
 \termblanklong{Upper-triangular system}
@@ -129,6 +128,7 @@ Back-substitute upward: $z=\blank{0.8cm}$, then $y=\blank{0.8cm}$, then $x=\blan
 Solution $(x,y,z)=(\,\blank{1.6cm}\,)$.
 \end{notesbox}
 
+\boxguard
 \begin{notesbox}{4. When a Pivot Is Zero}
 Elimination needs a \emph{nonzero} pivot. If the pivot slot holds a $0$, look \emph{below} for a row
 with a nonzero in that spot and \textbf{exchange rows}.
@@ -150,14 +150,26 @@ $0 = (\text{a nonzero})$ means \blank{3.2cm}, while $0=0$ means \blank{3.6cm}. (
 their own lesson in 2.4.)
 \end{notesbox}
 
+\boxguard
 \begin{practicebox}
 Solve $A\xx=\bb$ with $A=\begin{bmatrix} 3 & 2 \\ 6 & 7 \end{bmatrix}$ and
 $\bb=\begin{bmatrix} 8 \\ 19 \end{bmatrix}$ by elimination.
 \begin{enumerate}[leftmargin=1.6em]
   \item Name the pivot and the multiplier $\ell$ that clears the entry below it. \hfill
         pivot $=\blank{1.2cm}$\quad $\ell=\blank{1.2cm}$
-  \item Do the elimination step to reach upper-triangular form, and find $y$. \writeline
-  \item Back-substitute to find $x$, then \textbf{check} by rebuilding $\bb$. \writeline
+  \item Do the elimination step to reach upper-triangular form, and find $y$.
+\begin{work}
+  (6x+7y)-2(3x+2y) &= 19-16 \\
+               3y &= 3 \\
+                y &= 1
+\end{work}
+  \item Back-substitute to find $x$, then \textbf{check} by rebuilding $\bb$.
+\begin{work}
+  3x+2 &= 8 \\
+     x &= 2 \\
+  2\begin{bsmallmatrix} 3\\6 \end{bsmallmatrix} + 1\begin{bsmallmatrix} 2\\7 \end{bsmallmatrix}
+       &= \begin{bsmallmatrix} 8\\19 \end{bsmallmatrix} \ \ \text{\checkmark}
+\end{work}
 \end{enumerate}
 \end{practicebox}
 

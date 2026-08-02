@@ -10,21 +10,29 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.3}{Exit Ticket}
-\namedateperiod
 
 \vspace{0.15in}
 
-\begin{enumerate}[leftmargin=1.8em, itemsep=16pt]
+\begin{enumerate}[leftmargin=1.8em, itemsep=14pt]
   \item \textbf{Factor and solve.} Let $A=\begin{bmatrix} 1 & 4 \\ 3 & 14 \end{bmatrix}$ and
         $\bb=\begin{bmatrix} 1 \\ 5 \end{bmatrix}$.
-        \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=8pt]
+        \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=7pt]
           \item Factor $A=LU$: find the multiplier, then write $L$ and $U$.
                 \hfill $\ell=\blank{1.4cm}$
-                \vspace{1.2cm}
+\begin{work}
+  U &= \begin{bsmallmatrix} 1&4\\0&2 \end{bsmallmatrix},\quad
+  L = \begin{bsmallmatrix} 1&0\\3&1 \end{bsmallmatrix} \\
+  LU &= \begin{bsmallmatrix} 1&4\\3&14 \end{bsmallmatrix} = A \ \ \text{\checkmark}
+\end{work}
           \item Solve $A\xx=\bb$ in two sweeps ($L\cc=\bb$, then $U\xx=\cc$).
                 \hfill $x=\blank{1.4cm}$\quad $y=\blank{1.4cm}$
+\begin{work}
+  c_1 &= 1 \\
+  3(1)+c_2 &= 5,\ c_2 = 2 \\
+  2y &= 2,\ y = 1 \\
+  x+4 &= 1,\ x = -3
+\end{work}
         \end{enumerate}
-        \vspace{0.3cm}
   \item \textbf{What does $L$ record?} In a factorization $A=LU$, what do the numbers \emph{below} the
         diagonal of $L$ represent, and why does building $L$ take no extra work once you have
         eliminated?

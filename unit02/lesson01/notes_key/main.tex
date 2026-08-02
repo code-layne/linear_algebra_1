@@ -9,7 +9,6 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.1}{Guided Notes --- Answer Key}
-\namedateperiod
 
 \vspace{0.12in}
 
@@ -27,7 +26,7 @@
 \begin{vocabbox}
 \small
 Fill in each term as we build it together.
-\vspace{2pt}
+\par\vspace{2pt}
 \vocabans{Pivot}{the first nonzero coefficient in a row; we use it to clear the entries below it}
 \vocabans{Multiplier $\ell$}{$\ell = \text{(entry to eliminate)} \div \text{(pivot)}$ --- how many pivot rows to subtract}
 \vocabans{Upper-triangular system}{all zeros below the diagonal; each equation going down has one fewer unknown}
@@ -131,6 +130,7 @@ Back-substitute upward: $z=\ans{$3$}$, then $y=\ans{$2$}$, then $x=\ans{$1$}$.
 Solution $(x,y,z)=(\,\ans{$1,\,2,\,3$}\,)$.
 \end{notesbox}
 
+\boxguard
 \begin{notesbox}{4. When a Pivot Is Zero}
 Elimination needs a \emph{nonzero} pivot. If the pivot slot holds a $0$, look \emph{below} for a row
 with a nonzero in that spot and \textbf{exchange rows}.
@@ -152,6 +152,7 @@ $0 = (\text{a nonzero})$ means \ans{no solution (inconsistent)}, while $0=0$ mea
 \ans{infinitely many solutions}. (Row exchanges get their own lesson in 2.4.)
 \end{notesbox}
 
+\boxguard
 \begin{practicebox}
 Solve $A\xx=\bb$ with $A=\begin{bmatrix} 3 & 2 \\ 6 & 7 \end{bmatrix}$ and
 $\bb=\begin{bmatrix} 8 \\ 19 \end{bmatrix}$ by elimination.
@@ -159,18 +160,19 @@ $\bb=\begin{bmatrix} 8 \\ 19 \end{bmatrix}$ by elimination.
   \item Name the pivot and the multiplier $\ell$ that clears the entry below it. \hfill
         pivot $=\ans{$3$}$\quad $\ell=\ans{$6\div3=2$}$
   \item Do the elimination step to reach upper-triangular form, and find $y$.
-        \ansline{row~2 $-\,2\cdot$row~1: $(6x+7y)-2(3x+2y)=19-16\Rightarrow 3y=3\Rightarrow y=1$}
+\begin{work}
+  (6x+7y)-2(3x+2y) &= 19-16 \\
+               3y &= 3 \\
+                y &= 1
+\end{work}
   \item Back-substitute to find $x$, then \textbf{check} by rebuilding $\bb$.
-        \ansline{$3x+2=8\Rightarrow x=2$; check: $2\begin{bsmallmatrix} 3\\6 \end{bsmallmatrix}+1\begin{bsmallmatrix} 2\\7 \end{bsmallmatrix}=\begin{bsmallmatrix} 8\\19 \end{bsmallmatrix}$ \checkmark}
+\begin{work}
+  3x+2 &= 8 \\
+     x &= 2 \\
+  2\begin{bsmallmatrix} 3\\6 \end{bsmallmatrix} + 1\begin{bsmallmatrix} 2\\7 \end{bsmallmatrix}
+       &= \begin{bsmallmatrix} 8\\19 \end{bsmallmatrix} \ \ \text{\checkmark}
+\end{work}
 \end{enumerate}
 \end{practicebox}
-
-\begin{teachernote}
-The heart of the lesson is the multiplier: $\ell=$ entry $\div$ pivot, applied as (lower row)
-$-\,\ell\times$(pivot row). Watch for the flipped ratio (pivot $\div$ entry) and for students
-forgetting to subtract $\ell\times$ the right-hand side. \S3's $3\times3$ is a big time sink ---
-consider doing Round~1 with the class and letting groups finish Round~2. \S4 (zero pivot) is only a
-preview of the permutations in 2.4.
-\end{teachernote}
 
 \end{document}

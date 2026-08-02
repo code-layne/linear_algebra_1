@@ -12,7 +12,6 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.4}{Group Activity}
-\namepartnerperiod
 
 \vspace{0.10in}
 
@@ -28,10 +27,15 @@ across its diagonal. Work with your partner and \emph{show every step}.
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
 Solve $A\xx=\bb$ where $A=\begin{bmatrix} 0 & 5 \\ 2 & 3 \end{bmatrix}$ and $\bb=\begin{bmatrix} 10 \\ 8 \end{bmatrix}$.
 The top-left entry is $0$, so a swap is needed.
-\begin{enumerate}[leftmargin=1.7em, itemsep=9pt]
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
   \item Write the swap matrix $\PP$ and compute $\PP A$. \; $\PP A=\begin{bmatrix} \blank{0.9cm} & \blank{0.9cm} \\ \blank{0.9cm} & \blank{0.9cm} \end{bmatrix}$ \vspace{0.2cm}
   \item Swap $\bb$ the same way: $\PP\bb=\begin{bmatrix} \blank{0.9cm} \\ \blank{0.9cm} \end{bmatrix}$. \vspace{0.2cm}
-  \item Solve $\PP A\xx=\PP\bb$ (here $\PP A$ is already upper triangular, so back-substitute). \; $x=\blank{1.1cm}$\quad $y=\blank{1.1cm}$ \vspace{1.0cm}
+  \item Solve $\PP A\xx=\PP\bb$ (here $\PP A$ is already upper triangular, so back-substitute). \; $x=\blank{1.1cm}$\quad $y=\blank{1.1cm}$
+\begin{work}
+  5y &= 10,\ y = 2 \\
+  2x+3(2) &= 8,\ x = 1 \\
+  A\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix} &= \begin{bsmallmatrix} 10\\8 \end{bsmallmatrix} \ \ \text{\checkmark}
+\end{work}
   \item In one sentence: why is this the same answer as the original (unswapped) system? \writeline
 \end{enumerate}
 \end{tcolorbox}
@@ -45,7 +49,13 @@ The top-left entry is $0$, so a swap is needed.
         $\ S=\begin{bmatrix} 6 & 2 \\ 2 & 9 \end{bmatrix},\quad T=\begin{bmatrix} 1 & 4 \\ 2 & 1 \end{bmatrix}.$ \writeline
   \item \textbf{Verify the reversal rule} $(AB)^{\tp}=B^{\tp}A^{\tp}$ for
         $A=\begin{bmatrix} 1 & 2 \\ 0 & 1 \end{bmatrix}$, $B=\begin{bmatrix} 1 & 0 \\ 3 & 1 \end{bmatrix}$.
-        Compute $AB$, then $(AB)^{\tp}$, then $B^{\tp}A^{\tp}$, and check they match. \vspace{2.2cm}
+        Compute $AB$, then $(AB)^{\tp}$, then $B^{\tp}A^{\tp}$, and check they match.
+\begin{work}
+  AB &= \begin{bsmallmatrix} 7&2\\3&1 \end{bsmallmatrix} \\
+  (AB)^{\tp} &= \begin{bsmallmatrix} 7&3\\2&1 \end{bsmallmatrix} \\
+  B^{\tp}A^{\tp} &= \begin{bsmallmatrix} 1&3\\0&1 \end{bsmallmatrix}\begin{bsmallmatrix} 1&0\\2&1 \end{bsmallmatrix}
+      = \begin{bsmallmatrix} 7&3\\2&1 \end{bsmallmatrix} \ \ \text{\checkmark}
+\end{work}
   \item \emph{Interpret:} what does it mean, in terms of its entries, for a matrix to be symmetric? \writeline
 \end{enumerate}
 \end{tcolorbox}
@@ -54,11 +64,27 @@ The top-left entry is $0$, so a swap is needed.
     fonttitle=\bfseries, arc=1.5mm, left=3mm, right=3mm, top=2mm, bottom=2mm, breakable]
 \textbf{A $3\times3$ with a zero pivot.} Solve $A\xx=\bb$ where
 $A=\begin{bmatrix} 0 & 1 & 4 \\ 1 & 2 & 2 \\ 2 & 5 & 9 \end{bmatrix}$ and $\bb=\begin{bmatrix} 5 \\ 6 \\ 18 \end{bmatrix}$.
-\begin{enumerate}[leftmargin=1.7em, itemsep=7pt]
+\begin{enumerate}[leftmargin=1.7em, itemsep=8pt]
   \item The top-left entry is $0$. Write a permutation $\PP$ that swaps rows to get a nonzero pivot, and
-        compute $\PP A$ and $\PP\bb$. \vspace{1.6cm}
-  \item Factor $\PP A=LU$ by elimination (collect the multipliers into $L$). \vspace{1.6cm}
-  \item Solve in two sweeps: $L\cc=\PP\bb$ (forward), then $U\xx=\cc$ (back). \; $\xx=(\ \blank{2.4cm}\ )$ \vspace{1.4cm}
+        compute $\PP A$ and $\PP\bb$.
+\begin{work}
+  \PP &= \begin{bsmallmatrix} 0&1&0\\1&0&0\\0&0&1 \end{bsmallmatrix} \\
+  \PP A &= \begin{bsmallmatrix} 1&2&2\\0&1&4\\2&5&9 \end{bsmallmatrix},\quad
+      \PP\bb = \begin{bsmallmatrix} 6\\5\\18 \end{bsmallmatrix}
+\end{work}
+  \item Factor $\PP A=LU$ by elimination (collect the multipliers into $L$).
+\begin{work}
+  \ell_{21}=0,\ \ell_{31} &= 2,\ \ell_{32} = 1 \\
+  U &= \begin{bsmallmatrix} 1&2&2\\0&1&4\\0&0&1 \end{bsmallmatrix},\quad
+      L = \begin{bsmallmatrix} 1&0&0\\0&1&0\\2&1&1 \end{bsmallmatrix}
+\end{work}
+  \item Solve in two sweeps: $L\cc=\PP\bb$ (forward), then $U\xx=\cc$ (back). \; $\xx=(\ \blank{2.4cm}\ )$
+\begin{work}
+  \cc &= \begin{bsmallmatrix} 6\\5\\1 \end{bsmallmatrix} \\
+  z &= 1 \\
+  y+4 &= 5,\ y = 1 \\
+  x+2+2 &= 6,\ x = 2
+\end{work}
   \item \emph{Justify:} explain why swapping rows (and the matching entries of $\bb$) does not change the
         solution $\xx$. \writelines{2}
 \end{enumerate}

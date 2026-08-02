@@ -155,4 +155,52 @@ up here --- next comes the unit test, then \emph{Unit~3, The Four Fundamental Su
 can \emph{solve} $A\xx=\bb$, we ask which $\bb$ are reachable and what \emph{all} the solutions look
 like.
 \end{skillbox}
+% ── Teacher notes (migrated from the component keys) ──
+% One per component, titled for it. They live here rather than in the _key
+% files so that every component is the same length blank and keyed.
+
+\begin{teachernote}[Warm-Up]
+Item~1 is a preview of what a permutation matrix does --- it reorders entries (and, applied on the left
+to a matrix, reorders rows). Item~2 is the exact gap Lesson~2.3 left open: a zero pivot stalls
+elimination, and today's row swap is the rescue. Item~3 sets up the transpose --- the $(1,2)$ and
+$(2,1)$ entries ($1$ and $4$) are the two that trade places when we flip across the diagonal.
+\end{teachernote}
+
+\begin{teachernote}[Guided Notes]
+The through-line: 2.3 assumed every pivot was nonzero; 2.4 supplies the missing case. \S1--\S2: a
+permutation $\PP$ only \emph{reorders} rows, and a swap turns a stuck (zero) pivot into a good one, giving
+$\PP A=LU$. Note that a $2\times2$ zero-pivot swap lands directly on $U$ with $L=I$ --- the nontrivial
+$L$ shows up for $3\times3$ (activity/homework). \S3 is the conceptual payoff: a row swap reorders
+equations, so with $\bb$ swapped too the solution is identical. \S4: transpose = reflect across the
+diagonal (the diagonal stays put); symmetric means $A^{\tp}=A$; the reversal rule
+$(AB)^{\tp}=B^{\tp}A^{\tp}$ mirrors 2.2's $(AB)^{-1}=B^{-1}A^{-1}$. Most common slips: swapping columns
+instead of rows, and forgetting to reverse the order in the product rule.
+\end{teachernote}
+
+\begin{teachernote}[Group Activity]
+Tier~R is the core skill (2$\times$2 swap $\to$ solve); watch for students swapping columns, or forgetting
+to swap $\bb$. Tier~A is all transpose: reflect across the diagonal, test symmetry by comparing $(i,j)$
+with $(j,i)$, and the reversal rule $(AB)^{\tp}=B^{\tp}A^{\tp}$ (order flips, exactly like the inverse in
+2.2). Tier~E is the full $\PP A=LU$ payoff: swap first, then it factors and solves by 2.3's two sweeps ---
+and the justification is the conceptual heart of the lesson. Note the $3\times3$ has a nontrivial $L$
+(unlike the $2\times2$, where a swap lands straight on $U$).
+\end{teachernote}
+
+\begin{teachernote}[Exit Ticket]
+Item~1 checks the whole permutation method: correct $\PP$, correct $\PP A$ and $\PP\bb$, and the solve
+(watch for students who forget to swap $\bb$). Item~2 checks transpose and the symmetry test. Item~3 is
+the conceptual target --- students must tie ``row swap'' to ``reordering equations'' and conclude the
+solution is unchanged. Sort into ``permutation \& transpose solid / rows-vs-columns confused / shaky on
+why $\xx$ is unchanged'' to plan the Unit~2 review.
+\end{teachernote}
+
+\begin{teachernote}[Homework]
+Problem~3 is the full $\PP A=LU$ pipeline (swap $\to$ factor $\to$ two sweeps); note the nontrivial $L$
+that a $3\times3$ produces. Problem~5 reinforces that transpose reverses a product's order (the same
+socks-and-shoes structure as the inverse in 2.2), and the ``different matrix'' check makes the point
+concrete. The extension previews why symmetric matrices $A^{\tp}A$ matter --- they return in Unit~4
+(orthogonality) and Unit~6 (eigenvalues). Common slips: swapping columns instead of rows, forgetting to
+swap $\bb$, and writing $A^{\tp}B^{\tp}$ instead of $B^{\tp}A^{\tp}$.
+\end{teachernote}
+
 \end{document}

@@ -12,7 +12,6 @@
 \begin{document}
 
 \pageheader{Unit 2, Lesson 2.4}{Homework --- Answer Key}
-\namedateperiod
 
 \vspace{0.12in}
 
@@ -21,39 +20,60 @@ Show your steps. Remember: a permutation $\PP$ swaps rows; when a zero pivot blo
 $\PP A\xx=\PP\bb$ (swap the same entries of $\bb$). The transpose $A^{\tp}$ flips rows into columns, a
 symmetric matrix has $A^{\tp}=A$, and $(AB)^{\tp}=B^{\tp}A^{\tp}$.
 
-\begin{enumerate}[leftmargin=1.9em, itemsep=11pt]
+\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
   \item \textbf{Permutation matrix.} Let $A=\begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix}$.
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
-      \item \ans{$\PP=\begin{bsmallmatrix} 0&0&1\\0&1&0\\1&0&0 \end{bsmallmatrix}$ (identity with rows 1 and 3 swapped)}
-      \item \ans{$\PP A=\begin{bsmallmatrix} 7&8&9\\4&5&6\\1&2&3 \end{bsmallmatrix}$}
-      \item \ans{$\PP^{\tp}=\PP$ here, and $\PP\PP$ swaps rows $1,3$ twice $=I$, so $\PP^{\tp}\PP=I$.}
+      \item Write the $3\times3$ permutation $\PP$ that swaps rows $1$ and $3$.
+      \item Compute $\PP A$.
+      \item Show that $\PP^{\tp}\PP=I$.
     \end{enumerate}
+\begin{work}
+  \PP &= \begin{bsmallmatrix} 0&0&1\\0&1&0\\1&0&0 \end{bsmallmatrix} \\
+  \PP A &= \begin{bsmallmatrix} 7&8&9\\4&5&6\\1&2&3 \end{bsmallmatrix} \\
+  \PP^{\tp}\PP &= \PP\PP = I \ \ \text{(swapping twice)}
+\end{work}
   \item \textbf{Fix the zero pivot and solve.} For each, write $\PP$, compute $\PP A$ and $\PP\bb$, then
         solve $A\xx=\bb$.
-    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
-      \item \ansline{$\PP=\begin{bsmallmatrix} 0&1\\1&0 \end{bsmallmatrix}$: $\PP A=\begin{bsmallmatrix} 1&4\\0&3 \end{bsmallmatrix}$, $\PP\bb=\begin{bsmallmatrix} 9\\6 \end{bsmallmatrix}$. Then $3y=6\Rightarrow y=2$, $x+4(2)=9\Rightarrow x=1$. So $(x,y)=(1,2)$.}
-      \item \ansline{$\PP=\begin{bsmallmatrix} 0&1\\1&0 \end{bsmallmatrix}$: $\PP A=\begin{bsmallmatrix} 3&5\\0&2 \end{bsmallmatrix}$, $\PP\bb=\begin{bsmallmatrix} 8\\2 \end{bsmallmatrix}$. Then $2y=2\Rightarrow y=1$, $3x+5=8\Rightarrow x=1$. So $(x,y)=(1,1)$.}
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
+      \item $A=\begin{bmatrix} 0 & 3 \\ 1 & 4 \end{bmatrix}$, \; $\bb=\begin{bmatrix} 6 \\ 9 \end{bmatrix}$
+      \item $A=\begin{bmatrix} 0 & 2 \\ 3 & 5 \end{bmatrix}$, \; $\bb=\begin{bmatrix} 2 \\ 8 \end{bmatrix}$
     \end{enumerate}
+\begin{work}
+  \text{(a)}\ \PP A = \begin{bsmallmatrix} 1&4\\0&3 \end{bsmallmatrix},\ \PP\bb &= \begin{bsmallmatrix} 9\\6 \end{bsmallmatrix},\quad (x,y) = (1,2) \\
+  \text{(b)}\ \PP A = \begin{bsmallmatrix} 3&5\\0&2 \end{bsmallmatrix},\ \PP\bb &= \begin{bsmallmatrix} 8\\2 \end{bsmallmatrix},\quad (x,y) = (1,1)
+\end{work}
   \item \textbf{A $3\times3$ with a zero pivot.} Let $A=\begin{bmatrix} 0 & 1 & 2 \\ 2 & 4 & 6 \\ 2 & 5 & 11 \end{bmatrix}$
         and $\bb=\begin{bmatrix} 3 \\ 12 \\ 18 \end{bmatrix}$. Write $\PP$ to fix the pivot, factor
         $\PP A=LU$, then solve in two sweeps ($L\cc=\PP\bb$, then $U\xx=\cc$).
-        \ansline{Swap rows 1 and 2: $\PP=\begin{bsmallmatrix} 0&1&0\\1&0&0\\0&0&1 \end{bsmallmatrix}$,
-        $\PP A=\begin{bsmallmatrix} 2&4&6\\0&1&2\\2&5&11 \end{bsmallmatrix}$, $\PP\bb=\begin{bsmallmatrix} 12\\3\\18 \end{bsmallmatrix}$.}
-        \ansline{Factor: $\ell_{21}=0$, $\ell_{31}=1$ (row$_3-$row$_1=(0,1,5)$), $\ell_{32}=1$ (row$_3-$row$_2=(0,0,3)$). So
-        $U=\begin{bsmallmatrix} 2&4&6\\0&1&2\\0&0&3 \end{bsmallmatrix}$, $L=\begin{bsmallmatrix} 1&0&0\\0&1&0\\1&1&1 \end{bsmallmatrix}$.}
-        \ansline{Forward $L\cc=\PP\bb$: $c_1=12$, $c_2=3$, $12+3+c_3=18\Rightarrow c_3=3$, so $\cc=\begin{bsmallmatrix} 12\\3\\3 \end{bsmallmatrix}$.
-        Back $U\xx=\cc$: $3z=3\Rightarrow z=1$; $y+2=3\Rightarrow y=1$; $2x+4+6=12\Rightarrow x=1$. So $(x,y,z)=(1,1,1)$.}
+\begin{work}
+  \PP A &= \begin{bsmallmatrix} 2&4&6\\0&1&2\\2&5&11 \end{bsmallmatrix},\quad
+      \PP\bb = \begin{bsmallmatrix} 12\\3\\18 \end{bsmallmatrix} \\
+  U &= \begin{bsmallmatrix} 2&4&6\\0&1&2\\0&0&3 \end{bsmallmatrix},\quad
+      L = \begin{bsmallmatrix} 1&0&0\\0&1&0\\1&1&1 \end{bsmallmatrix} \\
+  \cc &= \begin{bsmallmatrix} 12\\3\\3 \end{bsmallmatrix} \\
+  (x,y,z) &= (1,1,1)
+\end{work}
   \item \textbf{Transpose and symmetry.}
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
-      \item \ans{$A^{\tp}=\begin{bsmallmatrix} 1&4\\2&5\\3&6 \end{bsmallmatrix}$}
-      \item \ans{$B$ and $C$ are symmetric ($B^{\tp}=B$, $C^{\tp}=C$); $D$ is not ($2\ne3$).}
+      \item Write $A^{\tp}$ for $A=\begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix}$.
+      \item Which of these are symmetric? \;
+            $B=\begin{bmatrix} 2 & 0 \\ 0 & 7 \end{bmatrix},\quad
+             C=\begin{bmatrix} 3 & 5 \\ 5 & 3 \end{bmatrix},\quad
+             D=\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}.$
     \end{enumerate}
+\begin{work}
+  \text{(a)}\ A^{\tp} &= \begin{bsmallmatrix} 1&4\\2&5\\3&6 \end{bsmallmatrix} \\
+  \text{(b)}\ B,\,C \text{ symmetric};&\ D \text{ is not } (2 \ne 3)
+\end{work}
   \item \textbf{The reversal rule.} For $A=\begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}$ and
         $B=\begin{bmatrix} 1 & 4 \\ 0 & 1 \end{bmatrix}$, compute $AB$ and confirm
         $(AB)^{\tp}=B^{\tp}A^{\tp}$. (Also check that $A^{\tp}B^{\tp}$ gives a \emph{different} matrix.)
-        \ansline{$AB=\begin{bsmallmatrix} 1&4\\2&9 \end{bsmallmatrix}$, so $(AB)^{\tp}=\begin{bsmallmatrix} 1&2\\4&9 \end{bsmallmatrix}$.
-        $B^{\tp}A^{\tp}=\begin{bsmallmatrix} 1&0\\4&1 \end{bsmallmatrix}\begin{bsmallmatrix} 1&2\\0&1 \end{bsmallmatrix}=\begin{bsmallmatrix} 1&2\\4&9 \end{bsmallmatrix}$ \checkmark. But
-        $A^{\tp}B^{\tp}=\begin{bsmallmatrix} 1&2\\0&1 \end{bsmallmatrix}\begin{bsmallmatrix} 1&0\\4&1 \end{bsmallmatrix}=\begin{bsmallmatrix} 9&2\\4&1 \end{bsmallmatrix}$ --- different, so the order matters.}
+\begin{work}
+  AB &= \begin{bsmallmatrix} 1&4\\2&9 \end{bsmallmatrix},\quad
+      (AB)^{\tp} = \begin{bsmallmatrix} 1&2\\4&9 \end{bsmallmatrix} \\
+  B^{\tp}A^{\tp} &= \begin{bsmallmatrix} 1&2\\4&9 \end{bsmallmatrix} \ \ \text{\checkmark} \\
+  A^{\tp}B^{\tp} &= \begin{bsmallmatrix} 9&2\\4&1 \end{bsmallmatrix} \ \ \text{(different)}
+\end{work}
   \item \textbf{Explain.} Why is a permutation matrix's transpose equal to its inverse, i.e.\
         $\PP^{\tp}=\PP^{-1}$? Answer in terms of what a swap does and how to undo it.
         \ansline{$\PP$ reorders rows; the transpose reverses that reordering (row $i\to j$ becomes $j\to i$),
@@ -65,8 +85,12 @@ symmetric matrix has $A^{\tp}=A$, and $(AB)^{\tp}=B^{\tp}A^{\tp}$.
 \textbf{$A^{\tp}A$ is always symmetric.} Take any $A=\begin{bmatrix} 1 & 2 \\ 0 & 1 \\ 1 & 0 \end{bmatrix}$.
 Compute $S=A^{\tp}A$ and check that $S^{\tp}=S$. Then explain the general reason using the rules
 $(XY)^{\tp}=Y^{\tp}X^{\tp}$ and $(A^{\tp})^{\tp}=A$: what does $(A^{\tp}A)^{\tp}$ simplify to?
-\ansline{$A^{\tp}=\begin{bsmallmatrix} 1&0&1\\2&1&0 \end{bsmallmatrix}$, so $S=A^{\tp}A=\begin{bsmallmatrix} 2&2\\2&5 \end{bsmallmatrix}$, and $S^{\tp}=S$ \checkmark.
-In general $(A^{\tp}A)^{\tp}=A^{\tp}(A^{\tp})^{\tp}=A^{\tp}A$ --- the transpose reverses the order and undoes the inner transpose, giving back $A^{\tp}A$. So $A^{\tp}A$ equals its own transpose: it is symmetric.}
+\begin{work}
+  A^{\tp} &= \begin{bsmallmatrix} 1&0&1\\2&1&0 \end{bsmallmatrix} \\
+  S = A^{\tp}A &= \begin{bsmallmatrix} 2&2\\2&5 \end{bsmallmatrix} = S^{\tp} \\
+  (A^{\tp}A)^{\tp} &= A^{\tp}(A^{\tp})^{\tp} = A^{\tp}A
+\end{work}
+\ansline{The transpose reverses the order and undoes the inner transpose, giving back $A^{\tp}A$ --- so it is symmetric.}
 \end{extensionbox}
 
 \begin{spiralbox}
@@ -75,14 +99,5 @@ a permutation $\PP$ for the zero-pivot case ($\PP A=LU$). Next comes the \textbf
 \textbf{Unit 3: The Four Fundamental Subspaces}, where we stop asking ``\emph{what} is the solution?'' and
 start asking ``\emph{which} $\bb$ are reachable, and what do \emph{all} the solutions look like?''
 \end{spiralbox}
-
-\begin{teachernote}
-Problem~3 is the full $\PP A=LU$ pipeline (swap $\to$ factor $\to$ two sweeps); note the nontrivial $L$
-that a $3\times3$ produces. Problem~5 reinforces that transpose reverses a product's order (the same
-socks-and-shoes structure as the inverse in 2.2), and the ``different matrix'' check makes the point
-concrete. The extension previews why symmetric matrices $A^{\tp}A$ matter --- they return in Unit~4
-(orthogonality) and Unit~6 (eigenvalues). Common slips: swapping columns instead of rows, forgetting to
-swap $\bb$, and writing $A^{\tp}B^{\tp}$ instead of $B^{\tp}A^{\tp}$.
-\end{teachernote}
 
 \end{document}

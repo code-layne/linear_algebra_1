@@ -9,14 +9,13 @@
 \begin{document}
 
 \pageheader{Unit 1, Lesson 1.3}{Homework}
-\namedateperiod
 
 \vspace{0.12in}
 
 \begin{notesbox}{Practice}
 For Problems 1--2, let $A = \begin{bmatrix} 1 & 2 \\ 3 & 1 \end{bmatrix}$. Show your steps.
 
-\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+\begin{enumerate}[leftmargin=1.9em, itemsep=10pt]
   \item Write the two columns of $A$, then compute each product as a combination of the columns.
     \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=4pt]
       \item $A\begin{bsmallmatrix} 1 \\ 0 \end{bsmallmatrix}$ \hfill
@@ -24,7 +23,14 @@ For Problems 1--2, let $A = \begin{bmatrix} 1 & 2 \\ 3 & 1 \end{bmatrix}$. Show 
       \item $A\begin{bsmallmatrix} 2 \\ 1 \end{bsmallmatrix}$ \hfill
       \item $A\begin{bsmallmatrix} 1 \\ 3 \end{bsmallmatrix}$
     \end{enumerate}
-    \vspace{1.4cm}
+\begin{work}
+  \mathbf{a}_1 &= \begin{bsmallmatrix} 1\\3 \end{bsmallmatrix} \\
+  \mathbf{a}_2 &= \begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} \\
+  \text{(a)}\ 1\mathbf{a}_1 + 0\mathbf{a}_2 &= \begin{bsmallmatrix} 1\\3 \end{bsmallmatrix} \\
+  \text{(b)}\ 0\mathbf{a}_1 + 1\mathbf{a}_2 &= \begin{bsmallmatrix} 2\\1 \end{bsmallmatrix} \\
+  \text{(c)}\ 2\mathbf{a}_1 + 1\mathbf{a}_2 &= \begin{bsmallmatrix} 4\\7 \end{bsmallmatrix} \\
+  \text{(d)}\ 1\mathbf{a}_1 + 3\mathbf{a}_2 &= \begin{bsmallmatrix} 7\\6 \end{bsmallmatrix}
+\end{work}
   \item Is the column space $C(A)$ a line or the whole plane? Explain how you can tell from the
         columns. \writeline
   \item For each matrix, decide whether its column space is a \textbf{line} or the whole
@@ -41,11 +47,18 @@ For Problems 1--2, let $A = \begin{bmatrix} 1 & 2 \\ 3 & 1 \end{bmatrix}$. Show 
       \item Is $\begin{bsmallmatrix} 1 \\ 0 \end{bsmallmatrix}$ in $C\!\left(\begin{bsmallmatrix} 1 & 2 \\ 2 & 4 \end{bsmallmatrix}\right)$?
     \end{enumerate}
     \writelines{2}
+  \tcbbreak
   \item A workshop builds two kits as columns of $A=\begin{bmatrix} 3 & 1 \\ 1 & 2 \end{bmatrix}$,
         each listing $\begin{bsmallmatrix} \text{bolts} \\ \text{brackets} \end{bsmallmatrix}$ per kit.
-    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=6pt]
+    \begin{enumerate}[label=(\alph*), leftmargin=1.8em, itemsep=5pt]
       \item Compute $A\begin{bsmallmatrix} 2 \\ 1 \end{bsmallmatrix}$ and say what it means in
-            bolts and brackets. \vspace{0.9cm}
+            bolts and brackets.
+\begin{work}
+  A\begin{bsmallmatrix} 2\\1 \end{bsmallmatrix}
+      &= 2\begin{bsmallmatrix} 3\\1 \end{bsmallmatrix} + 1\begin{bsmallmatrix} 1\\2 \end{bsmallmatrix} \\
+      &= \begin{bsmallmatrix} 7\\4 \end{bsmallmatrix}
+\end{work}
+            \writeline
       \item Can the workshop hit \emph{any} target of bolts and brackets by choosing how many of
             each kit? Explain using the columns. \writeline
     \end{enumerate}

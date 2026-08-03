@@ -7,10 +7,10 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-08-02 — **Retrofitted the five pagination conventions onto ALL of Unit 2 in one run: Lessons 2.0–2.4
-(`unit02/lesson00` … `unit02/lesson04`).** Every component now equals its key, all five plans carry their migrated teacher notes,
-and 99 `work` blocks replaced the drift-prone `\vspace`/`\ans` pairs. Details in "Unit 2 retrofit" immediately below. Prior runs:
-the Unit 1 cover sheet and the Lesson 1.0–1.4 retrofits, both detailed further down.
+**Last updated:** 2026-08-03 — **Authored `unit02/unit_cover/main.tex`, the course's second unit cover sheet.** Built from the
+Unit 1 model; 1 page, zero over/underfull boxes; both Unit 2 packets now lead with it at 74pp each. Details in "Unit cover sheets"
+below. Prior runs: the Unit 2 five-convention retrofit (Lessons 2.0–2.4), the Unit 1 cover sheet, and the Lesson 1.0–1.4 retrofits,
+all detailed further down.
 
 ---
 
@@ -132,9 +132,25 @@ Matrices / Unit Overview…", p2 = Lesson 1.0's own cover); `make -C unit01 key`
 1-page student/key difference is **pre-existing and at the tail** — `sample_test` is 3pp against a 2pp `sample_test_key`, exactly the
 one gap `unit.mk`'s own comment allows; the cover changes nothing about blank/key alignment.
 
-**Not done (deliberately out of scope for this run):** Units 2–8 have no `unit_cover/`. Adding them is a per-unit authoring job —
-copy `unit01/unit_cover/main.tex`, swap the banner title, overview, lesson rows, big ideas, and the LAfE chapter reference, then
-re-check the 1-page fit.
+**Verified (Unit 2 cover, 2026-08-03):** `make -C unit02 _unit_cover` exits 0; `unit_cover.pdf` is **1 page**, **zero**
+overfull/underfull `\hbox`. `make -C unit02 student` → **74pp**, `make -C unit02 key` → **74pp** (Unit 2 is aligned end to end,
+unlike Unit 1's 74/73), cover as p1 of both, Lesson 2.0's own cover as p2.
+
+**Two things the Unit 2 cover added to the model:**
+
+- **Math in the banner needs `\mbox`.** `Unit 2: Solving Linear Equations $A\xx=\bb$` set bare inside the tikz `\node` had its
+  math relation glue stretched across the `text width=\paperwidth`, printing as `Ax   =   b` with visible gaps. Wrapping it —
+  `\mbox{$A\xx = \bb$}` — fixes it. **Any future unit cover whose title carries math must `\mbox` it** (Units 3, 6, 7 will).
+- **The 1-page budget is real and the `remindbox` is what spills.** First draft was 2pp with *only* the `remindbox` on p2 —
+  same failure mode as Unit 1's first draft. What bought it back, with the table and `\vspace`s left at the Unit 1 values:
+  trimming the overview from ~10 printed lines to **8**, and tightening two Big Ideas bullets from 3 printed lines to 2.
+  Confirms the budget: **overview ~8 lines, one table row per lesson, 5 bullets, 1 remindbox.**
+
+**Not done (deliberately out of scope for this run):** Units 3–8 have no `unit_cover/`. Adding them is a per-unit authoring job —
+copy `unit02/unit_cover/main.tex` (now the better model — it has the `\mbox` fix), swap the banner title, overview, lesson rows,
+big ideas, and the LAfE chapter reference, then re-check the 1-page fit. Lesson counts on disk: Units 1, 2, 4, 6, 7, 8 have **5**
+each (a 5-row table fits, as proven twice), **Unit 5 has 4**, and **Unit 3 has 7** — Unit 3's cover will need shorter Focus cells
+or fewer Big Ideas bullets to hold one page.
 
 ---
 
@@ -1447,8 +1463,9 @@ $N(A)$, special solutions, $\dim N(A)=n-r$ (macro `\ss` collides with ß → use
   previews Unit 2 (solving $A\mathbf x=\mathbf b$).
 - `unit01/tests` (practice + actual) + `unit01/test_keys` (both keys) — **authored ✅ & built**;
   `sample_test`/`sample_test_key` populated by `drop` (practice test + key).
-- `unit01/unit_cover/main.tex` — **authored ✅ & built (2026-08-02), the course's only unit cover so far** and the model for the rest.
-  1pp; leads both `unit01_student.pdf` and `unit01_key.pdf`. See "Unit cover sheets" at the top of this log.
+- `unit01/unit_cover/main.tex` — **authored ✅ & built (2026-08-02), the course's first unit cover.** 1pp; leads both
+  `unit01_student.pdf` and `unit01_key.pdf`. See "Unit cover sheets" at the top of this log. (`unit02/unit_cover/main.tex`,
+  2026-08-03, is now the better copy-from model — it carries the banner `\mbox` fix.)
 - Root `Makefile` and `unit01/Makefile` created. Toolchain present (xelatex, latexmk, pdfunite).
 
 **Unit 2 — lessons 2.0–2.4 AND the summative tests all authored & built. Unit 2 complete.**
@@ -1486,6 +1503,9 @@ Confirmed lesson map:
   homework extension $A^{\mathsf T}A$ symmetric; previews Unit 2 test then Unit 3.
 - `unit02/tests` (practice + actual) + `unit02/test_keys` (both keys) — **authored ✅ & built**;
   `sample_test`/`sample_test_key` populated by `drop` (practice test + key). `unit02/Makefile` present.
+- `unit02/unit_cover/main.tex` — **authored ✅ & built (2026-08-03), the course's second unit cover** and the model to copy from
+  (it carries the banner `\mbox` fix). 1pp, zero over/underfull; leads both `unit02_student.pdf` and `unit02_key.pdf`, **74pp each
+  — Unit 2 is aligned end to end.** See "Unit cover sheets" at the top of this log.
 
 **Unit 3 — COMPLETE: lessons 3.0–3.6 AND the summative tests all authored & built.** Confirmed lesson map (6 lessons):
 - `unit03/lesson00` — id 3.0, **"Sets of Vectors and the Road to Subspaces"** (intro) — ✅ authored
@@ -1570,9 +1590,10 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
    then 8.4 ("Mean, Variance, and Covariance"). Unit 8 tests are scaffolded skeletons — author them last only if the user wants
    Unit 8 assessed (it is enrichment, "no expectation of testing"). Lessons 8.0/8.1/8.2 are the Unit 8 models; Unit 4/5/6/7
    tests are the assessment-format model; Lesson 4.0 the cross-unit style model.
-2. **Unit covers for Units 2–8** — only Unit 1 has one. Copy `unit01/unit_cover/main.tex` per unit and swap the banner title,
-   overview paragraph, lesson rows, big ideas, and LAfE chapter/sections; keep `\pagestyle{empty}`; re-verify 1 page with `pdfinfo`
-   (units with 6–7 lessons will need tighter Focus cells). Ask the user first whether they want all seven.
+2. **Unit covers for Units 3–8** — Units 1 and 2 have one. Copy `unit02/unit_cover/main.tex` per unit and swap the banner title,
+   overview paragraph, lesson rows, big ideas, and LAfE chapter/sections; keep `\pagestyle{empty}`; `\mbox` any math in the banner
+   title; re-verify 1 page with `pdfinfo` (Unit 3's 7 lessons will need tighter Focus cells). Ask the user first whether they want
+   all six.
 3. *(optional)* Rebuild the whole-course packets (`make -C unitXX student|full`, or `make student|full` at the root) to
    confirm every unit's `sample_test`/`sample_test_key` drop-ins (now incl. Unit 7) merge in as expected.
 

@@ -1,0 +1,65 @@
+%! Linear Algebra — Unit 1 Cover Sheet + Exam Scoring Notes (key packet, 2pp)
+%
+% Page 1 is ../unit_cover/body.tex, shared byte-identically with the student
+% cover — edit the cover there, never here.
+%
+% Page 2 carries the teacher notes for BOTH unit assessments (practice test and
+% unit test). They used to sit at the foot of each *_test_key, the one block in a
+% key with no counterpart in its blank. This document is merged into the unit KEY
+% packet only, so the rationale and the scoring never reach a student packet.
+% Page 2 must stay ONE page: cover + notes = a single double-sided sheet.
+\documentclass[10pt]{article}
+\usepackage{linalg-article}
+\usepackage{linalg-boxes}
+
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+
+%=============================================================================
+\begin{document}
+\input{../unit_cover/body.tex}
+
+\newpage
+% ── Page 2 — exam scoring notes (teacher only) ───────────────────────────────
+\begin{headlinebox}{burgundy}{\color{white}\bfseries Unit 1 --- Exam Scoring Notes (Teacher Copy)}\end{headlinebox}
+
+\vspace{4pt}
+\noindent\small
+Answer rationale and Part D scoring for both Unit 1 assessments. This page is bound into the
+\textbf{key packet only} --- the practice test itself is in the student packet, so keep this sheet
+off the student copy. The two forms are parallel: same structure and ideas, different numbers.
+
+\vspace{6pt}
+
+\begin{teachernote}[Practice Test --- Part B]
+Item 2: parallel columns ($\begin{bsmallmatrix}3\\6\end{bsmallmatrix}=3\begin{bsmallmatrix}1\\2\end{bsmallmatrix}$)
+span only a line. Item 4: rank $1$ because column~2 is $2\times$ column~1. Watch for students
+picking (A) ``rows'' in item~3 --- reinforce that $A\xx$ combines \emph{columns}.
+\end{teachernote}
+
+\begin{teachernote}[Practice Test --- Part D Scoring (5 pts each)]
+Award full credit only when the student both gives the correct result and \emph{justifies} it.
+D1: 2 pts (a) independence $\Rightarrow$ plane; 2 pts (b) correct weights $c=2,d=1$; 1 pt (c)
+parallel $\Rightarrow$ line/rank~1. D2: 2 pts the computation $\uu\cdot\vv=0$; 3 pts interpreting
+$0\Rightarrow$ perpendicular $\Rightarrow$ unrelated, with the sign meaning. Full-credit language
+for the arc: \emph{combine columns $\to$ span $\to$ line vs.\ plane $\to$ reachability}.
+\end{teachernote}
+
+\begin{teachernote}[Unit Test --- Part B]
+Item 2: $\begin{bsmallmatrix}4\\2\end{bsmallmatrix}=2\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$
+(parallel) $\Rightarrow$ line. Item 4: rank $1$ because column~2 is $2\times$ column~1. Item 6:
+independent columns $\Rightarrow$ column space is all of $\mathbb R^2$.
+\end{teachernote}
+
+\begin{teachernote}[Unit Test --- Part D Scoring (5 pts each)]
+Award full credit only when the student both gives the correct result and \emph{justifies} it.
+D1: 2 pts (a) independence $\Rightarrow$ plane; 2 pts (b) correct weights $c=2,d=1$; 1 pt (c)
+parallel $\Rightarrow$ line/rank~1. D2: 2 pts the computation $\uu\cdot\vv=0$; 3 pts interpreting
+$0\Rightarrow$ perpendicular $\Rightarrow$ unrelated, with the sign meaning. This mirrors the
+practice test item-for-item with new numbers.
+\end{teachernote}
+
+\end{document}

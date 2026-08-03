@@ -156,8 +156,15 @@ The plan closes with one note per component, in packet order, each titled for it
 \begin{teachernote}[Homework]       ... \end{teachernote}
 ```
 
-**Exemption:** unit tests (`unitXX/test_keys/`) and the course finals (`finals/*_key/`) are not
-page-matched into a student packet, so their keys keep scoring guidance in a `teachernote`.
+**There is no exemption — this applies to assessment keys too.** A unit test's answer rationale
+and Part D scoring go on **page 2 of `unitXX/unit_cover_key/main.tex`**, not at the foot of
+`practice_test_key`/`actual_test_key`. That document shares its page 1 with the student cover by
+`\input`-ing the same `unit_cover/body.tex` (so the two can never drift) and is merged by
+`shared/unit.mk` into the **key packet only** — which matters, because the practice test *is*
+bound into the student packet, and its rationale must not ride along. One unit, one notes page:
+cover + notes = a single double-sided sheet. A unit with no `unit_cover_key/` falls back to the
+plain cover in both packets. The course finals (`finals/*_key/`) are merged into no packet at
+all and have no cover, so their scoring notes stay in the key.
 
 The environment now lives in **`linalg-boxes`** (the lesson plan does not load `-key`) and the title
 argument is **optional** — a bare `\begin{teachernote}` still renders plain "Teacher Note", so the

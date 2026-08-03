@@ -1,4 +1,12 @@
 %! Unit 1: Vectors and Matrices — Summative Assessment — Practice Test --- Study Copy (KEY)
+%
+% THE WORK RULE: every \begin{work} block below is authored byte-identically in
+% ../../tests/practice_test/main.tex. There it ships as a \vphantom of the same
+% height; here linalg-key makes it visible in keyred. Edit a work block in BOTH
+% files or in neither — that is what keeps this key the same length as its blank.
+%
+% Teacher prose (Part B rationale, Part D scoring) is NOT here: it lives on page 2
+% of ../../unit_cover_key/main.tex, which reaches the key packet only.
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
@@ -83,12 +91,6 @@ Circle the best answer.
     \phantom{x}\hfill (C) $\bb$ is a unit vector \quad (D) $\bb$ is perpendicular to every column
 \end{enumerate}
 
-\begin{teachernote}
-Item 2: parallel columns ($\begin{bsmallmatrix}3\\6\end{bsmallmatrix}=3\begin{bsmallmatrix}1\\2\end{bsmallmatrix}$)
-span only a line. Item 4: rank $1$ because column~2 is $2\times$ column~1. Watch for students
-picking (A) ``rows'' in item~3 --- reinforce that $A\xx$ combines \emph{columns}.
-\end{teachernote}
-
 % ======================================================================
 \parthead{Part C --- Short Answer \& Computation (30 pts)}
 Show your work.
@@ -97,58 +99,99 @@ Show your work.
   \item Let $\vv=\begin{bsmallmatrix}3\\4\end{bsmallmatrix}$ and
         $\ww=\begin{bsmallmatrix}-1\\2\end{bsmallmatrix}$. Compute
         \textbf{(a)} $\vv+\ww$, \quad \textbf{(b)} $2\vv-\ww$, \quad \textbf{(c)} $\|\vv\|$.
-        \ans{(a) $\begin{bsmallmatrix}2\\6\end{bsmallmatrix}$; \ (b) $\begin{bsmallmatrix}6\\8\end{bsmallmatrix}-\begin{bsmallmatrix}-1\\2\end{bsmallmatrix}=\begin{bsmallmatrix}7\\6\end{bsmallmatrix}$; \ (c) $\|\vv\|=\sqrt{3^2+4^2}=\sqrt{25}=5$.}
+        \begin{work}
+          \vv+\ww &= \begin{bmatrix}3\\4\end{bmatrix}+\begin{bmatrix}-1\\2\end{bmatrix}
+                   = \begin{bmatrix}2\\6\end{bmatrix} \\
+          2\vv-\ww &= \begin{bmatrix}6\\8\end{bmatrix}-\begin{bmatrix}-1\\2\end{bmatrix}
+                   = \begin{bmatrix}7\\6\end{bmatrix} \\
+          \|\vv\| &= \sqrt{3^2+4^2} = \sqrt{25} = 5
+        \end{work}
   \item Write the unit vector that points the same direction as
         $\vv=\begin{bsmallmatrix}3\\4\end{bsmallmatrix}$.
-        \ans{$\dfrac{1}{5}\begin{bsmallmatrix}3\\4\end{bsmallmatrix}=\begin{bsmallmatrix}3/5\\4/5\end{bsmallmatrix}$ (divide by the length $5$).}
+        \begin{work}
+          \|\vv\| &= 5 \\
+          \frac{\vv}{\|\vv\|} &= \frac{1}{5}\begin{bmatrix}3\\4\end{bmatrix}
+                   = \begin{bmatrix}3/5\\4/5\end{bmatrix}
+        \end{work}
   \item Let $\uu=\begin{bsmallmatrix}4\\2\end{bsmallmatrix}$ and
         $\vv=\begin{bsmallmatrix}-1\\2\end{bsmallmatrix}$. Compute $\uu\cdot\vv$, then state
         whether $\uu$ and $\vv$ are perpendicular and how you know.
-        \ans{$\uu\cdot\vv=(4)(-1)+(2)(2)=-4+4=0$. Yes, perpendicular: the dot product is $0$.}
+        \begin{work}
+          \uu\cdot\vv &= (4)(-1)+(2)(2) \\
+                      &= -4+4 = 0 \\
+                      &\Rightarrow\ \text{perpendicular --- the dot product is }0
+        \end{work}
   \item Find weights $c$ and $d$ so that
         $c\begin{bsmallmatrix}2\\1\end{bsmallmatrix}+d\begin{bsmallmatrix}1\\3\end{bsmallmatrix}
          =\begin{bsmallmatrix}5\\5\end{bsmallmatrix}$.
-        \ans{$2c+d=5,\ c+3d=5 \Rightarrow c=2,\ d=1$. Check: $2\begin{bsmallmatrix}2\\1\end{bsmallmatrix}+\begin{bsmallmatrix}1\\3\end{bsmallmatrix}=\begin{bsmallmatrix}5\\5\end{bsmallmatrix}$.}
+        \begin{work}
+          2c+d &= 5 \\
+          c+3d &= 5 \\
+          c &= 2, \quad d = 1 \\
+          2\begin{bmatrix}2\\1\end{bmatrix}+1\begin{bmatrix}1\\3\end{bmatrix}
+            &= \begin{bmatrix}5\\5\end{bmatrix}
+        \end{work}
   \item Let $A=\begin{bsmallmatrix}1&2\\3&1\end{bsmallmatrix}$ and
         $\xx=\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$. Compute $A\xx$ \emph{as a combination
         of the columns of $A$}.
-        \ans{$A\xx=2\begin{bsmallmatrix}1\\3\end{bsmallmatrix}+1\begin{bsmallmatrix}2\\1\end{bsmallmatrix}=\begin{bsmallmatrix}2\\6\end{bsmallmatrix}+\begin{bsmallmatrix}2\\1\end{bsmallmatrix}=\begin{bsmallmatrix}4\\7\end{bsmallmatrix}$.}
+        \begin{work}
+          A\xx &= 2\begin{bmatrix}1\\3\end{bmatrix}+1\begin{bmatrix}2\\1\end{bmatrix} \\
+               &= \begin{bmatrix}2\\6\end{bmatrix}+\begin{bmatrix}2\\1\end{bmatrix}
+                = \begin{bmatrix}4\\7\end{bmatrix}
+        \end{work}
   \item Factor $A=\begin{bsmallmatrix}1&2&3\\2&1&3\end{bsmallmatrix}$ as $A=CR$. Which columns are
         independent? Write $C$, build the recipe $R$, and give the rank.
-        \ans{Columns~1 and~2 are independent; column~3 $=\begin{bsmallmatrix}1\\2\end{bsmallmatrix}+\begin{bsmallmatrix}2\\1\end{bsmallmatrix}=\begin{bsmallmatrix}3\\3\end{bsmallmatrix}$. So $C=\begin{bsmallmatrix}1&2\\2&1\end{bsmallmatrix}$, $R=\begin{bsmallmatrix}1&0&1\\0&1&1\end{bsmallmatrix}$, rank $2$.}
+        \begin{work}
+          \text{col }3 &= \begin{bmatrix}1\\2\end{bmatrix}+\begin{bmatrix}2\\1\end{bmatrix}
+                        = \begin{bmatrix}3\\3\end{bmatrix}
+                        \quad \text{(columns }1,2\text{ independent)} \\
+          C &= \begin{bmatrix}1&2\\2&1\end{bmatrix}, \quad
+              R = \begin{bmatrix}1&0&1\\0&1&1\end{bmatrix} \\
+          \text{rank} &= 2
+        \end{work}
+  \boxguard[14]
   \item Let $A=\begin{bsmallmatrix}1&2\\2&4\end{bsmallmatrix}$. For each target, say whether it is
         reachable as $A\xx$ (is it in the column space?) and justify in one line.
         \textbf{(a)} $\bb=\begin{bsmallmatrix}3\\6\end{bsmallmatrix}$ \quad
         \textbf{(b)} $\bb=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$
-        \ans{Both columns are multiples of $\begin{bsmallmatrix}1\\2\end{bsmallmatrix}$, so $C(A)$ is that line. (a) Reachable: $\begin{bsmallmatrix}3\\6\end{bsmallmatrix}=3\begin{bsmallmatrix}1\\2\end{bsmallmatrix}$. (b) Not reachable: $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ is not a multiple of $\begin{bsmallmatrix}1\\2\end{bsmallmatrix}$ (it is off the line).}
+        \begin{work}
+          C(A) &= \text{the line through } \begin{bmatrix}1\\2\end{bmatrix} \\
+          \text{(a)}\quad \begin{bmatrix}3\\6\end{bmatrix}
+            &= 3\begin{bmatrix}1\\2\end{bmatrix} \quad \text{reachable} \\
+          \text{(b)}\quad \begin{bmatrix}1\\1\end{bmatrix}
+            &\ne c\begin{bmatrix}1\\2\end{bmatrix} \quad \text{not reachable}
+        \end{work}
 \end{enumerate}
 
 % ======================================================================
 \parthead{Part D --- Extended Response (10 pts)}
 Explain your reasoning in full sentences.
 
-\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+\begin{enumerate}[leftmargin=1.9em, itemsep=14pt]
   \item A matrix $A=\begin{bsmallmatrix}1&2\\1&3\end{bsmallmatrix}$ has columns
         $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ and $\begin{bsmallmatrix}2\\3\end{bsmallmatrix}$.
         \textbf{(a)} Is the column space a line or the whole plane? How do you know?
         \textbf{(b)} Is $\bb=\begin{bsmallmatrix}4\\5\end{bsmallmatrix}$ reachable? If so, find the
         weights. \textbf{(c)} If the second column were changed to
         $\begin{bsmallmatrix}2\\2\end{bsmallmatrix}$, what would happen to the column space, and why?
-        \ans{(a) The whole plane: the two columns are not multiples of each other (independent), so their span is all of $\mathbb R^2$. (b) Reachable --- $c\begin{bsmallmatrix}1\\1\end{bsmallmatrix}+d\begin{bsmallmatrix}2\\3\end{bsmallmatrix}=\begin{bsmallmatrix}4\\5\end{bsmallmatrix}$ gives $c+2d=4,\ c+3d=5\Rightarrow d=1,\ c=2$. (c) Then column~2 $=\begin{bsmallmatrix}2\\2\end{bsmallmatrix}=2\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ is parallel to column~1, so the columns collapse to one direction and $C(A)$ shrinks to a \emph{line} (rank drops to $1$).}
+        \ansline{(a) The whole plane --- the columns are not multiples, so they span $\mathbb R^2$.}
+        \begin{work}
+          c\begin{bmatrix}1\\1\end{bmatrix}+d\begin{bmatrix}2\\3\end{bmatrix}
+            &= \begin{bmatrix}4\\5\end{bmatrix} \\
+          c+2d &= 4 \\
+          c+3d &= 5 \\
+          d &= 1, \quad c = 2
+        \end{work}
+        \ansline{(c) Column $2$ becomes $2\times$ column $1$, so $C(A)$ shrinks to a line (rank $1$).}
   \item Two viewers' taste profiles are $\uu=\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$ and
         $\vv=\begin{bsmallmatrix}-1\\2\end{bsmallmatrix}$. Compute $\uu\cdot\vv$ and explain what the
         result says about how similar the two viewers' tastes are, using what you know about the
         sign of a dot product.
-        \ans{$\uu\cdot\vv=(2)(-1)+(1)(2)=0$. A zero dot product means the profiles are perpendicular --- neither aligned nor opposed --- so the two viewers' tastes are essentially \emph{unrelated} (no shared preference direction). A positive dot would mean similar tastes, a negative dot opposite tastes.}
+        \begin{work}
+          \uu\cdot\vv &= (2)(-1)+(1)(2) = 0
+        \end{work}
+        \ansline{Zero means perpendicular --- neither aligned nor opposed, so tastes are unrelated.}
+        \ansline{A positive dot would mean similar tastes; a negative dot, opposite tastes.}
 \end{enumerate}
-
-\begin{teachernote}
-\textbf{Scoring Part D (5 pts each).} Award full credit only when the student both gives the
-correct result and \emph{justifies} it. D1: 2 pts (a) independence $\Rightarrow$ plane;
-2 pts (b) correct weights $c=2,d=1$; 1 pt (c) parallel $\Rightarrow$ line/rank~1. D2: 2 pts the
-computation $\uu\cdot\vv=0$; 3 pts interpreting $0\Rightarrow$ perpendicular $\Rightarrow$
-unrelated, with the sign meaning. Full-credit language for the arc: \emph{combine columns $\to$
-span $\to$ line vs.\ plane $\to$ reachability}.
-\end{teachernote}
 
 \end{document}

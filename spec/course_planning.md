@@ -7,10 +7,93 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-08-03 — **Authored `unit02/unit_cover/main.tex`, the course's second unit cover sheet.** Built from the
-Unit 1 model; 1 page, zero over/underfull boxes; both Unit 2 packets now lead with it at 74pp each. Details in "Unit cover sheets"
-below. Prior runs: the Unit 2 five-convention retrofit (Lessons 2.0–2.4), the Unit 1 cover sheet, and the Lesson 1.0–1.4 retrofits,
-all detailed further down.
+**Last updated:** 2026-08-03 (later) — **Retrofitted the Unit 1 and Unit 2 summative TESTS with teachernote → work rule → boxguard,
+and retired the test-key `teachernote` exemption course-wide.** All four practice/actual pairs now come out **3pp blank = 3pp key**,
+breaking at identical points; the eight test keys carry no teacher prose at all — it moved to a new **page 2 of
+`unitXX/unit_cover_key/`**, which `shared/unit.mk` merges into the **key packet only**. Details in "Unit 1–2 test retrofit" directly
+below. Prior runs: the Unit 2 cover sheet, the Unit 2 five-convention retrofit (Lessons 2.0–2.4), the Unit 1 cover sheet, and the
+Lesson 1.0–1.4 retrofits, all detailed further down.
+
+---
+
+## Unit 1–2 test retrofit (`tests/` + `test_keys/`) — 2026-08-03
+
+**Scope:** the user asked for the conventions on "the unit sample and actual tests" for **Units 1 and 2 only** — 8 files
+(`practice_test`, `actual_test`, and their keys). Order run: **teachernote → work rule → boxguard** (vocabpar and namestrip do not
+apply: tests have no `vocabbox`, and they legitimately keep their name row).
+
+**Baseline — measure, don't assume.** U1 practice 3pp/2pp **mismatch** (this was the long-standing `unit01` 74/73 packet gap),
+U1 actual 2/2 aligned, U2 practice 3/3 aligned, U2 actual 3pp/2pp **mismatch**. All 32 course test files opened with **zero** `work`
+blocks and **zero** `\boxguard`; every blank carried the drift-prone 13-`\vspace` pattern against inline `\ans` in the key.
+
+**1. teachernote — the exemption is GONE, and a new home was built for the prose.**
+
+- `references/conventions.md` used to exempt unit-test keys ("not page-matched into a student packet, so their keys keep scoring
+  guidance in a `teachernote`"). **That premise was wrong in one direction that matters:** `unit.mk` substitutes `sample_test_key`
+  for `sample_test` at the tail of the key packet, so a longer key *does* cost packet alignment. The user's call: no exemption;
+  all teacher notes leave the keys.
+- **The destination is a new `unitXX/unit_cover_key/main.tex`** — page 1 is the existing cover, page 2 is all four scoring notes
+  (practice + actual, Part B rationale + Part D scoring), so **cover + notes = one double-sided teacher sheet**.
+- **The leak this had to avoid, and how.** The unit cover is merged into **both** packets, so simply appending page 2 would have put
+  the practice test's own answer rationale ("rank $1$ because column 2 is $2\times$ column 1") and Part D weights ($c=2,d=1$) into
+  every **student** packet — the practice test is bound in there. Fix: `unit_cover/main.tex` stays the 1pp student cover;
+  `unit_cover_key/main.tex` is the 2pp teacher form; **both `\input` a shared `unit_cover/body.tex`** so page 1 is
+  byte-identical by construction (verified pixel-identical at 60 dpi). `shared/unit.mk` gained `HAS_UNIT_COVER_KEY` and a
+  `_unit_cover_key` rule, and the `key` target now uses `$(or $(UNIT_COVER_KEY_PDF),$(UNIT_COVER_PDF))` — **a unit with no
+  `unit_cover_key/` falls back to the plain cover in both packets, so Units 3–8 are untouched** (dry-run confirmed on unit03).
+- 8 notes removed from the four test keys; 4 titled notes now on each cover key. **`movenotes.py` was not usable** — it only targets
+  a lesson directory, and a unit test has no lesson plan. Done by hand.
+- **`finals/*_key/` keeps its notes** and is called out as such in the docs: `finals/` has no cover and is merged into no packet, so
+  there is nowhere to move them and nothing to gain. **This is the one loose end from the "no exemption" decision.**
+
+**2. work rule — 36 byte-identical `work` blocks (9 per file), checksum-verified.** They replaced the
+`\vspace{1.2–2.6cm}`-in-blank / inline-`\ans`-in-key pattern and unified the hand-tuned `itemsep` drift (Part C 13pt/12pt → 12pt,
+Part D 16pt/12pt → 14pt). Removing the teachernotes had *shortened* the keys and pushed **U2 practice from aligned into 3/2**, so
+three of four pairs were mismatched going in; the work rule closed **all three**, and took U1 actual 2/2 → 3/3 (more writing room,
+still aligned). All Part C/D arithmetic was **re-verified in pure Python for both forms before authoring — 48/48 checks pass.**
+
+**Two findings worth carrying forward:**
+
+- **(j) The `work` block does NOT drift — prove it before blaming it.** Mid-run the key looked ~6.6pt taller per item. An isolation
+  smoke doc (same block, `-boxes` vs `-key`) measured the reserved gap at **104.98pt on both sides, identical**. The apparent drift
+  was ordinary page glue: `\abovedisplayskip`/`\belowdisplayskip` are rubber, so a page that must squeeze shrinks them. **Measure
+  the block in isolation before editing anything.**
+- **(k) The real prose drift is `\writeline` vs `\ansline`, and it is ~12.4pt every time.** `\writeline` is a bare rule (~4pt line);
+  `\ansline{text}` is a full text line. Two of them in Part C were enough to tip an item over a page edge. **The fix that beats
+  `\writelines{n}`: fold short prose answers into the shared `work` block as a `\text{}` row** — byte-identical, zero drift. Applied
+  to Unit 1 Part C (Unit 2's Part C was already fully in work blocks). Part D's prose pairs were left as `\writeline`/`\ansline`:
+  they sit on p3 with slack and move no break.
+
+**3. boxguard — 12 guards, all mirrored blank and key, all free (no page gained).**
+
+- **`\boxguard[12]` before `\parthead{Part C}` on both *actual* tests** (4 files). Part C was opening at the foot of p1, splitting
+  item 1's prompt from the space for its answer. Now both actual tests match the practice form: Parts A+B on p1, Part C on p2,
+  Part D on p3.
+- **`\boxguard[14]` before the last Part C item on all 8 files.** Same defect, one page later: the final item's prompt sat at the
+  foot of p2 with its answer block atop p3. Now that item is whole at the top of p3 on both sides.
+- **`\boxguard` works between `\item`s** (vertical mode after a `work` block's `\par`) — placed on its own line before the `\item`.
+  Worth knowing: the documented sites so far were all before a `tcolorbox`.
+- **No `\tcbbreak` was needed** — the only boxes in a test are the `remindbox` and the `\parthead` strips, and none was ever
+  stranded as a sliver.
+
+**(e) confirmed, with a trap:** `pdftotext` reports only *visible* words, and a blank's `work` blocks have **no text layer by
+design** — so a first-words comparison makes blank and key look like they break differently when they do not. **Compare a marker
+that prints on both sides** (the Part D strip): it lands at an **identical y on an identical page in all four pairs.**
+
+**Verified:** `make -C unitXX/tests all` and `make -C unitXX/test_keys all` exit 0 for both units and republished all four
+`sample_test*/main.pdf`; every pair **3pp/3pp**; 36/36 work blocks byte-identical by checksum; **zero** `\ans` inside `$...$`;
+**zero** `teachernote` in any test key (4 on each cover key); max overfull `\hbox` **10.77pt** (the standard pageheader banner);
+both cover keys **2pp** with page 1 pixel-identical to the student cover; and `pdftotext` on all four **blanks** finds **zero**
+solution strings (against 677/647/732/683 words of real prompt text, and a key control that does hit). **Leak check: "Exam Scoring
+Notes" appears 0 times in either student packet and on p2 of both key packets.** Unit packets rebuilt: **unit01 74/75 and unit02
+74/75** — key = student + exactly the one teacher-notes page, with the sample-test pair now 3/3 on both sides, so **Unit 1's
+old 74/73 deficit is gone**. `git status` shows only the 12 edited sources, the 4 new files, and the 4 republished sample PDFs —
+nothing compiled in place.
+
+**Not done (out of scope this run):** Units 3–8 tests are still un-retrofitted (24 files, same uniform baseline: no `work`, no
+`\boxguard`, 13 `\vspace` per blank, 2 teachernotes per key) and Units 3–8 have no `unit_cover/` at all — **a unit needs one before
+its test notes have anywhere to go**, so cover-sheet authoring is now a prerequisite for the test retrofit there. `finals/` keys
+keep their teachernotes.
 
 ---
 
@@ -395,6 +478,10 @@ the solution; `\boxguard` demonstrated to push a box whole to the next page (box
 lines of preceding content); scaffolder output (`--unit 09 --lesson 01`) compiles — components carry no name row and the lesson plan
 is born with five titled `teachernote` stubs.
 
+**Note (2026-08-03):** the paragraph below counts *lessons* only. The Unit 1 and Unit 2 **tests** were retrofitted separately on
+2026-08-03 (teachernote → work rule → boxguard) — see "Unit 1–2 test retrofit" at the top. The teachernote debt figure below
+therefore no longer includes the 8 test keys, which now carry none.
+
 **Current state of the conventions across the course — 10 of 41 lessons retrofitted; Units 1 and 2 are both complete**
 (`unit01/lesson00` … `unit01/lesson04` and `unit02/lesson00` … `unit02/lesson04`; still no bulk sweep, by design — it would re-flow
 the pagination of every verified lesson at once). Remaining debt: **142** files still carry a `teachernote` in a `_key`, **310**
@@ -412,6 +499,10 @@ unitXX/lessonYY all` exits 0, every component's page count equals its `_key`'s, 
 sides. **Before touching a lesson, do the two cheap greps Unit 2 turned into standard practice:** diff `homework` against
 `homework_key` item by item (the answers-in-the-prompt defect is 10 for 10, and Unit 2 had it in *two* items per lesson), and
 `grep -n footnotesize` every `_key` (the key-only bracketed hint with no blank counterpart — 10 found in Unit 2).
+
+**Also outstanding, from the 2026-08-03 test retrofit:** Units 3–8 tests still need the same pass (24 files), but each of those
+units must first get a `unit_cover/` **and** a `unit_cover_key/` — that page 2 is now the only sanctioned home for a test key's
+scoring notes. Copy `unit02/unit_cover/` (body + wrapper) as the model. Units 1 and 2 tests are done.
 
 **What to expect on every retrofit — after ten lessons (Units 1 and 2):**
 

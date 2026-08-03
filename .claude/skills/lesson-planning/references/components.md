@@ -165,9 +165,9 @@ test keys too):
 - **Worked solutions go in a `\begin{work}` block, authored byte-identically in the blank and
   the key** (the work rule). The blank reserves the block's exact height and prints nothing; the
   key prints the same block in `keyred`, so the two cannot drift.
-- **No `teachernote` in a lesson component key.** It is the one block with no counterpart in the
-  blank, so it makes the key longer than the blank. Teacher prose goes in the lesson plan as
-  `\begin{teachernote}[Component]`. *(Unit tests and the finals are the exception — they are not
-  page-matched into a student packet, so their keys keep scoring notes in a `teachernote`.)*
+- **No `teachernote` in any key — lesson component, unit test, or final.** It is the one block
+  with no counterpart in the blank, so it makes the key longer than the blank. Teacher prose goes
+  in the lesson plan as `\begin{teachernote}[Component]`; a unit test's answer rationale and
+  scoring go on **page 2 of `unitXX/unit_cover_key/main.tex`**, which reaches the key packet only.
 - Because the key matches the blank line-for-line, the two paginate identically — verify by
   building both and comparing page counts.

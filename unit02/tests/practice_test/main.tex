@@ -1,4 +1,10 @@
 %! Unit 2: Solving Linear Equations Ax = b — Summative Assessment — Practice Test --- Study Copy (blank)
+%
+% THE WORK RULE: every work block below is authored byte-identically in
+% ../../test_keys/practice_test_key/main.tex. Here it ships as a \vphantom —
+% exact height, no ink, nothing in the text layer — so the student gets precisely
+% the room the answer needs and the two documents cannot drift in length.
+% Edit a work block in BOTH files or in neither.
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
@@ -83,50 +89,105 @@ Circle the best answer.
 \parthead{Part C --- Short Answer \& Computation (30 pts)}
 Show your work.
 
-\begin{enumerate}[leftmargin=1.9em, itemsep=13pt]
+\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
   \item Solve the system by \textbf{elimination}, then back-substitute and check. State the pivot and the
         multiplier you used.
         \[ x+2y=4, \qquad 3x+4y=10. \]
-        \vspace{1.8cm}
+        \begin{work}
+          \text{pivot} &= 1, \quad \ell = 3\div 1 = 3 \\
+          (4-6)y &= 10-12 \quad\Rightarrow\quad -2y = -2, \quad y = 1 \\
+          x+2(1) &= 4 \quad\Rightarrow\quad x = 2 \\
+          3(2)+4(1) &= 10 \quad\checkmark
+        \end{work}
   \item Row-reduce $A=\begin{bsmallmatrix}1&2&1\\2&5&3\\4&10&8\end{bsmallmatrix}$ to upper-triangular $U$.
         List the three multipliers and the pivots.
-        \vspace{2.4cm}
+        \begin{work}
+          R_2-2R_1,\ R_3-4R_1 &\Rightarrow
+            \begin{bmatrix}1&2&1\\0&1&1\\0&2&4\end{bmatrix} \\
+          R_3-2R_2 &\Rightarrow
+            U = \begin{bmatrix}1&2&1\\0&1&1\\0&0&2\end{bmatrix} \\
+          \ell_{21}=2,\ \ell_{31}=4,\ \ell_{32} &= 2, \quad \text{pivots } 1,\,1,\,2
+        \end{work}
   \item Let $A=\begin{bsmallmatrix}2&1\\3&2\end{bsmallmatrix}$. Use the $ad-bc$ formula to find $A^{-1}$,
         then check that $A^{-1}A=I$.
-        \vspace{1.8cm}
+        \begin{work}
+          ad-bc &= 2\cdot 2-1\cdot 3 = 1 \\
+          A^{-1} &= \frac{1}{1}\begin{bmatrix}2&-1\\-3&2\end{bmatrix}
+                  = \begin{bmatrix}2&-1\\-3&2\end{bmatrix} \\
+          A^{-1}A &= \begin{bmatrix}2&-1\\-3&2\end{bmatrix}\begin{bmatrix}2&1\\3&2\end{bmatrix}
+                  = \begin{bmatrix}1&0\\0&1\end{bmatrix} \quad\checkmark
+        \end{work}
   \item Using the inverse from the previous problem, solve $A\xx=\bb$ for
         $\bb=\begin{bsmallmatrix}3\\4\end{bsmallmatrix}$ (compute $\xx=A^{-1}\bb$).
-        \vspace{1.6cm}
+        \begin{work}
+          \xx &= \begin{bmatrix}2&-1\\-3&2\end{bmatrix}\begin{bmatrix}3\\4\end{bmatrix}
+               = \begin{bmatrix}6-4\\-9+8\end{bmatrix}
+               = \begin{bmatrix}2\\-1\end{bmatrix} \\
+          \begin{bmatrix}2&1\\3&2\end{bmatrix}\begin{bmatrix}2\\-1\end{bmatrix}
+            &= \begin{bmatrix}3\\4\end{bmatrix} \quad\checkmark
+        \end{work}
   \item Factor $A=\begin{bsmallmatrix}2&4\\6&7\end{bsmallmatrix}$ as $A=LU$. Write $L$ and $U$, then verify
         $LU=A$.
-        \vspace{1.8cm}
+        \begin{work}
+          \text{pivot} &= 2, \quad \ell = 6\div 2 = 3 \\
+          U &= \begin{bmatrix}2&4\\0&-5\end{bmatrix}, \quad
+              L = \begin{bmatrix}1&0\\3&1\end{bmatrix} \\
+          LU &= \begin{bmatrix}1&0\\3&1\end{bmatrix}\begin{bmatrix}2&4\\0&-5\end{bmatrix}
+               = \begin{bmatrix}2&4\\6&7\end{bmatrix} = A \quad\checkmark
+        \end{work}
   \item Using the $L$ and $U$ from the previous problem, solve $A\xx=\bb$ for
         $\bb=\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$ in \textbf{two sweeps}: first $L\cc=\bb$
         (forward), then $U\xx=\cc$ (back).
-        \vspace{1.8cm}
+        \begin{work}
+          L\cc=\bb:\quad c_1 &= 2, \quad 3c_1+c_2 = 1 \Rightarrow c_2 = -5 \\
+          \cc &= \begin{bmatrix}2\\-5\end{bmatrix} \\
+          U\xx=\cc:\quad -5x_2 &= -5 \Rightarrow x_2 = 1, \quad
+            2x_1+4 = 2 \Rightarrow x_1 = -1 \\
+          \xx &= \begin{bmatrix}-1\\1\end{bmatrix} \quad\checkmark
+        \end{work}
+  \boxguard[14]
   \item \textbf{(a)} The matrix $A=\begin{bsmallmatrix}0&2\\1&3\end{bsmallmatrix}$ has a $0$ in the top-left
         pivot spot. Write the permutation matrix $P$ that swaps the two rows, and give $PA$.
         \textbf{(b)} Write the transpose of $B=\begin{bsmallmatrix}1&2\\2&5\end{bsmallmatrix}$ and state
         whether $B$ is symmetric.
-        \vspace{1.8cm}
+        \begin{work}
+          P &= \begin{bmatrix}0&1\\1&0\end{bmatrix}, \quad
+              PA = \begin{bmatrix}1&3\\0&2\end{bmatrix} \\
+          B^{\mathsf T} &= \begin{bmatrix}1&2\\2&5\end{bmatrix} = B
+            \quad\Rightarrow\quad \text{symmetric}
+        \end{work}
 \end{enumerate}
 
 % ======================================================================
 \parthead{Part D --- Extended Response (10 pts)}
 Explain your reasoning in full sentences.
 
-\begin{enumerate}[leftmargin=1.9em, itemsep=16pt]
+\begin{enumerate}[leftmargin=1.9em, itemsep=14pt]
   \item Let $A=\begin{bsmallmatrix}1&2\\2&4\end{bsmallmatrix}$.
         \textbf{(a)} Compute $ad-bc$. Does $A$ have an inverse? What does that say about solving $A\xx=\bb$?
         \textbf{(b)} How many solutions does $A\xx=\begin{bsmallmatrix}3\\6\end{bsmallmatrix}$ have?
         \textbf{(c)} How many does $A\xx=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ have? Justify (b) and (c)
         using elimination or the row/line picture.
-        \vspace{2.6cm}
+        \begin{work}
+          ad-bc &= 1\cdot 4-2\cdot 2 = 0 \quad\Rightarrow\quad \text{singular, no inverse} \\
+          \text{(b)}\quad R_2-2R_1: \ 6-2(3) &= 0 \quad\Rightarrow\quad 0=0,
+            \ \text{infinitely many} \\
+          \text{(c)}\quad R_2-2R_1: \ 1-2(1) &= -1 \quad\Rightarrow\quad 0=-1,
+            \ \text{no solution}
+        \end{work}
+        \writeline
   \item Let $A=\begin{bsmallmatrix}1&2\\3&1\end{bsmallmatrix}$.
         \textbf{(a)} Compute $A^{\mathsf T}A$ and check that it is symmetric.
         \textbf{(b)} Explain why $A^{\mathsf T}A$ is \emph{always} symmetric for any matrix $A$, using the
         reversal rule $(AB)^{\mathsf T}=B^{\mathsf T}A^{\mathsf T}$.
-        \vspace{2.4cm}
+        \begin{work}
+          A^{\mathsf T}A &= \begin{bmatrix}1&3\\2&1\end{bmatrix}\begin{bmatrix}1&2\\3&1\end{bmatrix}
+                        = \begin{bmatrix}10&5\\5&5\end{bmatrix} \\
+          (A^{\mathsf T}A)^{\mathsf T} &= A^{\mathsf T}(A^{\mathsf T})^{\mathsf T}
+                        = A^{\mathsf T}A
+        \end{work}
+        \writeline
+        \writeline
 \end{enumerate}
 
 \end{document}

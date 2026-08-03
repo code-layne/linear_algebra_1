@@ -1,0 +1,103 @@
+%! Unit 2 cover sheet — the shared body.
+%
+% Authored ONCE and \input by both wrappers, so the student cover and the key
+% cover carry a byte-identical page 1 and cannot drift:
+%   unit_cover/main.tex      → this body alone (1pp, merged into the student packet)
+%   unit_cover_key/main.tex  → this body + the exam-scoring teacher notes on p2
+%                              (2pp, merged into the key packet only)
+%
+% unit.mk merges this sheet into the unit packet WITHOUT the packet-wide
+% pagination pass (that runs per lesson), so a folio here would print a stray
+% "1" ahead of Lesson 2.0's own page 1. The unit cover carries no number.
+\pagestyle{empty}
+
+% ── Full-bleed burgundy banner ───────────────────────────────────────────────
+% The header text is set INSIDE a tikz node anchored to the page so it can never
+% drift above the paper edge (a negative \vspace here pushes it off the sheet).
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[burgundy] (current page.north west)
+    rectangle ([yshift=-1.70in]current page.north east);
+  \node[anchor=north, align=center, inner sep=0pt, text width=\paperwidth]
+    at ([yshift=-0.32in]current page.north) {%
+      {\color{white}\bfseries\fontsize{30}{34}\selectfont Linear Algebra}\\[11pt]
+      {\color{blushmid}\bfseries\fontsize{19}{23}\selectfont Unit 2: Solving Linear Equations \mbox{$A\xx = \bb$}}\\[11pt]%
+    };
+\end{tikzpicture}
+
+% Push the body clear of the 1.70in banner (page top margin is 0.60in).
+\vspace*{1.32in}
+
+% ── Unit overview ────────────────────────────────────────────────────────────
+\begin{tcolorbox}[colback=blush,colframe=burgundy,boxrule=0.9pt,arc=2mm,
+    left=4mm,right=4mm,top=3mm,bottom=3mm]
+  \textbf{Unit Overview.}\quad
+  Unit 1 asked \emph{which} targets the columns of $A$ can reach. Unit 2 answers the harder
+  question: given a reachable target $\bb$, which combination $\xx$ reaches it? The tool is
+  \textbf{elimination} --- subtract a multiple of one equation from another until the system is
+  triangular, then back-substitute. Students then find that each step is itself a \emph{matrix},
+  that undoing a step means \emph{inverting} it, and that collecting the multipliers packages
+  the whole process as the factorization $A = LU$. The unit closes with the two repairs that
+  make the method work on any matrix: a \textbf{permutation} to move a zero out of a pivot
+  position, and the \textbf{transpose}.
+\end{tcolorbox}
+
+\vspace{0.13in}
+
+% ── Lessons in this unit ─────────────────────────────────────────────────────
+\renewcommand{\arraystretch}{1.32}
+\begin{skillbox}[Lessons in This Unit]{goldbox}
+\begin{tabularx}{\linewidth}{@{} c >{\bfseries\raggedright\arraybackslash}p{0.29\linewidth} X @{}}
+  \textbf{\#} & \textbf{Title} & \textbf{Focus} \\
+  \hline
+  2.0 & From Combinations to Solutions: Setting Up $A\xx=\bb$
+    & The same problem in two languages --- a combination of columns and a system of
+      equations; solving a $2\times 2$ system by hand; one, no, or infinitely many solutions \\
+  \hline
+  2.1 & The Idea of Elimination
+    & \textbf{Pivot} and \textbf{multiplier} $\ell = \text{entry} \div \text{pivot}$; clearing
+      to upper-triangular form and back-substituting; a zero pivot fixed by a row exchange \\
+  \hline
+  2.2 & Elimination Matrices and Inverse Matrices
+    & One elimination step written as a matrix $E$, with $E^{-1}$ undoing it; the $2\times 2$
+      inverse and $\xx = A^{-1}\bb$; a \textbf{singular} matrix ($ad-bc = 0$) has no inverse \\
+  \hline
+  2.3 & Matrix Computations and $A = LU$
+    & Elimination stored as a factorization: $U$ is the result, $L$ holds the multipliers;
+      solving in two sweeps, $L\cc=\bb$ then $U\xx=\cc$, for many right-hand sides \\
+  \hline
+  2.4 & Permutations and Transposes
+    & A \textbf{permutation matrix} $\PP$ swaps rows, giving $\PP A = LU$ when a pivot is zero;
+      the \textbf{transpose} $A^{\tp}$ and \textbf{symmetric} matrices, $A^{\tp} = A$ \\
+  \hline
+\end{tabularx}
+\end{skillbox}
+
+\vspace{0.11in}
+
+% ── Big ideas of the unit ────────────────────────────────────────────────────
+\begin{skillbox}[Big Ideas of Unit 2]{greenbox}
+\small
+\begin{itemize}[leftmargin=1.3em, itemsep=3pt, topsep=1pt]
+  \item Elimination does not change the answer. Every step replaces the system with an
+        \emph{easier system having the same solution} --- so the check is always to rebuild
+        $\bb$ from the original $A$.
+  \item \textbf{Triangular is easy.} The whole method is one idea: work toward a shape you can
+        solve by substitution, one unknown at a time.
+  \item Row operations \emph{are} matrices --- $E$ performs a step, $E^{-1}$ undoes it, $\PP$
+        reorders the rows --- so a procedure becomes an object you can factor.
+  \item $A = LU$ is elimination remembered. Doing the work once means the second right-hand
+        side costs almost nothing.
+  \item A \textbf{zero pivot} is information, not failure: swap rows if you can, and if no swap
+        helps, the matrix is \textbf{singular} --- no solution, or infinitely many.
+\end{itemize}
+\end{skillbox}
+
+\vspace{0.10in}
+
+\begin{remindbox}
+\small
+\textbf{Source.} Unit 2 follows Chapter 2 of Gilbert Strang's \emph{Linear Algebra for
+Everyone}, sections 2.1--2.4.\quad
+\textbf{Assessment.} The unit ends with a test; a full \textbf{practice test} is bound at the
+back of this packet.
+\end{remindbox}

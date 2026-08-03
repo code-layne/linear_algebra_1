@@ -1,4 +1,6 @@
-%! Linear Algebra — Unit 1 Cover Sheet
+%! Linear Algebra — Unit 1 Cover Sheet (student packet, 1pp)
+% The sheet itself lives in body.tex, shared byte-identically with
+% ../unit_cover_key/main.tex. Edit the cover THERE, never here.
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-boxes}
@@ -10,101 +12,5 @@
 
 %=============================================================================
 \begin{document}
-% unit.mk merges this sheet into the unit packet WITHOUT the packet-wide
-% pagination pass (that runs per lesson), so a folio here would print a stray
-% "1" ahead of Lesson 1.0's own page 1. The unit cover carries no number.
-\pagestyle{empty}
-
-% ── Full-bleed burgundy banner ───────────────────────────────────────────────
-% The header text is set INSIDE a tikz node anchored to the page so it can never
-% drift above the paper edge (a negative \vspace here pushes it off the sheet).
-\begin{tikzpicture}[remember picture, overlay]
-  \fill[burgundy] (current page.north west)
-    rectangle ([yshift=-1.70in]current page.north east);
-  \node[anchor=north, align=center, inner sep=0pt, text width=\paperwidth]
-    at ([yshift=-0.32in]current page.north) {%
-      {\color{white}\bfseries\fontsize{30}{34}\selectfont Linear Algebra}\\[11pt]
-      {\color{blushmid}\bfseries\fontsize{19}{23}\selectfont Unit 1: Vectors and Matrices}\\[11pt]%
-    };
-\end{tikzpicture}
-
-% Push the body clear of the 1.70in banner (page top margin is 0.60in).
-\vspace*{1.32in}
-
-% ── Unit overview ────────────────────────────────────────────────────────────
-\begin{tcolorbox}[colback=blush,colframe=burgundy,boxrule=0.9pt,arc=2mm,
-    left=4mm,right=4mm,top=3mm,bottom=3mm]
-  \textbf{Unit Overview.}\quad
-  Unit 1 builds the whole course out of two operations: \emph{scaling} a vector and
-  \emph{adding} vectors. Students meet a vector as both a list of numbers and an arrow in
-  the plane, then combine vectors ($c\,\vv + d\,\ww$) and ask the question that runs through
-  the rest of the course --- \emph{which points can these vectors reach?} The dot product
-  turns that algebra into geometry, giving length, angle, and a test for perpendicularity
-  from a single number. The unit closes by standing vectors side by side into a
-  \textbf{matrix}, reading $A\xx$ as a combination of the columns of $A$, and factoring
-  $A = CR$ to separate a matrix's independent columns from the recipe that rebuilds the rest.
-\end{tcolorbox}
-
-\vspace{0.13in}
-
-% ── Lessons in this unit ─────────────────────────────────────────────────────
-\renewcommand{\arraystretch}{1.32}
-\begin{skillbox}[Lessons in This Unit]{goldbox}
-\begin{tabularx}{\linewidth}{@{} c >{\bfseries\raggedright\arraybackslash}p{0.29\linewidth} X @{}}
-  \textbf{\#} & \textbf{Title} & \textbf{Focus} \\
-  \hline
-  1.0 & Introducing Vectors: Vocabulary and Length
-    & Components and arrows; adding and scaling and what each does to the picture;
-      length $\|\vv\| = \sqrt{v_1^{\,2}+v_2^{\,2}}$ as straight-line distance \\
-  \hline
-  1.1 & Linear Combinations of Vectors
-    & $c\,\vv + d\,\ww$ as scale-then-add; the multiples of one vector fill a line and
-      two non-parallel vectors fill the plane; finding the weights for a target \\
-  \hline
-  1.2 & Lengths and Angles from Dot Products
-    & $\vv\cdot\ww$ and its geometry: $\|\vv\| = \sqrt{\vv\cdot\vv}$, the angle from
-      $\cos\theta = \frac{\vv\cdot\ww}{\|\vv\|\,\|\ww\|}$, and $\vv\cdot\ww = 0$ as
-      perpendicular \\
-  \hline
-  1.3 & Matrices and Column Spaces
-    & A matrix as columns standing side by side; $A\xx$ as a combination of those columns;
-      the column space $C(A)$ --- every target $\bb$ the columns can build \\
-  \hline
-  1.4 & Matrix Multiplication and $A = CR$
-    & Multiplying matrices \emph{by columns}; factoring $A = CR$ with $C$ the independent
-      columns and $R$ the recipe; \textbf{rank} as the count of independent columns \\
-  \hline
-\end{tabularx}
-\end{skillbox}
-
-\vspace{0.11in}
-
-% ── Big ideas of the unit ────────────────────────────────────────────────────
-\begin{skillbox}[Big Ideas of Unit 1]{greenbox}
-\small
-\begin{itemize}[leftmargin=1.3em, itemsep=3pt, topsep=1pt]
-  \item A vector is a list of numbers \emph{and} an arrow. The algebra and the geometry are
-        two views of the same object --- every computation should have a picture.
-  \item \textbf{Scaling} and \textbf{adding} generate everything here. A linear combination
-        does both at once, and the set of points it can reach --- the \textbf{span} --- has a
-        shape: a line, a plane, or all of space.
-  \item The \textbf{dot product} is one number that carries geometry: length, angle, and the
-        perpendicularity test $\vv\cdot\ww = 0$.
-  \item $A\xx$ is a \textbf{linear combination of the columns of $A$}. So ``does $A\xx = \bb$
-        have a solution?'' is the same question as ``is $\bb$ in the column space $C(A)$?''
-  \item \textbf{Rank} counts the independent columns. $A = CR$ makes that count visible: $C$
-        keeps the independent columns, $R$ says how to rebuild the others.
-\end{itemize}
-\end{skillbox}
-
-\vspace{0.10in}
-
-\begin{remindbox}
-\small
-\textbf{Source.} Unit 1 follows Chapter 1 of Gilbert Strang's \emph{Linear Algebra for
-Everyone}, sections 1.1--1.4.\quad
-\textbf{Assessment.} The unit ends with a test; a full \textbf{practice test} is bound at the
-back of this packet.
-\end{remindbox}
-
+\input{body.tex}
 \end{document}

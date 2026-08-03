@@ -1,4 +1,12 @@
 %! Unit 2: Solving Linear Equations Ax = b — Summative Assessment — Practice Test --- Study Copy (KEY)
+%
+% THE WORK RULE: every work block below is authored byte-identically in
+% ../../tests/practice_test/main.tex. There it ships as a \vphantom of the same
+% height; here linalg-key makes it visible in keyred. Edit a work block in BOTH
+% files or in neither — that is what keeps this key the same length as its blank.
+%
+% Teacher prose (Part B rationale, Part D scoring) is NOT here: it lives on page 2
+% of ../../unit_cover_key/main.tex, which reaches the key packet only.
 \documentclass[10pt]{article}
 \usepackage{linalg-article}
 \usepackage{linalg-key}   % pulls in -boxes; do NOT also load -boxes
@@ -79,13 +87,6 @@ Circle the best answer.
     \hfill (A) cross once \quad (B) are parallel but different \quad \textbf{(C) are the same line} \ans{$\leftarrow$} \quad (D) are perpendicular
 \end{enumerate}
 
-\begin{teachernote}
-Item 2: $L$ records the elimination multipliers (with unit diagonal); $U$ holds the pivots. Item 5:
-socks-and-shoes order reverses --- $(AB)^{\mathsf T}=B^{\mathsf T}A^{\mathsf T}$, not $A^{\mathsf T}B^{\mathsf T}$.
-Item 6: same line $=$ one equation is a multiple of the other (dependent) $\Rightarrow$ infinitely many;
-parallel-but-different $\Rightarrow$ none.
-\end{teachernote}
-
 % ======================================================================
 \parthead{Part C --- Short Answer \& Computation (30 pts)}
 Show your work.
@@ -94,55 +95,101 @@ Show your work.
   \item Solve the system by \textbf{elimination}, then back-substitute and check. State the pivot and the
         multiplier you used.
         \[ x+2y=4, \qquad 3x+4y=10. \]
-        \ans{Pivot $=1$ (the $x$-coefficient of eq.~1); multiplier $\ell=3\div1=3$. Eq.~2 $-\,3\times$ eq.~1: $(4-6)y=10-12$, so $-2y=-2$, $y=1$. Back-substitute: $x+2(1)=4$, $x=2$. Solution $(x,y)=(2,1)$. Check: $3(2)+4(1)=10$ \checkmark.}
+        \begin{work}
+          \text{pivot} &= 1, \quad \ell = 3\div 1 = 3 \\
+          (4-6)y &= 10-12 \quad\Rightarrow\quad -2y = -2, \quad y = 1 \\
+          x+2(1) &= 4 \quad\Rightarrow\quad x = 2 \\
+          3(2)+4(1) &= 10 \quad\checkmark
+        \end{work}
   \item Row-reduce $A=\begin{bsmallmatrix}1&2&1\\2&5&3\\4&10&8\end{bsmallmatrix}$ to upper-triangular $U$.
         List the three multipliers and the pivots.
-        \ans{$R_2-2R_1$ ($\ell_{21}=2$) and $R_3-4R_1$ ($\ell_{31}=4$) give $\begin{bsmallmatrix}1&2&1\\0&1&1\\0&2&4\end{bsmallmatrix}$; then $R_3-2R_2$ ($\ell_{32}=2$) gives $U=\begin{bsmallmatrix}1&2&1\\0&1&1\\0&0&2\end{bsmallmatrix}$. Multipliers $\ell_{21}=2,\ \ell_{31}=4,\ \ell_{32}=2$; pivots $1,\,1,\,2$.}
+        \begin{work}
+          R_2-2R_1,\ R_3-4R_1 &\Rightarrow
+            \begin{bmatrix}1&2&1\\0&1&1\\0&2&4\end{bmatrix} \\
+          R_3-2R_2 &\Rightarrow
+            U = \begin{bmatrix}1&2&1\\0&1&1\\0&0&2\end{bmatrix} \\
+          \ell_{21}=2,\ \ell_{31}=4,\ \ell_{32} &= 2, \quad \text{pivots } 1,\,1,\,2
+        \end{work}
   \item Let $A=\begin{bsmallmatrix}2&1\\3&2\end{bsmallmatrix}$. Use the $ad-bc$ formula to find $A^{-1}$,
         then check that $A^{-1}A=I$.
-        \ans{$ad-bc=2\cdot2-1\cdot3=1$, so $A^{-1}=\dfrac{1}{1}\begin{bsmallmatrix}2&-1\\-3&2\end{bsmallmatrix}=\begin{bsmallmatrix}2&-1\\-3&2\end{bsmallmatrix}$. Check: $\begin{bsmallmatrix}2&-1\\-3&2\end{bsmallmatrix}\begin{bsmallmatrix}2&1\\3&2\end{bsmallmatrix}=\begin{bsmallmatrix}1&0\\0&1\end{bsmallmatrix}$ \checkmark.}
+        \begin{work}
+          ad-bc &= 2\cdot 2-1\cdot 3 = 1 \\
+          A^{-1} &= \frac{1}{1}\begin{bmatrix}2&-1\\-3&2\end{bmatrix}
+                  = \begin{bmatrix}2&-1\\-3&2\end{bmatrix} \\
+          A^{-1}A &= \begin{bmatrix}2&-1\\-3&2\end{bmatrix}\begin{bmatrix}2&1\\3&2\end{bmatrix}
+                  = \begin{bmatrix}1&0\\0&1\end{bmatrix} \quad\checkmark
+        \end{work}
   \item Using the inverse from the previous problem, solve $A\xx=\bb$ for
         $\bb=\begin{bsmallmatrix}3\\4\end{bsmallmatrix}$ (compute $\xx=A^{-1}\bb$).
-        \ans{$\xx=A^{-1}\bb=\begin{bsmallmatrix}2&-1\\-3&2\end{bsmallmatrix}\begin{bsmallmatrix}3\\4\end{bsmallmatrix}=\begin{bsmallmatrix}6-4\\-9+8\end{bsmallmatrix}=\begin{bsmallmatrix}2\\-1\end{bsmallmatrix}$. Check: $\begin{bsmallmatrix}2&1\\3&2\end{bsmallmatrix}\begin{bsmallmatrix}2\\-1\end{bsmallmatrix}=\begin{bsmallmatrix}3\\4\end{bsmallmatrix}$ \checkmark.}
+        \begin{work}
+          \xx &= \begin{bmatrix}2&-1\\-3&2\end{bmatrix}\begin{bmatrix}3\\4\end{bmatrix}
+               = \begin{bmatrix}6-4\\-9+8\end{bmatrix}
+               = \begin{bmatrix}2\\-1\end{bmatrix} \\
+          \begin{bmatrix}2&1\\3&2\end{bmatrix}\begin{bmatrix}2\\-1\end{bmatrix}
+            &= \begin{bmatrix}3\\4\end{bmatrix} \quad\checkmark
+        \end{work}
   \item Factor $A=\begin{bsmallmatrix}2&4\\6&7\end{bsmallmatrix}$ as $A=LU$. Write $L$ and $U$, then verify
         $LU=A$.
-        \ans{Pivot $2$, multiplier $\ell=6\div2=3$. $R_2-3R_1$: $\begin{bsmallmatrix}0&7-12\end{bsmallmatrix}=\begin{bsmallmatrix}0&-5\end{bsmallmatrix}$, so $U=\begin{bsmallmatrix}2&4\\0&-5\end{bsmallmatrix}$, $L=\begin{bsmallmatrix}1&0\\3&1\end{bsmallmatrix}$. Check $LU=\begin{bsmallmatrix}1&0\\3&1\end{bsmallmatrix}\begin{bsmallmatrix}2&4\\0&-5\end{bsmallmatrix}=\begin{bsmallmatrix}2&4\\6&7\end{bsmallmatrix}=A$ \checkmark.}
+        \begin{work}
+          \text{pivot} &= 2, \quad \ell = 6\div 2 = 3 \\
+          U &= \begin{bmatrix}2&4\\0&-5\end{bmatrix}, \quad
+              L = \begin{bmatrix}1&0\\3&1\end{bmatrix} \\
+          LU &= \begin{bmatrix}1&0\\3&1\end{bmatrix}\begin{bmatrix}2&4\\0&-5\end{bmatrix}
+               = \begin{bmatrix}2&4\\6&7\end{bmatrix} = A \quad\checkmark
+        \end{work}
   \item Using the $L$ and $U$ from the previous problem, solve $A\xx=\bb$ for
         $\bb=\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$ in \textbf{two sweeps}: first $L\cc=\bb$
         (forward), then $U\xx=\cc$ (back).
-        \ans{$L\cc=\bb$: $c_1=2$; $3c_1+c_2=1\Rightarrow c_2=1-6=-5$, so $\cc=\begin{bsmallmatrix}2\\-5\end{bsmallmatrix}$. $U\xx=\cc$: $-5x_2=-5\Rightarrow x_2=1$; $2x_1+4=2\Rightarrow x_1=-1$, so $\xx=\begin{bsmallmatrix}-1\\1\end{bsmallmatrix}$. Check: $\begin{bsmallmatrix}2&4\\6&7\end{bsmallmatrix}\begin{bsmallmatrix}-1\\1\end{bsmallmatrix}=\begin{bsmallmatrix}2\\1\end{bsmallmatrix}$ \checkmark.}
+        \begin{work}
+          L\cc=\bb:\quad c_1 &= 2, \quad 3c_1+c_2 = 1 \Rightarrow c_2 = -5 \\
+          \cc &= \begin{bmatrix}2\\-5\end{bmatrix} \\
+          U\xx=\cc:\quad -5x_2 &= -5 \Rightarrow x_2 = 1, \quad
+            2x_1+4 = 2 \Rightarrow x_1 = -1 \\
+          \xx &= \begin{bmatrix}-1\\1\end{bmatrix} \quad\checkmark
+        \end{work}
+  \boxguard[14]
   \item \textbf{(a)} The matrix $A=\begin{bsmallmatrix}0&2\\1&3\end{bsmallmatrix}$ has a $0$ in the top-left
         pivot spot. Write the permutation matrix $P$ that swaps the two rows, and give $PA$.
         \textbf{(b)} Write the transpose of $B=\begin{bsmallmatrix}1&2\\2&5\end{bsmallmatrix}$ and state
         whether $B$ is symmetric.
-        \ans{(a) $P=\begin{bsmallmatrix}0&1\\1&0\end{bsmallmatrix}$, and $PA=\begin{bsmallmatrix}1&3\\0&2\end{bsmallmatrix}$ (now a nonzero pivot sits in the corner). (b) $B^{\mathsf T}=\begin{bsmallmatrix}1&2\\2&5\end{bsmallmatrix}=B$, so $B$ \emph{is} symmetric.}
+        \begin{work}
+          P &= \begin{bmatrix}0&1\\1&0\end{bmatrix}, \quad
+              PA = \begin{bmatrix}1&3\\0&2\end{bmatrix} \\
+          B^{\mathsf T} &= \begin{bmatrix}1&2\\2&5\end{bmatrix} = B
+            \quad\Rightarrow\quad \text{symmetric}
+        \end{work}
 \end{enumerate}
 
 % ======================================================================
 \parthead{Part D --- Extended Response (10 pts)}
 Explain your reasoning in full sentences.
 
-\begin{enumerate}[leftmargin=1.9em, itemsep=12pt]
+\begin{enumerate}[leftmargin=1.9em, itemsep=14pt]
   \item Let $A=\begin{bsmallmatrix}1&2\\2&4\end{bsmallmatrix}$.
         \textbf{(a)} Compute $ad-bc$. Does $A$ have an inverse? What does that say about solving $A\xx=\bb$?
         \textbf{(b)} How many solutions does $A\xx=\begin{bsmallmatrix}3\\6\end{bsmallmatrix}$ have?
         \textbf{(c)} How many does $A\xx=\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$ have? Justify (b) and (c)
         using elimination or the row/line picture.
-        \ans{(a) $ad-bc=1\cdot4-2\cdot2=0$, so $A$ is \emph{singular} --- no inverse. Elimination hits a zero pivot ($R_2-2R_1$ wipes out row~2), so $A\xx=\bb$ has \emph{either} no solution \emph{or} infinitely many, never a unique one. (b) Apply $R_2-2R_1$ to $\bb$: $6-2(3)=0$, giving $0=0$ --- a true statement, so \emph{infinitely many} solutions (the two equations are the same line). (c) $R_2-2R_1$ on $\begin{bsmallmatrix}1\\1\end{bsmallmatrix}$: $1-2(1)=-1$, giving $0=-1$ --- impossible, so \emph{no solution} (parallel but different lines).}
+        \begin{work}
+          ad-bc &= 1\cdot 4-2\cdot 2 = 0 \quad\Rightarrow\quad \text{singular, no inverse} \\
+          \text{(b)}\quad R_2-2R_1: \ 6-2(3) &= 0 \quad\Rightarrow\quad 0=0,
+            \ \text{infinitely many} \\
+          \text{(c)}\quad R_2-2R_1: \ 1-2(1) &= -1 \quad\Rightarrow\quad 0=-1,
+            \ \text{no solution}
+        \end{work}
+        \ansline{So $A\xx=\bb$ is never uniquely solvable: (b) is the same line, (c) parallel lines.}
   \item Let $A=\begin{bsmallmatrix}1&2\\3&1\end{bsmallmatrix}$.
         \textbf{(a)} Compute $A^{\mathsf T}A$ and check that it is symmetric.
         \textbf{(b)} Explain why $A^{\mathsf T}A$ is \emph{always} symmetric for any matrix $A$, using the
         reversal rule $(AB)^{\mathsf T}=B^{\mathsf T}A^{\mathsf T}$.
-        \ans{(a) $A^{\mathsf T}=\begin{bsmallmatrix}1&3\\2&1\end{bsmallmatrix}$, so $A^{\mathsf T}A=\begin{bsmallmatrix}1&3\\2&1\end{bsmallmatrix}\begin{bsmallmatrix}1&2\\3&1\end{bsmallmatrix}=\begin{bsmallmatrix}10&5\\5&5\end{bsmallmatrix}$ --- the off-diagonal entries match, so it is symmetric. (b) Take the transpose of $A^{\mathsf T}A$ and apply the reversal rule: $(A^{\mathsf T}A)^{\mathsf T}=A^{\mathsf T}(A^{\mathsf T})^{\mathsf T}=A^{\mathsf T}A$, since $(A^{\mathsf T})^{\mathsf T}=A$. A matrix equal to its own transpose is symmetric, so $A^{\mathsf T}A$ is always symmetric.}
+        \begin{work}
+          A^{\mathsf T}A &= \begin{bmatrix}1&3\\2&1\end{bmatrix}\begin{bmatrix}1&2\\3&1\end{bmatrix}
+                        = \begin{bmatrix}10&5\\5&5\end{bmatrix} \\
+          (A^{\mathsf T}A)^{\mathsf T} &= A^{\mathsf T}(A^{\mathsf T})^{\mathsf T}
+                        = A^{\mathsf T}A
+        \end{work}
+        \ansline{(a) The off-diagonal entries match ($5=5$), so $A^{\mathsf T}A$ is symmetric.}
+        \ansline{(b) It equals its own transpose by the reversal rule, so it always is.}
 \end{enumerate}
-
-\begin{teachernote}
-\textbf{Scoring Part D (5 pts each).} D1: 1 pt (a) $ad-bc=0\Rightarrow$ singular/no inverse; 2 pts (b)
-infinitely many with the $0=0$ justification; 2 pts (c) none with the $0=-1$ justification. Full credit
-needs the \emph{reason} (same line vs.\ parallel), not just a count. D2: 2 pts (a) correct
-$A^{\mathsf T}A=\begin{bsmallmatrix}10&5\\5&5\end{bsmallmatrix}$ and noting equal off-diagonals; 3 pts (b)
-the general argument $(A^{\mathsf T}A)^{\mathsf T}=A^{\mathsf T}A$ via the reversal rule. Watch for students
-writing $(AB)^{\mathsf T}=A^{\mathsf T}B^{\mathsf T}$ (wrong order).
-\end{teachernote}
 
 \end{document}

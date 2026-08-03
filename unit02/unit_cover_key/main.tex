@@ -1,0 +1,70 @@
+%! Linear Algebra — Unit 2 Cover Sheet + Exam Scoring Notes (key packet, 2pp)
+%
+% Page 1 is ../unit_cover/body.tex, shared byte-identically with the student
+% cover — edit the cover there, never here.
+%
+% Page 2 carries the teacher notes for BOTH unit assessments (practice test and
+% unit test). They used to sit at the foot of each *_test_key, the one block in a
+% key with no counterpart in its blank. This document is merged into the unit KEY
+% packet only, so the rationale and the scoring never reach a student packet.
+% Page 2 must stay ONE page: cover + notes = a single double-sided sheet.
+\documentclass[10pt]{article}
+\usepackage{linalg-article}
+\usepackage{linalg-boxes}
+
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\cc}{\mathbf{c}}
+\newcommand{\PP}{\mathbf{P}}
+\newcommand{\tp}{\mathsf{T}}
+
+%=============================================================================
+\begin{document}
+\input{../unit_cover/body.tex}
+
+\newpage
+% ── Page 2 — exam scoring notes (teacher only) ───────────────────────────────
+\begin{headlinebox}{burgundy}{\color{white}\bfseries Unit 2 --- Exam Scoring Notes (Teacher Copy)}\end{headlinebox}
+
+\vspace{4pt}
+\noindent\small
+Answer rationale and Part D scoring for both Unit 2 assessments. This page is bound into the
+\textbf{key packet only} --- the practice test itself is in the student packet, so keep this sheet
+off the student copy. The two forms are parallel: same structure and ideas, different numbers.
+
+\vspace{6pt}
+
+\begin{teachernote}[Practice Test --- Part B]
+Item 2: $L$ records the elimination multipliers (with unit diagonal); $U$ holds the pivots. Item 5:
+socks-and-shoes order reverses --- $(AB)^{\tp}=B^{\tp}A^{\tp}$, not $A^{\tp}B^{\tp}$.
+Item 6: same line $=$ one equation is a multiple of the other (dependent) $\Rightarrow$ infinitely many;
+parallel-but-different $\Rightarrow$ none.
+\end{teachernote}
+
+\begin{teachernote}[Practice Test --- Part D Scoring (5 pts each)]
+D1: 1 pt (a) $ad-bc=0\Rightarrow$ singular/no inverse; 2 pts (b) infinitely many with the $0=0$
+justification; 2 pts (c) none with the $0=-1$ justification. Full credit needs the \emph{reason}
+(same line vs.\ parallel), not just a count. D2: 2 pts (a) correct
+$A^{\tp}A=\begin{bsmallmatrix}10&5\\5&5\end{bsmallmatrix}$ and noting equal off-diagonals; 3 pts (b)
+the general argument $(A^{\tp}A)^{\tp}=A^{\tp}A$ via the reversal rule. Watch for students
+writing $(AB)^{\tp}=A^{\tp}B^{\tp}$ (wrong order).
+\end{teachernote}
+
+\begin{teachernote}[Unit Test --- Part B]
+Item 1: $U$ carries the pivots; $L$ carries the multipliers (unit diagonal). Item 3: a permutation
+undoes itself by swapping back, so $P^{\tp}=P^{-1}$. Item 6: a zero pivot that cannot be fixed by a
+row swap $\Rightarrow$ singular $\Rightarrow$ no inverse ($ad-bc=0$).
+\end{teachernote}
+
+\begin{teachernote}[Unit Test --- Part D Scoring (5 pts each)]
+D1: 1 pt (a) $ad-bc=0\Rightarrow$ singular/no inverse; 2 pts (b) infinitely many with the $0=0$
+justification; 2 pts (c) none with the $0=-1$ justification. Full credit needs the \emph{reason}
+(same line vs.\ parallel), not just a count. D2: 2 pts (a) correct
+$A^{\tp}A=\begin{bsmallmatrix}5&6\\6&17\end{bsmallmatrix}$ and noting equal off-diagonals; 3 pts (b)
+the general argument $(A^{\tp}A)^{\tp}=A^{\tp}A$ via the reversal rule. Watch for students
+writing $(AB)^{\tp}=A^{\tp}B^{\tp}$ (wrong order).
+\end{teachernote}
+
+\end{document}

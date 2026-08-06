@@ -7,7 +7,12 @@ current state and next steps. Keep it terse and current — it should always des
 
 ---
 
-**Last updated:** 2026-08-03 (later) — **Retrofitted the Unit 1 and Unit 2 summative TESTS with teachernote → work rule → boxguard,
+**Last updated:** 2026-08-06 — **Wrote `spec/course_breakdown.md`, the course-wide unit-and-lesson map** (8 units, 41 lessons,
+one line of "students can…" per lesson, plus the `X.0` on-ramp / 3.6-capstone conventions and the assessment map). Auditing
+the tree for it turned up one **stale claim in this log**, now corrected: Unit 8 lessons **8.3 and 8.4 are authored**, not
+skeletons, and the Unit 8 tests are authored too. No `.tex` was edited and nothing was built this run.
+
+**Prior run:** 2026-08-03 (later) — **Retrofitted the Unit 1 and Unit 2 summative TESTS with teachernote → work rule → boxguard,
 and retired the test-key `teachernote` exemption course-wide.** All four practice/actual pairs now come out **3pp blank = 3pp key**,
 breaking at identical points; the eight test keys carry no teacher prose at all — it moved to a new **page 2 of
 `unitXX/unit_cover_key/`**, which `shared/unit.mk` merges into the **key packet only**. Details in "Unit 1–2 test retrofit" directly
@@ -1670,17 +1675,21 @@ Status legend: ☐ not started · ◐ in progress · ☑ complete
 | 5 | Determinants and Linear Transformations | 5.0 intro + 5.1–5.3 | ☑ all lessons + tests authored & built ✅ |
 | 6 | Eigenvalues and Eigenvectors | 6.0 intro + 6.1–6.4 (§6.4 optional) | ☑ all lessons + tests authored & built ✅ |
 | 7 | The Singular Value Decomposition *(optional/advanced)* | 7.0 intro + 7.1–7.4 | ☑ all lessons + tests authored & built ✅ |
-| 8 | Learning from Data *(optional enrichment)* | 8.0 intro + 8.1–8.4 | ◐ 8.0, 8.1, 8.2 authored & built; 8.3–8.4 scaffolded (skeletons); tests scaffolded (skeletons) |
+| 8 | Learning from Data *(optional enrichment)* | 8.0 intro + 8.1–8.4 | ☑ all lessons **authored** (8.3, 8.4 confirmed on disk 2026-08-06 — this row previously said "skeletons" and was stale); tests authored (practice + actual + keys) |
+
+**Unit covers:** Units 1 and 2 have the `unit_cover` / `unit_cover_key` pair. **Units 3–8 have none** and fall back to the
+plain packet merge — this is the largest remaining gap.
+
+**Full unit-and-lesson map:** `spec/course_breakdown.md` (added 2026-08-06) — all 41 lessons with a one-line "students can…"
+per lesson, the `X.0` on-ramp and 3.6-capstone conventions, and the assessment map. That file is the *structural* reference;
+this file stays the *build-state* log.
 
 ## Next steps
 
-1. **Core Units 1–6 and optional Unit 7 are complete** (all lessons + summative tests authored & built). **Unit 8 (optional
-   enrichment) is in progress:** lessons **8.0, 8.1, and 8.2 are authored & built** (the Unit 8 models); the lesson map is
-   confirmed (8.0 intro + 8.1–8.4). **Next run: author Unit 8 Lesson 8.3** ("Minimizing Loss by Gradient Descent", §8.3 — now
-   that we can *build* networks with layers, folds, and filters, *choose* the weights by rolling downhill on the Unit-4 loss),
-   then 8.4 ("Mean, Variance, and Covariance"). Unit 8 tests are scaffolded skeletons — author them last only if the user wants
-   Unit 8 assessed (it is enrichment, "no expectation of testing"). Lessons 8.0/8.1/8.2 are the Unit 8 models; Unit 4/5/6/7
-   tests are the assessment-format model; Lesson 4.0 the cross-unit style model.
+1. **Authoring is done course-wide.** All 41 lessons (Units 1–8), all 8 unit test pairs + keys, and the `finals/` deliverable
+   are authored — verified file-by-file on disk 2026-08-06. **Build state was not re-verified that run** (`target/compiled/`
+   held only unit01, unit02, unit06), so a `make` sweep is the honest next check: `make -C unitXX all` per unit, then confirm
+   each component's page count equals its `_key`'s and that warm-ups / exit tickets are still 1pp on both sides.
 2. **Unit covers for Units 3–8** — Units 1 and 2 have one. Copy `unit02/unit_cover/main.tex` per unit and swap the banner title,
    overview paragraph, lesson rows, big ideas, and LAfE chapter/sections; keep `\pagestyle{empty}`; `\mbox` any math in the banner
    title; re-verify 1 page with `pdfinfo` (Unit 3's 7 lessons will need tighter Focus cells). Ask the user first whether they want
